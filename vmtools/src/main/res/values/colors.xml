@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--亮色-->
+    <color name="vm_theme_primary">#e51c23</color>
+    <color name="vm_theme_primary_dark">#d01716</color>
+    <color name="vm_theme_accent">#FF4081</color>
+
+    <color name="vm_theme_background">#fffff8f8</color>
+
+    <color name="vm_white_title">#ddffffff</color>
+    <color name="vm_white_subhead">#ddffffff</color>
+
+    <color name="vm_black_title">#dd000000</color>
+    <color name="vm_black_subhead">#dd000000</color>
+    <!--暗色-->
+
+
+</resources>
