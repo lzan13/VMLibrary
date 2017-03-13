@@ -10,15 +10,27 @@
         android:id="@+id/text_server_host"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Server Host + Port + Type"
+        android:text="Server Host"
+        />
+    <TextView
+        android:id="@+id/text_server_port"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Server Port"
+        />
+    <TextView
+        android:id="@+id/text_server_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Server Type"
         />
 
     <TextView
         android:id="@+id/text_server_state"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="un-initiated"
-        android:textSize="20dp"
+        android:text="Server is running: false"
+        android:textSize="18sp"
         />
 
     <Button
@@ -36,10 +48,11 @@
         />
 
     <TextView
-        android:id="@+id/text_server_message"
+        android:id="@+id/text_show_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Show Receive Message"
         android:textSize="18dp"
+        android:scrollbars="vertical"
         />
 </LinearLayout>

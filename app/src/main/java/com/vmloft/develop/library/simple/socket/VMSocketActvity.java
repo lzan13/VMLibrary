@@ -37,11 +37,11 @@ public class VMSocketActvity extends VMBaseActivity {
             switch (v.getId()) {
                 case R.id.btn_socket_server_tcp:
                     startActivity(new Intent(activity, VMSocketServer.class).putExtra("socket_type",
-                            "tcp"));
+                            "TCP"));
                     break;
                 case R.id.btn_socket_server_udp:
                     startActivity(new Intent(activity, VMSocketServer.class).putExtra("socket_type",
-                            "udp"));
+                            "UDP"));
                     break;
                 case R.id.btn_socket_tcp:
                     startActivity(new Intent(activity, VMTCPSocketClient.class));
