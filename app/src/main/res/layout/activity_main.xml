@@ -39,42 +39,10 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             >
             <Button
-                android:id="@+id/btn_custom_anim"
+                android:id="@+id/btn_socket"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Make Custom Animation"
-                />
-            <Button
-                android:id="@+id/btn_scale_up_anim"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Make Scale up Animation"
-                />
-            <Button
-                android:id="@+id/btn_thumbnail_scale_up_anim"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Make Thumbnail Scale UP Animation"
-                />
-            <Button
-                android:id="@+id/btn_scene_anim"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Make Scene Animation"
-                />
-            <Button
-                android:id="@+id/btn_scene_anim_pair"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:transitionName="jumpBtn"
-                android:text="Make Scene Pair Animation"
-                />
-            <ImageView
-                android:id="@+id/img_shared_element"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                android:src="@mipmap/ic_launcher"
-                android:transitionName="Image"
+                android:text="测试 Socket"
                 />
         </LinearLayout>
     </android.support.design.widget.CoordinatorLayout>

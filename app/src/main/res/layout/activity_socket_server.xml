@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    >
+
+    <TextView
+        android:id="@+id/text_server_host"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Server Host + Port + Type"
+        />
+
+    <TextView
+        android:id="@+id/text_server_state"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="un-initiated"
+        android:textSize="20dp"
+        />
+
+    <Button
+        android:id="@+id/btn_start_server"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Start Server"
+        />
+
+    <Button
+        android:id="@+id/btn_stop_server"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Stop Server"
+        />
+
+    <TextView
+        android:id="@+id/text_server_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show Receive Message"
+        android:textSize="18dp"
+        />
+</LinearLayout>

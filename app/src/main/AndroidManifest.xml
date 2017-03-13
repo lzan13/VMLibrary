@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.vmloft.develop.library.manager">
+    package="com.vmloft.develop.library.simple">
+
+    <!--允许应用程序完全使用网络-->
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -9,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".VMMainActivity"
+            android:name="com.vmloft.develop.library.simple.VMMainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -18,8 +21,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".VMTransitionOneActivity"/>
-        <activity android:name=".VMTransitionTwoActivity"/>
+
+        <activity android:name="com.vmloft.develop.library.simple.socket.VMSocketActvity"/>
+        <activity android:name="com.vmloft.develop.library.simple.socket.VMSocketServer"/>
+        <activity android:name="com.vmloft.develop.library.simple.socket.VMTCPSocketClient"/>
+        <activity android:name="com.vmloft.develop.library.simple.socket.VMUDPSocketClient"/>
+
     </application>
 
 </manifest>
