@@ -80,7 +80,7 @@ public class VMDimenUtil {
      * 获取ToolBar高度
      */
     public static int getToolbarHeight(Context appContext) {
-        //        int toolbarHeight = mActivity.getActionBar().getHeight();
+        //        int toolbarHeight = activity.getActionBar().getHeight();
         int height = 0;
         if (height != 0) {
             return height;

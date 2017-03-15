@@ -1,6 +1,5 @@
 package com.vmloft.develop.library.simple;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -17,24 +16,22 @@ import com.vmloft.develop.library.tools.VMBaseActivity;
 public class VMMainActivity extends VMBaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Activity mActivity;
-
-    private Toolbar mToolbar;
+    private Toolbar toolbar;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mActivity = this;
+        activity = this;
 
-        mToolbar = (Toolbar) findViewById(R.id.widget_toolbar);
-        mToolbar.setTitle("MainActivity");
-        setSupportActionBar(mToolbar);
-        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
+        toolbar = (Toolbar) findViewById(R.id.widget_toolbar);
+        toolbar.setTitle("MainActivity");
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle =
-                new ActionBarDrawerToggle(this, drawer, mToolbar, R.string.navigation_drawer_open,
+                new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open,
                         R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -50,7 +47,7 @@ public class VMMainActivity extends VMBaseActivity
             Intent intent = new Intent();
             switch (v.getId()) {
                 case R.id.btn_socket:
-                    intent.setClass(mActivity, VMSocketActvity.class);
+                    intent.setClass(activity, VMSocketActvity.class);
                     break;
             }
             startActivity(intent);

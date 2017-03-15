@@ -11,4 +11,5 @@
     <dimen name="vm_size_btn_small">12sp</dimen>
     <dimen name="vm_size_caption">12sp</dimen>
 
+    <dimen name="vm_dimen">48dp</dimen>
 </resources>
