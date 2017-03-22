@@ -22,12 +22,6 @@ public class VMDotLineActivity extends VMBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dot_line);
 
-        testBtn = (Button) findViewById(R.id.btn_test);
-        testBtn.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                dotLineView.refresh();
-            }
-        });
         /**
          * A（315,400）B（400,325）C（460,310）D（545,300）E（580,434）F（690,310）G(670,235)
          */

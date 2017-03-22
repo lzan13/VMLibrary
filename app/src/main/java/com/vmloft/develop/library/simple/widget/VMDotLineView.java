@@ -79,6 +79,11 @@ public class VMDotLineView extends View {
         drawDot(canvas);
     }
 
+    /**
+     * 绘制点
+     *
+     * @param canvas 当前控件画布
+     */
     protected void drawDot(Canvas canvas) {
         paint.setColor(dotColor);
         for (int i = 0; i < points.size(); i++) {
@@ -190,27 +195,5 @@ public class VMDotLineView extends View {
             return points.size();
         }
         return -1;
-    }
-
-    /**
-     * 刷新 View 控件
-     */
-    public void refresh() {
-        invalidate();
-    }
-
-    /**
-     * 重写父类的 onSizeChanged 方法，检测控件宽高的变化
-     *
-     * @param w 控件当前宽
-     * @param h 控件当前高
-     * @param oldw 控件原来的宽
-     * @param oldh 控件原来的高
-     */
-    @Override protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-        VMLog.d("onSizeChanged w: %d, h: %d", w, h);
-        width = w;
-        height = h;
     }
 }
