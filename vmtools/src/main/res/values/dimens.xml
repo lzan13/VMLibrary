@@ -1,15 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--定义文字大小-->
     <dimen name="vm_size_headline">24sp</dimen>
     <dimen name="vm_size_title">20sp</dimen>
     <dimen name="vm_size_subhead">16sp</dimen>
-
     <dimen name="vm_size_body">14sp</dimen>
     <dimen name="vm_size_menu">16sp</dimen>
     <dimen name="vm_size_btn_normal">16sp</dimen>
     <dimen name="vm_size_btn_small">12sp</dimen>
     <dimen name="vm_size_caption">12sp</dimen>
 
-    <dimen name="vm_dimen">48dp</dimen>
+    <!--定义头像尺寸-->
+    <dimen name="vm_avatar_small">36dp</dimen>
+    <dimen name="vm_avatar_normal">56dp</dimen>
+    <dimen name="vm_avatar_large">72dp</dimen>
+
+
+    <!--圆形背景半径定义-->
+    <dimen name="vm_round_radius_small">48dp</dimen>
+    <dimen name="vm_round_radius_normal">56dp</dimen>
+    <dimen name="vm_round_radius_large">72dp</dimen>
+
+    <!--控件 Z 轴高度-->
+    <dimen name="vm_elevation_dwarf">2dp</dimen>
+    <dimen name="vm_elevation_normal">8dp</dimen>
+    <dimen name="vm_elevation_high">16dp</dimen>
+
+    <!--margin-->
+    <dimen name="vm_margin_small">4dp</dimen>
+    <dimen name="vm_margin_normal">8dp</dimen>
+    <dimen name="vm_margin_large">16dp</dimen>
+
+    <!--padding-->
+    <dimen name="vm_padding_small">4dp</dimen>
+    <dimen name="vm_padding_normal">8dp</dimen>
+    <dimen name="vm_padding_large">16dp</dimen>
+
+    <!--定义 Button 常用尺寸-->
+    <dimen name="vm_btn_height_small">36dp</dimen>
+    <dimen name="vm_btn_height_normal">48dp</dimen>
+    <dimen name="vm_btn_height_large">56dp</dimen>
+
 </resources>

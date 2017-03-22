@@ -22,11 +22,14 @@
             </intent-filter>
         </activity>
 
+        <!--测试 socket 相关-->
         <activity android:name="com.vmloft.develop.library.simple.socket.VMSocketActvity"/>
         <activity android:name="com.vmloft.develop.library.simple.socket.VMSocketServer"/>
         <activity android:name="com.vmloft.develop.library.simple.socket.VMTCPSocketClient"/>
         <activity android:name="com.vmloft.develop.library.simple.socket.VMUDPSocketClient"/>
 
+        <!--测试自定义控件-->
+        <activity android:name=".widget.VMDotLineActivity"/>
     </application>
 
 </manifest>

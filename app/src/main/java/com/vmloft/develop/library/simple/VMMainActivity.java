@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.vmloft.develop.library.simple.socket.VMSocketActvity;
+import com.vmloft.develop.library.simple.widget.VMDotLineActivity;
 import com.vmloft.develop.library.tools.VMBaseActivity;
 
 public class VMMainActivity extends VMBaseActivity
@@ -40,6 +41,7 @@ public class VMMainActivity extends VMBaseActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         findViewById(R.id.btn_socket).setOnClickListener(viewListener);
+        findViewById(R.id.btn_dot_line).setOnClickListener(viewListener);
     }
 
     private View.OnClickListener viewListener = new View.OnClickListener() {
@@ -48,6 +50,9 @@ public class VMMainActivity extends VMBaseActivity
             switch (v.getId()) {
                 case R.id.btn_socket:
                     intent.setClass(activity, VMSocketActvity.class);
+                    break;
+                case R.id.btn_dot_line:
+                    intent.setClass(activity, VMDotLineActivity.class);
                     break;
             }
             startActivity(intent);
