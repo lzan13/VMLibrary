@@ -23,12 +23,9 @@ public class VMDotLineActivity extends VMBaseActivity {
 
         dotLineView = (VMDotLineView) findViewById(R.id.view_dot_line);
 
-        findViewById(R.id.btn_test).setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                dotLineView.setClosure(true);
-                dotLineView.refresh();
-            }
-        });
+        findViewById(R.id.btn_closure).setOnClickListener(viewListener);
+        findViewById(R.id.btn_dot_color).setOnClickListener(viewListener);
+        findViewById(R.id.btn_line_color).setOnClickListener(viewListener);
 
         //dotLineView.addPoint(new Point(100, 100));
         //dotLineView.addPoint(new Point(300, 150));
@@ -47,12 +44,26 @@ public class VMDotLineActivity extends VMBaseActivity {
         //dotLineView.addPoint(new Point(300, 700));
         //dotLineView.addPoint(new Point(300, 400));
 
-
         dotLineView.addPoint(new Point(200, 200));
         dotLineView.addPoint(new Point(600, 200));
         dotLineView.addPoint(new Point(600, 600));
         dotLineView.addPoint(new Point(200, 600));
-
-
     }
+
+    private View.OnClickListener viewListener = new View.OnClickListener() {
+        @Override public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.btn_closure:
+                    dotLineView.setClosure(true);
+                    break;
+                case R.id.btn_dot_color:
+                    dotLineView.setDotColor(0xddfe8729);
+                    break;
+                case R.id.btn_line_color:
+                    dotLineView.setLineColor(0xddfe8729);
+                    break;
+            }
+            dotLineView.refresh();
+        }
+    };
 }

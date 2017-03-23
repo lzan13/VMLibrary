@@ -1,20 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/vm_theme_background_light"
+    android:orientation="vertical"
     >
-    <Button
-        android:id="@+id/btn_test"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Test Closure"
-        />
+        android:orientation="horizontal"
+        >
+        <Button
+            android:id="@+id/btn_closure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Closure"
+            />
+
+        <Button
+            android:id="@+id/btn_dot_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dot Color"
+            />
+
+        <Button
+            android:id="@+id/btn_line_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Line Color"
+            />
+    </LinearLayout>
 
     <com.vmloft.develop.library.simple.widget.VMDotLineView
         android:id="@+id/view_dot_line"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:vm_dot_color="@color/vm_gray_87"
+        app:vm_dot_radius="@dimen/vm_dimen_4"
+        app:vm_dot_width="@dimen/vm_dimen_2"
+        app:vm_is_closure="false"
+        app:vm_line_color="@color/vm_gray_54"
+        app:vm_line_width="@dimen/vm_dimen_4"
+        app:vm_speed="10"
         />
 </LinearLayout>

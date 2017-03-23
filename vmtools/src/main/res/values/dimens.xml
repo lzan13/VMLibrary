@@ -42,4 +42,17 @@
     <dimen name="vm_btn_height_normal">48dp</dimen>
     <dimen name="vm_btn_height_large">56dp</dimen>
 
+    <!--定义一些通用尺寸-->
+    <dimen name="vm_dimen_1">1dp</dimen>
+    <dimen name="vm_dimen_2">2dp</dimen>
+    <dimen name="vm_dimen_4">4dp</dimen>
+    <dimen name="vm_dimen_8">8dp</dimen>
+    <dimen name="vm_dimen_16">16dp</dimen>
+    <dimen name="vm_dimen_24">24dp</dimen>
+    <dimen name="vm_dimen_32">32dp</dimen>
+    <dimen name="vm_dimen_36">36dp</dimen>
+    <dimen name="vm_dimen_64">64dp</dimen>
+    <dimen name="vm_dimen_72">72dp</dimen>
+    <dimen name="vm_dimen_96">96dp</dimen>
+
 </resources>

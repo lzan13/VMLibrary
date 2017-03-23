@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--自定义 VMDotLineView 属性-->
+    <declare-styleable name="VMDotLineView">
+        <!--点的颜色-->
+        <attr format="color" name="vm_dot_color"/>
+        <!--点的半径-->
+        <attr format="dimension" name="vm_dot_radius"/>
+        <!--点圆弧线宽-->
+        <attr format="dimension" name="vm_dot_width"/>
+        <!--是否闭合-->
+        <attr format="boolean" name="vm_is_closure"/>
+        <!--线段颜色-->
+        <attr format="color" name="vm_line_color"/>
+        <!--线段宽度-->
+        <attr format="dimension" name="vm_line_width"/>
+        <!--绘制速度-->
+        <attr format="integer" name="vm_speed"/>
+    </declare-styleable>
+</resources>

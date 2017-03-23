@@ -1,12 +1,14 @@
 package com.vmloft.develop.library.simple.widget;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
+import com.vmloft.develop.library.simple.R;
 import com.vmloft.develop.library.tools.utils.VMLog;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,27 +24,31 @@ public class VMDotLineView extends View {
 
     // 坐标点集合
     private List<Point> points = new ArrayList<>();
-
     // 控件画笔
     protected Paint paint;
-    // 画笔颜色
+
+    // 点的颜色
     protected int dotColor = 0xddf82304;
+    // 点的半径
+    protected int dotRadius = 10;
+    // 点圆弧线宽
+    protected int dotWidth = 4;
+    // 线的颜色
     protected int lineColor = 0xddf86734;
-    // 画笔宽度
-    protected float paintWidth = 8.0f;
-    // 点坐标半径
-    protected float dotRadius = 10.0f;
-    // 当前绘制到的点索引
-    protected int currentIndex = 0;
+    // 线的宽度
+    protected int lineWidth = 8;
     // 是否闭合
     protected boolean isClosure = false;
+
+    // 当前绘制到的点索引
+    protected int currentIndex = 0;
 
     // 当前绘制到的坐标点
     protected Point currentPoint;
     // 下一个绘制到的坐标点
     protected Point nextPoint;
     // 线绘制速度
-    protected float speed = 3.0f;
+    protected int speed = 10;
     protected boolean isChange = true;
     // 坐标点增量
     protected float incrementX = 0.0f;
@@ -55,23 +61,45 @@ public class VMDotLineView extends View {
      */
     public VMDotLineView(Context context) {
         super(context);
-        init(null);
+        init(context, null);
     }
 
     public VMDotLineView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init(attrs);
+        init(context, attrs);
     }
 
     public VMDotLineView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(attrs);
+        init(context, attrs);
     }
 
     /**
      * 控件初始化
      */
-    protected void init(AttributeSet attrs) {
+    protected void init(Context context, AttributeSet attrs) {
+
+        // 获取控件的属性值
+        if (attrs != null) {
+            TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.VMDotLineView);
+            // 获取自定义属性值，如果没有设置就是默认值
+            dotColor = array.getColor(R.styleable.VMDotLineView_vm_dot_color, dotColor);
+            dotRadius = array.getDimensionPixelOffset(R.styleable.VMDotLineView_vm_dot_radius,
+                    dotRadius);
+            dotWidth =
+                    array.getDimensionPixelOffset(R.styleable.VMDotLineView_vm_dot_width, dotWidth);
+
+            lineColor = array.getColor(R.styleable.VMDotLineView_vm_line_color, lineColor);
+            lineWidth = array.getDimensionPixelOffset(R.styleable.VMDotLineView_vm_line_width,
+                    lineWidth);
+
+            isClosure = array.getBoolean(R.styleable.VMDotLineView_vm_is_closure, isClosure);
+            speed = array.getInteger(R.styleable.VMDotLineView_vm_speed, speed);
+
+            // 回收资源
+            array.recycle();
+        }
+
         // 实例化画笔
         paint = new Paint();
         // 设置画笔颜色
@@ -81,7 +109,7 @@ public class VMDotLineView extends View {
         // 效果同上
         paint.setFlags(Paint.ANTI_ALIAS_FLAG);
         // 设置画笔宽度
-        paint.setStrokeWidth(paintWidth);
+        paint.setStrokeWidth(lineWidth);
         // 设置画笔模式
         paint.setStyle(Paint.Style.STROKE);
         // 设置画笔末尾样式
@@ -104,34 +132,6 @@ public class VMDotLineView extends View {
     }
 
     /**
-     * 绘制点
-     *
-     * @param canvas 当前控件画布
-     */
-    protected void drawDot(Canvas canvas) {
-        paint.setColor(dotColor);
-        for (int i = 0; i < points.size(); i++) {
-            Point point = points.get(i);
-            //VMLog.d("drawDot x: %d, y: %d", point.x, point.y);
-            // 绘制圆弧，当绘制圆弧为360度的时候，和下边的绘制圆环效果一样
-            //RectF rectF = new RectF(point.x - dotRadius, point.y - dotRadius, point.x + dotRadius,
-            //        point.y + dotRadius);
-            //canvas.drawArc(rectF, 0, 360, false, paint);
-            // 绘制圆环
-            //canvas.drawCircle(point.x, point.y, dotRadius, paint);
-
-            // 这里进行判断下，是否已经连接到此点，如果是则绘制实心点，否则绘制空心点，后期可以给这个点加上动画效果
-            if (i <= currentIndex) {
-                paint.setStyle(Paint.Style.FILL);
-                canvas.drawCircle(point.x, point.y, dotRadius, paint);
-            } else {
-                paint.setStyle(Paint.Style.STROKE);
-                canvas.drawCircle(point.x, point.y, dotRadius, paint);
-            }
-        }
-    }
-
-    /**
      * 绘制线
      *
      * @param canvas 当前控件画布
@@ -139,6 +139,7 @@ public class VMDotLineView extends View {
     protected void drawLine(Canvas canvas) {
         // 设置绘制线时的颜色
         paint.setColor(lineColor);
+        paint.setStrokeWidth(lineWidth);
         checkCurrentPoint(currentIndex + 1);
         // 绘制已经绘制过的线段
         int count = 0;
@@ -153,7 +154,7 @@ public class VMDotLineView extends View {
             }
             // 没有绘制到最后一个点，就一直循环
             if (currentIndex < points.size() - 1) {
-                postInvalidateDelayed(10);
+                postInvalidateDelayed(speed);
             }
         } else if (currentIndex == points.size() - 1) {
             while (count < points.size() - 1) {
@@ -190,7 +191,36 @@ public class VMDotLineView extends View {
 
             // 没有绘制到最后一个点，就一直循环
             if (currentIndex < points.size()) {
-                postInvalidateDelayed(10);
+                postInvalidateDelayed(speed);
+            }
+        }
+    }
+
+    /**
+     * 绘制点
+     *
+     * @param canvas 当前控件画布
+     */
+    protected void drawDot(Canvas canvas) {
+        paint.setColor(dotColor);
+        paint.setStrokeWidth(dotWidth);
+        for (int i = 0; i < points.size(); i++) {
+            Point point = points.get(i);
+            //VMLog.d("drawDot x: %d, y: %d", point.x, point.y);
+            // 绘制圆弧，当绘制圆弧为360度的时候，和下边的绘制圆环效果一样
+            //RectF rectF = new RectF(point.x - dotRadius, point.y - dotRadius, point.x + dotRadius,
+            //        point.y + dotRadius);
+            //canvas.drawArc(rectF, 0, 360, false, paint);
+            // 绘制圆环
+            //canvas.drawCircle(point.x, point.y, dotRadius, paint);
+
+            // 这里进行判断下，是否已经连接到此点，如果是则绘制实心点，否则绘制空心点，后期可以给这个点加上动画效果
+            if (i <= currentIndex) {
+                paint.setStyle(Paint.Style.FILL);
+                canvas.drawCircle(point.x, point.y, dotRadius, paint);
+            } else {
+                paint.setStyle(Paint.Style.STROKE);
+                canvas.drawCircle(point.x, point.y, dotRadius, paint);
             }
         }
     }
@@ -251,16 +281,6 @@ public class VMDotLineView extends View {
     }
 
     /**
-     * 刷新控件，就是进行重新绘制
-     */
-    public void refresh() {
-        incrementX = 0.0f;
-        incrementY = 0.0f;
-        currentIndex = 0;
-        invalidate();
-    }
-
-    /**
      * 添加一个坐标点
      *
      * @param point 添加的点坐标
@@ -276,12 +296,66 @@ public class VMDotLineView extends View {
     }
 
     /**
+     * 移除坐标集合中的一个点
+     *
+     * @param position 移除点位置
+     * @return 返回移除的坐标点
+     */
+    public Point removePoint(int position) {
+        if (points != null && position < points.size()) {
+            return points.remove(position);
+        }
+        return null;
+    }
+
+    /**
+     * 清空坐标点集合
+     */
+    public void clearPoints() {
+        if (points != null) {
+            points.clear();
+        }
+    }
+
+    public void setDotColor(int dotColor) {
+        this.dotColor = dotColor;
+    }
+
+    public void setDotRadius(int dotRadius) {
+        this.dotRadius = dotRadius;
+    }
+
+    public void setDotWidth(int dotWidth) {
+        this.dotWidth = dotWidth;
+    }
+
+    public void setLineColor(int lineColor) {
+        this.lineColor = lineColor;
+    }
+
+    public void setLineWidth(int lineWidth) {
+        this.lineWidth = lineWidth;
+    }
+
+    /**
      * 设置控件是否闭合
      *
      * @param closure 是否闭合
      */
     public void setClosure(boolean closure) {
         isClosure = closure;
-        refresh();
+    }
+
+    /**
+     * 刷新控件，就是进行重新绘制
+     */
+    public void refresh() {
+        incrementX = 0.0f;
+        incrementY = 0.0f;
+        isChange = true;
+        currentIndex = 0;
+        currentPoint = null;
+        nextPoint = null;
+        postInvalidate();
     }
 }
