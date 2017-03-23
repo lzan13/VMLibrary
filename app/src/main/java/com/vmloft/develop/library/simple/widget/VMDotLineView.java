@@ -96,6 +96,7 @@ public class VMDotLineView extends View {
             // 绘制圆环
             //canvas.drawCircle(point.x, point.y, dotRadius, paint);
 
+            // 这里进行判断下，是否已经连接到此点，如果是则绘制实心点，否则绘制空心点，后期可以给这个点加上动画效果
             if (i <= currentIndex) {
                 paint.setStyle(Paint.Style.FILL);
                 canvas.drawCircle(point.x, point.y, dotRadius, paint);
@@ -154,17 +155,43 @@ public class VMDotLineView extends View {
         incrementY += stepY;
 
         // 判断是否到达下一个点
-        if (currentPoint.x + incrementX >= nextPoint.x) {
-            isChange = true;
-            currentIndex++;
-            incrementX = 0.0f;
-            incrementY = 0.0f;
+        if (incrementX > 0) {
+            if (currentPoint.x + incrementX >= nextPoint.x) {
+                isChange = true;
+                currentIndex++;
+                incrementX = 0.0f;
+                incrementY = 0.0f;
+            }
+        } else if (incrementX < 0) {
+            if (currentPoint.x + incrementX <= nextPoint.x) {
+                isChange = true;
+                currentIndex++;
+                incrementX = 0.0f;
+                incrementY = 0.0f;
+            }
+        } else {
+            if (incrementY > 0) {
+                if (currentPoint.y + incrementY >= nextPoint.y) {
+                    isChange = true;
+                    currentIndex++;
+                    incrementX = 0.0f;
+                    incrementY = 0.0f;
+                }
+            } else {
+                if (currentPoint.y + incrementY <= nextPoint.y) {
+                    isChange = true;
+                    currentIndex++;
+                    incrementX = 0.0f;
+                    incrementY = 0.0f;
+                }
+            }
         }
     }
 
     /**
      * 控件初始化
      */
+
     protected void init(AttributeSet attrs) {
         // 实例化画笔
         paint = new Paint();
