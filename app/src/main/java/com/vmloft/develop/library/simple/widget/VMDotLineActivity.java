@@ -2,6 +2,7 @@ package com.vmloft.develop.library.simple.widget;
 
 import android.graphics.Point;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import com.vmloft.develop.library.simple.R;
 import com.vmloft.develop.library.tools.VMBaseActivity;
@@ -16,22 +17,26 @@ public class VMDotLineActivity extends VMBaseActivity {
 
     private VMDotLineView dotLineView;
 
-
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dot_line);
 
-        /**
-         * A（315,400）B（400,325）C（460,310）D（545,300）E（580,434）F（690,310）G(670,235)
-         */
         dotLineView = (VMDotLineView) findViewById(R.id.view_dot_line);
-        dotLineView.addPoint(new Point(100, 100));
-        dotLineView.addPoint(new Point(300, 150));
-        dotLineView.addPoint(new Point(390, 250));
-        dotLineView.addPoint(new Point(500, 360));
-        dotLineView.addPoint(new Point(495, 475));
-        dotLineView.addPoint(new Point(710, 550));
-        dotLineView.addPoint(new Point(790, 410));
+
+        findViewById(R.id.btn_test).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                dotLineView.setClosure(true);
+                dotLineView.refresh();
+            }
+        });
+
+        //dotLineView.addPoint(new Point(100, 100));
+        //dotLineView.addPoint(new Point(300, 150));
+        //dotLineView.addPoint(new Point(390, 250));
+        //dotLineView.addPoint(new Point(500, 360));
+        //dotLineView.addPoint(new Point(495, 475));
+        //dotLineView.addPoint(new Point(710, 550));
+        //dotLineView.addPoint(new Point(790, 410));
 
         //dotLineView.addPoint(new Point(100, 100));
         //dotLineView.addPoint(new Point(200, 200));
@@ -41,6 +46,12 @@ public class VMDotLineActivity extends VMBaseActivity {
         //dotLineView.addPoint(new Point(300, 600));
         //dotLineView.addPoint(new Point(300, 700));
         //dotLineView.addPoint(new Point(300, 400));
+
+
+        dotLineView.addPoint(new Point(200, 200));
+        dotLineView.addPoint(new Point(600, 200));
+        dotLineView.addPoint(new Point(600, 600));
+        dotLineView.addPoint(new Point(200, 600));
 
 
     }

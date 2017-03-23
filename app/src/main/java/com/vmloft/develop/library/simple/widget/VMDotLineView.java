@@ -34,6 +34,8 @@ public class VMDotLineView extends View {
     protected float dotRadius = 10.0f;
     // 当前绘制到的点索引
     protected int currentIndex = 0;
+    // 是否闭合
+    protected boolean isClosure = false;
 
     // 当前绘制到的坐标点
     protected Point currentPoint;
@@ -67,6 +69,26 @@ public class VMDotLineView extends View {
     }
 
     /**
+     * 控件初始化
+     */
+    protected void init(AttributeSet attrs) {
+        // 实例化画笔
+        paint = new Paint();
+        // 设置画笔颜色
+        paint.setColor(0xdd2384fe);
+        // 设置抗锯齿
+        paint.setAntiAlias(true);
+        // 效果同上
+        paint.setFlags(Paint.ANTI_ALIAS_FLAG);
+        // 设置画笔宽度
+        paint.setStrokeWidth(paintWidth);
+        // 设置画笔模式
+        paint.setStyle(Paint.Style.STROKE);
+        // 设置画笔末尾样式
+        paint.setStrokeCap(Paint.Cap.ROUND);
+    }
+
+    /**
      * 重写 onDraw 方法
      *
      * @param canvas 当前 View 画布
@@ -75,6 +97,8 @@ public class VMDotLineView extends View {
         super.onDraw(canvas);
         // 绘制线
         drawLine(canvas);
+        // 绘制闭合部分
+        drawClosureLine(canvas);
         // 绘制点
         drawDot(canvas);
     }
@@ -109,37 +133,75 @@ public class VMDotLineView extends View {
 
     /**
      * 绘制线
+     *
+     * @param canvas 当前控件画布
      */
     protected void drawLine(Canvas canvas) {
         // 设置绘制线时的颜色
         paint.setColor(lineColor);
-
-        checkCurrentPoint();
-
-        canvas.drawLine(currentPoint.x, currentPoint.y, currentPoint.x + incrementX,
-                currentPoint.y + incrementY, paint);
-
+        checkCurrentPoint(currentIndex + 1);
         // 绘制已经绘制过的线段
         int count = 0;
-        while (count < currentIndex) {
-            Point point1 = points.get(count);
-            Point point2 = points.get(count + 1);
-            canvas.drawLine(point1.x, point1.y, point2.x, point2.y, paint);
-            count++;
-        }
-        // 没有绘制到最后一个点，就一直循环
         if (currentIndex < points.size() - 1) {
-            postInvalidateDelayed(10);
+            canvas.drawLine(currentPoint.x, currentPoint.y, currentPoint.x + incrementX,
+                    currentPoint.y + incrementY, paint);
+            while (count < currentIndex) {
+                Point point1 = points.get(count);
+                Point point2 = points.get(count + 1);
+                canvas.drawLine(point1.x, point1.y, point2.x, point2.y, paint);
+                count++;
+            }
+            // 没有绘制到最后一个点，就一直循环
+            if (currentIndex < points.size() - 1) {
+                postInvalidateDelayed(10);
+            }
+        } else if (currentIndex == points.size() - 1) {
+            while (count < points.size() - 1) {
+                Point point1 = points.get(count);
+                Point point2 = points.get(count + 1);
+                canvas.drawLine(point1.x, point1.y, point2.x, point2.y, paint);
+                count++;
+            }
+        } else if (currentIndex == points.size()) {
+            while (count < points.size() - 1) {
+                Point point1 = points.get(count);
+                Point point2 = points.get(count + 1);
+                canvas.drawLine(point1.x, point1.y, point2.x, point2.y, paint);
+                count++;
+            }
+            Point pointEnd = points.get(points.size() - 1);
+            Point pointStart = points.get(0);
+            canvas.drawLine(pointEnd.x, pointEnd.y, pointStart.x, pointStart.y, paint);
+        }
+    }
+
+    /**
+     * 绘制闭合部分线
+     *
+     * @param canvas 当前控件画布
+     */
+    protected void drawClosureLine(Canvas canvas) {
+        if (isClosure && currentIndex == points.size() - 1) {
+
+            checkCurrentPoint(0);
+
+            canvas.drawLine(currentPoint.x, currentPoint.y, currentPoint.x + incrementX,
+                    currentPoint.y + incrementY, paint);
+
+            // 没有绘制到最后一个点，就一直循环
+            if (currentIndex < points.size()) {
+                postInvalidateDelayed(10);
+            }
         }
     }
 
     /**
      * 检查是否绘制到下一个线段
      */
-    protected void checkCurrentPoint() {
+    protected void checkCurrentPoint(int nextIndex) {
         if (isChange) {
             currentPoint = points.get(currentIndex);
-            nextPoint = points.get(currentIndex + 1);
+            nextPoint = points.get(nextIndex);
             int distanceX = nextPoint.x - currentPoint.x;
             int distanceY = nextPoint.y - currentPoint.y;
             VMLog.d("distance x: " + distanceX + "; y: " + distanceY);
@@ -189,24 +251,13 @@ public class VMDotLineView extends View {
     }
 
     /**
-     * 控件初始化
+     * 刷新控件，就是进行重新绘制
      */
-
-    protected void init(AttributeSet attrs) {
-        // 实例化画笔
-        paint = new Paint();
-        // 设置画笔颜色
-        paint.setColor(0xdd2384fe);
-        // 设置抗锯齿
-        paint.setAntiAlias(true);
-        // 效果同上
-        paint.setFlags(Paint.ANTI_ALIAS_FLAG);
-        // 设置画笔宽度
-        paint.setStrokeWidth(paintWidth);
-        // 设置画笔模式
-        paint.setStyle(Paint.Style.STROKE);
-        // 设置画笔末尾样式
-        paint.setStrokeCap(Paint.Cap.ROUND);
+    public void refresh() {
+        incrementX = 0.0f;
+        incrementY = 0.0f;
+        currentIndex = 0;
+        invalidate();
     }
 
     /**
@@ -222,5 +273,15 @@ public class VMDotLineView extends View {
             return points.size();
         }
         return -1;
+    }
+
+    /**
+     * 设置控件是否闭合
+     *
+     * @param closure 是否闭合
+     */
+    public void setClosure(boolean closure) {
+        isClosure = closure;
+        refresh();
     }
 }
