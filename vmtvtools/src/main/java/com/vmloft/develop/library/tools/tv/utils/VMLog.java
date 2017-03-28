@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.tools.utils;
+package com.vmloft.develop.library.tools.tv.utils;
 
 import android.util.Log;
 

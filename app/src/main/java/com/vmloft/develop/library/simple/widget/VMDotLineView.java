@@ -230,16 +230,18 @@ public class VMDotLineView extends View {
      */
     protected void checkCurrentPoint(int nextIndex) {
         if (isChange) {
+            if (currentIndex >= points.size()) {
+                VMLog.e("IndexOutOf");
+                return;
+            }
             currentPoint = points.get(currentIndex);
             nextPoint = points.get(nextIndex);
             int distanceX = nextPoint.x - currentPoint.x;
             int distanceY = nextPoint.y - currentPoint.y;
-            VMLog.d("distance x: " + distanceX + "; y: " + distanceY);
             double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
             double time = distance / speed;
             stepX = (float) (distanceX / time);
             stepY = (float) (distanceY / time);
-            VMLog.d("step x: " + stepX + "; y: " + stepY);
             isChange = false;
         }
         // 让当前线段的增量加上变化值

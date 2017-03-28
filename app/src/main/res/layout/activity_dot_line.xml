@@ -12,24 +12,30 @@
         android:orientation="horizontal"
         >
         <Button
-            android:id="@+id/btn_closure"
+            android:id="@+id/btn_big_dipper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Closure"
+            android:text="北斗七星"
+            />
+        <Button
+            android:id="@+id/btn_square"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="正方形"
             />
 
         <Button
             android:id="@+id/btn_dot_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dot Color"
+            android:text="点颜色"
             />
 
         <Button
             android:id="@+id/btn_line_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Line Color"
+            android:text="线颜色"
             />
     </LinearLayout>
 
