@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--定义文字大小-->
-    <dimen name="vm_size_headline">28sp</dimen>
-    <dimen name="vm_size_title">24sp</dimen>
+    <!--定义文字大小 TV UI中这里都适当的增大了 2sp-->
+    <dimen name="vm_size_display">36sp</dimen>
+    <dimen name="vm_size_headline">26sp</dimen>
+    <dimen name="vm_size_title">22sp</dimen>
     <dimen name="vm_size_subhead">18sp</dimen>
     <dimen name="vm_size_body">16sp</dimen>
-    <dimen name="vm_size_menu">18sp</dimen>
+    <dimen name="vm_size_menu">16sp</dimen>
+    <dimen name="vm_size_caption">14sp</dimen>
 
     <dimen name="vm_size_btn_large">24sp</dimen>
     <dimen name="vm_size_btn_normal">18sp</dimen>
     <dimen name="vm_size_btn_small">14sp</dimen>
-    <dimen name="vm_size_caption">20sp</dimen>
 
     <!--定义头像尺寸-->
     <dimen name="vm_avatar_small">56dp</dimen>
@@ -40,9 +41,9 @@
     <dimen name="vm_padding_large">32dp</dimen>
 
     <!--定义 Button 常用尺寸-->
-    <dimen name="vm_btn_height_small">56dp</dimen>
-    <dimen name="vm_btn_height_normal">72dp</dimen>
-    <dimen name="vm_btn_height_large">96dp</dimen>
+    <dimen name="vm_btn_height_small">48dp</dimen>
+    <dimen name="vm_btn_height_normal">56dp</dimen>
+    <dimen name="vm_btn_height_large">72dp</dimen>
 
     <!--定义一些通用尺寸-->
     <dimen name="vm_dimen_1">1dp</dimen>
