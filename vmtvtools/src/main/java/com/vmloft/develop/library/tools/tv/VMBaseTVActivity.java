@@ -23,9 +23,6 @@ public class VMBaseTVActivity extends Activity {
     // 当前界面的上下文菜单对象
     protected VMBaseTVActivity activity;
 
-    // 根布局
-    private View rootView;
-
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         VMLog.i("%s onCreate", className);
@@ -107,9 +104,7 @@ public class VMBaseTVActivity extends Activity {
 
     @Override protected void onDestroy() {
         super.onDestroy();
-        activity = null;
-        rootView = null;
-
         VMLog.i("%s onDestroy", className);
+        activity = null;
     }
 }
