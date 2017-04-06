@@ -4,10 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by lzan13 on 2016/12/29.
+ * Created by lzan13 on 2017/1/29.
+ * 封装字符串操作类，对字符串进行一些简单的转换操作
  */
-
-public class VMStringUtil {
+public class VMStrUtil {
 
     /**
      * 字符串转数组

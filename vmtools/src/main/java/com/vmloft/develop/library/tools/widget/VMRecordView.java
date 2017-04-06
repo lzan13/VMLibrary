@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 
 /**
- * Created by lzan13 on 2016/8/18.
+ * Created by lzan13 on 2017/3/18.
  * 自定义录音控件
  */
 public class VMRecordView extends View {

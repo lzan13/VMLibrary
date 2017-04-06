@@ -14,7 +14,7 @@ import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.utils.VMDimenUtil;
 
 /**
- * Created by lzan13 on 2016/8/18.
+ * Created by lzan13 on 2017/3/18.
  * 波形测试绘制类
  */
 public class VMWaveformView extends View {

@@ -19,7 +19,7 @@ import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.utils.VMBitmapUtil;
 
 /**
- * Created by lzan13 on 2015/4/30.
+ * Created by lzan13 on 2017/3/30.
  * 自定义 ImageView 控件，实现了圆角和边框，以及按下变色
  */
 public class VMImageView extends AppCompatImageView {

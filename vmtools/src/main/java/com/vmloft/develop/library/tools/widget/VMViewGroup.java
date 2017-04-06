@@ -6,9 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Class ${FILE_NAME}
- * <p/>
- * Created by lzan13 on 2015/12/25 16:26.
+ * Created by lzan13 on 2017/3/25
+ *
  * 自定义ViewGroup类，会根据子控件的宽度自动换行，
  */
 public class VMViewGroup extends ViewGroup {
@@ -57,9 +56,6 @@ public class VMViewGroup extends ViewGroup {
 
     /**
      * 重写onMeasure方法，这里循环设置当前自定义控件的子控件的大小
-     *
-     * @param widthMeasureSpec
-     * @param heightMeasureSpec
      */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -81,6 +77,4 @@ public class VMViewGroup extends ViewGroup {
     public interface OnMLViewGroupListener {
         void onItemClick(View view, int position, long id);
     }
-
-
 }
