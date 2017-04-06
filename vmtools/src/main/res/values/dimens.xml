@@ -13,6 +13,12 @@
     <dimen name="vm_size_btn_small">12sp</dimen>
     <dimen name="vm_size_caption">12sp</dimen>
 
+    <dimen name="vm_size_10">10sp</dimen>
+    <dimen name="vm_size_12">12sp</dimen>
+    <dimen name="vm_size_14">14sp</dimen>
+    <dimen name="vm_size_16">16sp</dimen>
+
+
     <!--定义头像尺寸-->
     <dimen name="vm_avatar_small">36dp</dimen>
     <dimen name="vm_avatar_normal">56dp</dimen>
@@ -45,18 +51,24 @@
     <dimen name="vm_btn_height_large">56dp</dimen>
 
     <!--定义一些通用尺寸-->
+    <dimen name="vm_dimen_0">0dp</dimen>
     <dimen name="vm_dimen_1">1dp</dimen>
     <dimen name="vm_dimen_2">2dp</dimen>
     <dimen name="vm_dimen_4">4dp</dimen>
     <dimen name="vm_dimen_8">8dp</dimen>
     <dimen name="vm_dimen_16">16dp</dimen>
+    <dimen name="vm_dimen_20">20dp</dimen>
     <dimen name="vm_dimen_24">24dp</dimen>
     <dimen name="vm_dimen_32">32dp</dimen>
     <dimen name="vm_dimen_36">36dp</dimen>
+    <dimen name="vm_dimen_40">40dp</dimen>
     <dimen name="vm_dimen_48">48dp</dimen>
     <dimen name="vm_dimen_56">56dp</dimen>
     <dimen name="vm_dimen_64">64dp</dimen>
     <dimen name="vm_dimen_72">72dp</dimen>
     <dimen name="vm_dimen_96">96dp</dimen>
+    <dimen name="vm_dimen_168">128dp</dimen>
+    <dimen name="vm_dimen_192">192dp</dimen>
+    <dimen name="vm_dimen_256">256dp</dimen>
 
 </resources>

@@ -63,7 +63,7 @@ public class VMBaseActivity extends AppCompatActivity {
     }
 
     /**
-     * 自定义返回方法
+     * 自定义 Activity 结束方法
      */
     protected void onFinish() {
         // 根据不同的系统版本选择不同的 finish 方法

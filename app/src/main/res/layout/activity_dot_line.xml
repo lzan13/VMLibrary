@@ -39,7 +39,7 @@
             />
     </LinearLayout>
 
-    <com.vmloft.develop.library.simple.widget.VMDotLineView
+    <com.vmloft.develop.library.tools.widget.VMDotLineView
         android:id="@+id/view_dot_line"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

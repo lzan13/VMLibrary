@@ -2,7 +2,7 @@
 
     <!-- 应用基础主题 -->
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="VMTheme.Default">
+    <style name="AppTheme" parent="VMTheme">
     </style>
     <!--默认 AppBar 样式-->
     <style name="AppTheme.AppBarOverlay" parent="VMTheme.AppBarOverlay">

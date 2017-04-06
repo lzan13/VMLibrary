@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import com.vmloft.develop.library.simple.R;
 import com.vmloft.develop.library.tools.VMBaseActivity;
+import com.vmloft.develop.library.tools.widget.VMDotLineView;
 
 /**
  * Created by lzan13 on 2017/3/22.

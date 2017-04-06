@@ -6,7 +6,7 @@ android {
     defaultConfig {
         applicationId "com.vmloft.develop.library.simple"
         minSdkVersion 21
-        targetSdkVersion 23
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
@@ -20,5 +20,11 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+
+    // ButterKnife 库
+    compile 'com.jakewharton:butterknife:8.4.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+
+    // 引入自己封装的库
     compile project(':vmtools')
 }

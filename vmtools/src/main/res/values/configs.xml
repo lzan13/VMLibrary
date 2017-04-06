@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--为了看出效果测试时间调大一些-->
+    <integer name="vm_time_test">2500</integer>
+    <integer name="vm_time_test_delay">2200</integer>
+
+
+    <!--透明度改变持续时间-->
+    <integer name="vm_time_alpha_change">300</integer>
+
+    <!--过渡动画持续时间-->
+    <integer name="vm_time_transition">320</integer>
+    <integer name="vm_time_transition_delay">280</integer>
+    <integer name="vm_time_share_transition">320</integer>
+
+    <!--自定义 Activity 动画持续时间-->
+    <integer name="vm_time_activity_enter">320</integer>
+    <integer name="vm_time_activity_exit">300</integer>
+
+    <!--自定义的 toast 进入和退出持续时间-->
+    <integer name="vm_time_toast_enter">225</integer>
+    <integer name="vm_time_toast_exit">195</integer>
+
+    <!--界面扩展菜单显示时间-->
+    <integer name="vm_time_extra_menu_enter">160</integer>
+
+    <!--悬浮按钮旋转持续时间-->
+    <integer name="vm_time_fab_rotate">300</integer>
+
+    <!--振动时间-->
+    <integer name="vm_time_vibrate">60</integer>
+
+    <!--模糊时的模糊半径-->
+    <integer name="vm_img_blur_2">2</integer>
+    <integer name="vm_img_blur_4">4</integer>
+    <integer name="vm_img_blur_8">8</integer>
+    <integer name="vm_img_blur_12">12</integer>
+    <integer name="vm_img_blur_16">16</integer>
+    <integer name="vm_img_blur_20">20</integer>
+    <integer name="vm_img_blur_24">24</integer>
+    <integer name="vm_img_blur_32">32</integer>
+</resources>

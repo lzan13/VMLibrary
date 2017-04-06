@@ -4,6 +4,8 @@
 
     <!--允许应用程序完全使用网络-->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- 录音 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
     <application
         android:allowBackup="true"
@@ -30,6 +32,7 @@
 
         <!--测试自定义控件-->
         <activity android:name=".widget.VMDotLineActivity"/>
+        <activity android:name=".widget.RecordActivity"/>
     </application>
 
 </manifest>

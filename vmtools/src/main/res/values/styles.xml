@@ -4,21 +4,18 @@
     <style name="VMTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- 在这里自定义自己的主题 -->
         <!-- 默认主要颜色，一般是 Toolbar 等颜色 -->
-        <item name="colorPrimary">@color/vm_theme_primary</item>
+        <item name="colorPrimary">@color/vm_theme_primary_light</item>
         <!-- 深一些的主要色，一般是状态栏等颜色 -->
-        <item name="colorPrimaryDark">@color/vm_theme_primary_dark</item>
+        <item name="colorPrimaryDark">@color/vm_theme_primary_dark_light</item>
         <!--各控件激活时的颜色，一般是 CheckBox、EditText、Switch、Spinner、RadioButton 等控件激活的颜色-->
-        <item name="colorAccent">@color/vm_theme_accent</item>
+        <item name="colorAccent">@color/vm_theme_accent_light</item>
         <!--界面背景色-->
-        <item name="android:windowBackground">@color/vm_theme_background</item>
+        <item name="android:windowBackground">@color/vm_theme_background_light</item>
 
         <!--设置主题不需要ActionBar-->
         <item name="windowActionBar">false</item>
         <!--设置主题不需要Title-->
         <item name="windowNoTitle">true</item>
-
-        <!--&lt;!&ndash;menu anim style&ndash;&gt;-->
-        <!--<item name="drawerArrowStyle">@style/MLTheme.DrawerArrowToggle</item>-->
 
         <!--设置 ActionMode 效果，防止 ActionMode 将Toolbar顶下去-->
         <item name="android:windowActionModeOverlay">true</item>
@@ -30,34 +27,8 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <!--设置导航栏半透明效果-->
         <item name="android:windowTranslucentNavigation">false</item>
-
-        <!--定义 Activity 切换动画-->
-        <!--<item name="android:windowAnimationStyle">@style/AnimSlide</item>-->
-
-        <!--设置 Dialog 样式 在4.x上会导致ProgressDialog有双重背景，暂时取消设置-->
-        <!--<item name="android:dialogTheme">@style/MLTheme.DialogOverlay</item>-->
-
     </style>
 
-    <!--启动时的主题样式-->
-    <style name="VMTheme.Launcher">
-        <!--防止启动瞬间黑屏或白屏，程序启动时的背景图，可以设置为一张代表性的logo，或者设置app框架类图-->
-        <item name="android:windowBackground">@drawable/bg_launcher_statusbar_toolbar</item>
-        <item name="android:colorBackground">@color/vm_theme_background</item>
-    </style>
-
-    <!--设置 Activity 透明主题-->
-    <style name="VMTheme.Transparent">
-        <item name="android:windowIsTranslucent">true</item>
-    </style>
-    <!--设置 Activity 半透明主题-->
-    <style name="VMTheme.Translucent">
-        <item name="android:windowIsTranslucent">true</item>
-    </style>
-
-    <!--默认主题-->
-    <style name="VMTheme.Default">
-    </style>
 
     <!--自定义默认 AppBar 样式，这里为了让文字显示为白色，继承黑色样式的ActionBar-->
     <style name="VMTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -70,7 +41,7 @@
         <!--Appbar 标题样式-->
         <item name="android:textStyle">normal</item>
         <!--更改菜单按钮样式 此菜单直的是当 action过多显示不全，会有三个小点儿样式-->
-        <!--<item name="android:actionOverflowButtonStyle">@style/VMTheme.ActionBarOverflow</item>-->
+        <item name="android:actionOverflowButtonStyle">@style/VMTheme.ActionBarOverflow</item>
     </style>
 
     <!--自定义 Toolbar 样式，这里为了让文字显示为白色，继承黑色样式的ActionBar-->
@@ -84,6 +55,7 @@
         <!--Toolbar 文字样式-->
         <item name="android:textStyle">normal</item>
     </style>
+
     <!--自定义溢出菜单图标样式-->
     <style name="VMTheme.ActionBarOverflow" parent="@android:style/Widget.ActionButton.Overflow">
         <item name="android:src">@drawable/ic_add_24dp</item>
@@ -92,11 +64,11 @@
     <!--自定 Toolbar 弹出 PopupMenu 样式，要想此设置生效，在布局文件必须要自定义命名空间 xmlns：app-->
     <style name="VMTheme.PopupOverlay" parent="@style/ThemeOverlay.AppCompat.Light">
         <!--设置菜单项文字的背景-->
-        <!--<item name="android:background">@drawable/ml_popup_backaground</item>-->
+        <!--<item name="android:background">@drawable/vm_popup_backaground</item>-->
         <!--弹出菜单背景颜色-->
-        <!--<item name="android:colorBackground">@color/ml_white_87</item>-->
+        <!--<item name="android:colorBackground">@color/vm_white_87</item>-->
         <!--弹出菜单项的背景设置 主要是为了添加点击效果-->
-        <!--<item name="android:itemBackground">@drawable/ml_click_rectangle_white</item>-->
+        <!--<item name="android:itemBackground">@drawable/vm_click_rectangle_white</item>-->
         <!--设置弹出 PopupWindow 背景 这里使用了系统的资源 好像无效-->
         <!--<item name="android:popupBackground">@drawable/abc_popup_background_mtrl_mult</item>-->
         <!--弹出菜单的文字颜色和大小-->

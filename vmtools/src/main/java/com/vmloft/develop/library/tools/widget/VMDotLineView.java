@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.simple.widget;
+package com.vmloft.develop.library.tools.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,8 +8,10 @@ import android.graphics.Point;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
-import com.vmloft.develop.library.simple.R;
+
+import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.utils.VMLog;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -212,7 +214,7 @@ public class VMDotLineView extends View {
             //        point.y + dotRadius);
             //canvas.drawArc(rectF, 0, 360, false, paint);
             // 绘制圆环
-            //canvas.drawCircle(point.x, point.y, dotRadius, paint);
+            //canvas.drawMic(point.x, point.y, dotRadius, paint);
 
             // 这里进行判断下，是否已经连接到此点，如果是则绘制实心点，否则绘制空心点，后期可以给这个点加上动画效果
             if (i <= currentIndex) {
