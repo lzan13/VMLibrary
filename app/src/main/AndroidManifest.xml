@@ -32,7 +32,10 @@
 
         <!--测试自定义控件-->
         <activity android:name=".widget.VMDotLineActivity"/>
-        <activity android:name=".widget.RecordActivity"/>
+        <activity android:name=".widget.VMRecordActivity"/>
+
+        <!--测试主题样式-->
+        <activity android:name=".theme.VMThemeActivity"/>
     </application>
 
 </manifest>

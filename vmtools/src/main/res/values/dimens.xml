@@ -20,7 +20,7 @@
 
 
     <!--定义头像尺寸-->
-    <dimen name="vm_avatar_small">36dp</dimen>
+    <dimen name="vm_avatar_small">40dp</dimen>
     <dimen name="vm_avatar_normal">56dp</dimen>
     <dimen name="vm_avatar_large">72dp</dimen>
 

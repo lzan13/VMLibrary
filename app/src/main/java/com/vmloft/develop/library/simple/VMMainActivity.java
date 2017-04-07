@@ -2,6 +2,7 @@ package com.vmloft.develop.library.simple;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.support.v7.widget.Toolbar;
 
@@ -9,7 +10,8 @@ import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.vmloft.develop.library.simple.socket.VMSocketActvity;
-import com.vmloft.develop.library.simple.widget.RecordActivity;
+import com.vmloft.develop.library.simple.theme.VMThemeActivity;
+import com.vmloft.develop.library.simple.widget.VMRecordActivity;
 import com.vmloft.develop.library.simple.widget.VMDotLineActivity;
 import com.vmloft.develop.library.tools.VMBaseActivity;
 import com.vmloft.develop.library.tools.widget.VMViewGroup;
@@ -32,10 +34,10 @@ public class VMMainActivity extends VMBaseActivity {
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
 
         String[] btnArray = {
-                "Socket", "Dot Line View", "Record View"
+                "Socket", "Dot Line View", "Record View", "Theme"
         };
         for (int i = 0; i < btnArray.length; i++) {
-            Button btn = new Button(activity);
+            Button btn = new Button(new ContextThemeWrapper(activity, R.style.VMView_Flat_Red), null, 0);
             btn.setText(btnArray[i]);
             btn.setId(100 + i);
             btn.setOnClickListener(viewListener);
@@ -54,7 +56,10 @@ public class VMMainActivity extends VMBaseActivity {
                     intent.setClass(activity, VMDotLineActivity.class);
                     break;
                 case 102:
-                    intent.setClass(activity, RecordActivity.class);
+                    intent.setClass(activity, VMRecordActivity.class);
+                    break;
+                case 103:
+                    intent.setClass(activity, VMThemeActivity.class);
                     break;
             }
             startActivity(intent);

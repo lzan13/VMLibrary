@@ -75,4 +75,42 @@
         <item name="android:textColor">@color/vm_black_title</item>
         <item name="android:textSize">@dimen/vm_size_menu</item>
     </style>
+
+
+    <!--扁平红色按钮-->
+    <style name="VMView.Flat.Red" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:colorControlHighlight">@color/vm_red_87</item>
+    </style>
+
+    <!--扁平透明按钮-->
+    <style name="VMView.Transparent" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:colorControlHighlight">@color/vm_black_12</item>
+        <item name="android:colorControlActivated">@color/vm_green_87</item>
+    </style>
+
+    <!--红色按钮-->
+    <style name="VMView.Red" parent="Theme.AppCompat.Light">
+        <item name="android:colorControlHighlight">@color/vm_black_38</item>
+        <item name="android:colorButtonNormal">@color/vm_red_100</item>
+        <item name="android:textColor">@color/vm_white_87</item>
+    </style>
+    <!--绿色按钮-->
+    <style name="VMView.Green" parent="Theme.AppCompat.Light">
+        <item name="android:colorControlHighlight">@color/vm_black_38</item>
+        <item name="android:colorButtonNormal">@color/vm_green_100</item>
+        <item name="android:textColor">@color/vm_white_87</item>
+    </style>
+    <!--蓝色按钮-->
+    <style name="VMView.Blue" parent="Theme.AppCompat.Light">
+        <item name="android:colorControlHighlight">@color/vm_black_38</item>
+        <item name="android:colorButtonNormal">@color/vm_blue_100</item>
+        <item name="android:textColor">@color/vm_white_87</item>
+    </style>
+    <!--白色按钮-->
+    <style name="VMView.White" parent="Theme.AppCompat.Light">
+        <item name="android:colorControlHighlight">@color/vm_black_38</item>
+        <item name="android:colorButtonNormal">@color/vm_white_100</item>
+        <item name="android:textColor">@color/vm_black_87</item>
+    </style>
+
 </resources>
