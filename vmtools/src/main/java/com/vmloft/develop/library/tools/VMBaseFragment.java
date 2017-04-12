@@ -59,6 +59,9 @@ public abstract class VMBaseFragment extends Fragment {
 
     @Override public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        activity = getActivity();
+
         initView();
         isInitView = true;
         loadData();

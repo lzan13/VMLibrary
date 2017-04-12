@@ -49,6 +49,13 @@
     <color name="vm_gray_38">#61727272</color>
     <color name="vm_gray_12">#1e727272</color>
 
+    <!--灰白色-->
+    <color name="vm_gray_white_100">#ffe8e8e8</color>
+    <color name="vm_gray_white_87">#dde8e8e8</color>
+    <color name="vm_gray_white_54">#89e8e8e8</color>
+    <color name="vm_gray_white_38">#61e8e8e8</color>
+    <color name="vm_gray_white_12">#1ee8e8e8</color>
+
     <!--红色-->
     <color name="vm_red_100">#ffe51c23</color>
     <color name="vm_red_87">#dde51c23</color>

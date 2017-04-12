@@ -10,7 +10,7 @@
     <integer name="vm_time_alpha_change">300</integer>
 
     <!--过渡动画持续时间-->
-    <integer name="vm_time_transition">320</integer>
+    <integer name="vm_time_transition">1320</integer>
     <integer name="vm_time_transition_delay">280</integer>
     <integer name="vm_time_share_transition">320</integer>
 

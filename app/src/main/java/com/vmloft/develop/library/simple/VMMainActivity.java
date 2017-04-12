@@ -37,7 +37,7 @@ public class VMMainActivity extends VMBaseActivity {
                 "Socket", "Dot Line View", "Record View", "Theme"
         };
         for (int i = 0; i < btnArray.length; i++) {
-            Button btn = new Button(new ContextThemeWrapper(activity, R.style.VMView_Flat_Red), null, 0);
+            Button btn = new Button(new ContextThemeWrapper(activity, R.style.VMBtn_Red), null, 0);
             btn.setText(btnArray[i]);
             btn.setId(100 + i);
             btn.setOnClickListener(viewListener);

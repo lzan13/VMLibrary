@@ -13,6 +13,6 @@ public class VMThemeActivity extends VMBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_theme);
 
-        findViewById(R.id.btn_transparent_activated).setActivated(true);
+        findViewById(R.id.btn_white_activated).setActivated(true);
     }
 }

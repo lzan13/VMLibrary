@@ -20,13 +20,14 @@
 
 
     <!--定义头像尺寸-->
-    <dimen name="vm_avatar_small">40dp</dimen>
+    <dimen name="vm_avatar_very_small">20dp</dimen>
+    <dimen name="vm_avatar_small">36dp</dimen>
     <dimen name="vm_avatar_normal">56dp</dimen>
     <dimen name="vm_avatar_large">72dp</dimen>
 
 
     <!--圆形背景半径定义-->
-    <dimen name="vm_round_radius_small">48dp</dimen>
+    <dimen name="vm_round_radius_small">36dp</dimen>
     <dimen name="vm_round_radius_normal">56dp</dimen>
     <dimen name="vm_round_radius_large">72dp</dimen>
 
@@ -56,6 +57,7 @@
     <dimen name="vm_dimen_2">2dp</dimen>
     <dimen name="vm_dimen_4">4dp</dimen>
     <dimen name="vm_dimen_8">8dp</dimen>
+    <dimen name="vm_dimen_12">12dp</dimen>
     <dimen name="vm_dimen_16">16dp</dimen>
     <dimen name="vm_dimen_20">20dp</dimen>
     <dimen name="vm_dimen_24">24dp</dimen>
