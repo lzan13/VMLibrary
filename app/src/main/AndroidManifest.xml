@@ -16,7 +16,7 @@
         <activity
             android:name="com.vmloft.develop.library.simple.VMMainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -25,7 +25,7 @@
         </activity>
 
         <!--测试 socket 相关-->
-        <activity android:name="com.vmloft.develop.library.simple.socket.VMSocketActvity"/>
+        <activity android:name="com.vmloft.develop.library.simple.socket.VMSocketActivity"/>
         <activity android:name="com.vmloft.develop.library.simple.socket.VMSocketServer"/>
         <activity android:name="com.vmloft.develop.library.simple.socket.VMTCPSocketClient"/>
         <activity android:name="com.vmloft.develop.library.simple.socket.VMUDPSocketClient"/>
@@ -35,7 +35,10 @@
         <activity android:name=".widget.VMRecordActivity"/>
 
         <!--测试主题样式-->
-        <activity android:name=".theme.VMThemeActivity"/>
+        <activity
+            android:name=".theme.VMThemeActivity"
+            android:theme="@style/AppTheme.Transparent"/>
+
     </application>
 
 </manifest>

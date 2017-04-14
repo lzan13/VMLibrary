@@ -11,7 +11,10 @@ import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
 import android.util.Base64;
+import android.view.View;
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 
 /**
  * Created by lzan13 on 2016/1/11.
@@ -50,7 +53,7 @@ public class VMBitmapUtil {
     /**
      * 获取图片文件的缩略图
      *
-     * @param path      图片文件路径
+     * @param path 图片文件路径
      * @param dimension 设置缩略图最大尺寸
      * @return 返回压缩后的缩略图
      */
@@ -77,7 +80,7 @@ public class VMBitmapUtil {
     /**
      * 通过文件加载图片，这里也可以加载大图，保证不会出现 OOM，
      *
-     * @param path      要压缩的图片路径
+     * @param path 要压缩的图片路径
      * @param dimension 定义压缩后的最大尺寸
      * @return 返回经过压缩处理的图片
      */
@@ -110,7 +113,7 @@ public class VMBitmapUtil {
     /**
      * 按比例压缩 Bitmap
      *
-     * @param bitmap    需要压缩的 Bitmap
+     * @param bitmap 需要压缩的 Bitmap
      * @param dimension 图片压缩后最大宽高
      * @return 返回压缩后的 Bitmap
      */
@@ -134,7 +137,7 @@ public class VMBitmapUtil {
      * 按比例压缩 Bitmap
      *
      * @param bitmap 需要压缩的 Bitmap
-     * @param scale  图片压缩比率(0-1)
+     * @param scale 图片压缩比率(0-1)
      * @return 返回压缩后的 Bitmap
      */
     public static Bitmap compressBitmapByMatrixToScale(Bitmap bitmap, int scale) {
@@ -147,11 +150,32 @@ public class VMBitmapUtil {
     }
 
     /**
+     * 获取一个 View 的缓存视图
+     *
+     * @param view 需要保存图像的 View 控件
+     * @return 返回保存的 Bitmap 图像
+     */
+    private Bitmap getCacheBitmapFromView(View view) {
+        final boolean drawingCacheEnabled = true;
+        view.setDrawingCacheEnabled(drawingCacheEnabled);
+        view.buildDrawingCache(drawingCacheEnabled);
+        Bitmap drawingCache = view.getDrawingCache();
+        Bitmap bitmap;
+        if (drawingCache != null) {
+            bitmap = Bitmap.createBitmap(drawingCache);
+            view.setDrawingCacheEnabled(false);
+        } else {
+            bitmap = null;
+        }
+        return bitmap;
+    }
+
+    /**
      * 获取最佳缩放比例
      *
-     * @param actualWidth  Bitmap的实际宽度
+     * @param actualWidth Bitmap的实际宽度
      * @param actualHeight Bitmap的实际高度
-     * @param dimension    定义压缩后最大尺寸
+     * @param dimension 定义压缩后最大尺寸
      * @return 返回最佳缩放比例
      */
     public static float getZoomScale(int actualWidth, int actualHeight, int dimension) {
@@ -165,13 +189,49 @@ public class VMBitmapUtil {
     }
 
     /**
+     * 保存Bitmap到SD卡
+     */
+    public static void saveBitmapToSDCard(Bitmap bitmap, String path) {
+        OutputStream outputStream = null;
+        try {
+            outputStream = new FileOutputStream(path);
+            if (outputStream != null) {
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, outputStream);
+                outputStream.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 根据传入的路径，获取图片的宽高
+     *
+     * @param filepath 图片文件的路径
+     * @return 返回图片的宽高是拼接的字符串
+     */
+    public static String getImageSize(String filepath) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        // 开始读入图片，此时把options.inJustDecodeBounds 设为true了
+        // 这个参数的意义是仅仅解析边缘区域，从而可以得到图片的一些信息，比如大小，而不会整个解析图片，防止OOM
+        options.inJustDecodeBounds = true;
+
+        // 此时bitmap还是为空的
+        Bitmap bitmap = BitmapFactory.decodeFile(filepath, options);
+
+        int actualWidth = options.outWidth;
+        int actualHeight = options.outHeight;
+        return actualWidth + "." + actualHeight;
+    }
+
+    /**
      * 使用 RenderScript 模糊图片
+     * PS:此方法只能在 SDK API 17 以上使用
      *
      * @param context 上下文对象
-     * @param bitmap  需要模糊的bitmap
-     * @param scale   模糊的比例因数
-     * @param radius  模糊半径
-     * @return
+     * @param bitmap 需要模糊的bitmap
+     * @param scale 模糊的比例因数
+     * @param radius 模糊半径
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public static Bitmap rsBlurBitmp(Context context, Bitmap bitmap, int scale, float radius) {
@@ -233,10 +293,9 @@ public class VMBitmapUtil {
      * java层进行模糊，使用堆栈计算模糊法
      *
      * @param sentBitmap 需要模糊的 Bitmap
-     * @param scale      模糊前缩放比例，缩放越大模糊耗费资源越少，相对的模糊质量较低
-     * @param radius     模糊半径
-     * @param reuse      是否重用 Bitmap
-     * @return
+     * @param scale 模糊前缩放比例，缩放越大模糊耗费资源越少，相对的模糊质量较低
+     * @param radius 模糊半径
+     * @param reuse 是否重用 Bitmap
      */
     public static Bitmap stackBlurBitmap(Bitmap sentBitmap, int scale, int radius, boolean reuse) {
 

@@ -144,42 +144,6 @@ public class VMFileUtil {
     }
 
     /**
-     * 保存Bitmap到SD卡
-     */
-    public static void saveBitmapToSDCard(Bitmap bitmap, String path) {
-        OutputStream outputStream = null;
-        try {
-            outputStream = new FileOutputStream(path);
-            if (outputStream != null) {
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, outputStream);
-                outputStream.close();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 根据传入的路径，获取图片的宽高
-     *
-     * @param filepath 图片文件的路径
-     * @return 返回图片的宽高是拼接的字符串
-     */
-    public static String getImageSize(String filepath) {
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        // 开始读入图片，此时把options.inJustDecodeBounds 设为true了
-        // 这个参数的意义是仅仅解析边缘区域，从而可以得到图片的一些信息，比如大小，而不会整个解析图片，防止OOM
-        options.inJustDecodeBounds = true;
-
-        // 此时bitmap还是为空的
-        Bitmap bitmap = BitmapFactory.decodeFile(filepath, options);
-
-        int actualWidth = options.outWidth;
-        int actualHeight = options.outHeight;
-        return actualWidth + "." + actualHeight;
-    }
-
-    /**
      * 删除文件
      */
     public static boolean deleteFile(String filepath) {

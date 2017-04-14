@@ -13,15 +13,11 @@ import com.vmloft.develop.library.tools.VMBaseActivity;
  * 测试 TCP 和 UDP Socket 连接收发数据
  * Created by lzan13 on 2017/3/12.
  */
-public class VMSocketActvity extends VMBaseActivity {
-
-    private VMBaseActivity activity;
+public class VMSocketActivity extends VMBaseActivity {
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_socket);
-
-        activity = this;
 
         findViewById(R.id.btn_socket_server_tcp).setOnClickListener(viewListener);
         findViewById(R.id.btn_socket_server_udp).setOnClickListener(viewListener);
@@ -36,18 +32,16 @@ public class VMSocketActvity extends VMBaseActivity {
         @Override public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.btn_socket_server_tcp:
-                    startActivity(new Intent(activity, VMSocketServer.class).putExtra("socket_type",
-                            "TCP"));
+                    onStartActivity(activity, new Intent(activity, VMSocketServer.class).putExtra("socket_type", "TCP"));
                     break;
                 case R.id.btn_socket_server_udp:
-                    startActivity(new Intent(activity, VMSocketServer.class).putExtra("socket_type",
-                            "UDP"));
+                    onStartActivity(activity, new Intent(activity, VMSocketServer.class).putExtra("socket_type", "UDP"));
                     break;
                 case R.id.btn_socket_tcp:
-                    startActivity(new Intent(activity, VMTCPSocketClient.class));
+                    onStartActivity(activity, new Intent(activity, VMTCPSocketClient.class));
                     break;
                 case R.id.btn_socket_udp:
-                    startActivity(new Intent(activity, VMUDPSocketClient.class));
+                    onStartActivity(activity, new Intent(activity, VMUDPSocketClient.class));
                     break;
             }
         }

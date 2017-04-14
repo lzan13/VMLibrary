@@ -1,144 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/vm_gray_54"
-    android:orientation="vertical"
-    android:padding="@dimen/vm_padding_normal"
+    android:background="@color/vm_theme_background_light"
+    android:fitsSystemWindows="true"
     >
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <!--扁平按钮必须同时设置 theme 和 style 否则无效-->
-        <Button
-            android:id="@+id/btn_transparent_disable"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:enabled="false"
-            android:text="透明禁用"
-            android:theme="@style/VMBtn.Transparent"
-            style="@style/VMBtn.Transparent"
-            />
-
-        <Button
-            android:id="@+id/btn_transparent_activated"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="扁平透明"
-            android:theme="@style/VMBtn.Transparent"
-            style="@style/VMBtn.Transparent"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="扁红"
-            android:theme="@style/VMBtn.Flat.Red"
-            style="@style/VMBtn.Flat.Red"
-            />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="扁绿"
-            android:theme="@style/VMBtn.Flat.Green"
-            style="@style/VMBtn.Flat.Green"
-            />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="扁蓝"
-            android:theme="@style/VMBtn.Flat.Blue"
-            style="@style/VMBtn.Flat.Blue"
-            />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="扁白"
-            android:theme="@style/VMBtn.Flat.White"
-            style="@style/VMBtn.Flat.White"
-            />
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="红色"
-            android:theme="@style/VMBtn.Red"
-            />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="绿色"
-            android:theme="@style/VMBtn.Green"
-            />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="蓝色"
-            android:theme="@style/VMBtn.Blue"
-            />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="白色"
-            android:theme="@style/VMBtn.White"
-            />
-    </LinearLayout>
+    <include layout="@layout/widget_appbar"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/vm_margin_large"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         >
-
-        <Button
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:enabled="false"
-            android:text="红色"
-            android:theme="@style/VMBtn.Red"
-            />
+            android:orientation="horizontal"
+            >
+            <!--扁平按钮必须同时设置 theme 和 style 否则无效-->
+            <Button
+                android:id="@+id/btn_transparent_disable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="透明禁用"
+                android:theme="@style/VMBtn.Transparent"
+                style="@style/VMBtn.Transparent"
+                />
 
-        <Button
-            android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/btn_transparent_activated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="扁平透明"
+                android:theme="@style/VMBtn.Transparent"
+                style="@style/VMBtn.Transparent"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:enabled="false"
-            android:text="绿色"
-            android:theme="@style/VMBtn.Green"
-            />
+            android:orientation="horizontal"
+            >
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="扁红"
+                android:theme="@style/VMBtn.Flat.Red"
+                style="@style/VMBtn.Flat.Red"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="扁绿"
+                android:theme="@style/VMBtn.Flat.Green"
+                style="@style/VMBtn.Flat.Green"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="扁蓝"
+                android:theme="@style/VMBtn.Flat.Blue"
+                style="@style/VMBtn.Flat.Blue"
+                />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:enabled="false"
-            android:text="蓝色"
-            android:theme="@style/VMBtn.Blue"
-            />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="扁白"
+                android:theme="@style/VMBtn.Flat.White"
+                style="@style/VMBtn.Flat.White"
+                />
 
-        <Button
-            android:id="@+id/btn_white_activated"
-            android:layout_width="wrap_content"
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:enabled="false"
-            android:text="白色"
-            android:theme="@style/VMBtn.White"
-            />
+            android:orientation="horizontal"
+            >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="红色"
+                android:theme="@style/VMBtn.Red"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="绿色"
+                android:theme="@style/VMBtn.Green"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="蓝色"
+                android:theme="@style/VMBtn.Blue"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="白色"
+                android:theme="@style/VMBtn.White"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="红色"
+                android:theme="@style/VMBtn.Red"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="绿色"
+                android:theme="@style/VMBtn.Green"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="蓝色"
+                android:theme="@style/VMBtn.Blue"
+                />
+
+            <Button
+                android:id="@+id/btn_white_activated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="白色"
+                android:theme="@style/VMBtn.White"
+                />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

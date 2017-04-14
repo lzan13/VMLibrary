@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.vmloft.develop.library.simple.socket.VMSocketActvity;
+import com.vmloft.develop.library.simple.socket.VMSocketActivity;
 import com.vmloft.develop.library.simple.theme.VMThemeActivity;
 import com.vmloft.develop.library.simple.widget.VMRecordActivity;
 import com.vmloft.develop.library.simple.widget.VMDotLineActivity;
@@ -22,10 +22,9 @@ public class VMMainActivity extends VMBaseActivity {
     @BindView(R.id.view_group) VMViewGroup viewGroup;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        activity = this;
 
         ButterKnife.bind(activity);
 
@@ -50,7 +49,7 @@ public class VMMainActivity extends VMBaseActivity {
             Intent intent = new Intent();
             switch (v.getId()) {
                 case 100:
-                    intent.setClass(activity, VMSocketActvity.class);
+                    intent.setClass(activity, VMSocketActivity.class);
                     break;
                 case 101:
                     intent.setClass(activity, VMDotLineActivity.class);
@@ -62,7 +61,7 @@ public class VMMainActivity extends VMBaseActivity {
                     intent.setClass(activity, VMThemeActivity.class);
                     break;
             }
-            startActivity(intent);
+            onStartActivity(activity, intent);
         }
     };
 }

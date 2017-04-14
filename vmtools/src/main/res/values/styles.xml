@@ -9,8 +9,8 @@
         <item name="colorPrimaryDark">@color/vm_theme_primary_dark_light</item>
         <!--各控件激活时的颜色，一般是 CheckBox、EditText、Switch、Spinner、RadioButton 等控件激活的颜色-->
         <item name="colorAccent">@color/vm_theme_accent_light</item>
-        <!--界面背景色-->
-        <item name="android:windowBackground">@color/vm_theme_background_light</item>
+        <!--界面背景色，为了优化 UI，这里设置为透明-->
+        <item name="android:windowBackground">@color/vm_transparent</item>
 
         <!--设置主题不需要ActionBar-->
         <item name="windowActionBar">false</item>
@@ -26,7 +26,21 @@
         <!--设置状态栏为透明-->
         <item name="android:statusBarColor">@android:color/transparent</item>
         <!--设置导航栏半透明效果-->
-        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+
+        <!--设置是否允许使用转场动画-->
+        <item name="android:windowContentTransitions">false</item>
+        <!--设置动画效果执行方式，是同步还是顺序执行-->
+        <!--A 退出和 B 进入动画是否同步执行-->
+        <item name="android:windowAllowEnterTransitionOverlap">false</item>
+        <!--B 返回和 A 重新进入是否同步执行-->
+        <item name="android:windowAllowReturnTransitionOverlap">false</item>
+        <!--指定进入和退出的转场动画-->
+        <item name="android:windowEnterTransition">@null</item>
+        <item name="android:windowExitTransition">@null</item>
+        <item name="android:windowReenterTransition">@null</item>
+        <item name="android:windowReturnTransition">@null</item>
+
     </style>
 
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transitionSet xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:interpolator/accelerate_quint">
+    <slide
+        android:duration="@integer/vm_time_transition"
+        android:slideEdge="bottom">
+        <targets>
+            <target android:targetId="@+id/layout_coordinator"/>
+        </targets>
+    </slide>
+    <fade
+        android:duration="@integer/vm_time_transition_fast"
+        android:startDelay="@integer/vm_time_transition_delay">
+        <targets>
+            <target android:targetId="@android:id/statusBarBackground"/>
+            <target android:targetId="@+id/layout_coordinator"/>
+        </targets>
+    </fade>
+</transitionSet>
