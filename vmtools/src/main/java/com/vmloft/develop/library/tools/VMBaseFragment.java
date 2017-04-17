@@ -18,7 +18,7 @@ public abstract class VMBaseFragment extends Fragment {
 
     protected String className = this.getClass().getSimpleName();
 
-    protected FragmentActivity activity;
+    protected VMBaseActivity activity;
 
     // 是否第一次加载
     protected boolean isFirstLoad = true;
@@ -60,7 +60,7 @@ public abstract class VMBaseFragment extends Fragment {
     @Override public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        activity = getActivity();
+        activity = (VMBaseActivity) getActivity();
 
         initView();
         isInitView = true;

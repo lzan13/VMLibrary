@@ -27,7 +27,7 @@ public class VMBaseActivity extends AppCompatActivity {
         VMLog.i("%s onCreate", className);
         activity = this;
 
-        activity.getWindow().setBackgroundDrawableResource(R.color.vm_transparent);
+        //activity.getWindow().setBackgroundDrawableResource(R.color.vm_transparent);
     }
 
     @Override protected void onRestart() {
