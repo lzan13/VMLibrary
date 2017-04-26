@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.vmloft.develop.library.simple.camera.VMCameraActivity;
 import com.vmloft.develop.library.simple.socket.VMSocketActivity;
 import com.vmloft.develop.library.simple.theme.VMThemeActivity;
 import com.vmloft.develop.library.simple.widget.VMRecordActivity;
@@ -33,7 +34,7 @@ public class VMMainActivity extends VMBaseActivity {
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
 
         String[] btnArray = {
-                "Socket", "Dot Line View", "Record View", "Theme"
+                "Socket", "Dot Line", "Record", "Theme", "Camera"
         };
         for (int i = 0; i < btnArray.length; i++) {
             Button btn = new Button(new ContextThemeWrapper(activity, R.style.VMBtn_Red), null, 0);
@@ -59,6 +60,9 @@ public class VMMainActivity extends VMBaseActivity {
                     break;
                 case 103:
                     intent.setClass(activity, VMThemeActivity.class);
+                    break;
+                case 104:
+                    intent.setClass(activity, VMCameraActivity.class);
                     break;
             }
             onStartActivity(activity, intent);

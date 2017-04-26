@@ -129,7 +129,9 @@ public class VMBitmapUtil {
         // 使用矩阵进行压缩图片
         Matrix matrix = new Matrix();
         matrix.postScale(scale, scale);
-        Bitmap result = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+        Bitmap result =
+                Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix,
+                        true);
         return result;
     }
 
@@ -145,7 +147,9 @@ public class VMBitmapUtil {
         Matrix matrix = new Matrix();
         float s = (float) 1 / scale;
         matrix.postScale(s, s);
-        Bitmap result = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+        Bitmap result =
+                Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix,
+                        true);
         return result;
     }
 
@@ -190,6 +194,9 @@ public class VMBitmapUtil {
 
     /**
      * 保存Bitmap到SD卡
+     *
+     * @param bitmap 需要保存的图片数据
+     * @param path 保存路径
      */
     public static void saveBitmapToSDCard(Bitmap bitmap, String path) {
         OutputStream outputStream = null;
@@ -233,8 +240,8 @@ public class VMBitmapUtil {
      * @param scale 模糊的比例因数
      * @param radius 模糊半径
      */
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    public static Bitmap rsBlurBitmp(Context context, Bitmap bitmap, int scale, float radius) {
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1) public static Bitmap rsBlurBitmp(Context context,
+            Bitmap bitmap, int scale, float radius) {
         // 创建一个新的压缩过的 Bitmap
         Bitmap overlay = compressBitmapByMatrixToScale(bitmap, scale);
 
@@ -242,9 +249,9 @@ public class VMBitmapUtil {
         try {
             rs = RenderScript.create(context);
             rs.setMessageHandler(new RenderScript.RSMessageHandler());
-            Allocation input = Allocation.createFromBitmap(rs, overlay,
-                    Allocation.MipmapControl.MIPMAP_NONE,
-                    Allocation.USAGE_SCRIPT);
+            Allocation input =
+                    Allocation.createFromBitmap(rs, overlay, Allocation.MipmapControl.MIPMAP_NONE,
+                            Allocation.USAGE_SCRIPT);
             Allocation output = Allocation.createTyped(rs, input.getType());
 
             ScriptIntrinsicBlur blur = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));

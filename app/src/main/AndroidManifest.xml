@@ -6,6 +6,12 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <!-- 录音 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <!--相机权限-->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera"/>
+    <!--读写外部存储设备权限-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -39,6 +45,11 @@
             android:name=".theme.VMThemeActivity"
             android:theme="@style/AppTheme.Transparent"/>
 
+        <!--实现相机功能-->
+        <activity
+            android:name=".camera.VMCameraActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppTheme.Transparent"/>
     </application>
 
 </manifest>
