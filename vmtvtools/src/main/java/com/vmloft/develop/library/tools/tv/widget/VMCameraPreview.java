@@ -1,21 +1,14 @@
-package com.vmloft.develop.library.tools.widget;
+package com.vmloft.develop.library.tools.tv.widget;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.hardware.Camera;
-import android.os.Handler;
-import android.os.HandlerThread;
 import android.util.AttributeSet;
 import android.view.Display;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.WindowManager;
-import com.vmloft.develop.library.tools.utils.VMBitmapUtil;
-import com.vmloft.develop.library.tools.utils.VMDateUtil;
-import com.vmloft.develop.library.tools.utils.VMFileUtil;
-import com.vmloft.develop.library.tools.utils.VMLog;
+import com.vmloft.develop.library.tools.tv.utils.VMLog;
 import java.io.IOException;
 
 /**
@@ -23,9 +16,6 @@ import java.io.IOException;
  * 自定义实现摄像头画面预览控件
  */
 public class VMCameraPreview extends SurfaceView implements SurfaceHolder.Callback {
-
-    private String imagePath = VMFileUtil.getPictures();
-    private String videoPath = VMFileUtil.getMovies();
 
     private SurfaceHolder holder;
     private Camera camera;
@@ -48,6 +38,22 @@ public class VMCameraPreview extends SurfaceView implements SurfaceHolder.Callba
     }
 
     /**
+     * 初始化相机实例
+     */
+    private Camera getCameraInstance() {
+        if (camera == null) {
+            int cameraCount = Camera.getNumberOfCameras();
+            if (cameraCount >= 0) {
+                camera = Camera.open();
+            } else {
+                VMLog.d("没有找到摄像头，无法使用预览功能");
+                return null;
+            }
+        }
+        return camera;
+    }
+
+    /**
      * 预览界面创建时回调
      *
      * @param holder 图片预览句柄
@@ -55,9 +61,13 @@ public class VMCameraPreview extends SurfaceView implements SurfaceHolder.Callba
     @Override public void surfaceCreated(SurfaceHolder holder) {
         VMLog.d("surfaceCreated");
         // 初始化相机实例
-        initCameraInstance();
+        getCameraInstance();
         // 开启相机预览
-        startCameraPreview();
+        try {
+            startCameraPreview();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         // 设置摄像头旋转角度
         //setCameraOrientation();
     }
@@ -88,15 +98,11 @@ public class VMCameraPreview extends SurfaceView implements SurfaceHolder.Callba
     /**
      * 开启相机预览
      */
-    private void startCameraPreview() {
-        try {
-            // 设置摄像头预览控件
-            camera.setPreviewDisplay(holder);
-            // 开启预览
-            camera.startPreview();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void startCameraPreview() throws IOException {
+        // 设置摄像头预览控件
+        camera.setPreviewDisplay(holder);
+        // 开启预览
+        camera.startPreview();
     }
 
     /**
@@ -150,79 +156,5 @@ public class VMCameraPreview extends SurfaceView implements SurfaceHolder.Callba
         }
         int result = (orientation - degrees + 360) % 360;
         return result;
-    }
-
-    /**
-     * 保存图片
-     */
-    public void takePicture() {
-        camera.takePicture(null, null, new Camera.PictureCallback() {
-            @Override public void onPictureTaken(byte[] data, Camera camera) {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-                String filePath = imagePath + "IMG" + VMDateUtil.getDateTimeNoSpacing() + ".jpg";
-                VMBitmapUtil.saveBitmapToSDCard(bitmap, filePath);
-                VMLog.d("Take picture success: %s", filePath);
-                // 继续开启相机预览
-                camera.startPreview();
-            }
-        });
-    }
-
-    /**
-     * 初始化相机实例
-     */
-    private Camera initCameraInstance() {
-        if (camera == null) {
-            // 启动相机进程
-            CameraHandlerThread handlerThread = new CameraHandlerThread("CameraHandlerThread");
-            synchronized (handlerThread) {
-                handlerThread.openCamera();
-            }
-        }
-        return camera;
-    }
-
-    private class CameraHandlerThread extends HandlerThread {
-        // 当前线程的 handler
-        private Handler handler;
-
-        /**
-         * 构造方法
-         *
-         * @param name 线程名字
-         */
-        CameraHandlerThread(String name) {
-            super(name);
-            // 创建线程后马上启动
-            start();
-            handler = new Handler(getLooper());
-        }
-
-        /**
-         * 通知 Camera.open() 执行完毕
-         */
-        synchronized void notifyCameraOpened() {
-            notify();
-        }
-
-        /**
-         * 在子线程中打开相机
-         */
-        void openCamera() {
-            handler.post(new Runnable() {
-                @Override public void run() {
-                    if (camera == null) {
-                        camera = Camera.open();
-                    }
-                    notifyCameraOpened();
-                }
-            });
-            try {
-                // 为了防止 openCamera 之后马上使用 camera 对象，这里加上 wait-notify 安全机制
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
     }
 }

@@ -3,13 +3,16 @@ package com.vmloft.develop.library.simple.camera;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.vmloft.develop.library.simple.R;
 import com.vmloft.develop.library.tools.VMBaseActivity;
+import com.vmloft.develop.library.tools.widget.VMCamera2Preview;
 import com.vmloft.develop.library.tools.widget.VMCameraPreview;
 
 /**
@@ -18,7 +21,8 @@ import com.vmloft.develop.library.tools.widget.VMCameraPreview;
  */
 public class VMCameraActivity extends VMBaseActivity {
 
-    @BindView(R.id.layout_camera_preview) FrameLayout cameraLayout;
+    @BindView(R.id.layout_camera_preview) RelativeLayout cameraLayout;
+    @BindView(R.id.camera_2_preview) VMCamera2Preview camera2Preview;
     @BindView(R.id.btn_camera_recording) Button recordingBtn;
     @BindView(R.id.btn_camera_picture) Button takePictureBtn;
 
@@ -36,15 +40,24 @@ public class VMCameraActivity extends VMBaseActivity {
     }
 
     private void initCamera() {
-        cameraPreview = new VMCameraPreview(activity);
-        cameraLayout.addView(cameraPreview);
+        //cameraPreview = new VMCameraPreview(activity);
+        //cameraLayout.addView(cameraPreview);
+
+        //camera2Preview = new VMCamera2Preview(activity);
+        //RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(0, 0);
+        //lp.width = RelativeLayout.LayoutParams.MATCH_PARENT;
+        //lp.height = RelativeLayout.LayoutParams.MATCH_PARENT;
+        //lp.addRule(RelativeLayout.CENTER_IN_PARENT);
+        //camera2Preview.setLayoutParams(lp);
+        //cameraLayout.addView(camera2Preview);
+        //camera2Preview.setViewRatio(1920, 1080);
     }
 
     @OnClick({ R.id.btn_camera_picture, R.id.btn_camera_recording }) void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_camera_picture:
                 // 拍照
-                cameraPreview.takePicture();
+                //cameraPreview.takePicture();
                 break;
             case R.id.btn_camera_recording:
 
@@ -73,5 +86,4 @@ public class VMCameraActivity extends VMBaseActivity {
     @Override public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
     }
-
 }

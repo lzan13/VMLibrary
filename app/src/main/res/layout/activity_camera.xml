@@ -8,12 +8,18 @@
     android:background="@color/vm_theme_background_light"
     android:fitsSystemWindows="false"
     >
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/layout_camera_preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-    </FrameLayout>
+        <com.vmloft.develop.library.tools.widget.VMCamera2Preview
+            android:id="@+id/camera_2_preview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
