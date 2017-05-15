@@ -22,11 +22,10 @@ import com.vmloft.develop.library.tools.widget.VMCameraPreview;
 public class VMCameraActivity extends VMBaseActivity {
 
     @BindView(R.id.layout_camera_preview) RelativeLayout cameraLayout;
-    @BindView(R.id.camera_2_preview) VMCamera2Preview camera2Preview;
+    @BindView(R.id.camera_preview) VMCameraPreview cameraPreview;
+    //@BindView(R.id.camera_2_preview) VMCamera2Preview camera2Preview;
     @BindView(R.id.btn_camera_recording) Button recordingBtn;
     @BindView(R.id.btn_camera_picture) Button takePictureBtn;
-
-    private VMCameraPreview cameraPreview;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,24 +39,15 @@ public class VMCameraActivity extends VMBaseActivity {
     }
 
     private void initCamera() {
-        //cameraPreview = new VMCameraPreview(activity);
-        //cameraLayout.addView(cameraPreview);
 
-        //camera2Preview = new VMCamera2Preview(activity);
-        //RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(0, 0);
-        //lp.width = RelativeLayout.LayoutParams.MATCH_PARENT;
-        //lp.height = RelativeLayout.LayoutParams.MATCH_PARENT;
-        //lp.addRule(RelativeLayout.CENTER_IN_PARENT);
-        //camera2Preview.setLayoutParams(lp);
-        //cameraLayout.addView(camera2Preview);
-        //camera2Preview.setViewRatio(1920, 1080);
     }
 
     @OnClick({ R.id.btn_camera_picture, R.id.btn_camera_recording }) void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_camera_picture:
                 // 拍照
-                //cameraPreview.takePicture();
+                cameraPreview.takePicture();
+                //camera2Preview.takePicture();
                 break;
             case R.id.btn_camera_recording:
 

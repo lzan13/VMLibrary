@@ -27,4 +27,5 @@ dependencies {
 
     // 引入自己封装的库
     compile project(':vmtools')
+    compile project(path: ':vmtvtools')
 }

@@ -1,26 +1,54 @@
 package com.vmloft.develop.library.tools.tv.widget;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.Camera;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.util.AttributeSet;
 import android.view.Display;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.WindowManager;
+import com.vmloft.develop.library.tools.tv.utils.VMBitmapUtil;
+import com.vmloft.develop.library.tools.tv.utils.VMDateUtil;
+import com.vmloft.develop.library.tools.tv.utils.VMFileUtil;
 import com.vmloft.develop.library.tools.tv.utils.VMLog;
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by lzan13 on 2017/4/24.
  * 自定义实现摄像头画面预览控件
  */
-public class VMCameraPreview extends SurfaceView implements SurfaceHolder.Callback {
+public class VMCameraPreview extends SurfaceView implements SurfaceHolder.Callback, Camera.PreviewCallback {
+
+    private CameraDataCallback callback;
+
+    private int width = 640;
+    private int height = 480;
 
     private SurfaceHolder holder;
     private Camera camera;
 
     private Camera.CameraInfo cameraInfo;
+
+    /**
+     * 工厂方法
+     *
+     * @param context 上下文对象
+     * @param width 初始化预览宽
+     * @param height 初始化预览高
+     * @return 返回预览控件对象
+     */
+    public static VMCameraPreview newInstance(Context context, int width, int height) {
+        VMCameraPreview preview = new VMCameraPreview(context);
+        preview.setCameraSize(width, height);
+        return preview;
+    }
 
     public VMCameraPreview(Context context) {
         super(context);
@@ -38,16 +66,24 @@ public class VMCameraPreview extends SurfaceView implements SurfaceHolder.Callba
     }
 
     /**
-     * 初始化相机实例
+     * 设置相机预览大小
+     *
+     * @param width 相机宽
+     * @param height 相机高
      */
-    private Camera getCameraInstance() {
+    public void setCameraSize(int width, int height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    /**
+     * 获取相机实例
+     */
+    public Camera getCameraInstance() {
         if (camera == null) {
-            int cameraCount = Camera.getNumberOfCameras();
-            if (cameraCount >= 0) {
-                camera = Camera.open();
-            } else {
-                VMLog.d("没有找到摄像头，无法使用预览功能");
-                return null;
+            CameraHandlerThread thread = new CameraHandlerThread("camera thread");
+            synchronized (thread) {
+                thread.openCamera();
             }
         }
         return camera;
@@ -60,16 +96,7 @@ public class VMCameraPreview extends SurfaceView implements SurfaceHolder.Callba
      */
     @Override public void surfaceCreated(SurfaceHolder holder) {
         VMLog.d("surfaceCreated");
-        // 初始化相机实例
-        getCameraInstance();
-        // 开启相机预览
-        try {
-            startCameraPreview();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        // 设置摄像头旋转角度
-        //setCameraOrientation();
+        startCameraPreview();
     }
 
     /**
@@ -98,11 +125,37 @@ public class VMCameraPreview extends SurfaceView implements SurfaceHolder.Callba
     /**
      * 开启相机预览
      */
-    private void startCameraPreview() throws IOException {
-        // 设置摄像头预览控件
-        camera.setPreviewDisplay(holder);
-        // 开启预览
-        camera.startPreview();
+    public void startCameraPreview() {
+        // 初始化相机实例
+        getCameraInstance();
+
+        Camera.Parameters parameters = camera.getParameters();
+        List<Camera.Size> sizeList = parameters.getSupportedPreviewSizes();
+        if (sizeList.size() > 0) {
+            Iterator<Camera.Size> itor = sizeList.iterator();
+            while (itor.hasNext()) {
+                Camera.Size size = itor.next();
+                VMLog.d("camera supported size: w: %d, h: %d", size.width, size.height);
+            }
+        }
+        // 设置预览大小，预览就按照默认最大就行
+        parameters.setPreviewSize(width, height);
+        // 设置捕获照片大小
+        //parameters.setPictureSize(width, height);
+        // 设置捕获图片数据格式，可以不设置
+        //parameters.setPictureFormat(ImageFormat.YUV_422_888);
+        camera.setParameters(parameters);
+
+        try {
+            // 设置摄像头预览控件
+            camera.setPreviewDisplay(holder);
+            // 开启预览
+            camera.startPreview();
+            // 设置相机预览回调
+            camera.setPreviewCallback(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -117,8 +170,12 @@ public class VMCameraPreview extends SurfaceView implements SurfaceHolder.Callba
      */
     public void setCameraOrientation() {
         int orientation = getDisplayOrientation();
-        // 设置摄像头方向
+        // 设置预览画面方向
         camera.setDisplayOrientation(orientation);
+        // 设置捕获图片画面方向
+        Camera.Parameters parameters = camera.getParameters();
+        parameters.setRotation(orientation);
+        camera.setParameters(parameters);
     }
 
     /**
@@ -132,8 +189,7 @@ public class VMCameraPreview extends SurfaceView implements SurfaceHolder.Callba
         int orientation = cameraInfo.orientation;
         VMLog.d("camera orientation: %d", orientation);
 
-        Display display = ((WindowManager) getContext().getSystemService(
-                Context.WINDOW_SERVICE)).getDefaultDisplay();
+        Display display = ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
 
         // 屏幕旋转的角度
         int rotation = display.getRotation();
@@ -157,4 +213,94 @@ public class VMCameraPreview extends SurfaceView implements SurfaceHolder.Callba
         int result = (orientation - degrees + 360) % 360;
         return result;
     }
+
+    /**
+     * 保存图片
+     */
+    public void takePicture() {
+        camera.takePicture(null, null, new Camera.PictureCallback() {
+            @Override public void onPictureTaken(byte[] data, Camera camera) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                String filePath = VMFileUtil.getDCIM() + "IMG" + VMDateUtil.getDateTimeNoSpacing() + ".jpg";
+                VMBitmapUtil.saveBitmapToSDCard(bitmap, filePath);
+                VMLog.d("Take picture success: %s", filePath);
+                // 继续开启相机预览
+                camera.startPreview();
+            }
+        });
+    }
+
+    @Override public void onPreviewFrame(byte[] data, Camera camera) {
+        if (callback != null) {
+            int rotation = getDisplayOrientation();
+            callback.onCameraDataCallback(data, width, height, rotation);
+        }
+    }
+
+    /**
+     * 打开摄像头
+     */
+    private void openCameraOriginal() {
+        try {
+            camera = Camera.open();
+        } catch (Exception e) {
+            VMLog.d("camera is not available");
+        }
+    }
+
+    /**
+     * 为相机创建单独的进程
+     */
+    private class CameraHandlerThread extends HandlerThread {
+        Handler handler;
+
+        public CameraHandlerThread(String name) {
+            super(name);
+            start();
+            handler = new Handler(getLooper());
+        }
+
+        synchronized void notifyCameraOpened() {
+            notify();
+        }
+
+        void openCamera() {
+            handler.post(new Runnable() {
+                @Override public void run() {
+                    openCameraOriginal();
+                    notifyCameraOpened();
+                }
+            });
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                VMLog.e("wait was interrupted");
+            }
+        }
+    }
+
+    /**
+     * 设置摄像头数据回调接口
+     *
+     * @param callback 外部实现的摄像头数据回调接口
+     */
+    public void setCameraDataCallback(CameraDataCallback callback) {
+        this.callback = callback;
+    }
+
+    /**
+     * 摄像头预览界面回调接口，用来回调预览数据
+     */
+    public interface CameraDataCallback {
+        /**
+         * 摄像头预览数据回调方法
+         *
+         * @param data 摄像头采集到的数据
+         * @param width 数据宽
+         * @param height 数据高
+         * @param rotation 数据旋转方向
+         */
+        public void onCameraDataCallback(byte[] data, int width, int height, int rotation);
+    }
 }
+

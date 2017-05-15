@@ -50,6 +50,8 @@
             android:name=".camera.VMCameraActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme.Transparent"/>
+        <!--测试可变控件-->
+        <activity android:name=".widget.details.VMDetailsActivity"/>
     </application>
 
 </manifest>

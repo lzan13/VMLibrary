@@ -13,8 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-        <com.vmloft.develop.library.tools.widget.VMCamera2Preview
-            android:id="@+id/camera_2_preview"
+        <!--<com.vmloft.develop.library.tools.widget.VMCamera2Preview-->
+            <!--android:id="@+id/camera_2_preview"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--/>-->
+        <com.vmloft.develop.library.tools.widget.VMCameraPreview
+            android:id="@+id/camera_preview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"

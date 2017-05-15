@@ -312,8 +312,7 @@ public class VMRecordView extends View {
             int millisecond = recordTime % 1000 / 100;
             timeText = timeText + "." + millisecond;
             float textWidth = paint.measureText(timeText);
-            canvas.drawText(timeText, viewHeight / 2 + textWidth / 2, viewHeight / 2 + textSize / 3,
-                    paint);
+            canvas.drawText(timeText, viewHeight / 2 + textWidth / 2, viewHeight / 2 + textSize / 3, paint);
         }
     }
 
@@ -334,8 +333,7 @@ public class VMRecordView extends View {
             paint.setTextSize(textSize);
             float textWidth = VMDimenUtil.getTextWidth(paint, touchText);
             float textHeight = VMDimenUtil.getTextHeight(paint);
-            canvas.drawText(touchText, touchCenterX - textWidth - touchSize / 3 * 2,
-                    touchCenterY + textHeight / 3, paint);
+            canvas.drawText(touchText, touchCenterX - textWidth - touchSize / 3 * 2, touchCenterY + textHeight / 3, paint);
 
             // 绘制滑动取消箭头
             canvas.drawLine(touchCenterX - textWidth * 2, touchCenterY, touchCenterX - textWidth * 2 + 15, touchCenterY - 15,
@@ -596,8 +594,6 @@ public class VMRecordView extends View {
             try {
                 ratio = mediaRecorder.getMaxAmplitude() / decibelBase;
             } catch (IllegalStateException e) {
-                e.printStackTrace();
-            } catch (RuntimeException e) {
                 e.printStackTrace();
             }
             if (ratio > 0) {

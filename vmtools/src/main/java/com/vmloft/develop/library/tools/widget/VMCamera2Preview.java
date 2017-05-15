@@ -17,6 +17,7 @@ import android.hardware.camera2.TotalCaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.annotation.NonNull;
@@ -25,6 +26,8 @@ import android.util.Size;
 import android.view.Surface;
 import android.view.TextureView;
 import android.view.WindowManager;
+import com.vmloft.develop.library.tools.utils.VMDateUtil;
+import com.vmloft.develop.library.tools.utils.VMFileUtil;
 import com.vmloft.develop.library.tools.utils.VMLog;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -117,6 +120,7 @@ public class VMCamera2Preview extends TextureView implements TextureView.Surface
     public VMCamera2Preview(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.context = context;
+        startBackgroundThread();
         cameraManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
         setSurfaceTextureListener(this);
     }
@@ -194,9 +198,10 @@ public class VMCamera2Preview extends TextureView implements TextureView.Surface
     private void setUpCameraOutputs() {
         try {
             for (String tempId : cameraManager.getCameraIdList()) {
+                // 获取摄像机配置信息
                 CameraCharacteristics characteristics = cameraManager.getCameraCharacteristics(tempId);
 
-                // We don't use a front facing camera in this sample.
+                // 这里使用后置摄像头
                 Integer facing = characteristics.get(CameraCharacteristics.LENS_FACING);
                 if (facing != null && facing == CameraCharacteristics.LENS_FACING_FRONT) {
                     continue;
@@ -208,7 +213,12 @@ public class VMCamera2Preview extends TextureView implements TextureView.Surface
                 }
 
                 // 对于拍照，可以使用最大的可用尺寸
-                Size largest = Collections.max(Arrays.asList(map.getOutputSizes(ImageFormat.JPEG)), new CompareSizesByArea());
+                Size largest = Collections.max(Arrays.asList(map.getOutputSizes(ImageFormat.JPEG)), new Comparator<Size>() {
+                    @Override public int compare(Size lhs, Size rhs) {
+                        // 这里使用 long 保证不会溢出
+                        return Long.signum((long) lhs.getWidth() * lhs.getHeight() - (long) rhs.getWidth() * rhs.getHeight());
+                    }
+                });
                 imageReader = ImageReader.newInstance(largest.getWidth(), largest.getHeight(), ImageFormat.JPEG, /*maxImages*/2);
                 imageReader.setOnImageAvailableListener(imageAvailableListener, backgroundHandler);
 
@@ -381,9 +391,9 @@ public class VMCamera2Preview extends TextureView implements TextureView.Surface
      */
     private void lockFocus() {
         try {
-            // This is how to tell the camera to lock focus.
+            // 这里告诉相机如何锁定焦点
             previewRequestBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_START);
-            // Tell #mCaptureCallback to wait for the lock.
+            // 通知捕获回调等待锁定
             cameraState = STATE_WAITING_LOCK;
             captureSession.capture(previewRequestBuilder.build(), captureCallback, backgroundHandler);
         } catch (CameraAccessException e) {
@@ -392,15 +402,16 @@ public class VMCamera2Preview extends TextureView implements TextureView.Surface
     }
 
     /**
-     * 解锁焦点，当拍照完成时调用
+     * 解锁焦点，当拍照完成时调用，让相机重回预览状态
      */
     private void unlockFocus() {
         try {
-            // Reset the auto-focus trigger
+            // 重置自动对焦
             previewRequestBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_CANCEL);
             setAutoFlash(previewRequestBuilder);
             captureSession.capture(previewRequestBuilder.build(), captureCallback, backgroundHandler);
-            // After this, the camera will go back to the normal state of preview.
+
+            // 之后相机重新恢复预览状态
             cameraState = STATE_PREVIEW;
             captureSession.setRepeatingRequest(previewRequest, captureCallback, backgroundHandler);
         } catch (CameraAccessException e) {
@@ -425,30 +436,28 @@ public class VMCamera2Preview extends TextureView implements TextureView.Surface
     }
 
     /**
-     * 拍摄照片
+     * 捕获静态照片
      */
     private void captureStillPicture() {
         try {
             if (null == context || null == cameraDevice) {
                 return;
             }
-            // This is the CaptureRequest.Builder that we use to take a picture.
+            // 这里使用 CaptureRequest.Builder 进行拍照
             final CaptureRequest.Builder captureBuilder = cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE);
             captureBuilder.addTarget(imageReader.getSurface());
 
-            // Use the same AE and AF modes as the preview.
+            // 使用相同的曝光(AE)和自动对焦(AF)进行预览
             captureBuilder.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
             setAutoFlash(captureBuilder);
 
-            // Orientation
+            // 方向
             int rotation = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getRotation();
             captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, getOrientation(rotation));
 
             CameraCaptureSession.CaptureCallback CaptureCallback = new CameraCaptureSession.CaptureCallback() {
-
                 @Override public void onCaptureCompleted(@NonNull CameraCaptureSession session, @NonNull CaptureRequest request,
                         @NonNull TotalCaptureResult result) {
-                    VMLog.d(cameraFile.toString());
                     unlockFocus();
                 }
             };
@@ -572,7 +581,7 @@ public class VMCamera2Preview extends TextureView implements TextureView.Surface
      */
     private final ImageReader.OnImageAvailableListener imageAvailableListener = new ImageReader.OnImageAvailableListener() {
         @Override public void onImageAvailable(ImageReader reader) {
-            backgroundHandler.post(new ImageSaver(reader.acquireNextImage(), cameraFile));
+            backgroundHandler.post(new ImageSaver(reader.acquireNextImage()));
         }
     };
 
@@ -584,15 +593,19 @@ public class VMCamera2Preview extends TextureView implements TextureView.Surface
         /**
          * JPEG 图像
          */
-        private final Image image;
+        private Image image;
         /**
          * 将图片保存到这个文件
          */
-        private final File file;
+        private File file;
 
-        public ImageSaver(Image image, File file) {
+        public ImageSaver(Image image) {
             this.image = image;
-            this.file = file;
+            // 先创建文件夹
+            file = new File(VMFileUtil.getPictures() + "VMCamera/IMG_" + VMDateUtil.getDateTimeNoSpacing() + ".jpg");
+            if (!file.getParentFile().isDirectory()) {
+                file.mkdirs();
+            }
         }
 
         @Override public void run() {
@@ -615,17 +628,6 @@ public class VMCamera2Preview extends TextureView implements TextureView.Surface
                     }
                 }
             }
-        }
-    }
-
-    /**
-     * Compares two {@code Size}s based on their areas.
-     */
-    static class CompareSizesByArea implements Comparator<Size> {
-
-        @Override public int compare(Size lhs, Size rhs) {
-            // We cast here to ensure the multiplications won't overflow
-            return Long.signum((long) lhs.getWidth() * lhs.getHeight() - (long) rhs.getWidth() * rhs.getHeight());
         }
     }
 }

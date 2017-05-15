@@ -195,9 +195,10 @@ public class VMCamera2Preview extends TextureView implements TextureView.Surface
     private void setUpCameraOutputs() {
         try {
             for (String tempId : cameraManager.getCameraIdList()) {
+                // 获取摄像机配置信息
                 CameraCharacteristics characteristics = cameraManager.getCameraCharacteristics(tempId);
 
-                // We don't use a front facing camera in this sample.
+                // 这里使用后置摄像头
                 Integer facing = characteristics.get(CameraCharacteristics.LENS_FACING);
                 if (facing != null && facing == CameraCharacteristics.LENS_FACING_FRONT) {
                     continue;
@@ -209,8 +210,13 @@ public class VMCamera2Preview extends TextureView implements TextureView.Surface
                 }
 
                 // 对于拍照，可以使用最大的可用尺寸
-                Size largest = Collections.max(Arrays.asList(map.getOutputSizes(ImageFormat.JPEG)), new CompareSizesByArea());
-                imageReader = ImageReader.newInstance(largest.getWidth(), largest.getHeight(), ImageFormat.JPEG, /*maxImages*/2);
+                Size largest = Collections.max(Arrays.asList(map.getOutputSizes(ImageFormat.JPEG)), new Comparator<Size>() {
+                    @Override public int compare(Size lhs, Size rhs) {
+                        // We cast here to ensure the multiplications won't overflow
+                        return Long.signum((long) lhs.getWidth() * lhs.getHeight() - (long) rhs.getWidth() * rhs.getHeight());
+                    }
+                });
+                imageReader = ImageReader.newInstance(largest.getWidth(), largest.getHeight(), ImageFormat.JPEG, 2);
                 imageReader.setOnImageAvailableListener(imageAvailableListener, backgroundHandler);
 
                 // 传感器方向
@@ -616,17 +622,6 @@ public class VMCamera2Preview extends TextureView implements TextureView.Surface
                     }
                 }
             }
-        }
-    }
-
-    /**
-     * Compares two {@code Size}s based on their areas.
-     */
-    static class CompareSizesByArea implements Comparator<Size> {
-
-        @Override public int compare(Size lhs, Size rhs) {
-            // We cast here to ensure the multiplications won't overflow
-            return Long.signum((long) lhs.getWidth() * lhs.getHeight() - (long) rhs.getWidth() * rhs.getHeight());
         }
     }
 }

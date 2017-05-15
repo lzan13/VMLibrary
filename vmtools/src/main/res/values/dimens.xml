@@ -69,7 +69,7 @@
     <dimen name="vm_dimen_64">64dp</dimen>
     <dimen name="vm_dimen_72">72dp</dimen>
     <dimen name="vm_dimen_96">96dp</dimen>
-    <dimen name="vm_dimen_168">128dp</dimen>
+    <dimen name="vm_dimen_128">128dp</dimen>
     <dimen name="vm_dimen_192">192dp</dimen>
     <dimen name="vm_dimen_256">256dp</dimen>
 
