@@ -16,6 +16,12 @@ import java.util.List;
  * 展示自定义可变控件界面
  */
 public class VMDetailsActivity extends VMBaseActivity {
+
+    private LinearLayoutManager layoutManager;
+    private VMDetailsAdapter adapter;
+    private RecyclerView recyclerView;
+    private List<VMDetailsEntity> detailsList = new ArrayList<>();
+
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
@@ -29,22 +35,45 @@ public class VMDetailsActivity extends VMBaseActivity {
             }
         });
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
-        List<VMDetailsEntity> contents = new ArrayList<>();
         for (int i = 0; i < 150; i++) {
             VMDetailsEntity entity = new VMDetailsEntity();
-            entity.setContent(i + " - 这里是列表内的可折叠控件内容显示，这里测试多个 view 列表滚动时的情况，水电费是方法及违法少妇了说的分开件违反收代理费就死定了附件为佛山及地方了收到了附件是丹佛微积分，这里测试多个 view 列表滚动时的情况，水电费是方法及违法少妇了说的分开件违反收代理费就死定了附件为佛山及地方了收到了附件是丹佛微积分");
+            if (i % 3 == 0) {
+                entity.setContent(i + " - 这里是列表内的可折叠控件内容显示，这里测试多个 view 列表滚动时的情况，水电费是方");
+            } else if (i % 2 == 0) {
+                entity.setContent(i + " - 这里是单行内容，测试多个 view 列表滚动时的情况");
+            } else {
+                entity.setContent(i
+                        + " - 这里是列表内的可折叠控件内容显示，这里测试多个 view 列表滚动时的情况，水电费是方法及违法少妇了说的分开件违反收代理费就死定了附件为佛山及地方了收到了附件是丹佛微积分，这里测试多个 view 列表滚动时的情况，水电费是方法及违法少妇了说的分开件违反收代理费就死定了附件为佛山及地方了收到了附件是丹佛微积分");
+            }
             entity.setFold(true);
-            contents.add(entity);
+            detailsList.add(entity);
         }
 
-        VMDetailsAdapter adapter = new VMDetailsAdapter(this, contents);
-
+        adapter = new VMDetailsAdapter(this, detailsList);
         recyclerView.setAdapter(adapter);
+
+        initItemListener();
+    }
+
+    /**
+     * 设置 Item 项监听
+     */
+    private void initItemListener() {
+        adapter.setItemListener(new VMDetailsAdapter.ItemListener() {
+            @Override public void onItemClick(View view, int position) {
+                VMDetailsEntity detailsEntity = detailsList.get(position);
+                if (detailsEntity.isFold()) {
+                    detailsEntity.setFold(false);
+                } else {
+                    detailsEntity.setFold(true);
+                }
+            }
+        });
     }
 }

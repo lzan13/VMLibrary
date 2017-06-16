@@ -47,7 +47,16 @@ public class VMCamera2Preview extends TextureView implements TextureView.Surface
 
     private Context context;
 
+    // 相机设备管理者
     private CameraManager cameraManager;
+    // 通过相机预览进行捕获图像的 session
+    private CameraCaptureSession captureSession;
+
+    // 已打开的相机设备
+    private CameraDevice cameraDevice;
+    //当前摄像头 ID {@link CameraDevice}.
+    private String cameraId;
+    private int cameraState;
 
     // 相机状态：显示相机预览
     private static final int STATE_PREVIEW = 0;
@@ -64,16 +73,6 @@ public class VMCamera2Preview extends TextureView implements TextureView.Surface
     private static final int MAX_PREVIEW_WIDTH = 1920;
     // 定义的最大预览高度
     private static final int MAX_PREVIEW_HEIGHT = 1080;
-
-    //当前摄像头 ID {@link CameraDevice}.
-    private String cameraId;
-
-    // 通过相机预览进行捕获图像的 session
-    private CameraCaptureSession captureSession;
-
-    // 已打开的相机设备
-    private CameraDevice cameraDevice;
-    private int cameraState;
 
     // 相机预览的大小
     private Size previewSize;
@@ -219,7 +218,7 @@ public class VMCamera2Preview extends TextureView implements TextureView.Surface
                         return Long.signum((long) lhs.getWidth() * lhs.getHeight() - (long) rhs.getWidth() * rhs.getHeight());
                     }
                 });
-                imageReader = ImageReader.newInstance(largest.getWidth(), largest.getHeight(), ImageFormat.JPEG, /*maxImages*/2);
+                imageReader = ImageReader.newInstance(largest.getWidth(), largest.getHeight(), ImageFormat.JPEG, 2);
                 imageReader.setOnImageAvailableListener(imageAvailableListener, backgroundHandler);
 
                 // 传感器方向

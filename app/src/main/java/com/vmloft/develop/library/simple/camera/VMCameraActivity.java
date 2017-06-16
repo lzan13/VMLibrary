@@ -23,7 +23,7 @@ public class VMCameraActivity extends VMBaseActivity {
 
     @BindView(R.id.layout_camera_preview) RelativeLayout cameraLayout;
     @BindView(R.id.camera_preview) VMCameraPreview cameraPreview;
-    //@BindView(R.id.camera_2_preview) VMCamera2Preview camera2Preview;
+    @BindView(R.id.camera_2_preview) VMCamera2Preview camera2Preview;
     @BindView(R.id.btn_camera_recording) Button recordingBtn;
     @BindView(R.id.btn_camera_picture) Button takePictureBtn;
 
@@ -46,8 +46,8 @@ public class VMCameraActivity extends VMBaseActivity {
         switch (view.getId()) {
             case R.id.btn_camera_picture:
                 // 拍照
-                cameraPreview.takePicture();
-                //camera2Preview.takePicture();
+                //cameraPreview.takePicture();
+                camera2Preview.takePicture();
                 break;
             case R.id.btn_camera_recording:
 
@@ -61,8 +61,6 @@ public class VMCameraActivity extends VMBaseActivity {
     }
 
     @Override protected void onPause() {
-        cameraLayout.removeAllViews();
-        cameraPreview = null;
         super.onPause();
     }
 

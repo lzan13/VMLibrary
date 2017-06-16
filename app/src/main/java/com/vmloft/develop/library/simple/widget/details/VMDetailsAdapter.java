@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.vmloft.develop.library.simple.R;
-import com.vmloft.develop.library.tools.tv.utils.VMLog;
+import com.vmloft.develop.library.tools.utils.VMLog;
 import com.vmloft.develop.library.tools.widget.VMDetailsView;
 import java.util.List;
 
@@ -44,7 +44,6 @@ public class VMDetailsAdapter extends RecyclerView.Adapter<VMDetailsAdapter.Conv
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 VMLog.d("The item view position: %d", position);
-                detailsEntity.setFold(false);
                 if (itemListener != null) {
                     itemListener.onItemClick(holder.itemView, position);
                 }
@@ -67,14 +66,6 @@ public class VMDetailsAdapter extends RecyclerView.Adapter<VMDetailsAdapter.Conv
          * @param position 当前点击位置
          */
         void onItemClick(View view, int position);
-
-        /**
-         * RecyclerView item 焦点变化回调
-         *
-         * @param view 当前焦点变化的 view
-         * @param hasFocus 是否获得焦点
-         */
-        void onItemFocusChange(View view, boolean hasFocus);
     }
 
     /**
