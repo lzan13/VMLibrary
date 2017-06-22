@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.simple.widget.details;
+package com.vmloft.develop.library.simple.details;
 
 /**
  * Created by lzan13 on 2017/5/15.

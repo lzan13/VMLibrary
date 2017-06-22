@@ -51,13 +51,16 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme.Transparent"/>
         <!--测试可变控件-->
-        <activity android:name=".widget.details.VMDetailsActivity"/>
+        <activity android:name=".details.VMDetailsActivity"/>
 
         <!--测试 http 请求-->
         <activity android:name=".http.VMHttpActivity"/>
 
         <!--播放音频-->
         <activity android:name=".audio.VMAudioActivity"/>
+
+        <!--弹出PopupWindow菜单-->
+        <activity android:name=".popup.VMPopupWindowActivity"/>
     </application>
 
 </manifest>

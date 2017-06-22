@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.simple.widget.details;
+package com.vmloft.develop.library.simple.details;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

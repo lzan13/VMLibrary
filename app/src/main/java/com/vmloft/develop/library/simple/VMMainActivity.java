@@ -12,9 +12,10 @@ import butterknife.ButterKnife;
 import com.vmloft.develop.library.simple.audio.VMAudioActivity;
 import com.vmloft.develop.library.simple.camera.VMCameraActivity;
 import com.vmloft.develop.library.simple.http.VMHttpActivity;
+import com.vmloft.develop.library.simple.popup.VMPopupWindowActivity;
 import com.vmloft.develop.library.simple.socket.VMSocketActivity;
 import com.vmloft.develop.library.simple.theme.VMThemeActivity;
-import com.vmloft.develop.library.simple.widget.details.VMDetailsActivity;
+import com.vmloft.develop.library.simple.details.VMDetailsActivity;
 import com.vmloft.develop.library.simple.widget.VMRecordActivity;
 import com.vmloft.develop.library.simple.widget.VMDotLineActivity;
 import com.vmloft.develop.library.tools.VMBaseActivity;
@@ -37,7 +38,7 @@ public class VMMainActivity extends VMBaseActivity {
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
 
         String[] btnArray = {
-                "Socket", "Dot Line", "Record", "Theme", "Camera", "Details", "Http", "Audio"
+                "Socket", "Dot Line", "Record", "Theme", "Camera", "Details", "Http", "Audio", "PopupWindow"
         };
         for (int i = 0; i < btnArray.length; i++) {
             Button btn = new Button(new ContextThemeWrapper(activity, R.style.VMBtn_Red), null, 0);
@@ -75,6 +76,9 @@ public class VMMainActivity extends VMBaseActivity {
                     break;
                 case 107:
                     intent.setClass(activity, VMAudioActivity.class);
+                    break;
+                case 108:
+                    intent.setClass(activity, VMPopupWindowActivity.class);
                     break;
             }
             onStartActivity(activity, intent);
