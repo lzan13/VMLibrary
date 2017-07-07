@@ -9,6 +9,10 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+        ndk {
+            // 配置 Gradle 打包 apk 需要包含的原生库平台
+            abiFilters 'armeabi'
+        }
     }
     buildTypes {
         release {

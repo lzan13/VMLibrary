@@ -21,6 +21,8 @@ public class VMApplication extends MultiDexApplication {
         super.onCreate();
 
         context = this;
+        // 初始化当前工具类
+        VMTools.getInstance().init();
         // 初始化 LeakCanary
         watcher = LeakCanary.install(this);
     }

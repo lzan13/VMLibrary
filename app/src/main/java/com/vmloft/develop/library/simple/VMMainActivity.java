@@ -12,6 +12,7 @@ import butterknife.ButterKnife;
 import com.vmloft.develop.library.simple.audio.VMAudioActivity;
 import com.vmloft.develop.library.simple.camera.VMCameraActivity;
 import com.vmloft.develop.library.simple.http.VMHttpActivity;
+import com.vmloft.develop.library.simple.jni.VMJNIActivity;
 import com.vmloft.develop.library.simple.popup.VMPopupWindowActivity;
 import com.vmloft.develop.library.simple.socket.VMSocketActivity;
 import com.vmloft.develop.library.simple.theme.VMThemeActivity;
@@ -38,7 +39,7 @@ public class VMMainActivity extends VMBaseActivity {
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
 
         String[] btnArray = {
-                "Socket", "Dot Line", "Record", "Theme", "Camera", "Details", "Http", "Audio", "PopupWindow"
+                "Socket", "Dot Line", "Record", "Theme", "Camera", "Details", "Http", "Audio", "PopupWindow", "JNI"
         };
         for (int i = 0; i < btnArray.length; i++) {
             Button btn = new Button(new ContextThemeWrapper(activity, R.style.VMBtn_Red), null, 0);
@@ -79,6 +80,9 @@ public class VMMainActivity extends VMBaseActivity {
                     break;
                 case 108:
                     intent.setClass(activity, VMPopupWindowActivity.class);
+                    break;
+                case 109:
+                    intent.setClass(activity, VMJNIActivity.class);
                     break;
             }
             onStartActivity(activity, intent);

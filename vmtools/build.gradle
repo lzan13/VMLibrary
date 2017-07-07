@@ -2,13 +2,19 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    buildToolsVersion "26.0.0"
 
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+        externalNativeBuild {
+            cmake{
+                // 配置 Gradle 构建原生库支持的平台
+                abiFilters 'arm64-v8a', 'armeabi', 'armeabi-v7a', 'mips', 'mips64', 'x86', 'x86_64'
+            }
+        }
     }
     buildTypes {
         release {
@@ -19,6 +25,14 @@ android {
 
     lintOptions {
         abortOnError false
+    }
+    // 配置 Gradle 关联原生库
+    externalNativeBuild {
+        // 使用 CMake 进行编译原生库
+        cmake {
+            // CMake 构建脚本相对路径
+            path 'CMakeLists.txt'
+        }
     }
 }
 
@@ -41,21 +55,3 @@ dependencies {
     // 订阅方式实现事件通知；代替 Handler 和广播
     compile 'org.greenrobot:eventbus:3.0.0'
 }
-
-
-// 这行表示如果你已经打过一次包了，再进行打包则把原来的包删掉
-task clearJar(type: Delete) {
-    delete 'build/libs/vmtools.jar'
-}
-
-task makeJar(type: Copy) {
-    // 这行表示要打包的文件的路径，根据下面的内容，其实是该路径下的 classes.jar
-    from('build/intermediates/bundles/release/')
-    // 这行表示打包完毕后包的生成路径，也就是生成的包存在哪
-    into('build/libs/')
-    // 看到这行，如果你对分包有了解的话，你就可以看出来这行它只是将一些类打包了
-    include('classes.jar')
-    rename('classes.jar', 'vmtools.jar')
-}
-
-makeJar.dependsOn(clearJar, build)
