@@ -21,11 +21,10 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             >
-            <Button
-                android:id="@+id/btn_test_get"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Get 请求"
+            <com.vmloft.develop.library.tools.widget.VMViewGroup
+                android:id="@+id/view_group"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 />
         </LinearLayout>
     </LinearLayout>

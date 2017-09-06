@@ -11,7 +11,7 @@ android {
         versionName "1.0"
         ndk {
             // 配置 Gradle 打包 apk 需要包含的原生库平台
-            abiFilters 'armeabi'
+            abiFilters 'armeabi-v7a', "x86"
         }
     }
     buildTypes {
@@ -34,4 +34,5 @@ dependencies {
 
     // 引入自己封装的库
     compile project(':vmtools')
+    compile project(':vmnativetools')
 }

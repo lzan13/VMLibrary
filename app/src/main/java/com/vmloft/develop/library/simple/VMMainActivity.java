@@ -1,5 +1,6 @@
 package com.vmloft.develop.library.simple;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextThemeWrapper;
@@ -19,10 +20,10 @@ import com.vmloft.develop.library.simple.theme.VMThemeActivity;
 import com.vmloft.develop.library.simple.details.VMDetailsActivity;
 import com.vmloft.develop.library.simple.widget.VMRecordActivity;
 import com.vmloft.develop.library.simple.widget.VMDotLineActivity;
-import com.vmloft.develop.library.tools.VMBaseActivity;
+import com.vmloft.develop.library.tools.VMActivity;
 import com.vmloft.develop.library.tools.widget.VMViewGroup;
 
-public class VMMainActivity extends VMBaseActivity {
+public class VMMainActivity extends VMActivity {
 
     @BindView(R.id.widget_toolbar) Toolbar toolbar;
     @BindView(R.id.view_group) VMViewGroup viewGroup;
@@ -48,6 +49,7 @@ public class VMMainActivity extends VMBaseActivity {
             btn.setOnClickListener(viewListener);
             viewGroup.addView(btn);
         }
+
     }
 
     private View.OnClickListener viewListener = new View.OnClickListener() {
@@ -88,4 +90,8 @@ public class VMMainActivity extends VMBaseActivity {
             onStartActivity(activity, intent);
         }
     };
+
+    @Override protected void onDestroy() {
+        super.onDestroy();
+    }
 }

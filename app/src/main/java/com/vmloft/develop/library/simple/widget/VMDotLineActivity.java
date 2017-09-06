@@ -5,14 +5,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import com.vmloft.develop.library.simple.R;
-import com.vmloft.develop.library.tools.VMBaseActivity;
+import com.vmloft.develop.library.tools.VMActivity;
 import com.vmloft.develop.library.tools.widget.VMDotLineView;
 
 /**
  * Created by lzan13 on 2017/3/22.
  * 测试点线相连控件界面
  */
-public class VMDotLineActivity extends VMBaseActivity {
+public class VMDotLineActivity extends VMActivity {
 
     private Button testBtn;
 

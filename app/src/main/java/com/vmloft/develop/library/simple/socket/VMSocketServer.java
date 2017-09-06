@@ -6,7 +6,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.TextView;
 import com.vmloft.develop.library.simple.R;
-import com.vmloft.develop.library.tools.VMBaseActivity;
+import com.vmloft.develop.library.tools.VMActivity;
 import com.vmloft.develop.library.tools.utils.VMLog;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,7 +25,7 @@ import java.util.Enumeration;
  * Socket Server，实现 TCP、UDP Socket 数据的接收与调度
  * Created by lzan13 on 2017/3/12.
  */
-public class VMSocketServer extends VMBaseActivity {
+public class VMSocketServer extends VMActivity {
     // TCP Socket 对象
     private ServerSocket serverTCPSocket = null;
     // UDP Socket 对象

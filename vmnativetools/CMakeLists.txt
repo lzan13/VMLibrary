@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.4.1)
 # 当添加自己编写的源文件时，需要设置原生库名称，以及当前库是 STATIC 还是 SHARED，然后就是源文件路径，
 # 可以使用多个 add_library 来定义多个库，剩下的一切都有 CMake 去做，在编译项目时会自动打包到 apk 中
 # 添加本地原生库，PS 这里需要注意一点：后边源码路径必须带上文件名，只是写文件夹路径不行
-add_library(vmtools SHARED src/main/cpp/VMCrypto.cpp)
+add_library(vmnativetools SHARED src/main/cpp/VMCrypto.cpp)
 
 # 指定原生库头文件相对路径
 # include_directories(src/main/cpp/)
@@ -24,13 +24,13 @@ find_library(logger log)
 # 此方法最少有两个参数，可以更多
 #   1、指定需要连接的库
 #   2、将 NDK 已有的库连接到我们自己的库
-target_link_libraries(vmtools ${logger})
+target_link_libraries(vmnativetools ${logger})
 
 
 
 # 包含本地原生代码
 # add_library(gluelib STATIC ${ANDROID_NDK}/sources/android/native_app_glue/android_native_app_glue.c)
-# target_link_libraries(vmtools gluelib)
+# target_link_libraries(vmnativetools gluelib)
 
 # 添加其他与构建库
 # 添加预构建库方法与为 CMake 指定要构建的另一个原生库类似，不过由于库已经预先构建，需要使用 IMPORTED 标志告知 CMake 我们只希望将库导入到项目中
@@ -42,7 +42,7 @@ target_link_libraries(vmtools ${logger})
 # 而不必为库的每个版本编写多个命令，我们可以使用 ANDROID_ABI 路径变量，此变量使用 NDK 支持的一组默认 ABI，
 # 或者手动配置 Gradle 而让其使用的一组经过筛选的 ABI
 # set_target_properties(importedlib PROPERTIES IMPORTED_LOCATION importedlib/src/${ANDROID_ABI}/libimportedlib.so)
-# target_link_libraries(vmtools importedlib)
+# target_link_libraries(vmnativetools importedlib)
 
 
 

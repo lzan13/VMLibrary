@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.vmloft.develop.library.simple.R;
-import com.vmloft.develop.library.tools.VMBaseActivity;
+import com.vmloft.develop.library.tools.VMActivity;
 import com.vmloft.develop.library.tools.utils.VMLog;
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -22,9 +22,7 @@ import java.text.SimpleDateFormat;
  * UDP Socket Client，实现 UDP Socket 数据的收发
  * Created by lzan13 on 2017/3/12.
  */
-public class VMUDPSocketClient extends VMBaseActivity {
-
-    private VMBaseActivity activity;
+public class VMUDPSocketClient extends VMActivity {
 
     private DatagramSocket udpSocket = null;
     // 服务器地址
@@ -40,8 +38,6 @@ public class VMUDPSocketClient extends VMBaseActivity {
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_socket_udp);
-
-        activity = this;
 
         serverHostView = (EditText) findViewById(R.id.edit_server_host);
         serverPortView = (EditText) findViewById(R.id.edit_server_port);

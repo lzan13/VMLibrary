@@ -3,17 +3,14 @@ package com.vmloft.develop.library.simple.socket;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import com.vmloft.develop.library.simple.R;
-import com.vmloft.develop.library.tools.VMBaseActivity;
+import com.vmloft.develop.library.tools.VMActivity;
 
 /**
  * 测试 TCP 和 UDP Socket 连接收发数据
  * Created by lzan13 on 2017/3/12.
  */
-public class VMSocketActivity extends VMBaseActivity {
+public class VMSocketActivity extends VMActivity {
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

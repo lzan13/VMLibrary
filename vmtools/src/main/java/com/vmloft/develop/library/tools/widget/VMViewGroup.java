@@ -12,9 +12,6 @@ import android.view.ViewGroup;
  */
 public class VMViewGroup extends ViewGroup {
 
-    private final int HORIZONTAL_SPACE = 2;
-    private final int VERTICAL_SPACE = 2;
-
     public VMViewGroup(Context context) {
         super(context);
     }
@@ -23,52 +20,41 @@ public class VMViewGroup extends ViewGroup {
         super(context, attrs);
     }
 
-    @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        int row = 0;
-
+    @Override protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        int totalHeight = 0;
+        int totalWidth = 0;
+        int tempHeight = 0;
         // 获取子控件的个数
         int count = getChildCount();
-
-        // 获取控件起始的宽高
-        int horizontalWidth = left;
-        int verticalHeight = top;
-
-        // 循环设置所有子控件的大小
         for (int i = 0; i < count; i++) {
-            View view = getChildAt(i);
-            int w = view.getMeasuredWidth();
-            int h = view.getMeasuredHeight();
-            horizontalWidth += w + HORIZONTAL_SPACE;
-            verticalHeight = top + row * (h + VERTICAL_SPACE) + h + VERTICAL_SPACE;
-
-            // 判断当前宽度是否超过了 MLViewGroup的宽度
-            if (horizontalWidth > right) {
-                row++;
-                horizontalWidth = left + w + HORIZONTAL_SPACE;
-                verticalHeight = top + row * (h + VERTICAL_SPACE) + h + VERTICAL_SPACE;
+            View child = getChildAt(i);
+            int w = child.getMeasuredWidth();
+            int h = child.getMeasuredHeight();
+            tempHeight = (h > tempHeight) ? h : tempHeight;
+            // 判断当前宽度是否超过了 ViewGroup 的宽度
+            if ((w + totalWidth) > right) {
+                totalWidth = 0;
+                totalHeight += tempHeight;
+                tempHeight = 0;
             }
-
-            // 设置控件的的大小
-            view.layout(horizontalWidth - w, verticalHeight - h, horizontalWidth, verticalHeight);
+            child.layout(totalWidth, totalHeight, totalWidth + w, totalHeight + h);
+            totalWidth += w;
         }
     }
 
     /**
      * 重写onMeasure方法，这里循环设置当前自定义控件的子控件的大小
      */
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        // 循环设置子控件的大小
-        for (int i = 0; i < getChildCount(); i++) {
-            View view = getChildAt(i);
-            view.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
-        }
+    @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        //super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+        measureChildren(widthMeasureSpec, heightMeasureSpec);
+        setMeasuredDimension(widthSize, heightSize);
     }
 
     /**
-     * 设置 MLViewGroup的子项的点击监听
+     * 设置子控件的点击监听
      */
     public void setItemOnClickListener() {
 

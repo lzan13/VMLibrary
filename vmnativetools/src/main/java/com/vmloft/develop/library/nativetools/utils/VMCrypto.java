@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.tools.utils;
+package com.vmloft.develop.library.nativetools.utils;
 
 /**
  * Created by lzan13 on 2017/7/7.

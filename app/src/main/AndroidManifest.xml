@@ -12,6 +12,15 @@
     <!--读写外部存储设备权限-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!-- push功能需要使用到的权限 -->
+    <!-- 获取设备识别码 IMEI -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 获取网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 获取wifi状态 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 允许程序在手机屏幕关闭后后台运行 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:name=".VMAppApplication"
@@ -65,6 +74,44 @@
 
         <!--测试本地原生库开发-->
         <activity android:name=".jni.VMJNIActivity"/>
+
+        <!--华为相关 activity-->
+        <activity
+            android:name="com.huawei.hms.activity.BridgeActivity"
+            android:configChanges="orientation|locale|screenSize|layoutDirection|fontScale"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:hardwareAccelerated="true" >
+            <meta-data
+                android:name="hwc-theme"
+                android:value="androidhwext:style/Theme.Emui.Translucent" />
+        </activity>
+        <!-- APPID -->
+        <meta-data
+            android:name="com.huawei.hms.client.appid"
+            android:value="100048125"/>
+        <!--华为推送广播接收器-->
+        <receiver android:name=".push.VMHWPushReceiver">
+            <intent-filter>
+                <!-- 必须,用于接收 TOKEN -->
+                <action android:name="com.huawei.android.push.intent.REGISTRATION"/>
+                <!-- 必须，用于接收消息 -->
+                <action android:name="com.huawei.android.push.intent.RECEIVE"/>
+                <!-- 可选，用于点击通知栏或通知栏上的按钮后触发 onEvent 回调 -->
+                <action android:name="com.huawei.android.push.intent.CLICK"/>
+                <!-- 可选，查看 PUSH 通道是否连接，不查看则不需要 -->
+                <action android:name="com.huawei.intent.action.PUSH_STATE"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="com.huawei.hms.support.api.push.PushEventReceiver">
+            <intent-filter>
+                <!-- 接收通道发来的通知栏消息，兼容老版本 PUSH -->
+                <action android:name="com.huawei.intent.action.PUSH"/>
+            </intent-filter>
+        </receiver>
+        <!--华为推送 end-->
+
     </application>
 
 </manifest>

@@ -9,14 +9,14 @@ import android.view.View;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.vmloft.develop.library.simple.R;
-import com.vmloft.develop.library.tools.VMBaseActivity;
+import com.vmloft.develop.library.tools.VMActivity;
 import com.vmloft.develop.library.tools.utils.VMLog;
 
 /**
  * Created by lzan13 on 2017/6/14.
  * 测试系统播放音频相关界面
  */
-public class VMAudioActivity extends VMBaseActivity {
+public class VMAudioActivity extends VMActivity {
 
     private VMAudioActivity activity;
 

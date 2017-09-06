@@ -19,12 +19,9 @@ public class VMApplication extends MultiDexApplication {
 
     @Override public void onCreate() {
         super.onCreate();
-
-        context = this;
-        // 初始化当前工具类
-        VMTools.getInstance().init();
         // 初始化 LeakCanary
-        watcher = LeakCanary.install(this);
+        setupLeakCanary();
+        context = this;
     }
 
     public static Context getContext() {
@@ -32,11 +29,14 @@ public class VMApplication extends MultiDexApplication {
     }
 
     /**
-     * 获取内存泄露观察者
+     * 初始化内训泄露
      *
      * @return 返回内存泄露观察者对象
      */
-    public static RefWatcher getRefWatcher() {
-        return watcher;
+    protected RefWatcher setupLeakCanary() {
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return RefWatcher.DISABLED;
+        }
+        return LeakCanary.install(this);
     }
 }

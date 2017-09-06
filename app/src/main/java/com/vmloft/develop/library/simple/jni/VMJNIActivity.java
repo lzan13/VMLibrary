@@ -6,15 +6,15 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.vmloft.develop.library.nativetools.utils.VMCrypto;
 import com.vmloft.develop.library.simple.R;
-import com.vmloft.develop.library.tools.VMBaseActivity;
-import com.vmloft.develop.library.tools.utils.VMCrypto;
+import com.vmloft.develop.library.tools.VMActivity;
 
 /**
  * Created by lzan13 on 2017/7/7.
  * 测试 jni 工具类
  */
-public class VMJNIActivity extends VMBaseActivity {
+public class VMJNIActivity extends VMActivity {
 
     @BindView(R.id.text_view) TextView textView;
 
@@ -22,7 +22,7 @@ public class VMJNIActivity extends VMBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jni);
 
-        ButterKnife.bind(this);
+        ButterKnife.bind(activity);
     }
 
     @OnClick({ R.id.btn_test }) void onClick(View view) {

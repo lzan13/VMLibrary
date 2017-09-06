@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +13,11 @@ import com.vmloft.develop.library.tools.utils.VMLog;
  * Created by lzan13 on 2016/7/6.
  * Fragment的基类，进行简单的封装，ViewPager 结合 Fragment 实现数据懒加载
  */
-public abstract class VMBaseFragment extends Fragment {
+public abstract class VMFragment extends Fragment {
 
     protected String className = this.getClass().getSimpleName();
 
-    protected VMBaseActivity activity;
+    protected VMActivity activity;
 
     // 是否第一次加载
     protected boolean isFirstLoad = true;
@@ -60,7 +59,7 @@ public abstract class VMBaseFragment extends Fragment {
     @Override public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        activity = (VMBaseActivity) getActivity();
+        activity = (VMActivity) getActivity();
 
         initView();
         isInitView = true;

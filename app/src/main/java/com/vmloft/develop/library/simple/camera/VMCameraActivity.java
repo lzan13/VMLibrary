@@ -3,15 +3,13 @@ package com.vmloft.develop.library.simple.camera;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.vmloft.develop.library.simple.R;
-import com.vmloft.develop.library.tools.VMBaseActivity;
+import com.vmloft.develop.library.tools.VMActivity;
 import com.vmloft.develop.library.tools.widget.VMCamera2Preview;
 import com.vmloft.develop.library.tools.widget.VMCameraPreview;
 
@@ -19,7 +17,7 @@ import com.vmloft.develop.library.tools.widget.VMCameraPreview;
  * Created by lzan13 on 2017/4/24.
  * 实现相机预览、拍照、录像等功能
  */
-public class VMCameraActivity extends VMBaseActivity {
+public class VMCameraActivity extends VMActivity {
 
     @BindView(R.id.layout_camera_preview) RelativeLayout cameraLayout;
     @BindView(R.id.camera_preview) VMCameraPreview cameraPreview;

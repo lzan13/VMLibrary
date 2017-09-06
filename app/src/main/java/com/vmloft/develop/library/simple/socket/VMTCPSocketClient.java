@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.vmloft.develop.library.simple.R;
-import com.vmloft.develop.library.tools.VMBaseActivity;
+import com.vmloft.develop.library.tools.VMActivity;
 import com.vmloft.develop.library.tools.utils.VMLog;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,9 +20,7 @@ import java.text.SimpleDateFormat;
  * TCP Socket Client，实现 TCP Socket 数据的收发
  * Created by lzan13 on 2017/3/12.
  */
-public class VMTCPSocketClient extends VMBaseActivity {
-
-    private VMBaseActivity activity;
+public class VMTCPSocketClient extends VMActivity {
 
     // TCP Socket 对象
     private Socket tcpSocket = null;
@@ -39,8 +37,6 @@ public class VMTCPSocketClient extends VMBaseActivity {
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_socket_tcp);
-
-        activity = this;
 
         serverHostView = (EditText) findViewById(R.id.edit_server_host);
         serverPortView = (EditText) findViewById(R.id.edit_server_port);

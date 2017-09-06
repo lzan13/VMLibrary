@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 import com.vmloft.develop.library.simple.R;
-import com.vmloft.develop.library.tools.VMBaseActivity;
+import com.vmloft.develop.library.tools.VMActivity;
 import com.vmloft.develop.library.tools.widget.VMDetailsView;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
  * Created by lzan13 on 2017/5/12.
  * 展示自定义可变控件界面
  */
-public class VMDetailsActivity extends VMBaseActivity {
+public class VMDetailsActivity extends VMActivity {
 
     private LinearLayoutManager layoutManager;
     private VMDetailsAdapter adapter;

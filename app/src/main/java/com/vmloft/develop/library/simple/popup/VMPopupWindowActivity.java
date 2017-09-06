@@ -4,7 +4,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -12,13 +11,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.vmloft.develop.library.simple.R;
-import com.vmloft.develop.library.tools.VMBaseActivity;
+import com.vmloft.develop.library.tools.VMActivity;
 
 /**
  * Created by lzan13 on 2017/6/20.
  * 测试 PopupWindow 界面
  */
-public class VMPopupWindowActivity extends VMBaseActivity {
+public class VMPopupWindowActivity extends VMActivity {
 
     private VMPopupWindowActivity activity;
 

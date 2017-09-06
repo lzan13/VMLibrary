@@ -9,12 +9,7 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
-        externalNativeBuild {
-            cmake{
-                // 配置 Gradle 构建原生库支持的平台
-                abiFilters 'arm64-v8a', 'armeabi', 'armeabi-v7a', 'mips', 'mips64', 'x86', 'x86_64'
-            }
-        }
+
     }
     buildTypes {
         release {
@@ -25,14 +20,6 @@ android {
 
     lintOptions {
         abortOnError false
-    }
-    // 配置 Gradle 关联原生库
-    externalNativeBuild {
-        // 使用 CMake 进行编译原生库
-        cmake {
-            // CMake 构建脚本相对路径
-            path 'CMakeLists.txt'
-        }
     }
 }
 
@@ -47,11 +34,27 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
 
     // LeakCanary Debug库，开源捕获内存溢出的库
-    compile 'com.squareup.leakcanary:leakcanary-android:1.5'
-    // LeakCanary 发版的库
-    //    compile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.2'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.2'
 
     // 这里在 tools 中引入外部库是为了统一管理，以后的项目只需要引入这个 tools
     // 订阅方式实现事件通知；代替 Handler 和广播
     compile 'org.greenrobot:eventbus:3.0.0'
+}
+
+/**
+ * 将 Library Module 打成 Jar 包
+ */
+task makeLibrary(type: Jar, dependsOn: ['build']) {
+    // 打包后文件名
+    archiveName = "libraryname.jar"
+    // 包含的类路径
+    from('build/intermediates/classes/release')
+    // 包含的第三方库
+    from(project.zipTree('need include library jar'))
+    // 打包完成 jar 输出路径
+    destinationDir = file('build/libs')
+    // 排除类
+    exclude('com/google/*')
+    exclude('android/*')
 }

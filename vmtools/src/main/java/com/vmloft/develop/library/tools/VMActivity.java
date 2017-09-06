@@ -2,12 +2,9 @@ package com.vmloft.develop.library.tools;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -20,12 +17,11 @@ import java.util.List;
  * Created by lzan13 on 2015/7/4.
  * Activity 的基类，做一些子类公共的工作
  */
-public class VMBaseActivity extends AppCompatActivity {
+public class VMActivity extends AppCompatActivity {
 
     protected String className = this.getClass().getSimpleName();
 
-    // 当前界面的上下文菜单对象
-    protected VMBaseActivity activity;
+    protected VMActivity activity;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,8 +108,8 @@ public class VMBaseActivity extends AppCompatActivity {
     /**
      * 创建界面切换共享元素数组
      */
-    public static Pair<View, String>[] createSafeTransitionParticipants(@NonNull Activity activity,
-            boolean includeStatusBar, @Nullable Pair... otherParticipants) {
+    public static Pair<View, String>[] createSafeTransitionParticipants(@NonNull Activity activity, boolean includeStatusBar,
+            @Nullable Pair... otherParticipants) {
         // Avoid system UI glitches as described here:
         // https://plus.google.com/+AlexLockwood/posts/RPtwZ5nNebb
         View decor = activity.getWindow().getDecorView();
@@ -131,8 +127,7 @@ public class VMBaseActivity extends AppCompatActivity {
             participants.add(new Pair<>(navBar, navBar.getTransitionName()));
         }
         // only add transition participants if there's at least one none-null element
-        if (otherParticipants != null && !(otherParticipants.length == 1
-                && otherParticipants[0] == null)) {
+        if (otherParticipants != null && !(otherParticipants.length == 1 && otherParticipants[0] == null)) {
             participants.addAll(Arrays.asList(otherParticipants));
         }
         return participants.toArray(new Pair[participants.size()]);
@@ -141,7 +136,7 @@ public class VMBaseActivity extends AppCompatActivity {
     /**
      * 自定义 Activity 结束方法
      */
-    protected void onFinish() {
+    public void onFinish() {
         activity.finish();
     }
 }
