@@ -17,7 +17,7 @@ dependencies {
     // 引入项目 libs 目录下的各种第三方库，后边可以不用再单独添加
     compile fileTree(include: ['*.jar'], dir: 'libs')
     ...
-    // 引入自己封装的工具库 GitHub: https://github.com/lzan13/VMLibraryManager
+    // 引入自己封装的工具库 GitHub: https://github.com/lzan13/VMLibraryManager/vmtvtools
     compile project(':vmtvtools')
 }
 ```

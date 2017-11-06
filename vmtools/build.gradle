@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "26.0.0"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 22
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
 
@@ -22,25 +22,12 @@ android {
         abortOnError false
     }
 }
-
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    // Android Material design 设计风格库，包含了support-v4, appcomat-v7, recyclerView扩展库
-    compile 'com.android.support:design:25.3.1'
-    // 卡片风格扩展库
-    compile 'com.android.support:cardview-v7:25.3.1'
-
-    // 解决方法数超过65536问题扩展库
-    compile 'com.android.support:multidex:1.0.1'
-
-    // LeakCanary Debug库，开源捕获内存溢出的库
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.2'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.2'
-
-    // 这里在 tools 中引入外部库是为了统一管理，以后的项目只需要引入这个 tools
-    // 订阅方式实现事件通知；代替 Handler 和广播
-    compile 'org.greenrobot:eventbus:3.0.0'
+    // Android Material design 设计风格库，包含了support-v4, appcompat-v7, recyclerView扩展库
+    compile 'com.android.support:design:26.1.0'
 }
+
 
 /**
  * 将 Library Module 打成 Jar 包
@@ -57,4 +44,8 @@ task makeLibrary(type: Jar, dependsOn: ['build']) {
     // 排除类
     exclude('com/google/*')
     exclude('android/*')
+}
+
+repositories {
+    google()
 }

@@ -18,8 +18,8 @@
         <item name="windowNoTitle">true</item>
 
         <!--设置 ActionMode 效果，防止 ActionMode 将Toolbar顶下去-->
-        <item name="android:windowActionModeOverlay">true</item>
-        <item name="android:windowActionBarOverlay">true</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="windowActionBarOverlay">true</item>
 
         <!-- 设置允许修改系统栏的背景色 比如导航栏 状态栏等-->
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
