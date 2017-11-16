@@ -1,0 +1,13 @@
+/**
+ * 保存项目配置信息，使用此文件重命名为 config.gradle，然后修改一些自己的本地配置信息
+ */
+ext {
+    // 项目引用库等版本配置
+    compileSdkVersion = 26
+    buildToolsVersion = '26.0.2'
+    minSdkVersion = 21
+    targetSdkVersion = 26
+    versionCode = 1
+    versionName = '1.0.0'
+    supportLibVersion = '26.1.0'
+}
