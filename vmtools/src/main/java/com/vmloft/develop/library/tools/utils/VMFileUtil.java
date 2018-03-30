@@ -12,12 +12,17 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+
+import com.vmloft.develop.library.tools.VMApplication;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * Created by lzan13 on 2014/12/16.
@@ -156,6 +161,101 @@ public class VMFileUtil {
     }
 
     /**
+     * 删除文件集合
+     *
+     * @param paths 文件路径集合
+     */
+    public static void deleteFiles(List<String> paths) {
+        for (String path : paths) {
+            deleteFile(path);
+        }
+    }
+
+    public static String formatSize(long size) {
+        BigDecimal result;
+        double kiloByte = size / 1024;
+        if (kiloByte < 1) {
+            return size + "Byte";
+        }
+        double megaByte = kiloByte / 1024;
+        if (megaByte < 1) {
+            result = new BigDecimal(Double.toString(kiloByte));
+            return result.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "KB";
+        }
+        double gigaByte = megaByte / 1024;
+        if (gigaByte < 1) {
+            result = new BigDecimal(Double.toString(megaByte));
+            return result.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "MB";
+        }
+        double teraByte = gigaByte / 1024;
+        if (teraByte < 1) {
+            result = new BigDecimal(Double.toString(gigaByte));
+            return result.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "GB";
+        }
+        result = new BigDecimal(Double.toString(teraByte));
+        return result.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "TB";
+    }
+
+    /**
+     * 递归实现遍历文件夹大小
+     *
+     * @param fileDir 要计算的文件夹
+     * @return
+     */
+    public static long getFolderSize(File fileDir) {
+        long size = 0;
+        if (!fileDir.exists()) {
+            return size;
+        }
+        File[] fileList = fileDir.listFiles();
+        for (File file : fileList) {
+            if (file.isDirectory()) {
+                size += getFolderSize(file);
+            } else {
+                size += file.length();
+            }
+        }
+        return size;
+    }
+
+    /**
+     * 递归删除文件夹内的文件
+     *
+     * @param path 需要操作的路径
+     * @param deleteThisPath 删除自己
+     */
+    public static void deleteFolderFile(String path, boolean deleteThisPath) {
+        if (path == "" || path == null) {
+            return;
+        }
+        File fileSrc = new File(path);
+        if (fileSrc.isDirectory()) {
+            File[] files = fileSrc.listFiles();
+            for (File file : files) {
+                deleteFolderFile(file.getAbsolutePath(), true);
+            }
+        }
+        if (deleteThisPath) {
+            if (!fileSrc.isDirectory()) {
+                fileSrc.delete();
+            }
+        }
+    }
+
+    /**
+     * 根据文件路径解析文件名，不包含扩展类型
+     */
+    public static String parseResourceId(String path) {
+        String result = null;
+        if (path != null && path.length() > 0) {
+            int index = path.lastIndexOf("/");
+            String fileName = path.substring(index + 1);
+            result = fileName.substring(0, fileName.lastIndexOf("."));
+        }
+        return result;
+    }
+
+    /**
      * 判断sdcard是否被挂载
      */
     public static boolean hasSdcard() {
@@ -198,20 +298,20 @@ public class VMFileUtil {
      // SDCard 目录
      Environment.getExternalStorageDirectory().getPath();
      // 当前 app 在 root 下的缓存目录
-     appContext.getCacheDir().getPath();
+     VMApplication.getContext().getCacheDir().getPath();
      // 当前 app 在 SDCard 下的缓存目录
-     appContext.getExternalCacheDir().getPath();
+     VMApplication.getContext().getExternalCacheDir().getPath();
      // 当前 app 在 root 下的 files 目录
-     appContext.getFilesDir().getPath();
-     appContext.getFilesDir().getPath();
+     VMApplication.getContext().getFilesDir().getPath();
+     VMApplication.getContext().getFilesDir().getPath();
      // 当前 app 在 SDCard 下的 obb 目录，一般是apk包过大要分出资源包，游戏用的比较多
-     appContext.getObbDir().getPath();
+     VMApplication.getContext().getObbDir().getPath();
      // 获取当前 app 包名
-     appContext.getPackageName();
+     VMApplication.getContext().getPackageName();
      // 获取当前 app 代码路径
-     appContext.getPackageCodePath();
+     VMApplication.getContext().getPackageCodePath();
      // 获取当前 app 资源路径
-     appContext.getPackageResourcePath();
+     VMApplication.getContext().getPackageResourcePath();
 
      // 获取常用目录的方法，参数是需要获取的目录类型，可以是download，camera
      Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
@@ -233,8 +333,8 @@ public class VMFileUtil {
      *
      * @return 返回得到的路径
      */
-    public static String getCacheFromData(Context appContext) {
-        return  appContext.getCacheDir().getPath() + "/";
+    public static String getCacheFromData() {
+        return VMApplication.getContext().getCacheDir().getPath() + "/";
     }
 
     /**
@@ -242,8 +342,8 @@ public class VMFileUtil {
      *
      * @return 返回得到的路径
      */
-    public static String getCacheFromSDCard(Context appContext) {
-        return appContext.getExternalCacheDir().getPath() + "/";
+    public static String getCacheFromSDCard() {
+        return VMApplication.getContext().getExternalCacheDir().getPath() + "/";
     }
 
     /**
@@ -251,8 +351,8 @@ public class VMFileUtil {
      *
      * @return 返回得到的路径
      */
-    public static String getFilesFromData(Context appContext) {
-        return appContext.getFilesDir().getPath() + "/";
+    public static String getFilesFromData() {
+        return VMApplication.getContext().getFilesDir().getPath() + "/";
     }
 
     /**
@@ -260,8 +360,8 @@ public class VMFileUtil {
      *
      * @return 返回得到的路径
      */
-    public static String getFilesFromSDCard(Context appContext) {
-        return appContext.getExternalFilesDir("").getAbsolutePath() + "/";
+    public static String getFilesFromSDCard() {
+        return VMApplication.getContext().getExternalFilesDir("").getAbsolutePath() + "/";
     }
 
     /**
@@ -269,8 +369,8 @@ public class VMFileUtil {
      *
      * @return 返回得到的路径
      */
-    public static String getOBB(Context appContext) {
-        return appContext.getObbDir().getAbsolutePath() + "/";
+    public static String getOBB() {
+        return VMApplication.getContext().getObbDir().getAbsolutePath() + "/";
     }
 
     /**
@@ -280,7 +380,7 @@ public class VMFileUtil {
      */
     public static String getDCIM() {
         return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
-                .getAbsolutePath() + "/";
+                          .getAbsolutePath() + "/";
     }
 
     /**
@@ -290,7 +390,7 @@ public class VMFileUtil {
      */
     public static String getDownload() {
         return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                .getAbsolutePath() + "/";
+                          .getAbsolutePath() + "/";
     }
 
     /**
@@ -300,7 +400,7 @@ public class VMFileUtil {
      */
     public static String getMusic() {
         return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)
-                .getAbsolutePath() + "/";
+                          .getAbsolutePath() + "/";
     }
 
     /**
@@ -310,7 +410,7 @@ public class VMFileUtil {
      */
     public static String getMovies() {
         return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES)
-                .getAbsolutePath() + "/";
+                          .getAbsolutePath() + "/";
     }
 
     /**
@@ -318,7 +418,7 @@ public class VMFileUtil {
      */
     public static String getPictures() {
         return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-                .getAbsolutePath() + "/";
+                          .getAbsolutePath() + "/";
     }
 
     /**
@@ -326,8 +426,8 @@ public class VMFileUtil {
      *
      * @return 返回得到的路径
      */
-    public static String getPackageName(Context appContext) {
-        return appContext.getPackageName();
+    public static String getPackageName() {
+        return VMApplication.getContext().getPackageName();
     }
 
     /**
@@ -335,8 +435,8 @@ public class VMFileUtil {
      *
      * @return 返回得到的路径
      */
-    public static String getPackageCode(Context appContext) {
-        return appContext.getPackageCodePath();
+    public static String getPackageCode() {
+        return VMApplication.getContext().getPackageCodePath();
     }
 
     /**
@@ -344,8 +444,8 @@ public class VMFileUtil {
      *
      * @return 返回得到的路径
      */
-    public static String getPackageResource(Context appContext) {
-        return appContext.getPackageResourcePath();
+    public static String getPackageResource() {
+        return VMApplication.getContext().getPackageResourcePath();
     }
 
     /**
@@ -356,8 +456,8 @@ public class VMFileUtil {
      * @param uri 包含文件信息的 Uri
      * @return 返回文件真实路径
      */
-    @TargetApi(Build.VERSION_CODES.KITKAT) public static String getPath(final Context context,
-            final Uri uri) {
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public static String getPath(final Context context, final Uri uri) {
 
         // 判断当前系统 API 4.4（19）及以上
         boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
@@ -398,9 +498,7 @@ public class VMFileUtil {
                 }
 
                 final String selection = "_id=?";
-                final String[] selectionArgs = new String[] {
-                        split[1]
-                };
+                final String[] selectionArgs = new String[]{split[1]};
 
                 return getDataColumn(context, contentUri, selection, selectionArgs);
             }
@@ -436,19 +534,19 @@ public class VMFileUtil {
 
         Cursor cursor = null;
         final String column = "_data";
-        final String[] projection = {
-                column
-        };
+        final String[] projection = {column};
 
         try {
-            cursor = context.getContentResolver()
-                    .query(uri, projection, selection, selectionArgs, null);
+            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
+                    null);
             if (cursor != null && cursor.moveToFirst()) {
                 final int index = cursor.getColumnIndexOrThrow(column);
                 return cursor.getString(index);
             }
         } finally {
-            if (cursor != null) cursor.close();
+            if (cursor != null) {
+                cursor.close();
+            }
         }
         return null;
     }
@@ -488,5 +586,3 @@ public class VMFileUtil {
         return "com.google.android.apps.photos.content".equals(uri.getAuthority());
     }
 }
-
-

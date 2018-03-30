@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="VMTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- 在这里自定义自己的主题 -->
+        <!-- 默认主要颜色，一般是 Toolbar 等颜色 -->
+        <item name="colorPrimary">@color/vm_theme_primary_light</item>
+        <!-- 深一些的主要色，一般是状态栏等颜色 -->
+        <item name="colorPrimaryDark">@color/vm_theme_primary_dark_light</item>
+        <!--各控件激活时的颜色，一般是 CheckBox、EditText、Switch、Spinner、RadioButton 等控件激活的颜色-->
+        <item name="colorAccent">@color/vm_theme_accent_light</item>
+        <!--界面背景色，为了优化 UI，这里设置为透明-->
+        <item name="android:windowBackground">@color/vm_transparent</item>
+
+        <!--设置主题不需要ActionBar-->
+        <item name="windowActionBar">false</item>
+        <!--设置主题不需要Title-->
+        <item name="windowNoTitle">true</item>
+
+        <!--设置 ActionMode 效果，防止 ActionMode 将Toolbar顶下去-->
+        <item name="windowActionModeOverlay">true</item>
+        <item name="windowActionBarOverlay">true</item>
+
+        <!-- 设置允许修改系统栏的背景色 比如导航栏 状态栏等-->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <!--设置状态栏为透明-->
+        <item name="android:statusBarColor">@color/vm_theme_primary_dark_light</item>
+        <!--设置导航栏半透明效果-->
+        <item name="android:windowTranslucentNavigation">false</item>
+
+        <!--设置是否允许使用转场动画-->
+        <item name="android:windowContentTransitions">false</item>
+        <!--设置动画效果执行方式，是同步还是顺序执行-->
+        <!--A 退出和 B 进入动画是否同步执行-->
+        <item name="android:windowAllowEnterTransitionOverlap">false</item>
+        <!--B 返回和 A 重新进入是否同步执行-->
+        <item name="android:windowAllowReturnTransitionOverlap">false</item>
+        <!--指定进入和退出的转场动画-->
+        <item name="android:windowEnterTransition">@null</item>
+        <item name="android:windowExitTransition">@null</item>
+        <item name="android:windowReenterTransition">@null</item>
+        <item name="android:windowReturnTransition">@null</item>
+    </style>
+
+
+    <!--扁平红色按钮-->
+    <style name="VMBtn.Flat.Red" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:colorControlHighlight">@color/vm_red_54</item>
+    </style>
+    <!--扁平绿色按钮-->
+    <style name="VMBtn.Flat.Green" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:colorControlHighlight">@color/vm_green_54</item>
+    </style>
+    <!--扁平蓝色按钮-->
+    <style name="VMBtn.Flat.Blue" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:colorControlHighlight">@color/vm_blue_54</item>
+    </style>
+    <!--扁平白色按钮-->
+    <style name="VMBtn.Flat.White" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:colorControlHighlight">@color/vm_white_54</item>
+    </style>
+    <!--扁平透明按钮-->
+    <style name="VMBtn.Transparent" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:colorControlHighlight">@color/vm_black_38</item>
+        <item name="android:colorControlActivated">@color/vm_green_87</item>
+    </style>
+
+    <!--红色按钮-->
+    <style name="VMBtn.Red" parent="Widget.AppCompat.Button">
+        <item name="android:colorControlHighlight">@color/vm_black_54</item>
+        <item name="android:colorButtonNormal">@color/vm_red_100</item>
+        <item name="android:textColor">@color/vm_white_100</item>
+    </style>
+
+    <!--绿色按钮-->
+    <style name="VMBtn.Green" parent="Widget.AppCompat.Button">
+        <item name="android:colorControlHighlight">@color/vm_black_54</item>
+        <item name="android:colorButtonNormal">@color/vm_green_100</item>
+        <item name="android:textColor">@color/vm_white_100</item>
+    </style>
+
+    <!--蓝色按钮-->
+    <style name="VMBtn.Blue" parent="Widget.AppCompat.Button">
+        <item name="android:colorControlHighlight">@color/vm_black_54</item>
+        <item name="android:colorButtonNormal">@color/vm_blue_100</item>
+        <item name="android:textColor">@color/vm_white_87</item>
+    </style>
+
+    <!--白色按钮-->
+    <style name="VMBtn.White" parent="Widget.AppCompat.Button">
+        <item name="android:colorControlHighlight">@color/vm_black_38</item>
+        <item name="android:colorButtonNormal">@color/vm_white_100</item>
+        <item name="android:textColor">@color/vm_black_87</item>
+    </style>
+</resources>

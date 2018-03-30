@@ -24,13 +24,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="本机地址: " />
+                android:text="服务器地址: " />
 
             <EditText
                 android:id="@+id/edit_server_host"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:enabled="false"
                 android:hint="Host"
                 android:inputType="text" />
         </LinearLayout>
@@ -43,7 +42,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="服务端口: " />
+                android:text="服务器端口: " />
 
             <EditText
                 android:id="@+id/edit_server_port"
@@ -53,34 +52,39 @@
                 android:inputType="number" />
         </LinearLayout>
 
-        <LinearLayout
+        <Button
+            android:id="@+id/btn_connect_server"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="连接服务器" />
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
+            <Button
+                android:id="@+id/btn_send_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="服务器状态: " />
+                android:layout_alignParentRight="true"
+                android:text="发送" />
 
-            <TextView
-                android:id="@+id/text_server_state"
+            <EditText
+                android:id="@+id/edit_message_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="" />
-        </LinearLayout>
+                android:layout_toLeftOf="@id/btn_send_message"
+                android:hint="Msg"
+                android:inputType="text"
+                android:text="Hello server!" />
 
-        <Button
-            android:id="@+id/btn_start_server"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="开启 TCP 服务"
-            android:textAllCaps="false" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/text_show_message"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="vertical"
-            android:text="" />
+            android:hint="show message"
+            android:scrollbars="vertical" />
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

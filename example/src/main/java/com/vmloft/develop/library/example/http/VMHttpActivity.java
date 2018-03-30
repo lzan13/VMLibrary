@@ -50,15 +50,15 @@ public class VMHttpActivity extends VMActivity {
             switch (view.getId()) {
                 case 100:
                     VMHttpManager.getInstance().testGet(new VMCallback() {
-                        @Override public void onSuccess(String message) {
-                            VMLog.i(message);
+                        @Override public void onDone(Object message) {
+                            VMLog.i((String) message);
                         }
 
                         @Override public void onError(int code, String message) {
                             VMLog.i("onError %d %s", code, message);
                         }
 
-                        @Override public void onPregress(int progress, String message) {
+                        @Override public void onProgress(int progress, String message) {
 
                         }
                     });

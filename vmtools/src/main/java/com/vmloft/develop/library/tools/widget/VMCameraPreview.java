@@ -202,7 +202,11 @@ public class VMCameraPreview extends SurfaceView implements SurfaceHolder.Callba
             @Override public void onPictureTaken(byte[] data, Camera camera) {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
                 String filePath = VMFileUtil.getDCIM() + "IMG" + VMDateUtil.getDateTimeNoSpacing() + ".jpg";
-                VMBitmapUtil.saveBitmapToSDCard(bitmap, filePath);
+                try {
+                    VMBitmapUtil.saveBitmapToSDCard(bitmap, filePath);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 VMLog.d("Take picture success: %s", filePath);
                 // 继续开启相机预览
                 camera.startPreview();

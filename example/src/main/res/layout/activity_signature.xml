@@ -16,29 +16,31 @@
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <Button
-            android:id="@+id/btn_tcp_socket_server"
+        <EditText
+            android:id="@+id/edit_str"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TCP Socket Server" />
+            android:hint="请输入要加密内容" />
 
         <Button
-            android:id="@+id/btn_tcp_socket_client"
+            android:id="@+id/btn_key_hashes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TCP Socket Client" />
+            android:text="Key Hashes"
+            android:textAllCaps="false" />
 
         <Button
-            android:id="@+id/btn_udp_socket_server"
+            android:id="@+id/btn_md5_signature"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="UDP Socket Server" />
+            android:text="MD5"
+            android:textAllCaps="false" />
 
         <Button
-            android:id="@+id/btn_udp_socket_client"
+            android:id="@+id/btn_base64"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="UDP Socket Client" />
-
+            android:text="Base64"
+            android:textAllCaps="false" />
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

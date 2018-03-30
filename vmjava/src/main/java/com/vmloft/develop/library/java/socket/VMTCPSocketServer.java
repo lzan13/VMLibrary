@@ -27,16 +27,15 @@ public class VMTCPSocketServer {
         try {
             // 实例化 ServerSocket，服务器开始监听定义的端口
             serverSocket = new ServerSocket(port);
-            System.out.println("VMTCPSocketServer 启动成功，监听端口：" + port);
+            System.out.println("TCP服务器启动成功，监听端口：" + port);
             /**
              * 调用 ServerSocket 的 accept 方法获取新的连接，
              * 这个方法会等待客户端的连接请求，如果没有新消息，会阻塞当前线程
              */
             clientSocket = serverSocket.accept();
-            System.out.println("VMTCPSocketServer 有新链接进入："
-                    + clientSocket.getInetAddress().getHostAddress()
-                    + ":"
-                    + clientSocket.getPort());
+            System.out.println(
+                    String.format("新链接: %s:%d", clientSocket.getInetAddress().getHostAddress(),
+                            clientSocket.getPort()));
             // 通过 InputStream 从连接到服务器的 Socket 读取数据
             InputStream inputStream = clientSocket.getInputStream();
             int len = -1;
@@ -47,16 +46,12 @@ public class VMTCPSocketServer {
              */
             while ((len = inputStream.read(buffer)) != -1) {
                 String message = new String(buffer, 0, len);
-                System.out.println("VMTCPSocketServer Receive from client："
-                        + message
-                        + " "
-                        + clientSocket.getInetAddress().getHostAddress()
-                        + ":"
-                        + clientSocket.getPort());
+                System.out.println(String.format("收到消息: %s by %s:%d", message,
+                        clientSocket.getInetAddress().getHostAddress(), clientSocket.getPort()));
 
                 // 收到消息后，给客户端回一个消息
-                String time =
-                        new SimpleDateFormat("MM/dd HH:mm:ss").format(System.currentTimeMillis());
+                String time = new SimpleDateFormat("MM/dd HH:mm:ss").format(
+                        System.currentTimeMillis());
                 sendMessageToClient("Server message " + time);
             }
         } catch (IOException e) {

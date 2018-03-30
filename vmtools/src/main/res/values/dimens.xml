@@ -72,5 +72,6 @@
     <dimen name="vm_dimen_128">128dp</dimen>
     <dimen name="vm_dimen_192">192dp</dimen>
     <dimen name="vm_dimen_256">256dp</dimen>
+    <dimen name="vm_dimen_320">320dp</dimen>
 
 </resources>

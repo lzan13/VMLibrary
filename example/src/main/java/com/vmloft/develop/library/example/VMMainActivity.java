@@ -13,8 +13,10 @@ import com.vmloft.develop.library.example.camera.VMCameraActivity;
 import com.vmloft.develop.library.example.details.VMDetailsActivity;
 import com.vmloft.develop.library.example.http.VMHttpActivity;
 import com.vmloft.develop.library.example.popup.VMPopupWindowActivity;
+import com.vmloft.develop.library.example.record.ScreenRecordActivity;
 import com.vmloft.develop.library.example.socket.VMSocketActivity;
 import com.vmloft.develop.library.example.theme.VMThemeActivity;
+import com.vmloft.develop.library.example.tools.SignatureActivity;
 import com.vmloft.develop.library.example.widget.VMDotLineActivity;
 import com.vmloft.develop.library.example.widget.VMRecordActivity;
 import com.vmloft.develop.library.tools.VMActivity;
@@ -33,7 +35,8 @@ public class VMMainActivity extends VMActivity {
     @BindView(R.id.view_group) VMViewGroup viewGroup;
     private TextView textView;
 
-    @Override protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -44,11 +47,10 @@ public class VMMainActivity extends VMActivity {
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
 
-        String[] btnArray = {
-                "Socket", "Dot Line", "Record", "Theme", "Camera", "Details", "Http", "Audio", "PopupWindow"
-        };
+        String[] btnArray = {"Socket", "Dot Line", "Record", "Theme", "Camera", "Details", "Http",
+                "Audio", "PopupWindow", "Signature","Record Screen"};
         for (int i = 0; i < btnArray.length; i++) {
-            Button btn = new Button(new ContextThemeWrapper(activity, R.style.VMBtn_Red), null, 0);
+            Button btn = new Button(activity);
             btn.setText(btnArray[i]);
             btn.setId(100 + i);
             btn.setOnClickListener(viewListener);
@@ -58,36 +60,43 @@ public class VMMainActivity extends VMActivity {
     }
 
     private View.OnClickListener viewListener = new View.OnClickListener() {
-        @Override public void onClick(View v) {
+        @Override
+        public void onClick(View v) {
             Intent intent = new Intent();
             switch (v.getId()) {
-                case 100:
-                    intent.setClass(activity, VMSocketActivity.class);
-                    break;
-                case 101:
-                    intent.setClass(activity, VMDotLineActivity.class);
-                    break;
-                case 102:
-                    intent.setClass(activity, VMRecordActivity.class);
-                    break;
-                case 103:
-                    intent.setClass(activity, VMThemeActivity.class);
-                    break;
-                case 104:
-                    intent.setClass(activity, VMCameraActivity.class);
-                    break;
-                case 105:
-                    intent.setClass(activity, VMDetailsActivity.class);
-                    break;
-                case 106:
-                    intent.setClass(activity, VMHttpActivity.class);
-                    break;
-                case 107:
-                    intent.setClass(activity, VMAudioActivity.class);
-                    break;
-                case 108:
-                    intent.setClass(activity, VMPopupWindowActivity.class);
-                    break;
+            case 100:
+                intent.setClass(activity, VMSocketActivity.class);
+                break;
+            case 101:
+                intent.setClass(activity, VMDotLineActivity.class);
+                break;
+            case 102:
+                intent.setClass(activity, VMRecordActivity.class);
+                break;
+            case 103:
+                intent.setClass(activity, VMThemeActivity.class);
+                break;
+            case 104:
+                intent.setClass(activity, VMCameraActivity.class);
+                break;
+            case 105:
+                intent.setClass(activity, VMDetailsActivity.class);
+                break;
+            case 106:
+                intent.setClass(activity, VMHttpActivity.class);
+                break;
+            case 107:
+                intent.setClass(activity, VMAudioActivity.class);
+                break;
+            case 108:
+                intent.setClass(activity, VMPopupWindowActivity.class);
+                break;
+            case 109:
+                intent.setClass(activity, SignatureActivity.class);
+                break;
+            case 110:
+                intent.setClass(activity, ScreenRecordActivity.class);
+                break;
             }
             onStartActivity(activity, intent);
         }
@@ -96,7 +105,8 @@ public class VMMainActivity extends VMActivity {
     private void testExecutor() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.submit(new Runnable() {
-            @Override public void run() {
+            @Override
+            public void run() {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -106,7 +116,8 @@ public class VMMainActivity extends VMActivity {
             }
         });
         executor.submit(new Runnable() {
-            @Override public void run() {
+            @Override
+            public void run() {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -116,7 +127,8 @@ public class VMMainActivity extends VMActivity {
             }
         });
         executor.submit(new Runnable() {
-            @Override public void run() {
+            @Override
+            public void run() {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -128,7 +140,8 @@ public class VMMainActivity extends VMActivity {
             }
         });
         executor.submit(new Runnable() {
-            @Override public void run() {
+            @Override
+            public void run() {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -139,7 +152,16 @@ public class VMMainActivity extends VMActivity {
         });
     }
 
-    @Override protected void onDestroy() {
+    private void checkNumber(int num) {
+        if ((num ^ 1) == 0) {
+            VMLog.i("num: %d, 是2的 N 次方", num);
+        } else {
+
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
         super.onDestroy();
     }
 }

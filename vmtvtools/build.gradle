@@ -1,14 +1,14 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
+        minSdkVersion 21
+        targetSdkVersion 22
+        versionCode 1
+        versionName '0.1.0'
     }
     buildTypes {
         release {
@@ -21,9 +21,9 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     // TV 应用 UI 支持库
-    compile "com.android.support:leanback-v17:$supportLibVersion"
+    implementation "com.android.support:leanback-v17:26.1.0"
     // 卡片风格扩展库
-    compile "com.android.support:cardview-v7:$supportLibVersion"
+    implementation "com.android.support:cardview-v7:26.1.0"
 
 }
 

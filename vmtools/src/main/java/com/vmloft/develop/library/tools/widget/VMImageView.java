@@ -1,5 +1,6 @@
 package com.vmloft.develop.library.tools.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -17,6 +18,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.utils.VMBitmapUtil;
+import com.vmloft.develop.library.tools.utils.VMBlur;
 
 /**
  * Created by lzan13 on 2017/3/30.
@@ -133,7 +135,7 @@ public class VMImageView extends AppCompatImageView {
         }
         // 根据模糊半径是否为 0 来判断是否模糊图片
         if (blurRadius > 0) {
-            bitmap = VMBitmapUtil.stackBlurBitmap(bitmap, blurScale, blurRadius, false);
+            bitmap = VMBlur.stackBlurBitmap(bitmap, blurScale, blurRadius, false);
         }
         // 绘制图片到画板
         drawDrawable(canvas, bitmap);
@@ -145,6 +147,7 @@ public class VMImageView extends AppCompatImageView {
     /**
      * 实现圆角的绘制
      */
+    @SuppressLint("WrongConstant")
     private void drawDrawable(Canvas canvas, Bitmap bitmap) {
         // 画笔
         Paint paint = new Paint();

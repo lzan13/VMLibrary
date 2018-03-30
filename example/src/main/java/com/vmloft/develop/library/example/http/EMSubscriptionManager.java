@@ -93,7 +93,7 @@ public class EMSubscriptionManager {
             connection.setDoInput(true);
             // get method not need output data
             connection.setDoOutput(false);
-            // connect
+            // connectTCPServer
             connection.connect();
             if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 // read data

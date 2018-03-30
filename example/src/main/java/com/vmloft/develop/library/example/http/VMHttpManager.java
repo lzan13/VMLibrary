@@ -45,7 +45,7 @@ public class VMHttpManager {
             Response<ResponseBody> response = call.execute();
             if (response.isSuccessful()) {
                 result = response.body().toString();
-                callback.onSuccess(result);
+                callback.onDone(result);
             }
         } catch (IOException e) {
             e.printStackTrace();

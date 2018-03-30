@@ -41,8 +41,9 @@
 
         <!--测试 socket 相关-->
         <activity android:name=".socket.VMSocketActivity" />
-        <activity android:name=".socket.VMSocketServer" />
+        <activity android:name=".socket.VMTCPSocketServer" />
         <activity android:name=".socket.VMTCPSocketClient" />
+        <activity android:name=".socket.VMUDPSocketServer" />
         <activity android:name=".socket.VMUDPSocketClient" />
 
         <!--测试自定义控件-->
@@ -70,6 +71,12 @@
 
         <!--弹出PopupWindow菜单-->
         <activity android:name=".popup.VMPopupWindowActivity" />
+
+        <!--获取签名信息-->
+        <activity android:name=".tools.SignatureActivity" />
+
+        <!--录制屏幕-->
+        <activity android:name=".record.ScreenRecordActivity" />
 
     </application>
 </manifest>

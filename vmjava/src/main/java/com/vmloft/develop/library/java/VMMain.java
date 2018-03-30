@@ -21,11 +21,11 @@ public class VMMain {
             }
         }).start();
 
-        new Thread(new Runnable() {
-            @Override public void run() {
-                // 启动 UDP Socket Server
-                udpSocketServer.startUDPSocketServer();
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override public void run() {
+//                // 启动 UDP Socket Server
+//                udpSocketServer.startUDPSocketServer();
+//            }
+//        }).start();
     }
 }

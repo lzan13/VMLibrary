@@ -28,12 +28,36 @@ public class VMStrUtil {
      * @return 字符串
      */
     public static String arrayToStr(String[] array, String separator) {
+        if (array == null || array.length == 0) {
+            return null;
+        }
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < array.length; i++) {
             if (i != 0) {
                 sb.append(",");
             }
             sb.append(array[i]);
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 集合转字符串拼接
+     *
+     * @param list 集合
+     * @param splitStr 分隔符
+     * @return
+     */
+    public static String list2Str(List<String> list, String splitStr) {
+        if (list == null || list.size() == 0) {
+            return null;
+        }
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < list.size(); i++) {
+            if (i != 0) {
+                sb.append(",");
+            }
+            sb.append(list.get(i));
         }
         return sb.toString();
     }

@@ -27,6 +27,7 @@ dependencies {
 
 - [utils package](src/main/java/com/vmloft/develop/library/tools/utils) 自定义工具类部分
     - [VMBitmapUtil](src/main/java/com/vmloft/develop/library/tools/utils/VMBitmapUtil.java) 图片
+    - [VMBitmapUtil](src/main/java/com/vmloft/develop/library/tools/utils/VMBlur.java) 模糊
     - [VMCryptoUtil](src/main/java/com/vmloft/develop/library/tools/utils/VMCryptoUtil.java) 加密解密
     - [VMDateUtil](src/main/java/com/vmloft/develop/library/tools/utils/VMDateUtil.java) 时间
     - [VMDimenUtil](src/main/java/com/vmloft/develop/library/tools/utils/VMDimenUtil.java) 尺寸

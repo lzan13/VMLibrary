@@ -17,28 +17,38 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <Button
-            android:id="@+id/btn_tcp_socket_server"
+            android:id="@+id/btn_screenshot_start"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TCP Socket Server" />
+            android:text="Screenshot"
+            android:textAllCaps="false" />
 
         <Button
-            android:id="@+id/btn_tcp_socket_client"
+            android:id="@+id/btn_screenshot_stop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TCP Socket Client" />
+            android:text="Screenshot Stop"
+            android:textAllCaps="false" />
 
         <Button
-            android:id="@+id/btn_udp_socket_server"
+            android:id="@+id/btn_record_screen_start"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="UDP Socket Server" />
+            android:text="Record Screen Start"
+            android:textAllCaps="false" />
 
         <Button
-            android:id="@+id/btn_udp_socket_client"
+            android:id="@+id/btn_record_screen_stop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="UDP Socket Client" />
+            android:text="Record Screen Stop"
+            android:textAllCaps="false" />
+
+        <ImageView
+            android:id="@+id/img_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/ic_launcher" />
 
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -1,15 +1,14 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
-
+        minSdkVersion 15
+        targetSdkVersion 22
+        versionCode 1
+        versionName '0.1.0'
     }
     buildTypes {
         release {
@@ -25,8 +24,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     // Android Material design 设计风格库，包含了support-v4, appcompat-v7, recyclerView扩展库
-    compile "com.android.support:design:$supportLibVersion"
-
+    implementation 'com.android.support:design:26.1.0'
 }
 
 /**

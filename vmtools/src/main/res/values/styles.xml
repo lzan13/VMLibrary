@@ -21,58 +21,33 @@
         <item name="windowActionModeOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>
 
-        <!-- 设置允许修改系统栏的背景色 比如导航栏 状态栏等-->
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <!--设置状态栏为透明-->
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <!--设置导航栏半透明效果-->
-        <item name="android:windowTranslucentNavigation">true</item>
-
-        <!--设置是否允许使用转场动画-->
-        <item name="android:windowContentTransitions">false</item>
-        <!--设置动画效果执行方式，是同步还是顺序执行-->
-        <!--A 退出和 B 进入动画是否同步执行-->
-        <item name="android:windowAllowEnterTransitionOverlap">false</item>
-        <!--B 返回和 A 重新进入是否同步执行-->
-        <item name="android:windowAllowReturnTransitionOverlap">false</item>
-        <!--指定进入和退出的转场动画-->
-        <item name="android:windowEnterTransition">@null</item>
-        <item name="android:windowExitTransition">@null</item>
-        <item name="android:windowReenterTransition">@null</item>
-        <item name="android:windowReturnTransition">@null</item>
-
     </style>
 
 
-    <!--自定义默认 AppBar 样式，这里为了让文字显示为白色，继承黑色样式的ActionBar-->
+    <!--自定义默认 AppBar 样式，这里为了让文字显示为白色，继承黑色样式的ActionBar 原因是为了让弹出菜单为白色-->
     <style name="VMTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <!--Appbar 控制器颜色-->
         <item name="colorControlNormal">@color/vm_white_title</item>
         <!--Appbar 标题颜色-->
         <item name="android:textColor">@color/vm_white_title</item>
         <!--Appbar 标题大小-->
-        <item name="android:textSize">@dimen/vm_size_title</item>
+        <!--<item name="android:textSize">@dimen/vm_size_title</item>-->
         <!--Appbar 标题样式-->
         <item name="android:textStyle">normal</item>
         <!--更改菜单按钮样式 此菜单直的是当 action过多显示不全，会有三个小点儿样式-->
-        <item name="android:actionOverflowButtonStyle">@style/VMTheme.ActionBarOverflow</item>
+        <!--<item name="android:actionOverflowButtonStyle">@style/VMTheme.ActionBarOverflow</item>-->
     </style>
 
-    <!--自定义 Toolbar 样式，这里为了让文字显示为白色，继承黑色样式的ActionBar-->
+    <!--自定义 Toolbar 样式，这里为了让文字显示为白色，继承黑色样式的ActionBar 原因是为了让弹出菜单为白色-->
     <style name="VMTheme.ToolbarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <!--Toolbar 控制器颜色-->
         <item name="colorControlNormal">@color/vm_white_title</item>
         <!--Toolbar 上文字颜色-->
         <item name="android:textColor">@color/vm_white_title</item>
         <!--Toolbar 文字大小-->
-        <item name="android:textSize">@dimen/vm_size_title</item>
+        <!--<item name="android:textSize">@dimen/vm_size_title</item>-->
         <!--Toolbar 文字样式-->
         <item name="android:textStyle">normal</item>
-    </style>
-
-    <!--自定义溢出菜单图标样式-->
-    <style name="VMTheme.ActionBarOverflow" parent="@android:style/Widget.ActionButton.Overflow">
-        <item name="android:src">@drawable/ic_add_24dp</item>
     </style>
 
     <!--自定 Toolbar 弹出 PopupMenu 样式，要想此设置生效，在布局文件必须要自定义命名空间 xmlns：app-->
@@ -87,57 +62,43 @@
         <!--<item name="android:popupBackground">@drawable/abc_popup_background_mtrl_mult</item>-->
         <!--弹出菜单的文字颜色和大小-->
         <item name="android:textColor">@color/vm_black_title</item>
-        <item name="android:textSize">@dimen/vm_size_menu</item>
+        <!--<item name="android:textSize">@dimen/vm_size_menu</item>-->
     </style>
 
 
     <!--扁平红色按钮-->
     <style name="VMBtn.Flat.Red" parent="Widget.AppCompat.Button.Borderless">
-        <item name="android:colorControlHighlight">@color/vm_red_54</item>
     </style>
     <!--扁平绿色按钮-->
     <style name="VMBtn.Flat.Green" parent="Widget.AppCompat.Button.Borderless">
-        <item name="android:colorControlHighlight">@color/vm_green_54</item>
     </style>
     <!--扁平蓝色按钮-->
     <style name="VMBtn.Flat.Blue" parent="Widget.AppCompat.Button.Borderless">
-        <item name="android:colorControlHighlight">@color/vm_blue_54</item>
     </style>
     <!--扁平白色按钮-->
     <style name="VMBtn.Flat.White" parent="Widget.AppCompat.Button.Borderless">
-        <item name="android:colorControlHighlight">@color/vm_white_54</item>
     </style>
     <!--扁平透明按钮-->
     <style name="VMBtn.Transparent" parent="Widget.AppCompat.Button.Borderless">
-        <item name="android:colorControlHighlight">@color/vm_black_38</item>
-        <item name="android:colorControlActivated">@color/vm_green_87</item>
     </style>
 
     <!--红色按钮-->
     <style name="VMBtn.Red" parent="Widget.AppCompat.Button">
-        <item name="android:colorControlHighlight">@color/vm_black_54</item>
-        <item name="android:colorButtonNormal">@color/vm_red_100</item>
-        <item name="android:textColor">@color/vm_white_100</item>
+        <item name="android:textColor">@color/vm_black_87</item>
     </style>
 
     <!--绿色按钮-->
     <style name="VMBtn.Green" parent="Widget.AppCompat.Button">
-        <item name="android:colorControlHighlight">@color/vm_black_54</item>
-        <item name="android:colorButtonNormal">@color/vm_green_100</item>
-        <item name="android:textColor">@color/vm_white_100</item>
+        <item name="android:textColor">@color/vm_black_87</item>
     </style>
 
     <!--蓝色按钮-->
     <style name="VMBtn.Blue" parent="Widget.AppCompat.Button">
-        <item name="android:colorControlHighlight">@color/vm_black_54</item>
-        <item name="android:colorButtonNormal">@color/vm_blue_100</item>
-        <item name="android:textColor">@color/vm_white_87</item>
+        <item name="android:textColor">@color/vm_black_87</item>
     </style>
 
     <!--白色按钮-->
     <style name="VMBtn.White" parent="Widget.AppCompat.Button">
-        <item name="android:colorControlHighlight">@color/vm_black_38</item>
-        <item name="android:colorButtonNormal">@color/vm_white_100</item>
         <item name="android:textColor">@color/vm_black_87</item>
     </style>
 

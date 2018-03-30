@@ -184,7 +184,7 @@ public class VMRecordView extends View {
      */
     public void initVoiceRecorder() {
         // 录音文件默认保存在 /sdcard/android/data/packagename/files/下，可设置
-        recordFilePath = VMFileUtil.getFilesFromSDCard(context) + System.currentTimeMillis() + ".amr";
+        recordFilePath = VMFileUtil.getFilesFromSDCard() + System.currentTimeMillis() + ".amr";
         // 实例化媒体录影机
         mediaRecorder = new MediaRecorder();
         // 设置音频源为麦克风
