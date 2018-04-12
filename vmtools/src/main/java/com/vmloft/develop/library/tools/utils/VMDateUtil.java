@@ -76,6 +76,37 @@ public class VMDateUtil {
     }
 
     /**
+     * 获取时间的字符串格式
+     *
+     * @param time 时间，单位 秒
+     */
+    public static String toTimeString(long time) {
+        long seconds = time % 60;
+        long minutes = (time / 60) % 60;
+        long hours = time / 3600;
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
+
+    /**
+     * 获取时间的秒数
+     * @param time 字符串格式的时间
+     */
+    public static long fromTimeString(String time) {
+        // Handle "00:00:00.000" pattern, drop the milliseconds
+        if (time.lastIndexOf(".") != -1) {
+            time = time.substring(0, time.lastIndexOf("."));
+        }
+        String[] split = time.split(":");
+        if (split.length != 3) {
+            throw new IllegalArgumentException("Can't parse time string: " + time);
+        }
+        long h = Long.parseLong(split[0]) * 3600;
+        long m = Long.parseLong(split[1]) * 60;
+        long s = Long.parseLong(split[2]);
+        return h + m + s;
+    }
+
+    /**
      * 从 long 整型的时间戳里取出时间
      *
      * @param time 需要格式化的 long 型的时间

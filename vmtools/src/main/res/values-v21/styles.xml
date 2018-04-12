@@ -42,7 +42,6 @@
         <item name="android:windowReturnTransition">@null</item>
     </style>
 
-
     <!--扁平红色按钮-->
     <style name="VMBtn.Flat.Red" parent="Widget.AppCompat.Button.Borderless">
         <item name="android:colorControlHighlight">@color/vm_red_54</item>

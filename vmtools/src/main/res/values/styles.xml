@@ -66,39 +66,38 @@
     </style>
 
 
+    <style name="VMTag">
+        <item name="android:background"></item>
+    </style>
+
+    <style name="VMBtn.Flat" parent="Widget.AppCompat.Button.Borderless"></style>
     <!--扁平红色按钮-->
-    <style name="VMBtn.Flat.Red" parent="Widget.AppCompat.Button.Borderless">
-    </style>
+    <style name="VMBtn.Flat.Red"></style>
     <!--扁平绿色按钮-->
-    <style name="VMBtn.Flat.Green" parent="Widget.AppCompat.Button.Borderless">
-    </style>
+    <style name="VMBtn.Flat.Green"></style>
     <!--扁平蓝色按钮-->
-    <style name="VMBtn.Flat.Blue" parent="Widget.AppCompat.Button.Borderless">
-    </style>
+    <style name="VMBtn.Flat.Blue"></style>
     <!--扁平白色按钮-->
-    <style name="VMBtn.Flat.White" parent="Widget.AppCompat.Button.Borderless">
-    </style>
+    <style name="VMBtn.Flat.White"></style>
     <!--扁平透明按钮-->
-    <style name="VMBtn.Transparent" parent="Widget.AppCompat.Button.Borderless">
-    </style>
+    <style name="VMBtn.Transparent"></style>
 
+
+    <style name="VMBtn" parent="Widget.AppCompat.Button"></style>
     <!--红色按钮-->
-    <style name="VMBtn.Red" parent="Widget.AppCompat.Button">
+    <style name="VMBtn.Red">
         <item name="android:textColor">@color/vm_black_87</item>
     </style>
-
     <!--绿色按钮-->
-    <style name="VMBtn.Green" parent="Widget.AppCompat.Button">
+    <style name="VMBtn.Green">
         <item name="android:textColor">@color/vm_black_87</item>
     </style>
-
     <!--蓝色按钮-->
-    <style name="VMBtn.Blue" parent="Widget.AppCompat.Button">
+    <style name="VMBtn.Blue">
         <item name="android:textColor">@color/vm_black_87</item>
     </style>
-
     <!--白色按钮-->
-    <style name="VMBtn.White" parent="Widget.AppCompat.Button">
+    <style name="VMBtn.White">
         <item name="android:textColor">@color/vm_black_87</item>
     </style>
 
