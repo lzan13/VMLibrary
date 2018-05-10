@@ -5,7 +5,7 @@
     android:id="@+id/layout_coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/vm_theme_background_light"
+    android:background="@color/vm_theme_background"
     android:fitsSystemWindows="true"
     >
     <include layout="@layout/widget_appbar"/>
@@ -21,11 +21,11 @@
             android:id="@+id/view_record"
             android:layout_width="match_parent"
             android:layout_height="@dimen/vm_dimen_56"
-            app:vm_indicator_color="@color/vm_theme_primary_light"
+            app:vm_indicator_color="@color/vm_theme_primary"
             app:vm_indicator_size="@dimen/vm_dimen_16"
             app:vm_text_color="@color/vm_black_54"
             app:vm_text_size="@dimen/vm_size_16"
-            app:vm_touch_color="@color/vm_red_100"
+            app:vm_touch_color="@color/vm_red"
             app:vm_touch_text="滑动取消"
             app:vm_waveform_color="@color/vm_orange_87"
             app:vm_waveform_interval="@dimen/vm_dimen_1"

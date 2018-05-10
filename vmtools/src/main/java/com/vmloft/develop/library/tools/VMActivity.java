@@ -8,7 +8,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
 import com.vmloft.develop.library.tools.utils.VMLog;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,42 +25,49 @@ public class VMActivity extends AppCompatActivity {
 
     protected VMActivity activity;
 
-    @Override protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        VMLog.i("%s onCreate", className);
+        VMLog.d("%s onCreate", className);
         activity = this;
-
-        //activity.getWindow().setBackgroundDrawableResource(R.color.vm_transparent);
+        VMApp.putActivity(activity);
     }
+    //
+    //@Override
+    //protected void onRestart() {
+    //    super.onRestart();
+    //    VMLog.d("%s onRestart", className);
+    //}
+    //
+    //@Override
+    //protected void onStart() {
+    //    super.onStart();
+    //    VMLog.d("%s onStart", className);
+    //}
+    //
+    //@Override
+    //protected void onResume() {
+    //    super.onResume();
+    //    VMLog.d("%s onResume", className);
+    //}
+    //
+    //@Override
+    //protected void onPause() {
+    //    super.onPause();
+    //    VMLog.d("%s onPause", className);
+    //}
+    //
+    //@Override
+    //protected void onStop() {
+    //    super.onStop();
+    //    VMLog.d("%s onStop", className);
+    //}
 
-    @Override protected void onRestart() {
-        super.onRestart();
-        VMLog.i("%s onRestart", className);
-    }
-
-    @Override protected void onStart() {
-        super.onStart();
-        VMLog.i("%s onStart", className);
-    }
-
-    @Override protected void onResume() {
-        super.onResume();
-        VMLog.i("%s onResume", className);
-    }
-
-    @Override protected void onPause() {
-        super.onPause();
-        VMLog.i("%s onPause", className);
-    }
-
-    @Override protected void onStop() {
-        super.onStop();
-        VMLog.i("%s onStop", className);
-    }
-
-    @Override protected void onDestroy() {
+    @Override
+    protected void onDestroy() {
         super.onDestroy();
-        VMLog.i("%s onDestroy", className);
+        VMLog.d("%s onDestroy", className);
+        VMApp.removeActivity(activity);
         activity = null;
     }
 
@@ -108,8 +117,8 @@ public class VMActivity extends AppCompatActivity {
     /**
      * 创建界面切换共享元素数组
      */
-    public static Pair<View, String>[] createSafeTransitionParticipants(@NonNull Activity activity, boolean includeStatusBar,
-            @Nullable Pair... otherParticipants) {
+    public static Pair<View, String>[] createSafeTransitionParticipants(@NonNull Activity activity,
+            boolean includeStatusBar, @Nullable Pair... otherParticipants) {
         // Avoid system UI glitches as described here:
         // https://plus.google.com/+AlexLockwood/posts/RPtwZ5nNebb
         View decor = activity.getWindow().getDecorView();
@@ -139,4 +148,5 @@ public class VMActivity extends AppCompatActivity {
     public void onFinish() {
         activity.finish();
     }
+
 }

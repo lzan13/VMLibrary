@@ -13,7 +13,5 @@ public class VMThemeActivity extends VMActivity {
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_theme);
-
-        findViewById(R.id.btn_white_activated);
     }
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--背景色-->
+    <item>
+        <shape android:dither="true" android:shape="rectangle">
+            <corners android:radius="@dimen/vm_dimen_36" />
+            <solid android:color="@color/vm_theme_background" />
+            <stroke android:width="@dimen/vm_dimen_1" android:color="@color/vm_gray_12" />
+        </shape>
+    </item>
+</selector>

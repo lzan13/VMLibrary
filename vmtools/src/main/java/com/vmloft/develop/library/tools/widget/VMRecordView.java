@@ -16,6 +16,7 @@ import android.view.View;
 import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.utils.VMDimenUtil;
 import com.vmloft.develop.library.tools.utils.VMFileUtil;
+
 import java.io.IOException;
 import java.util.LinkedList;
 
@@ -131,17 +132,17 @@ public class VMRecordView extends View {
         waveformList = new LinkedList<Integer>();
 
         // 默认高度 54dp
-        viewHeight = VMDimenUtil.getDimenPixel(context, R.dimen.vm_dimen_56);
+        viewHeight = VMDimenUtil.getDimenPixel(R.dimen.vm_dimen_56);
 
         // 波形刻度相关参数
-        waveformInterval = VMDimenUtil.getDimenPixel(context, R.dimen.vm_dimen_1);
-        waveformWidth = VMDimenUtil.getDimenPixel(context, R.dimen.vm_dimen_2);
+        waveformInterval = VMDimenUtil.getDimenPixel(R.dimen.vm_dimen_1);
+        waveformWidth = VMDimenUtil.getDimenPixel(R.dimen.vm_dimen_2);
 
         // 默认指示器相关参数
-        indicatorSize = VMDimenUtil.getDimenPixel(context, R.dimen.vm_dimen_16);
+        indicatorSize = VMDimenUtil.getDimenPixel(R.dimen.vm_dimen_16);
 
         // 文字相关参数
-        textSize = VMDimenUtil.getDimenPixel(context, R.dimen.vm_size_subhead);
+        textSize = VMDimenUtil.getDimenPixel(R.dimen.vm_size_subhead);
 
         // 获取控件的属性值
         if (attrs != null) {
@@ -212,7 +213,8 @@ public class VMRecordView extends View {
      *
      * @param canvas 当前控件画布
      */
-    @Override protected void onDraw(Canvas canvas) {
+    @Override
+    protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
         // 使此控件位于最上层，避免被遮挡
@@ -336,10 +338,8 @@ public class VMRecordView extends View {
             canvas.drawText(touchText, touchCenterX - textWidth - touchSize / 3 * 2, touchCenterY + textHeight / 3, paint);
 
             // 绘制滑动取消箭头
-            canvas.drawLine(touchCenterX - textWidth * 2, touchCenterY, touchCenterX - textWidth * 2 + 15, touchCenterY - 15,
-                    paint);
-            canvas.drawLine(touchCenterX - textWidth * 2, touchCenterY, touchCenterX - textWidth * 2 + 15, touchCenterY + 15,
-                    paint);
+            canvas.drawLine(touchCenterX - textWidth * 2, touchCenterY, touchCenterX - textWidth * 2 + 15, touchCenterY - 15, paint);
+            canvas.drawLine(touchCenterX - textWidth * 2, touchCenterY, touchCenterX - textWidth * 2 + 15, touchCenterY + 15, paint);
 
             paint.setColor(touchColor);
             // 绘制触摸圆形区域
@@ -358,7 +358,8 @@ public class VMRecordView extends View {
         canvas.drawLine(touchCenterX, touchCenterY + 15, touchCenterX, touchCenterY + 25, paint);
     }
 
-    @Override protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         RectF rectF = new RectF(getLeft(), getTop(), getRight(), getBottom());
 
@@ -374,7 +375,8 @@ public class VMRecordView extends View {
     /**
      * 重写 onTouchEvent 监听方法，用来响应控件触摸
      */
-    @Override public boolean onTouchEvent(MotionEvent event) {
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
         if (!this.isShown()) {
             return false;
         }
@@ -382,51 +384,51 @@ public class VMRecordView extends View {
         float x = event.getX();
         float y = event.getY();
         switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                // 判断按下的位置是不是在触摸区域
-                if (x < viewWidth - viewHeight) {
+        case MotionEvent.ACTION_DOWN:
+            // 判断按下的位置是不是在触摸区域
+            if (x < viewWidth - viewHeight) {
+                return false;
+            }
+            // 按下后更改触摸区域半径
+            touchSize = VMDimenUtil.getDimenPixel(R.dimen.vm_dimen_72);
+            // 触摸开始录音
+            startRecord();
+            break;
+        case MotionEvent.ACTION_UP:
+            if (isRecording) {
+                touchCenterX = viewWidth - viewHeight / 2;
+                // 抬起后更改触摸区域半径
+                // 根据向左滑动的距离判断是正常停止录制，还是取消录制
+                if (x > viewWidth / 2) {
+                    // 抬起停止录制
+                    stopRecord();
+                } else {
+                    // 取消录制
+                    cancelRecord();
+                }
+            }
+            break;
+        case MotionEvent.ACTION_MOVE:
+            if (isRecording) {
+                if (x < viewWidth - viewHeight / 2) {
+                    touchCenterX = x;
+                } else {
+                    touchCenterX = viewWidth - viewHeight / 2;
+                }
+                if (x > viewWidth / 5 * 3) {
+                    // 抬起停止录制
+                    isCancel = false;
+                } else {
+                    // 取消录制
+                    isCancel = true;
+                }
+                if (x < viewWidth / 3) {
+                    touchCenterX = viewWidth - viewHeight / 2;
+                    cancelRecord();
                     return false;
                 }
-                // 按下后更改触摸区域半径
-                touchSize = VMDimenUtil.getDimenPixel(context, R.dimen.vm_dimen_72);
-                // 触摸开始录音
-                startRecord();
-                break;
-            case MotionEvent.ACTION_UP:
-                if (isRecording) {
-                    touchCenterX = viewWidth - viewHeight / 2;
-                    // 抬起后更改触摸区域半径
-                    // 根据向左滑动的距离判断是正常停止录制，还是取消录制
-                    if (x > viewWidth / 2) {
-                        // 抬起停止录制
-                        stopRecord();
-                    } else {
-                        // 取消录制
-                        cancelRecord();
-                    }
-                }
-                break;
-            case MotionEvent.ACTION_MOVE:
-                if (isRecording) {
-                    if (x < viewWidth - viewHeight / 2) {
-                        touchCenterX = x;
-                    } else {
-                        touchCenterX = viewWidth - viewHeight / 2;
-                    }
-                    if (x > viewWidth / 5 * 3) {
-                        // 抬起停止录制
-                        isCancel = false;
-                    } else {
-                        // 取消录制
-                        isCancel = true;
-                    }
-                    if (x < viewWidth / 3) {
-                        touchCenterX = viewWidth - viewHeight / 2;
-                        cancelRecord();
-                        return false;
-                    }
-                }
-                break;
+            }
+            break;
         }
         // 通知控件重新绘制
         postInvalidate();
@@ -471,7 +473,8 @@ public class VMRecordView extends View {
         // 初始化开始录制时间
         startTime = System.currentTimeMillis();
         new Thread(new Runnable() {
-            @Override public void run() {
+            @Override
+            public void run() {
                 while (isRecording) {
                     // 睡眠 100 毫秒，
                     try {

@@ -3,81 +3,88 @@
     <!--自定义VMImageView的属性-->
     <declare-styleable name="VMImageView">
         <!--模糊半径-->
-        <attr format="integer" name="vm_blur_radius"/>
+        <attr name="vm_blur_radius" format="integer" />
         <!--模糊图片是缩放比例-->
-        <attr format="integer" name="vm_blur_scale"/>
+        <attr name="vm_blur_scale" format="integer" />
         <!--控件边框颜色-->
-        <attr format="color" name="vm_border_color"/>
+        <attr name="vm_border_color" format="color" />
         <!--控件边框宽度-->
-        <attr format="dimension" name="vm_border_width"/>
+        <attr name="vm_border_width" format="dimension" />
         <!--控件按下时颜色的透明度-->
-        <attr format="integer" name="vm_press_alpha"/>
+        <attr name="vm_press_alpha" format="integer" />
         <!--控件按下的颜色-->
-        <attr format="color" name="vm_press_color"/>
+        <attr name="vm_press_color" format="color" />
         <!--控件圆角半径-->
-        <attr format="dimension" name="vm_radius"/>
+        <attr name="vm_radius" format="dimension" />
         <!--自定义控件的几种枚举样式 0 正常、1 圆形、2 圆角矩形-->
-        <attr format="enum" name="vm_shape_type">
-            <enum name="normal" value="0"/>
-            <enum name="round" value="1"/>
-            <enum name="rectangle" value="2"/>
+        <attr name="vm_shape_type" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="round" value="1" />
+            <enum name="rectangle" value="2" />
         </attr>
         <!--是否拦截触摸事件-->
-        <attr format="boolean" name="vm_dispatch_touch_event"/>
+        <attr name="vm_dispatch_touch_event" format="boolean" />
     </declare-styleable>
 
 
     <!--自定义音频录制控件-->
     <declare-styleable name="VMRecordView">
         <!--录制指示器颜色-->
-        <attr format="color" name="vm_indicator_color"/>
+        <attr name="vm_indicator_color" format="color" />
         <!--录制指示器大小-->
-        <attr format="dimension" name="vm_indicator_size"/>
+        <attr name="vm_indicator_size" format="dimension" />
         <!--文字颜色-->
-        <attr format="color" name="vm_text_color"/>
+        <attr name="vm_text_color" format="color" />
         <!--文字大小-->
-        <attr format="dimension" name="vm_text_size"/>
+        <attr name="vm_text_size" format="dimension" />
         <!--触摸区域颜色-->
-        <attr format="color" name="vm_touch_color"/>
+        <attr name="vm_touch_color" format="color" />
         <!--触摸区域提示文字-->
-        <attr format="string|reference" name="vm_touch_text"/>
+        <attr name="vm_touch_text" format="string|reference" />
         <!--波形刻度颜色-->
-        <attr format="color" name="vm_waveform_color"/>
+        <attr name="vm_waveform_color" format="color" />
         <!--波形刻度间隔距离-->
-        <attr format="dimension" name="vm_waveform_interval"/>
+        <attr name="vm_waveform_interval" format="dimension" />
         <!--波形刻度宽度-->
-        <attr format="dimension" name="vm_waveform_width"/>
+        <attr name="vm_waveform_width" format="dimension" />
     </declare-styleable>
 
     <!--自定义波形展示控件-->
     <declare-styleable name="VMWaveformView">
         <!--文字颜色-->
-        <attr format="color" name="vm_waveform_text_color"/>
+        <attr name="vm_waveform_text_color" format="color" />
         <!--文字大小-->
-        <attr format="dimension" name="vm_waveform_text_size"/>
+        <attr name="vm_waveform_text_size" format="dimension" />
         <!--波形颜色-->
-        <attr format="color" name="vm_waveform_waveform_color"/>
+        <attr name="vm_waveform_waveform_color" format="color" />
         <!--波形间隔 树状图时才需要-->
-        <attr format="dimension" name="vm_waveform_waveform_interval"/>
+        <attr name="vm_waveform_waveform_interval" format="dimension" />
         <!--波形宽度-->
-        <attr format="dimension" name="vm_waveform_waveform_width"/>
+        <attr name="vm_waveform_waveform_width" format="dimension" />
     </declare-styleable>
 
     <!--自定义 VMDotLineView 属性-->
     <declare-styleable name="VMDotLineView">
         <!--点的颜色-->
-        <attr format="color" name="vm_dot_color"/>
+        <attr name="vm_dot_color" format="color" />
         <!--点的半径-->
-        <attr format="dimension" name="vm_dot_radius"/>
+        <attr name="vm_dot_radius" format="dimension" />
         <!--点圆弧线宽-->
-        <attr format="dimension" name="vm_dot_width"/>
+        <attr name="vm_dot_width" format="dimension" />
         <!--是否闭合-->
-        <attr format="boolean" name="vm_is_closure"/>
+        <attr name="vm_is_closure" format="boolean" />
         <!--线段颜色-->
-        <attr format="color" name="vm_line_color"/>
+        <attr name="vm_line_color" format="color" />
         <!--线段宽度-->
-        <attr format="dimension" name="vm_line_width"/>
+        <attr name="vm_line_width" format="dimension" />
         <!--绘制速度-->
-        <attr format="integer" name="vm_speed"/>
+        <attr name="vm_speed" format="integer" />
+    </declare-styleable>
+
+    <!--可膨胀的布局控件-->
+    <declare-styleable name="VMExpandableLayout">
+        <attr name="vm_el_duration" format="integer" />
+        <attr name="vm_el_expanded" format="boolean" />
+        <attr name="vm_el_expandable" format="boolean" />
     </declare-styleable>
 </resources>

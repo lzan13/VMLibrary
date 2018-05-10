@@ -13,7 +13,7 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 
-import com.vmloft.develop.library.tools.VMApplication;
+import com.vmloft.develop.library.tools.VMTools;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -298,20 +298,20 @@ public class VMFileUtil {
      // SDCard 目录
      Environment.getExternalStorageDirectory().getPath();
      // 当前 app 在 root 下的缓存目录
-     VMApplication.getContext().getCacheDir().getPath();
+     VMTools.getContext().getCacheDir().getPath();
      // 当前 app 在 SDCard 下的缓存目录
-     VMApplication.getContext().getExternalCacheDir().getPath();
+     VMTools.getContext().getExternalCacheDir().getPath();
      // 当前 app 在 root 下的 files 目录
-     VMApplication.getContext().getFilesDir().getPath();
-     VMApplication.getContext().getFilesDir().getPath();
+     VMTools.getContext().getFilesDir().getPath();
+     VMTools.getContext().getFilesDir().getPath();
      // 当前 app 在 SDCard 下的 obb 目录，一般是apk包过大要分出资源包，游戏用的比较多
-     VMApplication.getContext().getObbDir().getPath();
+     VMTools.getContext().getObbDir().getPath();
      // 获取当前 app 包名
-     VMApplication.getContext().getPackageName();
+     VMTools.getContext().getPackageName();
      // 获取当前 app 代码路径
-     VMApplication.getContext().getPackageCodePath();
+     VMTools.getContext().getPackageCodePath();
      // 获取当前 app 资源路径
-     VMApplication.getContext().getPackageResourcePath();
+     VMTools.getContext().getPackageResourcePath();
 
      // 获取常用目录的方法，参数是需要获取的目录类型，可以是download，camera
      Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
@@ -334,7 +334,7 @@ public class VMFileUtil {
      * @return 返回得到的路径
      */
     public static String getCacheFromData() {
-        return VMApplication.getContext().getCacheDir().getPath() + "/";
+        return VMTools.getContext().getCacheDir().getPath() + "/";
     }
 
     /**
@@ -343,7 +343,7 @@ public class VMFileUtil {
      * @return 返回得到的路径
      */
     public static String getCacheFromSDCard() {
-        return VMApplication.getContext().getExternalCacheDir().getPath() + "/";
+        return VMTools.getContext().getExternalCacheDir().getPath() + "/";
     }
 
     /**
@@ -352,7 +352,7 @@ public class VMFileUtil {
      * @return 返回得到的路径
      */
     public static String getFilesFromData() {
-        return VMApplication.getContext().getFilesDir().getPath() + "/";
+        return VMTools.getContext().getFilesDir().getPath() + "/";
     }
 
     /**
@@ -361,7 +361,7 @@ public class VMFileUtil {
      * @return 返回得到的路径
      */
     public static String getFilesFromSDCard() {
-        return VMApplication.getContext().getExternalFilesDir("").getAbsolutePath() + "/";
+        return VMTools.getContext().getExternalFilesDir("").getAbsolutePath() + "/";
     }
 
     /**
@@ -370,7 +370,7 @@ public class VMFileUtil {
      * @return 返回得到的路径
      */
     public static String getOBB() {
-        return VMApplication.getContext().getObbDir().getAbsolutePath() + "/";
+        return VMTools.getContext().getObbDir().getAbsolutePath() + "/";
     }
 
     /**
@@ -427,7 +427,7 @@ public class VMFileUtil {
      * @return 返回得到的路径
      */
     public static String getPackageName() {
-        return VMApplication.getContext().getPackageName();
+        return VMTools.getContext().getPackageName();
     }
 
     /**
@@ -436,7 +436,7 @@ public class VMFileUtil {
      * @return 返回得到的路径
      */
     public static String getPackageCode() {
-        return VMApplication.getContext().getPackageCodePath();
+        return VMTools.getContext().getPackageCodePath();
     }
 
     /**
@@ -445,7 +445,7 @@ public class VMFileUtil {
      * @return 返回得到的路径
      */
     public static String getPackageResource() {
-        return VMApplication.getContext().getPackageResourcePath();
+        return VMTools.getContext().getPackageResourcePath();
     }
 
     /**

@@ -2,26 +2,26 @@
     package="com.vmloft.develop.library.example">
 
     <!--允许应用程序完全使用网络-->
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
     <!-- 录音 -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <!--相机权限-->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera"/>
     <!--读写外部存储设备权限-->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <!-- 获取设备识别码 IMEI -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <!-- 获取网络状态 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <!-- 获取wifi状态 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <!-- 允许程序在手机屏幕关闭后后台运行 -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
-        android:name=".VMAppApplication"
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -29,54 +29,63 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".VMMainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.Launcher">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
         <!--测试 socket 相关-->
-        <activity android:name=".socket.VMSocketActivity" />
-        <activity android:name=".socket.VMTCPSocketServer" />
-        <activity android:name=".socket.VMTCPSocketClient" />
-        <activity android:name=".socket.VMUDPSocketServer" />
-        <activity android:name=".socket.VMUDPSocketClient" />
+        <activity android:name=".socket.VMSocketActivity"/>
+        <activity android:name=".socket.VMTCPSocketServer"/>
+        <activity android:name=".socket.VMTCPSocketClient"/>
+        <activity android:name=".socket.VMUDPSocketServer"/>
+        <activity android:name=".socket.VMUDPSocketClient"/>
 
         <!--测试自定义控件-->
-        <activity android:name=".widget.VMDotLineActivity" />
-        <activity android:name=".widget.VMRecordActivity" />
+        <activity android:name=".widget.VMDotLineActivity"/>
+        <activity android:name=".widget.VMRecordActivity"/>
 
         <!--测试主题样式-->
         <activity
             android:name=".theme.VMThemeActivity"
-            android:theme="@style/AppTheme.Transparent" />
+            android:theme="@style/AppTheme.Transparent"/>
 
         <!--实现相机功能-->
         <activity
             android:name=".camera.VMCameraActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/AppTheme.Transparent" />
+            android:theme="@style/AppTheme.Transparent"/>
         <!--测试可变控件-->
-        <activity android:name=".details.VMDetailsActivity" />
+        <activity android:name=".details.VMDetailsActivity"/>
 
         <!--测试 http 请求-->
-        <activity android:name=".http.VMHttpActivity" />
+        <activity android:name=".http.VMHttpActivity"/>
 
         <!--播放音频-->
-        <activity android:name=".audio.VMAudioActivity" />
+        <activity android:name=".audio.VMAudioActivity"/>
 
         <!--弹出PopupWindow菜单-->
-        <activity android:name=".popup.VMPopupWindowActivity" />
+        <activity android:name=".popup.VMPopupWindowActivity"/>
 
         <!--获取签名信息-->
-        <activity android:name=".tools.SignatureActivity" />
+        <activity android:name=".tools.SignatureActivity"/>
 
         <!--录制屏幕-->
-        <activity android:name=".record.ScreenRecordActivity" />
+        <activity android:name=".record.ScreenRecordActivity"/>
+
+        <!--Web 界面-->
+        <activity android:name=".webpage.WebPageActivity"/>
+
+        <!--Root 权限下模拟按键事件-->
+        <activity android:name=".shell.ShellActivity"/>
+
+        <!--本地库开发-->
+        <activity android:name=".jni.JniActivity"/>
 
     </application>
 </manifest>

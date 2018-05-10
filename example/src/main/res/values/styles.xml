@@ -23,7 +23,7 @@
         <!--防止启动瞬间黑屏或白屏，程序启动时的背景图，可以设置为一张代表性的logo，或者设置app框架类图-->
         <item name="android:windowBackground">@drawable/bg_launcher_statusbar_toolbar</item>
         <!--颜色背景-->
-        <item name="android:colorBackground">@color/vm_theme_background_light</item>
+        <item name="android:colorBackground">@color/vm_theme_background</item>
     </style>
 
     <style name="AppTheme.Transparent">

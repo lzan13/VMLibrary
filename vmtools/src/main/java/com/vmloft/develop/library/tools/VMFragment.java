@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.vmloft.develop.library.tools.utils.VMLog;
 
 /**
@@ -26,17 +27,23 @@ public abstract class VMFragment extends Fragment {
     // 是否显示
     protected boolean isVisible = false;
 
-    @Override public void onAttach(Context context) {
+    @Override
+    public void onAttach(Context context) {
         super.onAttach(context);
-        VMLog.i("onAttach: %s", className);
+        VMLog.d("onAttach: %s", className);
     }
 
-    @Override public void onCreate(@Nullable Bundle savedInstanceState) {
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        VMLog.i("onCreate: %s", className);
+        VMLog.d("onCreate: %s", className);
     }
 
-    @Override public void setUserVisibleHint(boolean isVisibleToUser) {
+    /**
+     * 判断当前 Fragment 是否显示做数据加载判断，此方法只能用在和 ViewPager 一起使用
+     */
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         // 当前 Fragment 显示时加载数据
         if (isVisibleToUser) {
@@ -45,18 +52,20 @@ public abstract class VMFragment extends Fragment {
         } else {
             isVisible = false;
         }
-        VMLog.i("setUserVisibleHint: %s, %b", className, isVisibleToUser);
+        VMLog.d("setUserVisibleHint: %s, %b", className, isVisibleToUser);
     }
 
-    @Nullable @Override
+    @Nullable
+    @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(initLayoutId(), container, false);
-        VMLog.i("onCreateView: %s", className);
+        VMLog.d("onCreateView: %s", className);
         return view;
     }
 
-    @Override public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         activity = (VMActivity) getActivity();
@@ -64,43 +73,50 @@ public abstract class VMFragment extends Fragment {
         initView();
         isInitView = true;
         loadData();
-        VMLog.i("onActivityCreated: %s", className);
+        VMLog.d("onActivityCreated: %s", className);
     }
 
-    @Override public void onStart() {
-        super.onStart();
-        VMLog.i("onStart: %s", className);
-    }
-
-    @Override public void onResume() {
-        super.onResume();
-        VMLog.i("onResume: %s", className);
-    }
-
-    @Override public void onPause() {
-        super.onPause();
-        VMLog.i("onPause: %s", className);
-    }
-
-    @Override public void onStop() {
-        super.onStop();
-        VMLog.i("onStop: %s", className);
-    }
-
-    @Override public void onDestroyView() {
-        super.onDestroyView();
-        VMLog.i("onDestroyView: %s", className);
-    }
-
-    @Override public void onDetach() {
-        super.onDetach();
-        VMLog.i("onDetach: %s", className);
-    }
-
-    @Override public void onDestroy() {
-        super.onDestroy();
-        VMLog.i("onDestroy: %s", className);
-    }
+    //@Override
+    //public void onStart() {
+    //    super.onStart();
+    //    VMLog.d("onStart: %s", className);
+    //}
+    //
+    //@Override
+    //public void onResume() {
+    //    super.onResume();
+    //    VMLog.d("onResume: %s", className);
+    //}
+    //
+    //@Override
+    //public void onPause() {
+    //    super.onPause();
+    //    VMLog.d("onPause: %s", className);
+    //}
+    //
+    //@Override
+    //public void onStop() {
+    //    super.onStop();
+    //    VMLog.d("onStop: %s", className);
+    //}
+    //
+    //@Override
+    //public void onDestroyView() {
+    //    super.onDestroyView();
+    //    VMLog.d("onDestroyView: %s", className);
+    //}
+    //
+    //@Override
+    //public void onDetach() {
+    //    super.onDetach();
+    //    VMLog.d("onDetach: %s", className);
+    //}
+    //
+    //@Override
+    //public void onDestroy() {
+    //    super.onDestroy();
+    //    VMLog.d("onDestroy: %s", className);
+    //}
 
     /**
      * 加载数据方法，是否真正加载由内部判断
@@ -108,9 +124,9 @@ public abstract class VMFragment extends Fragment {
     private void loadData() {
         // 只是打印输出当前状态
         if (isFirstLoad) {
-            VMLog.i("第一次加载数据 isVisible: %b, %s", isVisible, className);
+            VMLog.d("第一次加载数据 isVisible: %b, %s", isVisible, className);
         } else {
-            VMLog.i("不是第一次加载数据 isVisible: %b, %s", isVisible, className);
+            VMLog.d("不是第一次加载数据 isVisible: %b, %s", isVisible, className);
         }
         // 这里确定要不要执行数据加载
         if (!isFirstLoad || !isVisible || !isInitView) {
@@ -137,4 +153,8 @@ public abstract class VMFragment extends Fragment {
      * 加载数据
      */
     protected abstract void initData();
+
+    public interface FragmentListener {
+        void onAction(int action, Object obj);
+    }
 }

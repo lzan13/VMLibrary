@@ -1,14 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- 应用基础主题 -->
-    <style name="VMTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- 在这里自定义自己的主题 -->
+    <style name="VMTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- 默认主要颜色，一般是 Toolbar 等颜色 -->
-        <item name="colorPrimary">@color/vm_theme_primary_light</item>
+        <item name="colorPrimary">@color/vm_theme_primary</item>
         <!-- 深一些的主要色，一般是状态栏等颜色 -->
-        <item name="colorPrimaryDark">@color/vm_theme_primary_dark_light</item>
+        <item name="colorPrimaryDark">@color/vm_theme_primary_dark</item>
         <!--各控件激活时的颜色，一般是 CheckBox、EditText、Switch、Spinner、RadioButton 等控件激活的颜色-->
-        <item name="colorAccent">@color/vm_theme_accent_light</item>
+        <item name="colorAccent">@color/vm_theme_accent</item>
+
         <!--界面背景色，为了优化 UI，这里设置为透明-->
         <item name="android:windowBackground">@color/vm_transparent</item>
 
@@ -20,85 +20,180 @@
         <!--设置 ActionMode 效果，防止 ActionMode 将Toolbar顶下去-->
         <item name="windowActionModeOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>
-
     </style>
-
 
     <!--自定义默认 AppBar 样式，这里为了让文字显示为白色，继承黑色样式的ActionBar 原因是为了让弹出菜单为白色-->
     <style name="VMTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <!--Appbar 控制器颜色-->
-        <item name="colorControlNormal">@color/vm_white_title</item>
+        <item name="colorControlNormal">@color/vm_toolbar_control</item>
         <!--Appbar 标题颜色-->
-        <item name="android:textColor">@color/vm_white_title</item>
-        <!--Appbar 标题大小-->
-        <!--<item name="android:textSize">@dimen/vm_size_title</item>-->
+        <item name="android:textColor">@color/vm_toolbar_control</item>
         <!--Appbar 标题样式-->
         <item name="android:textStyle">normal</item>
-        <!--更改菜单按钮样式 此菜单直的是当 action过多显示不全，会有三个小点儿样式-->
-        <!--<item name="android:actionOverflowButtonStyle">@style/VMTheme.ActionBarOverflow</item>-->
     </style>
 
     <!--自定义 Toolbar 样式，这里为了让文字显示为白色，继承黑色样式的ActionBar 原因是为了让弹出菜单为白色-->
     <style name="VMTheme.ToolbarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <!--Toolbar 控制器颜色-->
-        <item name="colorControlNormal">@color/vm_white_title</item>
+        <item name="colorControlNormal">@color/vm_toolbar_control</item>
         <!--Toolbar 上文字颜色-->
-        <item name="android:textColor">@color/vm_white_title</item>
-        <!--Toolbar 文字大小-->
-        <!--<item name="android:textSize">@dimen/vm_size_title</item>-->
+        <item name="android:textColor">@color/vm_toolbar_control</item>
         <!--Toolbar 文字样式-->
         <item name="android:textStyle">normal</item>
     </style>
 
     <!--自定 Toolbar 弹出 PopupMenu 样式，要想此设置生效，在布局文件必须要自定义命名空间 xmlns：app-->
-    <style name="VMTheme.PopupOverlay" parent="@style/ThemeOverlay.AppCompat.Light">
-        <!--设置菜单项文字的背景-->
-        <!--<item name="android:background">@drawable/vm_popup_backaground</item>-->
-        <!--弹出菜单背景颜色-->
-        <!--<item name="android:colorBackground">@color/vm_white_87</item>-->
-        <!--弹出菜单项的背景设置 主要是为了添加点击效果-->
-        <!--<item name="android:itemBackground">@drawable/ripple_rectangle_white</item>-->
-        <!--设置弹出 PopupWindow 背景 这里使用了系统的资源 好像无效-->
-        <!--<item name="android:popupBackground">@drawable/abc_popup_background_mtrl_mult</item>-->
+    <style name="VMTheme.PopupOverlay" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <!--弹出菜单的文字颜色和大小-->
-        <item name="android:textColor">@color/vm_black_title</item>
-        <!--<item name="android:textSize">@dimen/vm_size_menu</item>-->
+        <item name="android:textColor">@color/vm_title</item>
     </style>
 
-
-    <style name="VMTag">
-        <item name="android:background"></item>
+    <!--文字样式 Display1-->
+    <style name="VMText.Display1" parent="Base.TextAppearance.AppCompat.Display1">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/vm_display_1</item>
     </style>
 
-    <style name="VMBtn.Flat" parent="Widget.AppCompat.Button.Borderless"></style>
-    <!--扁平红色按钮-->
-    <style name="VMBtn.Flat.Red"></style>
-    <!--扁平绿色按钮-->
-    <style name="VMBtn.Flat.Green"></style>
-    <!--扁平蓝色按钮-->
-    <style name="VMBtn.Flat.Blue"></style>
-    <!--扁平白色按钮-->
-    <style name="VMBtn.Flat.White"></style>
-    <!--扁平透明按钮-->
-    <style name="VMBtn.Transparent"></style>
+    <!--文字样式 Headline-->
+    <style name="VMText.Headline" parent="Base.TextAppearance.AppCompat.Headline">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/vm_headline</item>
+    </style>
 
+    <!--文字样式 Title-->
+    <style name="VMText.Title" parent="Base.TextAppearance.AppCompat.Title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/vm_title</item>
+    </style>
 
-    <style name="VMBtn" parent="Widget.AppCompat.Button"></style>
-    <!--红色按钮-->
+    <!--文字样式 Subhead-->
+    <style name="VMText.Subhead" parent="Base.TextAppearance.AppCompat.Subhead">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/vm_subhead</item>
+    </style>
+
+    <!--文字样式 Menu-->
+    <style name="VMText.Menu" parent="Base.TextAppearance.AppCompat.Menu">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/vm_menu</item>
+    </style>
+
+    <!--文字样式 Body1-->
+    <style name="VMText.Body1" parent="Base.TextAppearance.AppCompat.Body1">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/vm_body</item>
+    </style>
+
+    <!--文字样式 Body2 有加粗效果-->
+    <style name="VMText.Body2" parent="Base.TextAppearance.AppCompat.Body2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/vm_body</item>
+    </style>
+
+    <!--文字样式 Caption-->
+    <style name="VMText.Caption" parent="Base.TextAppearance.AppCompat.Caption">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/vm_caption</item>
+    </style>
+
+    <!--输入框样式-->
+    <style name="VMEdit" parent="Base.Widget.AppCompat.EditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/vm_input</item>
+        <item name="android:textColorHint">@color/vm_input_hint</item>
+        <item name="android:inputType">textImeMultiLine</item>
+        <item name="android:textSize">@dimen/vm_size_body</item>
+    </style>
+
+    <!--多行文本输入框-->
+    <style name="VMEdit.MultiLine" parent="Base.Widget.AppCompat.EditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@null</item>
+        <item name="android:gravity">top</item>
+        <item name="android:padding">@dimen/vm_padding_large</item>
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:scrollHorizontally">false</item>
+        <item name="android:textColor">@color/vm_input</item>
+        <item name="android:textColorHint">@color/vm_input_hint</item>
+        <item name="android:textSize">@dimen/vm_size_body</item>
+        <item name="android:inputType">textMultiLine|textLongMessage</item>
+        <item name="android:singleLine">false</item>
+    </style>
+
+    <!--扁平按钮-->
+    <style name="VMBtn.Flat" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/vm_click_flat_transparent</item>
+        <item name="android:textSize">@dimen/vm_size_btn_normal</item>
+        <item name="android:textColor">@color/vm_flat_text</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <!--扁平倒角按钮-->
+    <style name="VMBtn.Flat.Fillet">
+        <item name="android:background">@drawable/vm_click_fillet_transparent</item>
+    </style>
+
+    <!--扁平充满按钮-->
+    <style name="VMBtn.Flat.Full">
+        <item name="android:background">@drawable/vm_click_full_transparent</item>
+    </style>
+
+    <!--自定义倒角按钮样式-->
+    <style name="VMBtn" parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:minWidth">@dimen/vm_dimen_72</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">@dimen/vm_dimen_48</item>
+        <item name="android:background">@drawable/vm_click_rectangle_gray</item>
+        <item name="android:textSize">@dimen/vm_size_btn_normal</item>
+        <item name="android:textColor">@color/vm_btn_text</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+    <!--红色倒角按钮-->
     <style name="VMBtn.Red">
-        <item name="android:textColor">@color/vm_black_87</item>
+        <item name="android:background">@drawable/vm_click_rectangle_red</item>
     </style>
-    <!--绿色按钮-->
+    <!--绿色倒角按钮-->
     <style name="VMBtn.Green">
-        <item name="android:textColor">@color/vm_black_87</item>
+        <item name="android:background">@drawable/vm_click_rectangle_green</item>
     </style>
-    <!--蓝色按钮-->
+    <!--蓝色倒角按钮-->
     <style name="VMBtn.Blue">
-        <item name="android:textColor">@color/vm_black_87</item>
-    </style>
-    <!--白色按钮-->
-    <style name="VMBtn.White">
-        <item name="android:textColor">@color/vm_black_87</item>
+        <item name="android:background">@drawable/vm_click_rectangle_blue</item>
     </style>
 
+    <!--自定义倒角按钮样式-->
+    <style name="VMBtn.Fillet">
+        <item name="android:background">@drawable/vm_click_fillet_gray</item>
+    </style>
+    <!--红色倒角按钮-->
+    <style name="VMBtn.Red.Fillet">
+        <item name="android:background">@drawable/vm_click_fillet_red</item>
+    </style>
+    <!--绿色倒角按钮-->
+    <style name="VMBtn.Green.Fillet">
+        <item name="android:background">@drawable/vm_click_fillet_green</item>
+    </style>
+    <!--蓝色倒角按钮-->
+    <style name="VMBtn.Blue.Fillet">
+        <item name="android:background">@drawable/vm_click_fillet_blue</item>
+    </style>
+
+    <!--Toast 显示和隐藏动画-->
+    <style name="VMToastAnim">
+        <item name="android:windowEnterAnimation">@anim/vm_toast_in</item>
+        <item name="android:windowExitAnimation">@anim/vm_toast_out</item>
+    </style>
 </resources>

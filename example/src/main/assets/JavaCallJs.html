@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Java调用JavaScript</title>
+		<style>
+			#javacalljs1,
+			#javacalljs2 {
+				color: red;
+			}
+		</style>
+		<script type="text/javascript">
+			function javaCallJsNoArgs() {
+				document.getElementById("javacalljs1").innerHTML += "Java调用了我的无参函数<br\>";
+			}
+
+			function javaCallJsExistArgs(args) {
+				document.getElementById("javacalljs2").innerHTML += "Java调用了我的有参函数，参数是：" + args + "<br\>";
+			}
+
+			function showAlert(args) {
+				alert(args);
+			}
+		</script>
+	</head>
+
+	<body>
+		这是NieJian写的Java调用Js的验证页面！<br /><br /> 点击按钮：“java调用js无参方法”。会出现以下内容：
+		<br />
+		<div id="javacalljs1"></div><br /><br /> 点击按钮：“java调用js有参方法”。会出现以下内容：
+		<br />
+		<div id="javacalljs2"></div>
+	</body>
+
+</html>

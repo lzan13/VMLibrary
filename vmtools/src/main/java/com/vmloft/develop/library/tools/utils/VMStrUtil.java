@@ -1,5 +1,9 @@
 package com.vmloft.develop.library.tools.utils;
 
+import android.support.v4.content.ContextCompat;
+
+import com.vmloft.develop.library.tools.VMTools;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -80,5 +84,28 @@ public class VMStrUtil {
      */
     public static String[] listToArray(List<String> list) {
         return list.toArray(new String[list.size()]);
+    }
+
+    /**
+     * 根据资源 id 获取字符串
+     */
+    public static String strByResId(int resId) {
+        return VMTools.getContext().getString(resId);
+    }
+
+    /**
+     * 检测字符串是否为空白字符串
+     */
+    public static boolean isEmpty(String str) {
+        if (str == null || "".equals(str)) {
+            return true;
+        }
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if (c != ' ' && c != '\t' && c != '\r' && c != '\n') {
+                return false;
+            }
+        }
+        return true;
     }
 }

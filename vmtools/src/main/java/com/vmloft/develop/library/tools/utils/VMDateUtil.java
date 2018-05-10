@@ -3,6 +3,7 @@ package com.vmloft.develop.library.tools.utils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Created by Administrator on 2015/3/26.
@@ -25,21 +26,37 @@ public class VMDateUtil {
     /**
      * 定义时间的格式化不同样式
      */
-    private static SimpleDateFormat formatDateTimeNormal = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    private static SimpleDateFormat formatDateTimeMilli = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-    private static SimpleDateFormat formatDateTimeNoSpacing = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-    private static SimpleDateFormat formatDateTimeNoYear = new SimpleDateFormat("MM/dd HH:mm:ss");
-    private static SimpleDateFormat formatDateNormal = new SimpleDateFormat("yyyy/MM/dd");
-    private static SimpleDateFormat formatDateNoYear = new SimpleDateFormat("MM/dd");
-    private static SimpleDateFormat formatTimeNormal = new SimpleDateFormat("HH:mm:ss");
+    public static SimpleDateFormat sdfNormal = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+    public static SimpleDateFormat sdfFilename = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+    public static SimpleDateFormat sdfUTC = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    public static SimpleDateFormat sdfNoYear = new SimpleDateFormat("MM/dd HH:mm");
+    public static SimpleDateFormat sdfOnlyDate = new SimpleDateFormat("yyyy/MM/dd");
+    public static SimpleDateFormat sdfOnlyDateNoDay = new SimpleDateFormat("yyyy月MM日");
+    public static SimpleDateFormat sdfOnlyDateNoYear = new SimpleDateFormat("MM/dd");
+    public static SimpleDateFormat sdfOnlyTime = new SimpleDateFormat("HH:mm");
+
+    /**
+     * 获取当前时间的毫秒值
+     */
+    public static long currentMilli() {
+        return System.currentTimeMillis();
+    }
 
     /**
      * 获取当前格式化后的标准时间
      *
      * @return 返回格式化后的时间
      */
-    public static String getCurrentDateTimeNormal() {
-        return formatDateTimeNormal.format(new Date());
+    public static String currentDateTime() {
+        return sdfNormal.format(new Date());
+    }
+
+    /**
+     * 获取当前时间的 UTC 格式字符串表示
+     */
+    public static String currentUTCDateTime() {
+        sdfUTC.setTimeZone(TimeZone.getTimeZone("UTC"));
+        return sdfUTC.format(new Date());
     }
 
     /**
@@ -47,28 +64,22 @@ public class VMDateUtil {
      *
      * @return 返回格式化后的时间
      */
-    public static String getDateTimeNoSpacing() {
-        return formatDateTimeNoSpacing.format(new Date());
-    }
-
-    /**
-     * 获取当前时间的毫秒值
-     */
-    public static long getCurrentMillisecond() {
-        return System.currentTimeMillis();
+    public static String filenameDateTime() {
+        return sdfFilename.format(new Date());
     }
 
     /**
      * 将给定的字符串型时间格式化为另一种样式
      *
-     * @param format 原来的时间格式
+     * @param srcFormat 原来的时间格式
+     * @param desFormat 目标的时间格式
      * @param dateStr 原来的时间
      * @return 返回格式化后的时间格式
      */
-    public static String getDateTimeNormal(String format, String dateStr) {
+    public static String converDateTime(String srcFormat, String desFormat, String dateStr) {
         try {
-            Date date = new SimpleDateFormat(format).parse(dateStr);
-            return formatDateTimeNormal.format(date);
+            Date date = new SimpleDateFormat(srcFormat).parse(dateStr);
+            return new SimpleDateFormat(desFormat).format(date);
         } catch (ParseException e) {
             e.printStackTrace();
             return null;
@@ -76,7 +87,26 @@ public class VMDateUtil {
     }
 
     /**
-     * 获取时间的字符串格式
+     * 根据格林尼格式的日志获取其毫秒表示值
+     *
+     * @param dateStr 需要转换的日期
+     */
+    public static long milliFormUTC(String dateStr) {
+        if (VMStrUtil.isEmpty(dateStr)) {
+            return 0l;
+        }
+        try {
+            sdfUTC.setTimeZone(TimeZone.getTimeZone("UTC"));
+            Date date = sdfUTC.parse(dateStr);
+            return date.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return 0L;
+        }
+    }
+
+    /**
+     * 获取时间的字符串格式，将秒单位的时间转为如 "00:00:00"这样的格式
      *
      * @param time 时间，单位 秒
      */
@@ -88,7 +118,8 @@ public class VMDateUtil {
     }
 
     /**
-     * 获取时间的秒数
+     * 获取时间的秒数，将形如 "00:00:00"这样格式的时间转为秒
+     *
      * @param time 字符串格式的时间
      */
     public static long fromTimeString(String time) {
@@ -114,7 +145,7 @@ public class VMDateUtil {
      */
     public static String long2Time(long time) {
         Date date = new Date(time);
-        return formatTimeNormal.format(date);
+        return sdfOnlyTime.format(date);
     }
 
     /**
@@ -122,9 +153,9 @@ public class VMDateUtil {
      *
      * @param time 需要格式化的时间毫秒值
      */
-    public static String long2DateTime(long time) {
+    public static String long2Normal(long time) {
         Date date = new Date(time);
-        return formatDateTimeNormal.format(date);
+        return sdfNormal.format(date);
     }
 
     /**
@@ -132,9 +163,9 @@ public class VMDateUtil {
      *
      * @param time 需要格式化的时间毫秒值
      */
-    public static String long2DateTimeNoYear(long time) {
+    public static String long2NormalNoYear(long time) {
         Date date = new Date(time);
-        return formatDateTimeNoYear.format(date);
+        return sdfNoYear.format(date);
     }
 
     /**
@@ -144,7 +175,7 @@ public class VMDateUtil {
      */
     public static String long2Date(long time) {
         Date date = new Date(time);
-        return formatDateNormal.format(date);
+        return sdfOnlyDate.format(date);
     }
 
     /**
@@ -154,8 +185,19 @@ public class VMDateUtil {
      */
     public static String long2DateNoYear(long time) {
         Date date = new Date(time);
-        return formatDateNoYear.format(date);
+        return sdfOnlyDateNoYear.format(date);
     }
+
+    /**
+     * 从 long 整型的时间戳里取出日期，这里取的不带有日
+     *
+     * @param time 需要格式化的时间毫秒值
+     */
+    public static String long2DateNoDay(long time) {
+        Date date = new Date(time);
+        return sdfOnlyDateNoDay.format(date);
+    }
+
 
     /**
      * 获取相对时间
@@ -178,10 +220,10 @@ public class VMDateUtil {
             return "前天 " + long2Time(time);
         } else if (isSameDate(currentTime, time + YEAR)) {
             // XXXX年XX月XX日
-            timeStr = long2DateTime(time);
+            timeStr = long2Normal(time);
         } else {
             // XX月XX日
-            timeStr = long2DateTimeNoYear(time);
+            timeStr = long2NormalNoYear(time);
         }
         return timeStr;
     }

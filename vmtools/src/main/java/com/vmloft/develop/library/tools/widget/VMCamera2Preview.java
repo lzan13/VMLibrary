@@ -17,7 +17,6 @@ import android.hardware.camera2.TotalCaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.annotation.NonNull;
@@ -601,7 +600,7 @@ public class VMCamera2Preview extends TextureView implements TextureView.Surface
         public ImageSaver(Image image) {
             this.image = image;
             // 先创建文件夹
-            file = new File(VMFileUtil.getPictures() + "VMCamera/IMG_" + VMDateUtil.getDateTimeNoSpacing() + ".jpg");
+            file = new File(VMFileUtil.getPictures() + "VMCamera/IMG_" + VMDateUtil.filenameDateTime() + ".jpg");
             if (!file.getParentFile().isDirectory()) {
                 file.mkdirs();
             }

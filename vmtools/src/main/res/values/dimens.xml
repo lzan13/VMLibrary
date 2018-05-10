@@ -2,14 +2,14 @@
 <resources>
 
     <!--定义文字大小-->
+    <dimen name="vm_size_display_1">34sp</dimen>
     <dimen name="vm_size_headline">24sp</dimen>
     <dimen name="vm_size_title">20sp</dimen>
     <dimen name="vm_size_subhead">16sp</dimen>
     <dimen name="vm_size_body">14sp</dimen>
-    <dimen name="vm_size_menu">16sp</dimen>
-
-    <dimen name="vm_size_btn_large">20sp</dimen>
-    <dimen name="vm_size_btn_normal">16sp</dimen>
+    <dimen name="vm_size_menu">14sp</dimen>
+    <dimen name="vm_size_btn_large">18sp</dimen>
+    <dimen name="vm_size_btn_normal">14sp</dimen>
     <dimen name="vm_size_btn_small">12sp</dimen>
     <dimen name="vm_size_caption">12sp</dimen>
 
@@ -25,16 +25,17 @@
     <dimen name="vm_avatar_normal">56dp</dimen>
     <dimen name="vm_avatar_large">72dp</dimen>
 
-
     <!--圆形背景半径定义-->
     <dimen name="vm_round_radius_small">36dp</dimen>
     <dimen name="vm_round_radius_normal">56dp</dimen>
     <dimen name="vm_round_radius_large">72dp</dimen>
 
     <!--控件 Z 轴高度-->
-    <dimen name="vm_elevation_dwarf">8dp</dimen>
-    <dimen name="vm_elevation_normal">16dp</dimen>
-    <dimen name="vm_elevation_high">32dp</dimen>
+    <dimen name="vm_elevation_no">0dp</dimen>
+    <dimen name="vm_elevation_low">1dp</dimen>
+    <dimen name="vm_elevation_normal">2dp</dimen>
+    <dimen name="vm_elevation_high">4dp</dimen>
+
 
     <!--margin-->
     <dimen name="vm_margin_small">4dp</dimen>
@@ -50,12 +51,16 @@
     <dimen name="vm_btn_height_small">36dp</dimen>
     <dimen name="vm_btn_height_normal">48dp</dimen>
     <dimen name="vm_btn_height_large">56dp</dimen>
+    <dimen name="vm_btn_fillet_radius">36dp</dimen>
+    <dimen name="vm_btn_rectangle_radius">2dp</dimen>
 
     <!--定义一些通用尺寸-->
     <dimen name="vm_dimen_0">0dp</dimen>
+    <dimen name="vm_dimen_0_5">0.5dp</dimen>
     <dimen name="vm_dimen_1">1dp</dimen>
     <dimen name="vm_dimen_2">2dp</dimen>
     <dimen name="vm_dimen_4">4dp</dimen>
+    <dimen name="vm_dimen_6">6dp</dimen>
     <dimen name="vm_dimen_8">8dp</dimen>
     <dimen name="vm_dimen_12">12dp</dimen>
     <dimen name="vm_dimen_16">16dp</dimen>
@@ -71,6 +76,7 @@
     <dimen name="vm_dimen_96">96dp</dimen>
     <dimen name="vm_dimen_128">128dp</dimen>
     <dimen name="vm_dimen_192">192dp</dimen>
+    <dimen name="vm_dimen_220">220dp</dimen>
     <dimen name="vm_dimen_256">256dp</dimen>
     <dimen name="vm_dimen_320">320dp</dimen>
 

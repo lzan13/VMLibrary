@@ -27,10 +27,11 @@ import java.util.List;
  */
 public class VMCameraPreview extends SurfaceView implements SurfaceHolder.Callback, Camera.PreviewCallback {
 
+    // 摄像头数据回调
     private CameraDataCallback callback;
 
-    private int width = 640;
-    private int height = 480;
+    private int width = 1920;
+    private int height = 1080;
 
     private SurfaceHolder holder;
     private Camera camera;
@@ -41,8 +42,8 @@ public class VMCameraPreview extends SurfaceView implements SurfaceHolder.Callba
      * 工厂方法
      *
      * @param context 上下文对象
-     * @param width 初始化预览宽
-     * @param height 初始化预览高
+     * @param width 画面预览宽
+     * @param height 画面预览高
      * @return 返回预览控件对象
      */
     public static VMCameraPreview newInstance(Context context, int width, int height) {
@@ -167,28 +168,29 @@ public class VMCameraPreview extends SurfaceView implements SurfaceHolder.Callba
         Camera.getCameraInfo(Camera.CameraInfo.CAMERA_FACING_BACK, cameraInfo);
         // 相机本身旋转角度
         int orientation = cameraInfo.orientation;
-        VMLog.d("camera orientation: %d", orientation);
+        //VMLog.d("camera orientation: %d", orientation);
 
-        Display display = ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+        Display display = ((WindowManager) getContext().getSystemService(
+            Context.WINDOW_SERVICE)).getDefaultDisplay();
 
         // 屏幕旋转的角度
         int rotation = display.getRotation();
-        VMLog.d("screen rotation: %d", rotation);
+        //VMLog.d("screen rotation: %d", rotation);
 
         int degrees = 0;
         switch (rotation) {
-            case Surface.ROTATION_0:
-                degrees = 0;
-                break;
-            case Surface.ROTATION_90:
-                degrees = 90;
-                break;
-            case Surface.ROTATION_180:
-                degrees = 180;
-                break;
-            case Surface.ROTATION_270:
-                degrees = 270;
-                break;
+        case Surface.ROTATION_0:
+            degrees = 0;
+            break;
+        case Surface.ROTATION_90:
+            degrees = 90;
+            break;
+        case Surface.ROTATION_180:
+            degrees = 180;
+            break;
+        case Surface.ROTATION_270:
+            degrees = 270;
+            break;
         }
         int result = (orientation - degrees + 360) % 360;
         return result;
@@ -201,7 +203,8 @@ public class VMCameraPreview extends SurfaceView implements SurfaceHolder.Callba
         camera.takePicture(null, null, new Camera.PictureCallback() {
             @Override public void onPictureTaken(byte[] data, Camera camera) {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-                String filePath = VMFileUtil.getDCIM() + "IMG" + VMDateUtil.getDateTimeNoSpacing() + ".jpg";
+                String filePath =
+                    VMFileUtil.getDCIM() + "IMG" + VMDateUtil.filenameDateTime() + ".jpg";
                 try {
                     VMBitmapUtil.saveBitmapToSDCard(bitmap, filePath);
                 } catch (IOException e) {
@@ -253,15 +256,15 @@ public class VMCameraPreview extends SurfaceView implements SurfaceHolder.Callba
                 Iterator<Camera.Size> itor = sizeList.iterator();
                 while (itor.hasNext()) {
                     Camera.Size size = itor.next();
-                    VMLog.d("camera supported size: w: %d, h: %d", size.width, size.height);
+                    //VMLog.d("camera supported size: w: %d, h: %d", size.width, size.height);
                 }
             }
             // 设置预览大小，预览就按照默认最大就行
             parameters.setPreviewSize(width, height);
             // 设置捕获照片大小
-            //parameters.setPictureSize(width, height);
+            parameters.setPictureSize(width, height);
             // 设置捕获图片数据格式，可以不设置
-            //parameters.setPictureFormat(ImageFormat.YUV_422_888);
+            parameters.setPictureFormat(ImageFormat.NV21);
             camera.setParameters(parameters);
         } catch (Exception e) {
             VMLog.d("camera is not available");
@@ -316,10 +319,10 @@ public class VMCameraPreview extends SurfaceView implements SurfaceHolder.Callba
          * 摄像头预览数据回调方法
          *
          * @param data 摄像头采集到的数据
-         * @param width 数据宽
-         * @param height 数据高
-         * @param rotation 数据旋转方向
+         * @param width 画面宽
+         * @param height 画面高
+         * @param rotation 画面旋转方向
          */
-        public void onCameraDataCallback(byte[] data, int width, int height, int rotation);
+        void onCameraDataCallback(byte[] data, int width, int height, int rotation);
     }
 }

@@ -94,13 +94,13 @@ public class VMWaveformView extends View {
 
         // 波形部分默认参数
         waveformColor = 0xddff5722;
-        waveformInterval = VMDimenUtil.getDimenPixel(context, R.dimen.vm_dimen_1);
-        waveformWidth = VMDimenUtil.getDimenPixel(context, R.dimen.vm_dimen_2);
+        waveformInterval = VMDimenUtil.getDimenPixel(R.dimen.vm_dimen_1);
+        waveformWidth = VMDimenUtil.getDimenPixel(R.dimen.vm_dimen_2);
 
         // 时间信息默认值
         timeText = "Time";
         textColor = 0xddffffff;
-        textSize = VMDimenUtil.getDimenPixel(context, R.dimen.vm_size_12);
+        textSize = VMDimenUtil.getDimenPixel(R.dimen.vm_size_12);
 
         // 获取控件的属性值
         if (attrs != null) {

@@ -93,9 +93,9 @@ public class VMHeaderWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (headerViews.get(viewType) != null) {
-            return new VMViewHolder(headerViews.get(viewType));
+            return new VMHolder(headerViews.get(viewType));
         } else if (footerViews.get(viewType) != null) {
-            return new VMViewHolder(footerViews.get(viewType));
+            return new VMHolder(footerViews.get(viewType));
         }
         return innerAdapter.onCreateViewHolder(parent, viewType);
     }

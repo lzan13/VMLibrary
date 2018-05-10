@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <objectAnimator
+        android:duration="@integer/vm_time_fragment_in"
+        android:interpolator="@android:anim/decelerate_interpolator"
+        android:propertyName="translationY"
+        android:valueFrom="-640dp"
+        android:valueTo="0dp"
+        android:valueType="floatType"/>
+</set>

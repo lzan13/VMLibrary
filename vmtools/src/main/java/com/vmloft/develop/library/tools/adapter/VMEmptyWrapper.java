@@ -50,12 +50,12 @@ public class VMEmptyWrapper extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (isEmpty()) {
             if (emptyView != null) {
-                return new VMViewHolder(emptyView);
+                return new VMHolder(emptyView);
             }
             if (emptyLayoutId != 0) {
                 View view = LayoutInflater.from(parent.getContext())
-                                          .inflate(emptyLayoutId, parent, false);
-                return new VMViewHolder(view);
+                        .inflate(emptyLayoutId, parent, false);
+                return new VMHolder(view);
             }
         }
         return innerAdapter.onCreateViewHolder(parent, viewType);
@@ -83,5 +83,12 @@ public class VMEmptyWrapper extends RecyclerView.Adapter {
             return 1;
         }
         return innerAdapter.getItemCount();
+    }
+
+    /**
+     * 刷新 adapter
+     */
+    public void refresh() {
+        notifyDataSetChanged();
     }
 }

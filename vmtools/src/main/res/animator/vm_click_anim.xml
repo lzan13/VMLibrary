@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:state_enabled="true"
+        android:state_pressed="true">
+        <set>
+            <objectAnimator
+                android:duration="@integer/vm_time_btn_pressed_duration"
+                android:propertyName="translationZ"
+                android:valueTo="@dimen/vm_elevation_low"
+                android:valueType="floatType" />
+            <objectAnimator
+                android:duration="0"
+                android:propertyName="elevation"
+                android:valueTo="@dimen/vm_elevation_low"
+                android:valueType="floatType" />
+        </set>
+    </item>
+    <!-- base state -->
+    <item android:state_enabled="true">
+        <set>
+            <objectAnimator
+                android:duration="@integer/vm_time_btn_pressed_duration"
+                android:propertyName="translationZ"
+                android:startDelay="@integer/vm_time_btn_pressed_delay"
+                android:valueTo="@dimen/vm_elevation_normal"
+                android:valueType="floatType" />
+            <objectAnimator
+                android:duration="0"
+                android:propertyName="elevation"
+                android:valueTo="@dimen/vm_elevation_normal"
+                android:valueType="floatType" />
+        </set>
+    </item>
+    <item>
+        <set>
+            <objectAnimator
+                android:duration="0"
+                android:propertyName="translationZ"
+                android:valueTo="@dimen/vm_elevation_no"
+                android:valueType="floatType" />
+            <objectAnimator
+                android:duration="0"
+                android:propertyName="elevation"
+                android:valueTo="@dimen/vm_elevation_no"
+                android:valueType="floatType" />
+        </set>
+    </item>
+</selector>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Java调用JavaScript</title>
+    <style>
+        #javacalljs1,javacalljs2,content{
+            color: red;
+        }
+    </style>
+    <script src="./marked.js"></script>
+    <script type="text/javascript">
+        function javaCallJs() {
+            document.getElementById("javacalljs1").innerHTML += "java call js </br>";
+            mdToHtml("Hi Title 1\n======\n\n你好啊1");
+        }
+
+        function javaCallJsArgs(args) {
+            document.getElementById("javacalljs2").innerHTML += "java call js args </br>";
+            mdToHtml(args);
+        }
+        /**
+         * 使用 marked 将Markdown 语法转 Html 方法，下边是 marked 设置的一些属性
+         * gfm          boolean类型 - 默认为true  开启GitHub flavored markdown。
+         * tables       boolean类型 - 默认为true  开启GFM tables。这个选项要求gfm选项被设置为true。
+         * breaks       boolean类型 - 默认为false 开启GFM line breaks。这个选项要求gfm选项被设置为true。
+         * pedantic     boolean类型 - 默认为false 模糊部分尽可能的遵循markdown.pl。不修复原始的markdown中的bug或poor behavior。
+         * sanitize     boolean类型 - 默认为false 输出审查。忽略任何输入的HTML。
+         * smartLists   boolean类型 - 默认为true  Use smarter list behavior than the original markdown. May eventually be default with the old behavior moved into pedantic.
+         * smartypants  boolean类型 - 默认为false Use "smart" typograhic punctuation for things like quotes and dashes.
+         */
+        function mdToHtml(args) {
+            marked.setOptions({
+                renderer: new marked.Renderer(),
+                gfm: true,
+                tables: true,
+                breaks: true,
+                pedantic: false,
+                sanitize: true,
+                smartLists: true,
+                smartypants: false
+            });
+            document.getElementById("content").innerHTML = marked(args);
+        }
+    </script>
+</head>
+
+<body>
+    这是NieJian写的Java调用Js的验证页面！
+    <br />
+    <br /> 点击按钮：“java调用js无参方法”。会出现以下内容：
+    <br />
+    <div id="javacalljs1"></div>
+    <br />
+    <br /> 点击按钮：“java调用js有参方法”。会出现以下内容：
+    <br />
+    <div id="javacalljs2"></div>
+    <div id="content"></div>
+
+</body>
+
+</html>

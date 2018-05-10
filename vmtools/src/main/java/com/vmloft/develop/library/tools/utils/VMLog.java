@@ -67,7 +67,8 @@ public class VMLog {
         // 截取简单类名
         className = className.substring(className.lastIndexOf(".") + 1);
         // 格式化 log 内容
-        log = String.format(log, className, element.getMethodName(), element.getFileName(), element.getLineNumber());
+        log = String.format(log, className, element.getMethodName(), element.getFileName(),
+            element.getLineNumber());
         return log;
     }
 
@@ -181,33 +182,27 @@ public class VMLog {
      */
     private static void print(Level level, String message) {
         switch (level) {
-            case INFO:
-                Log.i(mTag, " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-                Log.i(mTag, " ┃ Thread:" + getThreadInfo());
-                Log.i(mTag, " ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-                Log.i(mTag, " ┃ " + generateLog());
-                Log.i(mTag, " ┠───────────────────────────────────────────────────────────────────────");
-                Log.i(mTag, " ┃ " + message);
-                Log.i(mTag, " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-                break;
-            case DEBUG:
-                Log.d(mTag, " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-                Log.d(mTag, " ┃ Thread:" + getThreadInfo());
-                Log.d(mTag, " ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-                Log.d(mTag, " ┃ " + generateLog());
-                Log.d(mTag, " ┠───────────────────────────────────────────────────────────────────────");
-                Log.d(mTag, " ┃ " + message);
-                Log.d(mTag, " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-                break;
-            case ERROR:
-                Log.e(mTag, " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-                Log.e(mTag, " ┃ Thread:" + getThreadInfo());
-                Log.e(mTag, " ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-                Log.e(mTag, " ┃ " + generateLog());
-                Log.e(mTag, " ┠───────────────────────────────────────────────────────────────────────");
-                Log.e(mTag, " ┃ " + message);
-                Log.e(mTag, " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-                break;
+        case DEBUG:
+            Log.d(mTag, " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+            Log.d(mTag, " ┃ Thread:" + getThreadInfo());
+            Log.d(mTag, " ┃ " + generateLog());
+            Log.d(mTag, " ┃ " + message);
+            Log.d(mTag, " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+            break;
+        case INFO:
+            Log.i(mTag, " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+            Log.i(mTag, " ┃ Thread:" + getThreadInfo());
+            Log.i(mTag, " ┃ " + generateLog());
+            Log.i(mTag, " ┃ " + message);
+            Log.i(mTag, " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+            break;
+        case ERROR:
+            Log.e(mTag, " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+            Log.e(mTag, " ┃ Thread:" + getThreadInfo());
+            Log.e(mTag, " ┃ " + generateLog());
+            Log.e(mTag, " ┃ " + message);
+            Log.e(mTag, " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+            break;
         }
     }
 

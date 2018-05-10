@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/vm_fillet_white"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/vm_dimen_36"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/vm_dimen_8">
+
+        <ImageView
+            android:id="@+id/vm_img_toast_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/vm_ic_done_24dp"
+            android:tint="@color/vm_theme_accent" />
+
+        <TextView
+            android:id="@+id/vm_text_toast_text"
+            style="@style/VMText.Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/vm_dimen_4"
+            android:layout_marginRight="@dimen/vm_dimen_8"
+            android:text="@string/vm_name" />
+    </LinearLayout>
+</RelativeLayout>

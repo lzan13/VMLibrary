@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/vm_theme_background"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/widget_appbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <com.vmloft.develop.library.tools.widget.VMViewGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_call_js"
+                style="@style/VMBtn.Green"
+                android:text="Call js" />
+
+            <Button
+                android:id="@+id/btn_call_js_params"
+                style="@style/VMBtn.Green"
+                android:text="Call js params" />
+
+        </com.vmloft.develop.library.tools.widget.VMViewGroup>
+
+        <LinearLayout
+            android:id="@+id/layout_web_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" />
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
