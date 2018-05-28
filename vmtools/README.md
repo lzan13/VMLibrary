@@ -9,16 +9,16 @@ VMTools
 封装自己开发中常用的一些工具类，以及自定义控件等，方便以后开发项目的使用，以及分享给其他开发者直接使用
 
 
-### #使用方法
+### #使用
 现已将库发布到 JCenter 仓库，需要使用的同学可以直接通过远程方式引用
 ```
 dependencies {
     ...
-    implementation 'com.vmloft.library:vmtools:0.0.1'
+    implementation 'com.vmloft.library:vmtools:{版本号}'
 }
 ```
 
-### #实现功能
+### #实现
 主要实现了工具类以及自定义控件的封装，一起一些其他平常使用的代码封装
 
 - [adapter](src/main/java/com/vmloft/develop/library/tools/adapter) RecyclerView.Adapter 简单封装

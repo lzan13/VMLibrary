@@ -9,7 +9,6 @@ import android.widget.Button;
 import com.vmloft.develop.library.example.R;
 import com.vmloft.develop.library.tools.VMActivity;
 import com.vmloft.develop.library.tools.shell.VMRShell;
-import com.vmloft.develop.library.tools.utils.VMInput;
 import com.vmloft.develop.library.tools.widget.VMViewGroup;
 
 import butterknife.BindView;

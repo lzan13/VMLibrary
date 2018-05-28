@@ -1,1 +1,1 @@
-include ':example', ':vmjava', ':vmntools', ':vmtools', ':vmtvtools'
+include ':example', ':vmntools', ':vmtools'
