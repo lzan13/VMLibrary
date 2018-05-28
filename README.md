@@ -28,6 +28,6 @@ dependencies {
 ```
 
 ### #详细
-- [example](./example) 示例Module 主要都是一些自己测试代码
+- [example](./example) 示例 Module 主要都是一些自己测试代码
 - [vmntools](./vmntools) 封装 jni 底层方法的库，暂时只是一些测试代码
 - [vmtools](./vmtools) 自己封装的工具类库，包含常用工具类以及一些自定义控件等
