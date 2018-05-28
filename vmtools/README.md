@@ -10,6 +10,8 @@ VMTools
 
 
 ### #使用
+**引用库**
+
 现已将库发布到 JCenter 仓库，需要使用的同学可以直接通过远程方式引用
 ```
 dependencies {
@@ -17,8 +19,27 @@ dependencies {
     implementation 'com.vmloft.library:vmtools:{版本号}'
 }
 ```
+**初始化**
 
-### #实现
+在 Application 进行初始化，如果直接继承自 VMApp，可以忽略这一步
+```java
+public void onCreate(){
+    ...
+    VMTools.init(context)
+}
+```
+**愉快的调用**
+
+库中的工具类都是静态方法，可以直接地哦啊用，Example:
+```java
+// dp 尺寸转 px
+int width = VMDimen.dp2px(4);
+// 判断一个字符串是否是邮箱格式
+booelan isEmail = VMReg.isEmail(email);
+// ...等等，具体可以看下边的说明，自己去发掘吧
+```
+
+### #具体接口
 主要实现了工具类以及自定义控件的封装，一起一些其他平常使用的代码封装
 
 - [adapter](src/main/java/com/vmloft/develop/library/tools/adapter) RecyclerView.Adapter 简单封装
