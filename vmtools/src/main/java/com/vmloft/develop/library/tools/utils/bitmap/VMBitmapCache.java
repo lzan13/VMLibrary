@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.tools.utils.cache;
+package com.vmloft.develop.library.tools.utils.bitmap;
 
 import android.graphics.Bitmap;
 import android.util.LruCache;
@@ -11,7 +11,6 @@ public class VMBitmapCache {
 
     private static VMBitmapCache instance;
     private LruCache<String, Bitmap> cache = null;
-
 
     /**
      * 构造函数，初始化缓存
@@ -40,7 +39,7 @@ public class VMBitmapCache {
     /**
      * 将Bimap对象添加进缓存中
      *
-     * @param key    保存Bitmap对象到缓存的Key
+     * @param key 保存Bitmap对象到缓存的Key
      * @param bitmap 需要保存到缓存中的bitmap
      * @return 返回保存成功的Bitmap对象
      */
@@ -57,5 +56,4 @@ public class VMBitmapCache {
     public Bitmap optBitmap(String key) {
         return cache.get(key);
     }
-
 }

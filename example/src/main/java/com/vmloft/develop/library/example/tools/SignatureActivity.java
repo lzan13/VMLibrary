@@ -10,7 +10,7 @@ import android.widget.EditText;
 
 import com.vmloft.develop.library.example.R;
 import com.vmloft.develop.library.tools.VMActivity;
-import com.vmloft.develop.library.tools.utils.VMCryptoUtil;
+import com.vmloft.develop.library.tools.utils.VMCrypto;
 import com.vmloft.develop.library.tools.utils.VMLog;
 
 import java.security.MessageDigest;
@@ -82,7 +82,7 @@ public class SignatureActivity extends VMActivity {
 
     public void md5Encryption() {
         getInputStr();
-        String result = VMCryptoUtil.cryptoStr2MD5(inputStr);
+        String result = VMCrypto.cryptoStr2MD5(inputStr);
         VMLog.d("Encryption result: %s", result);
     }
 

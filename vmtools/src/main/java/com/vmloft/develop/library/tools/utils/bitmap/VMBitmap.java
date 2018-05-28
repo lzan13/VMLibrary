@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.tools.utils;
+package com.vmloft.develop.library.tools.utils.bitmap;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -6,6 +6,8 @@ import android.graphics.Matrix;
 import android.util.Base64;
 import android.view.View;
 
+import com.vmloft.develop.library.tools.utils.VMFile;
+import com.vmloft.develop.library.tools.utils.VMLog;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
@@ -16,7 +18,7 @@ import java.io.OutputStream;
  * Created by lzan13 on 2016/1/11.
  * 图片处理类，压缩，转换
  */
-public class VMBitmapUtil {
+public class VMBitmap {
 
     // 图片最大大小 默认500Kb
     private static int maxSize = 500;
@@ -161,8 +163,7 @@ public class VMBitmapUtil {
         // 使用矩阵进行压缩图片
         Matrix matrix = new Matrix();
         matrix.postScale(scale, scale);
-        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix,
-                                   true);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 
     /**
@@ -177,8 +178,7 @@ public class VMBitmapUtil {
         Matrix matrix = new Matrix();
         float s = (float) 1 / scale;
         matrix.postScale(s, s);
-        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix,
-                                   true);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 
     /**
@@ -213,7 +213,6 @@ public class VMBitmapUtil {
      *
      * @param bitmap 原图
      * @param size 指定大小
-     * @return
      */
     private static Bitmap compressByQuality(Bitmap bitmap, int size) {
         maxSize = size;
@@ -224,7 +223,6 @@ public class VMBitmapUtil {
      * 等比例压缩到指定尺寸
      *
      * @param path 图片路径
-     * @return
      */
     private static Bitmap compressByDimension(String path) {
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -250,7 +248,6 @@ public class VMBitmapUtil {
      *
      * @param path 图片路径
      * @param dimension 最大尺寸
-     * @return
      */
     private static Bitmap compressByDimension(String path, int dimension) {
         maxDimension = dimension;
@@ -270,8 +267,8 @@ public class VMBitmapUtil {
         //得到文件名
         String tempName = generateTempName(path);
         // 临时存放路径
-        String tempPath = VMFileUtil.getCacheFromSDCard() + "temp";
-        VMFileUtil.createDirectory(tempPath);
+        String tempPath = VMFile.getCacheFromSDCard() + "temp";
+        VMFile.createDirectory(tempPath);
         saveBitmapToSDCard(bitmap, tempPath + "/" + tempName);
         return tempPath + "/" + tempName;
     }
@@ -281,11 +278,8 @@ public class VMBitmapUtil {
      *
      * @param path 原始路径
      * @param dimension 最大尺寸
-     * @return
-     * @throws IOException
      */
-    public static String compressTempImageByDimension(String path,
-            int dimension) throws IOException {
+    public static String compressTempImageByDimension(String path, int dimension) throws IOException {
         maxDimension = dimension;
         return compressTempImage(path);
     }
@@ -295,8 +289,6 @@ public class VMBitmapUtil {
      *
      * @param path 原始路径
      * @param size 最大大小
-     * @return
-     * @throws IOException
      */
     public static String compressTempImageBySize(String path, int size) throws IOException {
         maxSize = size;
@@ -309,11 +301,8 @@ public class VMBitmapUtil {
      * @param path 原始路径
      * @param dimension 最大尺寸
      * @param size 最大大小
-     * @return
-     * @throws IOException
      */
-    public static String compressTempImage(String path, int dimension,
-            int size) throws IOException {
+    public static String compressTempImage(String path, int dimension, int size) throws IOException {
         maxDimension = dimension;
         maxSize = size;
         return compressTempImage(path);
@@ -323,7 +312,6 @@ public class VMBitmapUtil {
      * 生成临时文件名
      *
      * @param path 文件原始路径
-     * @return
      */
     private static String generateTempName(String path) {
         return System.currentTimeMillis() + getExtensionName(path);
@@ -352,13 +340,11 @@ public class VMBitmapUtil {
      */
     public static void saveBitmapToSDCard(Bitmap bitmap, String path) throws IOException {
         VMLog.d("saveBitmapToSDCard start");
-        OutputStream outputStream = null;
-        outputStream = new FileOutputStream(path);
+        OutputStream outputStream = new FileOutputStream(path);
         if (outputStream != null) {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 40, outputStream);
             outputStream.close();
         }
         VMLog.d("saveBitmapToSDCard end");
     }
-
 }

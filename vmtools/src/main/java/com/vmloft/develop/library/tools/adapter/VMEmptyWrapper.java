@@ -54,7 +54,7 @@ public class VMEmptyWrapper extends RecyclerView.Adapter {
             }
             if (emptyLayoutId != 0) {
                 View view = LayoutInflater.from(parent.getContext())
-                        .inflate(emptyLayoutId, parent, false);
+                    .inflate(emptyLayoutId, parent, false);
                 return new VMHolder(view);
             }
         }

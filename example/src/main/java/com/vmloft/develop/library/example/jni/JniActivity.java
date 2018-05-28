@@ -6,7 +6,7 @@ import com.vmloft.develop.library.example.R;
 import com.vmloft.develop.library.ntools.VMTestJni;
 import com.vmloft.develop.library.tools.VMActivity;
 import com.vmloft.develop.library.tools.utils.VMLog;
-import com.vmloft.develop.library.tools.utils.VMStrUtil;
+import com.vmloft.develop.library.tools.utils.VMStr;
 
 /**
  * Created by lzan13 on 2018/5/7.
@@ -59,7 +59,7 @@ public class JniActivity extends VMActivity {
         /**
          * 从 jni 层获取字符串数组返回值
          */
-        VMLog.i(VMStrUtil.arrayToStr(testJni.getStringArray(), " "));
+        VMLog.i(VMStr.arrayToStr(testJni.getStringArray(), " "));
     }
 
     static {

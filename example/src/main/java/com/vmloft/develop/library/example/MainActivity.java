@@ -13,7 +13,7 @@ import com.vmloft.develop.library.example.details.VMDetailsActivity;
 import com.vmloft.develop.library.example.http.VMHttpActivity;
 import com.vmloft.develop.library.example.jni.JniActivity;
 import com.vmloft.develop.library.example.popup.VMPopupWindowActivity;
-import com.vmloft.develop.library.example.record.ScreenRecordActivity;
+import com.vmloft.develop.library.example.record.SRSActivity;
 import com.vmloft.develop.library.example.shell.ShellActivity;
 import com.vmloft.develop.library.example.socket.VMSocketActivity;
 import com.vmloft.develop.library.example.theme.VMThemeActivity;
@@ -37,7 +37,8 @@ public class MainActivity extends VMActivity {
     @BindView(R.id.view_group) VMViewGroup viewGroup;
     private TextView textView;
 
-    @Override protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -48,10 +49,8 @@ public class MainActivity extends VMActivity {
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
 
-        String[] btnArray = {
-            "Socket", "Dot Line", "Record", "Theme", "Camera", "Details", "Http", "Audio",
-            "PopupWindow", "Signature", "Record Screen", "Web Page", "Shell", "Jni"
-        };
+        String[] btnArray = {"Socket", "Dot Line", "Record", "Theme", "Camera", "Details", "Http",
+                "Audio", "PopupWindow", "Signature", "Record Screen", "Web Page", "Shell", "Jni"};
         for (int i = 0; i < btnArray.length; i++) {
             Button btn = new Button(activity);
             btn.setText(btnArray[i]);
@@ -63,7 +62,8 @@ public class MainActivity extends VMActivity {
     }
 
     private View.OnClickListener viewListener = new View.OnClickListener() {
-        @Override public void onClick(View v) {
+        @Override
+        public void onClick(View v) {
             Intent intent = new Intent();
             switch (v.getId()) {
             case 100:
@@ -97,7 +97,8 @@ public class MainActivity extends VMActivity {
                 intent.setClass(activity, SignatureActivity.class);
                 break;
             case 110:
-                intent.setClass(activity, ScreenRecordActivity.class);
+                //                intent.setClass(activity, ScreenRecordActivity.class);
+                intent.setClass(activity, SRSActivity.class);
                 break;
             case 111:
                 intent.setClass(activity, WebPageActivity.class);
@@ -167,7 +168,8 @@ public class MainActivity extends VMActivity {
         }
     }
 
-    @Override protected void onDestroy() {
+    @Override
+    protected void onDestroy() {
         super.onDestroy();
     }
 }

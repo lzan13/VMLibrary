@@ -24,7 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 可以展开收缩View
+ * Create by lzan13 2018/3/21
+ *
+ * 可以伸缩布局控件
  */
 public class VMExpandableLayout extends LinearLayout {
 
@@ -248,7 +250,7 @@ public class VMExpandableLayout extends LinearLayout {
 
                 if (listener != null) {
                     float fraction = targetHeight == 0 ? 1 - valueAnimator.getAnimatedFraction() : valueAnimator
-                            .getAnimatedFraction();
+                        .getAnimatedFraction();
                     listener.onExpansionUpdate(fraction);
                 }
             }
@@ -298,8 +300,8 @@ public class VMExpandableLayout extends LinearLayout {
         }
     }
 
-
     public static class LayoutParams extends LinearLayout.LayoutParams {
+
         private final boolean expandable;
         private final int originalHeight;
         private final float originalWeight;
@@ -315,6 +317,7 @@ public class VMExpandableLayout extends LinearLayout {
     }
 
     public interface OnExpansionUpdateListener {
+
         void onExpansionUpdate(float expansionFraction);
     }
 }

@@ -24,7 +24,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:design:27.1.1'
 
     // ButterKnife 库
@@ -35,6 +35,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
 
     // 引入自己封装的库
-    compile project(':vmtools')
-    compile project(':vmntools')
+    implementation project(':vmtools')
+    implementation project(':vmntools')
 }

@@ -76,7 +76,9 @@
         <activity android:name=".tools.SignatureActivity"/>
 
         <!--录制屏幕-->
-        <activity android:name=".record.ScreenRecordActivity"/>
+        <activity android:name=".record.SRSActivity"/>
+
+        <service android:name=".record.SRService"/>
 
         <!--Web 界面-->
         <activity android:name=".webpage.WebPageActivity"/>

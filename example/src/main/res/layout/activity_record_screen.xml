@@ -17,38 +17,40 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <Button
-            android:id="@+id/btn_screenshot_start"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Screenshot"
-            android:textAllCaps="false" />
+            android:id="@+id/btn_start_screen_short"
+            style="@style/VMBtn.Green.Fillet"
+            android:text="Start Screen Short" />
 
         <Button
-            android:id="@+id/btn_screenshot_stop"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Screenshot Stop"
-            android:textAllCaps="false" />
+            android:id="@+id/btn_start_screen_record"
+            style="@style/VMBtn.Green.Fillet"
+            android:text="Start Screen Record" />
 
         <Button
-            android:id="@+id/btn_record_screen_start"
+            android:id="@+id/btn_stop"
+            style="@style/VMBtn.Green.Fillet"
+            android:text="Stop" />
+
+        <TextView
+            android:id="@+id/text_timer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Record Screen Start"
-            android:textAllCaps="false" />
+            android:text="0"
+            android:textAlignment="center" />
 
-        <Button
-            android:id="@+id/btn_record_screen_stop"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Record Screen Stop"
-            android:textAllCaps="false" />
-
-        <ImageView
-            android:id="@+id/img_view"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@mipmap/ic_launcher" />
+            android:background="@color/vm_black_12">
+
+            <ImageView
+                android:id="@+id/img_screen_short"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/vm_margin_normal"
+                android:scaleType="center"
+                android:src="@mipmap/ic_launcher" />
+        </RelativeLayout>
 
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

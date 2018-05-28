@@ -66,7 +66,6 @@ public abstract class VMAdapter<T, VH extends VMHolder> extends RecyclerView.Ada
         notifyDataSetChanged();
     }
 
-
     /**
      * 设置 Item 点击监听
      */
@@ -78,6 +77,7 @@ public abstract class VMAdapter<T, VH extends VMHolder> extends RecyclerView.Ada
      * Item 点击监听接口
      */
     public static interface ICListener {
+
         void onItemAction(int action, Object object);
 
         void onItemLongAction(int action, Object object);

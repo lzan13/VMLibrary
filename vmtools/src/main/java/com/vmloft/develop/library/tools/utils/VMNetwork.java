@@ -16,7 +16,8 @@ import java.util.Locale;
  * Created by lzan13 on 2016/12/7.
  * 自定义封装网络工具类
  */
-public class VMNetUtil {
+public class VMNetwork {
+
     //检测网络连接状态
     private static ConnectivityManager manager;
 
@@ -63,8 +64,8 @@ public class VMNetUtil {
      */
     public static String getLocalIP() {
         WifiManager wifiManager = (WifiManager) VMTools.getContext()
-                .getApplicationContext()
-                .getSystemService(Context.WIFI_SERVICE);
+            .getApplicationContext()
+            .getSystemService(Context.WIFI_SERVICE);
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
         int ipAddress = wifiInfo.getIpAddress();
         String localIP = String.format(Locale.getDefault(), "%d.%d.%d.%d", (ipAddress & 0xff), (ipAddress >> 8 & 0xff), (ipAddress >> 16 & 0xff), (ipAddress >> 24 & 0xff));
@@ -83,8 +84,8 @@ public class VMNetUtil {
      */
     public static String getMacAddress() {
         WifiManager wifiManager = (WifiManager) VMTools.getContext()
-                .getApplicationContext()
-                .getSystemService(Context.WIFI_SERVICE);
+            .getApplicationContext()
+            .getSystemService(Context.WIFI_SERVICE);
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
         return wifiInfo.getMacAddress();
     }

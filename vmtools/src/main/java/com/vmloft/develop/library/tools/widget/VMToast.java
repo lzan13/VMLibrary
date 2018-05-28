@@ -1,6 +1,5 @@
 package com.vmloft.develop.library.tools.widget;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
@@ -17,7 +16,7 @@ import android.widget.TextView;
 
 import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.VMTools;
-import com.vmloft.develop.library.tools.utils.VMStrUtil;
+import com.vmloft.develop.library.tools.utils.VMStr;
 
 /**
  * Created by lzan13 on 2018/4/16.
@@ -75,7 +74,7 @@ public class VMToast {
         if (instance == null) {
             instance = new VMToast();
         }
-        toastMsg = VMStrUtil.strByResId(resId);
+        toastMsg = VMStr.strByResId(resId);
         return instance;
     }
 

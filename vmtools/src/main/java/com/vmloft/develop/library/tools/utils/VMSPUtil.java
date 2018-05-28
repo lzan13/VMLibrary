@@ -12,11 +12,11 @@ import java.util.Map;
  * 封装 SharedPreferences 数据操作类
  */
 public class VMSPUtil {
+
     /**
      * 保存在手机里面的文件名
      */
     public static final String FILE_NAME = "vm_shared_preferences";
-
 
     /**
      * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
@@ -103,7 +103,6 @@ public class VMSPUtil {
         editor.clear();
         editor.commit();
     }
-
 
     /**
      * 查询某个key是否已经存在

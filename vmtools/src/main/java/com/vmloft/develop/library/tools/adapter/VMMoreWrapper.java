@@ -115,6 +115,7 @@ public class VMMoreWrapper extends RecyclerView.Adapter {
      * 加载更多接口
      */
     public interface OnLoadMoreListener {
+
         void onLoadMore();
     }
 }

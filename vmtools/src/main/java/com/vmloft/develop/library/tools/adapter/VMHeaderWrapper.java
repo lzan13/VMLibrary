@@ -109,7 +109,6 @@ public class VMHeaderWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
             return;
         }
         innerAdapter.onBindViewHolder(holder, position - getHeaderCount());
-
     }
 
     @Override

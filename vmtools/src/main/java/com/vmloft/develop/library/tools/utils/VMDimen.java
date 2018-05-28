@@ -16,31 +16,26 @@ import java.lang.reflect.Method;
  * Created by Administrator on 2015/4/15.
  * 尺寸转化工具类
  */
-public class VMDimenUtil {
+public class VMDimen {
 
     private static final String STATUS_BAR_HEIGHT_RES_NAME = "status_bar_height";
     private static final String NAV_BAR_HEIGHT_RES_NAME = "navigation_bar_height";
     private static final String NAV_BAR_HEIGHT_LANDSCAPE_RES_NAME = "navigation_bar_height_landscape";
     private static final String NAV_BAR_WIDTH_RES_NAME = "navigation_bar_width";
 
-    public VMDimenUtil() {
+    public VMDimen() {
 
     }
 
+    /**
+     * 获取屏幕大小
+     */
     public static Point getScreenSize() {
         WindowManager wm = (WindowManager) VMTools.getContext()
-                .getSystemService(Context.WINDOW_SERVICE);
+            .getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         Point outSize = new Point();
         display.getSize(outSize);
-        return outSize;
-    }
-
-    public static Point getImageSize(String str) {
-        String wh = str.substring(str.indexOf(".") + 1, str.lastIndexOf("."));
-        String w = wh.substring(0, wh.indexOf("."));
-        String h = wh.substring(wh.indexOf(".") + 1);
-        Point outSize = new Point(Integer.valueOf(w), Integer.valueOf(h));
         return outSize;
     }
 
@@ -90,11 +85,11 @@ public class VMDimenUtil {
         }
         TypedValue tv = new TypedValue();
         if (VMTools.getContext()
-                .getTheme()
-                .resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+            .getTheme()
+            .resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
             height = TypedValue.complexToDimensionPixelSize(tv.data, VMTools.getContext()
-                    .getResources()
-                    .getDisplayMetrics());
+                .getResources()
+                .getDisplayMetrics());
         }
         VMLog.i("toolbar.h." + height);
         return height;

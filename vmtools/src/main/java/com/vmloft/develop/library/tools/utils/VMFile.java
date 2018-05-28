@@ -26,9 +26,9 @@ import java.util.List;
 
 /**
  * Created by lzan13 on 2014/12/16.
- * this is my file utils
+ * 文件相关工具类，包括文件的创建 拷贝 删除 以及路径的获取判断的等
  */
-public class VMFileUtil {
+public class VMFile {
 
     /**
      * 判断目录是否存在
@@ -63,8 +63,6 @@ public class VMFileUtil {
 
     /**
      * 创建新文件
-     *
-     * @throws IOException
      */
     public static boolean createFile(String filepath) {
         boolean isSuccess = false;
@@ -171,6 +169,9 @@ public class VMFileUtil {
         }
     }
 
+    /**
+     * 格式化文件字节大小
+     */
     public static String formatSize(long size) {
         BigDecimal result;
         double kiloByte = size / 1024;
@@ -200,7 +201,6 @@ public class VMFileUtil {
      * 递归实现遍历文件夹大小
      *
      * @param fileDir 要计算的文件夹
-     * @return
      */
     public static long getFolderSize(File fileDir) {
         long size = 0;
@@ -284,39 +284,33 @@ public class VMFileUtil {
      * Context.getPackageResourcePath()                     : /data/app/packagename-1.apk
      */
     /**
-     * 获取 root 下的目录，一般不常用
+     * Root 目录，一般不常用
      *
-     * @return 返回得到的目录
-     */
-    /**
+     * String rootCache = Environment.getDownloadCacheDirectory().getPath();
+     * String rootData = Environment.getDataDirectory().getPath();
+     * String rootSystem = Environment.getRootDirectory().getPath();
      *
-     public static String getDataPath() {
-     String rootCache = Environment.getDownloadCacheDirectory().getPath();
-     String rootData = Environment.getDataDirectory().getPath();
-     String rootSystem = Environment.getRootDirectory().getPath();
-
-     // SDCard 目录
-     Environment.getExternalStorageDirectory().getPath();
-     // 当前 app 在 root 下的缓存目录
-     VMTools.getContext().getCacheDir().getPath();
-     // 当前 app 在 SDCard 下的缓存目录
-     VMTools.getContext().getExternalCacheDir().getPath();
-     // 当前 app 在 root 下的 files 目录
-     VMTools.getContext().getFilesDir().getPath();
-     VMTools.getContext().getFilesDir().getPath();
-     // 当前 app 在 SDCard 下的 obb 目录，一般是apk包过大要分出资源包，游戏用的比较多
-     VMTools.getContext().getObbDir().getPath();
-     // 获取当前 app 包名
-     VMTools.getContext().getPackageName();
-     // 获取当前 app 代码路径
-     VMTools.getContext().getPackageCodePath();
-     // 获取当前 app 资源路径
-     VMTools.getContext().getPackageResourcePath();
-
-     // 获取常用目录的方法，参数是需要获取的目录类型，可以是download，camera
-     Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-     return null;
-     }
+     * SDCard 目录
+     * Environment.getExternalStorageDirectory().getPath();
+     * 当前 app 在 root 下的缓存目录
+     * VMTools.getContext().getCacheDir().getPath();
+     * 当前 app 在 SDCard 下的缓存目录
+     * VMTools.getContext().getExternalCacheDir().getPath();
+     * 当前 app 在 root 下的 files 目录
+     * VMTools.getContext().getFilesDir().getPath();
+     * VMTools.getContext().getFilesDir().getPath();
+     * 当前 app 在 SDCard 下的 obb 目录，一般是apk包过大要分出资源包，游戏用的比较多
+     * VMTools.getContext().getObbDir().getPath();
+     * 获取当前 app 包名
+     * VMTools.getContext().getPackageName();
+     * 获取当前 app 代码路径
+     * VMTools.getContext().getPackageCodePath();
+     * 获取当前 app 资源路径
+     * VMTools.getContext().getPackageResourcePath();
+     *
+     * 获取常用目录的方法，参数是需要获取的目录类型，可以是download，camera
+     * Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+     * return null;
      */
 
     /**
@@ -380,7 +374,7 @@ public class VMFileUtil {
      */
     public static String getDCIM() {
         return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
-                          .getAbsolutePath() + "/";
+            .getAbsolutePath() + "/";
     }
 
     /**
@@ -390,7 +384,7 @@ public class VMFileUtil {
      */
     public static String getDownload() {
         return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                          .getAbsolutePath() + "/";
+            .getAbsolutePath() + "/";
     }
 
     /**
@@ -400,7 +394,7 @@ public class VMFileUtil {
      */
     public static String getMusic() {
         return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)
-                          .getAbsolutePath() + "/";
+            .getAbsolutePath() + "/";
     }
 
     /**
@@ -410,7 +404,7 @@ public class VMFileUtil {
      */
     public static String getMovies() {
         return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES)
-                          .getAbsolutePath() + "/";
+            .getAbsolutePath() + "/";
     }
 
     /**
@@ -418,7 +412,7 @@ public class VMFileUtil {
      */
     public static String getPictures() {
         return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-                          .getAbsolutePath() + "/";
+            .getAbsolutePath() + "/";
     }
 
     /**
@@ -452,18 +446,17 @@ public class VMFileUtil {
      * 根据 Uri 获取文件的真实路径，这个是网上的方法，用的还是比较多的，可以参考，
      * 不过在选择google相册的图片的时候，如果本地不存在图片会出现问题
      *
-     * @param context 上下文对象
      * @param uri 包含文件信息的 Uri
      * @return 返回文件真实路径
      */
     @TargetApi(Build.VERSION_CODES.KITKAT)
-    public static String getPath(final Context context, final Uri uri) {
+    public static String getPath(final Uri uri) {
 
         // 判断当前系统 API 4.4（19）及以上
         boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
 
         // DocumentProvider
-        if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
+        if (isKitKat && DocumentsContract.isDocumentUri(VMTools.getContext(), uri)) {
             // ExternalStorageProvider
             if (isExternalStorageDocument(uri)) {
                 final String docId = DocumentsContract.getDocumentId(uri);
@@ -478,10 +471,10 @@ public class VMFileUtil {
             } else if (isDownloadsDocument(uri)) {
                 // DownloadsProvider
                 final String id = DocumentsContract.getDocumentId(uri);
-                final Uri contentUri = ContentUris.withAppendedId(
-                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+                final Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long
+                    .valueOf(id));
 
-                return getDataColumn(context, contentUri, null, null);
+                return getDataColumn(VMTools.getContext(), contentUri, null, null);
             } else if (isMediaDocument(uri)) {
                 // MediaProvider
                 final String docId = DocumentsContract.getDocumentId(uri);
@@ -498,9 +491,9 @@ public class VMFileUtil {
                 }
 
                 final String selection = "_id=?";
-                final String[] selectionArgs = new String[]{split[1]};
+                final String[] selectionArgs = new String[] { split[1] };
 
-                return getDataColumn(context, contentUri, selection, selectionArgs);
+                return getDataColumn(VMTools.getContext(), contentUri, selection, selectionArgs);
             }
         } else if ("content".equalsIgnoreCase(uri.getScheme())) {
             // MediaStore (and general)
@@ -510,7 +503,7 @@ public class VMFileUtil {
                 //                return null;
                 return uri.getLastPathSegment();
             }
-            return getDataColumn(context, uri, null, null);
+            return getDataColumn(VMTools.getContext(), uri, null, null);
         } else if ("file".equalsIgnoreCase(uri.getScheme())) {
             // File
             return uri.getPath();
@@ -529,16 +522,15 @@ public class VMFileUtil {
      * @param selectionArgs (Optional) Selection arguments used in the query.
      * @return The value of the _data column, which is typically a file path.
      */
-    public static String getDataColumn(Context context, Uri uri, String selection,
-            String[] selectionArgs) {
+    public static String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
 
         Cursor cursor = null;
         final String column = "_data";
-        final String[] projection = {column};
+        final String[] projection = { column };
 
         try {
-            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
-                    null);
+            cursor = context.getContentResolver()
+                .query(uri, projection, selection, selectionArgs, null);
             if (cursor != null && cursor.moveToFirst()) {
                 final int index = cursor.getColumnIndexOrThrow(column);
                 return cursor.getString(index);

@@ -14,8 +14,8 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.vmloft.develop.library.tools.R;
-import com.vmloft.develop.library.tools.utils.VMDimenUtil;
-import com.vmloft.develop.library.tools.utils.VMFileUtil;
+import com.vmloft.develop.library.tools.utils.VMDimen;
+import com.vmloft.develop.library.tools.utils.VMFile;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -132,17 +132,17 @@ public class VMRecordView extends View {
         waveformList = new LinkedList<Integer>();
 
         // 默认高度 54dp
-        viewHeight = VMDimenUtil.getDimenPixel(R.dimen.vm_dimen_56);
+        viewHeight = VMDimen.getDimenPixel(R.dimen.vm_dimen_56);
 
         // 波形刻度相关参数
-        waveformInterval = VMDimenUtil.getDimenPixel(R.dimen.vm_dimen_1);
-        waveformWidth = VMDimenUtil.getDimenPixel(R.dimen.vm_dimen_2);
+        waveformInterval = VMDimen.getDimenPixel(R.dimen.vm_dimen_1);
+        waveformWidth = VMDimen.getDimenPixel(R.dimen.vm_dimen_2);
 
         // 默认指示器相关参数
-        indicatorSize = VMDimenUtil.getDimenPixel(R.dimen.vm_dimen_16);
+        indicatorSize = VMDimen.getDimenPixel(R.dimen.vm_dimen_16);
 
         // 文字相关参数
-        textSize = VMDimenUtil.getDimenPixel(R.dimen.vm_size_subhead);
+        textSize = VMDimen.getDimenPixel(R.dimen.vm_size_subhead);
 
         // 获取控件的属性值
         if (attrs != null) {
@@ -185,7 +185,7 @@ public class VMRecordView extends View {
      */
     public void initVoiceRecorder() {
         // 录音文件默认保存在 /sdcard/android/data/packagename/files/下，可设置
-        recordFilePath = VMFileUtil.getFilesFromSDCard() + System.currentTimeMillis() + ".amr";
+        recordFilePath = VMFile.getFilesFromSDCard() + System.currentTimeMillis() + ".amr";
         // 实例化媒体录影机
         mediaRecorder = new MediaRecorder();
         // 设置音频源为麦克风
@@ -333,8 +333,8 @@ public class VMRecordView extends View {
             }
             // 绘制触摸提示文字
             paint.setTextSize(textSize);
-            float textWidth = VMDimenUtil.getTextWidth(paint, touchText);
-            float textHeight = VMDimenUtil.getTextHeight(paint);
+            float textWidth = VMDimen.getTextWidth(paint, touchText);
+            float textHeight = VMDimen.getTextHeight(paint);
             canvas.drawText(touchText, touchCenterX - textWidth - touchSize / 3 * 2, touchCenterY + textHeight / 3, paint);
 
             // 绘制滑动取消箭头
@@ -390,7 +390,7 @@ public class VMRecordView extends View {
                 return false;
             }
             // 按下后更改触摸区域半径
-            touchSize = VMDimenUtil.getDimenPixel(R.dimen.vm_dimen_72);
+            touchSize = VMDimen.getDimenPixel(R.dimen.vm_dimen_72);
             // 触摸开始录音
             startRecord();
             break;
@@ -521,7 +521,7 @@ public class VMRecordView extends View {
             mediaRecorder = null;
         }
         // 根据录制结果判断录音是否成功
-        if (!VMFileUtil.isFileExists(recordFilePath)) {
+        if (!VMFile.isFileExists(recordFilePath)) {
             if (recordCallback != null) {
                 // 录制失败
                 recordCallback.onStop(REASON_FAILED);
@@ -569,8 +569,8 @@ public class VMRecordView extends View {
             mediaRecorder = null;
         }
         // 根据录制结果判断录音是否成功
-        if (VMFileUtil.isFileExists(recordFilePath)) {
-            VMFileUtil.deleteFile(recordFilePath);
+        if (VMFile.isFileExists(recordFilePath)) {
+            VMFile.deleteFile(recordFilePath);
         }
         if (recordCallback != null) {
             recordCallback.onStop(REASON_CANCEL);

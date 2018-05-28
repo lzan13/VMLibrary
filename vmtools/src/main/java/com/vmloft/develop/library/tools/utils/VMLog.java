@@ -7,8 +7,9 @@ import android.util.Log;
  * log日志输出封装类
  */
 public class VMLog {
+
     /**
-     * %s   字符串类型      "mingrisoft"
+     * %s   字符串类型       "mingrisoft"
      * %c   字符类型        'm'
      * %b   布尔类型        true
      * %d   整数类型（十进制    99
@@ -67,8 +68,7 @@ public class VMLog {
         // 截取简单类名
         className = className.substring(className.lastIndexOf(".") + 1);
         // 格式化 log 内容
-        log = String.format(log, className, element.getMethodName(), element.getFileName(),
-            element.getLineNumber());
+        log = String.format(log, className, element.getMethodName(), element.getFileName(), element.getLineNumber());
         return log;
     }
 
@@ -181,32 +181,27 @@ public class VMLog {
      * @param message 日志内容
      */
     private static void print(Level level, String message) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("\n ");
+        builder.append("\n┆ Thread:" + getThreadInfo());
+        builder.append("\n┆ " + generateLog());
+        builder.append("\n├──────────────────────────────────────────────────────────────────────────");
+        builder.append("\n┆ " + message);
+        builder.append("\n└──────────────────────────────────────────────────────────────────────────");
         switch (level) {
         case DEBUG:
-            Log.d(mTag, " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-            Log.d(mTag, " ┃ Thread:" + getThreadInfo());
-            Log.d(mTag, " ┃ " + generateLog());
-            Log.d(mTag, " ┃ " + message);
-            Log.d(mTag, " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+            Log.d(mTag, builder.toString());
             break;
         case INFO:
-            Log.i(mTag, " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-            Log.i(mTag, " ┃ Thread:" + getThreadInfo());
-            Log.i(mTag, " ┃ " + generateLog());
-            Log.i(mTag, " ┃ " + message);
-            Log.i(mTag, " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+            Log.d(mTag, builder.toString());
             break;
         case ERROR:
-            Log.e(mTag, " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-            Log.e(mTag, " ┃ Thread:" + getThreadInfo());
-            Log.e(mTag, " ┃ " + generateLog());
-            Log.e(mTag, " ┃ " + message);
-            Log.e(mTag, " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+            Log.d(mTag, builder.toString());
             break;
         }
     }
 
     public enum Level {
-        NORMAL, INFO, DEBUG, ERROR, NONE;
+        NORMAL, INFO, DEBUG, ERROR, NONE
     }
 }

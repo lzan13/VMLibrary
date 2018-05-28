@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.tools.utils;
+package com.vmloft.develop.library.tools.utils.bitmap;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -27,7 +27,7 @@ public class VMBlur {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public static Bitmap rsBlurBitmp(Context context, Bitmap bitmap, int scale, float radius) {
         // 创建一个新的压缩过的 Bitmap
-        Bitmap overlay = VMBitmapUtil.compressBitmapByScale(bitmap, scale);
+        Bitmap overlay = VMBitmap.compressBitmapByScale(bitmap, scale);
 
         RenderScript rs = null;
         try {
@@ -90,7 +90,7 @@ public class VMBlur {
     public static Bitmap stackBlurBitmap(Bitmap sentBitmap, int scale, int radius, boolean reuse) {
 
         // 创建一个新的压缩过的 Bitmap
-        Bitmap overlay = VMBitmapUtil.compressBitmapByScale(sentBitmap, scale);
+        Bitmap overlay = VMBitmap.compressBitmapByScale(sentBitmap, scale);
 
         Bitmap bitmap;
         if (reuse) {

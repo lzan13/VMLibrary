@@ -1,29 +1,29 @@
-VMLibraryManager
-================
-各种扩展库管理项目，其中包含自己引用的其他的第三方库，以及自己创建的一些工具类库，
-方便自己在开发项目中对一些工具类的使用，以及度其他第三方库的使用；
+VMLibrary
+=========
+[![](https://img.shields.io/badge/author-lzan13-green.svg)](https://github.com/lzan13)
+[![](https://img.shields.io/badge/weibo-@lzan13-red.svg)](http://weibo.com/lzan13)
 
-欢迎大家`star`or`fork`
+### vmtools
+[![Download](https://api.bintray.com/packages/lzan13/VMLibrary/vmtools/images/download.svg)](https://bintray.com/lzan13/VMLibrary/vmtools/_latestVersion)
+详细说明移步[vmtools](./vmtools)
+
+--------
+
+封装自己开发中常用的一些工具类以及自定义控件等，这个项目包含了多个 module，现在已经将 `vmtools`发布到`JCenter`仓库，
+有需要的同学可以通过远程引用的方式使用
+
 
 ### #说明
-此管理项目中包含的一些库都是开源的，有些是官方提供的，有些是其他大牛或者自己封装的，后期会慢慢完善，有需要朋友也可以下载使用
+本来是作为一个自己项目管理第三方依赖用的，后来慢慢地积累了一些常用的工具类以及自定义控件，所以有想法把他放出去，
+可以让其他有需要的同学以及使用，我这边呢会慢慢完善这个库的功能，如果有好想法，好的工具类也可以提到这里来
 
-### #使用方法
-将本项目`clone`到自己的工作空间，可以和自己的项目放在同一目录，然后在`settings.gradle`加入如下代码:
-（其中 library name 改成对应的名字）
-```gradle
-include ':library name'
-project(':library name').projectDir = new File('../VMLibraryManager/module name')
-```
-然后在项目的主`module`项目依赖中引入这个扩展库:
+### #使用
+
 ```gradle
 // 项目依赖
 dependencies {
-    // 引入项目 libs 目录下的各种第三方库，后边可以不用再单独添加
-    compile fileTree(include: ['*.jar'], dir: 'libs')
     ...
-    // 引入自己封装的工具库 GitHub: https://github.com/lzan13/VMLibraryManager
-    compile project(':library name')
+    implementation 'com.vmloft.library:vmtools:{版本号}'
 }
 ```
 

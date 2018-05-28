@@ -111,7 +111,6 @@ public class VMLanguage {
      * 获取指定语言的locale信息，如果指定语言不存在{@link #languages}，返回本机语言，如果本机语言不是语言集合中的一种{@link #languages}，返回英语
      *
      * @param language language
-     * @return
      */
     public static Locale getLocaleByLanguage(String language) {
         if (isSupportLanguage(language)) {
@@ -150,5 +149,4 @@ public class VMLanguage {
     public static String localLanguage(Context context) {
         return (String) VMSPUtil.get(context, KEY_LANGUAGE, VMLanguage.getDefaultLang());
     }
-
 }

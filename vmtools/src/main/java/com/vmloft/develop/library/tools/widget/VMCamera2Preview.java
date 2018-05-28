@@ -1,5 +1,6 @@
 package com.vmloft.develop.library.tools.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
@@ -25,8 +26,8 @@ import android.util.Size;
 import android.view.Surface;
 import android.view.TextureView;
 import android.view.WindowManager;
-import com.vmloft.develop.library.tools.utils.VMDateUtil;
-import com.vmloft.develop.library.tools.utils.VMFileUtil;
+import com.vmloft.develop.library.tools.utils.VMDate;
+import com.vmloft.develop.library.tools.utils.VMFile;
 import com.vmloft.develop.library.tools.utils.VMLog;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -42,6 +43,7 @@ import java.util.concurrent.TimeUnit;
  * Created by lzan13 on 2017/4/24.
  * 使用 TextureView 自定义实现摄像头画面预览控件
  */
+@SuppressLint("NewApi")
 public class VMCamera2Preview extends TextureView implements TextureView.SurfaceTextureListener {
 
     private Context context;
@@ -265,7 +267,7 @@ public class VMCamera2Preview extends TextureView implements TextureView.Surface
             SurfaceTexture texture = getSurfaceTexture();
             assert texture != null;
 
-            // We configure the size of default buffer to be the size of camera preview we want.
+            // We configure the frameSize of default buffer to be the frameSize of camera preview we want.
             texture.setDefaultBufferSize(previewSize.getWidth(), previewSize.getHeight());
 
             // This is the output Surface we need to start preview.
@@ -600,7 +602,7 @@ public class VMCamera2Preview extends TextureView implements TextureView.Surface
         public ImageSaver(Image image) {
             this.image = image;
             // 先创建文件夹
-            file = new File(VMFileUtil.getPictures() + "VMCamera/IMG_" + VMDateUtil.filenameDateTime() + ".jpg");
+            file = new File(VMFile.getPictures() + "VMCamera/IMG_" + VMDate.filenameDateTime() + ".jpg");
             if (!file.getParentFile().isDirectory()) {
                 file.mkdirs();
             }

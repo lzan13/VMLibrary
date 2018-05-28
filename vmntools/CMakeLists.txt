@@ -7,7 +7,6 @@ cmake_minimum_required(VERSION 3.4.1)
 # 添加本地原生库，PS 这里需要注意一点：后边源码路径必须带上文件名，只是写文件夹路径不行
 #
 add_library(vmntools SHARED
-    src/main/cpp/VMCrypto.cpp
     src/main/cpp/VMTestJni.cpp
     )
 

@@ -17,8 +17,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import com.vmloft.develop.library.tools.R;
-import com.vmloft.develop.library.tools.utils.VMBitmapUtil;
-import com.vmloft.develop.library.tools.utils.VMBlur;
+import com.vmloft.develop.library.tools.utils.bitmap.VMBlur;
 
 /**
  * Created by lzan13 on 2017/3/30.

@@ -6,16 +6,14 @@ import java.security.NoSuchAlgorithmException;
 /**
  * Created by Administrator on 2015/3/26.
  */
-public class VMCryptoUtil {
+public class VMCrypto {
 
-    private static final char[] HEX_ARRAY = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a',
-            'b', 'c', 'd', 'e', 'f'};
+    private static final char[] HEX_ARRAY = {
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
+    };
 
     /**
      * 将字符串通过java提供的MessageDigest类进行SHA1方式加密
-     *
-     * @param str
-     * @return
      */
     public static String cryptoStr2SHA1(String str) {
         try {
@@ -31,9 +29,6 @@ public class VMCryptoUtil {
 
     /**
      * 将字符串通过MessageDigest 进行MD5方式加密，并返回Hex十六进制式字符串
-     *
-     * @param str
-     * @return
      */
     public static String cryptoStr2MD5(String str) {
         try {
@@ -113,5 +108,4 @@ public class VMCryptoUtil {
 
         return builder.toString();
     }
-
 }

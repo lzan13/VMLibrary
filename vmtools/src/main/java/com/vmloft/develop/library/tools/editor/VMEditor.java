@@ -1,6 +1,5 @@
 package com.vmloft.develop.library.tools.editor;
 
-
 import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,10 +8,11 @@ import android.widget.EditText;
 import java.util.Stack;
 
 /**
- * 针对 EditText 封装撤销和恢复功能
  * Created by lzan13 on 2018/4/24.
+ * 针对 EditText 封装撤销和恢复功能
  */
 public class VMEditor {
+
     //操作序号(一次编辑可能对应多个操作，如替换文字，就是删除+插入)
     int index;
     //撤销栈
@@ -32,14 +32,9 @@ public class VMEditor {
         editText.addTextChangedListener(new Watcher());
     }
 
-    protected void onEditableChanged(Editable editable) {
+    protected void onEditableChanged(Editable editable) {}
 
-    }
-
-    protected void onTextChanged(Editable editable) {
-
-    }
-
+    protected void onTextChanged(Editable editable) {}
 
     /**
      * 清理记录
@@ -49,7 +44,6 @@ public class VMEditor {
         history.clear();
         historyBack.clear();
     }
-
 
     /**
      * 撤销
@@ -206,10 +200,10 @@ public class VMEditor {
             }
             VMEditor.this.onTextChanged(s);
         }
-
     }
 
     private class Action {
+
         /**
          * 改变字符.
          */
@@ -228,7 +222,6 @@ public class VMEditor {
          */
         int index;
 
-
         public Action(CharSequence actionTag, int startCursor, boolean add) {
             this.actionTarget = actionTag;
             this.startCursor = startCursor;
@@ -244,7 +237,6 @@ public class VMEditor {
             this.index = index;
         }
     }
-
 
     private static void CheckNull(Object o, String message) {
         if (o == null) {

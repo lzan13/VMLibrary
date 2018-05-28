@@ -1,0 +1,136 @@
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+ext {
+    //bintray 网站上你创建的仓库的名字（必配项）
+    bintrayRepo = 'VMLibrary'
+    //在这个仓库下的 package name（必配项）
+    bintrayName = 'vmtools'
+    //以上两项均只是指向 bintray 网站上你的仓库和仓库下的package
+
+    //publishedGroupId:artifact:libraryVersion 构成你开源库的唯一路径
+    //例如：com.dasu.tv:tv:0.0.1，在build.gradle里就可以根据这个路径来compile依赖库了
+    //以下三项均是必配项
+    publishedGroupId = 'com.vmloft.library'
+    artifact = 'vmtools'
+    libraryVersion = '0.0.2'
+
+    //以下三项只是对开源库的描述（应该不是必配项吧，没尝试过）
+    libraryName = 'vmtools'
+    libraryDescription = '自己开发中积累的一些工具类封装'
+    siteUrl = 'https://github.com/lzan13/VMLibrary'
+
+    //开源库对应的 github 地址，不知道可不可以不配，应该也是必配
+    gitUrl = 'https://github.com/lzan13/VMLibrary.git'
+
+    //开发者信息，也是必配的吧
+    developerId = 'lzan13'
+    developerName = '穿裤衩闯天下'
+    developerEmail = 'lzan13@sina.com'
+
+    //这部分可以不用改，我也不大懂这些开源协议，但应该都一样
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+
+group = publishedGroupId // Maven Group ID for the artifact
+
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
+                groupId publishedGroupId
+                artifactId artifact
+
+                // Add your description here
+                name libraryName
+                description libraryDescription
+                url siteUrl
+
+                // Set your license
+                licenses {
+                    license {
+                        name licenseName
+                        url licenseUrl
+                    }
+                }
+                developers {
+                    developer {
+                        id developerId
+                        name developerName
+                        email developerEmail
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+    }
+}
+
+version = libraryVersion
+
+if (project.hasProperty("android")) {
+    // Android libraries
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.srcDirs
+    }
+
+    task javadoc(type: Javadoc) {
+        source = android.sourceSets.main.java.srcDirs
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    }
+} else {
+    // Java libraries
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+// Bintray
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+
+    configurations = ['archives']
+    pkg {
+        repo = bintrayRepo
+        name = bintrayName
+        desc = libraryDescription
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = allLicenses
+        publish = true
+        publicDownloadNumbers = true
+        version {
+            desc = libraryDescription
+            gpg {
+                sign = true //Determines whether to GPG sign the files. The default is false
+                passphrase = properties.getProperty("bintray.gpg.password")
+                //Optional. The passphrase for GPG signing'
+            }
+        }
+    }
+}

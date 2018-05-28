@@ -11,7 +11,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import com.vmloft.develop.library.tools.R;
-import com.vmloft.develop.library.tools.utils.VMDimenUtil;
+import com.vmloft.develop.library.tools.utils.VMDimen;
 
 /**
  * Created by lzan13 on 2017/3/18.
@@ -94,30 +94,24 @@ public class VMWaveformView extends View {
 
         // 波形部分默认参数
         waveformColor = 0xddff5722;
-        waveformInterval = VMDimenUtil.getDimenPixel(R.dimen.vm_dimen_1);
-        waveformWidth = VMDimenUtil.getDimenPixel(R.dimen.vm_dimen_2);
+        waveformInterval = VMDimen.getDimenPixel(R.dimen.vm_dimen_1);
+        waveformWidth = VMDimen.getDimenPixel(R.dimen.vm_dimen_2);
 
         // 时间信息默认值
         timeText = "Time";
         textColor = 0xddffffff;
-        textSize = VMDimenUtil.getDimenPixel(R.dimen.vm_size_12);
+        textSize = VMDimen.getDimenPixel(R.dimen.vm_size_12);
 
         // 获取控件的属性值
         if (attrs != null) {
             TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.VMWaveformView);
             // 获取自定义属性值，如果没有设置就是默认值
-            textColor =
-                    array.getColor(R.styleable.VMWaveformView_vm_waveform_text_color, textColor);
-            textSize =
-                    array.getDimensionPixelOffset(R.styleable.VMWaveformView_vm_waveform_text_size,
-                            textSize);
+            textColor = array.getColor(R.styleable.VMWaveformView_vm_waveform_text_color, textColor);
+            textSize = array.getDimensionPixelOffset(R.styleable.VMWaveformView_vm_waveform_text_size, textSize);
 
-            waveformColor = array.getColor(R.styleable.VMWaveformView_vm_waveform_waveform_color,
-                    waveformColor);
-            waveformInterval = array.getDimensionPixelOffset(
-                    R.styleable.VMWaveformView_vm_waveform_waveform_interval, waveformInterval);
-            waveformWidth = array.getDimensionPixelOffset(
-                    R.styleable.VMWaveformView_vm_waveform_waveform_width, waveformWidth);
+            waveformColor = array.getColor(R.styleable.VMWaveformView_vm_waveform_waveform_color, waveformColor);
+            waveformInterval = array.getDimensionPixelOffset(R.styleable.VMWaveformView_vm_waveform_waveform_interval, waveformInterval);
+            waveformWidth = array.getDimensionPixelOffset(R.styleable.VMWaveformView_vm_waveform_waveform_width, waveformWidth);
 
             // 回收资源
             array.recycle();
@@ -132,7 +126,8 @@ public class VMWaveformView extends View {
         textPaint = new Paint(waveformPaint);
     }
 
-    @Override protected void onDraw(Canvas canvas) {
+    @Override
+    protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
         // 绘制文字
@@ -153,8 +148,8 @@ public class VMWaveformView extends View {
         // 设置字体颜色
         textPaint.setColor(textColor);
         textPaint.setStrokeWidth(4);
-        float textWidth = VMDimenUtil.getTextWidth(textPaint, timeText);
-        float textHeight = VMDimenUtil.getTextHeight(textPaint);
+        float textWidth = VMDimen.getTextWidth(textPaint, timeText);
+        float textHeight = VMDimen.getTextHeight(textPaint);
         // 绘制字体
         canvas.drawText(timeText, viewWidth - textWidth, textHeight, textPaint);
     }
@@ -187,13 +182,11 @@ public class VMWaveformView extends View {
             // 计算第i个点的x坐标
             waveformPoints[i * 4] = baseX + i * interval;
             // 根据bytes[i]的值（波形点的值）计算第i个点的y坐标
-            waveformPoints[i * 4 + 1] =
-                    baseY + ((byte) (waveformBytes[i] + 128)) * (viewHeight / 2) / 128;
+            waveformPoints[i * 4 + 1] = baseY + ((byte) (waveformBytes[i] + 128)) * (viewHeight / 2) / 128;
             // 计算第i+1个点的x坐标
             waveformPoints[i * 4 + 2] = baseX + interval * (i + 1);
             // 根据bytes[i+1]的值（波形点的值）计算第i+1个点的y坐标
-            waveformPoints[i * 4 + 3] =
-                    baseY + ((byte) (waveformBytes[i + 1] + 128)) * (viewHeight / 2) / 128;
+            waveformPoints[i * 4 + 3] = baseY + ((byte) (waveformBytes[i + 1] + 128)) * (viewHeight / 2) / 128;
         }
         canvas.drawLines(waveformPoints, waveformPaint);
     }
@@ -248,13 +241,13 @@ public class VMWaveformView extends View {
      * @param time 持续时间
      */
     public void setTimeText(int time) {
-        timeText =
-                String.format("%d'%d\"%d", time / 1000 / 60, time / 1000 % 60, time % 1000 / 100);
+        timeText = String.format("%d'%d\"%d", time / 1000 / 60, time / 1000 % 60, time % 1000 / 100);
         // 通知画布更新
         postInvalidate();
     }
 
-    @Override protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         viewBounds = new RectF(getLeft(), getTop(), getRight(), getBottom());
 
@@ -262,23 +255,24 @@ public class VMWaveformView extends View {
         viewHeight = viewBounds.bottom - viewBounds.top;
     }
 
-    @Override public boolean onTouchEvent(MotionEvent event) {
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
         // 触摸点横坐标
         float x = event.getX();
         float y = event.getY();
         switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                break;
-            case MotionEvent.ACTION_UP:
-                break;
-            case MotionEvent.ACTION_MOVE:
-                if (isTouch) {
-                    waveformCallback.onDrag((int) x);
-                }
-                postInvalidate();
-                break;
-            default:
-                break;
+        case MotionEvent.ACTION_DOWN:
+            break;
+        case MotionEvent.ACTION_UP:
+            break;
+        case MotionEvent.ACTION_MOVE:
+            if (isTouch) {
+                waveformCallback.onDrag((int) x);
+            }
+            postInvalidate();
+            break;
+        default:
+            break;
         }
         // 这里不调用系统的onTouchEvent方法，防止抬起时画面无法重绘
         return super.onTouchEvent(event);
@@ -321,6 +315,6 @@ public class VMWaveformView extends View {
         /**
          * 拖动
          */
-        public void onDrag(int position);
+        void onDrag(int position);
     }
 }

@@ -9,7 +9,7 @@ import java.util.TimeZone;
  * Created by Administrator on 2015/3/26.
  * 自定义封装时间工具处理类
  */
-public class VMDateUtil {
+public class VMDate {
 
     /**
      * 获取最近时间字符串
@@ -92,7 +92,7 @@ public class VMDateUtil {
      * @param dateStr 需要转换的日期
      */
     public static long milliFormUTC(String dateStr) {
-        if (VMStrUtil.isEmpty(dateStr)) {
+        if (VMStr.isEmpty(dateStr)) {
             return 0l;
         }
         try {
@@ -197,7 +197,6 @@ public class VMDateUtil {
         Date date = new Date(time);
         return sdfOnlyDateNoDay.format(date);
     }
-
 
     /**
      * 获取相对时间

@@ -75,12 +75,12 @@ JNIEXPORT jstring JNICALL Java_com_vmloft_develop_library_ntools_VMTestJni_sayHe
     jmethodID sayHelloStatic = env->GetStaticMethodID(cls, "sayHelloStatic", "()Ljava/lang/String;");
     jstring helloStatic_ = (jstring) env->CallStaticObjectMethod(cls, sayHelloStatic);
 
-    const char *hello = env->GetStringUTFChars(hello_, false);
-    const char *helloStatic = env->GetStringUTFChars(helloStatic_, false);
+    const char *hello = env->GetStringUTFChars(hello_, 0);
+    const char *helloStatic = env->GetStringUTFChars(helloStatic_, 0);
 
     LOGI("Jni 调用 Java 方法: %s, %s", hello, helloStatic);
 
-    char *helloStr = "这是 JNI ";
+    char helloStr[] = "这是 JNI ";
     //    strcat(helloStr, hello);
     //    strcat(helloStr, helloStatic);
 
@@ -98,8 +98,8 @@ JNIEXPORT void JNICALL Java_com_vmloft_develop_library_ntools_VMTestJni_say(JNIE
     jfieldID sayFid = env->GetStaticFieldID(cls, "say", "Ljava/lang/String;");
     jstring say_ = (jstring) env->GetStaticObjectField(cls, sayFid);
 
-    const char *name = env->GetStringUTFChars(name_, false);
-    const char *say = env->GetStringUTFChars(say_, false);
+    const char *name = env->GetStringUTFChars(name_, 0);
+    const char *say = env->GetStringUTFChars(say_, 0);
 
     LOGI("获取到的属性值 age:%d, name:%s, say:%s", age, name, say);
 
@@ -128,7 +128,7 @@ Java_com_vmloft_develop_library_ntools_VMTestJni_getString(JNIEnv *env, jobject 
     string sss;
     for (int i = 0; i < size; i++) {
         jstring obj = (jstring) env->GetObjectArrayElement(strArr, i);
-        string tmp(env->GetStringUTFChars(obj, false));
+        string tmp(env->GetStringUTFChars(obj, 0));
         sss += tmp;
         LOGI("解析 java 数组得到的数据：%s", tmp.c_str());
     }

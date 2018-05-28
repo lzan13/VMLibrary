@@ -22,9 +22,9 @@ android {
     }
 }
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    api fileTree(include: ['*.jar'], dir: 'libs')
     // Android Material design 设计风格库，包含了support-v4, appcompat-v7, recyclerView扩展库
-    implementation 'com.android.support:design:27.1.1'
+    api 'com.android.support:design:27.1.1'
 }
 
 /**
@@ -44,6 +44,5 @@ task makeLibrary(type: Jar, dependsOn: ['build']) {
     exclude('android/*')
 }
 
-repositories {
-    google()
-}
+// 引入打包发布到 Bintray 脚本
+apply from: 'release.gradle'
