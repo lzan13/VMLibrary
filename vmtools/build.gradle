@@ -46,3 +46,6 @@ task makeLibrary(type: Jar, dependsOn: ['build']) {
 
 // 引入打包发布到 Bintray 脚本
 apply from: 'release.gradle'
+// 或者直接引用 bintray 提供的远程脚本，我这里就是直接将两个文件复制到 release.gradle 里
+//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
