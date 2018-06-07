@@ -126,6 +126,6 @@ public class VMHeaderWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
         } else if (isFooterView(position)) {
             footerViews.keyAt(position - getHeaderCount() - getRealItemCount());
         }
-        return innerAdapter.getItemViewType(position);
+        return innerAdapter.getItemViewType(position - getHeaderCount());
     }
 }

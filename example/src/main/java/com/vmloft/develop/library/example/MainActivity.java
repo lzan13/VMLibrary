@@ -2,6 +2,9 @@ package com.vmloft.develop.library.example;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -49,8 +52,10 @@ public class MainActivity extends VMActivity {
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
 
-        String[] btnArray = {"Socket", "Dot Line", "Record", "Theme", "Camera", "Details", "Http",
-                "Audio", "PopupWindow", "Signature", "Record Screen", "Web Page", "Shell", "Jni"};
+        String[] btnArray = {
+            "Socket", "Dot Line", "Record", "Theme", "Camera", "Details", "Http", "Audio",
+            "PopupWindow", "Signature", "Record Screen", "Web Page", "Shell", "Jni"
+        };
         for (int i = 0; i < btnArray.length; i++) {
             Button btn = new Button(activity);
             btn.setText(btnArray[i]);
@@ -58,7 +63,6 @@ public class MainActivity extends VMActivity {
             btn.setOnClickListener(viewListener);
             viewGroup.addView(btn);
         }
-        testExecutor();
     }
 
     private View.OnClickListener viewListener = new View.OnClickListener() {
@@ -97,7 +101,6 @@ public class MainActivity extends VMActivity {
                 intent.setClass(activity, SignatureActivity.class);
                 break;
             case 110:
-                //                intent.setClass(activity, ScreenRecordActivity.class);
                 intent.setClass(activity, SRSActivity.class);
                 break;
             case 111:
@@ -114,62 +117,11 @@ public class MainActivity extends VMActivity {
         }
     };
 
-    private void testExecutor() {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        //executor.submit(new Runnable() {
-        //    @Override public void run() {
-        //        try {
-        //            Thread.sleep(1000);
-        //        } catch (InterruptedException e) {
-        //            e.printStackTrace();
-        //        }
-        //        VMLog.i("任务1");
-        //    }
-        //});
-        //executor.submit(new Runnable() {
-        //    @Override public void run() {
-        //        try {
-        //            Thread.sleep(1000);
-        //        } catch (InterruptedException e) {
-        //            e.printStackTrace();
-        //        }
-        //        VMLog.i("任务2");
-        //    }
-        //});
-        //executor.submit(new Runnable() {
-        //    @Override public void run() {
-        //        try {
-        //            Thread.sleep(1000);
-        //        } catch (InterruptedException e) {
-        //            e.printStackTrace();
-        //        }
-        //        VMLog.i("任务3");
-        //        String str = textView.getText().toString();
-        //        VMLog.i("任务3崩溃了");
-        //    }
-        //});
-        //executor.submit(new Runnable() {
-        //    @Override public void run() {
-        //        try {
-        //            Thread.sleep(1000);
-        //        } catch (InterruptedException e) {
-        //            e.printStackTrace();
-        //        }
-        //        VMLog.i("任务4");
-        //    }
-        //});
-    }
-
     private void checkNumber(int num) {
         if ((num ^ 1) == 0) {
             VMLog.i("num: %d, 是2的 N 次方", num);
         } else {
 
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 }

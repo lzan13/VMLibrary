@@ -1,32 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/layout_coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/vm_theme_background"
     android:fitsSystemWindows="false"
     >
-    <RelativeLayout
-        android:id="@+id/layout_camera_preview"
+    <com.vmloft.develop.library.tools.camera.VMCameraView
+        android:id="@+id/widget_camera_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
-        <com.vmloft.develop.library.tools.widget.VMCamera2Preview
-            android:id="@+id/camera_2_preview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            />
-        <com.vmloft.develop.library.tools.widget.VMCameraPreview
-            android:id="@+id/camera_preview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:visibility="gone"
-            />
-    </RelativeLayout>
+        android:layout_centerInParent="true"
+        />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -52,4 +37,4 @@
             android:theme="@style/VMBtn.Red"
             />
     </RelativeLayout>
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

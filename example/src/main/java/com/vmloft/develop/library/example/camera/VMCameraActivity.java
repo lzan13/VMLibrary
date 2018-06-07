@@ -4,16 +4,14 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 
 import com.vmloft.develop.library.example.R;
 import com.vmloft.develop.library.tools.VMActivity;
-import com.vmloft.develop.library.tools.widget.VMCamera2Preview;
-import com.vmloft.develop.library.tools.widget.VMCameraPreview;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.vmloft.develop.library.tools.camera.VMCameraView;
 
 /**
  * Created by lzan13 on 2017/4/24.
@@ -21,13 +19,12 @@ import butterknife.OnClick;
  */
 public class VMCameraActivity extends VMActivity {
 
-    @BindView(R.id.layout_camera_preview) RelativeLayout cameraLayout;
-    @BindView(R.id.camera_preview) VMCameraPreview cameraPreview;
-    @BindView(R.id.camera_2_preview) VMCamera2Preview camera2Preview;
+    @BindView(R.id.widget_camera_view) VMCameraView cameraView;
     @BindView(R.id.btn_camera_recording) Button recordingBtn;
     @BindView(R.id.btn_camera_picture) Button takePictureBtn;
 
-    @Override protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
@@ -35,43 +32,50 @@ public class VMCameraActivity extends VMActivity {
 
         ButterKnife.bind(activity);
 
-        initCamera();
+        init();
     }
 
-    private void initCamera() {
-
+    private void init() {
+        cameraView.setCameraWidth(1920);
+        cameraView.setCameraHeight(1080);
+        cameraView.openCamera();
     }
 
-    @OnClick({ R.id.btn_camera_picture, R.id.btn_camera_recording }) void onClick(View view) {
+    @OnClick({ R.id.btn_camera_picture, R.id.btn_camera_recording })
+    void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_camera_picture:
-                // 拍照
-                //cameraPreview.takePicture();
-                camera2Preview.takePicture();
-                break;
-            case R.id.btn_camera_recording:
+        case R.id.btn_camera_picture:
+            // 拍照
+            //cameraPreview.takePicture();
+            //cameraView.takePicture();
+            break;
+        case R.id.btn_camera_recording:
 
-                break;
+            break;
         }
     }
 
-    @Override protected void onResume() {
+    @Override
+    protected void onResume() {
         super.onResume();
-        initCamera();
+        init();
     }
 
-    @Override protected void onPause() {
+    @Override
+    protected void onPause() {
         super.onPause();
     }
 
-    @Override protected void onDestroy() {
+    @Override
+    protected void onDestroy() {
         super.onDestroy();
     }
 
     /**
      * 屏幕方向改变回调方法
      */
-    @Override public void onConfigurationChanged(Configuration newConfig) {
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
     }
 }

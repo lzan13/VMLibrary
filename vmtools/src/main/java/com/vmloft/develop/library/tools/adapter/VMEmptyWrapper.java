@@ -70,19 +70,19 @@ public class VMEmptyWrapper extends RecyclerView.Adapter {
     }
 
     @Override
-    public int getItemViewType(int position) {
-        if (isEmpty()) {
-            return ITEM_TYPE_EMPTY;
-        }
-        return innerAdapter.getItemViewType(position);
-    }
-
-    @Override
     public int getItemCount() {
         if (isEmpty()) {
             return 1;
         }
         return innerAdapter.getItemCount();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (isEmpty()) {
+            return ITEM_TYPE_EMPTY;
+        }
+        return innerAdapter.getItemViewType(position);
     }
 
     /**
