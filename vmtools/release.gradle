@@ -13,7 +13,7 @@ ext {
     //以下三项均是必配项
     publishedGroupId = 'com.vmloft.library'
     artifact = 'vmtools'
-    libraryVersion = '0.0.2'
+    libraryVersion = '0.1.0'
 
     //以下三项只是对开源库的描述（应该不是必配项吧，没尝试过）
     libraryName = 'vmtools'
@@ -37,6 +37,9 @@ ext {
 
 group = publishedGroupId // Maven Group ID for the artifact
 
+/**
+ * 将项目打包成 arr 和 pom 等文件，为上传到 bintray 做准备
+ */
 install {
     repositories.mavenInstaller {
         // This generates POM.xml with proper parameters
@@ -106,10 +109,13 @@ artifacts {
     archives sourcesJar
 }
 
-// Bintray
+// 读取敏感配置信息
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
+/**
+ * 上传库文件到 bintray
+ */
 bintray {
     user = properties.getProperty("bintray.user")
     key = properties.getProperty("bintray.apikey")
