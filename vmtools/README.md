@@ -44,6 +44,8 @@ booelan isEmail = VMReg.isEmail(email);
 
 - [adapter](src/main/java/com/vmloft/develop/library/tools/adapter) RecyclerView.Adapter 简单封装
 
+- [camera](src/main/java/com/vmloft/develop/library/tools/camera) 封装相机
+
 - [router](src/main/java/com/vmloft/develop/library/tools/router) 项目跳转路由
     - [VMParams](src/main/java/com/vmloft/develop/library/tools/utils/VMParams.java) 路由跳转传参
     - [VMRouter](src/main/java/com/vmloft/develop/library/tools/utils/VMRouter.java) 路由基类，业务层继承实现自己业务跳转
@@ -64,8 +66,6 @@ booelan isEmail = VMReg.isEmail(email);
 
 - [widget](src/main/java/com/vmloft/develop/library/tools/widget) 自定义控件部分
     - [VMAuthCodeBtn](src/main/java/com/vmloft/develop/library/tools/widget/VMAuthCodeBtn.java) 验证码按钮
-    - [VMCamera2Preview](src/main/java/com/vmloft/develop/library/tools/widget/VMCamera2Preview.java) Camera2 预览控件
-    - [VMCameraPreview](src/main/java/com/vmloft/develop/library/tools/widget/VMCamera2Preview.java) Camera 预览控件
     - [VMDetailsView](src/main/java/com/vmloft/develop/library/tools/widget/VMDetailsView.java) 显示更多
     - [VMDotLineView](src/main/java/com/vmloft/develop/library/tools/widget/VMDotLineView.java) 描点连线
     - [VMDrawView](src/main/java/com/vmloft/develop/library/tools/widget/VMDrawView.java) 可绘制 View
