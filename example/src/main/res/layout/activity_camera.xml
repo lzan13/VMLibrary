@@ -13,28 +13,30 @@
         android:layout_centerInParent="true"
         />
 
-    <RelativeLayout
+    <com.vmloft.develop.library.tools.widget.VMViewGroup
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         >
 
         <Button
-            android:id="@+id/btn_camera_picture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/btn_take_picture"
             android:layout_alignParentBottom="true"
             android:text="拍照"
             android:theme="@style/VMBtn.Red"
+            style="@style/VMBtn.Green.Fillet"
             />
         <Button
-            android:id="@+id/btn_camera_recording"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:text="录像"
+            android:id="@+id/btn_flash_light"
+            android:text="闪光灯"
             android:theme="@style/VMBtn.Red"
+            style="@style/VMBtn.Green.Fillet"
             />
-    </RelativeLayout>
+        <Button
+            android:id="@+id/btn_switch_camera"
+            android:text="切换"
+            android:theme="@style/VMBtn.Red"
+            style="@style/VMBtn.Green.Fillet"
+            />
+    </com.vmloft.develop.library.tools.widget.VMViewGroup>
 </RelativeLayout>

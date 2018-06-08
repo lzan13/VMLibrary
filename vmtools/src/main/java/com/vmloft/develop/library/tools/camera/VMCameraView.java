@@ -3,6 +3,8 @@ package com.vmloft.develop.library.tools.camera;
 import android.content.Context;
 import android.graphics.ImageFormat;
 import android.hardware.Camera;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -25,8 +27,8 @@ public class VMCameraView extends FrameLayout implements SurfaceHolder.Callback,
     // 相机实例
     private Camera camera;
     private Camera.CameraInfo cameraInfo;
-    // 相机 id
-    private int cameraId;
+    // 相机 id 默认为后置摄像头
+    private int cameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
     // 相机旋转角度
     private int rotateAngle;
     private float aspectRatio = -1.0f;
@@ -69,19 +71,15 @@ public class VMCameraView extends FrameLayout implements SurfaceHolder.Callback,
         surfaceView = findViewById(R.id.vm_surface_view);
         focusView = findViewById(R.id.vm_focus_view);
 
+        surfaceView.setZOrderMediaOverlay(true);
         surfaceView.getHolder().addCallback(this);
-        cameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
     }
 
     @Override
-    public void surfaceCreated(SurfaceHolder holder) {
-        startPreview();
-    }
+    public void surfaceCreated(SurfaceHolder holder) {}
 
     @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        rotateAngle = setCameraDisplayOrientation();
-    }
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {}
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
@@ -96,25 +94,38 @@ public class VMCameraView extends FrameLayout implements SurfaceHolder.Callback,
     }
 
     /**
-     * 打开相机
+     * 获取相机实例
      */
-    public void openCamera() {
-        // 如果相机已经打开，先释放再重新打开
-        if (camera != null) {
-            releaseCamera();
-        }
-        Camera.CameraInfo info = new Camera.CameraInfo();
-        int numCameras = Camera.getNumberOfCameras();
-        for (int i = 0; i < numCameras; i++) {
-            Camera.getCameraInfo(i, info);
-            if (info.facing == cameraId) {
-                cameraId = i;
-                camera = Camera.open(cameraId);
-                break;
+    private void getCameraInstance() {
+        if (camera == null) {
+            Camera.CameraInfo info = new Camera.CameraInfo();
+            int numCameras = Camera.getNumberOfCameras();
+            for (int i = 0; i < numCameras; i++) {
+                Camera.getCameraInfo(i, info);
+                if (info.facing == cameraId) {
+                    cameraId = i;
+                    camera = Camera.open(cameraId);
+                    break;
+                }
             }
         }
+    }
+
+    /**
+     * 打开相机
+     */
+    public void launchCamera() {
+        // 打开摄像头
         if (camera == null) {
-            throw new RuntimeException("unable to open camera");
+            CameraHandlerThread thread = new CameraHandlerThread("CameraThread");
+            synchronized (thread) {
+                thread.open();
+            }
+        }
+
+        if (camera == null) {
+            VMLog.e("相机打开失败");
+            return;
         }
 
         // 设置相机旋转角度
@@ -132,10 +143,10 @@ public class VMCameraView extends FrameLayout implements SurfaceHolder.Callback,
             parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
         }
 
-        // 设置捕获照片大小
-        parameters.setPictureSize(cameraWidth, cameraHeight);
         // 设置捕获图片数据格式，可以不设置
         parameters.setPictureFormat(ImageFormat.NV21);
+        // 设置捕获照片大小
+        //parameters.setPictureSize(cameraWidth, cameraHeight);
         // 设置预览最大最小帧 这里设置每秒20~30之间
         //parameters.setPreviewFpsRange(20, 30);
         // 将配置好的参数设置给相机
@@ -157,25 +168,11 @@ public class VMCameraView extends FrameLayout implements SurfaceHolder.Callback,
     }
 
     /**
-     * 释放相机
-     */
-    public void releaseCamera() {
-        if (camera != null) {
-            camera.stopPreview();
-            camera.setPreviewCallback(null);
-            camera.release();
-            camera = null;
-            isFocusing = false;
-            isPreview = false;
-            isFlashLight = false;
-        }
-    }
-
-    /**
      * 开启预览
      */
     public void startPreview() {
         if (camera == null) {
+            VMLog.e("相机没有打开");
             return;
         }
         camera.setPreviewCallback(this);
@@ -207,7 +204,7 @@ public class VMCameraView extends FrameLayout implements SurfaceHolder.Callback,
             cameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;
         }
         // 重新打开相机
-        openCamera();
+        launchCamera();
         return cameraId;
     }
 
@@ -250,6 +247,10 @@ public class VMCameraView extends FrameLayout implements SurfaceHolder.Callback,
      * 获取屏幕旋转角度，来计算相机需要旋转的角度
      */
     private int setCameraDisplayOrientation() {
+        if (camera == null) {
+            VMLog.e("相机没有打开");
+            return 0;
+        }
         // 获取相机配置信息
         cameraInfo = new Camera.CameraInfo();
         Camera.getCameraInfo(cameraId, cameraInfo);
@@ -473,6 +474,55 @@ public class VMCameraView extends FrameLayout implements SurfaceHolder.Callback,
     }
 
     /**
+     * 相机线程
+     */
+    private class CameraHandlerThread extends HandlerThread {
+
+        Handler handler;
+
+        public CameraHandlerThread(String name) {
+            super(name);
+            start();
+            handler = new Handler(getLooper());
+        }
+
+        synchronized void notifyCameraOpened() {
+            notify();
+        }
+
+        void open() {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    getCameraInstance();
+                    notifyCameraOpened();
+                }
+            });
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 释放相机
+     */
+    public void releaseCamera() {
+        surfaceView.getHolder().removeCallback(this);
+        if (camera != null) {
+            camera.stopPreview();
+            camera.setPreviewCallback(null);
+            camera.release();
+            camera = null;
+            isFocusing = false;
+            isPreview = false;
+            isFlashLight = false;
+        }
+    }
+
+    /**
      * 设置摄像头数据回调接口
      */
     public void setDataListener(DataListener listener) {
@@ -484,14 +534,18 @@ public class VMCameraView extends FrameLayout implements SurfaceHolder.Callback,
      */
     public interface DataListener {
 
-        /**
-         * 回调摄像头预览数据
-         */
         void onData(byte[] data);
     }
 
     public Camera getCamera() {
         return camera;
+    }
+
+    /**
+     * 在启动之前设置相机 id 可以修改默认打开的摄像头
+     */
+    public void setCameraId(int cameraId) {
+        this.cameraId = cameraId;
     }
 
     public int getCameraId() {
@@ -502,6 +556,9 @@ public class VMCameraView extends FrameLayout implements SurfaceHolder.Callback,
         return rotateAngle;
     }
 
+    /**
+     * 设置预览相机的宽
+     */
     public void setCameraWidth(int cameraWidth) {
         this.cameraWidth = cameraWidth;
     }
@@ -510,6 +567,9 @@ public class VMCameraView extends FrameLayout implements SurfaceHolder.Callback,
         return cameraWidth;
     }
 
+    /**
+     * 设置预览相机的高
+     */
     public void setCameraHeight(int cameraHeight) {
         this.cameraHeight = cameraHeight;
     }

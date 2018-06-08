@@ -20,8 +20,9 @@ import com.vmloft.develop.library.tools.camera.VMCameraView;
 public class VMCameraActivity extends VMActivity {
 
     @BindView(R.id.widget_camera_view) VMCameraView cameraView;
-    @BindView(R.id.btn_camera_recording) Button recordingBtn;
-    @BindView(R.id.btn_camera_picture) Button takePictureBtn;
+
+    private int width = 640;
+    private int height = 640;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,34 +37,39 @@ public class VMCameraActivity extends VMActivity {
     }
 
     private void init() {
-        cameraView.setCameraWidth(1920);
-        cameraView.setCameraHeight(1080);
-        cameraView.openCamera();
+
     }
 
-    @OnClick({ R.id.btn_camera_picture, R.id.btn_camera_recording })
+    @OnClick({ R.id.btn_take_picture, R.id.btn_flash_light, R.id.btn_switch_camera })
     void onClick(View view) {
         switch (view.getId()) {
-        case R.id.btn_camera_picture:
-            // 拍照
-            //cameraPreview.takePicture();
-            //cameraView.takePicture();
+        case R.id.btn_take_picture:
             break;
-        case R.id.btn_camera_recording:
-
+        case R.id.btn_flash_light:
+            cameraView.handleFlashLight();
+            break;
+        case R.id.btn_switch_camera:
+            cameraView.switchCamera();
             break;
         }
+    }
+
+    private void openCamera() {
+        cameraView.setCameraWidth(width);
+        cameraView.setCameraHeight(height);
+        cameraView.launchCamera();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        init();
+        openCamera();
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onStop() {
+        super.onStop();
+        cameraView.releaseCamera();
     }
 
     @Override
