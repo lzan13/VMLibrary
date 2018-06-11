@@ -29,13 +29,12 @@ public class VMLog {
 
     // 这里设置默认的 Tag
     private static String mTag = "VMTools";
-    private static final int LEVEL_NORMAL = 0;
+    private static final int LEVEL_DEBUG = 0;
     private static final int LEVEL_INFO = 1;
-    private static final int LEVEL_DEBUG = 2;
-    private static final int LEVEL_ERROR = 3;
-    private static final int LEVEL_NONE = 4;
+    private static final int LEVEL_ERROR = 2;
+    private static final int LEVEL_NONE = 3;
 
-    private static int mLevel = LEVEL_NORMAL;
+    private static int mLevel = LEVEL_DEBUG;
 
     /**
      * 初始化日志 Tag，即设置自己的TAG
@@ -103,17 +102,6 @@ public class VMLog {
     }
 
     /**
-     * 输出 Info 日志信息
-     *
-     * @param message 日志内容
-     */
-    public static void i(String message) {
-        if (mLevel <= LEVEL_INFO) {
-            print(Level.INFO, message);
-        }
-    }
-
-    /**
      * 输出 Debug 日志信息
      *
      * @param message 日志内容
@@ -121,6 +109,17 @@ public class VMLog {
     public static void d(String message) {
         if (mLevel <= LEVEL_DEBUG) {
             print(Level.DEBUG, message);
+        }
+    }
+
+    /**
+     * 输出 Info 日志信息
+     *
+     * @param message 日志内容
+     */
+    public static void i(String message) {
+        if (mLevel <= LEVEL_INFO) {
+            print(Level.INFO, message);
         }
     }
 
@@ -136,19 +135,6 @@ public class VMLog {
     }
 
     /**
-     * 使用格式化的方式输出 Info 日志信息
-     *
-     * @param msg 需要格式化的样式
-     * @param args 要格式化的信息
-     */
-    public static void i(String msg, Object... args) {
-        if (mLevel <= LEVEL_INFO) {
-            String message = args.length == 0 ? msg : String.format(msg, args);
-            print(Level.INFO, message);
-        }
-    }
-
-    /**
      * 使用格式化的方式输出 Debug 日志信息
      *
      * @param msg 需要格式化的样式
@@ -158,6 +144,19 @@ public class VMLog {
         if (mLevel <= LEVEL_DEBUG) {
             String message = args.length == 0 ? msg : String.format(msg, args);
             print(Level.DEBUG, message);
+        }
+    }
+
+    /**
+     * 使用格式化的方式输出 Info 日志信息
+     *
+     * @param msg 需要格式化的样式
+     * @param args 要格式化的信息
+     */
+    public static void i(String msg, Object... args) {
+        if (mLevel <= LEVEL_INFO) {
+            String message = args.length == 0 ? msg : String.format(msg, args);
+            print(Level.INFO, message);
         }
     }
 
@@ -182,10 +181,7 @@ public class VMLog {
      */
     private static void print(Level level, String message) {
         StringBuilder builder = new StringBuilder();
-        builder.append("\n ");
-        builder.append("\n┆ Thread:" + getThreadInfo());
-        builder.append("\n┆ " + generateLog());
-        builder.append("\n├──────────────────────────────────────────────────────────────────────────");
+        builder.append("\n┆ Thread:" + getThreadInfo() + " - " + generateLog());
         builder.append("\n┆ " + message);
         builder.append("\n└──────────────────────────────────────────────────────────────────────────");
         switch (level) {
@@ -193,15 +189,15 @@ public class VMLog {
             Log.d(mTag, builder.toString());
             break;
         case INFO:
-            Log.d(mTag, builder.toString());
+            Log.i(mTag, builder.toString());
             break;
         case ERROR:
-            Log.d(mTag, builder.toString());
+            Log.e(mTag, builder.toString());
             break;
         }
     }
 
     public enum Level {
-        NORMAL, INFO, DEBUG, ERROR, NONE
+        DEBUG, INFO, ERROR, NONE
     }
 }

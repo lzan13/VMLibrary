@@ -21,8 +21,8 @@ public class VMCameraActivity extends VMActivity {
 
     @BindView(R.id.widget_camera_view) VMCameraView cameraView;
 
-    private int width = 640;
-    private int height = 640;
+    private int width = 1920;
+    private int height = 1080;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
