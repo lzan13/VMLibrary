@@ -62,6 +62,7 @@ booelan isEmail = VMReg.isEmail(email);
     - [VMReg](src/main/java/com/vmloft/develop/library/tools/utils/VMReg.java) 正则
     - [VMSP](src/main/java/com/vmloft/develop/library/tools/utils/VMSP.java) SharedPreference
     - [VMStr](src/main/java/com/vmloft/develop/library/tools/utils/VMStr.java) 字符串操作
+    - [VMStr](src/main/java/com/vmloft/develop/library/tools/utils/VMSystem.java) 系统相关
     - [VMTheme](src/main/java/com/vmloft/develop/library/tools/utils/VMTheme.java) 主题切换
 
 - [widget](src/main/java/com/vmloft/develop/library/tools/widget) 自定义控件部分

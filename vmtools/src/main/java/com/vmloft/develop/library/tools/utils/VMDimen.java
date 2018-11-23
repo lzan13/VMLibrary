@@ -13,26 +13,23 @@ import com.vmloft.develop.library.tools.VMTools;
 import java.lang.reflect.Method;
 
 /**
- * Created by Administrator on 2015/4/15.
+ * Created by lzan13 on 2015/4/15.
  * 尺寸转化工具类
  */
 public class VMDimen {
 
-    private static final String STATUS_BAR_HEIGHT_RES_NAME = "status_bar_height";
-    private static final String NAV_BAR_HEIGHT_RES_NAME = "navigation_bar_height";
-    private static final String NAV_BAR_HEIGHT_LANDSCAPE_RES_NAME = "navigation_bar_height_landscape";
-    private static final String NAV_BAR_WIDTH_RES_NAME = "navigation_bar_width";
+    private static final String RES_STATUS_BAR_HEIGHT = "status_bar_height";
+    private static final String RES_NAV_BAR_HEIGHT = "navigation_bar_height";
 
-    public VMDimen() {
-
+    private VMDimen() {
+        throw new AssertionError();
     }
 
     /**
      * 获取屏幕大小
      */
     public static Point getScreenSize() {
-        WindowManager wm = (WindowManager) VMTools.getContext()
-            .getSystemService(Context.WINDOW_SERVICE);
+        WindowManager wm = (WindowManager) VMTools.getContext().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         Point outSize = new Point();
         display.getSize(outSize);
@@ -43,90 +40,28 @@ public class VMDimen {
      * 获取状态栏高度
      */
     public static int getStatusBarHeight() {
+        int height = 0;
         Resources res = VMTools.getContext().getResources();
-        int height = res.getIdentifier("status_bar_height", "dimen", "android");
-        height = res.getDimensionPixelSize(height);
+        int resId = res.getIdentifier(RES_STATUS_BAR_HEIGHT, "dimen", "android");
+        if (resId > 0) {
+            height = res.getDimensionPixelSize(resId);
+        }
         VMLog.i("statusBar.h." + height);
-
         return height;
     }
 
     /**
-     * 获取NavigationBar的高度（在NavigationBar 存在的情况下）
+     * 获取导航栏的高度（在 NavigationBar 存在的情况下）
      */
     public static int getNavigationBarHeight() {
-        Resources res = VMTools.getContext().getResources();
         int height = 0;
+        Resources res = VMTools.getContext().getResources();
         if (hasNavigationBar()) {
-            String key = NAV_BAR_HEIGHT_RES_NAME;
+            String key = RES_NAV_BAR_HEIGHT;
             height = getInternalDimensionSize(res, key);
         }
-        //        VMLog.i("navigationbar.h." + height);
+        VMLog.i("navigationbar.h." + height);
         return height;
-    }
-
-    public static int getSystemBarHeight() {
-        Resources res = VMTools.getContext().getResources();
-        int height = res.getIdentifier("system_bar_height", "dimen", "android");
-        height = res.getDimensionPixelSize(height);
-        VMLog.i("systembar.h." + height);
-
-        return height;
-    }
-
-    /**
-     * 获取ToolBar高度
-     */
-    public static int getToolbarHeight() {
-        //        int toolbarHeight = activity.getActionBar().getHeight();
-        int height = 0;
-        if (height != 0) {
-            return height;
-        }
-        TypedValue tv = new TypedValue();
-        if (VMTools.getContext()
-            .getTheme()
-            .resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
-            height = TypedValue.complexToDimensionPixelSize(tv.data, VMTools.getContext()
-                .getResources()
-                .getDisplayMetrics());
-        }
-        VMLog.i("toolbar.h." + height);
-        return height;
-    }
-
-    private static int getInternalDimensionSize(Resources res, String key) {
-        int result = 0;
-        int resourceId = res.getIdentifier(key, "dimen", "android");
-        if (resourceId > 0) {
-            result = res.getDimensionPixelSize(resourceId);
-        }
-        return result;
-    }
-
-    /**
-     * 判断是否有虚拟导航栏NavigationBar，
-     */
-    private static boolean hasNavigationBar() {
-        boolean hasNavigationBar = false;
-        Resources rs = VMTools.getContext().getResources();
-        int id = rs.getIdentifier("config_showNavigationBar", "bool", "android");
-        if (id > 0) {
-            hasNavigationBar = rs.getBoolean(id);
-        }
-        try {
-            Class systemPropertiesClass = Class.forName("android.os.SystemProperties");
-            Method m = systemPropertiesClass.getMethod("get", String.class);
-            String navBarOverride = (String) m.invoke(systemPropertiesClass, "qemu.hw.mainkeys");
-            if ("1".equals(navBarOverride)) {
-                hasNavigationBar = false;
-            } else if ("0".equals(navBarOverride)) {
-                hasNavigationBar = true;
-            }
-        } catch (Exception e) {
-            VMLog.e(e.getMessage());
-        }
-        return hasNavigationBar;
     }
 
     /**
@@ -166,7 +101,7 @@ public class VMDimen {
      * 获取文字的宽度
      *
      * @param paint 绘制文字的画笔
-     * @param str 需要计算宽度的字符串
+     * @param str   需要计算宽度的字符串
      * @return 返回字符串宽度
      */
     public static float getTextWidth(Paint paint, String str) {
@@ -192,5 +127,46 @@ public class VMDimen {
     public static float getTextHeight(Paint paint) {
         Paint.FontMetrics fm = paint.getFontMetrics();
         return (float) Math.ceil(fm.descent - fm.ascent);
+    }
+
+    /**
+     * 获取系统内部尺寸
+     *
+     * @param res 资源管理
+     * @param key 内部资源的 key
+     * @return
+     */
+    private static int getInternalDimensionSize(Resources res, String key) {
+        int result = 0;
+        int resourceId = res.getIdentifier(key, "dimen", "android");
+        if (resourceId > 0) {
+            result = res.getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
+    /**
+     * 判断是否有虚拟导航栏NavigationBar，
+     */
+    private static boolean hasNavigationBar() {
+        boolean hasNavigationBar = false;
+        Resources rs = VMTools.getContext().getResources();
+        int id = rs.getIdentifier("config_showNavigationBar", "bool", "android");
+        if (id > 0) {
+            hasNavigationBar = rs.getBoolean(id);
+        }
+        try {
+            Class systemPropertiesClass = Class.forName("android.os.SystemProperties");
+            Method m = systemPropertiesClass.getMethod("get", String.class);
+            String navBarOverride = (String) m.invoke(systemPropertiesClass, "qemu.hw.mainkeys");
+            if ("1".equals(navBarOverride)) {
+                hasNavigationBar = false;
+            } else if ("0".equals(navBarOverride)) {
+                hasNavigationBar = true;
+            }
+        } catch (Exception e) {
+            VMLog.e(e.getMessage());
+        }
+        return hasNavigationBar;
     }
 }

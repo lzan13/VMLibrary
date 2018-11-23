@@ -1,7 +1,5 @@
 package com.vmloft.develop.library.tools.utils;
 
-import android.support.v4.content.ContextCompat;
-
 import com.vmloft.develop.library.tools.VMTools;
 
 import java.util.Arrays;
@@ -16,7 +14,7 @@ public class VMStr {
     /**
      * 字符串转数组
      *
-     * @param string 字符串
+     * @param string    字符串
      * @param separator 分隔符
      * @return 数组
      */
@@ -27,7 +25,7 @@ public class VMStr {
     /**
      * 字符串数组转字符串
      *
-     * @param array 字符串数组
+     * @param array     字符串数组
      * @param separator 分隔符
      * @return 字符串
      */
@@ -46,12 +44,22 @@ public class VMStr {
     }
 
     /**
+     * 字符串数组转集合
+     *
+     * @param array 字符串数组
+     * @return 集合
+     */
+    public static List<String> arrayToList(String[] array) {
+        return Arrays.asList(array);
+    }
+
+    /**
      * 集合转字符串拼接
      *
-     * @param list 集合
+     * @param list     集合
      * @param splitStr 分隔符
      */
-    public static String list2Str(List<String> list, String splitStr) {
+    public static String listToStr(List<String> list, String splitStr) {
         if (list == null || list.size() == 0) {
             return null;
         }
@@ -63,16 +71,6 @@ public class VMStr {
             sb.append(list.get(i));
         }
         return sb.toString();
-    }
-
-    /**
-     * 字符串数组转集合
-     *
-     * @param array 字符串数组
-     * @return 集合
-     */
-    public static List<String> arrayToList(String[] array) {
-        return Arrays.asList(array);
     }
 
     /**

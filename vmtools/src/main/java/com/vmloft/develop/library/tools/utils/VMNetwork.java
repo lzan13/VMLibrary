@@ -63,9 +63,7 @@ public class VMNetwork {
      * 获取本地 IP 地址
      */
     public static String getLocalIP() {
-        WifiManager wifiManager = (WifiManager) VMTools.getContext()
-            .getApplicationContext()
-            .getSystemService(Context.WIFI_SERVICE);
+        WifiManager wifiManager = (WifiManager) VMTools.getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
         int ipAddress = wifiInfo.getIpAddress();
         String localIP = String.format(Locale.getDefault(), "%d.%d.%d.%d", (ipAddress & 0xff), (ipAddress >> 8 & 0xff), (ipAddress >> 16 & 0xff), (ipAddress >> 24 & 0xff));
@@ -83,9 +81,7 @@ public class VMNetwork {
      * 获取当前设备 mac 地址
      */
     public static String getMacAddress() {
-        WifiManager wifiManager = (WifiManager) VMTools.getContext()
-            .getApplicationContext()
-            .getSystemService(Context.WIFI_SERVICE);
+        WifiManager wifiManager = (WifiManager) VMTools.getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
         return wifiInfo.getMacAddress();
     }

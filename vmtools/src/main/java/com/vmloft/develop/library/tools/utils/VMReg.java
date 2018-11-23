@@ -37,4 +37,16 @@ public class VMReg {
         Pattern p = Pattern.compile("^[0-9a-zA-Z_.]{6,16}$");
         return p.matcher(password).matches();
     }
+
+    /**
+     * 是否满足正则
+     *
+     * @param content 内容
+     * @param regStr  正则字符串
+     * @return
+     */
+    public static boolean isCommonReg(String content, String regStr) {
+        Pattern p = Pattern.compile(regStr);
+        return p.matcher(content).matches();
+    }
 }

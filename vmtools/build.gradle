@@ -2,13 +2,13 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 22
-        versionCode 1
-        versionName '0.1.0'
+        targetSdkVersion 26
+        versionCode 3
+        versionName '0.1.5'
     }
     buildTypes {
         release {
@@ -22,9 +22,9 @@ android {
     }
 }
 dependencies {
-    api fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     // Android Material design 设计风格库，包含了support-v4, appcompat-v7, recyclerView扩展库
-    api 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
 }
 
 /**
