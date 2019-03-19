@@ -1,1 +1,1 @@
-include ':example', ':vmtools'
+include ':example', ':vmtools', ':vmutils'
