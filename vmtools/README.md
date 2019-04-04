@@ -4,6 +4,7 @@ VMTools
 [![Download](https://api.bintray.com/packages/lzan13/VMLibrary/vmtools/images/download.svg)](https://bintray.com/lzan13/VMLibrary/vmtools/_latestVersion)
 [![](https://img.shields.io/badge/author-lzan13-green.svg)](https://github.com/lzan13)
 [![](https://img.shields.io/badge/weibo-@lzan13-red.svg)](http://weibo.com/lzan13)
+[![](https://img.shields.io/badge/blog-@%E7%A9%BF%E8%A3%A4%E8%A1%A9%E9%97%AF%E5%A4%A9%E4%B8%8B-blue.svg)](http://blog.melove.net)
 
 
 封装自己开发中常用的一些工具类，以及自定义控件等，方便以后开发项目的使用，以及分享给其他开发者直接使用
@@ -19,6 +20,7 @@ dependencies {
     implementation 'com.vmloft.library:vmtools:{版本号}'
 }
 ```
+
 **初始化**
 
 在 Application 进行初始化，如果直接继承自 VMApp，可以忽略这一步
@@ -28,6 +30,7 @@ public void onCreate(){
     VMTools.init(context)
 }
 ```
+
 **愉快的调用**
 
 库中的工具类都是静态方法，可以直接地哦啊用，Example:
@@ -63,7 +66,7 @@ booelan isEmail = VMReg.isEmail(email);
     - [VMSP](src/main/java/com/vmloft/develop/library/tools/utils/VMSP.java) SharedPreference
     - [VMStr](src/main/java/com/vmloft/develop/library/tools/utils/VMStr.java) 字符串操作
     - [VMStr](src/main/java/com/vmloft/develop/library/tools/utils/VMSystem.java) 系统相关
-    - [VMTheme](src/main/java/com/vmloft/develop/library/tools/utils/VMTheme.java) 主题切换
+    - [VMTheme](src/main/java/com/vmloft/develop/library/tools/utils/VMTheme.java) 主题
 
 - [widget](src/main/java/com/vmloft/develop/library/tools/widget) 自定义控件部分
     - [VMAuthCodeBtn](src/main/java/com/vmloft/develop/library/tools/widget/VMAuthCodeBtn.java) 验证码按钮

@@ -2,13 +2,9 @@ package com.vmloft.develop.library.example;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.vmloft.develop.library.example.audio.VMAudioActivity;
 import com.vmloft.develop.library.example.camera.VMCameraActivity;
@@ -28,8 +24,6 @@ import com.vmloft.develop.library.tools.VMActivity;
 import com.vmloft.develop.library.tools.utils.VMLog;
 import com.vmloft.develop.library.tools.widget.VMViewGroup;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,7 +32,6 @@ public class MainActivity extends VMActivity {
 
     @BindView(R.id.widget_toolbar) Toolbar toolbar;
     @BindView(R.id.view_group) VMViewGroup viewGroup;
-    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +41,9 @@ public class MainActivity extends VMActivity {
 
         ButterKnife.bind(activity);
 
-        toolbar.setTitle("MainActivity");
+        toolbar.setTitle("VMLibrary Example");
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
+//        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
 
         String[] btnArray = {
             "Socket", "Dot Line", "Record", "Theme", "Camera", "Details", "Http", "Audio",

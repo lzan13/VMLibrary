@@ -1,14 +1,14 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     buildToolsVersion '28.0.3'
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 26
-        versionCode 3
-        versionName '0.1.5'
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 4
+        versionName '0.2.0'
     }
     buildTypes {
         release {
@@ -24,27 +24,12 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     // Android Material design 设计风格库，包含了support-v4, appcompat-v7, recyclerView扩展库
-    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:design:28.0.0'
 }
 
 /**
- * 将 Library Module 打成 Jar 包
+ * 引入打包发布到 Bintray 脚本
  */
-task makeLibrary(type: Jar, dependsOn: ['build']) {
-    // 打包后文件名
-    archiveName = "libraryname.jar"
-    // 包含的类路径
-    from('build/intermediates/classes/release')
-    // 包含的第三方库
-    from(project.zipTree('need include library jar'))
-    // 打包完成 jar 输出路径
-    destinationDir = file('build/libs')
-    // 排除类
-    exclude('com/google/*')
-    exclude('android/*')
-}
-
-// 引入打包发布到 Bintray 脚本
 apply from: 'release.gradle'
 // 或者直接引用 bintray 提供的远程脚本，我这里就是直接将两个文件复制到 release.gradle 里
 //apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'

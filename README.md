@@ -2,9 +2,9 @@ VMLibrary
 =========
 [![](https://img.shields.io/badge/author-lzan13-green.svg)](https://github.com/lzan13)
 [![](https://img.shields.io/badge/weibo-@lzan13-red.svg)](http://weibo.com/lzan13)
+[![](https://img.shields.io/badge/blog-@%E7%A9%BF%E8%A3%A4%E8%A1%A9%E9%97%AF%E5%A4%A9%E4%B8%8B-blue.svg)](http://blog.melove.net)
 
 ### vmtools
-[![Download](https://api.bintray.com/packages/lzan13/VMLibrary/vmtools/images/download.svg)](https://bintray.com/lzan13/VMLibrary/vmtools/_latestVersion)
 详细介绍移步[vmtools](./vmtools)
 
 --------
@@ -16,16 +16,6 @@ VMLibrary
 ### #介绍
 本来是作为一个自己项目管理第三方依赖用的，后来慢慢地积累了一些常用的工具类以及自定义控件，所以有想法把他放出去，
 可以让其他有需要的同学以及使用，我这边呢会慢慢完善这个库的功能，如果有好想法，好的工具类也可以提到这里来
-
-### #使用
-
-```gradle
-// 项目依赖
-dependencies {
-    ...
-    implementation 'com.vmloft.library:vmtools:{版本号}'
-}
-```
 
 ### #详细
 - [example](./example) 示例 Module 主要都是一些自己测试代码

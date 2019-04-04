@@ -1,9 +1,13 @@
 package com.vmloft.develop.library.tools.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * Created by lzan13 on 2018/4/17.
+ *
  * 正则相关工具类
  */
 public class VMReg {
@@ -49,4 +53,27 @@ public class VMReg {
         Pattern p = Pattern.compile(regStr);
         return p.matcher(content).matches();
     }
+
+    /**
+     * 正则匹配字符串内容，例如：
+     * String content = "#海贼王# #ONEPIECE# 第876话:仁义的男子汉 #甚平# 大海流通道";
+     * String regex = "#([\\S]*?)#";
+     *
+     * @param content 需要匹配的字符串
+     * @param regex   正则表达式
+     * @return 返回匹配的集合
+     */
+    public static List<String> regexContent(String content, String regex) {
+        Pattern pattern = Pattern.compile(regex);
+        List<String> result = new ArrayList<>();
+        Matcher matcher = pattern.matcher(content);
+        while (matcher.find()) {
+            int matchStart = matcher.start();
+            int matchEnd = matcher.end();
+            String temp = content.substring(matchStart, matchEnd);
+            result.add(temp);
+        }
+        return result;
+    }
+
 }

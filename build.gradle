@@ -6,7 +6,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.0'
+        classpath 'com.android.tools.build:gradle:3.3.2'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
@@ -21,7 +21,9 @@ allprojects {
         mavenCentral()
     }
 
-    //最好加上全局编码设置
+    /**
+     * 加上全局编码设置，主要是为了发布到 JCenter 时打包用的
+     */
     tasks.withType(Javadoc) {
         options.addStringOption('Xdoclint:none', '-quiet') //忽略javadoc错误
         options {

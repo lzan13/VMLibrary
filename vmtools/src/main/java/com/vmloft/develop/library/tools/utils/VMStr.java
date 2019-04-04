@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * Created by lzan13 on 2017/1/29.
- * 封装字符串操作类，对字符串进行一些简单的转换操作
+ * 封装字符串操作类，对字符串进行一些简单的操作
  */
 public class VMStr {
 
