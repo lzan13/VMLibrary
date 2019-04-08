@@ -11,8 +11,8 @@
                 <corners android:radius="@dimen/vm_btn_fillet_radius" />
                 <padding
                     android:bottom="@dimen/vm_dimen_4"
-                    android:left="@dimen/vm_dimen_6"
-                    android:right="@dimen/vm_dimen_6"
+                    android:left="@dimen/vm_dimen_8"
+                    android:right="@dimen/vm_dimen_8"
                     android:top="@dimen/vm_dimen_4" />
                 <solid android:color="@color/vm_btn_ripple" />
             </shape>

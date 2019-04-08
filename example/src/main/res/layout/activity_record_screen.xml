@@ -18,17 +18,17 @@
 
         <Button
             android:id="@+id/btn_start_screen_short"
-            style="@style/VMBtn.Green.Fillet"
+            style="@style/VMBtn.Fillet.Green"
             android:text="Start Screen Short" />
 
         <Button
             android:id="@+id/btn_start_screen_record"
-            style="@style/VMBtn.Green.Fillet"
+            style="@style/VMBtn.Fillet.Green"
             android:text="Start Screen Record" />
 
         <Button
             android:id="@+id/btn_stop"
-            style="@style/VMBtn.Green.Fillet"
+            style="@style/VMBtn.Fillet.Green"
             android:text="Stop" />
 
         <TextView

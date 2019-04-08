@@ -16,6 +16,7 @@
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <!--扁平圆角-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,23 +26,60 @@
                 style="@style/VMBtn.Flat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:enabled="false"
-                android:text="透明禁用"
-                android:theme="@style/VMBtn.Flat" />
+                android:text="扁平透明" />
 
             <Button
-                style="@style/VMBtn.Flat"
+                style="@style/VMBtn.Flat.Red"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="扁平透明" />
+                android:text="扁平红" />
+
+            <Button
+                style="@style/VMBtn.Flat.Green"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="扁平绿" />
+
+            <Button
+                style="@style/VMBtn.Flat.Blue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="扁平蓝" />
+
+        </LinearLayout>
+
+        <!--扁平倒角-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <Button
                 style="@style/VMBtn.Flat.Fillet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="扁平透明" />
+                android:text="扁平倒角" />
+
+            <Button
+                style="@style/VMBtn.Flat.Fillet.Red"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="扁倒红" />
+
+            <Button
+                style="@style/VMBtn.Flat.Fillet.Green"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="扁倒绿" />
+
+            <Button
+                style="@style/VMBtn.Flat.Fillet.Blue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="扁倒蓝" />
         </LinearLayout>
 
+        <!--悬浮圆角-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -51,7 +89,7 @@
                 style="@style/VMBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="正常" />
+                android:text="默认" />
 
             <Button
                 style="@style/VMBtn.Red"
@@ -72,6 +110,7 @@
                 android:text="蓝色" />
         </LinearLayout>
 
+        <!--悬浮倒角-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,31 +123,65 @@
                 android:text="正常" />
 
             <Button
-                style="@style/VMBtn.Red.Fillet"
+                style="@style/VMBtn.Fillet.Red"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="红色" />
 
             <Button
-                style="@style/VMBtn.Green.Fillet"
+                style="@style/VMBtn.Fillet.Green"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="绿色" />
 
             <Button
-                style="@style/VMBtn.Blue.Fillet"
+                style="@style/VMBtn.Fillet.Blue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="蓝色" />
         </LinearLayout>
 
+        <!--圆角禁用-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btn_white_activated"
+                style="@style/VMBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="正常" />
+
+            <Button
+                style="@style/VMBtn.Red"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="红色" />
+
+            <Button
+                style="@style/VMBtn.Green"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="绿色" />
+
+            <Button
+                style="@style/VMBtn.Blue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="蓝色" />
+        </LinearLayout>
+        <!--倒角禁用-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
                 style="@style/VMBtn.Fillet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -116,22 +189,21 @@
                 android:text="正常" />
 
             <Button
-                style="@style/VMBtn.Red.Fillet"
+                style="@style/VMBtn.Fillet.Red"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:text="红色" />
 
             <Button
-                style="@style/VMBtn.Green.Fillet"
+                style="@style/VMBtn.Fillet.Green"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:text="绿色" />
 
-
             <Button
-                style="@style/VMBtn.Blue.Fillet"
+                style="@style/VMBtn.Fillet.Blue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:enabled="false"

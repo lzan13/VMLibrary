@@ -6,7 +6,8 @@ import java.util.List;
 
 /**
  * Created by lzan13 on 2018/4/24.
- * Activity 间用于传递参数的可序列化对象，这里参数命名形式参考 Handler 的 message 对象
+ *
+ * Activity 间用于传递参数的可序列化对象，这里参数命名形式参考 Handler 的 Message 对象
  */
 public class VMParams implements Parcelable {
     public static final String ROUTER_EXT = "router_ext";

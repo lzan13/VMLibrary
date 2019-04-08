@@ -23,20 +23,17 @@
             android:id="@+id/btn_take_picture"
             android:layout_alignParentBottom="true"
             android:text="拍照"
-            android:theme="@style/VMBtn.Red"
-            style="@style/VMBtn.Green.Fillet"
+            style="@style/VMBtn.Fillet.Green"
             />
         <Button
             android:id="@+id/btn_flash_light"
             android:text="闪光灯"
-            android:theme="@style/VMBtn.Red"
-            style="@style/VMBtn.Green.Fillet"
+            style="@style/VMBtn.Fillet.Green"
             />
         <Button
             android:id="@+id/btn_switch_camera"
             android:text="切换"
-            android:theme="@style/VMBtn.Red"
-            style="@style/VMBtn.Green.Fillet"
+            style="@style/VMBtn.Fillet.Green"
             />
     </com.vmloft.develop.library.tools.widget.VMViewGroup>
 </RelativeLayout>
