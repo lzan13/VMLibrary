@@ -2,6 +2,7 @@ package com.vmloft.develop.library.tools.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 
 import com.vmloft.develop.library.tools.VMTools;
 
@@ -16,17 +17,40 @@ public class VMSPUtil {
     /**
      * 保存在手机里面的文件名
      */
-    public static final String FILE_NAME = "vm_shared_preferences";
+    public static final String VM_SP_PREFIX = "vm_sp_";
+    public static String spName;
 
     /**
-     * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
+     * VMSPUtil 工具类的初始化，主要是设置自己的 SharedPreferences 文件名，如果没有调用，则使用当前应用包名
+     *
+     * @param name
+     */
+    public static void init(String name) {
+        spName = name;
+    }
+
+    private static SharedPreferences getSharedPreferences(Context context) {
+        String spFileName;
+        if (TextUtils.isEmpty(spName)) {
+            spFileName = VM_SP_PREFIX + context.getPackageName();
+        } else {
+            spFileName = VM_SP_PREFIX + spName;
+        }
+        return context.getSharedPreferences(spFileName, Context.MODE_PRIVATE);
+    }
+
+    /**
+     * 保存数据的方法，这里不需要传入上下文对象
      */
     public static void put(String key, Object object) {
         put(VMTools.getContext(), key, object);
     }
 
+    /**
+     * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
+     */
     public static void put(Context context, String key, Object object) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences(context);
         SharedPreferences.Editor editor = sp.edit();
         if (object instanceof String) {
             editor.putString(key, (String) object);
@@ -45,7 +69,7 @@ public class VMSPUtil {
     }
 
     /**
-     * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
+     * 得到保存数据的方法，这里不需要传入上下文对象
      */
     public static Object get(String key, Object defaultObject) {
         return get(VMTools.getContext(), key, defaultObject);
@@ -55,7 +79,7 @@ public class VMSPUtil {
      * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
      */
     public static Object get(Context context, String key, Object defaultObject) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences(context);
         if (defaultObject instanceof String) {
             return sp.getString(key, (String) defaultObject);
         } else if (defaultObject instanceof Integer) {
@@ -81,7 +105,7 @@ public class VMSPUtil {
      * 移除某个key值已经对应的值
      */
     public static void remove(Context context, String key) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences(context);
         SharedPreferences.Editor editor = sp.edit();
         editor.remove(key);
         editor.commit();
@@ -98,7 +122,7 @@ public class VMSPUtil {
      * 清除所有数据
      */
     public static void clear(Context context) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences(context);
         SharedPreferences.Editor editor = sp.edit();
         editor.clear();
         editor.commit();
@@ -115,7 +139,7 @@ public class VMSPUtil {
      * 查询某个key是否已经存在
      */
     public static boolean contains(Context context, String key) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences(context);
         return sp.contains(key);
     }
 
@@ -130,7 +154,7 @@ public class VMSPUtil {
      * 返回所有的键值对
      */
     public static Map<String, ?> getAll(Context context) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences(context);
         return sp.getAll();
     }
 }
