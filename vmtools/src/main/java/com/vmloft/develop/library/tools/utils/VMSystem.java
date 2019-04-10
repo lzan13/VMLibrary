@@ -3,6 +3,9 @@ package com.vmloft.develop.library.tools.utils;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -81,5 +84,59 @@ public class VMSystem {
     public static int getThreadPoolDefaultSize(int max) {
         int availableProcessors = 2 * Runtime.getRuntime().availableProcessors() + 1;
         return availableProcessors > max ? max : availableProcessors;
+    }
+
+
+    /**
+     * 获取应用当前版本号
+     */
+    public static long getVersionCode() {
+        return getVersionCode(VMTools.getContext());
+    }
+
+    /**
+     * 获取应用当前版本号
+     *
+     * @param context 上下文对象
+     */
+    public static long getVersionCode(Context context) {
+        PackageManager manager = context.getPackageManager();
+        long code = 0;
+        try {
+            PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
+                code = info.getLongVersionCode();
+            } else {
+                code = info.versionCode;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return code;
+    }
+
+    /**
+     * 获取当前应用版本名称
+     */
+    public static String getVersionName() {
+        return getVersionName(VMTools.getContext());
+    }
+
+    /**
+     * 获取当前应用版本名称
+     *
+     * @param context 上下文对象
+     */
+    public static String getVersionName(Context context) {
+        PackageManager manager = context.getPackageManager();
+        String name = null;
+        try {
+            PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
+            name = info.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return name;
     }
 }

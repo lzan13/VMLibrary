@@ -1,58 +1,46 @@
 package com.vmloft.develop.library.example;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Button;
 
-import com.vmloft.develop.library.example.audio.VMAudioActivity;
-import com.vmloft.develop.library.example.camera.VMCameraActivity;
-import com.vmloft.develop.library.example.details.VMDetailsActivity;
-import com.vmloft.develop.library.example.http.VMHttpActivity;
-import com.vmloft.develop.library.example.jni.JniActivity;
-import com.vmloft.develop.library.example.popup.VMPopupWindowActivity;
-import com.vmloft.develop.library.example.record.SRSActivity;
-import com.vmloft.develop.library.example.shell.ShellActivity;
-import com.vmloft.develop.library.example.socket.VMSocketActivity;
-import com.vmloft.develop.library.example.theme.VMThemeActivity;
-import com.vmloft.develop.library.example.tools.SignatureActivity;
-import com.vmloft.develop.library.example.webpage.WebPageActivity;
-import com.vmloft.develop.library.example.widget.VMDotLineActivity;
-import com.vmloft.develop.library.example.widget.VMRecordActivity;
-import com.vmloft.develop.library.tools.VMActivity;
-import com.vmloft.develop.library.tools.utils.VMLog;
+import com.vmloft.develop.library.example.common.AppActivity;
+import com.vmloft.develop.library.example.router.ARouter;
 import com.vmloft.develop.library.tools.widget.VMViewGroup;
 
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
-public class MainActivity extends VMActivity {
+public class MainActivity extends AppActivity {
 
-    @BindView(R.id.widget_toolbar) Toolbar toolbar;
-    @BindView(R.id.view_group) VMViewGroup viewGroup;
+    @BindView(R.id.view_group)
+    VMViewGroup viewGroup;
+
+    // 定义动态添加的控件起始 id
+    private final int CLICK_START_ID = 100;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected int loadView() {
+        // 修改界面主题
         setTheme(R.style.AppTheme);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        return R.layout.activity_main;
+    }
 
-        ButterKnife.bind(activity);
-
-        toolbar.setTitle("VMLibrary Example");
-        setSupportActionBar(toolbar);
-//        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
+    @Override
+    protected void init() {
+        getToolbar().setTitle("VMLibrary");
+        setSupportActionBar(getToolbar());
 
         String[] btnArray = {
-            "Socket", "Dot Line", "Record", "Theme", "Camera", "Details", "Http", "Audio",
-            "PopupWindow", "Signature", "Record Screen", "Web Page", "Shell", "Jni"
+                "工具", "描点控件", "详情控件", "录音控件", "录制屏幕", "声音播放", "按钮样式", "弹出窗口", "Web 功能", "指示器"
         };
         for (int i = 0; i < btnArray.length; i++) {
-            Button btn = new Button(activity);
+            Button btn = new Button(new ContextThemeWrapper(activity, R.style.VMBtn_Green));
             btn.setText(btnArray[i]);
-            btn.setId(100 + i);
+            btn.setId(CLICK_START_ID + i);
             btn.setOnClickListener(viewListener);
             viewGroup.addView(btn);
         }
@@ -61,60 +49,42 @@ public class MainActivity extends VMActivity {
     private View.OnClickListener viewListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent();
             switch (v.getId()) {
-            case 100:
-                intent.setClass(activity, VMSocketActivity.class);
-                break;
-            case 101:
-                intent.setClass(activity, VMDotLineActivity.class);
-                break;
-            case 102:
-                intent.setClass(activity, VMRecordActivity.class);
-                break;
-            case 103:
-                intent.setClass(activity, VMThemeActivity.class);
-                break;
-            case 104:
-                intent.setClass(activity, VMCameraActivity.class);
-                break;
-            case 105:
-                intent.setClass(activity, VMDetailsActivity.class);
-                break;
-            case 106:
-                intent.setClass(activity, VMHttpActivity.class);
-                break;
-            case 107:
-                intent.setClass(activity, VMAudioActivity.class);
-                break;
-            case 108:
-                intent.setClass(activity, VMPopupWindowActivity.class);
-                break;
-            case 109:
-                intent.setClass(activity, SignatureActivity.class);
-                break;
-            case 110:
-                intent.setClass(activity, SRSActivity.class);
-                break;
-            case 111:
-                intent.setClass(activity, WebPageActivity.class);
-                break;
-            case 112:
-                intent.setClass(activity, ShellActivity.class);
-                break;
-            case 113:
-                intent.setClass(activity, JniActivity.class);
-                break;
+                case CLICK_START_ID + 0:
+                    ARouter.goTools(activity);
+                    break;
+                case CLICK_START_ID + 1:
+                    ARouter.goDotLine(activity);
+                    break;
+                case CLICK_START_ID + 2:
+                    ARouter.goDetails(activity);
+                    break;
+                case CLICK_START_ID + 3:
+                    ARouter.goRecordAudio(activity);
+                    break;
+                case CLICK_START_ID + 4:
+                    ARouter.goRecordScreen(activity);
+                    break;
+                case CLICK_START_ID + 5:
+                    ARouter.goPlayAudio(activity);
+                    break;
+                case CLICK_START_ID + 6:
+                    ARouter.goBtnStyle(activity);
+                    break;
+                case CLICK_START_ID + 7:
+                    ARouter.goPWDialog(activity);
+                    break;
+                case CLICK_START_ID + 8:
+                    ARouter.goWeb(activity);
+                    break;
+                case CLICK_START_ID + 9:
+                    ARouter.goIndicator(activity);
+                    break;
+                default:
+                    ARouter.goTools(activity);
+                    break;
             }
-            onStartActivity(activity, intent);
         }
     };
 
-    private void checkNumber(int num) {
-        if ((num ^ 1) == 0) {
-            VMLog.i("num: %d, 是2的 N 次方", num);
-        } else {
-
-        }
-    }
 }

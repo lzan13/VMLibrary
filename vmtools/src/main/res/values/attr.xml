@@ -87,4 +87,28 @@
         <attr name="vm_el_expanded" format="boolean" />
         <attr name="vm_el_expandable" format="boolean" />
     </declare-styleable>
+
+    <!--自定义指示器控件属性-->
+    <declare-styleable name="VMIndicatorView">
+        <!--指示器半径-->
+        <attr name="vm_indicator_radius" format="dimension" />
+        <!--指示器距离-->
+        <attr name="vm_indicator_margin" format="dimension" />
+        <!--指示器背景色-->
+        <attr name="vm_indicator_background" format="color|integer" />
+        <!--选中色-->
+        <attr name="vm_indicator_selected_background" format="color|integer" />
+        <!--指示器定位-->
+        <attr name="vm_indicator_gravity">
+            <enum name="left" value="0" />
+            <enum name="center" value="1" />
+            <enum name="right" value="2" />
+        </attr>
+        <!--指示器模式-->
+        <attr name="vm_indicator_mode">
+            <enum name="inside" value="0" />
+            <enum name="outside" value="1" />
+            <enum name="solo" value="2" />
+        </attr>
+    </declare-styleable>
 </resources>

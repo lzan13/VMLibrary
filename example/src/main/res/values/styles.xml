@@ -12,10 +12,10 @@
         <!--B 返回和 A 重新进入是否同步执行-->
         <item name="android:windowAllowReturnTransitionOverlap">true</item>
         <!--指定进入和退出的转场动画-->
-        <item name="android:windowEnterTransition">@transition/transition_enter</item>
-        <item name="android:windowExitTransition">@null</item>
-        <item name="android:windowReenterTransition">@null</item>
-        <item name="android:windowReturnTransition">@transition/transition_return</item>
+        <!--<item name="android:windowEnterTransition">@transition/transition_enter</item>-->
+        <!--<item name="android:windowExitTransition">@null</item>-->
+        <!--<item name="android:windowReenterTransition">@null</item>-->
+        <!--<item name="android:windowReturnTransition">@transition/transition_return</item>-->
     </style>
 
     <!--启动时的主题样式-->
