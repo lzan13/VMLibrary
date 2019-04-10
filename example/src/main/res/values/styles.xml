@@ -3,6 +3,17 @@
     <!-- 应用基础主题 -->
     <!-- Base application theme. -->
     <style name="AppTheme" parent="VMTheme">
+        <!-- 默认主要颜色，一般是 Toolbar 等颜色 -->
+        <item name="colorPrimary">@color/app_primary</item>
+        <!-- 深一些的主要色，一般是状态栏等颜色 -->
+        <item name="colorPrimaryDark">@color/app_primary_dark</item>
+        <!--各控件激活时的颜色，一般是 CheckBox、EditText、Switch、Spinner、RadioButton 等控件激活的颜色-->
+        <item name="colorAccent">@color/app_accent</item>
+
+        <!--半透明状态栏-->
+        <item name="android:windowTranslucentStatus">false</item>
+        <!--设置状态栏颜色-->
+        <item name="android:statusBarColor">@color/app_primary_dark</item>
 
         <!--设置是否允许使用转场动画-->
         <item name="android:windowContentTransitions">true</item>
@@ -16,18 +27,26 @@
         <!--<item name="android:windowExitTransition">@null</item>-->
         <!--<item name="android:windowReenterTransition">@null</item>-->
         <!--<item name="android:windowReturnTransition">@transition/transition_return</item>-->
+
+        <item name="buttonStyle">@style/VMBtn.Green</item>
+    </style>
+
+    <!--启动时的主题样式-->
+    <style name="AppTheme.Splash">
+        <!--防止启动瞬间黑屏或白屏，程序启动时的背景图，可以设置为一张代表性的logo，或者设置app框架类图-->
+        <item name="android:windowBackground">@drawable/shape_splash_bg</item>
     </style>
 
     <!--启动时的主题样式-->
     <style name="AppTheme.Launcher">
         <!--防止启动瞬间黑屏或白屏，程序启动时的背景图，可以设置为一张代表性的logo，或者设置app框架类图-->
-        <item name="android:windowBackground">@drawable/bg_launcher_statusbar_toolbar</item>
+        <item name="android:windowBackground">@drawable/img_splash_statusbar_toolbar</item>
         <!--颜色背景-->
         <item name="android:colorBackground">@color/vm_theme_background</item>
     </style>
 
+    <!--透明主题-->
     <style name="AppTheme.Transparent">
-
         <item name="colorPrimary">@color/vm_transparent</item>
         <item name="colorPrimaryDark">@color/vm_transparent</item>
         <!-- 设置允许修改系统栏的背景色 比如导航栏 状态栏等-->

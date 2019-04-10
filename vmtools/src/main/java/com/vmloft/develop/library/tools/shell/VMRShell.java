@@ -1,13 +1,8 @@
 package com.vmloft.develop.library.tools.shell;
 
-import com.vmloft.develop.library.tools.shell.exceptions.RootDeniedException;
-import com.vmloft.develop.library.tools.shell.execution.Command;
-
-import java.io.IOException;
-import java.util.concurrent.TimeoutException;
-
 /**
- * root 命令工具类
+ * Create 2018/08/08
+ * Root 命令工具类
  */
 public class VMRShell {
     private static final int EV_SYN = 0;
@@ -31,18 +26,17 @@ public class VMRShell {
     private static final int SYN_REPORT = 0;
 
     public static void execCommand(String cmd) {
-        Command command = new Command(0, cmd);
-        try {
-            RootShell.getShell(true).add(command);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (TimeoutException e) {
-            e.printStackTrace();
-        } catch (RootDeniedException e) {
-            e.printStackTrace();
-        }
+        //Command command = new Command(0, cmd);
+        //try {
+        //    RootShell.getShell(true).add(command);
+        //} catch (IOException e) {
+        //    e.printStackTrace();
+        //} catch (TimeoutException e) {
+        //    e.printStackTrace();
+        //} catch (RootDeniedException e) {
+        //    e.printStackTrace();
+        //}
     }
-
 
     /**
      * 模拟按键
@@ -68,8 +62,8 @@ public class VMRShell {
      *
      * @param startX 滑动开始 x 坐标
      * @param startY 滑动开始 y 坐标
-     * @param endX 滑动结束 x 坐标
-     * @param endY 滑动结束 y 坐标
+     * @param endX   滑动结束 x 坐标
+     * @param endY   滑动结束 y 坐标
      */
     public static void inputSwipe(int startX, int startY, int endX, int endY) {
         execCommand(String.format("input swipe %d %d %d %d\n", startX, startY, endX, endY));
@@ -88,9 +82,9 @@ public class VMRShell {
      * 格式化 sendevent 类型的命令
      *
      * @param eventName 传感器对应事件名称
-     * @param ev 事件类型
-     * @param key 事件操作 key
-     * @param value 事件值
+     * @param ev        事件类型
+     * @param key       事件操作 key
+     * @param value     事件值
      * @return
      */
     public static String formatSendEvent(String eventName, int ev, int key, int value) {
