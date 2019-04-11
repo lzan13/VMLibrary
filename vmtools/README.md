@@ -17,7 +17,7 @@ VMTools
 ```
 dependencies {
     ...
-    implementation 'com.vmloft.library:vmtools:{版本号}'
+    implementation 'com.vmloft.library:vmtools:0.2.5'
 }
 ```
 
@@ -47,8 +47,13 @@ booelan isEmail = VMReg.isEmail(email);
 
 - [adapter](src/main/java/com/vmloft/develop/library/tools/adapter) RecyclerView.Adapter 简单封装
 
-- [camera](src/main/java/com/vmloft/develop/library/tools/camera) 封装相机
-
+- [base](src/main/java/com/vmloft/develop/library/tools/base) 当前库所定义的一些基类
+    - [VMActivity](src/main/java/com/vmloft/develop/library/tools/base/VMActivity.java) Activity 基类
+    - [VMApp](src/main/java/com/vmloft/develop/library/tools/base/VMApp.java) Application 基类
+    - [VMCallback](src/main/java/com/vmloft/develop/library/tools/base/VMCallback.java) 通用回调，可继承重载
+    - [VMFragment](src/main/java/com/vmloft/develop/library/tools/base/VMFragment.java) Fragment 基类 实现数据懒加载
+    - [VMLazyFragment](src/main/java/com/vmloft/develop/library/tools/base/VMFragment.java) Fragment 基类 实现数据懒加载
+    
 - [router](src/main/java/com/vmloft/develop/library/tools/router) 项目跳转路由
     - [VMParams](src/main/java/com/vmloft/develop/library/tools/utils/VMParams.java) 路由跳转传参
     - [VMRouter](src/main/java/com/vmloft/develop/library/tools/utils/VMRouter.java) 路由基类，业务层继承实现自己业务跳转
@@ -58,17 +63,19 @@ booelan isEmail = VMReg.isEmail(email);
     - [VMCrypto](src/main/java/com/vmloft/develop/library/tools/utils/VMCrypto.java) 加密解密
     - [VMDate](src/main/java/com/vmloft/develop/library/tools/utils/VMDate.java) 时间
     - [VMDimen](src/main/java/com/vmloft/develop/library/tools/utils/VMDimen.java) 尺寸
+    - [VMEditor](src/main/java/com/vmloft/develop/library/tools/utils/VMEditor.java) 针对 EditText 封装撤销和回复功能
     - [VMFile](src/main/java/com/vmloft/develop/library/tools/utils/VMFile.java) 文件
     - [VMLanguage](src/main/java/com/vmloft/develop/library/tools/utils/VMLanguage.java) 语言切换
     - [VMLog](src/main/java/com/vmloft/develop/library/tools/utils/VMLog.java) 日志
     - [VMNetwork](src/main/java/com/vmloft/develop/library/tools/utils/VMNetwork.java) 网络
     - [VMReg](src/main/java/com/vmloft/develop/library/tools/utils/VMReg.java) 正则
-    - [VMSP](src/main/java/com/vmloft/develop/library/tools/utils/VMSP.java) SharedPreference
+    - [VMSPUtil](src/main/java/com/vmloft/develop/library/tools/utils/VMSPUtil.java) SharedPreference 工具
     - [VMStr](src/main/java/com/vmloft/develop/library/tools/utils/VMStr.java) 字符串操作
     - [VMStr](src/main/java/com/vmloft/develop/library/tools/utils/VMSystem.java) 系统相关
     - [VMTheme](src/main/java/com/vmloft/develop/library/tools/utils/VMTheme.java) 主题
 
 - [widget](src/main/java/com/vmloft/develop/library/tools/widget) 自定义控件部分
+    - [VMIndicatorView](src/main/java/com/vmloft/develop/library/tools/widget/indicator/VMIndicatorView.java) 指示器控件
     - [VMAuthCodeBtn](src/main/java/com/vmloft/develop/library/tools/widget/VMAuthCodeBtn.java) 验证码按钮
     - [VMDetailsView](src/main/java/com/vmloft/develop/library/tools/widget/VMDetailsView.java) 显示更多
     - [VMDotLineView](src/main/java/com/vmloft/develop/library/tools/widget/VMDotLineView.java) 描点连线
@@ -81,8 +88,4 @@ booelan isEmail = VMReg.isEmail(email);
     - [VMViewGroup](src/main/java/com/vmloft/develop/library/tools/widget/VMViewGroup.java) ViewGroup
     - [VMWaveformView](src/main/java/com/vmloft/develop/library/tools/widget/VMWaveformView.java) 波形图
     
-- [VMActivity](src/main/java/com/vmloft/develop/library/tools/VMActivity.java) Activity 基类
-- [VMApp](src/main/java/com/vmloft/develop/library/tools/VMApp.java) Application 基类
-- [VMCallback](src/main/java/com/vmloft/develop/library/tools/VMCallback.java) 通用回调，可继承重载
-- [VMFragment](src/main/java/com/vmloft/develop/library/tools/VMFragment.java) Fragment 基类 实现数据懒加载
-- [VMTools](src/main/java/com/vmloft/develop/library/tools/VMTools.java) 入口类
+- [VMTools](src/main/java/com/vmloft/develop/library/tools/VMTools.java) 工具初始化类

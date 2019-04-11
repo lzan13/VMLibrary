@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.tools.editor;
+package com.vmloft.develop.library.tools.utils;
 
 import android.support.annotation.NonNull;
 import android.text.Editable;
@@ -9,20 +9,21 @@ import java.util.Stack;
 
 /**
  * Created by lzan13 on 2018/4/24.
+ *
  * 针对 EditText 封装撤销和恢复功能
  */
 public class VMEditor {
 
-    //操作序号(一次编辑可能对应多个操作，如替换文字，就是删除+插入)
-    int index;
-    //撤销栈
-    Stack<Action> history = new Stack<>();
-    //恢复栈
-    Stack<Action> historyBack = new Stack<>();
+    // 操作序号(一次编辑可能对应多个操作，如替换文字，就是删除+插入)
+    private int index;
+    // 撤销栈
+    private Stack<Action> history = new Stack<>();
+    // 恢复栈
+    private Stack<Action> historyBack = new Stack<>();
 
     private Editable editable;
     private EditText editText;
-    //自动操作标志，防止重复回调,导致无限撤销
+    // 自动操作标志，防止重复回调，导致无限撤销
     private boolean flag = false;
 
     public VMEditor(@NonNull EditText editText) {
@@ -32,9 +33,11 @@ public class VMEditor {
         editText.addTextChangedListener(new Watcher());
     }
 
-    protected void onEditableChanged(Editable editable) {}
+    protected void onEditableChanged(Editable editable) {
+    }
 
-    protected void onTextChanged(Editable editable) {}
+    protected void onTextChanged(Editable editable) {
+    }
 
     /**
      * 清理记录
@@ -125,7 +128,7 @@ public class VMEditor {
         /**
          * Before text changed.
          *
-         * @param s the s
+         * @param s     the s
          * @param start the start 起始光标
          * @param count the endCursor 选择数量
          * @param after the after 替换增加的文字数
@@ -160,10 +163,10 @@ public class VMEditor {
         /**
          * On text changed.
          *
-         * @param s the s
-         * @param start the start 起始光标
+         * @param s      the s
+         * @param start  the start 起始光标
          * @param before the before 选择数量
-         * @param count the endCursor 添加的数量
+         * @param count  the endCursor 添加的数量
          */
         @Override
         public final void onTextChanged(CharSequence s, int start, int before, int count) {

@@ -21,20 +21,36 @@ public class VMApp extends Application {
         context = this;
     }
 
+    /**
+     * 获取项目上下文对象
+     */
     public static Context getContext() {
         return context;
     }
 
+    /**
+     * 添加当前活动的 Activity 到栈顶
+     *
+     * @param activity 当前活动的 activity
+     */
     public static void putActivity(VMActivity activity) {
         if (!activityList.contains(activity)) {
             activityList.add(0, activity);
         }
     }
 
+    /**
+     * 移除一个 activity
+     *
+     * @param activity 要销毁的 activity
+     */
     public static void removeActivity(VMActivity activity) {
         activityList.remove(activity);
     }
 
+    /**
+     * 获取栈顶的 activity
+     */
     public static VMActivity getTopActivity() {
         if (activityList.size() > 0) {
             return activityList.get(0);
