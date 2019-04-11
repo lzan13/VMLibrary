@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 
 /**
  * Created by lzan13 on 2017/12/8.
+ *
  * 为 Adapter 包装加载更多
  */
 public class VMMoreWrapper extends RecyclerView.Adapter {

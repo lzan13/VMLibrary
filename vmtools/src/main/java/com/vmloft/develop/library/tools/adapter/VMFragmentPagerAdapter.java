@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.example.common;
+package com.vmloft.develop.library.tools.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,11 +11,11 @@ import java.util.List;
  *
  * 简单通用 Fragment + ViewPager 适配器
  */
-public class SimplePagerAdapter extends FragmentPagerAdapter {
+public class VMFragmentPagerAdapter extends FragmentPagerAdapter {
 
-    private List<AppLazyFragment> fragments;
+    private List<Fragment> fragments;
 
-    public SimplePagerAdapter(FragmentManager fm, List<AppLazyFragment> list) {
+    public VMFragmentPagerAdapter(FragmentManager fm, List<Fragment> list) {
         super(fm);
         fragments = list;
     }

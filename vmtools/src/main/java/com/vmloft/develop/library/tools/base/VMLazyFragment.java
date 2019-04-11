@@ -50,6 +50,9 @@ public abstract class VMLazyFragment extends VMFragment {
 
         mLazyContainer = view.findViewById(R.id.lazy_container);
         mLazyLoadingView = view.findViewById(R.id.lazy_loading);
+        if (!isNeedLoading()) {
+            mLazyLoadingView.setVisibility(View.GONE);
+        }
         LayoutInflater.from(mContext).inflate(layoutId(), mLazyContainer);
 
         return view;
@@ -87,7 +90,10 @@ public abstract class VMLazyFragment extends VMFragment {
 
         // 加载完成，隐藏懒加载进度
         isLoaded = true;
-        mLazyLoadingView.setVisibility(View.GONE);
+        // 判断是否需要加载进度 View
+        if (!isNeedLoading()) {
+            mLazyLoadingView.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -99,6 +105,13 @@ public abstract class VMLazyFragment extends VMFragment {
      * 加载数据，这里已经实现了懒加载
      */
     protected abstract void initData();
+
+    /**
+     * 是否需要 loading
+     */
+    protected boolean isNeedLoading() {
+        return true;
+    }
 
     @Override
     public void onDestroyView() {
