@@ -59,6 +59,7 @@
     <dimen name="vm_dimen_0_5">0.5dp</dimen>
     <dimen name="vm_dimen_1">1dp</dimen>
     <dimen name="vm_dimen_2">2dp</dimen>
+    <dimen name="vm_dimen_3">3dp</dimen>
     <dimen name="vm_dimen_4">4dp</dimen>
     <dimen name="vm_dimen_6">6dp</dimen>
     <dimen name="vm_dimen_8">8dp</dimen>

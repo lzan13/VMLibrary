@@ -97,7 +97,7 @@
         <!--指示器背景色-->
         <attr name="vm_indicator_background" format="color|integer" />
         <!--选中色-->
-        <attr name="vm_indicator_selected_background" format="color|integer" />
+        <attr name="vm_indicator_selected" format="color|integer" />
         <!--指示器定位-->
         <attr name="vm_indicator_gravity">
             <enum name="left" value="0" />

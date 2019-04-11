@@ -1,39 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/vm_theme_background"
+    android:background="@color/app_bg"
     android:fitsSystemWindows="true"
-    >
+    tools:context=".demo.indicator.IndicatorActivity">
 
-    <include layout="@layout/widget_common_appbar"/>
+    <include layout="@layout/widget_common_appbar" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        >
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <android.support.v4.view.ViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="match_parent" />
+
         <com.vmloft.develop.library.tools.widget.indicator.VMIndicatorView
-            android:id="@+id/view_record"
+            android:id="@+id/indicator_view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/vm_dimen_56"
-            app:vm_indicator_color="@color/vm_theme_primary"
-            app:vm_indicator_size="@dimen/vm_dimen_16"
-            app:vm_touch_color="@color/vm_red"
-            app:vm_touch_text="滑动取消"
-            app:vm_waveform_color="@color/vm_orange_87"
-            app:vm_waveform_interval="@dimen/vm_dimen_1"
-            app:vm_waveform_width="@dimen/vm_dimen_2"
-            />
+            android:layout_alignParentBottom="true"
+            app:vm_indicator_background="@color/app_indicator_background"
+            app:vm_indicator_gravity="center"
+            app:vm_indicator_margin="@dimen/vm_dimen_8"
+            app:vm_indicator_mode="outside"
+            app:vm_indicator_radius="@dimen/vm_dimen_4"
+            app:vm_indicator_selected="@color/app_indicator_selected" />
 
-    </LinearLayout>
+    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -2,6 +2,8 @@ package com.vmloft.develop.library.tools;
 
 import android.content.Context;
 
+import com.vmloft.develop.library.tools.base.VMApp;
+
 /**
  * Created by lzan13 on 2018/4/16.
  * 工具初始化入口

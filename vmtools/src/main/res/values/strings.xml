@@ -1,3 +1,4 @@
 <resources>
     <string name="vm_name">VMTools</string>
+    <string name="vm_loading">正在加载...</string>
 </resources>

@@ -16,7 +16,10 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+
 import com.vmloft.develop.library.tools.R;
+import com.vmloft.develop.library.tools.utils.VMColor;
+import com.vmloft.develop.library.tools.utils.VMDimen;
 import com.vmloft.develop.library.tools.utils.bitmap.VMBlur;
 
 /**
@@ -72,11 +75,11 @@ public class VMImageView extends AppCompatImageView {
         //初始化默认值
         blurRadius = 0;
         blurScale = 2;
-        borderWidth = 4;
-        borderColor = 0xddffffff;
+        borderWidth = VMDimen.dp2px(2);
+        borderColor = VMColor.colorByResId(R.color.vm_white_87);
         pressAlpha = 0x42;
-        pressColor = 0x42000000;
-        radius = 16;
+        pressColor = VMColor.colorByResId(R.color.vm_black_38);
+        radius = VMDimen.dp2px(8);
         shapeType = 2;
 
         // 获取控件的属性值
@@ -85,14 +88,12 @@ public class VMImageView extends AppCompatImageView {
             blurRadius = array.getInteger(R.styleable.VMImageView_vm_blur_radius, blurRadius);
             blurScale = array.getInteger(R.styleable.VMImageView_vm_blur_scale, blurScale);
             borderColor = array.getColor(R.styleable.VMImageView_vm_border_color, borderColor);
-            borderWidth = array.getDimensionPixelOffset(R.styleable.VMImageView_vm_border_width,
-                    borderWidth);
+            borderWidth = array.getDimensionPixelOffset(R.styleable.VMImageView_vm_border_width, borderWidth);
             pressAlpha = array.getInteger(R.styleable.VMImageView_vm_press_alpha, pressAlpha);
             pressColor = array.getColor(R.styleable.VMImageView_vm_press_color, pressColor);
             radius = array.getDimensionPixelOffset(R.styleable.VMImageView_vm_radius, radius);
             shapeType = array.getInteger(R.styleable.VMImageView_vm_shape_type, shapeType);
-            isDispatchTouchEvent = array.getBoolean(R.styleable.VMImageView_vm_dispatch_touch_event,
-                    isDispatchTouchEvent);
+            isDispatchTouchEvent = array.getBoolean(R.styleable.VMImageView_vm_dispatch_touch_event, isDispatchTouchEvent);
             array.recycle();
         }
 
@@ -109,7 +110,8 @@ public class VMImageView extends AppCompatImageView {
         setWillNotDraw(false);
     }
 
-    @Override protected void onDraw(Canvas canvas) {
+    @Override
+    protected void onDraw(Canvas canvas) {
 
         if (shapeType == 0) {
             super.onDraw(canvas);
@@ -228,12 +230,13 @@ public class VMImageView extends AppCompatImageView {
     /**
      * 重写父类的 onSizeChanged 方法，检测控件宽高的变化
      *
-     * @param w 控件当前宽
-     * @param h 控件当前高
+     * @param w    控件当前宽
+     * @param h    控件当前高
      * @param oldw 控件原来的宽
      * @param oldh 控件原来的高
      */
-    @Override protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         width = w;
         height = h;
@@ -242,7 +245,8 @@ public class VMImageView extends AppCompatImageView {
     /**
      * View 的事件分发
      */
-    @Override public boolean dispatchTouchEvent(MotionEvent event) {
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
         if (isDispatchTouchEvent) {
             return false;
         }
@@ -252,7 +256,8 @@ public class VMImageView extends AppCompatImageView {
     /**
      * 重写 onTouchEvent 监听方法，用来响应控件触摸
      */
-    @Override public boolean onTouchEvent(MotionEvent event) {
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 pressPaint.setAlpha(pressAlpha);

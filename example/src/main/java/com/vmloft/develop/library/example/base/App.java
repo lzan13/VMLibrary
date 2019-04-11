@@ -1,6 +1,6 @@
 package com.vmloft.develop.library.example.base;
 
-import com.vmloft.develop.library.tools.VMApp;
+import com.vmloft.develop.library.tools.base.VMApp;
 import com.vmloft.develop.library.tools.VMTools;
 
 /**

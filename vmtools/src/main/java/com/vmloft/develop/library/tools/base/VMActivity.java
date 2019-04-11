@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.tools;
+package com.vmloft.develop.library.tools.base;
 
 import android.app.Activity;
 import android.content.Intent;

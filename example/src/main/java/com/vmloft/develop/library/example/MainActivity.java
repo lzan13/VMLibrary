@@ -84,6 +84,9 @@ public class MainActivity extends AppActivity {
         }
     };
 
+    /**
+     * 重写返回按键会退到桌面，并不结束 app
+     */
     @Override
     public void onBackPressed() {
         ARouter.goHome(activity);

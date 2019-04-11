@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import com.vmloft.develop.library.example.R;
-import com.vmloft.develop.library.tools.VMActivity;
+import com.vmloft.develop.library.tools.base.VMActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,11 +29,31 @@ public abstract class AppActivity extends VMActivity {
         init();
     }
 
+    /**
+     * 通用的获取 Toolbar 方法
+     */
     protected Toolbar getToolbar() {
         return mToolbar;
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (unbinder != null) {
+            unbinder.unbind();
+        }
+    }
+
+    /**
+     * 加载布局 id
+     *
+     * @return 返回布局 id
+     */
     protected abstract int loadView();
 
+    /**
+     * 初始化
+     */
     protected abstract void init();
 }

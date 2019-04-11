@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.tools;
+package com.vmloft.develop.library.tools.base;
 
 /**
  * Created by lzan13 on 2017/6/13.

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    tools:context=".base.VMLazyFragment">
+
+    <!--懒加载内容容器-->
+    <RelativeLayout
+        android:id="@+id/lazy_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!--懒加载进度提示-->
+    <LinearLayout
+        android:id="@+id/lazy_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/vm_white_87"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ProgressBar
+            android:layout_width="@dimen/vm_dimen_16"
+            android:layout_height="@dimen/vm_dimen_16"
+            android:layout_margin="@dimen/vm_dimen_8" />
+
+        <TextView
+            style="@style/VMText.Body1"
+            android:text="@string/vm_loading" />
+    </LinearLayout>
+</RelativeLayout>

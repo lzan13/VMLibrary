@@ -3,7 +3,6 @@ package com.vmloft.develop.library.tools.widget.indicator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
@@ -15,6 +14,8 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.vmloft.develop.library.tools.R;
+import com.vmloft.develop.library.tools.utils.VMColor;
+import com.vmloft.develop.library.tools.utils.VMDimen;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,21 +27,26 @@ import java.util.List;
  */
 public class VMIndicatorView extends View {
 
-    private int mIndicatorRadius, mIndicatorMargin, mIndicatorBackground, mIndicatorSelectBackground, mCurItemPosition;
-    private float mCurItemPositionOffset;
+    // 指示器半径
+    private int mIndicatorRadius;
+    // 指示器之间的距离
+    private int mIndicatorMargin;
+    // 指示器背景色
+    private int mIndicatorBackground;
+    // 指示器选中颜色
+    private int mIndicatorSelected;
+    // 指示器当前位置
+    private int mCurrentPosition;
+    // 指示器当前位置偏移量
+    private float mCurrentPositionOffset;
+    // 指示器对齐方式
     private Gravity mIndicatorLayoutGravity;
+    // 指示器模式
     private Mode mIndicatorMode;
-    private VMIndicatorHolder moveItem;
-    private List<VMIndicatorHolder> mTabItems;
+    // 可以动的指示器对象
+    private VMIndicatorHolder moveHolder;
+    private List<VMIndicatorHolder> mHolders;
     private ViewPager mViewPager;
-
-    // 定义控件属性默认值
-    private static final int DEFULT_INDICATOR_RADIUS = 10;
-    private static final int DEFAULT_INDICATOR_MARGIN = 40;
-    private static final int DEFAULT_INDICATOR_BACKGROUND = Color.BLUE;
-    private static final int DEFAULT_INDICATOR_MODE = Mode.SOLO.ordinal();
-    private static final int DEFAULT_INDICATOR_SELECTED_BACKGROUND = Color.RED;
-    private static final int DEFAULT_INDICATOR_LAYOUT_GRAVITY = Gravity.CENTER.ordinal();
 
     public enum Gravity {
         LEFT, CENTER, RIGHT;
@@ -71,8 +77,17 @@ public class VMIndicatorView extends View {
      * @param attrs
      */
     private void init(Context context, AttributeSet attrs) {
-        mTabItems = new ArrayList<>();
-        handleTypeAttrs(context, attrs);
+        // 初始化默认值
+        mIndicatorRadius = VMDimen.dp2px(4);
+        mIndicatorMargin = VMDimen.dp2px(8);
+        mIndicatorBackground = VMColor.colorByResId(R.color.vm_gray_54);
+        mIndicatorSelected = VMColor.colorByResId(R.color.vm_green_87);
+        mCurrentPosition = 0;
+        mCurrentPositionOffset = 0;
+        mIndicatorLayoutGravity = Gravity.CENTER;
+        mIndicatorMode = Mode.SOLO;
+        mHolders = new ArrayList<>();
+        handleAttrs(context, attrs);
     }
 
     /**
@@ -81,17 +96,35 @@ public class VMIndicatorView extends View {
      * @param context
      * @param attrs
      */
-    private void handleTypeAttrs(Context context, AttributeSet attrs) {
+    private void handleAttrs(Context context, AttributeSet attrs) {
+
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.VMIndicatorView);
-        mIndicatorRadius = typedArray.getDimensionPixelSize(R.styleable.VMIndicatorView_vm_indicator_radius, DEFULT_INDICATOR_RADIUS);
-        mIndicatorMargin = typedArray.getDimensionPixelSize(R.styleable.VMIndicatorView_vm_indicator_margin, DEFAULT_INDICATOR_MARGIN);
-        mIndicatorBackground = typedArray.getColor(R.styleable.VMIndicatorView_vm_indicator_background, DEFAULT_INDICATOR_BACKGROUND);
-        mIndicatorSelectBackground = typedArray.getColor(R.styleable.VMIndicatorView_vm_indicator_selected_background, DEFAULT_INDICATOR_SELECTED_BACKGROUND);
-        int layoutGravity = typedArray.getInt(R.styleable.VMIndicatorView_vm_indicator_gravity, DEFAULT_INDICATOR_LAYOUT_GRAVITY);
+        mIndicatorRadius = typedArray.getDimensionPixelSize(R.styleable.VMIndicatorView_vm_indicator_radius, mIndicatorRadius);
+        mIndicatorMargin = typedArray.getDimensionPixelSize(R.styleable.VMIndicatorView_vm_indicator_margin, mIndicatorMargin);
+        mIndicatorBackground = typedArray.getColor(R.styleable.VMIndicatorView_vm_indicator_background, mIndicatorBackground);
+        mIndicatorSelected = typedArray.getColor(R.styleable.VMIndicatorView_vm_indicator_selected, mIndicatorSelected);
+        int layoutGravity = typedArray.getInt(R.styleable.VMIndicatorView_vm_indicator_gravity, mIndicatorLayoutGravity.ordinal());
         mIndicatorLayoutGravity = Gravity.values()[layoutGravity];
-        int layoutMode = typedArray.getInt(R.styleable.VMIndicatorView_vm_indicator_mode, DEFAULT_INDICATOR_MODE);
+        int layoutMode = typedArray.getInt(R.styleable.VMIndicatorView_vm_indicator_mode, mIndicatorMode.ordinal());
         mIndicatorMode = Mode.values()[layoutMode];
         typedArray.recycle();
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
+        int layer = canvas.saveLayer(0, 0, getWidth(), getHeight(), null);
+
+        for (VMIndicatorHolder holder : mHolders) {
+            drawHolder(canvas, holder);
+        }
+
+        if (null != moveHolder) {
+            drawHolder(canvas, moveHolder);
+        }
+
+        canvas.restoreToCount(layer);
     }
 
     /**
@@ -103,60 +136,13 @@ public class VMIndicatorView extends View {
         mViewPager = viewPager;
         createTabItems();
         createMoveItems();
-        setViewPagerListener();
+        initViewPagerListener();
     }
 
     /**
-     * 创建小圆点个数,依赖于ViewPager
+     * 监听 ViewPager 滑动
      */
-    private void createTabItems() {
-        for (int i = 0; i < mViewPager.getAdapter().getCount(); i++) {
-            OvalShape circle = new OvalShape();
-            ShapeDrawable drawable = new ShapeDrawable(circle);
-            VMIndicatorHolder holder = new VMIndicatorHolder(drawable);
-
-            Paint paint = drawable.getPaint();
-            paint.setColor(mIndicatorBackground);
-            paint.setAntiAlias(true);
-
-            holder.setPaint(paint);
-            mTabItems.add(holder);
-        }
-    }
-
-    /**
-     * 创建移动小圆点
-     */
-    private void createMoveItems() {
-        OvalShape circle = new OvalShape();
-        ShapeDrawable drawable = new ShapeDrawable(circle);
-        moveItem = new VMIndicatorHolder(drawable);
-
-        Paint paint = drawable.getPaint();
-        paint.setColor(mIndicatorSelectBackground);
-        paint.setAntiAlias(true);
-
-        switch (mIndicatorMode) {
-            case INSIDE:
-                paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
-                break;
-            case OUTSIDE:
-                paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER));
-                break;
-            case SOLO:
-                paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC));
-                break;
-            default:
-                break;
-        }
-
-        moveItem.setPaint(paint);
-    }
-
-    /**
-     * 监听ViewPager滑动
-     */
-    private void setViewPagerListener() {
+    private void initViewPagerListener() {
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -174,14 +160,60 @@ public class VMIndicatorView extends View {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
         });
     }
 
+    /**
+     * 创建小圆点个数,依赖于ViewPager
+     */
+    private void createTabItems() {
+        for (int i = 0; i < mViewPager.getAdapter().getCount(); i++) {
+            OvalShape circle = new OvalShape();
+            ShapeDrawable drawable = new ShapeDrawable(circle);
+            VMIndicatorHolder holder = new VMIndicatorHolder(drawable);
+
+            Paint paint = drawable.getPaint();
+            paint.setColor(mIndicatorBackground);
+            paint.setAntiAlias(true);
+
+            holder.setPaint(paint);
+            mHolders.add(holder);
+        }
+    }
+
+    /**
+     * 创建移动小圆点
+     */
+    private void createMoveItems() {
+        OvalShape circle = new OvalShape();
+        ShapeDrawable drawable = new ShapeDrawable(circle);
+        moveHolder = new VMIndicatorHolder(drawable);
+
+        Paint paint = drawable.getPaint();
+        paint.setColor(mIndicatorSelected);
+        paint.setAntiAlias(true);
+
+        switch (mIndicatorMode) {
+            case INSIDE:
+                paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
+                break;
+            case OUTSIDE:
+                paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER));
+                break;
+            case SOLO:
+                paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC));
+                break;
+            default:
+                break;
+        }
+
+        moveHolder.setPaint(paint);
+    }
+
     private void trigger(int position, float positionOffset) {
-        this.mCurItemPosition = position;
-        this.mCurItemPositionOffset = positionOffset;
+        this.mCurrentPosition = position;
+        this.mCurrentPositionOffset = positionOffset;
         requestLayout();
         invalidate();
     }
@@ -194,22 +226,22 @@ public class VMIndicatorView extends View {
         int height = getHeight();
 
         layoutItem(width, height);
-        layoutMoveItem(mCurItemPosition, mCurItemPositionOffset);
+        layoutMoveItem(mCurrentPosition, mCurrentPositionOffset);
     }
 
     /**
      * 计算每个小圆点位置
      */
     private void layoutItem(int width, int height) {
-        if (null == mTabItems) {
+        if (null == mHolders) {
             throw new IllegalArgumentException("forget to create items?");
         }
 
         float heightY = height * 0.5f;
         int startPosition = startDrawPosition(width);
 
-        for (int i = 0; i < mTabItems.size(); i++) {
-            VMIndicatorHolder holder = mTabItems.get(i);
+        for (int i = 0; i < mHolders.size(); i++) {
+            VMIndicatorHolder holder = mHolders.get(i);
             holder.resizeShape(2 * mIndicatorRadius, 2 * mIndicatorRadius);
             holder.setY(heightY - mIndicatorRadius);
 
@@ -225,20 +257,20 @@ public class VMIndicatorView extends View {
      * @param curItemPositionOffset
      */
     private void layoutMoveItem(int curItemPosition, float curItemPositionOffset) {
-        if (null == moveItem) {
+        if (null == moveHolder) {
             throw new IllegalArgumentException("forget to create moveitem?");
         }
 
-        if (0 == mTabItems.size()) {
+        if (0 == mHolders.size()) {
             return;
         }
 
-        VMIndicatorHolder holder = mTabItems.get(curItemPosition);
-        moveItem.resizeShape(holder.getWidth(), holder.getHeight());
+        VMIndicatorHolder holder = mHolders.get(curItemPosition);
+        moveHolder.resizeShape(holder.getWidth(), holder.getHeight());
 
         float x = holder.getX() + (mIndicatorMargin + mIndicatorRadius * 2) * curItemPositionOffset;
-        moveItem.setX(x);
-        moveItem.setY(holder.getY());
+        moveHolder.setX(x);
+        moveHolder.setY(holder.getY());
     }
 
     /**
@@ -251,7 +283,7 @@ public class VMIndicatorView extends View {
             return 0;
         }
 
-        int tabItemLength = mTabItems.size() * (2 * mIndicatorRadius + mIndicatorMargin) - mIndicatorMargin;
+        int tabItemLength = mHolders.size() * (2 * mIndicatorRadius + mIndicatorMargin) - mIndicatorMargin;
         if (width < tabItemLength) {
             return 0;
         }
@@ -263,60 +295,58 @@ public class VMIndicatorView extends View {
         return width - tabItemLength;
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-
-        int layer = canvas.saveLayer(0, 0, getWidth(), getHeight(), null);
-
-        for (VMIndicatorHolder holer : mTabItems) {
-            drawItem(canvas, holer);
-        }
-
-        if (null != moveItem) {
-            drawItem(canvas, moveItem);
-        }
-
-        canvas.restoreToCount(layer);
-    }
-
     /**
      * 开始绘画圆点
      *
      * @param canvas
-     * @param holer
+     * @param holder
      */
-    private void drawItem(Canvas canvas, VMIndicatorHolder holer) {
+    private void drawHolder(Canvas canvas, VMIndicatorHolder holder) {
         canvas.save();
-        canvas.translate(holer.getX(), holer.getY());
-        holer.getShape().draw(canvas);
+        canvas.translate(holder.getX(), holder.getY());
+        holder.getShape().draw(canvas);
         canvas.restore();
     }
 
     /**
-     * 暴露接口，可代码修改参数
+     * 修改指示器切换模式
      */
     public void setIndicatorMode(Mode indicatorMode) {
         this.mIndicatorMode = indicatorMode;
     }
 
+    /**
+     * 修改指示器距离
+     */
     public void setIndicatorMargin(int indicatorMargin) {
         this.mIndicatorMargin = indicatorMargin;
     }
 
+    /**
+     * 修改指示器半径大小
+     */
     public void setIndicatorRadius(int indicatorRadius) {
         this.mIndicatorRadius = indicatorRadius;
     }
 
-    public void setIndicatorBackground(int indicatorBackground) {
-        this.mIndicatorBackground = indicatorBackground;
-    }
-
+    /**
+     * 修改指示器对齐方式
+     */
     public void setIndicatorLayoutGravity(Gravity indicatorLayoutGravity) {
         this.mIndicatorLayoutGravity = indicatorLayoutGravity;
     }
 
-    public void setIndicatorSelectBackground(int indicatorSelectBackground) {
-        this.mIndicatorSelectBackground = indicatorSelectBackground;
+    /**
+     * 修改指示器背景色
+     */
+    public void setIndicatorBackground(int indicatorBackground) {
+        this.mIndicatorBackground = indicatorBackground;
+    }
+
+    /**
+     * 修改指示器选中色
+     */
+    public void setIndicatorSelected(int indicatorSelected) {
+        this.mIndicatorSelected = indicatorSelected;
     }
 }
