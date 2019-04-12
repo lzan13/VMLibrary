@@ -25,12 +25,12 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <!--半透明状态栏-->
         <item name="android:windowTranslucentStatus">false</item>
+        <!--设置导航栏半透明效果，TODO 设置导航栏半透明会导致布局下移，需注意-->
+        <item name="android:windowTranslucentNavigation">false</item>
         <!--设置状态栏颜色-->
         <item name="android:statusBarColor">@color/vm_theme_primary_dark</item>
         <!--设置导航栏背景色-->
         <item name="android:navigationBarColor">@color/vm_black_38</item>
-        <!--设置导航栏半透明效果-->
-        <item name="android:windowTranslucentNavigation">true</item>
 
         <!--设置是否允许使用转场动画-->
         <item name="android:windowContentTransitions">false</item>
