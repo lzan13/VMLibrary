@@ -1,7 +1,5 @@
 package com.vmloft.develop.library.example;
 
-import android.content.Intent;
-import android.support.v7.widget.Toolbar;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Button;
@@ -89,6 +87,6 @@ public class MainActivity extends AppActivity {
      */
     @Override
     public void onBackPressed() {
-        ARouter.goHome(activity);
+        ARouter.goLauncher(activity);
     }
 }

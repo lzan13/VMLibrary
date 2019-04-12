@@ -15,7 +15,7 @@ public class VMRouter {
     /**
      * 回到手机桌面
      */
-    public static void goHome(Context context) {
+    public static void goLauncher(Context context) {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addCategory(Intent.CATEGORY_HOME);

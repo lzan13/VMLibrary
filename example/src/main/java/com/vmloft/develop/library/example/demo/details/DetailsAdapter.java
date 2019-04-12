@@ -31,7 +31,7 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.Conversa
     }
 
     @Override public ConversationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.item_details, parent, false);
+        View view = inflater.inflate(R.layout.activity_details_list_item, parent, false);
         ConversationViewHolder viewHolder = new ConversationViewHolder(view);
         return viewHolder;
     }
