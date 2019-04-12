@@ -91,7 +91,7 @@ public abstract class VMLazyFragment extends VMFragment {
         // 加载完成，隐藏懒加载进度
         isLoaded = true;
         // 判断是否需要加载进度 View
-        if (!isNeedLoading()) {
+        if (isNeedLoading()) {
             mLazyLoadingView.setVisibility(View.GONE);
         }
     }
