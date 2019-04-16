@@ -17,8 +17,13 @@
     <color name="vm_menu">@color/vm_white_54</color>
     <color name="vm_caption">@color/vm_white_38</color>
     <!--按钮-->
-    <color name="vm_btn_text_light">@color/vm_white_87</color>
     <color name="vm_btn_text_dark">@color/vm_black_87</color>
+    <color name="vm_btn_text_light">@color/vm_white_87</color>
+    <!--输入-->
+    <color name="vm_edit_dark">@color/vm_black_87</color>
+    <color name="vm_edit_dark_hint">@color/vm_black_54</color>
+    <color name="vm_edit_light">@color/vm_white_54</color>
+    <color name="vm_edit_light_hint">@color/vm_white_38</color>
 
     <!--按钮-->
     <color name="vm_btn_red">@color/vm_red_54</color>
@@ -32,10 +37,6 @@
     <color name="vm_btn_gray_unable">@color/vm_gray_white_12</color>
     <color name="vm_btn_ripple">@color/vm_white</color>
     <color name="vm_btn_translucent">@color/vm_white_12</color>
-
-    <!--输入框-->
-    <color name="vm_input">@color/vm_white_87</color>
-    <color name="vm_input_hint">@color/vm_white_54</color>
 
     <!--装饰线-->
     <color name="vm_decoration_gray">@color/vm_gray_12</color>

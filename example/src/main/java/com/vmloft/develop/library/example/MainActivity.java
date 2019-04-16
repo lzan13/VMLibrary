@@ -30,7 +30,7 @@ public class MainActivity extends AppActivity {
         setSupportActionBar(getToolbar());
 
         String[] btnArray = {
-            "工具", "描点控件", "详情控件", "录音控件", "录制屏幕", "声音播放", "按钮样式", "弹出窗口", "Web 功能", "指示器"
+            "工具", "描点控件", "详情控件", "自定义控件", "录制屏幕", "声音播放", "按钮样式", "弹出窗口", "Web 功能", "指示器"
         };
         for (int i = 0; i < btnArray.length; i++) {
             Button btn = new Button(new ContextThemeWrapper(activity, R.style.VMBtn_Flat));
@@ -55,7 +55,7 @@ public class MainActivity extends AppActivity {
                 ARouter.goDetails(activity);
                 break;
             case CLICK_START_ID + 3:
-                ARouter.goRecordAudio(activity);
+                ARouter.goCustomView(activity);
                 break;
             case CLICK_START_ID + 4:
                 ARouter.goRecordScreen(activity);

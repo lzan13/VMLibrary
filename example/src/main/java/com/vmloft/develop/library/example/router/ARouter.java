@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.vmloft.develop.library.example.demo.audio.PlayAudioActivity;
 import com.vmloft.develop.library.example.demo.custom.DotLineActivity;
-import com.vmloft.develop.library.example.demo.custom.RecordAudioActivity;
+import com.vmloft.develop.library.example.demo.custom.CustomViewActivity;
 import com.vmloft.develop.library.example.demo.details.DetailsActivity;
 import com.vmloft.develop.library.example.demo.dialog.PWDialogActivity;
 import com.vmloft.develop.library.example.demo.indicator.IndicatorActivity;
@@ -45,10 +45,10 @@ public class ARouter extends VMRouter {
     }
 
     /**
-     * 跳转自定义录制音频控件
+     * 跳转自定义控件界面
      */
-    public static void goRecordAudio(Context context) {
-        overlay(context, RecordAudioActivity.class);
+    public static void goCustomView(Context context) {
+        overlay(context, CustomViewActivity.class);
     }
 
     /**
@@ -78,6 +78,7 @@ public class ARouter extends VMRouter {
     public static void goWeb(Context context) {
         overlay(context, WebActivity.class);
     }
+
     /**
      * 跳转 JS 交互界面
      */

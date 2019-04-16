@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.utils.VMLog;
@@ -27,7 +28,7 @@ public abstract class VMLazyFragment extends VMFragment {
     // 懒加载内容容器
     protected ViewGroup mLazyContainer;
     // 懒加载进度提示蒙层
-    protected View mLazyLoadingView;
+    protected LinearLayout mLazyLoadingLayout;
 
     /**
      * 正常初始化 Fragmnet 方法，等价于 onCreate()
@@ -48,10 +49,10 @@ public abstract class VMLazyFragment extends VMFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.vm_fragment_lazy_layout, container, false);
 
-        mLazyContainer = view.findViewById(R.id.lazy_container);
-        mLazyLoadingView = view.findViewById(R.id.lazy_loading);
+        mLazyContainer = view.findViewById(R.id.vm_lazy_container);
+        mLazyLoadingLayout = view.findViewById(R.id.vm_lazy_loading_layout);
         if (!isNeedLoading()) {
-            mLazyLoadingView.setVisibility(View.GONE);
+            mLazyLoadingLayout.setVisibility(View.GONE);
         }
         LayoutInflater.from(mContext).inflate(layoutId(), mLazyContainer);
 
@@ -92,7 +93,7 @@ public abstract class VMLazyFragment extends VMFragment {
         isLoaded = true;
         // 判断是否需要加载进度 View
         if (isNeedLoading()) {
-            mLazyLoadingView.setVisibility(View.GONE);
+            mLazyLoadingLayout.setVisibility(View.GONE);
         }
     }
 

@@ -26,7 +26,6 @@
         <attr name="vm_dispatch_touch_event" format="boolean" />
     </declare-styleable>
 
-
     <!--自定义音频录制控件-->
     <declare-styleable name="VMRecordView">
         <!--录制指示器颜色-->
@@ -86,6 +85,14 @@
         <attr name="vm_el_duration" format="integer" />
         <attr name="vm_el_expanded" format="boolean" />
         <attr name="vm_el_expandable" format="boolean" />
+    </declare-styleable>
+
+    <!--自定义定时按钮-->
+    <declare-styleable name="VMTimerBtn">
+        <!--倒计时文案-->
+        <attr name="vm_timer_text" format="string|reference" />
+        <!--倒计时时间-->
+        <attr name="vm_timer_time" format="integer" />
     </declare-styleable>
 
     <!--自定义指示器控件属性-->

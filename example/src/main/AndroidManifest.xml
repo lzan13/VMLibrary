@@ -51,7 +51,7 @@
         <!--显示详情控件-->
         <activity android:name=".demo.details.DetailsActivity"/>
         <!--录制音频控件-->
-        <activity android:name=".demo.custom.RecordAudioActivity"/>
+        <activity android:name=".demo.custom.CustomViewActivity"/>
 
         <!--录制屏幕-->
         <activity android:name=".demo.screen.RecordScreenActivity"/>

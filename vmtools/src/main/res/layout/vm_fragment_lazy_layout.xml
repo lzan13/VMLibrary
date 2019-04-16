@@ -9,14 +9,14 @@
 
     <!--懒加载内容容器-->
     <RelativeLayout
-        android:id="@+id/lazy_container"
+        android:id="@+id/vm_lazy_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
 
     <!--懒加载进度提示-->
     <LinearLayout
-        android:id="@+id/lazy_loading"
+        android:id="@+id/vm_lazy_loading_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/vm_white"

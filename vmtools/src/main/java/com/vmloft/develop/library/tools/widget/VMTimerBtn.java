@@ -2,25 +2,31 @@ package com.vmloft.develop.library.tools.widget;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.widget.Button;
 
+import com.vmloft.develop.library.tools.R;
+
 
 /**
  * Created by lzan13 on 2017/11/30.
+ *
  * 定时按钮
  */
 @SuppressLint("AppCompatCustomView")
 public class VMTimerBtn extends Button {
 
-    private Handler handler;
-    // 按钮本来的内容
-    private String btnText;
-    // 倒计时时间
-    private int defaultTime = 5;
-    private int timerTime = defaultTime;
+    private Handler mHandler;
+    // 按钮默认文本
+    private String mBtnText;
+    // 倒计时文本 需为可格式化样式 例: 剩余(%d)
+    private String mTimerText;
+    // 倒计时时间， 默认5秒
+    private int mMaxTime;
+    private int mTimerTime;
     private TimerListener listener;
 
 
@@ -34,12 +40,18 @@ public class VMTimerBtn extends Button {
 
     public VMTimerBtn(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+        init(attrs);
     }
 
-    private void init() {
-        btnText = this.getText().toString();
-        handler = new Handler() {
+    private void init(AttributeSet attrs) {
+        mBtnText = this.getText().toString();
+
+        TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.VMTimerBtn);
+        mTimerText = a.getString(R.styleable.VMTimerBtn_vm_timer_text);
+        mMaxTime = a.getInt(R.styleable.VMTimerBtn_vm_timer_time, mMaxTime);
+        mTimerTime = mMaxTime;
+
+        mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 countDown();
@@ -48,15 +60,17 @@ public class VMTimerBtn extends Button {
     }
 
     /**
-     * 倒计时
+     * 倒计时循环调用
      */
     private void countDown() {
-        timerTime--;
-        if (timerTime >= 0) {
-            setText(timerTime + " | " + btnText);
-            handler.sendEmptyMessageDelayed(0, 1000);
+        if (mTimerTime > 0) {
+            setText(String.format(mTimerText, mTimerTime));
+            mHandler.sendEmptyMessageDelayed(0, 1000);
+            mTimerTime--;
         } else {
-            setClickable(false);
+            setEnabled(true);
+            setText(mBtnText);
+            mTimerTime = mMaxTime;
             if (listener != null) {
                 listener.onTimeOut();
             }
@@ -69,11 +83,15 @@ public class VMTimerBtn extends Button {
      * @param time 时间
      */
     public void setTimerTime(int time) {
-        defaultTime = time;
-        timerTime = defaultTime;
+        mMaxTime = time;
+        mTimerTime = mMaxTime;
     }
 
+    /**
+     * 开始倒计时
+     */
     public void startTimer() {
+        setEnabled(false);
         countDown();
     }
 

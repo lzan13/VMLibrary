@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    android:minHeight="@dimen/vm_dimen_48">
+
+    <!--输入框-->
+    <android.support.design.widget.TextInputEditText
+        android:id="@+id/vm_edit_text"
+        style="@style/VMEdit"
+        android:layout_centerVertical="true"
+        android:background="@color/vm_transparent"
+        android:padding="@dimen/vm_dimen_8" />
+
+    <!--隐藏按钮-->
+    <ImageButton
+        android:id="@+id/vm_hide_btn"
+        style="@style/VMBtn.Flat.Fillet.Full"
+        android:layout_width="@dimen/vm_dimen_36"
+        android:layout_height="@dimen/vm_dimen_36"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:padding="@dimen/vm_dimen_6"
+        android:src="@drawable/vm_ic_done_24dp"
+        android:tint="@color/vm_black_54"
+        android:visibility="gone" />
+
+    <!--清空按钮-->
+    <ImageButton
+        android:id="@+id/vm_clear_btn"
+        style="@style/VMBtn.Flat.Fillet.Full"
+        android:layout_width="@dimen/vm_dimen_36"
+        android:layout_height="@dimen/vm_dimen_36"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/vm_hide_btn"
+        android:padding="@dimen/vm_dimen_6"
+        android:src="@drawable/vm_ic_close_24dp"
+        android:tint="@color/vm_black_54"
+        android:visibility="gone" />
+</RelativeLayout>
