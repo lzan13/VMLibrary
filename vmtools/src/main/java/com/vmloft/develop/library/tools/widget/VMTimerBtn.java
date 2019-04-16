@@ -10,7 +10,6 @@ import android.widget.Button;
 
 import com.vmloft.develop.library.tools.R;
 
-
 /**
  * Created by lzan13 on 2017/11/30.
  *
@@ -29,7 +28,6 @@ public class VMTimerBtn extends Button {
     private int mTimerTime;
     private TimerListener listener;
 
-
     public VMTimerBtn(Context context) {
         this(context, null);
     }
@@ -40,15 +38,14 @@ public class VMTimerBtn extends Button {
 
     public VMTimerBtn(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(attrs);
+        init(context, attrs);
     }
 
-    private void init(AttributeSet attrs) {
+    private void init(Context context, AttributeSet attrs) {
         mBtnText = this.getText().toString();
 
-        TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.VMTimerBtn);
-        mTimerText = a.getString(R.styleable.VMTimerBtn_vm_timer_text);
-        mMaxTime = a.getInt(R.styleable.VMTimerBtn_vm_timer_time, mMaxTime);
+        handleAttrs(context, attrs);
+
         mTimerTime = mMaxTime;
 
         mHandler = new Handler() {
@@ -57,6 +54,21 @@ public class VMTimerBtn extends Button {
                 countDown();
             }
         };
+    }
+
+    /**
+     * 获取资源属性
+     *
+     * @param context
+     * @param attrs
+     */
+    private void handleAttrs(Context context, AttributeSet attrs) {
+        if (attrs == null) {
+            return;
+        }
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.VMTimerBtn);
+        mTimerText = array.getString(R.styleable.VMTimerBtn_vm_timer_text);
+        mMaxTime = array.getInt(R.styleable.VMTimerBtn_vm_timer_time, mMaxTime);
     }
 
     /**
@@ -108,6 +120,5 @@ public class VMTimerBtn extends Button {
     public interface TimerListener {
         void onTimeOut();
     }
-
 }
 

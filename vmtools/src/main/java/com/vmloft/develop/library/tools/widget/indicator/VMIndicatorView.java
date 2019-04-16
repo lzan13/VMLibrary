@@ -48,14 +48,6 @@ public class VMIndicatorView extends View {
     private List<VMIndicatorHolder> mHolders;
     private ViewPager mViewPager;
 
-    public enum Gravity {
-        LEFT, CENTER, RIGHT;
-    }
-
-    public enum Mode {
-        INSIDE, OUTSIDE, SOLO;
-    }
-
     public VMIndicatorView(Context context) {
         this(context, null);
     }
@@ -87,6 +79,7 @@ public class VMIndicatorView extends View {
         mIndicatorLayoutGravity = Gravity.CENTER;
         mIndicatorMode = Mode.SOLO;
         mHolders = new ArrayList<>();
+
         handleAttrs(context, attrs);
     }
 
@@ -195,17 +188,17 @@ public class VMIndicatorView extends View {
         paint.setAntiAlias(true);
 
         switch (mIndicatorMode) {
-            case INSIDE:
-                paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
-                break;
-            case OUTSIDE:
-                paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER));
-                break;
-            case SOLO:
-                paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC));
-                break;
-            default:
-                break;
+        case INSIDE:
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
+            break;
+        case OUTSIDE:
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER));
+            break;
+        case SOLO:
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC));
+            break;
+        default:
+            break;
         }
 
         moveHolder.setPaint(paint);
@@ -348,5 +341,20 @@ public class VMIndicatorView extends View {
      */
     public void setIndicatorSelected(int indicatorSelected) {
         this.mIndicatorSelected = indicatorSelected;
+    }
+
+
+    /**
+     * 对齐方式
+     */
+    public enum Gravity {
+        LEFT, CENTER, RIGHT;
+    }
+
+    /**
+     * 切换模式
+     */
+    public enum Mode {
+        INSIDE, OUTSIDE, SOLO;
     }
 }

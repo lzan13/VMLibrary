@@ -58,21 +58,32 @@ public class VMExpandableLayout extends LinearLayout {
 
     public VMExpandableLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(attrs);
+        init(context, attrs);
     }
 
-    private void init(AttributeSet attrs) {
-        if (attrs != null) {
-            TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.VMExpandableLayout);
-            duration = a.getInt(R.styleable.VMExpandableLayout_vm_el_duration, DEFAULT_DURATION);
-            expanded = a.getBoolean(R.styleable.VMExpandableLayout_vm_el_expanded, false);
-            a.recycle();
-        }
-
+    private void init(Context context, AttributeSet attrs) {
+        handleAttrs(context, attrs);
         expandableViews = new ArrayList<>();
 
         // We only support vertical layouts for now
         setOrientation(VERTICAL);
+    }
+
+    /**
+     * 获取资源属性
+     *
+     * @param context
+     * @param attrs
+     */
+    private void handleAttrs(Context context, AttributeSet attrs) {
+        // 获取控件的属性值
+        if (attrs == null) {
+            return;
+        }
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.VMExpandableLayout);
+        duration = a.getInt(R.styleable.VMExpandableLayout_vm_el_duration, DEFAULT_DURATION);
+        expanded = a.getBoolean(R.styleable.VMExpandableLayout_vm_el_expanded, false);
+        a.recycle();
     }
 
     @Override
@@ -249,8 +260,7 @@ public class VMExpandableLayout extends LinearLayout {
                 view.requestLayout();
 
                 if (listener != null) {
-                    float fraction = targetHeight == 0 ? 1 - valueAnimator.getAnimatedFraction() : valueAnimator
-                        .getAnimatedFraction();
+                    float fraction = targetHeight == 0 ? 1 - valueAnimator.getAnimatedFraction() : valueAnimator.getAnimatedFraction();
                     listener.onExpansionUpdate(fraction);
                 }
             }

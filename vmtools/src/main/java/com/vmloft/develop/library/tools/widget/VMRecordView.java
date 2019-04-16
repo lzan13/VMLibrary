@@ -145,27 +145,7 @@ public class VMRecordView extends View {
         textSize = VMDimen.getDimenPixel(R.dimen.vm_size_subhead);
 
         // 获取控件的属性值
-        if (attrs != null) {
-            TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.VMRecordView);
-            // 获取自定义属性值，如果没有设置就是默认值
-            touchColor = array.getColor(R.styleable.VMRecordView_vm_touch_color, touchColor);
-            touchText = array.getString(R.styleable.VMRecordView_vm_touch_text);
-
-            waveformColor = array.getColor(R.styleable.VMRecordView_vm_waveform_color, waveformColor);
-            waveformInterval = array.getDimensionPixelOffset(R.styleable.VMRecordView_vm_waveform_interval, waveformInterval);
-            waveformWidth = array.getDimensionPixelOffset(R.styleable.VMRecordView_vm_waveform_width, waveformWidth);
-
-            indicatorColor = array.getColor(R.styleable.VMRecordView_vm_indicator_color, indicatorColor);
-            indicatorSize = array.getDimensionPixelOffset(R.styleable.VMRecordView_vm_indicator_size, indicatorSize);
-
-            textColor = array.getColor(R.styleable.VMRecordView_vm_text_color, textColor);
-            textSize = array.getDimensionPixelOffset(R.styleable.VMRecordView_vm_text_size, textSize);
-            // 回收资源
-            array.recycle();
-        }
-        if (touchText == null) {
-            touchText = "Slide cancel";
-        }
+        handleAttrs(context, attrs);
 
         // 实例化画笔
         paint = new Paint();
@@ -178,6 +158,34 @@ public class VMRecordView extends View {
         paint.setStrokeWidth(waveformWidth);
         // 设置画笔末尾样式
         paint.setStrokeCap(Paint.Cap.ROUND);
+    }
+
+    /**
+     * 获取资源属性
+     *
+     * @param context
+     * @param attrs
+     */
+    private void handleAttrs(Context context, AttributeSet attrs) {
+        if (attrs == null) {
+            return;
+        }
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.VMRecordView);
+        // 获取自定义属性值，如果没有设置就是默认值
+        touchColor = array.getColor(R.styleable.VMRecordView_vm_touch_color, touchColor);
+        touchText = array.getString(R.styleable.VMRecordView_vm_touch_text);
+
+        waveformColor = array.getColor(R.styleable.VMRecordView_vm_waveform_color, waveformColor);
+        waveformInterval = array.getDimensionPixelOffset(R.styleable.VMRecordView_vm_waveform_interval, waveformInterval);
+        waveformWidth = array.getDimensionPixelOffset(R.styleable.VMRecordView_vm_waveform_width, waveformWidth);
+
+        indicatorColor = array.getColor(R.styleable.VMRecordView_vm_indicator_color, indicatorColor);
+        indicatorSize = array.getDimensionPixelOffset(R.styleable.VMRecordView_vm_indicator_size, indicatorSize);
+
+        textColor = array.getColor(R.styleable.VMRecordView_vm_text_color, textColor);
+        textSize = array.getDimensionPixelOffset(R.styleable.VMRecordView_vm_text_size, textSize);
+        // 回收资源
+        array.recycle();
     }
 
     /**

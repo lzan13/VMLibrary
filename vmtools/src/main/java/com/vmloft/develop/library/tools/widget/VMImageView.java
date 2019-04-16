@@ -83,19 +83,7 @@ public class VMImageView extends AppCompatImageView {
         shapeType = 2;
 
         // 获取控件的属性值
-        if (attrs != null) {
-            TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.VMImageView);
-            blurRadius = array.getInteger(R.styleable.VMImageView_vm_blur_radius, blurRadius);
-            blurScale = array.getInteger(R.styleable.VMImageView_vm_blur_scale, blurScale);
-            borderColor = array.getColor(R.styleable.VMImageView_vm_border_color, borderColor);
-            borderWidth = array.getDimensionPixelOffset(R.styleable.VMImageView_vm_border_width, borderWidth);
-            pressAlpha = array.getInteger(R.styleable.VMImageView_vm_press_alpha, pressAlpha);
-            pressColor = array.getColor(R.styleable.VMImageView_vm_press_color, pressColor);
-            radius = array.getDimensionPixelOffset(R.styleable.VMImageView_vm_radius, radius);
-            shapeType = array.getInteger(R.styleable.VMImageView_vm_shape_type, shapeType);
-            isDispatchTouchEvent = array.getBoolean(R.styleable.VMImageView_vm_dispatch_touch_event, isDispatchTouchEvent);
-            array.recycle();
-        }
+        handleAttrs(context, attrs);
 
         // 按下的画笔设置
         pressPaint = new Paint();
@@ -108,6 +96,26 @@ public class VMImageView extends AppCompatImageView {
         setClickable(true);
         setDrawingCacheEnabled(true);
         setWillNotDraw(false);
+    }
+
+
+    private void handleAttrs(Context context, AttributeSet attrs) {
+        // 获取控件的属性值
+        if (attrs == null) {
+            return;
+        }
+
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.VMImageView);
+        blurRadius = array.getInteger(R.styleable.VMImageView_vm_blur_radius, blurRadius);
+        blurScale = array.getInteger(R.styleable.VMImageView_vm_blur_scale, blurScale);
+        borderColor = array.getColor(R.styleable.VMImageView_vm_border_color, borderColor);
+        borderWidth = array.getDimensionPixelOffset(R.styleable.VMImageView_vm_border_width, borderWidth);
+        pressAlpha = array.getInteger(R.styleable.VMImageView_vm_press_alpha, pressAlpha);
+        pressColor = array.getColor(R.styleable.VMImageView_vm_press_color, pressColor);
+        radius = array.getDimensionPixelOffset(R.styleable.VMImageView_vm_radius, radius);
+        shapeType = array.getInteger(R.styleable.VMImageView_vm_shape_type, shapeType);
+        isDispatchTouchEvent = array.getBoolean(R.styleable.VMImageView_vm_dispatch_touch_event, isDispatchTouchEvent);
+        array.recycle();
     }
 
     @Override

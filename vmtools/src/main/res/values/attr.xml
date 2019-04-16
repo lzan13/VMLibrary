@@ -1,121 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources >
     <!--自定义VMImageView的属性-->
-    <declare-styleable name="VMImageView">
+    <declare-styleable name="VMImageView" >
         <!--模糊半径-->
-        <attr name="vm_blur_radius" format="integer" />
+        <attr format="integer" name="vm_blur_radius" />
         <!--模糊图片是缩放比例-->
-        <attr name="vm_blur_scale" format="integer" />
+        <attr format="integer" name="vm_blur_scale" />
         <!--控件边框颜色-->
-        <attr name="vm_border_color" format="color" />
+        <attr format="color" name="vm_border_color" />
         <!--控件边框宽度-->
-        <attr name="vm_border_width" format="dimension" />
+        <attr format="dimension" name="vm_border_width" />
         <!--控件按下时颜色的透明度-->
-        <attr name="vm_press_alpha" format="integer" />
+        <attr format="integer" name="vm_press_alpha" />
         <!--控件按下的颜色-->
-        <attr name="vm_press_color" format="color" />
+        <attr format="color" name="vm_press_color" />
         <!--控件圆角半径-->
-        <attr name="vm_radius" format="dimension" />
+        <attr format="dimension" name="vm_radius" />
         <!--自定义控件的几种枚举样式 0 正常、1 圆形、2 圆角矩形-->
-        <attr name="vm_shape_type" format="enum">
+        <attr format="enum" name="vm_shape_type" >
             <enum name="normal" value="0" />
             <enum name="round" value="1" />
             <enum name="rectangle" value="2" />
-        </attr>
+        </attr >
         <!--是否拦截触摸事件-->
-        <attr name="vm_dispatch_touch_event" format="boolean" />
-    </declare-styleable>
+        <attr format="boolean" name="vm_dispatch_touch_event" />
+    </declare-styleable >
 
     <!--自定义音频录制控件-->
-    <declare-styleable name="VMRecordView">
+    <declare-styleable name="VMRecordView" >
         <!--录制指示器颜色-->
-        <attr name="vm_indicator_color" format="color" />
+        <attr format="color" name="vm_indicator_color" />
         <!--录制指示器大小-->
-        <attr name="vm_indicator_size" format="dimension" />
+        <attr format="dimension" name="vm_indicator_size" />
         <!--文字颜色-->
-        <attr name="vm_text_color" format="color" />
+        <attr format="color" name="vm_text_color" />
         <!--文字大小-->
-        <attr name="vm_text_size" format="dimension" />
+        <attr format="dimension" name="vm_text_size" />
         <!--触摸区域颜色-->
-        <attr name="vm_touch_color" format="color" />
+        <attr format="color" name="vm_touch_color" />
         <!--触摸区域提示文字-->
-        <attr name="vm_touch_text" format="string|reference" />
+        <attr format="string|reference" name="vm_touch_text" />
         <!--波形刻度颜色-->
-        <attr name="vm_waveform_color" format="color" />
+        <attr format="color" name="vm_waveform_color" />
         <!--波形刻度间隔距离-->
-        <attr name="vm_waveform_interval" format="dimension" />
+        <attr format="dimension" name="vm_waveform_interval" />
         <!--波形刻度宽度-->
-        <attr name="vm_waveform_width" format="dimension" />
-    </declare-styleable>
+        <attr format="dimension" name="vm_waveform_width" />
+    </declare-styleable >
 
     <!--自定义波形展示控件-->
-    <declare-styleable name="VMWaveformView">
+    <declare-styleable name="VMWaveformView" >
         <!--文字颜色-->
-        <attr name="vm_waveform_text_color" format="color" />
+        <attr format="color" name="vm_waveform_text_color" />
         <!--文字大小-->
-        <attr name="vm_waveform_text_size" format="dimension" />
+        <attr format="dimension" name="vm_waveform_text_size" />
         <!--波形颜色-->
-        <attr name="vm_waveform_waveform_color" format="color" />
+        <attr format="color" name="vm_waveform_waveform_color" />
         <!--波形间隔 树状图时才需要-->
-        <attr name="vm_waveform_waveform_interval" format="dimension" />
+        <attr format="dimension" name="vm_waveform_waveform_interval" />
         <!--波形宽度-->
-        <attr name="vm_waveform_waveform_width" format="dimension" />
-    </declare-styleable>
+        <attr format="dimension" name="vm_waveform_waveform_width" />
+    </declare-styleable >
 
     <!--自定义 VMDotLineView 属性-->
-    <declare-styleable name="VMDotLineView">
+    <declare-styleable name="VMDotLineView" >
         <!--点的颜色-->
-        <attr name="vm_dot_color" format="color" />
+        <attr format="color" name="vm_dot_color" />
         <!--点的半径-->
-        <attr name="vm_dot_radius" format="dimension" />
+        <attr format="dimension" name="vm_dot_radius" />
         <!--点圆弧线宽-->
-        <attr name="vm_dot_width" format="dimension" />
+        <attr format="dimension" name="vm_dot_width" />
         <!--是否闭合-->
-        <attr name="vm_is_closure" format="boolean" />
+        <attr format="boolean" name="vm_is_closure" />
         <!--线段颜色-->
-        <attr name="vm_line_color" format="color" />
+        <attr format="color" name="vm_line_color" />
         <!--线段宽度-->
-        <attr name="vm_line_width" format="dimension" />
+        <attr format="dimension" name="vm_line_width" />
         <!--绘制速度-->
-        <attr name="vm_speed" format="integer" />
-    </declare-styleable>
+        <attr format="integer" name="vm_speed" />
+    </declare-styleable >
 
     <!--可膨胀的布局控件-->
-    <declare-styleable name="VMExpandableLayout">
-        <attr name="vm_el_duration" format="integer" />
-        <attr name="vm_el_expanded" format="boolean" />
-        <attr name="vm_el_expandable" format="boolean" />
-    </declare-styleable>
+    <declare-styleable name="VMExpandableLayout" >
+        <!--持续时间-->
+        <attr format="integer" name="vm_el_duration" />
+        <!--当前状态是否展开-->
+        <attr format="boolean" name="vm_el_expanded" />
+        <!--是否支持展开-->
+        <attr format="boolean" name="vm_el_expandable" />
+    </declare-styleable >
 
     <!--自定义定时按钮-->
-    <declare-styleable name="VMTimerBtn">
+    <declare-styleable name="VMTimerBtn" >
         <!--倒计时文案-->
-        <attr name="vm_timer_text" format="string|reference" />
+        <attr format="string|reference" name="vm_timer_text" />
         <!--倒计时时间-->
-        <attr name="vm_timer_time" format="integer" />
-    </declare-styleable>
+        <attr format="integer" name="vm_timer_time" />
+    </declare-styleable >
 
     <!--自定义指示器控件属性-->
-    <declare-styleable name="VMIndicatorView">
+    <declare-styleable name="VMIndicatorView" >
         <!--指示器半径-->
-        <attr name="vm_indicator_radius" format="dimension" />
+        <attr format="dimension" name="vm_indicator_radius" />
         <!--指示器距离-->
-        <attr name="vm_indicator_margin" format="dimension" />
+        <attr format="dimension" name="vm_indicator_margin" />
         <!--指示器背景色-->
-        <attr name="vm_indicator_background" format="color|integer" />
+        <attr format="color|integer" name="vm_indicator_background" />
         <!--选中色-->
-        <attr name="vm_indicator_selected" format="color|integer" />
+        <attr format="color|integer" name="vm_indicator_selected" />
         <!--指示器定位-->
-        <attr name="vm_indicator_gravity">
+        <attr name="vm_indicator_gravity" >
             <enum name="left" value="0" />
             <enum name="center" value="1" />
             <enum name="right" value="2" />
-        </attr>
+        </attr >
         <!--指示器模式-->
-        <attr name="vm_indicator_mode">
+        <attr name="vm_indicator_mode" >
             <enum name="inside" value="0" />
             <enum name="outside" value="1" />
             <enum name="solo" value="2" />
-        </attr>
-    </declare-styleable>
-</resources>
+        </attr >
+    </declare-styleable >
+
+    <!--自定义输入框按钮-->
+    <declare-styleable name="VMEditView" >
+        <!--输入提示文案-->
+        <attr format="string|reference" name="vm_edit_hint" />
+        <!--文本颜色-->
+        <attr format="color|integer" name="vm_edit_text_color" />
+        <!--文本大小-->
+        <attr format="dimension" name="vm_edit_text_size" />
+        <!--输入类型-->
+        <attr name="vm_edit_mode" >
+            <enum name="number" value="0" />
+            <enum name="phone" value="1" />
+            <enum name="email" value="2" />
+            <enum name="text" value="3" />
+            <enum name="password" value="4" />
+        </attr >
+        <!--是否启用清空图标-->
+        <attr format="boolean" name="vm_enable_clear" />
+        <!--是否启用眼睛图标，密码模式下有效-->
+        <attr format="boolean" name="vm_enable_eye" />
+        <!--清空图标-->
+        <attr format="boolean" name="vm_edit_clear_res" />
+        <!--眼睛图标，密码模式下有效-->
+        <attr format="boolean" name="vm_edit_eye_res" />
+
+    </declare-styleable >
+</resources >

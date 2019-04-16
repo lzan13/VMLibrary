@@ -80,27 +80,7 @@ public class VMDotLineView extends View {
      * 控件初始化
      */
     protected void init(Context context, AttributeSet attrs) {
-
-        // 获取控件的属性值
-        if (attrs != null) {
-            TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.VMDotLineView);
-            // 获取自定义属性值，如果没有设置就是默认值
-            dotColor = array.getColor(R.styleable.VMDotLineView_vm_dot_color, dotColor);
-            dotRadius = array.getDimensionPixelOffset(R.styleable.VMDotLineView_vm_dot_radius,
-                    dotRadius);
-            dotWidth =
-                    array.getDimensionPixelOffset(R.styleable.VMDotLineView_vm_dot_width, dotWidth);
-
-            lineColor = array.getColor(R.styleable.VMDotLineView_vm_line_color, lineColor);
-            lineWidth = array.getDimensionPixelOffset(R.styleable.VMDotLineView_vm_line_width,
-                    lineWidth);
-
-            isClosure = array.getBoolean(R.styleable.VMDotLineView_vm_is_closure, isClosure);
-            speed = array.getInteger(R.styleable.VMDotLineView_vm_speed, speed);
-
-            // 回收资源
-            array.recycle();
-        }
+        handleAttrs(context, attrs);
 
         // 实例化画笔
         paint = new Paint();
@@ -119,11 +99,40 @@ public class VMDotLineView extends View {
     }
 
     /**
+     * 获取资源属性
+     *
+     * @param context
+     * @param attrs
+     */
+    private void handleAttrs(Context context, AttributeSet attrs) {
+        // 获取控件的属性值
+        if (attrs == null) {
+            return;
+        }
+
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.VMDotLineView);
+        // 获取自定义属性值，如果没有设置就是默认值
+        dotColor = array.getColor(R.styleable.VMDotLineView_vm_dot_color, dotColor);
+        dotRadius = array.getDimensionPixelOffset(R.styleable.VMDotLineView_vm_dot_radius, dotRadius);
+        dotWidth = array.getDimensionPixelOffset(R.styleable.VMDotLineView_vm_dot_width, dotWidth);
+
+        lineColor = array.getColor(R.styleable.VMDotLineView_vm_line_color, lineColor);
+        lineWidth = array.getDimensionPixelOffset(R.styleable.VMDotLineView_vm_line_width, lineWidth);
+
+        isClosure = array.getBoolean(R.styleable.VMDotLineView_vm_is_closure, isClosure);
+        speed = array.getInteger(R.styleable.VMDotLineView_vm_speed, speed);
+
+        // 回收资源
+        array.recycle();
+    }
+
+    /**
      * 重写 onDraw 方法
      *
      * @param canvas 当前 View 画布
      */
-    @Override protected void onDraw(Canvas canvas) {
+    @Override
+    protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         // 绘制线
         drawLine(canvas);
@@ -146,8 +155,7 @@ public class VMDotLineView extends View {
         // 绘制已经绘制过的线段
         int count = 0;
         if (currentIndex < points.size() - 1) {
-            canvas.drawLine(currentPoint.x, currentPoint.y, currentPoint.x + incrementX,
-                    currentPoint.y + incrementY, paint);
+            canvas.drawLine(currentPoint.x, currentPoint.y, currentPoint.x + incrementX, currentPoint.y + incrementY, paint);
             while (count < currentIndex) {
                 Point point1 = points.get(count);
                 Point point2 = points.get(count + 1);
@@ -188,8 +196,7 @@ public class VMDotLineView extends View {
 
             checkCurrentPoint(0);
 
-            canvas.drawLine(currentPoint.x, currentPoint.y, currentPoint.x + incrementX,
-                    currentPoint.y + incrementY, paint);
+            canvas.drawLine(currentPoint.x, currentPoint.y, currentPoint.x + incrementX, currentPoint.y + incrementY, paint);
 
             // 没有绘制到最后一个点，就一直循环
             if (currentIndex < points.size()) {

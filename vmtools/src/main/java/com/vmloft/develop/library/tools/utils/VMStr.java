@@ -93,7 +93,7 @@ public class VMStr {
     /**
      * 检测字符串是否为空白字符串
      */
-    public static boolean isEmpty(String str) {
+    public static boolean isEmpty(CharSequence str) {
         if (str == null || "".equals(str)) {
             return true;
         }

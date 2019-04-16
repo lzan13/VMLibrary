@@ -103,19 +103,7 @@ public class VMWaveformView extends View {
         textSize = VMDimen.getDimenPixel(R.dimen.vm_size_12);
 
         // 获取控件的属性值
-        if (attrs != null) {
-            TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.VMWaveformView);
-            // 获取自定义属性值，如果没有设置就是默认值
-            textColor = array.getColor(R.styleable.VMWaveformView_vm_waveform_text_color, textColor);
-            textSize = array.getDimensionPixelOffset(R.styleable.VMWaveformView_vm_waveform_text_size, textSize);
-
-            waveformColor = array.getColor(R.styleable.VMWaveformView_vm_waveform_waveform_color, waveformColor);
-            waveformInterval = array.getDimensionPixelOffset(R.styleable.VMWaveformView_vm_waveform_waveform_interval, waveformInterval);
-            waveformWidth = array.getDimensionPixelOffset(R.styleable.VMWaveformView_vm_waveform_waveform_width, waveformWidth);
-
-            // 回收资源
-            array.recycle();
-        }
+        handleAttrs(context, attrs);
 
         // 初始化画笔
         waveformPaint = new Paint();
@@ -124,6 +112,29 @@ public class VMWaveformView extends View {
 
         // 从前边的画笔创建新的画笔
         textPaint = new Paint(waveformPaint);
+    }
+
+    /**
+     * 获取资源属性
+     *
+     * @param context
+     * @param attrs
+     */
+    private void handleAttrs(Context context, AttributeSet attrs) {
+        if (attrs == null) {
+            return;
+        }
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.VMWaveformView);
+        // 获取自定义属性值，如果没有设置就是默认值
+        textColor = array.getColor(R.styleable.VMWaveformView_vm_waveform_text_color, textColor);
+        textSize = array.getDimensionPixelOffset(R.styleable.VMWaveformView_vm_waveform_text_size, textSize);
+
+        waveformColor = array.getColor(R.styleable.VMWaveformView_vm_waveform_waveform_color, waveformColor);
+        waveformInterval = array.getDimensionPixelOffset(R.styleable.VMWaveformView_vm_waveform_waveform_interval, waveformInterval);
+        waveformWidth = array.getDimensionPixelOffset(R.styleable.VMWaveformView_vm_waveform_waveform_width, waveformWidth);
+
+        // 回收资源
+        array.recycle();
     }
 
     @Override
@@ -281,7 +292,7 @@ public class VMWaveformView extends View {
     /**
      * 更新 FFT 频域数据
      *
-     * @param bytes 采集到的数据信息
+     * @param bytes    采集到的数据信息
      * @param position 音源当前播放位置
      */
     public void updateFFTData(byte[] bytes, int position) {
@@ -292,7 +303,7 @@ public class VMWaveformView extends View {
     /**
      * 更新波形数据
      *
-     * @param bytes 采集到的数据信息
+     * @param bytes    采集到的数据信息
      * @param position 音源当前播放位置
      */
     public void updateWaveformData(byte[] bytes, int position) {
