@@ -13,6 +13,7 @@
     <dimen name="vm_size_btn_small">12sp</dimen>
     <dimen name="vm_size_caption">12sp</dimen>
 
+    <dimen name="vm_size_8">8sp</dimen>
     <dimen name="vm_size_10">10sp</dimen>
     <dimen name="vm_size_12">12sp</dimen>
     <dimen name="vm_size_14">14sp</dimen>
@@ -70,6 +71,7 @@
     <dimen name="vm_dimen_32">32dp</dimen>
     <dimen name="vm_dimen_36">36dp</dimen>
     <dimen name="vm_dimen_40">40dp</dimen>
+    <dimen name="vm_dimen_42">42dp</dimen>
     <dimen name="vm_dimen_48">48dp</dimen>
     <dimen name="vm_dimen_56">56dp</dimen>
     <dimen name="vm_dimen_64">64dp</dimen>

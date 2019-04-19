@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/vm_theme_background"
-    android:fitsSystemWindows="true"
-    >
+    android:fitsSystemWindows="true">
 
     <include layout="@layout/widget_common_appbar" />
 
@@ -14,25 +13,48 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        >
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <!--自定义输入框-->
         <com.vmloft.develop.library.tools.widget.VMEditView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/vm_dimen_48"
-            app:vm_edit_hint="@string/app_name"
-            app:vm_edit_mode="password"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_dimen_8"
+            android:background="@drawable/vm_bg_fillet_white"
+            android:elevation="@dimen/vm_dimen_8"
+            app:vm_edit_hint="手机号"
+            app:vm_edit_mode="phone"
+            app:vm_edit_text_color="@color/vm_body"
+            app:vm_edit_text_size="@dimen/vm_size_14" />
+
+        <com.vmloft.develop.library.tools.widget.VMEditView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_dimen_8"
+            android:elevation="@dimen/vm_dimen_8"
+            app:vm_edit_hint="手机号"
+            app:vm_edit_mode="phone"
             app:vm_edit_text_color="@color/vm_body"
             app:vm_edit_text_size="@dimen/vm_size_14"
-            />
+            app:vm_enable_hint="true" />
+
+        <com.vmloft.develop.library.tools.widget.VMEditView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_dimen_8"
+            android:background="@drawable/vm_bg_fillet_white"
+            android:elevation="@dimen/vm_dimen_8"
+            app:vm_edit_hint="密码"
+            app:vm_edit_mode="password"
+            app:vm_edit_text_color="@color/vm_body"
+            app:vm_edit_text_size="@dimen/vm_size_14" />
+
         <!--倒计时控件-->
         <com.vmloft.develop.library.tools.widget.VMTimerBtn
             android:id="@+id/custom_btn_timer"
+            style="@style/VMBtn.Fillet.Green"
             android:text="开启定时"
             app:vm_timer_text="%ds 后结束"
-            app:vm_timer_time="10"
-            style="@style/VMBtn.Fillet.Green"
-            />
+            app:vm_timer_time="10" />
         <!--录音控件-->
         <com.vmloft.develop.library.tools.widget.VMRecordView
             android:id="@+id/view_record"
@@ -46,8 +68,7 @@
             app:vm_touch_text="滑动取消"
             app:vm_waveform_color="@color/vm_orange_87"
             app:vm_waveform_interval="@dimen/vm_dimen_1"
-            app:vm_waveform_width="@dimen/vm_dimen_2"
-            />
+            app:vm_waveform_width="@dimen/vm_dimen_2" />
 
-    </LinearLayout >
-</android.support.design.widget.CoordinatorLayout >
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

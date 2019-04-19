@@ -14,9 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.vmloft.develop.library.tools.R;
-import com.vmloft.develop.library.tools.utils.VMLog;
 import com.vmloft.develop.library.tools.utils.VMColor;
 import com.vmloft.develop.library.tools.utils.VMDimen;
 import com.vmloft.develop.library.tools.utils.VMStr;
@@ -28,8 +28,9 @@ import com.vmloft.develop.library.tools.utils.VMStr;
  */
 public class VMEditView extends RelativeLayout {
 
+    private TextView mHintView;
     // 输入框
-    private TextInputEditText mEditText;
+    private TextInputEditText mInputView;
     // 清空按钮
     private ImageView mClearIcon;
     // 显示隐藏按钮
@@ -43,6 +44,8 @@ public class VMEditView extends RelativeLayout {
     // 输入模式
     private int mMode;
 
+    // 是否启用输入提示
+    private boolean mEnableHint;
     // 是否启用清空图标也眼睛图标
     private boolean mEnableClear;
     private boolean mEnableEye;
@@ -67,9 +70,10 @@ public class VMEditView extends RelativeLayout {
      */
     private void init(Context context, AttributeSet attrs) {
         LayoutInflater.from(context).inflate(R.layout.vm_widget_edit, this);
-        mEditText = findViewById(R.id.vm_edit_text);
-        mClearIcon = findViewById(R.id.vm_clear_icon);
-        mEyeIcon = findViewById(R.id.vm_eye_icon);
+        mHintView = findViewById(R.id.vm_edit_hint_view);
+        mInputView = findViewById(R.id.vm_edit_input_view);
+        mClearIcon = findViewById(R.id.vm_edit_clear_icon);
+        mEyeIcon = findViewById(R.id.vm_edit_eye_icon);
 
         // 定义默认值
 
@@ -79,7 +83,7 @@ public class VMEditView extends RelativeLayout {
         mMode = Mode.TEXT;
         mEnableClear = true;
         mEnableEye = false;
-        mClearRes = R.drawable.vm_ic_close_24dp;
+        mClearRes = R.drawable.vm_ic_close;
         mEyeRes = R.drawable.vm_ic_eye_off;
 
         // 获取控件的属性值
@@ -107,6 +111,7 @@ public class VMEditView extends RelativeLayout {
 
         mMode = array.getInt(R.styleable.VMEditView_vm_edit_mode, mMode);
 
+        mEnableHint = array.getBoolean(R.styleable.VMEditView_vm_enable_hint, mEnableHint);
         mEnableClear = array.getBoolean(R.styleable.VMEditView_vm_enable_clear, mEnableClear);
         mEnableEye = array.getBoolean(R.styleable.VMEditView_vm_enable_eye, mEnableEye);
         mClearRes = array.getResourceId(R.styleable.VMEditView_vm_edit_clear_res, mClearRes);
@@ -120,34 +125,35 @@ public class VMEditView extends RelativeLayout {
      * 初始化 EditView 控件
      */
     private void initEditView() {
-        mEditText.setTextColor(mTextColor);
-        mEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
-        mEditText.setHint(mHint);
+        mInputView.setTextColor(mTextColor);
+        mInputView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
+        mInputView.setHint(mHint);
+        mHintView.setText(mHint);
         // 设置输入模式
         int inputMode;
         switch (mMode) {
-        case Mode.NUMBER:
-            inputMode = InputType.TYPE_CLASS_NUMBER;
-            break;
-        case Mode.PHONE:
-            inputMode = InputType.TYPE_CLASS_PHONE;
-            break;
-        case Mode.EMAIL:
-            inputMode = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS;
-            break;
-        case Mode.TEXT:
-            inputMode = InputType.TYPE_CLASS_TEXT;
-            break;
-        case Mode.PASSWORD:
-            mEyeIcon.setVisibility(VISIBLE);
-            mEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
-            inputMode = InputType.TYPE_TEXT_VARIATION_PASSWORD;
-            break;
-        default:
-            inputMode = InputType.TYPE_CLASS_TEXT;
-            break;
+            case Mode.NUMBER:
+                inputMode = InputType.TYPE_CLASS_NUMBER;
+                break;
+            case Mode.PHONE:
+                inputMode = InputType.TYPE_CLASS_PHONE;
+                break;
+            case Mode.EMAIL:
+                inputMode = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS;
+                break;
+            case Mode.TEXT:
+                inputMode = InputType.TYPE_CLASS_TEXT;
+                break;
+            case Mode.PASSWORD:
+                mEyeIcon.setVisibility(VISIBLE);
+                mInputView.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                inputMode = InputType.TYPE_TEXT_VARIATION_PASSWORD;
+                break;
+            default:
+                inputMode = InputType.TYPE_CLASS_TEXT;
+                break;
         }
-        mEditText.setInputType(inputMode);
+        mInputView.setInputType(inputMode);
         // 设置图标
         mClearIcon.setImageResource(mClearRes);
         mEyeIcon.setImageResource(mEyeRes);
@@ -155,7 +161,7 @@ public class VMEditView extends RelativeLayout {
         mClearIcon.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                mEditText.setText("");
+                mInputView.setText("");
             }
         });
         mEyeIcon.setOnClickListener(new OnClickListener() {
@@ -163,19 +169,19 @@ public class VMEditView extends RelativeLayout {
             public void onClick(View v) {
                 if (mEyeIcon.isSelected()) {
                     // 隐藏密码
-                    mEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    mInputView.setTransformationMethod(PasswordTransformationMethod.getInstance());
                     mEyeIcon.setImageResource(R.drawable.vm_ic_eye_off);
                     mEyeIcon.setSelected(false);
                 } else {
                     // 显示密码
-                    mEditText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    mInputView.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                     mEyeIcon.setImageResource(R.drawable.vm_ic_eye_on);
                     mEyeIcon.setSelected(true);
                 }
             }
         });
 
-        mEditText.addTextChangedListener(new TextWatcher() {
+        mInputView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -183,8 +189,12 @@ public class VMEditView extends RelativeLayout {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (VMStr.isEmpty(s)) {
+                    mHintView.setVisibility(GONE);
                     mClearIcon.setVisibility(GONE);
                 } else {
+                    if (mEnableHint) {
+                        mHintView.setVisibility(VISIBLE);
+                    }
                     if (mEnableClear) {
                         mClearIcon.setVisibility(VISIBLE);
                     }
