@@ -48,13 +48,30 @@
             app:vm_edit_text_color="@color/vm_body"
             app:vm_edit_text_size="@dimen/vm_size_14" />
 
-        <!--倒计时控件-->
-        <com.vmloft.develop.library.tools.widget.VMTimerBtn
-            android:id="@+id/custom_btn_timer"
-            style="@style/VMBtn.Fillet.Green"
-            android:text="开启定时"
-            app:vm_timer_text="%ds 后结束"
-            app:vm_timer_time="10" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!--倒计时控件-->
+            <com.vmloft.develop.library.tools.widget.VMTimerBtn
+                android:id="@+id/custom_btn_timer"
+                style="@style/VMBtn.Fillet.Green"
+                android:text="开启定时"
+                app:vm_timer_text="%ds 后结束"
+                app:vm_timer_time="10" />
+
+            <Button
+                android:id="@+id/btn_toast_1"
+                style="@style/VMBtn.Fillet.Green"
+                android:text="Toast1" />
+
+            <Button
+                android:id="@+id/btn_toast_2"
+                style="@style/VMBtn.Fillet.Green"
+                android:text="Toast2" />
+        </LinearLayout>
+
         <!--录音控件-->
         <com.vmloft.develop.library.tools.widget.VMRecordView
             android:id="@+id/view_record"

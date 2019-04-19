@@ -201,4 +201,7 @@
     <color name="vm_decoration_gray">@color/vm_gray_12</color>
     <color name="vm_decoration_white">@color/vm_white_12</color>
 
+    <color name="vm_toast">@color/vm_green</color>
+    <color name="vm_toast_error">@color/vm_red_dark</color>
+
 </resources>

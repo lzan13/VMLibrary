@@ -2,12 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/vm_bg_fillet_white"
+    android:background="@drawable/vm_bg_toast_green"
     android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/vm_dimen_36"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="@dimen/vm_dimen_8">
@@ -16,16 +16,16 @@
             android:id="@+id/vm_img_toast_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/vm_ic_done_24dp"
-            android:tint="@color/vm_theme_accent" />
+            android:src="@drawable/vm_ic_emoticon" />
 
         <TextView
-            android:id="@+id/vm_text_toast_text"
+            android:id="@+id/vm_text_toast_content"
             style="@style/VMText.Body2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/vm_dimen_4"
-            android:layout_marginRight="@dimen/vm_dimen_8"
-            android:text="@string/vm_name" />
+            android:layout_marginStart="@dimen/vm_dimen_4"
+            android:layout_marginEnd="@dimen/vm_dimen_8"
+            android:text="@string/vm_name"
+            android:textColor="@color/vm_white_87" />
     </LinearLayout>
 </RelativeLayout>
