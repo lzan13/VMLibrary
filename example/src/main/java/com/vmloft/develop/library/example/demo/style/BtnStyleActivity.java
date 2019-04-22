@@ -10,7 +10,7 @@ import com.vmloft.develop.library.example.common.AppActivity;
 public class BtnStyleActivity extends AppActivity {
 
     @Override
-    protected int loadView() {
+    protected int layoutId() {
         return R.layout.activity_theme;
     }
 

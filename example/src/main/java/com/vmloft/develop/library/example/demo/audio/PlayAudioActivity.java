@@ -30,7 +30,7 @@ public class PlayAudioActivity extends AppActivity {
     private boolean isLoaded = false;
 
     @Override
-    protected int loadView() {
+    protected int layoutId() {
         return R.layout.activity_audio_play;
     }
 

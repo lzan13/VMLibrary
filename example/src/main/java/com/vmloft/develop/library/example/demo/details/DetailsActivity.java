@@ -29,7 +29,7 @@ public class DetailsActivity extends AppActivity {
     private List<DetailsEntity> detailsList = new ArrayList<>();
 
     @Override
-    protected int loadView() {
+    protected int layoutId() {
         return R.layout.activity_details;
     }
 

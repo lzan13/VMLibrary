@@ -22,7 +22,7 @@ public class DotLineActivity extends AppActivity {
 
 
     @Override
-    protected int loadView() {
+    protected int layoutId() {
         return R.layout.activity_dot_line;
     }
 

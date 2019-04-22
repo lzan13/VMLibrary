@@ -29,7 +29,7 @@ public class ToolsActivity extends AppActivity {
 
 
     @Override
-    protected int loadView() {
+    protected int layoutId() {
         return R.layout.activity_tools;
     }
 

@@ -32,7 +32,7 @@ public class RecordScreenActivity extends AppActivity {
 
 
     @Override
-    protected int loadView() {
+    protected int layoutId() {
         return R.layout.activity_record_screen;
     }
 

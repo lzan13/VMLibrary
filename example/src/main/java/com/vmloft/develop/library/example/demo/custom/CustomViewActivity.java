@@ -21,7 +21,7 @@ public class CustomViewActivity extends AppActivity {
     VMTimerBtn mTimerBtn;
 
     @Override
-    protected int loadView() {
+    protected int layoutId() {
         return R.layout.activity_view_custom;
     }
 

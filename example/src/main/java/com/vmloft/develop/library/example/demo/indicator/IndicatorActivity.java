@@ -29,7 +29,7 @@ public class IndicatorActivity extends AppActivity {
     private VMFragmentPagerAdapter mAdapter;
 
     @Override
-    protected int loadView() {
+    protected int layoutId() {
         return R.layout.activity_indicator;
     }
 

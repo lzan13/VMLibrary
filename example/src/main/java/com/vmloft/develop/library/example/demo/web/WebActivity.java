@@ -31,7 +31,7 @@ public class WebActivity extends AppActivity {
     private WebView webView;
 
     @Override
-    protected int loadView() {
+    protected int layoutId() {
         return R.layout.activity_web_page;
     }
 
