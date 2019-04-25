@@ -67,7 +67,6 @@ public class VMSystem {
         return false;
     }
 
-
     /**
      * 获取线程池默认的大小
      */
@@ -86,6 +85,29 @@ public class VMSystem {
         return availableProcessors > max ? max : availableProcessors;
     }
 
+    /**
+     * 获取应用程序名称
+     */
+    public static String getAppName() {
+        return getAppName(VMTools.getContext());
+    }
+
+    /**
+     * 获取应用程序名称
+     *
+     * @param context 上下文对象
+     */
+    public static String getAppName(Context context) {
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
+            int labelRes = packageInfo.applicationInfo.labelRes;
+            return context.getResources().getString(labelRes);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     /**
      * 获取应用当前版本号
