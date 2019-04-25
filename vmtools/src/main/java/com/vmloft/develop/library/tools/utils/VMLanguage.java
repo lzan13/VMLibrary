@@ -18,7 +18,6 @@ import java.util.Locale;
  */
 public class VMLanguage {
 
-    public static final String KEY_LANGUAGE = "language";
     // 简体中文
     public static final String LANG_SIMPLIFIED_CHINESE = "zh";
     // 英文
@@ -80,7 +79,6 @@ public class VMLanguage {
             config.locale = locale;
         }
         res.updateConfiguration(config, dm);
-        VMSPUtil.put(VMLanguage.KEY_LANGUAGE, language);
     }
 
     /**
@@ -144,9 +142,5 @@ public class VMLanguage {
      */
     private static boolean isSupportLanguage(String language) {
         return languages.containsKey(language);
-    }
-
-    public static String localLanguage(Context context) {
-        return (String) VMSPUtil.get(context, KEY_LANGUAGE, VMLanguage.getDefaultLang());
     }
 }

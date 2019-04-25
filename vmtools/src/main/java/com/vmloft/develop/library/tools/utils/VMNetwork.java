@@ -24,10 +24,19 @@ public class VMNetwork {
     /**
      * 检测网络是否连接
      */
-    public static boolean hasNetwork(Context appContext) {
+    public static boolean hasNetwork() {
+        return hasNetwork(VMTools.getContext());
+    }
+
+    /**
+     * 检测网络是否连接
+     *
+     * @param context 上下文对象
+     */
+    public static boolean hasNetwork(Context context) {
         boolean flag = false;
         //得到网络连接信息
-        manager = (ConnectivityManager) appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         //去进行判断网络是否连接
         if (manager.getActiveNetworkInfo() != null) {
             flag = manager.getActiveNetworkInfo().isAvailable();
@@ -63,7 +72,16 @@ public class VMNetwork {
      * 获取本地 IP 地址
      */
     public static String getLocalIP() {
-        WifiManager wifiManager = (WifiManager) VMTools.getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        return getLocalIP(VMTools.getContext());
+    }
+
+    /**
+     * 获取本地 IP 地址
+     *
+     * @param context 上下文对象
+     */
+    public static String getLocalIP(Context context) {
+        WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
         int ipAddress = wifiInfo.getIpAddress();
         String localIP = String.format(Locale.getDefault(), "%d.%d.%d.%d", (ipAddress & 0xff), (ipAddress >> 8 & 0xff), (ipAddress >> 16 & 0xff), (ipAddress >> 24 & 0xff));
@@ -71,17 +89,19 @@ public class VMNetwork {
     }
 
     /**
-     * 获取本机ip
+     * 获取当前设备 mac 地址
      */
-    public static InetAddress getLocalIPAddress() throws UnknownHostException {
-        return InetAddress.getByName(getLocalIP());
+    public static String getMacAddress() {
+        return getMacAddress(VMTools.getContext());
     }
 
     /**
      * 获取当前设备 mac 地址
+     *
+     * @param context 上下文对象
      */
-    public static String getMacAddress() {
-        WifiManager wifiManager = (WifiManager) VMTools.getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+    public static String getMacAddress(Context context) {
+        WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
         return wifiInfo.getMacAddress();
     }

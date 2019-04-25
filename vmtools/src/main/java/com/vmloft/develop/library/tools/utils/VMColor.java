@@ -1,5 +1,6 @@
 package com.vmloft.develop.library.tools.utils;
 
+import android.content.Context;
 import android.support.v4.content.ContextCompat;
 
 import com.vmloft.develop.library.tools.VMTools;
@@ -14,6 +15,13 @@ public class VMColor {
      * 通过资源 id 获取颜色值
      */
     public static int colorByResId(int resId) {
+        return colorByResId(VMTools.getContext(), resId);
+    }
+
+    /**
+     * 通过资源 id 获取颜色值
+     */
+    public static int colorByResId(Context context, int resId) {
         return ContextCompat.getColor(VMTools.getContext(), resId);
     }
 

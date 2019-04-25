@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.vmloft.develop.library.example.common.AppActivity;
 import com.vmloft.develop.library.example.router.ARouter;
+import com.vmloft.develop.library.tools.widget.VMToast;
 import com.vmloft.develop.library.tools.widget.VMViewGroup;
 
 import butterknife.BindView;
@@ -100,20 +101,6 @@ public class MainActivity extends AppActivity {
      * 检查权限
      */
     private void checkPermissions() {
-        requestPermissions(activity, new String[]{Manifest.permission_group.SENSORS},
-                new RequestPermissionCallback() {
-                    @Override
-                    public void granted() {
-                        Toast.makeText(activity, "权限获取成功，执行下一步操作", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(activity, MainActivity.class);
-                        startActivity(intent);
-                        activity.finish();
-                    }
 
-                    @Override
-                    public void denied() {
-                        Toast.makeText(activity, "部分权限获取失败，正常功能受到影响,2秒钟之后自动退出", Toast.LENGTH_LONG).show();
-                    }
-                });
     }
 }

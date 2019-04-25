@@ -37,6 +37,18 @@ public class VMDimen {
     }
 
     /**
+     * 获取屏幕大小
+     * @param
+     */
+    public static Point getScreenSize(Context context) {
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point outSize = new Point();
+        display.getSize(outSize);
+        return outSize;
+    }
+
+    /**
      * 获取状态栏高度
      */
     public static int getStatusBarHeight() {

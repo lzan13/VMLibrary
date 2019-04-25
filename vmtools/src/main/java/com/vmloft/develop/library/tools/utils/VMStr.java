@@ -1,5 +1,8 @@
 package com.vmloft.develop.library.tools.utils;
 
+import android.content.Context;
+import android.support.v4.content.ContextCompat;
+
 import com.vmloft.develop.library.tools.VMTools;
 
 import java.util.Arrays;
@@ -87,7 +90,14 @@ public class VMStr {
      * 根据资源 id 获取字符串
      */
     public static String strByResId(int resId) {
-        return VMTools.getContext().getString(resId);
+        return strByResId(VMTools.getContext(), resId);
+    }
+
+    /**
+     * 根据资源 id 获取字符串
+     */
+    public static String strByResId(Context context, int resId) {
+        return context.getString(resId);
     }
 
     /**
