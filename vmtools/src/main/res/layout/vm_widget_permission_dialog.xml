@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/vm_text_permission_dialog_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/vm_dimen_24"
+        android:layout_marginTop="@dimen/vm_dimen_8"
+        android:layout_marginEnd="@dimen/vm_dimen_24"
+        android:text="@string/permission_denied" />
+
+    <com.vmloft.develop.library.tools.widget.VMViewGroup
+        android:id="@+id/vm_view_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/vm_dimen_24"
+        android:layout_marginTop="@dimen/vm_dimen_16"
+        android:layout_marginEnd="@dimen/vm_dimen_24" />
+
+    <Button
+        android:id="@+id/vm_btn_i_know"
+        style="@style/VMBtn.Flat.Fillet.Green"
+        android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/vm_dimen_24"
+        android:layout_marginTop="@dimen/vm_dimen_16"
+        android:layout_marginEnd="@dimen/vm_dimen_24"
+        android:layout_marginBottom="@dimen/vm_dimen_16"
+        android:text="@string/vm_i_know" />
+</LinearLayout>

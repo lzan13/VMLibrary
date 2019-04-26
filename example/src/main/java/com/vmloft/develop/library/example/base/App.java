@@ -12,7 +12,6 @@ public class App extends VMApp {
     public void onCreate() {
         super.onCreate();
 
-        VMTools.init(context);
     }
 
 }

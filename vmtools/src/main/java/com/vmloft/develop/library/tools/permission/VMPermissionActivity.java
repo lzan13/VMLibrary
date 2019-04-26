@@ -1,15 +1,28 @@
 package com.vmloft.develop.library.tools.permission;
 
-import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
+
 import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.base.VMActivity;
-import com.vmloft.develop.library.tools.base.VMConstant;
+import com.vmloft.develop.library.tools.router.VMParams;
+import com.vmloft.develop.library.tools.router.VMRouter;
+import com.vmloft.develop.library.tools.utils.VMStr;
 import com.vmloft.develop.library.tools.utils.VMSystem;
+import com.vmloft.develop.library.tools.widget.VMViewGroup;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -20,25 +33,28 @@ import java.util.List;
  */
 public class VMPermissionActivity extends VMActivity {
 
-    public static int PERMISSION_TYPE_SINGLE = 1;
-    public static int PERMISSION_TYPE_MUTI = 2;
-    private int mPermissionType;
+    // 权限申请
+    private static final int REQUEST_PERMISSION = 100;
+    // 被拒绝后再次申请
+    public static final int REQUEST_PERMISSION_AGAIN = 101;
+    // 调起设置界面设置权限
+    private static final int REQUEST_SETTING = 200;
+
+
+    /**
+     * 重新申请权限数组的索引
+     */
+    private int mAgainIndex;
+    // 申请权限弹窗标题
     private String mTitle;
-    private String mMsg;
-    private static VMPermissionCallback mCallback;
+    // 申请权限弹窗描述
+    private String mMessage;
+    // 权限列表
     private List<String> mPermissions;
-    private Dialog mDialog;
-
-    private static final int REQUEST_CODE_SINGLE = 1;
-    private static final int REQUEST_CODE_MUTI = 2;
-    public static final int REQUEST_CODE_MUTI_SINGLE = 3;
-    private static final int REQUEST_SETTING = 110;
-
-    private static final String TAG = "PermissionActivity";
-    private CharSequence mAppName;
-    private int mStyleId;
-    private int mFilterColor;
-    private int mAnimStyleId;
+    // 授权提示框
+    private AlertDialog mDialog;
+    private String mAppName;
+    private VMPermissionCallback mCallback;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,22 +66,249 @@ public class VMPermissionActivity extends VMActivity {
      * 权限请求初始化操作
      */
     private void init() {
-        mCallback = VMPermission.getInstance().getPermissionCallback();
+        // 初始化获取数据
+        mAppName = VMSystem.getAppName(activity);
+        mCallback = VMPermission.getInstance(activity).getPermissionCallback();
+        VMParams params = VMRouter.getParams(activity);
+        if (params != null) {
+            mTitle = params.str0;
+            mMessage = params.str1;
+            mPermissions = params.strList;
+        }
 
-        Intent intent = getIntent();
-        mTitle = intent.getStringExtra(VMConstant.KEY_TITLE);
-        mMsg = intent.getStringExtra(VMConstant.KEY_MESSAGE);
-        mPermissions = (List<String>) intent.getSerializableExtra(VMConstant.KEY_PERMISSIONS);
-
-        if (mPermissionType == PERMISSION_TYPE_SINGLE) {
-            //单个权限申请
-            if (mPermissions == null || mPermissions.size() == 0) {
-                return;
-            }
-            requestPermission(new String[] { mPermissions.get(0) }, REQUEST_CODE_SINGLE);
+        if (mPermissions == null || mPermissions.size() == 0) {
+            return;
+        }
+        // 单个权限不弹出说明对话框，直接进行授权请求
+        if (mPermissions.size() == 1) {
+            requestPermission(VMStr.listToArray(mPermissions), REQUEST_PERMISSION);
         } else {
-            mAppName = VMSystem.getAppName(activity);
             showPermissionDialog();
+        }
+    }
+
+    /**
+     * 显示提醒对话框
+     *
+     * @param title     标题
+     * @param message   内容
+     * @param cancelStr 取消按钮文本
+     * @param okStr     确认按钮文本
+     * @param listener  确认事件回调
+     */
+    private void showAlertDialog(String title, String message, String cancelStr, String okStr, DialogInterface.OnClickListener listener) {
+        AlertDialog alertDialog = new AlertDialog.Builder(activity)
+                .setTitle(title)
+                .setMessage(message)
+                .setCancelable(false)
+                .setNegativeButton(cancelStr, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        onClose();
+                    }
+                })
+                .setPositiveButton(okStr, listener)
+                .create();
+        alertDialog.show();
+    }
+
+    /**
+     * 弹出授权窗口
+     */
+    private void showPermissionDialog() {
+        View view = LayoutInflater.from(activity).inflate(R.layout.vm_widget_permission_dialog, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        if (!VMStr.isEmpty(mTitle)) {
+            builder.setTitle(mTitle);
+        }
+        builder.setView(view);
+        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                dialog.dismiss();
+                if (mCallback != null) {
+                    mCallback.onClose();
+                }
+                finish();
+            }
+        });
+        if (!VMStr.isEmpty(mMessage)) {
+            TextView contentView = view.findViewById(R.id.vm_text_permission_dialog_content);
+            contentView.setText(mMessage);
+        }
+        VMViewGroup viewGroup = view.findViewById(R.id.vm_view_group);
+
+        view.findViewById(R.id.vm_btn_i_know).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mDialog != null && mDialog.isShowing()) {
+                    mDialog.dismiss();
+                }
+                // 开始申请权限
+                requestPermission(VMStr.listToArray(mPermissions), REQUEST_PERMISSION);
+            }
+        });
+        mDialog = builder.create();
+        mDialog.show();
+    }
+
+    /**
+     * 申请权限，内部方法
+     *
+     * @param permissions 权限列表
+     * @param requestCode 请求码
+     */
+    private void requestPermission(String[] permissions, int requestCode) {
+        ActivityCompat.requestPermissions(activity, permissions, requestCode);
+    }
+
+    /**
+     * 再次申请权限
+     *
+     * @param permission 要申请的权限
+     */
+    private void requestPermissionAgain(final String permission) {
+        String alertTitle = String.format(getString(R.string.permission_title), permission);
+        String msg = String.format(getString(R.string.permission_denied), permission, mAppName);
+        showAlertDialog(alertTitle, msg, getString(R.string.permission_cancel), getString(R.string.permission_ensure), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                requestPermission(new String[]{permission}, REQUEST_PERMISSION_AGAIN);
+            }
+        });
+    }
+
+    /**
+     * 申请权限回调
+     *
+     * @param requestCode  权限申请请求码
+     * @param permissions  申请的权限数组
+     * @param grantResults 授权结果集合
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_PERMISSION:
+                for (int i = 0; i < grantResults.length; i++) {
+                    // 权限允许后，删除需要检查的权限
+                    if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                        mPermissions.remove(permissions[i]);
+                        onGranted(permissions[i]);
+                    } else {
+                        onDenied(permissions[i]);
+                    }
+                }
+                if (mPermissions.size() > 0) {
+                    //用户拒绝了某个或多个权限，重新申请
+                    requestPermissionAgain(mPermissions.get(mAgainIndex));
+                } else {
+                    if (mCallback != null) {
+                        mCallback.onFinish();
+                    }
+                    finish();
+                }
+                break;
+            case REQUEST_PERMISSION_AGAIN:
+                if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                    // 重新申请后再次拒绝，弹框警告
+                    try {
+                        //permissions可能返回空数组，所以try-catch
+                        String name = permissions[0];
+                        String title = String.format(getString(R.string.permission_title), name);
+                        String msg = String.format(getString(R.string.permission_denied_with_naac), mAppName, name, mAppName);
+                        showAlertDialog(title, msg, getString(R.string.permission_reject), getString(R.string.permission_go_to_setting), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                try {
+                                    Uri packageURI = Uri.parse("package:" + getPackageName());
+                                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI);
+                                    startActivityForResult(intent, REQUEST_SETTING);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    onClose();
+                                }
+                            }
+                        });
+                        onDenied(permissions[0]);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        onClose();
+                    }
+                } else {
+                    onGranted(permissions[0]);
+                    if (mAgainIndex < mPermissions.size() - 1) {
+                        //继续申请下一个被拒绝的权限
+                        requestPermissionAgain(mPermissions.get(++mAgainIndex));
+                    } else {
+                        //全部允许了
+                        if (mCallback != null) {
+                            mCallback.onFinish();
+                        }
+                        finish();
+                    }
+                }
+                break;
+        }
+    }
+
+
+    /**
+     * 接收打开设置界面授权结果
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_SETTING) {
+            if (mDialog != null && mDialog.isShowing()) {
+                mDialog.dismiss();
+            }
+            checkPermission();
+            if (mPermissions.size() > 0) {
+                mAgainIndex = 0;
+                requestPermissionAgain(mPermissions.get(mAgainIndex));
+            } else {
+                if (mCallback != null) {
+                    mCallback.onFinish();
+                }
+                finish();
+            }
+        }
+    }
+
+    /**
+     * 检查权限
+     */
+    private void checkPermission() {
+        Iterator<String> iterator = mPermissions.listIterator();
+        while (iterator.hasNext()) {
+            int checkPermission = ContextCompat.checkSelfPermission(activity, iterator.next());
+            if (checkPermission == PackageManager.PERMISSION_GRANTED) {
+                iterator.remove();
+            }
+        }
+    }
+
+
+    private void onClose() {
+        if (mCallback != null) {
+            mCallback.onClose();
+        }
+        finish();
+    }
+
+    private void onDenied(String permission) {
+        if (mCallback != null) {
+            mCallback.onDenied(permission);
+        }
+    }
+
+    private void onGranted(String permission) {
+        if (mCallback != null) {
+            mCallback.onGranted(permission);
         }
     }
 
@@ -78,246 +321,4 @@ public class VMPermissionActivity extends VMActivity {
         }
     }
 
-    private String getPermissionTitle() {
-        return TextUtils.isEmpty(mTitle) ? String.format(getString(R.string.permission_dialog_title), mAppName) : mTitle;
-    }
-
-    private void showPermissionDialog() {
-
-        String title = getPermissionTitle();
-        String msg = TextUtils.isEmpty(mMsg) ? String.format(getString(R.string.permission_dialog_msg), mAppName) : mMsg;
-
-        PermissionView contentView = new PermissionView(this);
-        contentView.setGridViewColum(mCheckPermissions.size() < 3 ? mCheckPermissions.size() : 3);
-        contentView.setTitle(title);
-        contentView.setMsg(msg);
-        //这里没有使用RecyclerView，可以少引入一个库
-        contentView.setGridViewAdapter(new PermissionAdapter(mCheckPermissions));
-        if (mStyleId == -1) {
-            //用户没有设置，使用默认绿色主题
-            mStyleId = R.style.PermissionDefaultNormalStyle;
-            mFilterColor = getResources().getColor(R.color.permissionColorGreen);
-        }
-
-        contentView.setStyleId(mStyleId);
-        contentView.setFilterColor(mFilterColor);
-        contentView.setBtnOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mDialog != null && mDialog.isShowing()) {
-                    mDialog.dismiss();
-                }
-                String[] strs = getPermissionStrArray();
-                ActivityCompat.requestPermissions(PermissionActivity.this, strs, REQUEST_CODE_MUTI);
-            }
-        });
-        mDialog = new Dialog(this);
-        mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        mDialog.setContentView(contentView);
-        if (mAnimStyleId != -1) {
-            mDialog.getWindow().setWindowAnimations(mAnimStyleId);
-        }
-
-        mDialog.setCanceledOnTouchOutside(false);
-        mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        mDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                dialog.dismiss();
-                if (mCallback != null) {
-                    mCallback.onClose();
-                }
-                finish();
-            }
-        });
-        mDialog.show();
-    }
-
-    private void reRequestPermission(final String permission) {
-        String permissionName = getPermissionItem(permission).PermissionName;
-        String alertTitle = String.format(getString(R.string.permission_title), permissionName);
-        String msg = String.format(getString(R.string.permission_denied), permissionName, mAppName);
-        showAlertDialog(alertTitle, msg, getString(R.string.permission_cancel), getString(R.string.permission_ensure), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                requestPermission(new String[] { permission }, REQUEST_CODE_MUTI_SINGLE);
-            }
-        });
-    }
-
-    private void requestPermission(String[] permissions, int requestCode) {
-        ActivityCompat.requestPermissions(PermissionActivity.this, permissions, requestCode);
-    }
-
-    private void showAlertDialog(String title, String msg, String cancelTxt, String PosTxt, DialogInterface.OnClickListener onClickListener) {
-        AlertDialog alertDialog = new AlertDialog.Builder(this).setTitle(title).setMessage(msg).setCancelable(false).setNegativeButton(cancelTxt, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                onClose();
-            }
-        }).setPositiveButton(PosTxt, onClickListener).create();
-        alertDialog.show();
-    }
-
-    private String[] getPermissionStrArray() {
-        String[] str = new String[mCheckPermissions.size()];
-        for (int i = 0; i < mCheckPermissions.size(); i++) {
-            str[i] = mCheckPermissions.get(i).Permission;
-        }
-        return str;
-    }
-
-    /**
-     * 重新申请权限数组的索引
-     */
-    private int mRePermissionIndex;
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-        case REQUEST_CODE_SINGLE:
-            String permission = getPermissionItem(permissions[0]).Permission;
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                onGuarantee(permission, 0);
-            } else {
-                onDeny(permission, 0);
-            }
-            finish();
-            break;
-        case REQUEST_CODE_MUTI:
-            for (int i = 0; i < grantResults.length; i++) {
-                //权限允许后，删除需要检查的权限
-                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                    PermissionItem item = getPermissionItem(permissions[i]);
-                    mCheckPermissions.remove(item);
-                    onGuarantee(permissions[i], i);
-                } else {
-                    //权限拒绝
-                    onDeny(permissions[i], i);
-                }
-            }
-            if (mCheckPermissions.size() > 0) {
-                //用户拒绝了某个或多个权限，重新申请
-                reRequestPermission(mCheckPermissions.get(mRePermissionIndex).Permission);
-            } else {
-                onFinish();
-            }
-            break;
-        case REQUEST_CODE_MUTI_SINGLE:
-            if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
-                //重新申请后再次拒绝
-                //弹框警告! haha
-                try {
-                    //permissions可能返回空数组，所以try-catch
-                    String name = getPermissionItem(permissions[0]).PermissionName;
-                    String title = String.format(getString(R.string.permission_title), name);
-                    String msg = String.format(getString(R.string.permission_denied_with_naac), mAppName, name, mAppName);
-                    showAlertDialog(title, msg, getString(R.string.permission_reject), getString(R.string.permission_go_to_setting), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            try {
-                                Uri packageURI = Uri.parse("package:" + getPackageName());
-                                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI);
-                                startActivityForResult(intent, REQUEST_SETTING);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                onClose();
-                            }
-                        }
-                    });
-                    onDeny(permissions[0], 0);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    onClose();
-                }
-            } else {
-                onGuarantee(permissions[0], 0);
-                if (mRePermissionIndex < mCheckPermissions.size() - 1) {
-                    //继续申请下一个被拒绝的权限
-                    reRequestPermission(mCheckPermissions.get(++mRePermissionIndex).Permission);
-                } else {
-                    //全部允许了
-                    onFinish();
-                }
-            }
-            break;
-        }
-    }
-
-    @Override
-    public void finish() {
-        super.finish();
-        overridePendingTransition(0, 0);
-    }
-
-    @Override
-    public void onBackPressed() {
-        finish();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_SETTING) {
-            if (mDialog != null && mDialog.isShowing()) {
-                mDialog.dismiss();
-            }
-            checkPermission();
-            if (mPermissions.size() > 0) {
-                mRePermissionIndex = 0;
-                reRequestPermission(mPermissions.get(mRePermissionIndex));
-            } else {
-                onFinish();
-            }
-        }
-    }
-
-    private void checkPermission() {
-
-        Iterator<String> iterator = mPermissions.listIterator();
-        while (iterator.hasNext()) {
-            int checkPermission = ContextCompat.checkSelfPermission(getApplicationContext(), iterator.next());
-            if (checkPermission == PackageManager.PERMISSION_GRANTED) {
-                iterator.remove();
-            }
-        }
-    }
-
-    private void onFinish() {
-        if (mCallback != null) {
-            mCallback.onFinish();
-        }
-        finish();
-    }
-
-    private void onClose() {
-        if (mCallback != null) {
-            mCallback.onClose();
-        }
-        finish();
-    }
-
-    private void onDeny(String permission, int position) {
-        if (mCallback != null) {
-            mCallback.onDenied(permission, position);
-        }
-    }
-
-    private void onGuarantee(String permission, int position) {
-        if (mCallback != null) {
-            mCallback.onGranted(permission, position);
-        }
-    }
-
-    private PermissionItem getPermissionItem(String permission) {
-        for (PermissionItem permissionItem : mCheckPermissions) {
-            if (permissionItem.Permission.equals(permission)) {
-                return permissionItem;
-            }
-        }
-        return null;
-    }
 }

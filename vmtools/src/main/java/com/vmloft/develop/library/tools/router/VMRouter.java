@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
 
+import com.vmloft.develop.library.tools.permission.VMPermissionActivity;
+
 /**
  * Created by lzan13 on 2018/4/24.
  *
@@ -23,12 +25,22 @@ public class VMRouter {
     }
 
     /**
+     * 唤起权限申请界面
+     *
+     * @param context 上下文对象
+     * @param params  可序列化参数
+     */
+    public static void goPermission(Context context, VMParams params) {
+        overlay(context, VMPermissionActivity.class, Intent.FLAG_ACTIVITY_NEW_TASK, params);
+    }
+
+    /**
      * ------------------- 正常跳转，直接跳到下一个界面，当前界面处于 stop 状态 -------------------
      *
      * 最普通的跳转
      *
      * @param context 开始界面上下文
-     * @param target 目标界面
+     * @param target  目标界面
      */
     protected static void overlay(Context context, Class<? extends Activity> target) {
         Intent intent = new Intent(context, target);
@@ -40,7 +52,7 @@ public class VMRouter {
      * 带有可序列化参数跳转
      *
      * @param context 开始界面上下文
-     * @param target 目标界面
+     * @param target  目标界面
      */
     protected static void overlay(Context context, Class<? extends Activity> target, Parcelable parcelable) {
         Intent intent = new Intent(context, target);
@@ -53,8 +65,8 @@ public class VMRouter {
      * 带有 flags
      *
      * @param context 开始界面上下文
-     * @param target 目标界面
-     * @param flags 条件
+     * @param target  目标界面
+     * @param flags   条件
      */
     protected static void overlay(Context context, Class<? extends Activity> target, int flags) {
         Intent intent = new Intent(context, target);
@@ -67,7 +79,7 @@ public class VMRouter {
      * 带有可序列化参数，以及 flags
      *
      * @param context 开始界面上下文
-     * @param target 目标界面
+     * @param target  目标界面
      */
     protected static void overlay(Context context, Class<? extends Activity> target, int flags, Parcelable parcelable) {
         Intent intent = new Intent(context, target);
@@ -81,7 +93,7 @@ public class VMRouter {
      *
      * 最普通的跳转
      *
-     * @param context 上下文对象
+     * @param context     上下文对象
      * @param targetClass 目标
      */
     protected static void forward(Context context, Class<? extends Activity> targetClass) {
@@ -97,7 +109,7 @@ public class VMRouter {
      * 带有序列化参数的跳转
      *
      * @param context 上下文对象
-     * @param target 目标
+     * @param target  目标
      */
     protected static void forward(Context context, Class<? extends Activity> target, Parcelable parcelable) {
         Intent intent = new Intent(context, target);
@@ -113,8 +125,8 @@ public class VMRouter {
      * 带有 flag 的跳转
      *
      * @param context 上下文对象
-     * @param target 目标
-     * @param flags 条件
+     * @param target  目标
+     * @param flags   条件
      */
     protected static void forward(Context context, Class<? extends Activity> target, int flags) {
         Intent intent = new Intent(context, target);
@@ -130,8 +142,8 @@ public class VMRouter {
      * 带有 flag 和序列化参数的跳转
      *
      * @param context 上下文对象
-     * @param target 目标
-     * @param flags 条件
+     * @param target  目标
+     * @param flags   条件
      */
     protected static void forward(Context context, Class<? extends Activity> target, int flags, Parcelable parcelable) {
         Intent intent = new Intent(context, target);

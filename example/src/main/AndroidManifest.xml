@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <!--相机权限-->
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera" />
     <!--读写外部存储设备权限-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

@@ -20,15 +20,13 @@ public interface VMPermissionCallback {
      * 拒绝权限回调
      *
      * @param permission 权限
-     * @param position   位置
      */
-    void onDenied(String permission, int position);
+    void onDenied(String permission);
 
     /**
      * 同意权限回调
      *
      * @param permission 权限
-     * @param position   位置
      */
-    void onGranted(String permission, int position);
+    void onGranted(String permission);
 }

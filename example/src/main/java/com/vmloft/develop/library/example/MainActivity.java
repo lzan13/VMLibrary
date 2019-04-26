@@ -9,8 +9,13 @@ import android.widget.Toast;
 
 import com.vmloft.develop.library.example.common.AppActivity;
 import com.vmloft.develop.library.example.router.ARouter;
+import com.vmloft.develop.library.tools.permission.VMPermission;
+import com.vmloft.develop.library.tools.permission.VMPermissionCallback;
 import com.vmloft.develop.library.tools.widget.VMToast;
 import com.vmloft.develop.library.tools.widget.VMViewGroup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -35,7 +40,7 @@ public class MainActivity extends AppActivity {
         setSupportActionBar(getToolbar());
 
         String[] btnArray = {
-                "工具", "描点控件", "详情控件", "自定义控件", "录制屏幕", "声音播放", "按钮样式", "弹出窗口", "Web 功能", "指示器"
+                "工具", "描点控件", "详情控件", "自定义控件", "录制屏幕", "声音播放", "按钮样式", "弹出窗口", "Web 功能", "指示器", "单权限申请", "多权限申请"
         };
         for (int i = 0; i < btnArray.length; i++) {
             Button btn = new Button(new ContextThemeWrapper(activity, R.style.VMBtn_Flat));
@@ -45,7 +50,7 @@ public class MainActivity extends AppActivity {
             viewGroup.addView(btn);
         }
 
-        checkPermissions();
+//        checkPermissions();
     }
 
     private View.OnClickListener viewListener = new View.OnClickListener() {
@@ -82,6 +87,12 @@ public class MainActivity extends AppActivity {
                 case CLICK_START_ID + 9:
                     ARouter.goIndicator(activity);
                     break;
+                case CLICK_START_ID + 10:
+                    checkOnePermissions();
+                    break;
+                case CLICK_START_ID + 11:
+                    checkPermissions();
+                    break;
                 default:
                     ARouter.goTools(activity);
                     break;
@@ -100,7 +111,67 @@ public class MainActivity extends AppActivity {
     /**
      * 检查权限
      */
-    private void checkPermissions() {
+    private void checkOnePermissions() {
+        List<String> permissions = new ArrayList<>();
+        permissions.add(Manifest.permission.CAMERA);
+//        permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+        VMPermission.getInstance(activity)
+                .setTitle("权限申请")
+                .setMessage("为保证应用的正常运行，请授予一下权限")
+                .setPermissions(permissions)
+                .checkPermission(new VMPermissionCallback() {
+                    @Override
+                    public void onClose() {
+                        VMToast.make("授权被关闭").showError();
+                    }
 
+                    @Override
+                    public void onFinish() {
+                        VMToast.make("授权完成").show();
+                    }
+
+                    @Override
+                    public void onDenied(String permission) {
+                        VMToast.make("拒绝了权限 %s", permission).showError();
+                    }
+
+                    @Override
+                    public void onGranted(String permission) {
+                        VMToast.make("同意了权限 %s", permission).show();
+                    }
+                });
+    }
+    /**
+     * 检查权限
+     */
+    private void checkPermissions() {
+        List<String> permissions = new ArrayList<>();
+        permissions.add(Manifest.permission.CAMERA);
+        permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+        VMPermission.getInstance(activity)
+                .setTitle("权限申请")
+                .setMessage("为保证应用的正常运行，请授予一下权限")
+                .setPermissions(permissions)
+                .checkPermission(new VMPermissionCallback() {
+                    @Override
+                    public void onClose() {
+                        VMToast.make("授权被关闭").showError();
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        VMToast.make("授权完成").show();
+                    }
+
+                    @Override
+                    public void onDenied(String permission) {
+                        VMToast.make("拒绝了权限 %s", permission).showError();
+                    }
+
+                    @Override
+                    public void onGranted(String permission) {
+                        VMToast.make("同意了权限 %s", permission).show();
+                    }
+                });
     }
 }

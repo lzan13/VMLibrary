@@ -86,6 +86,16 @@ public class VMToast {
     }
 
     /**
+     * 根据格式化字符串
+     * @param msg
+     * @param args
+     * @return
+     */
+    public static VMToast make(String msg, Object... args){
+        return make(String.format(msg, args));
+    }
+
+    /**
      * 显示操作正确执行完成的 Toast
      */
     public void show() {
