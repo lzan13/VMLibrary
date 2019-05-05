@@ -1,10 +1,13 @@
 package com.vmloft.develop.library.tools.permission;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
 
+import com.vmloft.develop.library.tools.base.VMConstant;
 import com.vmloft.develop.library.tools.router.VMParams;
 import com.vmloft.develop.library.tools.router.VMRouter;
 
@@ -26,7 +29,7 @@ public class VMPermission {
 
     private String mTitle;
     private String mMessage;
-    private List<String> mPermissions;
+    private List<VMPermissionItem> mPermissions;
 
     /**
      * 私有构造方法
@@ -81,7 +84,7 @@ public class VMPermission {
      *
      * @param permissions 权限集合
      */
-    public VMPermission setPermissions(List<String> permissions) {
+    public VMPermission setPermissions(List<VMPermissionItem> permissions) {
         mPermissions = permissions;
         return this;
     }
@@ -125,9 +128,9 @@ public class VMPermission {
         /**
          * 过滤已允许的权限
          */
-        ListIterator<String> iterator = mPermissions.listIterator();
+        ListIterator<VMPermissionItem> iterator = mPermissions.listIterator();
         while (iterator.hasNext()) {
-            if (checkPermission(iterator.next())) {
+            if (checkPermission(iterator.next().permission)) {
                 iterator.remove();
             }
         }
@@ -139,10 +142,10 @@ public class VMPermission {
      * 开启授权
      */
     private void startActivity() {
-        VMParams params = new VMParams();
-        params.str0 = mTitle;
-        params.str1 = mMessage;
-        params.strList = mPermissions;
-        VMRouter.goPermission(mContext, params);
+        Intent intent = new Intent();
+        intent.putExtra(VMConstant.KEY_, mTitle);
+        intent.putExtra(VMConstant.KEY_, mMessage);
+        intent.putExtra(VMConstant.KEY_, (Parcelable) mPermissions);
+        VMRouter.goPermission(mContext, intent);
     }
 }

@@ -3,9 +3,6 @@
     <string name="vm_loading">正在加载...</string>
 
     <!--权限相关-->
-    <string name="permission_storage">存储空间</string>
-    <string name="permission_location">位置信息</string>
-    <string name="permission_camera">拍照权限</string>
     <string name="permission_dialog_title">开启%s</string>
     <string name="permission_dialog_msg">为了您能正常使用%s，需要以下权限</string>
     <string name="permission_title">请允许获取%s</string>

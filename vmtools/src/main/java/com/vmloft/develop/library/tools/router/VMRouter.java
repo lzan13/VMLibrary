@@ -28,10 +28,22 @@ public class VMRouter {
      * 唤起权限申请界面
      *
      * @param context 上下文对象
-     * @param params  可序列化参数
+     * @param intent
      */
-    public static void goPermission(Context context, VMParams params) {
-        overlay(context, VMPermissionActivity.class, Intent.FLAG_ACTIVITY_NEW_TASK, params);
+    public static void goPermission(Context context, Intent intent) {
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setClass(context, VMPermissionActivity.class);
+        overlay(context, intent);
+    }
+
+    /**
+     * ------------------- 传递 Intent 参数进行跳转-------------------
+     *
+     * @param context
+     * @param intent
+     */
+    protected static void overlay(Context context, Intent intent) {
+        context.startActivity(intent);
     }
 
     /**
@@ -91,13 +103,13 @@ public class VMRouter {
     /**
      * ---------------------------- 向前跳转，跳转结束会 finish 当前界面 ----------------------------
      *
-     * 最普通的跳转
+     * 普通的 finish 跳转
      *
-     * @param context     上下文对象
-     * @param targetClass 目标
+     * @param context 上下文对象
+     * @param target  目标
      */
-    protected static void forward(Context context, Class<? extends Activity> targetClass) {
-        Intent intent = new Intent(context, targetClass);
+    protected static void forward(Context context, Class<? extends Activity> target) {
+        Intent intent = new Intent(context, target);
         context.startActivity(intent);
         if (isActivity(context)) {
             ((Activity) context).finish();
@@ -106,7 +118,7 @@ public class VMRouter {
     }
 
     /**
-     * 带有序列化参数的跳转
+     * 带有序列化参数的 finish 跳转
      *
      * @param context 上下文对象
      * @param target  目标
@@ -122,7 +134,7 @@ public class VMRouter {
     }
 
     /**
-     * 带有 flag 的跳转
+     * 带有 flag 的 finish 跳转
      *
      * @param context 上下文对象
      * @param target  目标
@@ -139,7 +151,7 @@ public class VMRouter {
     }
 
     /**
-     * 带有 flag 和序列化参数的跳转
+     * 带有 flag 和序列化参数的 finish 跳转
      *
      * @param context 上下文对象
      * @param target  目标
@@ -160,7 +172,7 @@ public class VMRouter {
      * 获取序列化的参数
      */
     public static VMParams getParams(Activity activity) {
-        Parcelable parcelable = activity.getIntent().getParcelableExtra(VMParams.ROUTER_EXT);
+        Parcelable parcelable = activity.getIntent().getParcelableExtra(VMParams.VM_ROUTER_PARAMS);
         return (VMParams) parcelable;
     }
 
@@ -171,7 +183,7 @@ public class VMRouter {
         if (intent == null) {
             return;
         }
-        intent.putExtra(VMParams.ROUTER_EXT, parcelable);
+        intent.putExtra(VMParams.VM_ROUTER_PARAMS, parcelable);
     }
 
     /**

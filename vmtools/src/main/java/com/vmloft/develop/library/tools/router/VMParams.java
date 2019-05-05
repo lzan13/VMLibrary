@@ -2,6 +2,7 @@ package com.vmloft.develop.library.tools.router;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,13 +11,15 @@ import java.util.List;
  * Activity 间用于传递参数的可序列化对象，这里参数命名形式参考 Handler 的 Message 对象
  */
 public class VMParams implements Parcelable {
-    public static final String ROUTER_EXT = "router_ext";
+    public static final String VM_ROUTER_PARAMS = "vm_router_params";
+
     public int what = -1;
     public int arg0;
     public int arg1;
     public String str0;
     public String str1;
     public List<String> strList;
+    public Parcelable obj;
 
     public static final Creator<VMParams> CREATOR = new Creator<VMParams>() {
         @Override
@@ -28,6 +31,7 @@ public class VMParams implements Parcelable {
             p.str0 = in.readString();
             p.str1 = in.readString();
             p.strList = in.createStringArrayList();
+            p.obj = in.readParcelable(Parcelable.class.getClassLoader());
             return p;
         }
 
@@ -50,6 +54,7 @@ public class VMParams implements Parcelable {
         dest.writeString(str0);
         dest.writeString(str1);
         dest.writeStringList(strList);
+        dest.writeParcelable(obj, flags);
     }
 
     @Override
