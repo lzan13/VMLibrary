@@ -73,5 +73,8 @@
         <!--指示器界面-->
         <activity android:name=".demo.indicator.IndicatorActivity" />
 
+        <!--图片识别-->
+        <activity android:name=".demo.image.ImageDiscernActivity" />
+
     </application>
 </manifest>
