@@ -7,6 +7,7 @@ import com.vmloft.develop.library.example.demo.custom.DotLineActivity;
 import com.vmloft.develop.library.example.demo.custom.CustomViewActivity;
 import com.vmloft.develop.library.example.demo.details.DetailsActivity;
 import com.vmloft.develop.library.example.demo.dialog.PWDialogActivity;
+import com.vmloft.develop.library.example.demo.image.ImageDiscernActivity;
 import com.vmloft.develop.library.example.demo.indicator.IndicatorActivity;
 import com.vmloft.develop.library.example.demo.screen.RecordScreenActivity;
 import com.vmloft.develop.library.example.demo.style.BtnStyleActivity;
@@ -84,5 +85,12 @@ public class ARouter extends VMRouter {
      */
     public static void goIndicator(Context context) {
         overlay(context, IndicatorActivity.class);
+    }
+
+    /**
+     * 图片识别
+     */
+    public static void goImageDiscern(Context context) {
+        overlay(context, ImageDiscernActivity.class);
     }
 }

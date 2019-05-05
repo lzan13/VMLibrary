@@ -40,7 +40,7 @@ public class MainActivity extends AppActivity {
         setSupportActionBar(getToolbar());
 
         String[] btnArray = {
-                "工具", "描点控件", "详情控件", "自定义控件", "录制屏幕", "声音播放", "按钮样式", "弹出窗口", "Web 功能", "指示器", "单权限申请", "多权限申请"
+                "工具", "描点控件", "详情控件", "自定义控件", "录制屏幕", "声音播放", "按钮样式", "弹出窗口", "Web 功能", "指示器", "识别验证码", "单权限申请", "多权限申请"
         };
         for (int i = 0; i < btnArray.length; i++) {
             Button btn = new Button(new ContextThemeWrapper(activity, R.style.VMBtn_Flat));
@@ -88,9 +88,12 @@ public class MainActivity extends AppActivity {
                     ARouter.goIndicator(activity);
                     break;
                 case CLICK_START_ID + 10:
-                    checkOnePermissions();
+                    ARouter.goImageDiscern(activity);
                     break;
                 case CLICK_START_ID + 11:
+                    checkOnePermissions();
+                    break;
+                case CLICK_START_ID + 12:
                     checkPermissions();
                     break;
                 default:
@@ -141,6 +144,7 @@ public class MainActivity extends AppActivity {
                     }
                 });
     }
+
     /**
      * 检查权限
      */

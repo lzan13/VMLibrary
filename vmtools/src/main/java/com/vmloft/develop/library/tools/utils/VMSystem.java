@@ -1,5 +1,6 @@
 package com.vmloft.develop.library.tools.utils;
 
+import android.app.ActivityManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -10,6 +11,9 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.vmloft.develop.library.tools.VMTools;
+
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Create by lzan13 at 2018/11/23
@@ -158,7 +162,42 @@ public class VMSystem {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-
         return name;
     }
+
+    /**
+     * 获取当前进程名
+     */
+    public static String getProcessName() {
+        return getProcessName(VMTools.getContext());
+    }
+
+    /**
+     * 获取当前进程名
+     *
+     * @param context 上下文对象
+     */
+    public static String getProcessName(Context context) {
+        int pid = android.os.Process.myPid();
+        String processName = null;
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List list = activityManager.getRunningAppProcesses();
+        Iterator i = list.iterator();
+        while (i.hasNext()) {
+            ActivityManager.RunningAppProcessInfo info = (ActivityManager.RunningAppProcessInfo) (i.next());
+            try {
+                if (info.pid == pid) {
+                    // 根据进程的信息获取当前进程的名字
+                    processName = info.processName;
+                    // 返回当前进程名
+                    return processName;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        // 没有匹配的项，返回为null
+        return processName;
+    }
+
 }
