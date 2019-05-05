@@ -172,7 +172,7 @@ public class VMPermissionActivity extends VMActivity {
     private void requestPermissionAgain(final String permission) {
         String alertTitle = String.format(getString(R.string.permission_title), permission);
         String msg = String.format(getString(R.string.permission_denied), permission, mAppName);
-        showAlertDialog(alertTitle, msg, getString(R.string.permission_cancel), getString(R.string.permission_ensure), new DialogInterface.OnClickListener() {
+        showAlertDialog(alertTitle, msg, getString(R.string.vm_btn_cancel), getString(R.string.vm_btn_ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -220,7 +220,7 @@ public class VMPermissionActivity extends VMActivity {
                         String name = permissions[0];
                         String title = String.format(getString(R.string.permission_title), name);
                         String msg = String.format(getString(R.string.permission_denied_with_naac), mAppName, name, mAppName);
-                        showAlertDialog(title, msg, getString(R.string.permission_reject), getString(R.string.permission_go_to_setting), new DialogInterface.OnClickListener() {
+                        showAlertDialog(title, msg, getString(R.string.vm_btn_reject), getString(R.string.vm_btn_go_to_setting), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 try {
