@@ -118,31 +118,31 @@ public class MainActivity extends AppActivity {
         List<String> permissions = new ArrayList<>();
         permissions.add(Manifest.permission.CAMERA);
 //        permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
-        VMPermission.getInstance(activity)
-                .setTitle("权限申请")
-                .setMessage("为保证应用的正常运行，请授予一下权限")
-                .setPermissions(permissions)
-                .checkPermission(new VMPermissionCallback() {
-                    @Override
-                    public void onClose() {
-                        VMToast.make("授权被关闭").showError();
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        VMToast.make("授权完成").show();
-                    }
-
-                    @Override
-                    public void onDenied(String permission) {
-                        VMToast.make("拒绝了权限 %s", permission).showError();
-                    }
-
-                    @Override
-                    public void onGranted(String permission) {
-                        VMToast.make("同意了权限 %s", permission).show();
-                    }
-                });
+//        VMPermission.getInstance(activity)
+//                .setTitle("权限申请")
+//                .setMessage("为保证应用的正常运行，请授予一下权限")
+//                .setPermissions(permissions)
+//                .checkPermission(new VMPermissionCallback() {
+//                    @Override
+//                    public void onClose() {
+//                        VMToast.make("授权被关闭").showError();
+//                    }
+//
+//                    @Override
+//                    public void onFinish() {
+//                        VMToast.make("授权完成").show();
+//                    }
+//
+//                    @Override
+//                    public void onDenied(String permission) {
+//                        VMToast.make("拒绝了权限 %s", permission).showError();
+//                    }
+//
+//                    @Override
+//                    public void onGranted(String permission) {
+//                        VMToast.make("同意了权限 %s", permission).show();
+//                    }
+//                });
     }
 
     /**
@@ -152,30 +152,30 @@ public class MainActivity extends AppActivity {
         List<String> permissions = new ArrayList<>();
         permissions.add(Manifest.permission.CAMERA);
         permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
-        VMPermission.getInstance(activity)
-                .setTitle("权限申请")
-                .setMessage("为保证应用的正常运行，请授予一下权限")
-                .setPermissions(permissions)
-                .checkPermission(new VMPermissionCallback() {
-                    @Override
-                    public void onClose() {
-                        VMToast.make("授权被关闭").showError();
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        VMToast.make("授权完成").show();
-                    }
-
-                    @Override
-                    public void onDenied(String permission) {
-                        VMToast.make("拒绝了权限 %s", permission).showError();
-                    }
-
-                    @Override
-                    public void onGranted(String permission) {
-                        VMToast.make("同意了权限 %s", permission).show();
-                    }
-                });
+//        VMPermission.getInstance(activity)
+//                .setTitle("权限申请")
+//                .setMessage("为保证应用的正常运行，请授予一下权限")
+//                .setPermissions(permissions)
+//                .checkPermission(new VMPermissionCallback() {
+//                    @Override
+//                    public void onClose() {
+//                        VMToast.make("授权被关闭").showError();
+//                    }
+//
+//                    @Override
+//                    public void onFinish() {
+//                        VMToast.make("授权完成").show();
+//                    }
+//
+//                    @Override
+//                    public void onDenied(String permission) {
+//                        VMToast.make("拒绝了权限 %s", permission).showError();
+//                    }
+//
+//                    @Override
+//                    public void onGranted(String permission) {
+//                        VMToast.make("同意了权限 %s", permission).show();
+//                    }
+//                });
     }
 }

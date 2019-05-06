@@ -31,15 +31,18 @@ public class ImageDiscernActivity extends AppActivity {
 
     @Override
     protected void init() {
-        Bitmap oneBitmap = BitmapFactory.decodeFile("/sdcard/DCIM/Screenshots/verification_code_1.jpg");
-//        Bitmap twoBitmap = BitmapFactory.decodeFile("/sdcard/DCIM/Screenshots/verification_code_2.jpg");
-        Bitmap twoBitmap = BitmapFactory.decodeFile("/sdcard/DCIM/Screenshots/verification_code_3.jpg");
-        if (oneBitmap == null || twoBitmap == null) {
+        Bitmap oneBitmap = BitmapFactory.decodeFile("/sdcard/DCIM/Screenshots/verification_code_1.png");
+        Bitmap twoBitmap = BitmapFactory.decodeFile("/sdcard/DCIM/Screenshots/verification_code_2.png");
+        Bitmap threeBitmap = BitmapFactory.decodeFile("/sdcard/DCIM/Screenshots/verification_code_2.png");
+        if (oneBitmap == null || twoBitmap == null || threeBitmap == null) {
             return;
         }
+        Bitmap destBitmap = ImageDsicern.similarityImage(oneBitmap, threeBitmap);
         oneView.setImageBitmap(oneBitmap);
         twoView.setImageBitmap(twoBitmap);
-        String similarityPercent = ImageDsicern.similarityImage(oneBitmap, twoBitmap);
-        VMLog.d("图片相似百分比: %s", similarityPercent);
+        destView.setImageBitmap(destBitmap);
+
+//        String similarityPercent = ImageDsicern.similarityImage(oneBitmap, twoBitmap);
+//        VMLog.d("图片相似百分比: %s", similarityPercent);
     }
 }

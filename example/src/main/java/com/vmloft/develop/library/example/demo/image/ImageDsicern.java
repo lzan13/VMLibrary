@@ -2,6 +2,8 @@ package com.vmloft.develop.library.example.demo.image;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Point;
 
 import com.vmloft.develop.library.tools.utils.VMStr;
 
@@ -14,62 +16,110 @@ public class ImageDsicern {
     /**
      * 比较两个图片相似度
      *
-     * @param onePath 第一个图片路径
-     * @param twoPath 第二个图片路径
-     * @return
-     */
-    public static String similarityImage(String onePath, String twoPath) {
-        if (VMStr.isEmpty(onePath) || VMStr.isEmpty(twoPath)) {
-            return "";
-        }
-        Bitmap oneBitmap = BitmapFactory.decodeFile(onePath);
-        Bitmap twoBitmap = BitmapFactory.decodeFile(twoPath);
-        return similarityImage(oneBitmap, twoBitmap);
-    }
-
-    /**
-     * 比较两个图片相似度
-     *
      * @param oneBitmap 第一个 bitmap
      * @param twoBitmap 第二个 bitmap
      * @return
      */
-    public static String similarityImage(Bitmap oneBitmap, Bitmap twoBitmap) {
+    public static Bitmap similarityImage(Bitmap oneBitmap, Bitmap twoBitmap) {
         if (oneBitmap == null || twoBitmap == null) {
-            return "";
+            return null;
         }
-        int[] result = {0, 0};
-        // 保存图片所有像素个数的数组，图片宽×高
-        int[] srcPixels = new int[oneBitmap.getWidth() * oneBitmap.getHeight()];
-        int[] destPixels = new int[twoBitmap.getWidth() * twoBitmap.getHeight()];
-        // 获取每个像素的RGB值
-        oneBitmap.getPixels(srcPixels, 0, oneBitmap.getWidth(), 0, 0, oneBitmap.getWidth(), oneBitmap.getHeight());
-        twoBitmap.getPixels(destPixels, 0, twoBitmap.getWidth(), 0, 0, twoBitmap.getWidth(), twoBitmap.getHeight());
-        // 取像素少的图片作为循环条件。避免报错
-        if (srcPixels.length >= destPixels.length) {
-            // 对每一个像素的RGB值进行比较
-            for (int i = 0; i < destPixels.length; i++) {
-                comparePixels(result, i, srcPixels, destPixels);
+        int width = oneBitmap.getWidth();
+        int height = oneBitmap.getHeight();
+
+        Point startPoint = new Point(0, 0);
+        Point targetPoint = new Point(0, 0);
+        int status = 0;
+
+        int color = 0xff0000;
+        Bitmap copyBitmap = oneBitmap.copy(Bitmap.Config.ARGB_8888, true);
+        checkExit:
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height / 2 + 50; j++) {
+                boolean isAlike = checkPixel(i, j, oneBitmap, twoBitmap);
+                // 检测到不同，开始检查指定大小方框内是否相同
+                if (!isAlike) {
+//                    changeBitmapPixel(i, j, copyBitmap, color);
+                    isAlike = checkPixelRect(i, j, oneBitmap, twoBitmap, copyBitmap);
+                    if (!isAlike) {
+                        if (status == 0) {
+                            startPoint = new Point(i, j + 50);
+                            status = 1;
+                            break;
+                        } else if (status == 2) {
+                            targetPoint = new Point(i, j + 50);
+                            break checkExit;
+                        }
+                    }
+                }
             }
-        } else {
-            for (int i = 0; i < srcPixels.length; i++) {
-                comparePixels(result, i, srcPixels, destPixels);
+            if (status == 1) {
+                i += 160;
+                status = 2;
             }
         }
-        return getPercent(result[0], result[1]);
+        return copyBitmap;
+
     }
 
     /**
-     * 比较两个像素点
+     * 检查像素点
+     *
+     * @param x         像素点x坐标
+     * @param y         像素点y坐标
+     * @param oneBitmap 第一个 bitmap 图片数据
+     * @param twoBitmap 第二个 bitmap 图片数据
+     * @return
      */
-    private static void comparePixels(int[] relsult, int index, int[] onePixels, int[] twoPixels) {
-        int pixels1 = onePixels[index];
-        int pixels2 = twoPixels[index];
-        if (pixels1 == pixels2) {
-            relsult[0] += 1;
-        } else {
-            relsult[1] += 1;
+    private static boolean checkPixel(int x, int y, Bitmap oneBitmap, Bitmap twoBitmap) {
+        int onePixel = oneBitmap.getPixel(x, y);
+        int twoPixel = twoBitmap.getPixel(x, y);
+        if (onePixel == twoPixel) {
+            return true;
         }
+        return false;
+    }
+
+    /**
+     * 检查 10 * 10 的空间是否都不相同
+     *
+     * @param x         像素点x坐标
+     * @param y         像素点y坐标
+     * @param oneBitmap 第一个 bitmap 图片数据
+     * @param twoBitmap 第二个 bitmap 图片数据
+     * @return
+     */
+    private static boolean checkPixelRect(int x, int y, Bitmap oneBitmap, Bitmap twoBitmap, Bitmap copyBitmap) {
+        boolean isAlike = false;
+        for (int i = 0; i < 25; i++) {
+            for (int j = 0; j < 25; j++) {
+                isAlike = checkPixel(x + i, y + 50 + j, oneBitmap, twoBitmap);
+                if (!isAlike) {
+                    int color = 0x0000ff;
+                    changeBitmapPixel(x + i, y + 50 + j, copyBitmap, color);
+                } else {
+                    return isAlike;
+                }
+            }
+        }
+        return isAlike;
+    }
+
+    /**
+     * 修改 Bitmap 像素点颜色
+     *
+     * @param x      像素点x坐标
+     * @param y      像素点y坐标
+     * @param bitmap bitmap 图片数据
+     * @param color  修改的颜色
+     */
+    private static void changeBitmapPixel(int x, int y, Bitmap bitmap, int color) {
+        int pixel = bitmap.getPixel(x, y);
+        final int alpha = (pixel >> 24) & 0xff;
+        if (alpha > 0 && alpha != 0xff) {
+            color = (alpha << 24) | (color & 0xffffff);
+        }
+        bitmap.setPixel(x, y, (alpha << 24) | color);
     }
 
     /**
@@ -85,5 +135,46 @@ public class ImageDsicern {
         double baiz = z * 1.0;
         double fen = baiy / baiz;
         return String.format("%.2f", fen);
+    }
+
+    /**
+     * 修改 Bitmap 颜色
+     */
+    public static Bitmap changeBitmapColor(Bitmap bitmap) {
+        int bitmap_h;
+        int bitmap_w;
+        int mArrayColorLengh;
+        int[] mArrayColor;
+        int count = 0;
+        mArrayColorLengh = bitmap.getWidth() * bitmap.getHeight();
+        mArrayColor = new int[mArrayColorLengh];
+        bitmap_w = bitmap.getWidth();
+        bitmap_h = bitmap.getHeight();
+        int newcolor = -1;
+        for (int i = 0; i < bitmap.getHeight(); i++) {
+            for (int j = 0; j < bitmap.getWidth(); j++) {
+                //获得Bitmap 图片中每一个点的color颜色值
+                int pixel = bitmap.getPixel(j, i);
+                //将颜色值存在一个数组中 方便后面修改
+                // mArrayColor[count] = color;
+                int r = Color.red(pixel);
+                int g = Color.green(pixel);
+                int b = Color.blue(pixel);
+                int a = Color.alpha(pixel);
+                if ((90 < r && r <= 200) && (90 < g && g <= 200) && (90 < b && b <= 200)) {//大概得把非道路（路旁变透明）
+                    a = 0;
+                } else if (r == 255 && g == 255 && b == 33) {//把黄色的箭头白色 因为黄色箭头rgb大部分是255 255 33(值可以用画图工具取值) 组合
+                    // 但是还有小部分有别的值组成（箭头所不能变成全白有黄色斑点）
+                    r = 255;
+                    g = 255;
+                    b = 255;
+                }
+                pixel = Color.argb(a, r, g, b);
+                mArrayColor[count] = pixel;
+                count++;
+            }
+        }
+        Bitmap result = Bitmap.createBitmap(mArrayColor, bitmap_w, bitmap_h, Bitmap.Config.ARGB_4444);
+        return result;
     }
 }
