@@ -2,6 +2,8 @@ package com.vmloft.develop.library.example.demo.image;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.widget.ImageView;
 
 import com.vmloft.develop.library.example.R;
@@ -33,16 +35,24 @@ public class ImageDiscernActivity extends AppActivity {
     protected void init() {
         Bitmap oneBitmap = BitmapFactory.decodeFile("/sdcard/DCIM/Screenshots/verification_code_1.png");
         Bitmap twoBitmap = BitmapFactory.decodeFile("/sdcard/DCIM/Screenshots/verification_code_2.png");
-        Bitmap threeBitmap = BitmapFactory.decodeFile("/sdcard/DCIM/Screenshots/verification_code_2.png");
-        if (oneBitmap == null || twoBitmap == null || threeBitmap == null) {
+//        Bitmap threeBitmap = BitmapFactory.decodeFile("/sdcard/DCIM/Screenshots/verification_code_2.png");
+        if (oneBitmap == null || twoBitmap == null) {
             return;
         }
-        Bitmap destBitmap = ImageDsicern.similarityImage(oneBitmap, threeBitmap);
+        // 剪切一下图片
+        Rect mRect = new Rect(120, 800, 950, 1300);
+        oneBitmap = Bitmap.createBitmap(oneBitmap, mRect.left, mRect.top, mRect.right - mRect.left, mRect.bottom - mRect.top);
+        twoBitmap = Bitmap.createBitmap(twoBitmap, mRect.left, mRect.top, mRect.right - mRect.left, mRect.bottom - mRect.top);
+
+        Point startPoint = new Point(0, 0);
+        Point targetPoint = new Point(0, 0);
+
+        Bitmap destBitmap = ImageDsicern.compareBitmap(oneBitmap, twoBitmap, startPoint, targetPoint);
+
         oneView.setImageBitmap(oneBitmap);
         twoView.setImageBitmap(twoBitmap);
         destView.setImageBitmap(destBitmap);
 
-//        String similarityPercent = ImageDsicern.similarityImage(oneBitmap, twoBitmap);
-//        VMLog.d("图片相似百分比: %s", similarityPercent);
+        VMLog.d("不同点坐标: start(%d, %d) - target(%d, %d)", startPoint.x, startPoint.y, targetPoint.x, targetPoint.y);
     }
 }

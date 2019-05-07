@@ -1,11 +1,8 @@
 package com.vmloft.develop.library.example.demo.image;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
-
-import com.vmloft.develop.library.tools.utils.VMStr;
 
 /**
  * Create by lzan13 on 2019/05/05
@@ -20,18 +17,15 @@ public class ImageDsicern {
      * @param twoBitmap 第二个 bitmap
      * @return
      */
-    public static Bitmap similarityImage(Bitmap oneBitmap, Bitmap twoBitmap) {
+    public static Bitmap compareBitmap(Bitmap oneBitmap, Bitmap twoBitmap, Point startPoint, Point targetPoint) {
         if (oneBitmap == null || twoBitmap == null) {
             return null;
         }
+        int status = 0;
+        int color = 0xff0000;
         int width = oneBitmap.getWidth();
         int height = oneBitmap.getHeight();
 
-        Point startPoint = new Point(0, 0);
-        Point targetPoint = new Point(0, 0);
-        int status = 0;
-
-        int color = 0xff0000;
         Bitmap copyBitmap = oneBitmap.copy(Bitmap.Config.ARGB_8888, true);
         checkExit:
         for (int i = 0; i < width; i++) {
@@ -43,18 +37,21 @@ public class ImageDsicern {
                     isAlike = checkPixelRect(i, j, oneBitmap, twoBitmap, copyBitmap);
                     if (!isAlike) {
                         if (status == 0) {
-                            startPoint = new Point(i, j + 50);
+                            startPoint.x = i + 20;
+                            startPoint.y = j + 50;
                             status = 1;
                             break;
                         } else if (status == 2) {
-                            targetPoint = new Point(i, j + 50);
+                            targetPoint.x = i;
+                            targetPoint.y = j + 50;
                             break checkExit;
                         }
                     }
                 }
             }
+            // 这里是当找到左边的滑块部分后，跳过滑块，去查找缺失部分
             if (status == 1) {
-                i += 160;
+                i += 170;
                 status = 2;
             }
         }
@@ -91,12 +88,12 @@ public class ImageDsicern {
      */
     private static boolean checkPixelRect(int x, int y, Bitmap oneBitmap, Bitmap twoBitmap, Bitmap copyBitmap) {
         boolean isAlike = false;
-        for (int i = 0; i < 25; i++) {
-            for (int j = 0; j < 25; j++) {
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
                 isAlike = checkPixel(x + i, y + 50 + j, oneBitmap, twoBitmap);
                 if (!isAlike) {
                     int color = 0x0000ff;
-                    changeBitmapPixel(x + i, y + 50 + j, copyBitmap, color);
+                    changeBitmapPixel(x + 20 + i, y + 50 + j, copyBitmap, color);
                 } else {
                     return isAlike;
                 }
