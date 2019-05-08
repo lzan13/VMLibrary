@@ -54,6 +54,8 @@ booelan isEmail = VMReg.isEmail(email);
     - [VMFragment](src/main/java/com/vmloft/develop/library/tools/base/VMFragment.java) Fragment 基类 实现数据懒加载
     - [VMLazyFragment](src/main/java/com/vmloft/develop/library/tools/base/VMFragment.java) Fragment 基类 实现数据懒加载
     
+- [permission](src/main/java/com/vmloft/develop/library/tools/permission) 6.X以上权限申请工具
+
 - [router](src/main/java/com/vmloft/develop/library/tools/router) 项目跳转路由
     - [VMParams](src/main/java/com/vmloft/develop/library/tools/utils/VMParams.java) 路由跳转传参
     - [VMRouter](src/main/java/com/vmloft/develop/library/tools/utils/VMRouter.java) 路由基类，业务层继承实现自己业务跳转
