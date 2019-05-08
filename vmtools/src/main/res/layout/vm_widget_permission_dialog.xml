@@ -12,7 +12,8 @@
         android:layout_marginStart="@dimen/vm_dimen_24"
         android:layout_marginTop="@dimen/vm_dimen_8"
         android:layout_marginEnd="@dimen/vm_dimen_24"
-        android:text="@string/permission_denied" />
+        style="@style/VMText.Body1"
+        android:text="@string/vm_permission_again_reason" />
 
     <com.vmloft.develop.library.tools.widget.VMViewGroup
         android:id="@+id/vm_view_group"

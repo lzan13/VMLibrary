@@ -3,11 +3,9 @@
     <string name="vm_loading">正在加载...</string>
 
     <!--权限相关-->
-    <string name="permission_dialog_title">开启%s</string>
-    <string name="permission_dialog_msg">为了您能正常使用%s，需要以下权限</string>
-    <string name="permission_title">请允许获取%s</string>
-    <string name="permission_denied">我们需要获取%1$s, 否则您将无法正常使用%2$s</string>
-    <string name="permission_denied_with_naac">"由于%1$s无法获取%2$s, 不能正常运行, 请开启权限后再使用。\n\n设置路径: 应用管理->%3$s->权限"</string>
+    <string name="vm_permission_again_title">申请 %s</string>
+    <string name="vm_permission_again_reason">您拒绝了 %1$s 权限, %2$s</string>
+    <string name="vm_permission_denied_setting">"由于 %1$s 无法获取 %2$s, 程序无法正常运行, 请开启权限后再使用。\n\n设置路径: 应用管理->%3$s->权限"</string>
 
     <string name="vm_btn_cancel">取消</string>
     <string name="vm_btn_ok">确定</string>

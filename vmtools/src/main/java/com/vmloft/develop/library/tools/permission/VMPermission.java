@@ -8,11 +8,9 @@ import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
 
 import com.vmloft.develop.library.tools.base.VMConstant;
-import com.vmloft.develop.library.tools.router.VMParams;
 import com.vmloft.develop.library.tools.router.VMRouter;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -27,9 +25,10 @@ public class VMPermission {
     // 授权处理回调
     private VMPermissionCallback mCallback;
 
+    private boolean mEnableDialog;
     private String mTitle;
     private String mMessage;
-    private List<VMPermissionItem> mPermissions;
+    private List<VMPermissionBean> mPermissions = new ArrayList<>();
 
     /**
      * 私有构造方法
@@ -60,6 +59,16 @@ public class VMPermission {
     }
 
     /**
+     * 是否开启请求权限前的弹窗，默认为 false
+     *
+     * @param enable 控制弹窗
+     */
+    public VMPermission setEnableDialog(boolean enable) {
+        mEnableDialog = enable;
+        return this;
+    }
+
+    /**
      * 设置授权弹窗标题
      *
      * @param title 授权弹窗标题
@@ -82,25 +91,54 @@ public class VMPermission {
     /**
      * 设置授权弹窗权限列表
      *
-     * @param permissions 权限集合
+     * @param permission 权限
      */
-    public VMPermission setPermissions(List<VMPermissionItem> permissions) {
-        mPermissions = permissions;
+    public VMPermission setPermission(VMPermissionBean permission) {
+        mPermissions.clear();
+        mPermissions.add(permission);
         return this;
     }
 
     /**
-     * 内部调用检查权限方法
+     * 设置授权弹窗权限列表
+     *
+     * @param permissions 权限集合
+     */
+    public VMPermission setPermissionList(List<VMPermissionBean> permissions) {
+        mPermissions.clear();
+        mPermissions.addAll(permissions);
+        return this;
+    }
+
+    /**
+     * 检查权限方法，这里只是判断是否已授权，并不会请求授权
      *
      * @param permission 需要检查的权限
      * @return 返回是否授权
      */
-    private boolean checkPermission(String permission) {
+    public boolean checkPermission(String permission) {
         int checkPermission = ContextCompat.checkSelfPermission(mContext, permission);
         if (checkPermission == PackageManager.PERMISSION_GRANTED) {
             return true;
         }
         return false;
+    }
+
+    /**
+     * 检查权限方法，这里只是判断是否已授权，并不会请求授权
+     *
+     * @param permissions 需要检查的权限集合
+     * @return 返回是否授权
+     */
+    public boolean checkPermission(List<String> permissions) {
+        boolean result = true;
+        for (int i = 0; i < permissions.size(); i++) {
+            result = checkPermission(permissions.get(i));
+            if (!result) {
+                return false;
+            }
+        }
+        return result;
     }
 
     /**
@@ -111,7 +149,7 @@ public class VMPermission {
     public void checkPermission(VMPermissionCallback callback) {
         if (mPermissions == null || mPermissions.size() == 0) {
             if (callback != null) {
-                callback.onFinish();
+                callback.onComplete();
             }
             return;
         }
@@ -120,7 +158,7 @@ public class VMPermission {
          */
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             if (callback != null) {
-                callback.onFinish();
+                callback.onComplete();
             }
             return;
         }
@@ -128,7 +166,7 @@ public class VMPermission {
         /**
          * 过滤已允许的权限
          */
-        ListIterator<VMPermissionItem> iterator = mPermissions.listIterator();
+        ListIterator<VMPermissionBean> iterator = mPermissions.listIterator();
         while (iterator.hasNext()) {
             if (checkPermission(iterator.next().permission)) {
                 iterator.remove();
@@ -143,9 +181,10 @@ public class VMPermission {
      */
     private void startActivity() {
         Intent intent = new Intent();
-        intent.putExtra(VMConstant.KEY_, mTitle);
-        intent.putExtra(VMConstant.KEY_, mMessage);
-        intent.putExtra(VMConstant.KEY_, (Parcelable) mPermissions);
+        intent.putExtra(VMConstant.KEY_PERMISSION_ENABLE_DIALOG, mEnableDialog);
+        intent.putExtra(VMConstant.KEY_PERMISSION_TITLE, mTitle);
+        intent.putExtra(VMConstant.KEY_PERMISSION_MSG, mMessage);
+        intent.putParcelableArrayListExtra(VMConstant.KEY_PERMISSION_LIST, (ArrayList<? extends Parcelable>) mPermissions);
         VMRouter.goPermission(mContext, intent);
     }
 }

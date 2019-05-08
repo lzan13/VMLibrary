@@ -3,7 +3,9 @@ package com.vmloft.develop.library.tools.router;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Parcelable;
+import android.provider.Settings;
 
 import com.vmloft.develop.library.tools.permission.VMPermissionActivity;
 
@@ -28,7 +30,7 @@ public class VMRouter {
      * 唤起权限申请界面
      *
      * @param context 上下文对象
-     * @param intent
+     * @param intent  权限申请 Intent 包含参数
      */
     public static void goPermission(Context context, Intent intent) {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -37,13 +39,38 @@ public class VMRouter {
     }
 
     /**
+     * 打开 App 的详细设置页面
+     */
+    public static void goSettingDetail(Context context, int requestCode) {
+        Uri packageURI = Uri.parse("package:" + context.getPackageName());
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI);
+        overlayResult(context, intent, requestCode);
+    }
+
+    /**
      * ------------------- 传递 Intent 参数进行跳转-------------------
      *
-     * @param context
-     * @param intent
+     * @param context 开始界面上下文
+     * @param intent  目标 Intent
      */
     protected static void overlay(Context context, Intent intent) {
         context.startActivity(intent);
+    }
+
+    /**
+     * ------------------- 传递 Intent 参数进行跳转-------------------
+     *
+     * @param context 开始界面上下文
+     * @param intent
+     */
+    protected static void overlayResult(Context context, Intent intent) {
+        overlayResult(context, intent, 0);
+    }
+
+    protected static void overlayResult(Context context, Intent intent, int requestCode) {
+        if (isActivity(context)) {
+            ((Activity) context).startActivityForResult(intent, requestCode);
+        }
     }
 
     /**
@@ -169,6 +196,7 @@ public class VMRouter {
     }
 
     /**
+     * ---------------------------- 界面跳转参数传递 ----------------------------
      * 获取序列化的参数
      */
     public static VMParams getParams(Activity activity) {

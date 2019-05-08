@@ -3,9 +3,7 @@ package com.vmloft.develop.library.tools.permission;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -17,7 +15,7 @@ import android.widget.TextView;
 
 import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.base.VMActivity;
-import com.vmloft.develop.library.tools.router.VMParams;
+import com.vmloft.develop.library.tools.base.VMConstant;
 import com.vmloft.develop.library.tools.router.VMRouter;
 import com.vmloft.develop.library.tools.utils.VMStr;
 import com.vmloft.develop.library.tools.utils.VMSystem;
@@ -36,7 +34,7 @@ public class VMPermissionActivity extends VMActivity {
     // 权限申请
     private static final int REQUEST_PERMISSION = 100;
     // 被拒绝后再次申请
-    public static final int REQUEST_PERMISSION_AGAIN = 101;
+    private static final int REQUEST_PERMISSION_AGAIN = 101;
     // 调起设置界面设置权限
     private static final int REQUEST_SETTING = 200;
 
@@ -45,12 +43,16 @@ public class VMPermissionActivity extends VMActivity {
      * 重新申请权限数组的索引
      */
     private int mAgainIndex;
+    // 是否显示申请权限弹窗
+    private Boolean mEnableDialog;
     // 申请权限弹窗标题
     private String mTitle;
     // 申请权限弹窗描述
     private String mMessage;
     // 权限列表
-    private List<String> mPermissions;
+    private List<VMPermissionBean> mPermissions;
+    // 权限列表拷贝
+    private List<VMPermissionBean> mPermissionsCopy;
     // 授权提示框
     private AlertDialog mDialog;
     private String mAppName;
@@ -69,22 +71,46 @@ public class VMPermissionActivity extends VMActivity {
         // 初始化获取数据
         mAppName = VMSystem.getAppName(activity);
         mCallback = VMPermission.getInstance(activity).getPermissionCallback();
-        VMParams params = VMRouter.getParams(activity);
-        if (params != null) {
-            mTitle = params.str0;
-            mMessage = params.str1;
-            mPermissions = params.strList;
-        }
+        mEnableDialog = getIntent().getBooleanExtra(VMConstant.KEY_PERMISSION_ENABLE_DIALOG, false);
+        mTitle = getIntent().getStringExtra(VMConstant.KEY_PERMISSION_TITLE);
+        mMessage = getIntent().getStringExtra(VMConstant.KEY_PERMISSION_MSG);
+        mPermissions = getIntent().getParcelableArrayListExtra(VMConstant.KEY_PERMISSION_LIST);
+        mPermissionsCopy = mPermissions;
 
         if (mPermissions == null || mPermissions.size() == 0) {
             return;
         }
-        // 单个权限不弹出说明对话框，直接进行授权请求
-        if (mPermissions.size() == 1) {
-            requestPermission(VMStr.listToArray(mPermissions), REQUEST_PERMISSION);
-        } else {
+        // 根据需要弹出说明对话框
+        if (mEnableDialog) {
             showPermissionDialog();
+        } else {
+            requestPermission(getPermissionArray(), REQUEST_PERMISSION);
         }
+    }
+
+    /**
+     * 获取申请权限集合
+     */
+    private String[] getPermissionArray() {
+        String[] permissionArray = new String[mPermissions.size()];
+        for (int i = 0; i < mPermissions.size(); i++) {
+            VMPermissionBean item = mPermissions.get(i);
+            permissionArray[i] = item.permission;
+        }
+        return permissionArray;
+    }
+
+    /**
+     * 根据权限名获取申请权限的实体类
+     */
+    private VMPermissionBean getPermissionItem(String permission) {
+        for (int i = 0; i < mPermissions.size(); i++) {
+            VMPermissionBean item = mPermissions.get(i);
+            if (item.permission.equals(permission)) {
+                return item;
+            }
+        }
+        return null;
     }
 
     /**
@@ -105,7 +131,8 @@ public class VMPermissionActivity extends VMActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        onClose();
+                        onPermissionReject();
+                        onFinish();
                     }
                 })
                 .setPositiveButton(okStr, listener)
@@ -124,21 +151,18 @@ public class VMPermissionActivity extends VMActivity {
             builder.setTitle(mTitle);
         }
         builder.setView(view);
-        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                dialog.dismiss();
-                if (mCallback != null) {
-                    mCallback.onClose();
-                }
-                finish();
-            }
-        });
+        // 设置提醒信息
         if (!VMStr.isEmpty(mMessage)) {
             TextView contentView = view.findViewById(R.id.vm_text_permission_dialog_content);
             contentView.setText(mMessage);
         }
         VMViewGroup viewGroup = view.findViewById(R.id.vm_view_group);
+        for (VMPermissionBean bean : mPermissions) {
+            VMPermissionView pView = new VMPermissionView(activity);
+            pView.setPermissionIcon(bean.resId);
+            pView.setPermissionName(bean.name);
+            viewGroup.addView(pView);
+        }
 
         view.findViewById(R.id.vm_btn_i_know).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,7 +171,7 @@ public class VMPermissionActivity extends VMActivity {
                     mDialog.dismiss();
                 }
                 // 开始申请权限
-                requestPermission(VMStr.listToArray(mPermissions), REQUEST_PERMISSION);
+                requestPermission(getPermissionArray(), REQUEST_PERMISSION);
             }
         });
         mDialog = builder.create();
@@ -167,16 +191,16 @@ public class VMPermissionActivity extends VMActivity {
     /**
      * 再次申请权限
      *
-     * @param permission 要申请的权限
+     * @param item 要申请的权限
      */
-    private void requestPermissionAgain(final String permission) {
-        String alertTitle = String.format(getString(R.string.permission_title), permission);
-        String msg = String.format(getString(R.string.permission_denied), permission, mAppName);
+    private void requestPermissionAgain(final VMPermissionBean item) {
+        String alertTitle = String.format(getString(R.string.vm_permission_again_title), item.name);
+        String msg = String.format(getString(R.string.vm_permission_again_reason), item.name, item.reason);
         showAlertDialog(alertTitle, msg, getString(R.string.vm_btn_cancel), getString(R.string.vm_btn_ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                requestPermission(new String[]{permission}, REQUEST_PERMISSION_AGAIN);
+                requestPermission(new String[]{item.permission}, REQUEST_PERMISSION_AGAIN);
             }
         });
     }
@@ -196,59 +220,43 @@ public class VMPermissionActivity extends VMActivity {
                 for (int i = 0; i < grantResults.length; i++) {
                     // 权限允许后，删除需要检查的权限
                     if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                        mPermissions.remove(permissions[i]);
-                        onGranted(permissions[i]);
-                    } else {
-                        onDenied(permissions[i]);
+                        mPermissions.remove(getPermissionItem(permissions[i]));
                     }
                 }
                 if (mPermissions.size() > 0) {
                     //用户拒绝了某个或多个权限，重新申请
                     requestPermissionAgain(mPermissions.get(mAgainIndex));
                 } else {
-                    if (mCallback != null) {
-                        mCallback.onFinish();
-                    }
+                    onPermissionComplete();
                     finish();
                 }
                 break;
             case REQUEST_PERMISSION_AGAIN:
+                if (permissions.length == 0 || grantResults.length == 0) {
+                    onPermissionReject();
+                    onFinish();
+                    break;
+                }
                 if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
                     // 重新申请后再次拒绝，弹框警告
-                    try {
-                        //permissions可能返回空数组，所以try-catch
-                        String name = permissions[0];
-                        String title = String.format(getString(R.string.permission_title), name);
-                        String msg = String.format(getString(R.string.permission_denied_with_naac), mAppName, name, mAppName);
-                        showAlertDialog(title, msg, getString(R.string.vm_btn_reject), getString(R.string.vm_btn_go_to_setting), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                try {
-                                    Uri packageURI = Uri.parse("package:" + getPackageName());
-                                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI);
-                                    startActivityForResult(intent, REQUEST_SETTING);
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                    onClose();
-                                }
-                            }
-                        });
-                        onDenied(permissions[0]);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        onClose();
-                    }
+                    // permissions 可能返回空数组，所以try-catch
+                    VMPermissionBean item = mPermissions.get(0);
+                    String title = String.format(getString(R.string.vm_permission_again_title), item.name);
+                    String msg = String.format(getString(R.string.vm_permission_denied_setting), mAppName, item.name, mAppName);
+                    showAlertDialog(title, msg, getString(R.string.vm_btn_reject), getString(R.string.vm_btn_go_to_setting), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            VMRouter.goSettingDetail(activity, REQUEST_SETTING);
+                        }
+                    });
                 } else {
-                    onGranted(permissions[0]);
                     if (mAgainIndex < mPermissions.size() - 1) {
-                        //继续申请下一个被拒绝的权限
+                        // 继续申请下一个被拒绝的权限
                         requestPermissionAgain(mPermissions.get(++mAgainIndex));
                     } else {
-                        //全部允许了
-                        if (mCallback != null) {
-                            mCallback.onFinish();
-                        }
-                        finish();
+                        // 全部允许了
+                        onPermissionComplete();
+                        onFinish();
                     }
                 }
                 break;
@@ -257,7 +265,7 @@ public class VMPermissionActivity extends VMActivity {
 
 
     /**
-     * 接收打开设置界面授权结果
+     * 回调用户手动设置授权结果，同时再次对权限进行检查，防止用户关闭了某些权限
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -271,44 +279,42 @@ public class VMPermissionActivity extends VMActivity {
                 mAgainIndex = 0;
                 requestPermissionAgain(mPermissions.get(mAgainIndex));
             } else {
-                if (mCallback != null) {
-                    mCallback.onFinish();
-                }
-                finish();
+                onPermissionComplete();
+                onFinish();
             }
         }
     }
 
     /**
-     * 检查权限
+     * 循环检查权限，移除已授权权限
+     * 这里的检查是一个完整的检查，为的是防止用户打开设置后取消了某些已授权的权限
      */
     private void checkPermission() {
-        Iterator<String> iterator = mPermissions.listIterator();
+        mPermissions = mPermissionsCopy;
+        Iterator<VMPermissionBean> iterator = mPermissions.listIterator();
         while (iterator.hasNext()) {
-            int checkPermission = ContextCompat.checkSelfPermission(activity, iterator.next());
+            int checkPermission = ContextCompat.checkSelfPermission(activity, iterator.next().permission);
             if (checkPermission == PackageManager.PERMISSION_GRANTED) {
                 iterator.remove();
             }
         }
     }
 
-
-    private void onClose() {
+    /**
+     * 回调权限申请被拒绝
+     */
+    private void onPermissionReject() {
         if (mCallback != null) {
-            mCallback.onClose();
-        }
-        finish();
-    }
-
-    private void onDenied(String permission) {
-        if (mCallback != null) {
-            mCallback.onDenied(permission);
+            mCallback.onReject();
         }
     }
 
-    private void onGranted(String permission) {
+    /**
+     * 回调权限申请通过
+     */
+    private void onPermissionComplete() {
         if (mCallback != null) {
-            mCallback.onGranted(permission);
+            mCallback.onComplete();
         }
     }
 

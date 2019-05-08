@@ -10,5 +10,8 @@ public class VMConstant {
     /**
      * 权限传参的 key
      */
-    public static final String KEY_ = "";
+    public static final String KEY_PERMISSION_ENABLE_DIALOG = "vm_key_permission_enable_dialog";
+    public static final String KEY_PERMISSION_TITLE = "vm_key_permission_title";
+    public static final String KEY_PERMISSION_MSG = "vm_key_permission_msg";
+    public static final String KEY_PERMISSION_LIST = "vm_key_permission_list";
 }

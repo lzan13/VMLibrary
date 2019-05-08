@@ -1,16 +1,15 @@
 package com.vmloft.develop.library.example;
 
 import android.Manifest;
-import android.content.Intent;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.vmloft.develop.library.example.common.AppActivity;
 import com.vmloft.develop.library.example.router.ARouter;
 import com.vmloft.develop.library.tools.permission.VMPermission;
 import com.vmloft.develop.library.tools.permission.VMPermissionCallback;
+import com.vmloft.develop.library.tools.permission.VMPermissionBean;
 import com.vmloft.develop.library.tools.widget.VMToast;
 import com.vmloft.develop.library.tools.widget.VMViewGroup;
 
@@ -115,67 +114,48 @@ public class MainActivity extends AppActivity {
      * 检查权限
      */
     private void checkOnePermissions() {
-        List<String> permissions = new ArrayList<>();
-        permissions.add(Manifest.permission.CAMERA);
-//        permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
-//        VMPermission.getInstance(activity)
-//                .setTitle("权限申请")
-//                .setMessage("为保证应用的正常运行，请授予一下权限")
-//                .setPermissions(permissions)
-//                .checkPermission(new VMPermissionCallback() {
-//                    @Override
-//                    public void onClose() {
-//                        VMToast.make("授权被关闭").showError();
-//                    }
-//
-//                    @Override
-//                    public void onFinish() {
-//                        VMToast.make("授权完成").show();
-//                    }
-//
-//                    @Override
-//                    public void onDenied(String permission) {
-//                        VMToast.make("拒绝了权限 %s", permission).showError();
-//                    }
-//
-//                    @Override
-//                    public void onGranted(String permission) {
-//                        VMToast.make("同意了权限 %s", permission).show();
-//                    }
-//                });
+        VMPermissionBean bean = new VMPermissionBean(Manifest.permission.CAMERA, R.mipmap.ic_launcher_round, "访问相机", "扫描二维码需要使用到相机，请允许我们获取拍照权限");
+        VMPermission.getInstance(activity)
+                .setEnableDialog(true)
+                .setTitle("权限申请")
+                .setMessage("为保证应用的正常运行，请授予一下权限")
+                .setPermission(bean)
+                .checkPermission(new VMPermissionCallback() {
+                    @Override
+                    public void onReject() {
+                        VMToast.make("权限申请被拒绝").showError();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        VMToast.make("权限申请完成").show();
+                    }
+                });
     }
 
     /**
      * 检查权限
      */
     private void checkPermissions() {
-        List<String> permissions = new ArrayList<>();
-        permissions.add(Manifest.permission.CAMERA);
-        permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
-//        VMPermission.getInstance(activity)
-//                .setTitle("权限申请")
-//                .setMessage("为保证应用的正常运行，请授予一下权限")
-//                .setPermissions(permissions)
-//                .checkPermission(new VMPermissionCallback() {
-//                    @Override
-//                    public void onClose() {
-//                        VMToast.make("授权被关闭").showError();
-//                    }
-//
-//                    @Override
-//                    public void onFinish() {
-//                        VMToast.make("授权完成").show();
-//                    }
-//
-//                    @Override
-//                    public void onDenied(String permission) {
-//                        VMToast.make("拒绝了权限 %s", permission).showError();
-//                    }
-//
-//                    @Override
-//                    public void onGranted(String permission) {
-//                        VMToast.make("同意了权限 %s", permission).show();
-//                    }
-//                });
+        List<VMPermissionBean> permissions = new ArrayList<>();
+        permissions.add(new VMPermissionBean(Manifest.permission.CAMERA, R.mipmap.ic_launcher_round, "访问相机", "拍摄图片需要使用到相机，请允许我们获取访问相机"));
+        permissions.add(new VMPermissionBean(Manifest.permission.READ_EXTERNAL_STORAGE, R.mipmap.ic_launcher_round, "读写存储", "我们需要将文件保存到你的设备，请允许我们获取存储权限"));
+        permissions.add(new VMPermissionBean(Manifest.permission.RECORD_AUDIO, R.mipmap.ic_launcher_round, "访问麦克风", "发送语音消息需要录制声音，请允许我们访问设备麦克风"));
+        VMPermission.getInstance(activity)
+                .setEnableDialog(true)
+                .setTitle("权限申请")
+                .setMessage("为保证应用的正常运行，请您授予以下权限")
+                .setPermissionList(permissions)
+                .checkPermission(new VMPermissionCallback() {
+                    @Override
+                    public void onReject() {
+                        VMToast.make("权限申请被拒绝").showError();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        VMToast.make("权限申请完成").show();
+                    }
+                });
     }
 }

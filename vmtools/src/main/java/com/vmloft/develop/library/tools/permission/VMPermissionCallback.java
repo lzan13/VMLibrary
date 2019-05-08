@@ -3,30 +3,17 @@ package com.vmloft.develop.library.tools.permission;
 /**
  * Create by lzan13 on 2019/04/25
  *
- * 授权回调
+ * 权限申请授权结果回调接口
  */
 public interface VMPermissionCallback {
-    /**
-     * 授权关闭
-     */
-    void onClose();
 
     /**
-     * 授权完成
+     * 权限申请被拒绝回调
      */
-    void onFinish();
+    void onReject();
 
     /**
-     * 拒绝权限回调
-     *
-     * @param permission 权限
+     * 权限申请完成回调
      */
-    void onDenied(String permission);
-
-    /**
-     * 同意权限回调
-     *
-     * @param permission 权限
-     */
-    void onGranted(String permission);
+    void onComplete();
 }
