@@ -9,6 +9,7 @@ import com.vmloft.develop.library.tools.utils.VMLog;
 
 /**
  * Created by lzan13 on 2015/7/4.
+ * 
  * Activity 的基类，做一些子类公共的工作
  */
 public class VMActivity extends AppCompatActivity {

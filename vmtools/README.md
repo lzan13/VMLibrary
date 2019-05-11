@@ -17,7 +17,7 @@ VMTools
 ```
 dependencies {
     ...
-    implementation 'com.vmloft.library:vmtools:0.2.5'
+    implementation 'com.vmloft.library:vmtools:0.5.1'
 }
 ```
 
@@ -78,6 +78,7 @@ booelan isEmail = VMReg.isEmail(email);
 
 - [widget](src/main/java/com/vmloft/develop/library/tools/widget) 自定义控件部分
     - [VMIndicatorView](src/main/java/com/vmloft/develop/library/tools/widget/indicator/VMIndicatorView.java) 指示器控件
+    - [VMToast](src/main/java/com/vmloft/develop/library/tools/widget/toast/VMToast.java) 全局 Toast 提醒
     - [VMAuthCodeBtn](src/main/java/com/vmloft/develop/library/tools/widget/VMAuthCodeBtn.java) 验证码按钮
     - [VMDetailsView](src/main/java/com/vmloft/develop/library/tools/widget/VMDetailsView.java) 显示更多
     - [VMDotLineView](src/main/java/com/vmloft/develop/library/tools/widget/VMDotLineView.java) 描点连线
@@ -87,7 +88,6 @@ booelan isEmail = VMReg.isEmail(email);
     - [VMImageView](src/main/java/com/vmloft/develop/library/tools/widget/VMImageView.java) 圆角图片
     - [VMRecordView](src/main/java/com/vmloft/develop/library/tools/widget/VMRecordView.java) 录音控件
     - [VMTimerBtn](src/main/java/com/vmloft/develop/library/tools/widget/VMTimerBtn.java) 定时按钮
-    - [VMToast](src/main/java/com/vmloft/develop/library/tools/widget/VMToast.java) 全局 Toast 提醒
     - [VMViewGroup](src/main/java/com/vmloft/develop/library/tools/widget/VMViewGroup.java) ViewGroup
     - [VMWaveformView](src/main/java/com/vmloft/develop/library/tools/widget/VMWaveformView.java) 波形图
     

@@ -153,10 +153,10 @@ public class VMPermissionActivity extends VMActivity {
         builder.setView(view);
         // 设置提醒信息
         if (!VMStr.isEmpty(mMessage)) {
-            TextView contentView = view.findViewById(R.id.vm_text_permission_dialog_content);
+            TextView contentView = view.findViewById(R.id.vm_permission_dialog_content_tv);
             contentView.setText(mMessage);
         }
-        VMViewGroup viewGroup = view.findViewById(R.id.vm_view_group);
+        VMViewGroup viewGroup = view.findViewById(R.id.vm_permission_dialog_custom_vg);
         for (VMPermissionBean bean : mPermissions) {
             VMPermissionView pView = new VMPermissionView(activity);
             pView.setPermissionIcon(bean.resId);
@@ -164,7 +164,7 @@ public class VMPermissionActivity extends VMActivity {
             viewGroup.addView(pView);
         }
 
-        view.findViewById(R.id.vm_btn_i_know).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.vm_i_know_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mDialog != null && mDialog.isShowing()) {

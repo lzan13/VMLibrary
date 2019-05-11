@@ -46,15 +46,15 @@
     </style>
 
     <!--透明主题-->
-    <style name="AppTheme.Transparent">
-        <item name="colorPrimary">@color/vm_transparent</item>
-        <item name="colorPrimaryDark">@color/vm_transparent</item>
-        <!-- 设置允许修改系统栏的背景色 比如导航栏 状态栏等-->
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <!--设置状态栏为透明-->
-        <item name="android:statusBarColor">@color/vm_black_38</item>
-        <!--设置导航栏半透明效果-->
-        <item name="android:windowTranslucentNavigation">true</item>
+    <style name="AppTheme.Transparent" parent="VMTheme.Transparent">
+        <!--<item name="colorPrimary">@color/vm_transparent</item>-->
+        <!--<item name="colorPrimaryDark">@color/vm_transparent</item>-->
+        <!--&lt;!&ndash; 设置允许修改系统栏的背景色 比如导航栏 状态栏等&ndash;&gt;-->
+        <!--<item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+        <!--&lt;!&ndash;设置状态栏为透明&ndash;&gt;-->
+        <!--<item name="android:statusBarColor">@color/vm_black_12</item>-->
+        <!--&lt;!&ndash;设置导航栏半透明效果&ndash;&gt;-->
+        <!--<item name="android:windowTranslucentNavigation">true</item>-->
     </style>
 
     <!--默认 AppBar 样式-->

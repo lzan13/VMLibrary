@@ -146,7 +146,7 @@ public class VMPermission {
      *
      * @param callback 授权回调接口
      */
-    public void checkPermission(VMPermissionCallback callback) {
+    public void requestPermission(VMPermissionCallback callback) {
         if (mPermissions == null || mPermissions.size() == 0) {
             if (callback != null) {
                 callback.onComplete();

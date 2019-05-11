@@ -37,8 +37,8 @@ public class VMPermissionView extends LinearLayout {
      */
     public void init(Context context) {
         LayoutInflater.from(context).inflate(R.layout.vm_widget_permission_item, this);
-        iconView = findViewById(R.id.vm_img_permission_item_icon);
-        titleView = findViewById(R.id.vm_text_permission_item_name);
+        iconView = findViewById(R.id.vm_permission_item_icon_iv);
+        titleView = findViewById(R.id.vm_permission_item_name_iv);
     }
 
     /**

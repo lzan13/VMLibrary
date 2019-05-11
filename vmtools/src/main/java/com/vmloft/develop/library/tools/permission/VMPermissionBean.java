@@ -48,8 +48,33 @@ public class VMPermissionBean implements Parcelable {
         dest.writeString(reason);
     }
 
+    /**
+     * 空构造
+     */
     public VMPermissionBean() {
 
+    }
+
+    /**
+     * 自定义构造方法，直接传递参数
+     *
+     * @param permission 申请的权限
+     */
+    public VMPermissionBean(String permission) {
+        this.permission = permission;
+    }
+
+    /**
+     * 自定义构造方法，直接传递参数
+     *
+     * @param permission 申请的权限
+     * @param name       权限名称
+     * @param reason     申请权限理由，用来在用户拒绝时展示给用户
+     */
+    public VMPermissionBean(String permission, String name, String reason) {
+        this.permission = permission;
+        this.name = name;
+        this.reason = reason;
     }
 
     /**

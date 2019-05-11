@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="@integer/vm_time_toast_enter"
+    android:propertyName="translationY"
+    android:valueFrom="-100dp"
+    android:valueTo="0dp"
+    android:valueType="floatType">
+
+</objectAnimator>

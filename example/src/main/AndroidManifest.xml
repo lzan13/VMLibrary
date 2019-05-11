@@ -47,12 +47,13 @@
         <activity android:name=".tools.ToolsActivity" />
 
         <!--自定义控件-->
+        <activity
+            android:name=".demo.custom.CustomViewActivity"
+            android:theme="@style/AppTheme.Transparent" />
         <!--描点控件-->
         <activity android:name=".demo.custom.DotLineActivity" />
         <!--显示详情控件-->
         <activity android:name=".demo.details.DetailsActivity" />
-        <!--录制音频控件-->
-        <activity android:name=".demo.custom.CustomViewActivity" />
 
         <!--录制屏幕-->
         <activity android:name=".demo.screen.RecordScreenActivity" />
