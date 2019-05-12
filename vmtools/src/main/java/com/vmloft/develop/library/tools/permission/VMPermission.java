@@ -172,6 +172,12 @@ public class VMPermission {
                 iterator.remove();
             }
         }
+        if (mPermissions.size() == 0) {
+            if (callback != null) {
+                callback.onComplete();
+            }
+            return;
+        }
         mCallback = callback;
         startActivity();
     }

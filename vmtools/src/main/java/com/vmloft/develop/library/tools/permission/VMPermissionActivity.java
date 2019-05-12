@@ -77,6 +77,7 @@ public class VMPermissionActivity extends VMActivity {
         mPermissionsCopy = mPermissions;
 
         if (mPermissions == null || mPermissions.size() == 0) {
+            onFinish();
             return;
         }
         // 根据需要弹出说明对话框
