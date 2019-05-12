@@ -35,7 +35,7 @@ public class CustomViewActivity extends AppActivity {
             mTimerBtn.startTimer();
             break;
         case R.id.btn_toast_1:
-            VMToast.init(R.color.vm_black, 0, R.color.vm_amber);
+            VMToast.init(R.color.vm_black, R.drawable.ic_menu_manage, R.color.vm_amber);
             VMToast.make(activity, "测试自定义弹出 Toast 提醒功能，这是默认提醒样式！自定义颜色的").show();
             break;
         case R.id.btn_toast_2:

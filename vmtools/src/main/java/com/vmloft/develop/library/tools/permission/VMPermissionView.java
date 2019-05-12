@@ -47,7 +47,9 @@ public class VMPermissionView extends LinearLayout {
      * @param resId 图标资源 id
      */
     public void setPermissionIcon(int resId) {
-        iconView.setImageResource(resId);
+        if (resId > 0) {
+            iconView.setImageResource(resId);
+        }
     }
 
     /**
