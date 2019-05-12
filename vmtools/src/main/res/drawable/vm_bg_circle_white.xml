@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:dither="true"
-    android:shape="rectangle">
-    <!--圆角-->
-    <corners android:radius="@dimen/vm_dimen_36" />
+    android:shape="oval">
     <!--填充背景色-->
     <solid android:color="@color/vm_white_87" />
     <!--边框-->
