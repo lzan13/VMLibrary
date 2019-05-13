@@ -123,7 +123,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/vm_click_full_transparent"
                 app:vm_line_icon="@drawable/ic_menu_manage"
-                app:vm_line_right_icon="@drawable/vm_switch_selector"
+                app:vm_line_right_icon="@drawable/switch_selector"
                 app:vm_line_title="设置选项"
                 />
 
@@ -166,7 +166,7 @@
                 app:vm_line_caption_icon="@drawable/ic_menu_camera"
                 app:vm_line_description="底部描述部分内容"
                 app:vm_line_icon="@drawable/ic_menu_manage"
-                app:vm_line_right_icon="@drawable/vm_switch_selector"
+                app:vm_line_right_icon="@drawable/switch_selector"
                 app:vm_line_title="设置选项"
                 />
 

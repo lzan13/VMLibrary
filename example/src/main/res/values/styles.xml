@@ -34,7 +34,7 @@
     <!--启动时的主题样式-->
     <style name="AppTheme.Splash">
         <!--防止启动瞬间黑屏或白屏，程序启动时的背景图，可以设置为一张代表性的logo，或者设置app框架类图-->
-        <item name="android:windowBackground">@drawable/shape_splash_bg</item>
+        <item name="android:windowBackground">@drawable/splash_bg</item>
     </style>
 
     <!--启动时的主题样式-->
