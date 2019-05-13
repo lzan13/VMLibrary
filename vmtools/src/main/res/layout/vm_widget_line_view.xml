@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/vm_click_full_transparent"
-    android:clickable="true"
     android:minHeight="@dimen/vm_dimen_48">
 
     <!--图标-->

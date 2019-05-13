@@ -62,10 +62,18 @@ public class VMLineView extends RelativeLayout {
         mDescriptionView = findViewById(R.id.vm_line_description_tv);
         mDecorationView = findViewById(R.id.vm_line_decoration);
 
-
         // 获取控件的属性值
         handleAttrs(context, attrs);
 
+        setClickable(true);
+
+        setupView();
+    }
+
+    /**
+     * 装载控件内容
+     */
+    private void setupView() {
         if (mIconRes == 0) {
             mIconView.setVisibility(GONE);
         } else {
@@ -107,7 +115,6 @@ public class VMLineView extends RelativeLayout {
         }
     }
 
-
     /**
      * 获取资源属性
      *
@@ -132,6 +139,8 @@ public class VMLineView extends RelativeLayout {
     }
 
     /**
+     * ----------------------------------- 内容设置 -----------------------------------
+     *
      * 设置图标
      */
     public void setIconRes(@DrawableRes int resId) {
@@ -150,4 +159,50 @@ public class VMLineView extends RelativeLayout {
         mTitleView.setText(mTitle);
     }
 
+    /**
+     * 设置右侧描述图标
+     */
+    public void setCaptionIcon(@DrawableRes int resId) {
+        if (resId == 0) {
+            return;
+        }
+        mCaptionIconRes = resId;
+        mCaptionIconView.setImageResource(mCaptionIconRes);
+    }
+
+    /**
+     * 设置右侧描述内容
+     */
+    public void setCaption(String caption) {
+        mCaption = caption;
+        mCaptionView.setText(mCaption);
+    }
+
+    /**
+     * 设置右侧图标
+     */
+    public void setRightIcon(@DrawableRes int resId) {
+        if (resId == 0) {
+            return;
+        }
+        mRightIconRes = resId;
+        mRightIconView.setImageResource(mRightIconRes);
+    }
+
+    /**
+     * 设置底部标书
+     */
+    public void setDescription(String description) {
+        mDescription = description;
+        mDescriptionView.setText(mDescription);
+    }
+
+    /**
+     * 设置激活状态
+     */
+    @Override
+    public void setActivated(boolean activated) {
+        super.setActivated(activated);
+        mRightIconView.setActivated(activated);
+    }
 }
