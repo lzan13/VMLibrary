@@ -145,8 +145,10 @@ public class VMLineView extends RelativeLayout {
      */
     public void setIconRes(@DrawableRes int resId) {
         if (resId == 0) {
+            mIconView.setVisibility(GONE);
             return;
         }
+        mIconView.setVisibility(VISIBLE);
         mIconRes = resId;
         mIconView.setImageResource(mIconRes);
     }
@@ -164,8 +166,10 @@ public class VMLineView extends RelativeLayout {
      */
     public void setCaptionIcon(@DrawableRes int resId) {
         if (resId == 0) {
+            mCaptionIconView.setVisibility(GONE);
             return;
         }
+        mCaptionIconView.setVisibility(VISIBLE);
         mCaptionIconRes = resId;
         mCaptionIconView.setImageResource(mCaptionIconRes);
     }
@@ -183,8 +187,10 @@ public class VMLineView extends RelativeLayout {
      */
     public void setRightIcon(@DrawableRes int resId) {
         if (resId == 0) {
+            mRightIconView.setVisibility(GONE);
             return;
         }
+        mRightIconView.setVisibility(VISIBLE);
         mRightIconRes = resId;
         mRightIconView.setImageResource(mRightIconRes);
     }

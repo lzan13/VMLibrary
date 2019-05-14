@@ -28,7 +28,6 @@ import com.vmloft.develop.library.tools.utils.VMStr;
  */
 public class VMEditView extends RelativeLayout {
 
-    private TextView mHintView;
     // 输入框
     private TextInputEditText mInputView;
     // 清空按钮
@@ -44,8 +43,6 @@ public class VMEditView extends RelativeLayout {
     // 输入模式
     private int mMode;
 
-    // 是否启用输入提示
-    private boolean mEnableHint;
     // 是否启用清空图标也眼睛图标
     private boolean mEnableClear;
     private boolean mEnableEye;
@@ -70,7 +67,6 @@ public class VMEditView extends RelativeLayout {
      */
     private void init(Context context, AttributeSet attrs) {
         LayoutInflater.from(context).inflate(R.layout.vm_widget_edit, this);
-        mHintView = findViewById(R.id.vm_edit_hint_view);
         mInputView = findViewById(R.id.vm_edit_input_view);
         mClearIcon = findViewById(R.id.vm_edit_clear_icon);
         mEyeIcon = findViewById(R.id.vm_edit_eye_icon);
@@ -111,7 +107,6 @@ public class VMEditView extends RelativeLayout {
 
         mMode = array.getInt(R.styleable.VMEditView_vm_edit_mode, mMode);
 
-        mEnableHint = array.getBoolean(R.styleable.VMEditView_vm_enable_hint, mEnableHint);
         mEnableClear = array.getBoolean(R.styleable.VMEditView_vm_enable_clear, mEnableClear);
         mEnableEye = array.getBoolean(R.styleable.VMEditView_vm_enable_eye, mEnableEye);
         mClearRes = array.getResourceId(R.styleable.VMEditView_vm_edit_clear_res, mClearRes);
@@ -128,30 +123,30 @@ public class VMEditView extends RelativeLayout {
         mInputView.setTextColor(mTextColor);
         mInputView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
         mInputView.setHint(mHint);
-        mHintView.setText(mHint);
+        //mHintView.setText(mHint);
         // 设置输入模式
         int inputMode;
         switch (mMode) {
-            case Mode.NUMBER:
-                inputMode = InputType.TYPE_CLASS_NUMBER;
-                break;
-            case Mode.PHONE:
-                inputMode = InputType.TYPE_CLASS_PHONE;
-                break;
-            case Mode.EMAIL:
-                inputMode = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS;
-                break;
-            case Mode.TEXT:
-                inputMode = InputType.TYPE_CLASS_TEXT;
-                break;
-            case Mode.PASSWORD:
-                mEyeIcon.setVisibility(VISIBLE);
-                mInputView.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                inputMode = InputType.TYPE_TEXT_VARIATION_PASSWORD;
-                break;
-            default:
-                inputMode = InputType.TYPE_CLASS_TEXT;
-                break;
+        case Mode.NUMBER:
+            inputMode = InputType.TYPE_CLASS_NUMBER;
+            break;
+        case Mode.PHONE:
+            inputMode = InputType.TYPE_CLASS_PHONE;
+            break;
+        case Mode.EMAIL:
+            inputMode = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS;
+            break;
+        case Mode.TEXT:
+            inputMode = InputType.TYPE_CLASS_TEXT;
+            break;
+        case Mode.PASSWORD:
+            mEyeIcon.setVisibility(VISIBLE);
+            mInputView.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            inputMode = InputType.TYPE_TEXT_VARIATION_PASSWORD;
+            break;
+        default:
+            inputMode = InputType.TYPE_CLASS_TEXT;
+            break;
         }
         mInputView.setInputType(inputMode);
         // 设置图标
@@ -189,12 +184,8 @@ public class VMEditView extends RelativeLayout {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (VMStr.isEmpty(s)) {
-                    mHintView.setVisibility(GONE);
                     mClearIcon.setVisibility(GONE);
                 } else {
-                    if (mEnableHint) {
-                        mHintView.setVisibility(VISIBLE);
-                    }
                     if (mEnableClear) {
                         mClearIcon.setVisibility(VISIBLE);
                     }
@@ -211,10 +202,10 @@ public class VMEditView extends RelativeLayout {
      * 输入模式
      */
     public interface Mode {
-        public static final int NUMBER = 0;
-        public static final int PHONE = 1;
-        public static final int EMAIL = 2;
-        public static final int TEXT = 3;
-        public static final int PASSWORD = 4;
+        int NUMBER = 0;
+        int PHONE = 1;
+        int EMAIL = 2;
+        int TEXT = 3;
+        int PASSWORD = 4;
     }
 }

@@ -143,7 +143,7 @@
             <enum name="password" value="4" />
         </attr>
         <!--是否启用输入提示-->
-        <attr name="vm_enable_hint" format="boolean" />
+        <!--<attr name="vm_enable_hint" format="boolean" />-->
         <!--是否启用清空图标-->
         <attr name="vm_enable_clear" format="boolean" />
         <!--是否启用眼睛图标，密码模式下有效-->

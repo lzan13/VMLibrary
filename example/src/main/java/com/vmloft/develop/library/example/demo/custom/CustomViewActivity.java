@@ -18,7 +18,7 @@ import com.vmloft.develop.library.tools.widget.toast.VMToast;
 public class CustomViewActivity extends AppActivity {
 
     @BindView(R.id.custom_btn_timer) VMTimerBtn mTimerBtn;
-    @BindView(R.id.line_switch) VMLineView mLineView;
+    @BindView(R.id.custom_switch_line) VMLineView mLineView;
 
     @Override
     protected int layoutId() {
@@ -32,7 +32,7 @@ public class CustomViewActivity extends AppActivity {
 
     @OnClick({
         R.id.custom_btn_timer, R.id.btn_toast_1, R.id.btn_toast_2, R.id.btn_toast_3,
-        R.id.line_switch
+        R.id.custom_switch_line
     })
     public void onClick(View view) {
         switch (view.getId()) {
@@ -49,7 +49,7 @@ public class CustomViewActivity extends AppActivity {
         case R.id.btn_toast_3:
             VMToast.make(activity, "测试自定义弹出 Toast 提醒功能，这是错误提醒默认样式！红色的").error();
             break;
-        case R.id.line_switch:
+        case R.id.custom_switch_line:
             if (mLineView.isActivated()) {
                 mLineView.setActivated(false);
             } else {

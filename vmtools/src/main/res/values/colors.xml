@@ -13,25 +13,32 @@
     <color name="vm_white_12">#1effffff</color>
 
     <!--黑色-->
-    <color name="vm_black">#ff363636</color>
-    <color name="vm_black_87">#dd363636</color>
-    <color name="vm_black_54">#89363636</color>
-    <color name="vm_black_38">#61363636</color>
-    <color name="vm_black_12">#1e363636</color>
+    <color name="vm_black">#ff000000</color>
+    <color name="vm_black_87">#dd000000</color>
+    <color name="vm_black_54">#89000000</color>
+    <color name="vm_black_38">#61000000</color>
+    <color name="vm_black_12">#1e000000</color>
+
+    <!--灰黑色-->
+    <color name="vm_gray_black">#ff363636</color>
+    <color name="vm_gray_black_87">#df363636</color>
+    <color name="vm_gray_black_54">#8f363636</color>
+    <color name="vm_gray_black_38">#6f363636</color>
+    <color name="vm_gray_black_12">#1f363636</color>
 
     <!--灰色-->
-    <color name="vm_gray">#ff9E9E9E</color>
-    <color name="vm_gray_87">#dd9E9E9E</color>
-    <color name="vm_gray_54">#899E9E9E</color>
-    <color name="vm_gray_38">#619E9E9E</color>
-    <color name="vm_gray_12">#1e9E9E9E</color>
+    <color name="vm_gray">#ff757575</color>
+    <color name="vm_gray_87">#dd757575</color>
+    <color name="vm_gray_54">#89757575</color>
+    <color name="vm_gray_38">#61757575</color>
+    <color name="vm_gray_12">#1e757575</color>
 
     <!--灰白色-->
-    <color name="vm_gray_white">#ffd6d7d7</color>
-    <color name="vm_gray_white_87">#ddd6d7d7</color>
-    <color name="vm_gray_white_54">#89d6d7d7</color>
-    <color name="vm_gray_white_38">#61d6d7d7</color>
-    <color name="vm_gray_white_12">#1ed6d7d7</color>
+    <color name="vm_gray_white">#ffBDBDBD</color>
+    <color name="vm_gray_white_87">#ddBDBDBD</color>
+    <color name="vm_gray_white_54">#89BDBDBD</color>
+    <color name="vm_gray_white_38">#61BDBDBD</color>
+    <color name="vm_gray_white_12">#1eBDBDBD</color>
 
     <!--红色-->
     <color name="vm_red">#ffF44336</color>
@@ -104,18 +111,18 @@
     <color name="vm_teal_12">#1e009688</color>
 
     <!--绿色-->
-    <color name="vm_green">#ff4CAF50</color>
-    <color name="vm_green_87">#dd4CAF50</color>
-    <color name="vm_green_54">#894CAF50</color>
-    <color name="vm_green_38">#614CAF50</color>
-    <color name="vm_green_12">#1e4CAF50</color>
+    <color name="vm_green">#ff00C853</color>
+    <color name="vm_green_87">#dd00C853</color>
+    <color name="vm_green_54">#8900C853</color>
+    <color name="vm_green_38">#6100C853</color>
+    <color name="vm_green_12">#1e00C853</color>
 
     <!--亮绿色-->
-    <color name="vm_light_green">#ff8BC34A</color>
-    <color name="vm_light_green_87">#dd8BC34A</color>
-    <color name="vm_light_green_54">#898BC34A</color>
-    <color name="vm_light_green_38">#618BC34A</color>
-    <color name="vm_light_green_12">#1e8BC34A</color>
+    <color name="vm_light_green">#ff64DD17</color>
+    <color name="vm_light_green_87">#dd64DD17</color>
+    <color name="vm_light_green_54">#8964DD17</color>
+    <color name="vm_light_green_38">#6164DD17</color>
+    <color name="vm_light_green_12">#1e64DD17</color>
 
     <!--绿黄色-->
     <color name="vm_lime">#ffCDDC39</color>
