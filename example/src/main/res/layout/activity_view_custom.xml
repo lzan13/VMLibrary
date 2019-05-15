@@ -121,7 +121,6 @@
                 android:id="@+id/custom_switch_line"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/vm_click_full_transparent"
                 app:vm_line_icon="@drawable/ic_menu_manage"
                 app:vm_line_right_icon="@drawable/switch_selector"
                 app:vm_line_title="设置选项"
@@ -140,7 +139,6 @@
             <com.vmloft.develop.library.tools.widget.VMLineView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/vm_click_full_transparent"
                 app:vm_line_caption="多控件描述 1"
                 app:vm_line_caption_icon="@drawable/ic_menu_camera"
                 app:vm_line_decoration="true"
@@ -150,7 +148,6 @@
             <com.vmloft.develop.library.tools.widget.VMLineView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/vm_click_full_transparent"
                 app:vm_line_caption="多控件描述 2"
                 app:vm_line_caption_icon="@drawable/ic_menu_camera"
                 app:vm_line_decoration="true"
@@ -162,7 +159,6 @@
             <com.vmloft.develop.library.tools.widget.VMLineView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/vm_click_full_transparent"
                 app:vm_line_caption="多控件描述 3"
                 app:vm_line_caption_icon="@drawable/ic_menu_camera"
                 app:vm_line_decoration="false"
