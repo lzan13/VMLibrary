@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/vm_pick_grid_camera_rl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/vm_gray_black_54"
+    android:gravity="center"
+    android:orientation="vertical"
+    >
+
+    <ImageView
+        android:layout_width="@dimen/vm_dimen_36"
+        android:layout_height="@dimen/vm_dimen_36"
+        android:src="@drawable/vm_ic_camera"
+        android:tint="@color/vm_white_54"
+        />
+    <TextView
+        android:text="@string/vm_camera"
+        android:textColor="@color/vm_white_54"
+        style="@style/VMText.Subhead"
+        />
+
+</LinearLayout>

@@ -1,8 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.vmloft.develop.library.picker">
 
-    <!-- 在SDCard中创建与删除文件权限 -->
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <!-- 往SDCard写入数据权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- 从SDCard读取数据权限 -->
@@ -11,34 +9,31 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application>
-        <activity android:name=".ui.ImageBaseActivity" />
+        <!--选择器界面-->
         <activity
-            android:name=".ui.ImageGridActivity"
+            android:name="com.vmloft.develop.library.tools.picker.ui.VMPickGridActivity"
             android:configChanges="orientation|screenSize"
-            android:theme="@style/ImagePickerTheme" />
+            android:theme="@style/VMTheme" />
+        <!--剪切界面-->
         <activity
-            android:name=".ui.ImageCropActivity"
+            android:name="com.vmloft.develop.library.tools.picker.ui.VMPickCropActivity"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="false"
-            android:theme="@style/ImagePickerTheme" />
+            android:theme="@style/VMTheme" />
+        <!--预览界面-->
         <activity
-            android:name=".ui.ImagePreviewActivity"
+            android:name="com.vmloft.develop.library.tools.picker.ui.VMPickPreviewActivity"
             android:configChanges="orientation|screenSize"
-            android:theme="@style/ImagePickerThemeFullScreen" />
-
-        <activity
-            android:name=".ui.ImagePreviewDelActivity"
-            android:configChanges="orientation|screenSize"
-            android:theme="@style/ImagePickerThemeFullScreen" />
+            android:theme="@style/VMTheme.Transparent" />
 
         <provider
-            android:name=".ImagePickerProvider"
+            android:name="com.vmloft.develop.library.tools.picker.VMPickerProvider"
             android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
+                android:resource="@xml/vm_provider_paths" />
         </provider>
 
     </application>

@@ -1,0 +1,80 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/vm_theme_background"
+    android:orientation="vertical"
+    tools:context=".picker.ui.VMPickGridActivity"
+    >
+
+    <include layout="@layout/vm_pick_title_bar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/vm_pick_grid_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/vm_dimen_48"
+            />
+
+        <RelativeLayout
+            android:id="@+id/vm_pick_grid_bottom_bar_rl"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/vm_dimen_48"
+            android:layout_alignParentBottom="true"
+            android:background="@color/vm_gray_black_87"
+            >
+
+            <RelativeLayout
+                android:id="@+id/vm_pick_grid_choose_folder_rl"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                >
+
+                <TextView
+                    android:id="@+id/vm_pick_grid_choose_folder_tv"
+                    android:layout_centerVertical="true"
+                    android:ellipsize="end"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="@string/ip_all_images"
+                    android:textColor="@color/vm_white_87"
+                    style="@style/VMText.Menu"
+                    />
+
+                <ImageView
+                    android:layout_width="@dimen/vm_dimen_12"
+                    android:layout_height="@dimen/vm_dimen_12"
+                    android:layout_alignBottom="@id/vm_pick_grid_choose_folder_tv"
+                    android:layout_toRightOf="@id/vm_pick_grid_choose_folder_tv"
+                    android:src="@drawable/vm_ic_triangle_indicator"
+                    android:tint="@color/vm_white_54"
+                    />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/vm_pick_grid_preview_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:background="@null"
+                android:gravity="center"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="预览"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                />
+
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <ImageView
+        android:id="@+id/vm_pick_grid_item_thumb_iv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/vm_gray_black_54"
+        android:scaleType="centerCrop"
+        />
+
+    <View
+        android:id="@+id/vm_pick_grid_item_mask_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/vm_gray_black_38"
+        android:visibility="gone"
+        />
+
+    <LinearLayout
+        android:id="@+id/vm_pick_grid_item_check_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:clickable="true"
+        android:descendantFocusability="blocksDescendants"
+        android:gravity="end|top"
+        android:paddingBottom="@dimen/vm_dimen_20"
+        android:paddingEnd="@dimen/vm_padding_normal"
+        android:paddingStart="@dimen/vm_dimen_20"
+        android:paddingTop="@dimen/vm_padding_normal"
+        >
+
+        <CheckBox
+            android:id="@+id/vm_pick_grid_item_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:duplicateParentState="true"
+            android:enabled="false"
+            android:focusable="false"
+            style="@style/VMCheckBox"
+            />
+    </LinearLayout>
+</RelativeLayout>

@@ -68,45 +68,21 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <TextView
-                        style="@style/VMText.Menu"
-                        android:text="选择限制:"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv_select_limit"
-                        style="@style/VMText.Body1"
-                        android:text="9"
-                        android:textStyle="bold" />
-
-                    <SeekBar
-                        android:id="@+id/sb_select_limit"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/vm_margin_large"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
                     <CheckBox
-                        android:id="@+id/cb_show_camera"
+                        android:id="@+id/pick_show_camera_cb"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="显示相机(Show Camera)" />
 
                     <CheckBox
-                        android:id="@+id/cb_crop"
+                        android:id="@+id/pick_crop_cb"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="裁剪(Crop)" />
                 </LinearLayout>
 
                 <CheckBox
-                    android:id="@+id/cb_isSaveRectangle"
+                    android:id="@+id/pick_save_rectangle_cb"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="是否按矩形区域保存裁剪图片" />
@@ -198,14 +174,14 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/btn_open_gallery"
+                    android:id="@+id/pick_picture_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Open Gallery"
                     android:textAllCaps="false" />
 
                 <ImageView
-                    android:id="@+id/testImage"
+                    android:id="@+id/pick_test_iv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 

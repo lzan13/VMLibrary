@@ -1,0 +1,68 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/vm_gray_black"
+    tools:context=".picker.ui.VMPickPreviewActivity"
+    >
+
+    <com.vmloft.develop.library.tools.widget.VMViewPager
+        android:id="@+id/vm_pick_preview_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <include layout="@layout/vm_pick_title_bar" />
+
+    <LinearLayout
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#cc22292c"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            >
+
+            <CheckBox
+                android:id="@+id/cb_origin"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/vm_dimen_12"
+                android:paddingStart="@dimen/vm_padding_normal"
+                android:text="原图(3.07M)"
+                android:textColor="#FFF"
+                android:visibility="invisible"
+                style="@style/VMCheckBox"
+                />
+
+            <CheckBox
+                android:id="@+id/vm_pick_grid_item_cb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/vm_margin_large"
+                android:drawablePadding="@dimen/vm_padding_small"
+                android:includeFontPadding="true"
+                android:paddingStart="@dimen/vm_padding_normal"
+                android:text="选择"
+                android:textColor="#ffffff"
+                style="@style/VMCheckBox"
+                />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/margin_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/vm_black_54"
+            />
+    </LinearLayout>
+</RelativeLayout>

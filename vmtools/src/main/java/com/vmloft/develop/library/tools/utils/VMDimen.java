@@ -160,7 +160,7 @@ public class VMDimen {
     /**
      * 判断是否有虚拟导航栏NavigationBar，
      */
-    private static boolean hasNavigationBar() {
+    public static boolean hasNavigationBar() {
         boolean hasNavigationBar = false;
         Resources rs = VMTools.getContext().getResources();
         int id = rs.getIdentifier("config_showNavigationBar", "bool", "android");

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/vm_click_full_transparent"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    >
+
+    <ImageView
+        android:id="@+id/vm_pick_folder_cover_iv"
+        android:layout_width="@dimen/vm_dimen_56"
+        android:layout_height="@dimen/vm_dimen_56"
+        android:layout_margin="@dimen/vm_margin_normal"
+        android:scaleType="centerCrop"
+        />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/vm_pick_folder_name_tv"
+            tools:text="@string/ip_all_images"
+            style="@style/VMText.Subhead"
+            />
+
+        <TextView
+            android:id="@+id/vm_pick_folder_count_tv"
+            android:layout_marginTop="@dimen/vm_margin_small"
+            tools:text="56 张"
+            style="@style/VMText.Caption"
+            />
+    </LinearLayout>
+
+    <RadioButton
+        android:id="@+id/vm_pick_folder_rb"
+        android:layout_width="@dimen/vm_dimen_24"
+        android:layout_height="@dimen/vm_dimen_24"
+        android:layout_marginEnd="@dimen/vm_margin_large"
+        android:layout_marginStart="@dimen/vm_margin_normal"
+        android:clickable="false"
+        android:enabled="false"
+        style="@style/VMRadio"
+        />
+</LinearLayout>
