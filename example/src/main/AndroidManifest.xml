@@ -76,6 +76,8 @@
 
         <!--图片识别-->
         <activity android:name=".demo.image.ImageDiscernActivity" />
+        <!--图片选择器-->
+        <activity android:name=".demo.picker.PickerActivity" />
 
     </application>
 </manifest>

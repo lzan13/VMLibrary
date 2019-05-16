@@ -38,7 +38,7 @@ public class MainActivity extends AppActivity {
         setSupportActionBar(getToolbar());
 
         String[] btnArray = {
-            "工具", "描点控件", "详情控件", "自定义控件", "录制屏幕", "声音播放", "按钮样式", "弹出窗口", "Web 功能", "指示器", "识别验证码",
+            "工具", "描点控件", "详情控件", "自定义控件", "录制屏幕", "声音播放", "按钮样式", "弹出窗口", "Web 功能", "指示器", "识别验证码", "图片选择器",
             "单权限申请", "多权限申请"
         };
         for (int i = 0; i < btnArray.length; i++) {
@@ -90,9 +90,12 @@ public class MainActivity extends AppActivity {
                 ARouter.goImageDiscern(activity);
                 break;
             case CLICK_START_ID + 11:
-                checkOnePermissions();
+                ARouter.goPicker(activity);
                 break;
             case CLICK_START_ID + 12:
+                checkOnePermissions();
+                break;
+            case CLICK_START_ID + 13:
                 checkPermissions();
                 break;
             default:

@@ -9,6 +9,7 @@ import com.vmloft.develop.library.example.demo.details.DetailsActivity;
 import com.vmloft.develop.library.example.demo.dialog.PWDialogActivity;
 import com.vmloft.develop.library.example.demo.image.ImageDiscernActivity;
 import com.vmloft.develop.library.example.demo.indicator.IndicatorActivity;
+import com.vmloft.develop.library.example.demo.picker.PickerActivity;
 import com.vmloft.develop.library.example.demo.screen.RecordScreenActivity;
 import com.vmloft.develop.library.example.demo.style.BtnStyleActivity;
 import com.vmloft.develop.library.example.demo.web.WebActivity;
@@ -93,4 +94,12 @@ public class ARouter extends VMRouter {
     public static void goImageDiscern(Context context) {
         overlay(context, ImageDiscernActivity.class);
     }
+
+    /**
+     * 图片选择器
+     */
+    public static void goPicker(Context context) {
+        overlay(context, PickerActivity.class);
+    }
+
 }

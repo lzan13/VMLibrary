@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg"
+    android:fitsSystemWindows="true"
+    tools:context=".demo.indicator.IndicatorActivity">
+
+    <include layout="@layout/widget_common_appbar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/vm_margin_large"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/VMText.Menu"
+                        android:text="选择模式:"
+                        android:textStyle="bold" />
+
+                    <RadioGroup
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/rb_single_select"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="单选" />
+
+                        <RadioButton
+                            android:id="@+id/rb_muti_select"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="多选" />
+
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/vm_margin_large"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/VMText.Menu"
+                        android:text="选择限制:"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_select_limit"
+                        style="@style/VMText.Body1"
+                        android:text="9"
+                        android:textStyle="bold" />
+
+                    <SeekBar
+                        android:id="@+id/sb_select_limit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/vm_margin_large"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/cb_show_camera"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="显示相机(Show Camera)" />
+
+                    <CheckBox
+                        android:id="@+id/cb_crop"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="裁剪(Crop)" />
+                </LinearLayout>
+
+                <CheckBox
+                    android:id="@+id/cb_isSaveRectangle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="是否按矩形区域保存裁剪图片" />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#6476ed"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rb_crop_square"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="矩形"
+                        android:textSize="12sp" />
+
+                    <EditText
+                        android:id="@+id/et_crop_width"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="Width"
+                        android:inputType="number"
+                        android:minWidth="50dp"
+                        android:textSize="12sp" />
+
+                    <EditText
+                        android:id="@+id/et_crop_height"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="Height"
+                        android:inputType="number"
+                        android:minWidth="50dp"
+                        android:textSize="12sp" />
+
+                    <RadioButton
+                        android:id="@+id/rb_crop_circle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="圆形"
+                        android:textSize="12sp" />
+
+                    <EditText
+                        android:id="@+id/et_crop_radius"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="Radius"
+                        android:inputType="number"
+                        android:minWidth="50dp"
+                        android:textSize="12sp" />
+                </RadioGroup>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/vm_margin_large"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="图片保存宽:"
+                        android:textColor="#000" />
+
+                    <EditText
+                        android:id="@+id/et_outputx"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="Width"
+                        android:inputType="number"
+                        android:minWidth="50dp"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="图片保存高:"
+                        android:textColor="#000" />
+
+                    <EditText
+                        android:id="@+id/et_outputy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="Height"
+                        android:inputType="number"
+                        android:minWidth="50dp"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_open_gallery"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Open Gallery"
+                    android:textAllCaps="false" />
+
+                <ImageView
+                    android:id="@+id/testImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <com.vmloft.develop.library.tools.widget.VMViewGroup
+                    android:id="@+id/view_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <Button
+                    android:id="@+id/btn_wxDemo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="完全仿微信Demo" />
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
