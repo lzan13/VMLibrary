@@ -1,11 +1,13 @@
 package com.vmloft.develop.library.tools.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,14 +16,29 @@ import java.util.List;
  */
 public abstract class VMAdapter<T, VH extends VMHolder> extends RecyclerView.Adapter<VH> {
 
-    private ICListener listener;
+    protected Activity mActivity;
+    protected Context mContext;
+    protected LayoutInflater mInflater;
 
-    protected LayoutInflater inflater;
-    protected List<T> dataList;
+    /**
+     * Item 点击回调
+     */
+    protected IClickListener mListener;
+    /**
+     * 适配器数据源
+     */
+    protected List<T> mDataList;
 
     public VMAdapter(Context context, List<T> list) {
-        dataList = list;
-        inflater = LayoutInflater.from(context);
+        mActivity = (Activity) context;
+        mContext = context;
+        mInflater = LayoutInflater.from(context);
+
+        if (list == null || list.size() == 0) {
+            this.mDataList = new ArrayList<>();
+        } else {
+            this.mDataList = list;
+        }
     }
 
     @Override
@@ -30,17 +47,16 @@ public abstract class VMAdapter<T, VH extends VMHolder> extends RecyclerView.Ada
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (listener != null) {
-                    listener.onItemAction(position, data);
+                if (mListener != null) {
+                    mListener.onItemAction(position, data);
                 }
             }
         });
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if (listener != null) {
-                    listener.onItemLongAction(position, data);
-                    return true;
+                if (mListener != null) {
+                    return mListener.onItemLongAction(position, data);
                 }
                 return false;
             }
@@ -51,36 +67,49 @@ public abstract class VMAdapter<T, VH extends VMHolder> extends RecyclerView.Ada
      * 获取当前位置数据
      */
     public T getItemData(int position) {
-        return dataList.get(position);
-    }
-
-    @Override
-    public int getItemCount() {
-        return dataList.size();
+        if (position < getItemCount()) {
+            return mDataList.get(position);
+        }
+        return null;
     }
 
     /**
-     * 刷新方法
+     * 获取当前数据源数量
      */
-    public void refresh() {
+    @Override
+    public int getItemCount() {
+        return mDataList.size();
+    }
+
+    /**
+     * 刷新数据方法
+     */
+    public void refresh(List<T> list) {
+        if (list == null || list.size() == 0) {
+            mDataList.clear();
+        } else {
+            mDataList.clear();
+            mDataList.addAll(list);
+        }
         notifyDataSetChanged();
     }
+
 
     /**
      * 设置 Item 点击监听
      */
-    public void setItemClickListener(ICListener listener) {
-        this.listener = listener;
+    public void setClickListener(IClickListener listener) {
+        this.mListener = listener;
     }
 
     /**
      * Item 点击监听接口
      */
-    public static interface ICListener {
+    public static interface IClickListener {
 
         void onItemAction(int action, Object object);
 
-        void onItemLongAction(int action, Object object);
+        boolean onItemLongAction(int action, Object object);
     }
 }
 

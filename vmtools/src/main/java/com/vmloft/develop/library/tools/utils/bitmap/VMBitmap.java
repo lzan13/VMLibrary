@@ -3,11 +3,13 @@ package com.vmloft.develop.library.tools.utils.bitmap;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.util.Base64;
 import android.view.View;
 
 import com.vmloft.develop.library.tools.utils.VMFile;
 import com.vmloft.develop.library.tools.utils.VMLog;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
@@ -55,7 +57,7 @@ public class VMBitmap {
     /**
      * 获取图片文件的缩略图
      *
-     * @param path 图片文件路径
+     * @param path      图片文件路径
      * @param dimension 设置缩略图最大尺寸
      * @return 返回压缩后的缩略图
      */
@@ -89,7 +91,7 @@ public class VMBitmap {
     /**
      * 通过文件加载图片，这里也可以加载大图，保证不会出现 OOM，
      *
-     * @param path 要压缩的图片路径
+     * @param path      要压缩的图片路径
      * @param dimension 定义压缩后的最大尺寸
      * @return 返回经过压缩处理的图片
      */
@@ -100,9 +102,9 @@ public class VMBitmap {
     /**
      * 获取最佳缩放比例
      *
-     * @param actualWidth Bitmap的实际宽度
+     * @param actualWidth  Bitmap的实际宽度
      * @param actualHeight Bitmap的实际高度
-     * @param dimension 定义压缩后最大尺寸
+     * @param dimension    定义压缩后最大尺寸
      * @return 返回最佳缩放比例
      */
     public static int getZoomScale(int actualWidth, int actualHeight, int dimension) {
@@ -141,13 +143,61 @@ public class VMBitmap {
     }
 
     /**
+     * 获取图片的旋转角度
+     *
+     * @param path 图片绝对路径
+     * @return 图片的旋转角度
+     */
+    public static int getBitmapDegree(String path) {
+        int degree = 0;
+        try {
+            // 从指定路径下读取图片，并获取其EXIF信息
+            ExifInterface exifInterface = new ExifInterface(path);
+            // 获取图片的旋转信息
+            int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+            switch (orientation) {
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    degree = 90;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    degree = 180;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    degree = 270;
+                    break;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return degree;
+    }
+
+    /**
+     * 将图片按照指定的角度进行旋转
+     *
+     * @param bitmap 需要旋转的图片
+     * @param degree 指定的旋转角度
+     * @return 旋转后的图片
+     */
+    public static Bitmap rotateBitmap(Bitmap bitmap, int degree) {
+        // 根据旋转角度，生成旋转矩阵
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degree);
+        // 将原始图片按照旋转矩阵进行旋转，并得到新的图片
+        Bitmap newBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+        if (!bitmap.isRecycled()) {
+            bitmap.recycle();
+        }
+        return newBitmap;
+    }
+    /**
      * -------------------- 图片压缩处理 --------------------
      */
 
     /**
      * 通过矩阵压缩 Bitmap 到指定尺寸
      *
-     * @param bitmap 需要压缩的 Bitmap
+     * @param bitmap    需要压缩的 Bitmap
      * @param dimension 图片压缩后最大宽高
      * @return 返回压缩后的 Bitmap
      */
@@ -170,7 +220,7 @@ public class VMBitmap {
      * 通过矩阵按比例压缩 Bitmap
      *
      * @param bitmap 需要压缩的 Bitmap
-     * @param scale 图片压缩比率(0-1)
+     * @param scale  图片压缩比率(0-1)
      * @return 返回压缩后的 Bitmap
      */
     public static Bitmap compressBitmapByScale(Bitmap bitmap, int scale) {
@@ -212,7 +262,7 @@ public class VMBitmap {
      * 质量压缩到指定大小
      *
      * @param bitmap 原图
-     * @param size 指定大小
+     * @param size   指定大小
      */
     private static Bitmap compressByQuality(Bitmap bitmap, int size) {
         maxSize = size;
@@ -246,7 +296,7 @@ public class VMBitmap {
     /**
      * 等比例压缩到指定尺寸大小
      *
-     * @param path 图片路径
+     * @param path      图片路径
      * @param dimension 最大尺寸
      */
     private static Bitmap compressByDimension(String path, int dimension) {
@@ -276,7 +326,7 @@ public class VMBitmap {
     /**
      * 临时压缩图片到指定尺寸
      *
-     * @param path 原始路径
+     * @param path      原始路径
      * @param dimension 最大尺寸
      */
     public static String compressTempImageByDimension(String path, int dimension) throws IOException {
@@ -298,9 +348,9 @@ public class VMBitmap {
     /**
      * 临时压缩图片到指定尺寸和大小
      *
-     * @param path 原始路径
+     * @param path      原始路径
      * @param dimension 最大尺寸
-     * @param size 最大大小
+     * @param size      最大大小
      */
     public static String compressTempImage(String path, int dimension, int size) throws IOException {
         maxDimension = dimension;
@@ -336,7 +386,7 @@ public class VMBitmap {
      * 保存Bitmap到SD卡
      *
      * @param bitmap 需要保存的图片数据
-     * @param path 保存路径
+     * @param path   保存路径
      */
     public static void saveBitmapToSDCard(Bitmap bitmap, String path) throws IOException {
         VMLog.d("saveBitmapToSDCard start");

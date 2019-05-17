@@ -64,7 +64,7 @@ public class VMFile {
     /**
      * 创建新文件
      */
-    public static boolean createFile(String filepath) {
+    public static File createFile(String filepath) {
         boolean isSuccess = false;
         File file = new File(filepath);
         // 判断文件上层目录是否存在，不存在则首先创建目录
@@ -76,32 +76,45 @@ public class VMFile {
                 isSuccess = file.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
+                return null;
             }
         }
-        return isSuccess;
+        if (isSuccess) {
+            return file;
+        }
+        return null;
+    }
+
+    /**
+     * 创建新文件，外部传入前缀和后缀
+     */
+    public static File createFile(String path, String prefix, String suffix) {
+        createDirectory(path);
+        String filename = prefix + VMDate.filenameDateTime() + suffix;
+        return createFile(filename);
     }
 
     /**
      * 复制文件
      *
-     * @param srcPath 源文件地址
-     * @param filepath2 目标文件地址
+     * @param srcPath  源文件地址
+     * @param destPath 目标文件地址
      * @return 返回复制结果
      */
-    public static boolean copyFile(String srcPath, String filepath2) {
-        File file1 = new File(srcPath);
-        if (!file1.exists()) {
+    public static File copyFile(String srcPath, String destPath) {
+        File srcFile = new File(srcPath);
+        if (!srcFile.exists()) {
             VMLog.e("源文件不存在，无法完成复制");
-            return false;
+            return null;
         }
-        File file2 = new File(filepath2);
-        VMLog.i(file2.getParent());
-        if (!isDirExists(file2.getParent())) {
-            createDirectory(file2.getParent());
+        File destFile = new File(destPath);
+        VMLog.i(destFile.getParent());
+        if (!isDirExists(destFile.getParent())) {
+            createDirectory(destFile.getParent());
         }
         try {
-            InputStream inputStream = new FileInputStream(file1);
-            FileOutputStream outputStream = new FileOutputStream(filepath2);
+            InputStream inputStream = new FileInputStream(srcFile);
+            FileOutputStream outputStream = new FileOutputStream(destPath);
             byte[] buff = new byte[1024];
             int len = 0;
             while ((len = inputStream.read(buff)) != -1) {
@@ -109,13 +122,13 @@ public class VMFile {
             }
             inputStream.close();
             outputStream.close();
+            return destFile;
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            VMLog.e("拷贝文件出错：" + e);
         } catch (IOException e) {
             VMLog.e("拷贝文件出错：" + e);
-            return false;
         }
-        return true;
+        return null;
     }
 
     /**
@@ -221,7 +234,7 @@ public class VMFile {
     /**
      * 递归删除文件夹内的文件
      *
-     * @param path 需要操作的路径
+     * @param path           需要操作的路径
      * @param deleteThisPath 删除自己
      */
     public static void deleteFolderFile(String path, boolean deleteThisPath) {
@@ -374,7 +387,7 @@ public class VMFile {
      */
     public static String getDCIM() {
         return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
-            .getAbsolutePath() + "/";
+                .getAbsolutePath() + "/";
     }
 
     /**
@@ -384,7 +397,7 @@ public class VMFile {
      */
     public static String getDownload() {
         return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-            .getAbsolutePath() + "/";
+                .getAbsolutePath() + "/";
     }
 
     /**
@@ -394,7 +407,7 @@ public class VMFile {
      */
     public static String getMusic() {
         return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)
-            .getAbsolutePath() + "/";
+                .getAbsolutePath() + "/";
     }
 
     /**
@@ -404,7 +417,7 @@ public class VMFile {
      */
     public static String getMovies() {
         return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES)
-            .getAbsolutePath() + "/";
+                .getAbsolutePath() + "/";
     }
 
     /**
@@ -412,7 +425,7 @@ public class VMFile {
      */
     public static String getPictures() {
         return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-            .getAbsolutePath() + "/";
+                .getAbsolutePath() + "/";
     }
 
     /**
@@ -472,7 +485,7 @@ public class VMFile {
                 // DownloadsProvider
                 final String id = DocumentsContract.getDocumentId(uri);
                 final Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long
-                    .valueOf(id));
+                        .valueOf(id));
 
                 return getDataColumn(VMTools.getContext(), contentUri, null, null);
             } else if (isMediaDocument(uri)) {
@@ -491,7 +504,7 @@ public class VMFile {
                 }
 
                 final String selection = "_id=?";
-                final String[] selectionArgs = new String[] { split[1] };
+                final String[] selectionArgs = new String[]{split[1]};
 
                 return getDataColumn(VMTools.getContext(), contentUri, selection, selectionArgs);
             }
@@ -516,9 +529,9 @@ public class VMFile {
      * Get the value of the data column for this Uri. This is useful for
      * MediaStore Uris, and other file-based ContentProviders.
      *
-     * @param context The context.
-     * @param uri The Uri to query.
-     * @param selection (Optional) Filter used in the query.
+     * @param context       The context.
+     * @param uri           The Uri to query.
+     * @param selection     (Optional) Filter used in the query.
      * @param selectionArgs (Optional) Selection arguments used in the query.
      * @return The value of the _data column, which is typically a file path.
      */
@@ -526,11 +539,11 @@ public class VMFile {
 
         Cursor cursor = null;
         final String column = "_data";
-        final String[] projection = { column };
+        final String[] projection = {column};
 
         try {
             cursor = context.getContentResolver()
-                .query(uri, projection, selection, selectionArgs, null);
+                    .query(uri, projection, selection, selectionArgs, null);
             if (cursor != null && cursor.moveToFirst()) {
                 final int index = cursor.getColumnIndexOrThrow(column);
                 return cursor.getString(index);

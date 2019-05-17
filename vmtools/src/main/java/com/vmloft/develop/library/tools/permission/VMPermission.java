@@ -39,7 +39,7 @@ public class VMPermission {
     /**
      * 内部类实现单例
      */
-    private static class VMPermissionHolder {
+    private static class InnerHolder {
         public static final VMPermission INSTANCE = new VMPermission();
     }
 
@@ -48,7 +48,7 @@ public class VMPermission {
      */
     public static final VMPermission getInstance(Context context) {
         mContext = context;
-        return VMPermissionHolder.INSTANCE;
+        return InnerHolder.INSTANCE;
     }
 
     /**

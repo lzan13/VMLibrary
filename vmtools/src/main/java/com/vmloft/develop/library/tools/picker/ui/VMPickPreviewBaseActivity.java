@@ -8,25 +8,22 @@ import android.widget.TextView;
 
 import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.picker.DataHolder;
+import com.vmloft.develop.library.tools.picker.VMPicker;
 import com.vmloft.develop.library.tools.picker.adapter.VMPreviewPageAdapter;
 import com.vmloft.develop.library.tools.picker.bean.VMPictureBean;
 import com.vmloft.develop.library.tools.widget.VMViewPager;
 
 import com.vmloft.develop.library.tools.utils.VMDimen;
+
 import java.util.ArrayList;
 
 /**
- * ================================================
- * 作    者：jeasonlzy（廖子尧 Github地址：https://github.com/jeasonlzy0216
- * 版    本：1.0
- * 创建日期：2016/5/19
- * 描    述：
- * 修订历史：图片预览的基类
- * ================================================
+ * Create by lzan13 on 2019/05/17
+ *
+ * 图片预览基类
  */
 public abstract class VMPickPreviewBaseActivity extends VMPickBaseActivity {
 
-    protected com.vmloft.develop.library.tools.picker.VMPicker VMPicker;
     protected ArrayList<VMPictureBean> mVMPictureBeans;      //跳转进ImagePreviewFragment的图片文件夹
     protected int mCurrentPosition = 0;              //跳转进ImagePreviewFragment时的序号，第几个图片
     protected TextView mTitleCount;                  //显示当前图片的位置  例如  5/31
@@ -39,7 +36,7 @@ public abstract class VMPickPreviewBaseActivity extends VMPickBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pick_preview);
+        setContentView(R.layout.vm_activity_pick_preview);
 
         mCurrentPosition = getIntent().getIntExtra(VMPicker.EXTRA_SELECTED_IMAGE_POSITION, 0);
         isFromItems = getIntent().getBooleanExtra(VMPicker.EXTRA_FROM_ITEMS, false);
@@ -52,8 +49,7 @@ public abstract class VMPickPreviewBaseActivity extends VMPickBaseActivity {
             mVMPictureBeans = (ArrayList<VMPictureBean>) DataHolder.getInstance().retrieve(DataHolder.DH_CURRENT_IMAGE_FOLDER_ITEMS);
         }
 
-        VMPicker = VMPicker.getInstance();
-        selectedImages = VMPicker.getSelectedImages();
+        selectedImages = VMPicker.getInstance().getSelectedImages();
 
         //因为状态栏透明后，布局整体会上移，所以给头部加上状态栏的margin值，保证头部不会被覆盖
         topBar = findViewById(R.id.vm_pick_common_title_container);
@@ -85,10 +81,12 @@ public abstract class VMPickPreviewBaseActivity extends VMPickBaseActivity {
 
         //初始化当前页面的状态
         mTitleCount.setText(getString(R.string.ip_preview_image_count, mCurrentPosition + 1, mVMPictureBeans
-            .size()));
+                .size()));
     }
 
-    /** 单击时，隐藏头和尾 */
+    /**
+     * 单击时，隐藏头和尾
+     */
     public abstract void onImageSingleTap();
 
     @Override

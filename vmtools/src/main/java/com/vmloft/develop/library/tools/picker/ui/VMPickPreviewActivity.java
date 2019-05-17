@@ -21,13 +21,9 @@ import com.vmloft.develop.library.tools.picker.util.NavigationBarChangeListener;
 import com.vmloft.develop.library.tools.utils.VMDimen;
 
 /**
- * ================================================
- * 作    者：jeasonlzy（廖子尧 Github地址：https://github.com/jeasonlzy0216
- * 版    本：1.0
- * 创建日期：2016/5/19
- * 描    述：
- * 修订历史：
- * ================================================
+ * Create by lzan13 on 2019/05/17
+ *
+ * 图片预览界面
  */
 public class VMPickPreviewActivity extends VMPickPreviewBaseActivity implements VMPicker.OnImageSelectedListener, View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
@@ -43,9 +39,9 @@ public class VMPickPreviewActivity extends VMPickPreviewBaseActivity implements 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        VMPicker.getInstance().addOnImageSelectedListener(this);
 
         isOrigin = getIntent().getBooleanExtra(VMPickPreviewActivity.ISORIGIN, false);
-        VMPicker.addOnImageSelectedListener(this);
         mBtnOk = findViewById(R.id.vm_common_ok_btn);
         mBtnOk.setVisibility(View.VISIBLE);
         mBtnOk.setOnClickListener(this);
@@ -63,9 +59,9 @@ public class VMPickPreviewActivity extends VMPickPreviewBaseActivity implements 
         //初始化当前页面的状态
         onImageSelected(0, null, false);
         VMPictureBean item = mVMPictureBeans.get(mCurrentPosition);
-        boolean isSelected = VMPicker.isSelect(item);
+        boolean isSelected = VMPicker.getInstance().isSelect(item);
         mTitleCount.setText(getString(R.string.ip_preview_image_count, mCurrentPosition + 1, mVMPictureBeans
-            .size()));
+                .size()));
         mCbCheck.setChecked(isSelected);
         //滑动ViewPager的时候，根据外界的数据改变当前的选中状态和当前的图片的位置描述文本
         mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -73,10 +69,10 @@ public class VMPickPreviewActivity extends VMPickPreviewBaseActivity implements 
             public void onPageSelected(int position) {
                 mCurrentPosition = position;
                 VMPictureBean item = mVMPictureBeans.get(mCurrentPosition);
-                boolean isSelected = VMPicker.isSelect(item);
+                boolean isSelected = VMPicker.getInstance().isSelect(item);
                 mCbCheck.setChecked(isSelected);
                 mTitleCount.setText(getString(R.string.ip_preview_image_count, mCurrentPosition + 1, mVMPictureBeans
-                    .size()));
+                        .size()));
             }
         });
         //当点击当前选中按钮的时候，需要根据当前的选中状态添加和移除图片
@@ -84,47 +80,47 @@ public class VMPickPreviewActivity extends VMPickPreviewBaseActivity implements 
             @Override
             public void onClick(View v) {
                 VMPictureBean VMPictureBean = mVMPictureBeans.get(mCurrentPosition);
-                int selectLimit = VMPicker.getSelectLimit();
+                int selectLimit = VMPicker.getInstance().getSelectLimit();
                 if (mCbCheck.isChecked() && selectedImages.size() >= selectLimit) {
                     Toast.makeText(VMPickPreviewActivity.this, getString(R.string.ip_select_limit, selectLimit), Toast.LENGTH_SHORT)
-                        .show();
+                            .show();
                     mCbCheck.setChecked(false);
                 } else {
-                    VMPicker.addSelectedImageItem(mCurrentPosition, VMPictureBean, mCbCheck.isChecked());
+                    VMPicker.getInstance().addSelectedImageItem(mCurrentPosition, VMPictureBean, mCbCheck.isChecked());
                 }
             }
         });
         NavigationBarChangeListener.with(this)
-            .setListener(new NavigationBarChangeListener.OnSoftInputStateChangeListener() {
-                @Override
-                public void onNavigationBarShow(int orientation, int height) {
-                    marginView.setVisibility(View.VISIBLE);
-                    ViewGroup.LayoutParams layoutParams = marginView.getLayoutParams();
-                    if (layoutParams.height == 0) {
-                        layoutParams.height = VMDimen.getNavigationBarHeight();
-                        marginView.requestLayout();
+                .setListener(new NavigationBarChangeListener.OnSoftInputStateChangeListener() {
+                    @Override
+                    public void onNavigationBarShow(int orientation, int height) {
+                        marginView.setVisibility(View.VISIBLE);
+                        ViewGroup.LayoutParams layoutParams = marginView.getLayoutParams();
+                        if (layoutParams.height == 0) {
+                            layoutParams.height = VMDimen.getNavigationBarHeight();
+                            marginView.requestLayout();
+                        }
                     }
-                }
 
-                @Override
-                public void onNavigationBarHide(int orientation) {
-                    marginView.setVisibility(View.GONE);
-                }
-            });
+                    @Override
+                    public void onNavigationBarHide(int orientation) {
+                        marginView.setVisibility(View.GONE);
+                    }
+                });
         NavigationBarChangeListener.with(this, NavigationBarChangeListener.ORIENTATION_HORIZONTAL)
-            .setListener(new NavigationBarChangeListener.OnSoftInputStateChangeListener() {
-                @Override
-                public void onNavigationBarShow(int orientation, int height) {
-                    topBar.setPadding(0, 0, height, 0);
-                    bottomBar.setPadding(0, 0, height, 0);
-                }
+                .setListener(new NavigationBarChangeListener.OnSoftInputStateChangeListener() {
+                    @Override
+                    public void onNavigationBarShow(int orientation, int height) {
+                        topBar.setPadding(0, 0, height, 0);
+                        bottomBar.setPadding(0, 0, height, 0);
+                    }
 
-                @Override
-                public void onNavigationBarHide(int orientation) {
-                    topBar.setPadding(0, 0, 0, 0);
-                    bottomBar.setPadding(0, 0, 0, 0);
-                }
-            });
+                    @Override
+                    public void onNavigationBarHide(int orientation) {
+                        topBar.setPadding(0, 0, 0, 0);
+                        bottomBar.setPadding(0, 0, 0, 0);
+                    }
+                });
     }
 
     /**
@@ -133,9 +129,8 @@ public class VMPickPreviewActivity extends VMPickPreviewBaseActivity implements 
      */
     @Override
     public void onImageSelected(int position, VMPictureBean item, boolean isAdd) {
-        if (VMPicker.getSelectImageCount() > 0) {
-            mBtnOk.setText(getString(R.string.ip_select_complete, VMPicker.getSelectImageCount(), VMPicker
-                .getSelectLimit()));
+        if (VMPicker.getInstance().getSelectImageCount() > 0) {
+            mBtnOk.setText(getString(R.string.ip_select_complete, VMPicker.getInstance().getSelectImageCount(), VMPicker.getInstance().getSelectLimit()));
         } else {
             mBtnOk.setText(getString(R.string.ip_complete));
         }
@@ -153,13 +148,13 @@ public class VMPickPreviewActivity extends VMPickPreviewBaseActivity implements 
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.vm_common_ok_btn) {
-            if (VMPicker.getSelectedImages().size() == 0) {
+            if (VMPicker.getInstance().getSelectedImages().size() == 0) {
                 mCbCheck.setChecked(true);
                 VMPictureBean VMPictureBean = mVMPictureBeans.get(mCurrentPosition);
-                VMPicker.addSelectedImageItem(mCurrentPosition, VMPictureBean, mCbCheck.isChecked());
+                VMPicker.getInstance().addSelectedImageItem(mCurrentPosition, VMPictureBean, mCbCheck.isChecked());
             }
             Intent intent = new Intent();
-            intent.putExtra(VMPicker.EXTRA_RESULT_ITEMS, VMPicker.getSelectedImages());
+            intent.putExtra(VMPicker.EXTRA_RESULT_ITEMS, VMPicker.getInstance().getSelectedImages());
             setResult(VMPicker.RESULT_CODE_ITEMS, intent);
             finish();
         } else if (id == R.id.vm_common_back_btn) {
@@ -199,7 +194,7 @@ public class VMPickPreviewActivity extends VMPickPreviewBaseActivity implements 
 
     @Override
     protected void onDestroy() {
-        VMPicker.removeOnImageSelectedListener(this);
+        VMPicker.getInstance().removeOnImageSelectedListener(this);
         super.onDestroy();
     }
 

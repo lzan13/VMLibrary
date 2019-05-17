@@ -1,6 +1,7 @@
-package com.vmloft.develop.library.tools.picker.loader;
+package com.vmloft.develop.library.tools.picker;
 
 import android.app.Activity;
+import android.content.Context;
 import android.widget.ImageView;
 
 import java.io.Serializable;
@@ -12,9 +13,9 @@ import java.io.Serializable;
  */
 public interface IPictureLoader extends Serializable {
 
-    void displayImage(Activity activity, String path, ImageView imageView, int width, int height);
+    void displayImage(Context context, String path, ImageView imageView, int width, int height);
 
-    void displayImagePreview(Activity activity, String path, ImageView imageView, int width, int height);
+    void displayImagePreview(Context context, String path, ImageView imageView, int width, int height);
 
     void clearMemoryCache();
 }

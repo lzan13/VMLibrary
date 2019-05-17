@@ -9,10 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.vmloft.develop.library.tools.picker.util.BitmapUtil;
 import com.vmloft.develop.library.tools.picker.VMPicker;
 import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.picker.bean.VMPictureBean;
+import com.vmloft.develop.library.tools.utils.bitmap.VMBitmap;
 import com.vmloft.develop.library.tools.widget.VMCropView;
 
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class VMPickCropActivity extends VMPickBaseActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pick_crop);
+        setContentView(R.layout.vm_activity_pick_crop);
 
         //初始化View
         findViewById(R.id.vm_common_back_btn).setOnClickListener(this);
@@ -65,11 +65,8 @@ public class VMPickCropActivity extends VMPickBaseActivity implements View.OnCli
         options.inSampleSize = calculateInSampleSize(options, displayMetrics.widthPixels, displayMetrics.heightPixels);
         options.inJustDecodeBounds = false;
         mBitmap = BitmapFactory.decodeFile(imagePath, options);
-        //        mCropView.setImageBitmap(mBitmap);
         //设置默认旋转角度
-        mCropView.setImageBitmap(mCropView.rotate(mBitmap, BitmapUtil.getBitmapDegree(imagePath)));
-
-        //        mCropView.setImageURI(Uri.fromFile(new File(imagePath)));
+        mCropView.setImageBitmap(mCropView.rotate(mBitmap, VMBitmap.getBitmapDegree(imagePath)));
     }
 
     public int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
