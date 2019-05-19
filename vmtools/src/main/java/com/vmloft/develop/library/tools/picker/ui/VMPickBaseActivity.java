@@ -11,6 +11,7 @@ import com.vmloft.develop.library.tools.utils.VMDimen;
 import com.vmloft.develop.library.tools.widget.VMTopBar;
 
 /**
+ * Create by lzan13 on 2019/05/19 20:20
  * 选择器基类
  */
 public abstract class VMPickBaseActivity extends VMBActivity {

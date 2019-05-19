@@ -240,7 +240,6 @@ public class VMPickGridActivity extends VMPickBaseActivity implements VMPicker.O
                 VMFolderBean VMFolderBean = (VMFolderBean) adapterView.getAdapter()
                     .getItem(position);
                 if (null != VMFolderBean) {
-                    //                    mImageGridAdapter.refreshData(VMFolderBean.pictures);
                     mPictureAdapter.refresh(VMFolderBean.pictures);
                     mCurrDirView.setText(VMFolderBean.name);
                 }
