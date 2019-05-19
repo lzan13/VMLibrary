@@ -1,9 +1,7 @@
 package com.vmloft.develop.library.tools.picker.adapter;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
-import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -15,14 +13,13 @@ import com.vmloft.develop.library.tools.adapter.VMHolder;
 import com.vmloft.develop.library.tools.picker.VMPicker;
 import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.picker.bean.VMPictureBean;
-import com.vmloft.develop.library.tools.picker.ui.VMPickBaseActivity;
-import com.vmloft.develop.library.tools.picker.ui.VMPickGridActivity;
 
 import com.vmloft.develop.library.tools.utils.VMDimen;
 import com.vmloft.develop.library.tools.utils.VMStr;
 import com.vmloft.develop.library.tools.widget.toast.VMToast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Create by lzan13 on 2019/05/16 21:51
@@ -54,10 +51,10 @@ public class VMPictureAdapter extends VMAdapter<VMPictureBean, VMHolder> {
         int space = VMDimen.dp2px(2);
         mItemSize = (VMDimen.getScreenSize().x - space * 3) / 4;
 
-        mSelectedPictures = VMPicker.getInstance().getSelectedImages();
+        mSelectedPictures = VMPicker.getInstance().getSelectedPictures();
         isShowCamera = VMPicker.getInstance().isShowCamera();
         if (isShowCamera) {
-            mDataList.add(new VMPictureBean());
+            mDataList.add(0, new VMPictureBean());
         }
     }
 
@@ -73,12 +70,12 @@ public class VMPictureAdapter extends VMAdapter<VMPictureBean, VMHolder> {
     public void onBindViewHolder(VMHolder holder, int position) {
         super.onBindViewHolder(holder, position);
         switch (getItemViewType(position)) {
-            case ITEM_TYPE_CAMERA:
-                ((CameraViewHolder) holder).bindCamera();
-                break;
-            case ITEM_TYPE_NORMAL:
-                ((PictureViewHolder) holder).bind(position);
-                break;
+        case ITEM_TYPE_CAMERA:
+            ((CameraViewHolder) holder).bindCamera();
+            break;
+        case ITEM_TYPE_NORMAL:
+            ((PictureViewHolder) holder).bind(position);
+            break;
         }
     }
 
@@ -88,6 +85,20 @@ public class VMPictureAdapter extends VMAdapter<VMPictureBean, VMHolder> {
             return position == 0 ? ITEM_TYPE_CAMERA : ITEM_TYPE_NORMAL;
         }
         return ITEM_TYPE_NORMAL;
+    }
+
+    @Override
+    public void refresh(List<VMPictureBean> list) {
+        if (list == null || list.size() == 0) {
+            mDataList.clear();
+        } else {
+            mDataList.clear();
+            mDataList.addAll(list);
+        }
+        if (isShowCamera) {
+            mDataList.add(0, new VMPictureBean());
+        }
+        notifyDataSetChanged();
     }
 
     /**
@@ -136,22 +147,22 @@ public class VMPictureAdapter extends VMAdapter<VMPictureBean, VMHolder> {
                     mPickCB.setChecked(!mPickCB.isChecked());
                     int selectLimit = VMPicker.getInstance().getSelectLimit();
                     if (mPickCB.isChecked() && mSelectedPictures.size() >= selectLimit) {
-                        String toastMsg = String.format(VMStr.strByResId(R.string.ip_select_limit), selectLimit);
+                        String toastMsg = VMStr.byResArgs(R.string.vm_pick_select_limit, selectLimit);
                         VMToast.make((Activity) mContext, toastMsg).error();
                         mPickCB.setChecked(false);
                         mMaskView.setVisibility(View.GONE);
                     } else {
-                        VMPicker.getInstance().addSelectedImageItem(position, VMPictureBean, mPickCB.isChecked());
+                        VMPicker.getInstance()
+                            .addSelectedPicture(position, VMPictureBean, mPickCB.isChecked());
                         mMaskView.setVisibility(View.VISIBLE);
                     }
                 }
             });
             VMPicker.getInstance()
-                    .getPictureLoader()
-                    .displayImage(mContext, VMPictureBean.path, mThumbView, mItemSize, mItemSize); //显示图片
+                .getPictureLoader()
+                .displayImage(mContext, VMPictureBean.path, mThumbView, mItemSize, mItemSize); //显示图片
         }
     }
-
 
     /**
      * 打开相机 Holder
@@ -168,18 +179,18 @@ public class VMPictureAdapter extends VMAdapter<VMPictureBean, VMHolder> {
         public void bindCamera() {
             mItemView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mItemSize)); //让图片是个正方形
             mItemView.setTag(null);
-//            mItemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (!((VMPickBaseActivity) mContext).checkPermission(Manifest.permission.CAMERA)) {
-//                        ActivityCompat.requestPermissions(mActivity, new String[]{
-//                                Manifest.permission.CAMERA
-//                        }, VMPickGridActivity.REQUEST_PERMISSION_CAMERA);
-//                    } else {
-//                        VMPicker.getInstance().takePicture(mActivity, VMPicker.REQUEST_CODE_TAKE);
-//                    }
-//                }
-//            });
+            //            mItemView.setOnClickListener(new View.OnClickListener() {
+            //                @Override
+            //                public void onClick(View v) {
+            //                    if (!((VMPickBaseActivity) mContext).checkPermission(Manifest.permission.CAMERA)) {
+            //                        ActivityCompat.requestPermissions(mActivity, new String[]{
+            //                                Manifest.permission.CAMERA
+            //                        }, VMPickGridActivity.REQUEST_PERMISSION_CAMERA);
+            //                    } else {
+            //                        VMPicker.getInstance().takePicture(mActivity, VMPicker.REQUEST_CODE_TAKE);
+            //                    }
+            //                }
+            //            });
         }
     }
 }

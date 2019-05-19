@@ -26,7 +26,7 @@
 
         <TextView
             android:id="@+id/vm_pick_folder_name_tv"
-            tools:text="@string/ip_all_images"
+            tools:text="@string/vm_pick_all_picture"
             style="@style/VMText.Subhead"
             />
 

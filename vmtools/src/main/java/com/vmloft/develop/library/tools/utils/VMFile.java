@@ -91,7 +91,7 @@ public class VMFile {
     public static File createFile(String path, String prefix, String suffix) {
         createDirectory(path);
         String filename = prefix + VMDate.filenameDateTime() + suffix;
-        return createFile(filename);
+        return createFile(path + filename);
     }
 
     /**
@@ -387,7 +387,7 @@ public class VMFile {
      */
     public static String getDCIM() {
         return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
-                .getAbsolutePath() + "/";
+            .getAbsolutePath() + "/";
     }
 
     /**
@@ -397,7 +397,7 @@ public class VMFile {
      */
     public static String getDownload() {
         return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                .getAbsolutePath() + "/";
+            .getAbsolutePath() + "/";
     }
 
     /**
@@ -407,7 +407,7 @@ public class VMFile {
      */
     public static String getMusic() {
         return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)
-                .getAbsolutePath() + "/";
+            .getAbsolutePath() + "/";
     }
 
     /**
@@ -417,7 +417,7 @@ public class VMFile {
      */
     public static String getMovies() {
         return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES)
-                .getAbsolutePath() + "/";
+            .getAbsolutePath() + "/";
     }
 
     /**
@@ -425,7 +425,7 @@ public class VMFile {
      */
     public static String getPictures() {
         return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-                .getAbsolutePath() + "/";
+            .getAbsolutePath() + "/";
     }
 
     /**
@@ -485,7 +485,7 @@ public class VMFile {
                 // DownloadsProvider
                 final String id = DocumentsContract.getDocumentId(uri);
                 final Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long
-                        .valueOf(id));
+                    .valueOf(id));
 
                 return getDataColumn(VMTools.getContext(), contentUri, null, null);
             } else if (isMediaDocument(uri)) {
@@ -504,7 +504,7 @@ public class VMFile {
                 }
 
                 final String selection = "_id=?";
-                final String[] selectionArgs = new String[]{split[1]};
+                final String[] selectionArgs = new String[] { split[1] };
 
                 return getDataColumn(VMTools.getContext(), contentUri, selection, selectionArgs);
             }
@@ -539,11 +539,11 @@ public class VMFile {
 
         Cursor cursor = null;
         final String column = "_data";
-        final String[] projection = {column};
+        final String[] projection = { column };
 
         try {
             cursor = context.getContentResolver()
-                    .query(uri, projection, selection, selectionArgs, null);
+                .query(uri, projection, selection, selectionArgs, null);
             if (cursor != null && cursor.moveToFirst()) {
                 final int index = cursor.getColumnIndexOrThrow(column);
                 return cursor.getString(index);

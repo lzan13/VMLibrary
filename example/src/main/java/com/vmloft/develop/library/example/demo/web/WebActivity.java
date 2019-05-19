@@ -37,7 +37,7 @@ public class WebActivity extends AppActivity {
 
     @Override
     protected void init() {
-        webView = new WebView(activity);
+        webView = new WebView(mActivity);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setVerticalScrollBarEnabled(false);
         webView.setHorizontalScrollBarEnabled(false);

@@ -13,7 +13,7 @@ public class VMFolderBean implements Serializable {
     public String name;  //当前文件夹的名字
     public String path;  //当前文件夹的路径
     public VMPictureBean cover;   //当前文件夹需要要显示的缩略图，默认为最近的一次图片
-    public ArrayList<VMPictureBean> images;  //当前文件夹下所有图片的集合
+    public ArrayList<VMPictureBean> pictures;  //当前文件夹下所有图片的集合
 
     /**
      * 只要文件夹的路径和名字相同，就认为是相同的文件夹

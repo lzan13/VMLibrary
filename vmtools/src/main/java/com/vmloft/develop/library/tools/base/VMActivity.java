@@ -16,14 +16,14 @@ public class VMActivity extends AppCompatActivity {
 
     protected String className = this.getClass().getSimpleName();
 
-    protected VMActivity activity;
+    protected VMActivity mActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         VMLog.d("%s onCreate", className);
-        activity = this;
-        VMApp.putActivity(activity);
+        mActivity = this;
+        VMApp.putActivity(mActivity);
     }
     //
     //@Override
@@ -60,25 +60,14 @@ public class VMActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         VMLog.d("%s onDestroy", className);
-        VMApp.removeActivity(activity);
-        activity = null;
-    }
-
-    /**
-     * 封装公共的 Activity 跳转方法
-     * 基类定义并实现的方法，为了以后方便扩展
-     *
-     * @param activity 当前 Activity 对象
-     * @param intent 界面跳转 Intent 实例对象
-     */
-    public void onStartActivity(Activity activity, Intent intent) {
-        activity.startActivity(intent);
+        VMApp.removeActivity(mActivity);
+        mActivity = null;
     }
 
     /**
      * 自定义 Activity 结束方法
      */
     public void onFinish() {
-        activity.finish();
+        mActivity.finish();
     }
 }

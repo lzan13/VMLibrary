@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import com.github.chrisbanes.photoview.OnPhotoTapListener;
 import com.github.chrisbanes.photoview.PhotoView;
+import com.vmloft.develop.library.tools.picker.VMPicker;
 import com.vmloft.develop.library.tools.picker.bean.VMPictureBean;
 
 import com.vmloft.develop.library.tools.utils.VMDimen;
@@ -22,39 +23,35 @@ public class VMPreviewPageAdapter extends PagerAdapter {
 
     private int screenWidth;
     private int screenHeight;
-    private com.vmloft.develop.library.tools.picker.VMPicker VMPicker;
     private ArrayList<VMPictureBean> images = new ArrayList<>();
     private Activity mActivity;
-    public PhotoViewClickListener listener;
+    public OnPreviewClickListener listener;
 
     public VMPreviewPageAdapter(Activity activity, ArrayList<VMPictureBean> images) {
         this.mActivity = activity;
         this.images = images;
 
         screenWidth = VMDimen.getScreenSize().x;
-        screenHeight =VMDimen.getScreenSize().x;
-        VMPicker = VMPicker.getInstance();
+        screenHeight = VMDimen.getScreenSize().x;
     }
 
     public void setData(ArrayList<VMPictureBean> images) {
         this.images = images;
     }
 
-    public void setPhotoViewClickListener(PhotoViewClickListener listener) {
-        this.listener = listener;
-    }
-
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         PhotoView photoView = new PhotoView(mActivity);
         VMPictureBean VMPictureBean = images.get(position);
-        VMPicker.getPictureLoader()
+        VMPicker.getInstance()
+            .getPictureLoader()
             .displayImagePreview(mActivity, VMPictureBean.path, photoView, screenWidth, screenHeight);
+
         photoView.setOnPhotoTapListener(new OnPhotoTapListener() {
             @Override
             public void onPhotoTap(ImageView view, float x, float y) {
                 if (listener != null) {
-                    listener.OnPhotoTapListener(view, x, y);
+                    listener.onPreviewClick(view, x, y);
                 }
             }
         });
@@ -82,7 +79,17 @@ public class VMPreviewPageAdapter extends PagerAdapter {
         return POSITION_NONE;
     }
 
-    public interface PhotoViewClickListener {
-        void OnPhotoTapListener(View view, float v, float v1);
+    /**
+     * 设置预览点击监听接口
+     */
+    public void setPreviewClickListener(OnPreviewClickListener listener) {
+        this.listener = listener;
+    }
+
+    /**
+     * 定义预览点击监听接口
+     */
+    public interface OnPreviewClickListener {
+        void onPreviewClick(View view, float x, float y);
     }
 }

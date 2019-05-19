@@ -76,7 +76,7 @@ public class VMToast {
      * @param resId    要展示消息资源 Id
      */
     public static VMToast make(Activity activity, int resId) {
-        return make(activity, VMStr.strByResId(resId));
+        return make(activity, VMStr.byRes(resId));
     }
 
     /**

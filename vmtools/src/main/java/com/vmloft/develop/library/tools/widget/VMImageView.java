@@ -76,9 +76,9 @@ public class VMImageView extends AppCompatImageView {
         blurRadius = 0;
         blurScale = 2;
         borderWidth = VMDimen.dp2px(2);
-        borderColor = VMColor.colorByResId(R.color.vm_white_87);
+        borderColor = VMColor.byRes(R.color.vm_white_87);
         pressAlpha = 0x42;
-        pressColor = VMColor.colorByResId(R.color.vm_black_38);
+        pressColor = VMColor.byRes(R.color.vm_black_38);
         radius = VMDimen.dp2px(8);
         shapeType = 2;
 

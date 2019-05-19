@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,14 +13,24 @@
         android:layout_height="match_parent"
         />
 
-    <include layout="@layout/vm_pick_title_bar" />
+    <com.vmloft.develop.library.tools.widget.VMTopBar
+        android:id="@+id/vm_common_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/vm_white"
+        app:vm_top_bar_bg_color="@color/vm_black_12"
+        app:vm_top_bar_end_btn="@string/vm_pick_complete"
+        app:vm_top_bar_icon="@drawable/vm_ic_arrow_left"
+        app:vm_top_bar_title="@string/vm_pick_preview"
+        app:vm_top_bar_title_color="@color/vm_white"
+        />
 
     <LinearLayout
-        android:id="@+id/bottom_bar"
+        android:id="@+id/vm_preview_bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#cc22292c"
+        android:background="@color/vm_gray_black_54"
         android:orientation="vertical"
         android:visibility="gone"
         tools:visibility="visible"
@@ -31,19 +42,21 @@
             >
 
             <CheckBox
-                android:id="@+id/cb_origin"
+                android:id="@+id/vm_preview_origin_cb"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_centerInParent="true"
                 android:layout_marginEnd="@dimen/vm_dimen_12"
                 android:paddingStart="@dimen/vm_padding_normal"
                 android:text="原图(3.07M)"
-                android:textColor="#FFF"
-                android:visibility="invisible"
-                style="@style/VMCheckBox"
+                android:textColor="@color/vm_btn_text_light"
+                android:textSize="@dimen/vm_size_16"
+                android:visibility="gone"
+                style="@style/VMRadio"
                 />
 
             <CheckBox
-                android:id="@+id/vm_pick_grid_item_cb"
+                android:id="@+id/vm_preview_select_cb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -53,16 +66,16 @@
                 android:includeFontPadding="true"
                 android:paddingStart="@dimen/vm_padding_normal"
                 android:text="选择"
-                android:textColor="#ffffff"
+                android:textColor="@color/vm_btn_text_light"
+                android:textSize="@dimen/vm_size_16"
                 style="@style/VMCheckBox"
                 />
         </RelativeLayout>
 
         <View
-            android:id="@+id/margin_bottom"
+            android:id="@+id/vm_preview_bottom_space"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@color/vm_black_54"
             />
     </LinearLayout>
 </RelativeLayout>

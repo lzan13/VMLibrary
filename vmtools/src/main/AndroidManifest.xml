@@ -19,18 +19,18 @@
         <activity
             android:name="com.vmloft.develop.library.tools.picker.ui.VMPickGridActivity"
             android:configChanges="orientation|screenSize"
-            android:theme="@style/VMTheme" />
+            android:theme="@style/VMTheme.Picker" />
         <!--剪切界面-->
         <activity
             android:name="com.vmloft.develop.library.tools.picker.ui.VMPickCropActivity"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="false"
-            android:theme="@style/VMTheme" />
+            android:theme="@style/VMTheme.Picker" />
         <!--预览界面-->
         <activity
             android:name="com.vmloft.develop.library.tools.picker.ui.VMPickPreviewActivity"
             android:configChanges="orientation|screenSize"
-            android:theme="@style/VMTheme.Transparent" />
+            android:theme="@style/VMTheme.Picker" />
 
         <provider
             android:name=".picker.VMPickerProvider"

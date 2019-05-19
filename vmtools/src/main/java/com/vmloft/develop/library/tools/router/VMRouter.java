@@ -225,7 +225,7 @@ public class VMRouter {
     }
 
     /**
-     * 判断当前上下文是不是 activity
+     * 判断当前上下文是不是 mActivity
      *
      * @param context 上下文
      */

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ic_back_press">#323336</color>
+    <color name="ip_camera_pre">#353535</color>
+    <color name="ip_color_accent">#1AAD19</color>
+    <color name="ip_color_press">#ffe0e0e0</color>
+    <color name="ip_color_primary">#393A3F</color>
+    <color name="ip_color_primary_dark">#303135</color>
+    <color name="ip_color_primary_trans">#ec2f3335</color>
+    <color name="ip_text_primary_inverted">#ffffff</color>
+    <color name="ip_text_secondary_inverted">#66ffffff</color>
+    <string name="ip_all_images">所有图片</string>
+    <string name="ip_complete">完成</string>
+    <string name="ip_folder_image_count">共%1$d张</string>
+    <string name="ip_origin">原图</string>
+    <string name="ip_origin_size">原图(%1$s)</string>
+    <string name="ip_photo_crop">图片裁剪</string>
+    <string name="ip_preview">预览</string>
+    <string name="ip_preview_count">预览(%1$d)</string>
+    <string name="ip_preview_image_count">%1$d/%2$d</string>
+    <string name="ip_select_complete">完成(%1$d/%2$d)</string>
+    <string name="ip_select_limit">最多选择%1$d张图片</string>
+    <style name="ImagePickerTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
+    <style name="ImagePickerThemeFullScreen" parent="ImagePickerTheme">
+        <item name="android:fitsSystemWindows">false</item>
+    </style>
+    <declare-styleable name="CropImageView">
+        <attr format="color" name="cropMaskColor"/>
+        <attr format="color" name="cropBorderColor"/>
+        <attr format="dimension" name="cropBorderWidth"/>
+        <attr format="dimension" name="cropFocusWidth"/>
+        <attr format="dimension" name="cropFocusHeight"/>
+        <attr format="enum" name="cropStyle">
+            <enum name="rectangle" value="0"/>
+            <enum name="circle" value="1"/>
+        </attr>
+    </declare-styleable>
+</resources>

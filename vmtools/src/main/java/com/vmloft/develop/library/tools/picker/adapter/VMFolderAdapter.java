@@ -79,7 +79,8 @@ public class VMFolderAdapter extends BaseAdapter {
 
         VMFolderBean folder = getItem(position);
         holder.folderName.setText(folder.name);
-        holder.imageCount.setText(mActivity.getString(R.string.ip_folder_image_count, folder.images.size()));
+        holder.imageCount.setText(mActivity.getString(R.string.vm_pick_folder_picture_count, folder.pictures
+            .size()));
         VMPicker.getInstance()
             .getPictureLoader()
             .displayImage(mActivity, folder.cover.path, holder.cover, mImageSize, mImageSize);

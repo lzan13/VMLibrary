@@ -31,7 +31,7 @@ public class VMApp extends Application {
     /**
      * 添加当前活动的 Activity 到栈顶
      *
-     * @param activity 当前活动的 activity
+     * @param activity 当前活动的 mActivity
      */
     public static void putActivity(VMActivity activity) {
         if (!activityList.contains(activity)) {
@@ -40,16 +40,16 @@ public class VMApp extends Application {
     }
 
     /**
-     * 移除一个 activity
+     * 移除一个 mActivity
      *
-     * @param activity 要销毁的 activity
+     * @param activity 要销毁的 mActivity
      */
     public static void removeActivity(VMActivity activity) {
         activityList.remove(activity);
     }
 
     /**
-     * 获取栈顶的 activity
+     * 获取栈顶的 mActivity
      */
     public static VMActivity getTopActivity() {
         if (activityList.size() > 0) {

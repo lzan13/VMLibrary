@@ -34,22 +34,19 @@ public class MainActivity extends AppActivity {
 
     @Override
     protected void init() {
-        getToolbar().setTitle("VMLibrary");
-        setSupportActionBar(getToolbar());
+        getTopBar().setTitle("工具库");
 
         String[] btnArray = {
-            "工具", "描点控件", "详情控件", "自定义控件", "录制屏幕", "声音播放", "按钮样式", "弹出窗口", "Web 功能", "指示器", "识别验证码", "图片选择器",
-            "单权限申请", "多权限申请"
+            "工具", "描点控件", "详情控件", "自定义控件", "录制屏幕", "声音播放", "按钮样式", "弹出窗口", "Web 功能", "指示器", "识别验证码",
+            "图片选择器", "单权限申请", "多权限申请"
         };
         for (int i = 0; i < btnArray.length; i++) {
-            Button btn = new Button(new ContextThemeWrapper(activity, R.style.VMBtn_Flat));
+            Button btn = new Button(new ContextThemeWrapper(mActivity, R.style.VMBtn_Flat));
             btn.setText(btnArray[i]);
             btn.setId(CLICK_START_ID + i);
             btn.setOnClickListener(viewListener);
             viewGroup.addView(btn);
         }
-
-        //        checkPermissions();
     }
 
     private View.OnClickListener viewListener = new View.OnClickListener() {
@@ -57,40 +54,40 @@ public class MainActivity extends AppActivity {
         public void onClick(View v) {
             switch (v.getId()) {
             case CLICK_START_ID + 0:
-                ARouter.goTools(activity);
+                ARouter.goTools(mActivity);
                 break;
             case CLICK_START_ID + 1:
-                ARouter.goDotLine(activity);
+                ARouter.goDotLine(mActivity);
                 break;
             case CLICK_START_ID + 2:
-                ARouter.goDetails(activity);
+                ARouter.goDetails(mActivity);
                 break;
             case CLICK_START_ID + 3:
-                ARouter.goCustomView(activity);
+                ARouter.goCustomView(mActivity);
                 break;
             case CLICK_START_ID + 4:
-                ARouter.goRecordScreen(activity);
+                ARouter.goRecordScreen(mActivity);
                 break;
             case CLICK_START_ID + 5:
-                ARouter.goPlayAudio(activity);
+                ARouter.goPlayAudio(mActivity);
                 break;
             case CLICK_START_ID + 6:
-                ARouter.goBtnStyle(activity);
+                ARouter.goBtnStyle(mActivity);
                 break;
             case CLICK_START_ID + 7:
-                ARouter.goPWDialog(activity);
+                ARouter.goPWDialog(mActivity);
                 break;
             case CLICK_START_ID + 8:
-                ARouter.goWeb(activity);
+                ARouter.goWeb(mActivity);
                 break;
             case CLICK_START_ID + 9:
-                ARouter.goIndicator(activity);
+                ARouter.goIndicator(mActivity);
                 break;
             case CLICK_START_ID + 10:
-                ARouter.goImageDiscern(activity);
+                ARouter.goImageDiscern(mActivity);
                 break;
             case CLICK_START_ID + 11:
-                ARouter.goPicker(activity);
+                ARouter.goPicker(mActivity);
                 break;
             case CLICK_START_ID + 12:
                 checkOnePermissions();
@@ -99,7 +96,7 @@ public class MainActivity extends AppActivity {
                 checkPermissions();
                 break;
             default:
-                ARouter.goTools(activity);
+                ARouter.goTools(mActivity);
                 break;
             }
         }
@@ -110,7 +107,7 @@ public class MainActivity extends AppActivity {
      */
     @Override
     public void onBackPressed() {
-        ARouter.goLauncher(activity);
+        ARouter.goLauncher(mActivity);
     }
 
     /**
@@ -118,17 +115,22 @@ public class MainActivity extends AppActivity {
      */
     private void checkOnePermissions() {
         VMPermissionBean bean = new VMPermissionBean(Manifest.permission.CAMERA, R.mipmap.ic_launcher_round, "访问相机", "扫描二维码需要使用到相机，请允许我们获取拍照权限");
-        VMPermission.getInstance(activity).setEnableDialog(true).setTitle("权限申请").setMessage("为保证应用的正常运行，请授予一下权限").setPermission(bean).requestPermission(new VMPermissionCallback() {
-            @Override
-            public void onReject() {
-                VMToast.make(activity, "权限申请被拒绝").error();
-            }
+        VMPermission.getInstance(mActivity)
+            .setEnableDialog(true)
+            .setTitle("权限申请")
+            .setMessage("为保证应用的正常运行，请授予一下权限")
+            .setPermission(bean)
+            .requestPermission(new VMPermissionCallback() {
+                @Override
+                public void onReject() {
+                    VMToast.make(mActivity, "权限申请被拒绝").error();
+                }
 
-            @Override
-            public void onComplete() {
-                VMToast.make(activity, "权限申请完成").done();
-            }
-        });
+                @Override
+                public void onComplete() {
+                    VMToast.make(mActivity, "权限申请完成").done();
+                }
+            });
     }
 
     /**
@@ -139,16 +141,21 @@ public class MainActivity extends AppActivity {
         permissions.add(new VMPermissionBean(Manifest.permission.CAMERA, R.mipmap.ic_launcher_round, "访问相机", "拍摄图片需要使用到相机，请允许我们获取访问相机"));
         permissions.add(new VMPermissionBean(Manifest.permission.READ_EXTERNAL_STORAGE, R.mipmap.ic_launcher_round, "读写存储", "我们需要将文件保存到你的设备，请允许我们获取存储权限"));
         permissions.add(new VMPermissionBean(Manifest.permission.RECORD_AUDIO, R.mipmap.ic_launcher_round, "访问麦克风", "发送语音消息需要录制声音，请允许我们访问设备麦克风"));
-        VMPermission.getInstance(activity).setEnableDialog(true).setTitle("权限申请").setMessage("为保证应用的正常运行，请您授予以下权限").setPermissionList(permissions).requestPermission(new VMPermissionCallback() {
-            @Override
-            public void onReject() {
-                VMToast.make(activity, "权限申请被拒绝").error();
-            }
+        VMPermission.getInstance(mActivity)
+            .setEnableDialog(true)
+            .setTitle("权限申请")
+            .setMessage("为保证应用的正常运行，请您授予以下权限")
+            .setPermissionList(permissions)
+            .requestPermission(new VMPermissionCallback() {
+                @Override
+                public void onReject() {
+                    VMToast.make(mActivity, "权限申请被拒绝").error();
+                }
 
-            @Override
-            public void onComplete() {
-                VMToast.make(activity, "权限申请完成").done();
-            }
-        });
+                @Override
+                public void onComplete() {
+                    VMToast.make(mActivity, "权限申请完成").done();
+                }
+            });
     }
 }

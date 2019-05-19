@@ -3,37 +3,57 @@ package com.vmloft.develop.library.example.common;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
+import android.view.View;
 import com.vmloft.develop.library.example.R;
 import com.vmloft.develop.library.tools.base.VMActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import com.vmloft.develop.library.tools.utils.VMTheme;
+import com.vmloft.develop.library.tools.widget.VMTopBar;
 
 public abstract class AppActivity extends VMActivity {
 
     // ButterKnife 注册返回对象
     private Unbinder unbinder;
-    // 统一的 Toolbar
-    @BindView(R.id.widget_toolbar)
-    Toolbar mToolbar;
+    // 统一的 TopBar
+    protected VMTopBar mTopBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(layoutId());
 
-        unbinder = ButterKnife.bind(activity);
+        VMTheme.setDarkStatusBar(mActivity, true);
+
+        unbinder = ButterKnife.bind(mActivity);
+
+        setupTobBar();
 
         init();
     }
 
     /**
-     * 通用的获取 Toolbar 方法
+     * 装载 TopBar
      */
-    protected Toolbar getToolbar() {
-        return mToolbar;
+    protected void setupTobBar() {
+        mTopBar = findViewById(R.id.widget_top_bar);
+        if (mTopBar != null) {
+            mTopBar.setIconListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
+        }
+    }
+
+    /**
+     * 通用的获取 TopBar 方法
+     */
+    protected VMTopBar getTopBar() {
+        return mTopBar;
     }
 
     @Override
@@ -55,5 +75,4 @@ public abstract class AppActivity extends VMActivity {
      * 初始化
      */
     protected abstract void init();
-
 }

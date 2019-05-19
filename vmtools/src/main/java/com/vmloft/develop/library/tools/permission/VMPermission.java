@@ -1,5 +1,6 @@
 package com.vmloft.develop.library.tools.permission;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -180,6 +181,42 @@ public class VMPermission {
         }
         mCallback = callback;
         startActivity();
+    }
+
+    /**
+     * 默认实现检查 访问相机 权限
+     */
+    public boolean checkCamera() {
+        return checkPermission(Manifest.permission.CAMERA);
+    }
+
+    /**
+     * 默认实现 访问相机 权限
+     *
+     * @param callback 回调接口
+     */
+    public void requestCamera(VMPermissionCallback callback) {
+        VMPermissionBean bean = new VMPermissionBean(Manifest.permission.CAMERA, "访问相机", "拍摄照片需要 “访问相机” 权限，请授权此权限");
+        setPermission(bean);
+        requestPermission(callback);
+    }
+
+    /**
+     * 默认实现检查 读写手机存储 权限
+     */
+    public boolean checkStorage() {
+        return checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    }
+
+    /**
+     * 默认实现 读写手机存储 权限
+     *
+     * @param callback 回调接口
+     */
+    public void requestStorage(VMPermissionCallback callback) {
+        VMPermissionBean bean = new VMPermissionBean(Manifest.permission.WRITE_EXTERNAL_STORAGE, "读写手机存储", "访问设备图片等文件需要 “访问手机存储” 权限，请授权此权限");
+        setPermission(bean);
+        requestPermission(callback);
     }
 
     /**

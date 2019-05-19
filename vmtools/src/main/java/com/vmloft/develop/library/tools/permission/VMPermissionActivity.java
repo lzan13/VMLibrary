@@ -68,8 +68,8 @@ public class VMPermissionActivity extends VMActivity {
      */
     private void init() {
         // 初始化获取数据
-        mAppName = VMSystem.getAppName(activity);
-        mCallback = VMPermission.getInstance(activity).getPermissionCallback();
+        mAppName = VMSystem.getAppName(mActivity);
+        mCallback = VMPermission.getInstance(mActivity).getPermissionCallback();
         mEnableDialog = getIntent().getBooleanExtra(VMConstant.KEY_PERMISSION_ENABLE_DIALOG, false);
         mTitle = getIntent().getStringExtra(VMConstant.KEY_PERMISSION_TITLE);
         mMessage = getIntent().getStringExtra(VMConstant.KEY_PERMISSION_MSG);
@@ -123,7 +123,7 @@ public class VMPermissionActivity extends VMActivity {
      * @param listener  确认事件回调
      */
     private void showAlertDialog(String title, String message, String cancelStr, String okStr, DialogInterface.OnClickListener listener) {
-        AlertDialog alertDialog = new AlertDialog.Builder(activity).setTitle(title)
+        AlertDialog alertDialog = new AlertDialog.Builder(mActivity).setTitle(title)
             .setMessage(message)
             .setCancelable(false)
             .setNegativeButton(cancelStr, new DialogInterface.OnClickListener() {
@@ -143,24 +143,24 @@ public class VMPermissionActivity extends VMActivity {
      * 弹出授权窗口
      */
     private void showPermissionDialog() {
-        View view = LayoutInflater.from(activity)
+        View view = LayoutInflater.from(mActivity)
             .inflate(R.layout.vm_widget_permission_dialog, null);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
         if (VMStr.isEmpty(mTitle)) {
-            mTitle = VMStr.strByResId(R.string.vm_permission_title);
+            mTitle = VMStr.byRes(R.string.vm_permission_title);
         }
         builder.setTitle(mTitle);
         builder.setView(view);
         // 设置提醒信息
         if (VMStr.isEmpty(mMessage)) {
-            mMessage = VMStr.strByResId(R.string.vm_permission_reason);
+            mMessage = VMStr.byRes(R.string.vm_permission_reason);
         }
         TextView contentView = view.findViewById(R.id.vm_permission_dialog_content_tv);
         contentView.setText(mMessage);
         VMViewGroup viewGroup = view.findViewById(R.id.vm_permission_dialog_custom_vg);
         for (VMPermissionBean bean : mPermissions) {
-            VMPermissionView pView = new VMPermissionView(activity);
+            VMPermissionView pView = new VMPermissionView(mActivity);
             pView.setPermissionIcon(bean.resId);
             pView.setPermissionName(bean.name);
             viewGroup.addView(pView);
@@ -188,7 +188,7 @@ public class VMPermissionActivity extends VMActivity {
      * @param requestCode 请求码
      */
     private void requestPermission(String[] permissions, int requestCode) {
-        ActivityCompat.requestPermissions(activity, permissions, requestCode);
+        ActivityCompat.requestPermissions(mActivity, permissions, requestCode);
     }
 
     /**
@@ -249,7 +249,7 @@ public class VMPermissionActivity extends VMActivity {
                 showAlertDialog(title, msg, getString(R.string.vm_btn_reject), getString(R.string.vm_btn_go_to_setting), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        VMRouter.goSettingDetail(activity, REQUEST_SETTING);
+                        VMRouter.goSettingDetail(mActivity, REQUEST_SETTING);
                     }
                 });
             } else {
@@ -295,7 +295,7 @@ public class VMPermissionActivity extends VMActivity {
         mPermissions = mPermissionsCopy;
         Iterator<VMPermissionBean> iterator = mPermissions.listIterator();
         while (iterator.hasNext()) {
-            int checkPermission = ContextCompat.checkSelfPermission(activity, iterator.next().permission);
+            int checkPermission = ContextCompat.checkSelfPermission(mActivity, iterator.next().permission);
             if (checkPermission == PackageManager.PERMISSION_GRANTED) {
                 iterator.remove();
             }

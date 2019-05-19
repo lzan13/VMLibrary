@@ -27,6 +27,8 @@ import android.view.MotionEvent;
 import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.picker.bean.VMPictureBean;
 
+import com.vmloft.develop.library.tools.utils.VMFile;
+import com.vmloft.develop.library.tools.utils.bitmap.VMBitmap;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -35,19 +37,10 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * ================================================
- * 作    者：廖子尧
- * 版    本：1.0
- * 创建日期：2016/1/7
- * 描    述：
- * Matrix 的9个值分别为  缩放  平移  倾斜
- * MSCALE_X	 MSKEW_X	MTRANS_X
- * MSKEW_Y	 MSCALE_Y	MTRANS_Y
- * MPERSP_0  MPERSP_1	MPERSP_2
- * 修订历史：
- * ================================================
+ * Create by lzan13 on 2019/05/19 20:56
+ *
+ * 自定义剪切控件
  */
-
 public class VMCropView extends AppCompatImageView {
 
     /******************************** 中间的FocusView绘图相关的参数 *****************************/
@@ -57,14 +50,21 @@ public class VMCropView extends AppCompatImageView {
 
     private Style[] styles = { Style.RECTANGLE, Style.CIRCLE };
 
-    private int mMaskColor = 0xAF000000;   //暗色
-    private int mBorderColor = 0xAA808080; //焦点框的边框颜色
-    private int mBorderWidth = 1;         //焦点边框的宽度（画笔宽度）
-    private int mFocusWidth = 250;         //焦点框的宽度
-    private int mFocusHeight = 250;        //焦点框的高度
-    private int mDefaultStyleIndex = 0;    //默认焦点框的形状
+    // 遮罩颜色
+    private int mMaskColor = 0x89222222;
+    // 焦点框的边框颜色
+    private int mBorderColor = 0x89f8f8f8;
+    // 焦点边框的宽度（画笔宽度）
+    private int mBorderWidth = 1;
+    // 焦点框的宽度
+    private int mFocusWidth = 256;
+    // 焦点框的高度
+    private int mFocusHeight = 256;
+    // 默认焦点框的形状
+    private int mDefaultStyleIndex = 0;
 
     private Style mStyle = styles[mDefaultStyleIndex];
+
     private Paint mBorderPaint = new Paint();
     private Path mFocusPath = new Path();
     private RectF mFocusRect = new RectF();
@@ -120,11 +120,11 @@ public class VMCropView extends AppCompatImageView {
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.VMCropView);
         mMaskColor = a.getColor(R.styleable.VMCropView_vm_crop_mask_color, mMaskColor);
-        mBorderColor = a.getColor(R.styleable.VMCropView_cropBorderColor, mBorderColor);
-        mBorderWidth = a.getDimensionPixelSize(R.styleable.VMCropView_cropBorderWidth, mBorderWidth);
-        mFocusWidth = a.getDimensionPixelSize(R.styleable.VMCropView_cropFocusWidth, mFocusWidth);
-        mFocusHeight = a.getDimensionPixelSize(R.styleable.VMCropView_cropFocusHeight, mFocusHeight);
-        mDefaultStyleIndex = a.getInteger(R.styleable.VMCropView_cropStyle, mDefaultStyleIndex);
+        mBorderColor = a.getColor(R.styleable.VMCropView_vm_crop_border_color, mBorderColor);
+        mBorderWidth = a.getDimensionPixelSize(R.styleable.VMCropView_vm_crop_border_width, mBorderWidth);
+        mFocusWidth = a.getDimensionPixelSize(R.styleable.VMCropView_vm_crop_focus_width, mFocusWidth);
+        mFocusHeight = a.getDimensionPixelSize(R.styleable.VMCropView_vm_crop_focus_height, mFocusHeight);
+        mDefaultStyleIndex = a.getInteger(R.styleable.VMCropView_vm_crop_style, mDefaultStyleIndex);
         mStyle = styles[mDefaultStyleIndex];
         a.recycle();
 
@@ -567,12 +567,14 @@ public class VMCropView extends AppCompatImageView {
     }
 
     /**
+     * 保存Bitmap 到文件
+     *
      * @param folder          希望保存的文件夹
      * @param expectWidth     希望保存的图片宽度
      * @param exceptHeight    希望保存的图片高度
      * @param isSaveRectangle 是否希望按矩形区域保存图片
      */
-    public void saveBitmapToFile(File folder, int expectWidth, int exceptHeight, boolean isSaveRectangle) {
+    public void saveBitmapToFile(String folder, int expectWidth, int exceptHeight, boolean isSaveRectangle) {
         if (mSaving) {
             return;
         }
@@ -585,10 +587,10 @@ public class VMCropView extends AppCompatImageView {
 
         final Bitmap croppedImage = getCropBitmap(expectWidth, exceptHeight, isSaveRectangle);
         Bitmap.CompressFormat outputFormat = Bitmap.CompressFormat.JPEG;
-        File saveFile = createFile(folder, "IMG_", ".jpg");
+        File saveFile = VMFile.createFile(folder, "IMG_", ".jpg");
         if (mStyle == VMCropView.Style.CIRCLE && !isSaveRectangle) {
             outputFormat = Bitmap.CompressFormat.PNG;
-            saveFile = createFile(folder, "IMG_", ".png");
+            saveFile = VMFile.createFile(folder, "IMG_", ".png");
             bean.mimeType = "image/png";
         }
         bean.path = saveFile.getAbsolutePath();
@@ -596,57 +598,14 @@ public class VMCropView extends AppCompatImageView {
         new Thread() {
             @Override
             public void run() {
-                saveOutput(croppedImage, finalOutputFormat, bean);
-            }
-        }.start();
-    }
-
-    /**
-     * 根据系统时间、前缀、后缀产生一个文件
-     */
-    private File createFile(File folder, String prefix, String suffix) {
-        if (!folder.exists() || !folder.isDirectory()) {
-            folder.mkdirs();
-        }
-        try {
-            File nomedia = new File(folder, ".nomedia");  //在当前文件夹底下创建一个 .nomedia 文件
-            if (!nomedia.exists()) {
-                nomedia.createNewFile();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA);
-        String filename = prefix + dateFormat.format(new Date(System.currentTimeMillis())) + suffix;
-        return new File(folder, filename);
-    }
-
-    /**
-     * 将图片保存在本地
-     */
-    private void saveOutput(Bitmap croppedImage, Bitmap.CompressFormat outputFormat, VMPictureBean bean) {
-        OutputStream outputStream = null;
-        try {
-            outputStream = getContext().getContentResolver()
-                .openOutputStream(Uri.fromFile(new File(bean.path)));
-            if (outputStream != null) {
-                croppedImage.compress(outputFormat, 90, outputStream);
-            }
-            Message.obtain(mHandler, SAVE_SUCCESS, bean).sendToTarget();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            Message.obtain(mHandler, SAVE_ERROR, bean).sendToTarget();
-        } finally {
-            if (outputStream != null) {
-                try {
-                    outputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                boolean result = VMBitmap.saveBitmapToSDCard(croppedImage, finalOutputFormat, bean.path);
+                if (result) {
+                    Message.obtain(mHandler, SAVE_SUCCESS, bean).sendToTarget();
+                } else {
+                    Message.obtain(mHandler, SAVE_ERROR, bean).sendToTarget();
                 }
             }
-        }
-        mSaving = false;
-        croppedImage.recycle();
+        }.start();
     }
 
     private static class InnerHandler extends Handler {

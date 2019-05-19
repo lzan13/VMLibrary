@@ -1,18 +1,26 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/vm_theme_background"
-    android:orientation="vertical"
     tools:context=".picker.ui.VMPickGridActivity"
     >
-
-    <include layout="@layout/vm_pick_title_bar" />
+    <com.vmloft.develop.library.tools.widget.VMTopBar
+        android:id="@+id/vm_common_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/vm_white"
+        app:vm_top_bar_end_btn="@string/vm_pick_complete"
+        app:vm_top_bar_icon="@drawable/vm_ic_arrow_left"
+        app:vm_top_bar_title="@string/vm_pick_picture"
+        />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/vm_common_top_bar"
         >
 
         <android.support.v7.widget.RecyclerView
@@ -27,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/vm_dimen_48"
             android:layout_alignParentBottom="true"
-            android:background="@color/vm_gray_black_87"
+            android:background="@color/vm_theme_background"
             >
 
             <RelativeLayout
@@ -35,8 +43,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
+                android:paddingLeft="@dimen/vm_padding_large"
+                android:paddingRight="@dimen/vm_padding_large"
                 >
 
                 <TextView
@@ -45,8 +53,8 @@
                     android:ellipsize="end"
                     android:includeFontPadding="false"
                     android:maxLines="1"
-                    android:text="@string/ip_all_images"
-                    android:textColor="@color/vm_white_87"
+                    android:minWidth="@dimen/vm_dimen_96"
+                    android:text="@string/vm_pick_all_picture"
                     style="@style/VMText.Menu"
                     />
 
@@ -56,25 +64,21 @@
                     android:layout_alignBottom="@id/vm_pick_grid_choose_folder_tv"
                     android:layout_toRightOf="@id/vm_pick_grid_choose_folder_tv"
                     android:src="@drawable/vm_ic_triangle_indicator"
-                    android:tint="@color/vm_white_54"
+                    android:tint="@color/vm_gray_54"
                     />
             </RelativeLayout>
 
             <TextView
                 android:id="@+id/vm_pick_grid_preview_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
-                android:background="@null"
-                android:gravity="center"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:text="预览"
+                android:paddingLeft="@dimen/vm_padding_large"
+                android:paddingRight="@dimen/vm_padding_large"
+                android:text="@string/vm_pick_preview"
                 android:textAllCaps="false"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
+                android:textStyle="normal"
+                style="@style/VMBtn.Flat.Fillet"
                 />
 
         </RelativeLayout>
     </RelativeLayout>
-</LinearLayout>
+</RelativeLayout>

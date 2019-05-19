@@ -1,20 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_bg"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     >
-
-    <include layout="@layout/widget_common_appbar" />
+    <!--<include layout="@layout/widget_common_top_bar" />-->
+    <com.vmloft.develop.library.tools.widget.VMTopBar
+        android:id="@+id/widget_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/vm_dimen_48"
+        app:vm_top_bar_icon="@drawable/ic_arrow_left"
+        app:vm_top_bar_subtitle="这里主要展示自己实现的自定义控件"
+        app:vm_top_bar_title="验证自定义控件"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/app_white"
         android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         >
         <!--自定义输入框-->
         <com.vmloft.develop.library.tools.widget.VMEditView
@@ -121,7 +129,7 @@
                 android:id="@+id/custom_switch_line"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:vm_line_icon="@drawable/ic_menu_manage"
+                app:vm_line_icon="@drawable/vm_ic_emoticon"
                 app:vm_line_right_icon="@drawable/switch_selector"
                 app:vm_line_title="设置选项"
                 />
@@ -140,7 +148,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:vm_line_caption="多控件描述 1"
-                app:vm_line_caption_icon="@drawable/ic_menu_camera"
+                app:vm_line_caption_icon="@drawable/vm_ic_check_box"
                 app:vm_line_decoration="true"
                 app:vm_line_title="多控件 1"
                 />
@@ -149,10 +157,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:vm_line_caption="多控件描述 2"
-                app:vm_line_caption_icon="@drawable/ic_menu_camera"
+                app:vm_line_caption_icon="@drawable/vm_ic_close"
                 app:vm_line_decoration="true"
-                app:vm_line_icon="@drawable/ic_menu_manage"
-                app:vm_line_right_icon="@drawable/ic_menu_send"
+                app:vm_line_icon="@drawable/vm_ic_camera"
+                app:vm_line_right_icon="@drawable/vm_ic_arrow_right"
                 app:vm_line_title="多控件 2"
                 />
 
@@ -160,13 +168,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:vm_line_caption="多控件描述 3"
-                app:vm_line_caption_icon="@drawable/ic_menu_camera"
+                app:vm_line_caption_icon="@drawable/vm_ic_check_box"
                 app:vm_line_decoration="false"
                 app:vm_line_description="底部描述部分内容"
-                app:vm_line_icon="@drawable/ic_menu_manage"
-                app:vm_line_right_icon="@drawable/ic_menu_send"
+                app:vm_line_icon="@drawable/vm_ic_eye_on"
+                app:vm_line_right_icon="@drawable/vm_ic_arrow_right"
                 app:vm_line_title="多控件 3"
                 />
         </LinearLayout>
     </LinearLayout>
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

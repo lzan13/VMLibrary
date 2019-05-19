@@ -148,7 +148,7 @@ public class PickerActivity extends AppActivity{
 
             Intent intent = new Intent(this, VMPickGridActivity.class);
             intent.putExtra(VMPickGridActivity.EXTRAS_IMAGES, pickImages);
-            //VMPicker.getInstance().setSelectedImages(images);
+            //VMPicker.getInstance().setSelectedPictures(pictures);
             startActivityForResult(intent, 100);
             break;
         }
@@ -183,10 +183,10 @@ public class PickerActivity extends AppActivity{
         for (int i = 0; i < pickImages.size(); i++) {
             VMPictureBean item = pickImages.get(i);
             int width = item.width * height / item.height;
-            ImageView imageView = new ImageView(activity);
+            ImageView imageView = new ImageView(mActivity);
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(width, height);
-            imageLoader.displayImage(activity, item.path, imageView, width, height);
+            imageLoader.displayImage(mActivity, item.path, imageView, width, height);
             mViewGroup.addView(imageView, lp);
         }
     }

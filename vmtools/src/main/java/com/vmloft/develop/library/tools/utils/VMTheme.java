@@ -27,7 +27,7 @@ public class VMTheme {
     /**
      * 设置状态栏为黑色图标和文字
      *
-     * @param activity activity 对象
+     * @param activity mActivity 对象
      * @param isDark   是否黑色
      */
     public static void setDarkStatusBar(Activity activity, boolean isDark) {

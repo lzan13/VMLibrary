@@ -1,57 +1,53 @@
 package com.vmloft.develop.library.tools.picker.ui;
 
-import android.annotation.TargetApi;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.view.Window;
-import android.view.WindowManager;
+import android.view.View;
 
+import android.widget.RelativeLayout;
+import com.vmloft.develop.library.tools.base.VMBActivity;
 import com.vmloft.develop.library.tools.picker.VMPicker;
 import com.vmloft.develop.library.tools.R;
-import com.vmloft.develop.library.tools.picker.widget.SystemBarTintManager;
-import com.vmloft.develop.library.tools.base.VMActivity;
-import com.vmloft.develop.library.tools.widget.toast.VMToast;
+import com.vmloft.develop.library.tools.utils.VMDimen;
+import com.vmloft.develop.library.tools.widget.VMTopBar;
 
 /**
- *
+ * 选择器基类
  */
-public class VMPickBaseActivity extends VMActivity {
+public abstract class VMPickBaseActivity extends VMBActivity {
 
-    protected SystemBarTintManager tintManager;
+    // 统一的 TopBar
+    protected VMTopBar mTopBar;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            setTranslucentStatus(true);
+    protected void initUI() {
+        setupTopBar();
+    }
+
+    /**
+     * 装载 TopBar
+     */
+    protected void setupTopBar() {
+        mTopBar = findViewById(R.id.vm_common_top_bar);
+        if (mTopBar != null) {
+            // 设置状态栏透明主题时，布局整体会上移，所以给头部加上状态栏的 margin 值，保证头部不会被覆盖
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mTopBar.getLayoutParams();
+            params.topMargin = VMDimen.getStatusBarHeight();
+            mTopBar.setLayoutParams(params);
+
+            mTopBar.setIconListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
         }
-        tintManager = new SystemBarTintManager(this);
-        tintManager.setStatusBarTintEnabled(true);
-        tintManager.setStatusBarTintResource(R.color.vm_white);  //设置上方状态栏的颜色
     }
 
-    @TargetApi(19)
-    private void setTranslucentStatus(boolean on) {
-        Window win = getWindow();
-        WindowManager.LayoutParams winParams = win.getAttributes();
-        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-        if (on) {
-            winParams.flags |= bits;
-        } else {
-            winParams.flags &= ~bits;
-        }
-        win.setAttributes(winParams);
-    }
-
-    public boolean checkPermission(@NonNull String permission) {
-        return ActivityCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED;
-    }
-
-    public void showToast(String toastText) {
-        VMToast.make(activity, toastText).show();
+    /**
+     * 通用的获取 TopBar 方法
+     */
+    protected VMTopBar getTopBar() {
+        return mTopBar;
     }
 
     @Override

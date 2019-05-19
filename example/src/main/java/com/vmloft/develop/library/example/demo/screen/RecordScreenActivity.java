@@ -38,7 +38,7 @@ public class RecordScreenActivity extends AppActivity {
 
     @Override
     protected void init() {
-        Intent intent = new Intent(activity, SRService.class);
+        Intent intent = new Intent(mActivity, SRService.class);
         bindService(intent, serviceConnection, BIND_AUTO_CREATE);
     }
 
@@ -72,7 +72,7 @@ public class RecordScreenActivity extends AppActivity {
 
     private void prepare(boolean record) {
         isRecord = record;
-        SRManager.getInstance().init(activity);
+        SRManager.getInstance().init(mActivity);
     }
 
     /**

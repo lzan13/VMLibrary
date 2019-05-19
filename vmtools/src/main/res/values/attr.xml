@@ -32,12 +32,12 @@
 
     <!--自定义剪切控件-->
     <declare-styleable name="VMCropView">
-        <attr format="color" name="vm_crop_mask_color" />
-        <attr format="color" name="cropBorderColor" />
-        <attr format="dimension" name="cropBorderWidth" />
-        <attr format="dimension" name="cropFocusWidth" />
-        <attr format="dimension" name="cropFocusHeight" />
-        <attr format="enum" name="cropStyle">
+        <attr format="color|integer" name="vm_crop_mask_color" />
+        <attr format="color|integer" name="vm_crop_border_color" />
+        <attr format="dimension" name="vm_crop_border_width" />
+        <attr format="dimension" name="vm_crop_focus_width" />
+        <attr format="dimension" name="vm_crop_focus_height" />
+        <attr format="enum" name="vm_crop_style">
             <enum name="rectangle" value="0" />
             <enum name="circle" value="1" />
         </attr>
@@ -183,6 +183,23 @@
         <attr format="string|reference" name="vm_line_description" />
         <!--装饰分割线-->
         <attr format="boolean" name="vm_line_decoration" />
+    </declare-styleable>
 
+    <!--自定义 VMTopBar 控件-->
+    <declare-styleable name="VMTopBar">
+        <!--返回图标-->
+        <attr format="reference" name="vm_top_bar_icon" />
+        <!--标题-->
+        <attr format="string|reference" name="vm_top_bar_title" />
+        <!--子标题-->
+        <attr format="string|reference" name="vm_top_bar_subtitle" />
+        <!--右侧按钮-->
+        <attr format="string|reference" name="vm_top_bar_end_btn" />
+        <!--右侧图标-->
+        <attr format="reference" name="vm_top_bar_end_icon" />
+        <!--标题颜色-->
+        <attr format="color|integer" name="vm_top_bar_title_color" />
+        <!--背景颜色-->
+        <attr format="color|integer" name="vm_top_bar_bg_color" />
     </declare-styleable>
 </resources>

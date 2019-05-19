@@ -7,7 +7,7 @@
     android:background="@color/vm_theme_background"
     android:fitsSystemWindows="true">
 
-    <include layout="@layout/widget_common_appbar" />
+    <include layout="@layout/widget_common_top_bar" />
 
     <LinearLayout
         android:layout_width="match_parent"

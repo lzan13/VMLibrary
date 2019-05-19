@@ -12,6 +12,7 @@ import com.vmloft.develop.library.tools.utils.VMLog;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -156,15 +157,15 @@ public class VMBitmap {
             // 获取图片的旋转信息
             int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
             switch (orientation) {
-                case ExifInterface.ORIENTATION_ROTATE_90:
-                    degree = 90;
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_180:
-                    degree = 180;
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_270:
-                    degree = 270;
-                    break;
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                degree = 90;
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                degree = 180;
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                degree = 270;
+                break;
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -310,7 +311,7 @@ public class VMBitmap {
      * @param path 图片路径
      * @return 压缩后的图片临时路径
      */
-    public static String compressTempImage(String path) throws IOException {
+    public static String compressTempImage(String path) {
         VMLog.d("compressTempImage start");
         Bitmap bitmap = compressByQuality(compressByDimension(path));
         VMLog.d("compressTempImage end");
@@ -329,7 +330,7 @@ public class VMBitmap {
      * @param path      原始路径
      * @param dimension 最大尺寸
      */
-    public static String compressTempImageByDimension(String path, int dimension) throws IOException {
+    public static String compressTempImageByDimension(String path, int dimension) {
         maxDimension = dimension;
         return compressTempImage(path);
     }
@@ -340,7 +341,7 @@ public class VMBitmap {
      * @param path 原始路径
      * @param size 最大大小
      */
-    public static String compressTempImageBySize(String path, int size) throws IOException {
+    public static String compressTempImageBySize(String path, int size) {
         maxSize = size;
         return compressTempImage(path);
     }
@@ -352,7 +353,7 @@ public class VMBitmap {
      * @param dimension 最大尺寸
      * @param size      最大大小
      */
-    public static String compressTempImage(String path, int dimension, int size) throws IOException {
+    public static String compressTempImage(String path, int dimension, int size) {
         maxDimension = dimension;
         maxSize = size;
         return compressTempImage(path);
@@ -383,18 +384,52 @@ public class VMBitmap {
     }
 
     /**
-     * 保存Bitmap到SD卡
+     * 保存 Bitmap 到 SDCard
      *
      * @param bitmap 需要保存的图片数据
      * @param path   保存路径
      */
-    public static void saveBitmapToSDCard(Bitmap bitmap, String path) throws IOException {
-        VMLog.d("saveBitmapToSDCard start");
-        OutputStream outputStream = new FileOutputStream(path);
-        if (outputStream != null) {
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 40, outputStream);
-            outputStream.close();
+    public static boolean saveBitmapToSDCard(Bitmap bitmap, String path) {
+        //VMLog.d("saveBitmapToSDCard start");
+        //OutputStream outputStream = new FileOutputStream(path);
+        //if (outputStream != null) {
+        //    bitmap.compress(Bitmap.CompressFormat.JPEG, 90, outputStream);
+        //    outputStream.close();
+        //}
+        //VMLog.d("saveBitmapToSDCard end");
+        return saveBitmapToSDCard(bitmap, Bitmap.CompressFormat.JPEG, path);
+    }
+
+    /**
+     * 保存 Bitmap 到 SDCard
+     *
+     * @param bitmap 需要保存的图片数据
+     * @param format 格式类型
+     * @param path   保存路径
+     */
+    public static boolean saveBitmapToSDCard(Bitmap bitmap, Bitmap.CompressFormat format, String path) {
+        VMLog.d("saveBitmapToSDCard -start-");
+        boolean result;
+        OutputStream outputStream = null;
+        try {
+            outputStream = new FileOutputStream(path);
+            if (outputStream != null) {
+                bitmap.compress(format, 90, outputStream);
+            }
+            result = true;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            result = false;
+        } finally {
+            if (outputStream != null) {
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        VMLog.d("saveBitmapToSDCard end");
+        VMLog.d("saveBitmapToSDCard -end-");
+        return result;
     }
 }

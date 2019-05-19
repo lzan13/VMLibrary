@@ -73,7 +73,7 @@ public class VMEditView extends RelativeLayout {
 
         // 定义默认值
 
-        mTextColor = VMColor.colorByResId(R.color.vm_black_87);
+        mTextColor = VMColor.byRes(R.color.vm_black_87);
         mTextSize = (int) VMDimen.sp2px(14);
         mHint = "";
         mMode = Mode.TEXT;

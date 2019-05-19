@@ -75,11 +75,11 @@ public class SystemBarTintManager {
     private View mNavBarTintView;
 
     /**
-     * Constructor. Call this in the host activity onCreate method after its
+     * Constructor. Call this in the host mActivity onCreate method after its
      * content view has been set. You should always create new instances when
-     * the host activity is recreated.
+     * the host mActivity is recreated.
      *
-     * @param activity The host activity.
+     * @param activity The host mActivity.
      */
     @TargetApi(19)
     @SuppressWarnings("ResourceType")

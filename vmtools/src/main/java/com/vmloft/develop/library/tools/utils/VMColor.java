@@ -14,14 +14,14 @@ public class VMColor {
     /**
      * 通过资源 id 获取颜色值
      */
-    public static int colorByResId(int resId) {
-        return colorByResId(VMTools.getContext(), resId);
+    public static int byRes(int resId) {
+        return byRes(VMTools.getContext(), resId);
     }
 
     /**
      * 通过资源 id 获取颜色值
      */
-    public static int colorByResId(Context context, int resId) {
+    public static int byRes(Context context, int resId) {
         return ContextCompat.getColor(VMTools.getContext(), resId);
     }
 

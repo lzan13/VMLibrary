@@ -13,11 +13,9 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
-import android.util.Log;
 
 import com.vmloft.develop.library.tools.picker.bean.VMFolderBean;
 import com.vmloft.develop.library.tools.picker.bean.VMPictureBean;
-import com.vmloft.develop.library.tools.picker.util.ProviderUtil;
 import com.vmloft.develop.library.tools.widget.VMCropView;
 
 import com.vmloft.develop.library.tools.utils.VMFile;
@@ -71,8 +69,7 @@ public class VMPicker {
     // 当前选中的文件夹位置 0 表示所有图片
     private int mCurrentFolderPosition = 0;
     // 图片选中的监听回调
-    private List<OnImageSelectedListener> mImageSelectedListeners;
-
+    private List<OnSelectedPictureListener> mSelectedPictureListeners;
 
     private VMPicker() {
     }
@@ -121,7 +118,8 @@ public class VMPicker {
                      */
                     uri = FileProvider.getUriForFile(activity, VMPickerProvider.getAuthority(activity), takeImageFile);
                     //加入uri权限 要不三星手机不能拍照
-                    List<ResolveInfo> resInfoList = activity.getPackageManager().queryIntentActivities(takePictureIntent, PackageManager.MATCH_DEFAULT_ONLY);
+                    List<ResolveInfo> resInfoList = activity.getPackageManager()
+                        .queryIntentActivities(takePictureIntent, PackageManager.MATCH_DEFAULT_ONLY);
                     for (ResolveInfo resolveInfo : resInfoList) {
                         String packageName = resolveInfo.activityInfo.packageName;
                         activity.grantUriPermission(packageName, uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -146,46 +144,46 @@ public class VMPicker {
     /**
      * 图片选中的监听
      */
-    public interface OnImageSelectedListener {
-        void onImageSelected(int position, VMPictureBean item, boolean isAdd);
+    public interface OnSelectedPictureListener {
+        void onPictureSelected(int position, VMPictureBean item, boolean isAdd);
     }
 
-    public void addOnImageSelectedListener(OnImageSelectedListener l) {
-        if (mImageSelectedListeners == null) {
-            mImageSelectedListeners = new ArrayList<>();
+    public void addOnSelectedPictureListener(OnSelectedPictureListener l) {
+        if (mSelectedPictureListeners == null) {
+            mSelectedPictureListeners = new ArrayList<>();
         }
-        mImageSelectedListeners.add(l);
+        mSelectedPictureListeners.add(l);
     }
 
-    public void removeOnImageSelectedListener(OnImageSelectedListener l) {
-        if (mImageSelectedListeners == null) {
+    public void removeOnSelectedPictureListener(OnSelectedPictureListener l) {
+        if (mSelectedPictureListeners == null) {
             return;
         }
-        mImageSelectedListeners.remove(l);
+        mSelectedPictureListeners.remove(l);
     }
 
-    public void addSelectedImageItem(int position, VMPictureBean item, boolean isAdd) {
+    public void addSelectedPicture(int position, VMPictureBean bean, boolean isAdd) {
         if (isAdd) {
-            mSelectedPictures.add(item);
+            mSelectedPictures.add(bean);
         } else {
-            mSelectedPictures.remove(item);
+            mSelectedPictures.remove(bean);
         }
-        notifyImageSelectedChanged(position, item, isAdd);
+        notifyImageSelectedChanged(position, bean, isAdd);
     }
 
-    public void setSelectedImages(ArrayList<VMPictureBean> selectedImages) {
-        if (selectedImages == null) {
+    public void setSelectedPictures(ArrayList<VMPictureBean> pictures) {
+        if (pictures == null) {
             return;
         }
-        this.mSelectedPictures = selectedImages;
+        this.mSelectedPictures = pictures;
     }
 
-    private void notifyImageSelectedChanged(int position, VMPictureBean item, boolean isAdd) {
-        if (mImageSelectedListeners == null) {
+    private void notifyImageSelectedChanged(int position, VMPictureBean bean, boolean isAdd) {
+        if (mSelectedPictureListeners == null) {
             return;
         }
-        for (OnImageSelectedListener l : mImageSelectedListeners) {
-            l.onImageSelected(position, item, isAdd);
+        for (OnSelectedPictureListener l : mSelectedPictureListeners) {
+            l.onPictureSelected(position, bean, isAdd);
         }
     }
 
@@ -267,7 +265,7 @@ public class VMPicker {
 
     public File getCropCacheFolder(Context context) {
         if (cropCacheFolder == null) {
-            cropCacheFolder = new File(context.getCacheDir() + "/VMPicker/cropTemp/");
+            cropCacheFolder = new File(VMFile.getCacheFromSDCard());
         }
         return cropCacheFolder;
     }
@@ -292,51 +290,51 @@ public class VMPicker {
         this.style = style;
     }
 
-    public List<VMFolderBean> getImageFolders() {
+    public List<VMFolderBean> getFolderBeans() {
         return mFolderBeans;
     }
 
-    public void setImageFolders(List<VMFolderBean> VMFolderBeans) {
-        mFolderBeans = VMFolderBeans;
+    public void setFolderBeans(List<VMFolderBean> folderBeans) {
+        mFolderBeans = folderBeans;
     }
 
-    public int getCurrentImageFolderPosition() {
+    public int getCurrentFolderPosition() {
         return mCurrentFolderPosition;
     }
 
-    public void setCurrentImageFolderPosition(int mCurrentSelectedImageSetPosition) {
-        mCurrentFolderPosition = mCurrentSelectedImageSetPosition;
+    public void setCurrentFolderPosition(int position) {
+        mCurrentFolderPosition = position;
     }
 
-    public ArrayList<VMPictureBean> getCurrentImageFolderItems() {
-        return mFolderBeans.get(mCurrentFolderPosition).images;
+    public ArrayList<VMPictureBean> getCurrentFolderPictures() {
+        return mFolderBeans.get(mCurrentFolderPosition).pictures;
     }
 
     public boolean isSelect(VMPictureBean item) {
         return mSelectedPictures.contains(item);
     }
 
-    public int getSelectImageCount() {
+    public int getSelectPictureCount() {
         if (mSelectedPictures == null) {
             return 0;
         }
         return mSelectedPictures.size();
     }
 
-    public ArrayList<VMPictureBean> getSelectedImages() {
+    public ArrayList<VMPictureBean> getSelectedPictures() {
         return mSelectedPictures;
     }
 
-    public void clearSelectedImages() {
+    public void clearSelectedPictures() {
         if (mSelectedPictures != null) {
             mSelectedPictures.clear();
         }
     }
 
     public void reset() {
-        if (mImageSelectedListeners != null) {
-            mImageSelectedListeners.clear();
-            mImageSelectedListeners = null;
+        if (mSelectedPictureListeners != null) {
+            mSelectedPictureListeners.clear();
+            mSelectedPictureListeners = null;
         }
         if (mFolderBeans != null) {
             mFolderBeans.clear();

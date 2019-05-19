@@ -54,6 +54,7 @@ public class VMLineView extends RelativeLayout {
      */
     private void init(Context context, AttributeSet attrs) {
         LayoutInflater.from(context).inflate(R.layout.vm_widget_line_view, this);
+
         mIconView = findViewById(R.id.vm_line_icon_iv);
         mTitleView = findViewById(R.id.vm_line_title_tv);
         mCaptionIconView = findViewById(R.id.vm_line_caption_icon_iv);

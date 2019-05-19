@@ -3,15 +3,13 @@ package com.vmloft.develop.library.tools.picker.ui;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.vmloft.develop.library.tools.picker.VMPicker;
 import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.picker.bean.VMPictureBean;
+import com.vmloft.develop.library.tools.utils.VMFile;
 import com.vmloft.develop.library.tools.utils.bitmap.VMBitmap;
 import com.vmloft.develop.library.tools.widget.VMCropView;
 
@@ -22,7 +20,7 @@ import java.util.ArrayList;
  *
  * 修剪图片
  */
-public class VMPickCropActivity extends VMPickBaseActivity implements View.OnClickListener, VMCropView.OnBitmapSaveCompleteListener {
+public class VMPickCropActivity extends VMPickBaseActivity implements VMCropView.OnBitmapSaveCompleteListener {
 
     private VMCropView mCropView;
     private Bitmap mBitmap;
@@ -32,25 +30,38 @@ public class VMPickCropActivity extends VMPickBaseActivity implements View.OnCli
     private ArrayList<VMPictureBean> mVMPictureBeans;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.vm_activity_pick_crop);
+    protected int layoutId() {
+        return R.layout.vm_activity_pick_crop;
+    }
 
-        //初始化View
-        findViewById(R.id.vm_common_back_btn).setOnClickListener(this);
-        Button btn_ok = findViewById(R.id.vm_common_ok_btn);
-        btn_ok.setText(getString(R.string.ip_complete));
-        btn_ok.setOnClickListener(this);
-        TextView tv_des = findViewById(R.id.vm_common_title_tv);
-        tv_des.setText(getString(R.string.ip_photo_crop));
+    @Override
+    protected void initUI() {
+        super.initUI();
         mCropView = findViewById(R.id.vm_pick_crop_iv);
         mCropView.setOnBitmapSaveCompleteListener(this);
+    }
 
+    @Override
+    protected void initData() {
+        getTopBar().setTitle(R.string.vm_pick_crop_picture);
+        getTopBar().setIconListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(RESULT_CANCELED);
+                onFinish();
+            }
+        });
+        getTopBar().setEndBtnListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCropView.saveBitmapToFile(VMFile.getCacheFromSDCard(), mOutputX, mOutputY, mIsSaveRectangle);
+            }
+        });
         //获取需要的参数
         mOutputX = VMPicker.getInstance().getOutPutX();
         mOutputY = VMPicker.getInstance().getOutPutY();
         mIsSaveRectangle = VMPicker.getInstance().isSaveRectangle();
-        mVMPictureBeans = VMPicker.getInstance().getSelectedImages();
+        mVMPictureBeans = VMPicker.getInstance().getSelectedPictures();
         String imagePath = mVMPictureBeans.get(0).path;
 
         mCropView.setFocusStyle(VMPicker.getInstance().getStyle());
@@ -81,17 +92,6 @@ public class VMPickCropActivity extends VMPickBaseActivity implements View.OnCli
             }
         }
         return inSampleSize;
-    }
-
-    @Override
-    public void onClick(View v) {
-        int id = v.getId();
-        if (id == R.id.vm_common_back_btn) {
-            setResult(RESULT_CANCELED);
-            finish();
-        } else if (id == R.id.vm_common_ok_btn) {
-            mCropView.saveBitmapToFile(VMPicker.getInstance().getCropCacheFolder(this), mOutputX, mOutputY, mIsSaveRectangle);
-        }
     }
 
     @Override

@@ -11,7 +11,7 @@
         <item name="colorAccent">@color/app_accent</item>
 
         <!--半透明状态栏-->
-        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentStatus">true</item>
         <!--设置状态栏颜色-->
         <item name="android:statusBarColor">@color/app_primary_dark</item>
 

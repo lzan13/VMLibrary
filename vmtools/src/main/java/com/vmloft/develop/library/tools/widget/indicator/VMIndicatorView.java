@@ -72,8 +72,8 @@ public class VMIndicatorView extends View {
         // 初始化默认值
         mIndicatorRadius = VMDimen.dp2px(4);
         mIndicatorMargin = VMDimen.dp2px(8);
-        mIndicatorBackground = VMColor.colorByResId(R.color.vm_gray_54);
-        mIndicatorSelected = VMColor.colorByResId(R.color.vm_green_87);
+        mIndicatorBackground = VMColor.byRes(R.color.vm_gray_54);
+        mIndicatorSelected = VMColor.byRes(R.color.vm_green_87);
         mCurrentPosition = 0;
         mCurrentPositionOffset = 0;
         mIndicatorLayoutGravity = Gravity.CENTER;

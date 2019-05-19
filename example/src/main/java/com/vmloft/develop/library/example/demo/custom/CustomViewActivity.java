@@ -40,14 +40,14 @@ public class CustomViewActivity extends AppActivity {
             mTimerBtn.startTimer();
             break;
         case R.id.btn_toast_1:
-            VMToast.init(R.color.vm_black, R.drawable.ic_menu_manage, R.color.vm_amber);
-            VMToast.make(activity, "测试自定义弹出 Toast 提醒功能，这是默认提醒样式！自定义颜色的").show();
+            VMToast.init(R.color.vm_black, R.drawable.vm_ic_camera, R.color.vm_amber);
+            VMToast.make(mActivity, "测试自定义弹出 Toast 提醒功能，这是默认提醒样式！自定义颜色的").show();
             break;
         case R.id.btn_toast_2:
-            VMToast.make(activity, "测试自定义弹出 Toast 提醒功能，这是完成提醒默认样式！绿色的").done();
+            VMToast.make(mActivity, "测试自定义弹出 Toast 提醒功能，这是完成提醒默认样式！绿色的").done();
             break;
         case R.id.btn_toast_3:
-            VMToast.make(activity, "测试自定义弹出 Toast 提醒功能，这是错误提醒默认样式！红色的").error();
+            VMToast.make(mActivity, "测试自定义弹出 Toast 提醒功能，这是错误提醒默认样式！红色的").error();
             break;
         case R.id.custom_switch_line:
             if (mLineView.isActivated()) {

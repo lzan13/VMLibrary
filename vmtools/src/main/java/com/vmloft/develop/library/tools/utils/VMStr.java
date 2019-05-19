@@ -87,17 +87,38 @@ public class VMStr {
     }
 
     /**
-     * 根据资源 id 获取字符串
+     * 根据参数格式化字符串
      */
-    public static String strByResId(int resId) {
-        return strByResId(VMTools.getContext(), resId);
+    public static String byArgs(String str, Object... args) {
+        return String.format(str, args);
     }
 
     /**
      * 根据资源 id 获取字符串
      */
-    public static String strByResId(Context context, int resId) {
+    public static String byRes(int resId) {
+        return byRes(VMTools.getContext(), resId);
+    }
+
+    /**
+     * 根据资源 id 获取字符串
+     */
+    public static String byRes(Context context, int resId) {
         return context.getString(resId);
+    }
+
+    /**
+     * 根据资源 id 格式化字符串
+     */
+    public static String byResArgs(int resId, Object... args) {
+        return byResArgs(VMTools.getContext(), resId, args);
+    }
+
+    /**
+     * 根据资源 id 格式化字符串
+     */
+    public static String byResArgs(Context context, int resId, Object... args) {
+        return context.getString(resId, args);
     }
 
     /**

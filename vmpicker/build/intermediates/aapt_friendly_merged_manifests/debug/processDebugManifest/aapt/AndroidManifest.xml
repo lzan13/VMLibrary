@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.vmloft.develop.library.picker"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="21"
+        android:targetSdkVersion="28" />
+
+    <!-- 往SDCard写入数据权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 从SDCard读取数据权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 相机权限 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application>
+
+        <!-- 选择器界面 -->
+        <activity
+            android:name="com.vmloft.develop.library.picker.ui.VMPickGridActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/VMTheme" />
+        <!-- 剪切界面 -->
+        <activity
+            android:name="com.vmloft.develop.library.picker.ui.VMPickCropActivity"
+            android:configChanges="orientation|screenSize"
+            android:hardwareAccelerated="false"
+            android:theme="@style/VMTheme" />
+        <!-- 预览界面 -->
+        <activity
+            android:name="com.vmloft.develop.library.picker.ui.VMPickPreviewActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/VMTheme.Transparent" />
+
+        <provider
+            android:name="com.vmloft.develop.library.picker.VMPickerProvider"
+            android:authorities="dollar_openBracket_applicationId_closeBracket.provider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+    </application>
+
+</manifest>

@@ -77,8 +77,8 @@ public class VMToastView extends RelativeLayout {
         if (resId == 0) {
             return;
         }
-        mIconView.setColorFilter(VMColor.colorByResId(resId));
-        mMsgView.setTextColor(VMColor.colorByResId(resId));
+        mIconView.setColorFilter(VMColor.byRes(resId));
+        mMsgView.setTextColor(VMColor.byRes(resId));
     }
 
     public void setBGColor(int resId) {
