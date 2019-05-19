@@ -89,7 +89,7 @@ public class VMPickPreviewActivity extends VMPickBaseActivity implements Compoun
         }
 
         mSelectedPictures = VMPicker.getInstance().getSelectedPictures();
-        getTopBar().setTitle(VMStr.byResArgs(R.string.vm_pick_preview_picture_count, mCurrentPosition + 1, mPictures
+        getTopBar().setTitle(VMStr.byResArgs(R.string.vm_pick_preview_picture_count, mCurrentPosition, mPictures
             .size()));
         getTopBar().setIconListener(new View.OnClickListener() {
             @Override
@@ -208,7 +208,7 @@ public class VMPickPreviewActivity extends VMPickBaseActivity implements Compoun
                 VMPictureBean item = mPictures.get(mCurrentPosition);
                 boolean isSelected = VMPicker.getInstance().isSelect(item);
                 mSelectCB.setChecked(isSelected);
-                getTopBar().setTitle(VMStr.byResArgs(R.string.vm_pick_preview_picture_count, mCurrentPosition + 1, mPictures
+                getTopBar().setTitle(VMStr.byResArgs(R.string.vm_pick_preview_picture_count, mCurrentPosition, mPictures
                     .size()));
             }
         });

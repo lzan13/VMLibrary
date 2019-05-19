@@ -37,7 +37,6 @@ public class VMTopBar extends RelativeLayout {
     private String mEndText;
     private int mEndIcon;
     private int mTitleColor;
-    private int mBGColor;
 
     public VMTopBar(Context context) {
         this(context, null);
@@ -69,7 +68,6 @@ public class VMTopBar extends RelativeLayout {
         mEndIconBtn = findViewById(R.id.vm_top_bar_end_icon);
 
         mTitleColor = VMColor.byRes(R.color.vm_btn_text_dark);
-        mBGColor = VMColor.byRes(R.color.vm_theme_background);
 
         // 获取控件的属性值
         handleAttrs(context, attrs);
@@ -113,7 +111,6 @@ public class VMTopBar extends RelativeLayout {
      * 装载控件颜色
      */
     private void setupColor() {
-        setBackgroundColor(mBGColor);
         mTitleView.setTextColor(mTitleColor);
         mSubtitleView.setTextColor(mTitleColor);
         // 对图标着色
@@ -139,7 +136,6 @@ public class VMTopBar extends RelativeLayout {
         mEndText = array.getString(R.styleable.VMTopBar_vm_top_bar_end_btn);
         mEndIcon = array.getResourceId(R.styleable.VMTopBar_vm_top_bar_end_icon, mEndIcon);
         mTitleColor = array.getColor(R.styleable.VMTopBar_vm_top_bar_title_color, mTitleColor);
-        mBGColor = array.getColor(R.styleable.VMTopBar_vm_top_bar_bg_color, mBGColor);
         // 回收资源
         array.recycle();
     }
@@ -217,16 +213,6 @@ public class VMTopBar extends RelativeLayout {
     public void setTitleCOlor(int resId) {
         if (resId != 0) {
             mTitleColor = VMColor.byRes(resId);
-            setupColor();
-        }
-    }
-
-    /**
-     * 设置背景色
-     */
-    public void setBGColor(int resId) {
-        if (resId != 0) {
-            mBGColor = VMColor.byRes(resId);
             setupColor();
         }
     }

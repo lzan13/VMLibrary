@@ -268,6 +268,7 @@ public class VMPickGridActivity extends VMPickBaseActivity implements VMPicker.O
                 if (VMPicker.getInstance().isShowCamera() && position == 0) {
                     openCamera();
                 } else {
+                    position = VMPicker.getInstance().isShowCamera() ? position - 1 : position;
                     if (VMPicker.getInstance().isMultiMode()) {
                         Intent intent = new Intent(VMPickGridActivity.this, VMPickPreviewActivity.class);
                         intent.putExtra(VMPicker.EXTRA_SELECTED_IMAGE_POSITION, position);
