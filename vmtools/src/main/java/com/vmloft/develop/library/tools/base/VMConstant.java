@@ -30,11 +30,15 @@ public class VMConstant {
     public static final int VM_PICK_RESULT_CODE_BACK = 20000;
     // 选择完成返回起始页
     public static final int VM_PICK_RESULT_CODE_PICTURES = 20001;
+    // 是否选中原图
+    public static final String VM_KEY_PICK_IS_ORIGIN = "vm_key_pick_is_origin";
     // 选择器传参
     public static final String VM_KEY_PICK_PICTURES = "vm_key_pick_pictures";
-    public static final String VM_KEY_PICK_TAKE_PICTURE = "vm_key_pick_take_picture";
-
-    public static final String EXTRAS_TAKE_PICKERS = "TAKE";
-    public static final String EXTRAS_IMAGES = "IMAGES";
-
+    //public static final String VM_KEY_PICK_TAKE_PICTURE = "vm_key_pick_take_picture";
+    // 选择结果
+    public static final String KEY_PICK_RESULT_PICTURES = "key_pick_result_pictures";
+    // 当前选择位置
+    public static final String KEY_PICK_CURRENT_SELECTED_POSITION = "key_pick_current_selected_position";
+    // 是否预览全部
+    public static final String KEY_PICK_PREVIEW_ALL = "key_pick_preview_all";
 }

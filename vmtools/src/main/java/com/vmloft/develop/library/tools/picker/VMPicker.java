@@ -41,10 +41,9 @@ public class VMPicker {
 //    public static final int RESULT_CODE_ITEMS = 1004;
 //    public static final int RESULT_CODE_BACK = 1005;
 
-    public static final String EXTRA_RESULT_ITEMS = "extra_result_items";
-    public static final String EXTRA_SELECTED_IMAGE_POSITION = "selected_image_position";
-    public static final String EXTRA_IMAGE_ITEMS = "extra_image_items";
-    public static final String EXTRA_FROM_ITEMS = "extra_from_items";
+    //public static final String EXTRA_RESULT_ITEMS = "extra_result_items";
+    //public static final String EXTRA_SELECTED_IMAGE_POSITION = "selected_image_position";
+    //public static final String EXTRA_FROM_ITEMS = "extra_from_items";
 
     // 图片选择模式 是否多选 默认为 true
     private boolean mMultiMode = true;

@@ -39,11 +39,7 @@ public class VMPickCropActivity extends VMPickBaseActivity implements VMCropView
         super.initUI();
         mCropView = findViewById(R.id.vm_pick_crop_iv);
         mCropView.setOnBitmapSaveCompleteListener(this);
-    }
 
-    @Override
-    protected void initData() {
-        getTopBar().setTitle(R.string.vm_pick_crop_picture);
         getTopBar().setIconListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,24 +47,28 @@ public class VMPickCropActivity extends VMPickBaseActivity implements VMCropView
                 onFinish();
             }
         });
+
         getTopBar().setEndBtnListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mCropView.saveBitmapToFile(VMPicker.getInstance().getCropCacheFolder(), mCropOutWidth, mCropOutHeight, mIsSaveRectangle);
             }
         });
-        //获取需要的参数
-        mCropOutWidth = VMPicker.getInstance().getCropOutWidth();
-        mCropOutHeight = VMPicker.getInstance().getCropOutHeight();
-        mIsSaveRectangle = VMPicker.getInstance().isSaveRectangle();
-        mPictureBeans = VMPicker.getInstance().getSelectedPictures();
-        String imagePath = mPictureBeans.get(0).path;
+    }
 
+    @Override
+    protected void initData() {
         mCropView.setFocusStyle(VMPicker.getInstance().getCropStyle());
         mCropView.setFocusWidth(VMPicker.getInstance().getCropFocusWidth());
         mCropView.setFocusHeight(VMPicker.getInstance().getCropFocusHeight());
 
-        //缩放图片
+        mCropOutWidth = VMPicker.getInstance().getCropOutWidth();
+        mCropOutHeight = VMPicker.getInstance().getCropOutHeight();
+        mIsSaveRectangle = VMPicker.getInstance().isSaveRectangle();
+        mPictureBeans = VMPicker.getInstance().getSelectedPictures();
+
+        String imagePath = mPictureBeans.get(0).path;
+        // 缩放图片
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(imagePath, options);
@@ -76,7 +76,7 @@ public class VMPickCropActivity extends VMPickBaseActivity implements VMCropView
         options.inSampleSize = calculateInSampleSize(options, displayMetrics.widthPixels, displayMetrics.heightPixels);
         options.inJustDecodeBounds = false;
         mBitmap = BitmapFactory.decodeFile(imagePath, options);
-        //设置默认旋转角度
+        // 设置默认旋转角度
         mCropView.setImageBitmap(mCropView.rotate(mBitmap, VMBitmap.getBitmapDegree(imagePath)));
     }
 
@@ -102,9 +102,9 @@ public class VMPickCropActivity extends VMPickBaseActivity implements VMCropView
 
         // 单选不需要裁剪，返回数据
         Intent intent = new Intent();
-        intent.putExtra(VMPicker.EXTRA_RESULT_ITEMS, mPictureBeans);
+        intent.putExtra(VMConstant.KEY_PICK_RESULT_PICTURES, mPictureBeans);
         setResult(VMConstant.VM_PICK_RESULT_CODE_PICTURES, intent);
-        finish();
+        onFinish();
     }
 
     @Override

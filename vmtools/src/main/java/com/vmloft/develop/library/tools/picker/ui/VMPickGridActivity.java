@@ -1,11 +1,9 @@
 package com.vmloft.develop.library.tools.picker.ui;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +14,6 @@ import com.vmloft.develop.library.tools.adapter.VMAdapter;
 import com.vmloft.develop.library.tools.base.VMConstant;
 import com.vmloft.develop.library.tools.permission.VMPermission;
 import com.vmloft.develop.library.tools.permission.VMPermissionCallback;
-import com.vmloft.develop.library.tools.picker.DataHolder;
 import com.vmloft.develop.library.tools.picker.VMPickScanPicture;
 import com.vmloft.develop.library.tools.picker.VMPicker;
 import com.vmloft.develop.library.tools.R;
@@ -49,6 +46,8 @@ public class VMPickGridActivity extends VMPickBaseActivity {
     // 图片文件夹数据集合
     private List<VMFolderBean> mFolderBeans;
 
+    // 是否显示相机
+    private boolean isShowCamera = false;
     // 默认不是直接调取相机
     private boolean isDirectCamera = false;
     // 是否选中原图
@@ -67,6 +66,7 @@ public class VMPickGridActivity extends VMPickBaseActivity {
     // 使用 RecyclerView 展示图片
     private RecyclerView mRecyclerView;
     private VMPictureAdapter mPictureAdapter;
+
     // 图片扫描回调接口
     private VMPickScanPicture.OnScanPictureListener mScanPictureListener;
     private VMPicker.OnSelectedPictureListener mSelectedPictureListener;
@@ -89,42 +89,22 @@ public class VMPickGridActivity extends VMPickBaseActivity {
         mCurrDirView = findViewById(R.id.vm_pick_grid_choose_folder_tv);
         mPreviewBtn = findViewById(R.id.vm_pick_grid_preview_btn);
 
-        initNavBarListener();
-    }
-
-    @Override
-    protected void initData() {
+        mPreviewBtn.setOnClickListener(viewListener);
+        mChangeDirView.setOnClickListener(viewListener);
         getTopBar().setIconListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onFinish();
             }
         });
-        // 每次打开都重置选择器
-//        VMPicker.getInstance().reset();
-
-        Intent data = getIntent();
-        // 新增可直接拍照
-        if (data != null && data.getExtras() != null) {
-            isDirectCamera = data.getBooleanExtra(VMConstant.VM_KEY_PICK_TAKE_PICTURE, false); // 默认不是直接打开相机
-            if (isDirectCamera) {
-                openCamera();
-            }
-//            ArrayList<VMPictureBean> images = (ArrayList<VMPictureBean>) data.getSerializableExtra(VMConstant.VM_KEY_PICK_PICTURES);
-//            VMPicker.getInstance().setSelectedPictures(images);
-        }
-
-
-        mPreviewBtn.setOnClickListener(viewListener);
-        mChangeDirView.setOnClickListener(viewListener);
 
         if (VMPicker.getInstance().isMultiMode()) {
-            getTopBar().setEndBtnListener("完成", new View.OnClickListener() {
+            getTopBar().setEndBtnListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent();
-                    intent.putExtra(VMPicker.EXTRA_RESULT_ITEMS, VMPicker.getInstance().getSelectedPictures());
-                    setResult(VMConstant.VM_PICK_RESULT_CODE_PICTURES, intent);  //多选不允许裁剪裁剪，返回数据
+                    intent.putExtra(VMConstant.KEY_PICK_RESULT_PICTURES, VMPicker.getInstance().getSelectedPictures());
+                    setResult(VMConstant.VM_PICK_RESULT_CODE_PICTURES, intent);
                     onFinish();
                 }
             });
@@ -134,15 +114,26 @@ public class VMPickGridActivity extends VMPickBaseActivity {
             mPreviewBtn.setVisibility(View.GONE);
         }
 
+        initNavBarListener();
+    }
+
+    @Override
+    protected void initData() {
+        // 每次打开都重置选择器
+        VMPicker.getInstance().reset();
+
+        isShowCamera = VMPicker.getInstance().isShowCamera();
+        ArrayList<VMPictureBean> pictures = (ArrayList<VMPictureBean>) getIntent().getSerializableExtra(VMConstant.VM_KEY_PICK_PICTURES);
+        VMPicker.getInstance().setSelectedPictures(pictures);
+
         mFolderAdapter = new VMFolderAdapter(mActivity, null);
         mPictureAdapter = new VMPictureAdapter(mActivity, null);
 
+        refreshBtnStatus();
+        // 初始化扫描图片， 要先扫描图片
+        initScanPicture();
         // 初始化选择图片监听
         initSelectPictureListener();
-        // 初始化完成 扫描图片
-        scanPicture();
-
-//        onPictureSelected(0, null, false);
     }
 
     /**
@@ -165,67 +156,29 @@ public class VMPickGridActivity extends VMPickBaseActivity {
                 mBottomSpaceView.setVisibility(View.GONE);
             }
         });
-        VMNavBarUtil.with(this, VMNavBarUtil.ORIENTATION_HORIZONTAL)
-                .setListener(new VMNavBarUtil.OnNavBarChangeListener() {
-                    @Override
-                    public void onShow(int orientation, int height) {
-                        mTopBar.setPadding(0, 0, height, 0);
-                        mBottomBar.setPadding(0, 0, height, 0);
-                    }
-
-                    @Override
-                    public void onHide(int orientation) {
-                        mTopBar.setPadding(0, 0, 0, 0);
-                        mBottomBar.setPadding(0, 0, 0, 0);
-                    }
-                });
-    }
-
-    /**
-     * 初始化选择图片监听
-     */
-    private void initSelectPictureListener() {
-        mSelectedPictureListener = new VMPicker.OnSelectedPictureListener() {
+        VMNavBarUtil.with(this, VMNavBarUtil.ORIENTATION_HORIZONTAL).setListener(new VMNavBarUtil.OnNavBarChangeListener() {
             @Override
-            public void onPictureSelected(int position, VMPictureBean item, boolean isAdd) {
-                int selectCount = VMPicker.getInstance().getSelectPictureCount();
-                int selectLimit = VMPicker.getInstance().getSelectLimit();
-                if (VMPicker.getInstance().isMultiMode()) {
-                    if (selectCount > 0) {
-                        getTopBar().setEndBtn(VMStr.byResArgs(R.string.vm_pick_complete_select, selectCount, selectLimit));
-                        getTopBar().setEndBtnEnable(true);
-                        mPreviewBtn.setEnabled(true);
-                        mPreviewBtn.setText(getResources().getString(R.string.vm_pick_preview_count, VMPicker.getInstance().getSelectPictureCount()));
-                    } else {
-                        getTopBar().setEndBtn(VMStr.byRes(R.string.vm_pick_complete));
-                        getTopBar().setEndBtnEnable(false);
-                        mPreviewBtn.setEnabled(false);
-                        mPreviewBtn.setText(getResources().getString(R.string.vm_pick_preview));
-                    }
-                }
-
-                for (int i = VMPicker.getInstance().isShowCamera() ? 1 : 0; i < mPictureAdapter.getItemCount(); i++) {
-                    if (mPictureAdapter.getItemData(i).path != null && mPictureAdapter.getItemData(i).path.equals(item.path)) {
-                        mPictureAdapter.notifyItemChanged(i);
-                        return;
-                    }
-                }
+            public void onShow(int orientation, int height) {
+                mTopBar.setPadding(0, 0, height, 0);
+                mBottomBar.setPadding(0, 0, height, 0);
             }
-        };
-        VMPicker.getInstance().addOnSelectedPictureListener(mSelectedPictureListener);
 
+            @Override
+            public void onHide(int orientation) {
+                mTopBar.setPadding(0, 0, 0, 0);
+                mBottomBar.setPadding(0, 0, 0, 0);
+            }
+        });
     }
 
     /**
      * 扫描图片
      */
-    private void scanPicture() {
+    private void initScanPicture() {
         mScanPictureListener = new VMPickScanPicture.OnScanPictureListener() {
             @Override
             public void onLoadComplete(List<VMFolderBean> folderBeans) {
-//                loadPictureComplete(folderBeans);
                 mFolderBeans = folderBeans;
-//                VMPicker.getInstance().setFolderBeans(mFolderBeans);
                 if (mFolderBeans.size() == 0) {
                     mPictureAdapter.refresh(null);
                 } else {
@@ -234,44 +187,7 @@ public class VMPickGridActivity extends VMPickBaseActivity {
                 mPictureAdapter.setClickListener(new VMAdapter.IClickListener() {
                     @Override
                     public void onItemAction(int position, Object object) {
-                        // 判断第一个是不是相机，如果是，特殊处理
-                        if (VMPicker.getInstance().isShowCamera() && position == 0) {
-                            openCamera();
-                        } else {
-                            position = VMPicker.getInstance().isShowCamera() ? position - 1 : position;
-                            if (VMPicker.getInstance().isMultiMode()) {
-                                Intent intent = new Intent(VMPickGridActivity.this, VMPickPreviewActivity.class);
-                                intent.putExtra(VMPicker.EXTRA_SELECTED_IMAGE_POSITION, position);
-
-                                /**
-                                 * 依然采用弱引用进行解决，采用单例加锁方式处理
-                                 */
-                                // 据说这样会导致大量图片的时候崩溃
-                                //            intent.putExtra(VMPicker.EXTRA_IMAGE_ITEMS, VMPicker.getCurrentFolderPictures());
-
-                                // 但采用弱引用会导致预览弱引用直接返回空指针
-                                DataHolder.getInstance()
-                                        .save(DataHolder.DH_CURRENT_IMAGE_FOLDER_ITEMS, VMPicker.getInstance()
-                                                .getCurrentFolderPictures());
-                                intent.putExtra(VMPickPreviewActivity.ISORIGIN, isOrigin);
-                                startActivityForResult(intent, VMConstant.VM_PICK_REQUEST_CODE_PREVIEW);  //如果是多选，点击图片进入预览界面
-                            } else {
-                                VMPicker.getInstance().clearSelectedPictures();
-                                VMPicker.getInstance().addSelectedPicture(position, VMPicker.getInstance()
-                                        .getCurrentFolderPictures()
-                                        .get(position), true);
-                                if (VMPicker.getInstance().isCrop()) {
-                                    Intent intent = new Intent(VMPickGridActivity.this, VMPickCropActivity.class);
-                                    startActivityForResult(intent, VMConstant.VM_PICK_REQUEST_CODE_CROP);  //单选需要裁剪，进入裁剪界面
-                                } else {
-                                    Intent intent = new Intent();
-                                    intent.putExtra(VMPicker.EXTRA_RESULT_ITEMS, VMPicker.getInstance()
-                                            .getSelectedPictures());
-                                    setResult(VMConstant.VM_PICK_RESULT_CODE_PICTURES, intent);   //单选不需要裁剪，返回数据
-                                    finish();
-                                }
-                            }
-                        }
+                        onPictureClick(position);
                     }
 
                     @Override
@@ -281,7 +197,6 @@ public class VMPickGridActivity extends VMPickBaseActivity {
                 });
                 mRecyclerView.setLayoutManager(new GridLayoutManager(mActivity, 4));
                 mRecyclerView.addItemDecoration(new VMSpaceGridDecoration(4, VMDimen.dp2px(2)));
-                //        mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(4, VMDimen.dp2px(4), false));
                 mRecyclerView.setAdapter(mPictureAdapter);
                 mFolderAdapter.refreshData(mFolderBeans);
             }
@@ -305,6 +220,78 @@ public class VMPickGridActivity extends VMPickBaseActivity {
     }
 
     /**
+     * 初始化选择图片监听
+     */
+    private void initSelectPictureListener() {
+        mSelectedPictureListener = new VMPicker.OnSelectedPictureListener() {
+            @Override
+            public void onPictureSelected(int position, VMPictureBean bean, boolean isAdd) {
+                refreshBtnStatus();
+                for (int i = isShowCamera ? 1 : 0; i < mPictureAdapter.getItemCount(); i++) {
+                    if (mPictureAdapter.getItemData(i).path != null && mPictureAdapter.getItemData(i).path.equals(bean.path)) {
+                        mPictureAdapter.notifyItemChanged(i);
+                        return;
+                    }
+                }
+            }
+        };
+        VMPicker.getInstance().addOnSelectedPictureListener(mSelectedPictureListener);
+    }
+
+    /**
+     * 刷新确认以及预览按钮
+     */
+    private void refreshBtnStatus() {
+        int selectCount = VMPicker.getInstance().getSelectPictureCount();
+        int selectLimit = VMPicker.getInstance().getSelectLimit();
+        if (VMPicker.getInstance().isMultiMode()) {
+            if (selectCount > 0) {
+                getTopBar().setEndBtn(VMStr.byResArgs(R.string.vm_pick_complete_select, selectCount, selectLimit));
+                getTopBar().setEndBtnEnable(true);
+                mPreviewBtn.setEnabled(true);
+                mPreviewBtn.setText(VMStr.byResArgs(R.string.vm_pick_preview_count, selectCount));
+            } else {
+                getTopBar().setEndBtn(VMStr.byRes(R.string.vm_pick_complete));
+                getTopBar().setEndBtnEnable(false);
+                mPreviewBtn.setEnabled(false);
+                mPreviewBtn.setText(getResources().getString(R.string.vm_pick_preview));
+            }
+        }
+    }
+
+    /**
+     * 点击图片列表
+     */
+    private void onPictureClick(int position) {
+        // 判断第一个是不是相机，如果是，特殊处理
+        if (VMPicker.getInstance().isShowCamera() && position == 0) {
+            openCamera();
+        } else {
+            position = isShowCamera ? position - 1 : position;
+            if (VMPicker.getInstance().isMultiMode()) {
+                Intent intent = new Intent(VMPickGridActivity.this, VMPickPreviewActivity.class);
+                intent.putExtra(VMConstant.KEY_PICK_CURRENT_SELECTED_POSITION, position);
+                intent.putExtra(VMConstant.KEY_PICK_PREVIEW_ALL, true);
+
+                intent.putExtra(VMConstant.VM_KEY_PICK_IS_ORIGIN, isOrigin);
+                startActivityForResult(intent, VMConstant.VM_PICK_REQUEST_CODE_PREVIEW);  //如果是多选，点击图片进入预览界面
+            } else {
+                VMPicker.getInstance().clearSelectedPictures();
+                VMPicker.getInstance().addSelectedPicture(position, VMPicker.getInstance().getCurrentFolderPictures().get(position), true);
+                if (VMPicker.getInstance().isCrop()) {
+                    Intent intent = new Intent(mActivity, VMPickCropActivity.class);
+                    startActivityForResult(intent, VMConstant.VM_PICK_REQUEST_CODE_CROP);  //单选需要裁剪，进入裁剪界面
+                } else {
+                    Intent intent = new Intent();
+                    intent.putExtra(VMConstant.KEY_PICK_RESULT_PICTURES, VMPicker.getInstance().getSelectedPictures());
+                    setResult(VMConstant.VM_PICK_RESULT_CODE_PICTURES, intent);   //单选不需要裁剪，返回数据
+                    finish();
+                }
+            }
+        }
+    }
+
+    /**
      * 开启相机
      */
     private void openCamera() {
@@ -324,42 +311,14 @@ public class VMPickGridActivity extends VMPickBaseActivity {
         }
     }
 
-    private View.OnClickListener viewListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (v.getId() == R.id.vm_pick_grid_choose_folder_rl) {
-                if (mFolderBeans == null) {
-                    Log.i("VMPickGridActivity", "您的手机没有图片");
-                    return;
-                }
-                //点击文件夹按钮
-                createPopupFolderList();
-                mFolderAdapter.refreshData(mFolderBeans);  //刷新数据
-                if (mFolderPopupWindow.isShowing()) {
-                    mFolderPopupWindow.dismiss();
-                } else {
-                    mFolderPopupWindow.showAtLocation(mBottomBar, Gravity.NO_GRAVITY, 0, 0);
-                    //默认选择当前选择的上一个，当目录很多时，直接定位到已选中的条目
-                    int index = mFolderAdapter.getSelectIndex();
-                    index = index == 0 ? index : index - 1;
-                    mFolderPopupWindow.setSelection(index);
-                }
-            } else if (v.getId() == R.id.vm_pick_grid_preview_btn) {
-                Intent intent = new Intent(VMPickGridActivity.this, VMPickPreviewActivity.class);
-                intent.putExtra(VMPicker.EXTRA_SELECTED_IMAGE_POSITION, 0);
-                intent.putExtra(VMPicker.EXTRA_IMAGE_ITEMS, VMPicker.getInstance()
-                    .getSelectedPictures());
-                intent.putExtra(VMPickPreviewActivity.ISORIGIN, isOrigin);
-                intent.putExtra(VMPicker.EXTRA_FROM_ITEMS, true);
-                startActivityForResult(intent, VMConstant.VM_PICK_REQUEST_CODE_PREVIEW);
-            }
-        }
-    };
-
     /**
-     * 创建弹出的ListView
+     * 弹出文件夹选择列表
      */
-    private void createPopupFolderList() {
+    private void showFolderList() {
+        if (mFolderBeans == null) {
+            VMToast.make(mActivity, "没有更多图片可供选择").error();
+            return;
+        }
         mFolderPopupWindow = new FolderPopupWindow(mActivity, mFolderAdapter);
         mFolderPopupWindow.setOnItemClickListener(new FolderPopupWindow.OnItemClickListener() {
             @Override
@@ -367,33 +326,62 @@ public class VMPickGridActivity extends VMPickBaseActivity {
                 mFolderAdapter.setSelectIndex(position);
                 VMPicker.getInstance().setCurrentFolderPosition(position);
                 mFolderPopupWindow.dismiss();
-                VMFolderBean VMFolderBean = (VMFolderBean) adapterView.getAdapter()
-                    .getItem(position);
-                if (null != VMFolderBean) {
-                    mPictureAdapter.refresh(VMFolderBean.pictures);
-                    mCurrDirView.setText(VMFolderBean.name);
+                VMFolderBean folderBean = (VMFolderBean) adapterView.getAdapter().getItem(position);
+                if (null != folderBean) {
+                    mPictureAdapter.refresh(folderBean.pictures);
+                    mCurrDirView.setText(folderBean.name);
                 }
             }
         });
         mFolderPopupWindow.setMargin(mBottomBar.getHeight());
+
+        //点击文件夹按钮
+        mFolderAdapter.refreshData(mFolderBeans);  //刷新数据
+        if (mFolderPopupWindow.isShowing()) {
+            mFolderPopupWindow.dismiss();
+        } else {
+            mFolderPopupWindow.showAtLocation(mBottomBar, Gravity.NO_GRAVITY, 0, 0);
+            //默认选择当前选择的上一个，当目录很多时，直接定位到已选中的条目
+            int index = mFolderAdapter.getSelectIndex();
+            index = index == 0 ? index : index - 1;
+            mFolderPopupWindow.setSelection(index);
+        }
     }
+
+    /**
+     * 界面控件点击事件
+     */
+    private View.OnClickListener viewListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (v.getId() == R.id.vm_pick_grid_choose_folder_rl) {
+                showFolderList();
+            } else if (v.getId() == R.id.vm_pick_grid_preview_btn) {
+                Intent intent = new Intent(mActivity, VMPickPreviewActivity.class);
+                intent.putExtra(VMConstant.KEY_PICK_CURRENT_SELECTED_POSITION, 0);
+                intent.putExtra(VMConstant.VM_KEY_PICK_IS_ORIGIN, isOrigin);
+                intent.putExtra(VMConstant.KEY_PICK_PREVIEW_ALL, false);
+                startActivityForResult(intent, VMConstant.VM_PICK_REQUEST_CODE_PREVIEW);
+            }
+        }
+    };
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null && data.getExtras() != null) {
             if (resultCode == VMConstant.VM_PICK_RESULT_CODE_BACK) {
-                isOrigin = data.getBooleanExtra(VMPickPreviewActivity.ISORIGIN, false);
+                isOrigin = data.getBooleanExtra(VMConstant.VM_KEY_PICK_IS_ORIGIN, false);
             } else {
                 //从拍照界面返回
                 //点击 X , 没有选择照片
-                if (data.getSerializableExtra(VMPicker.EXTRA_RESULT_ITEMS) == null) {
+                if (data.getSerializableExtra(VMConstant.KEY_PICK_RESULT_PICTURES) == null) {
                     //什么都不做，直接返回
                 } else {
                     //说明是从裁剪页面过来的数据，直接返回就可以
                     setResult(VMConstant.VM_PICK_RESULT_CODE_PICTURES, data);
                 }
-                finish();
+                onFinish();
             }
         } else {
             //如果是裁剪，因为裁剪指定了存储的Uri，所以返回的data一定为null
@@ -415,36 +403,22 @@ public class VMPickGridActivity extends VMPickBaseActivity {
                     startActivityForResult(intent, VMConstant.VM_PICK_REQUEST_CODE_CROP);  //单选需要裁剪，进入裁剪界面
                 } else {
                     Intent intent = new Intent();
-                    intent.putExtra(VMPicker.EXTRA_RESULT_ITEMS, VMPicker.getInstance()
-                        .getSelectedPictures());
+                    intent.putExtra(VMConstant.KEY_PICK_RESULT_PICTURES, VMPicker.getInstance().getSelectedPictures());
                     setResult(VMConstant.VM_PICK_RESULT_CODE_PICTURES, intent);   //单选不需要裁剪，返回数据
-                    finish();
+                    onFinish();
                 }
             } else if (isDirectCamera) {
-                finish();
+                onFinish();
             }
         }
     }
 
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        isDirectCamera = savedInstanceState.getBoolean(VMConstant.VM_KEY_PICK_TAKE_PICTURE, false);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putBoolean(VMConstant.VM_KEY_PICK_TAKE_PICTURE, isDirectCamera);
-    }
-
-    @Override
     protected void onDestroy() {
-        if(mSelectedPictureListener!=null){
+        if (mSelectedPictureListener != null) {
             VMPicker.getInstance().removeOnSelectedPictureListener(mSelectedPictureListener);
             mSelectedPictureListener = null;
         }
         super.onDestroy();
     }
-
 }

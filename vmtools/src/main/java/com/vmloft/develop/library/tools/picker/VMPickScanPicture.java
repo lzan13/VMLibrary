@@ -75,11 +75,13 @@ public class VMPickScanPicture implements LoaderManager.LoaderCallbacks<Cursor> 
         CursorLoader cursorLoader = null;
         //扫描所有图片
         if (id == LOADER_ALL) {
-            cursorLoader = new CursorLoader(activity, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, IMAGE_PROJECTION, null, null, IMAGE_PROJECTION[6] + " DESC");
+            cursorLoader = new CursorLoader(activity, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, IMAGE_PROJECTION, null, null,
+                IMAGE_PROJECTION[6] + " DESC");
         }
         //扫描某个图片文件夹
         if (id == LOADER_CATEGORY) {
-            cursorLoader = new CursorLoader(activity, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, IMAGE_PROJECTION, IMAGE_PROJECTION[1] + " like '%" + args
+            cursorLoader = new CursorLoader(activity, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, IMAGE_PROJECTION,
+                IMAGE_PROJECTION[1] + " like '%" + args
                 .getString("path") + "%'", null, IMAGE_PROJECTION[6] + " DESC");
         }
 
@@ -91,7 +93,11 @@ public class VMPickScanPicture implements LoaderManager.LoaderCallbacks<Cursor> 
         mFolderBeans.clear();
         if (data != null) {
             ArrayList<VMPictureBean> allPictures = new ArrayList<>();   //所有图片的集合,不分文件夹
-            while (data.moveToNext()) {
+            //while (data.moveToNext()) {
+            /**
+             * TODO 这里有个坑一定要注意，当第二次回调时，Cursor 已经指向最后一个了，所以一定要调用 moveToFirst()
+             */
+            for (data.moveToFirst(); !data.isAfterLast(); data.moveToNext()) {
                 //查询数据
                 String imageName = data.getString(data.getColumnIndexOrThrow(IMAGE_PROJECTION[0]));
                 String imagePath = data.getString(data.getColumnIndexOrThrow(IMAGE_PROJECTION[1]));

@@ -8,12 +8,10 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.Toast;
 
 import com.vmloft.develop.library.tools.R;
 
 import com.vmloft.develop.library.tools.base.VMConstant;
-import com.vmloft.develop.library.tools.picker.DataHolder;
 import com.vmloft.develop.library.tools.picker.VMPicker;
 import com.vmloft.develop.library.tools.picker.adapter.VMPreviewPageAdapter;
 import com.vmloft.develop.library.tools.picker.bean.VMPictureBean;
@@ -22,6 +20,7 @@ import com.vmloft.develop.library.tools.utils.VMDimen;
 import com.vmloft.develop.library.tools.utils.VMStr;
 import com.vmloft.develop.library.tools.widget.VMViewPager;
 
+import com.vmloft.develop.library.tools.widget.toast.VMToast;
 import java.util.ArrayList;
 
 /**
@@ -30,8 +29,6 @@ import java.util.ArrayList;
  * 图片预览界面
  */
 public class VMPickPreviewActivity extends VMPickBaseActivity implements CompoundButton.OnCheckedChangeListener {
-
-    public static final String ISORIGIN = "isOrigin";
 
     // 预览图片集合
     protected ArrayList<VMPictureBean> mPictures;
@@ -42,10 +39,11 @@ public class VMPickPreviewActivity extends VMPickBaseActivity implements Compoun
     protected VMViewPager mViewPager;
     // 预览适配器
     protected VMPreviewPageAdapter mAdapter;
-    protected boolean isFromItems = false;
+    // 是否预览整个文件夹
+    protected boolean isPreviewFolder = false;
     // 是否选中原图
     private boolean isOrigin;
-    // 是否选中当前图片的CheckBox
+    // 是否选中当前图片
     private CheckBox mSelectCB;
     // 原图
     private CheckBox mOriginCB;
@@ -76,27 +74,23 @@ public class VMPickPreviewActivity extends VMPickBaseActivity implements Compoun
     @Override
     protected void initData() {
 
-        mCurrentPosition = getIntent().getIntExtra(VMPicker.EXTRA_SELECTED_IMAGE_POSITION, 0);
-        isFromItems = getIntent().getBooleanExtra(VMPicker.EXTRA_FROM_ITEMS, false);
-        isOrigin = getIntent().getBooleanExtra(VMPickPreviewActivity.ISORIGIN, false);
+        mCurrentPosition = getIntent().getIntExtra(VMConstant.KEY_PICK_CURRENT_SELECTED_POSITION, 0);
+        isPreviewFolder = getIntent().getBooleanExtra(VMConstant.KEY_PICK_PREVIEW_ALL, false);
+        isOrigin = getIntent().getBooleanExtra(VMConstant.VM_KEY_PICK_IS_ORIGIN, false);
 
-        if (isFromItems) {
-            // 据说这样会导致大量图片崩溃
-            mPictures = (ArrayList<VMPictureBean>) getIntent().getSerializableExtra(VMPicker.EXTRA_IMAGE_ITEMS);
+        if (isPreviewFolder) {
+            mPictures = VMPicker.getInstance().getCurrentFolderPictures();
         } else {
-            // 下面采用弱引用会导致预览崩溃
-            mPictures = (ArrayList<VMPictureBean>) DataHolder.getInstance()
-                    .retrieve(DataHolder.DH_CURRENT_IMAGE_FOLDER_ITEMS);
+            mPictures = VMPicker.getInstance().getSelectedPictures();
         }
 
         mSelectedPictures = VMPicker.getInstance().getSelectedPictures();
-        getTopBar().setTitle(VMStr.byResArgs(R.string.vm_pick_preview_picture_count, mCurrentPosition + 1, mPictures
-                .size()));
+        getTopBar().setTitle(VMStr.byResArgs(R.string.vm_pick_preview_picture_count, mCurrentPosition + 1, mPictures.size()));
         getTopBar().setIconListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.putExtra(VMPickPreviewActivity.ISORIGIN, isOrigin);
+                intent.putExtra(VMConstant.VM_KEY_PICK_IS_ORIGIN, isOrigin);
                 setResult(VMConstant.VM_PICK_RESULT_CODE_BACK, intent);
                 onFinish();
             }
@@ -107,12 +101,10 @@ public class VMPickPreviewActivity extends VMPickBaseActivity implements Compoun
                 if (VMPicker.getInstance().getSelectedPictures().size() == 0) {
                     mSelectCB.setChecked(true);
                     VMPictureBean bean = mPictures.get(mCurrentPosition);
-                    VMPicker.getInstance()
-                            .addSelectedPicture(mCurrentPosition, bean, mSelectCB.isChecked());
+                    VMPicker.getInstance().addSelectedPicture(mCurrentPosition, bean, mSelectCB.isChecked());
                 }
                 Intent intent = new Intent();
-                intent.putExtra(VMPicker.EXTRA_RESULT_ITEMS, VMPicker.getInstance()
-                        .getSelectedPictures());
+                intent.putExtra(VMConstant.KEY_PICK_RESULT_PICTURES, VMPicker.getInstance().getSelectedPictures());
                 setResult(VMConstant.VM_PICK_RESULT_CODE_PICTURES, intent);
                 onFinish();
             }
@@ -139,12 +131,10 @@ public class VMPickPreviewActivity extends VMPickBaseActivity implements Compoun
                 VMPictureBean VMPictureBean = mPictures.get(mCurrentPosition);
                 int selectLimit = VMPicker.getInstance().getSelectLimit();
                 if (mSelectCB.isChecked() && mSelectedPictures.size() >= selectLimit) {
-                    Toast.makeText(VMPickPreviewActivity.this, getString(R.string.vm_pick_select_limit, selectLimit), Toast.LENGTH_SHORT)
-                            .show();
+                    VMToast.make(mActivity, VMStr.byResArgs(R.string.vm_pick_select_limit, selectLimit)).error();
                     mSelectCB.setChecked(false);
                 } else {
-                    VMPicker.getInstance()
-                            .addSelectedPicture(mCurrentPosition, VMPictureBean, mSelectCB.isChecked());
+                    VMPicker.getInstance().addSelectedPicture(mCurrentPosition, VMPictureBean, mSelectCB.isChecked());
                 }
             }
         });
@@ -170,20 +160,19 @@ public class VMPickPreviewActivity extends VMPickBaseActivity implements Compoun
                 mSpaceView.setVisibility(View.GONE);
             }
         });
-        VMNavBarUtil.with(this, VMNavBarUtil.ORIENTATION_HORIZONTAL)
-                .setListener(new VMNavBarUtil.OnNavBarChangeListener() {
-                    @Override
-                    public void onShow(int orientation, int height) {
-                        mTopBar.setPadding(0, 0, height, 0);
-                        mBottomBar.setPadding(0, 0, height, 0);
-                    }
+        VMNavBarUtil.with(this, VMNavBarUtil.ORIENTATION_HORIZONTAL).setListener(new VMNavBarUtil.OnNavBarChangeListener() {
+            @Override
+            public void onShow(int orientation, int height) {
+                mTopBar.setPadding(0, 0, height, 0);
+                mBottomBar.setPadding(0, 0, height, 0);
+            }
 
-                    @Override
-                    public void onHide(int orientation) {
-                        mTopBar.setPadding(0, 0, 0, 0);
-                        mBottomBar.setPadding(0, 0, 0, 0);
-                    }
-                });
+            @Override
+            public void onHide(int orientation) {
+                mTopBar.setPadding(0, 0, 0, 0);
+                mBottomBar.setPadding(0, 0, 0, 0);
+            }
+        });
     }
 
     /**
@@ -209,8 +198,7 @@ public class VMPickPreviewActivity extends VMPickBaseActivity implements Compoun
                 VMPictureBean item = mPictures.get(mCurrentPosition);
                 boolean isSelected = VMPicker.getInstance().isSelectPicture(item);
                 mSelectCB.setChecked(isSelected);
-                getTopBar().setTitle(VMStr.byResArgs(R.string.vm_pick_preview_picture_count, mCurrentPosition + 1, mPictures
-                        .size()));
+                getTopBar().setTitle(VMStr.byResArgs(R.string.vm_pick_preview_picture_count, mCurrentPosition + 1, mPictures.size()));
             }
         });
     }
@@ -249,7 +237,7 @@ public class VMPickPreviewActivity extends VMPickBaseActivity implements Compoun
     @Override
     public void onBackPressed() {
         Intent intent = new Intent();
-        intent.putExtra(VMPickPreviewActivity.ISORIGIN, isOrigin);
+        intent.putExtra(VMConstant.VM_KEY_PICK_IS_ORIGIN, isOrigin);
         setResult(VMConstant.VM_PICK_RESULT_CODE_BACK, intent);
         finish();
         super.onBackPressed();
