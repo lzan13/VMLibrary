@@ -224,10 +224,10 @@ public class VMPermission {
      */
     private void startActivity() {
         Intent intent = new Intent();
-        intent.putExtra(VMConstant.KEY_PERMISSION_ENABLE_DIALOG, mEnableDialog);
-        intent.putExtra(VMConstant.KEY_PERMISSION_TITLE, mTitle);
-        intent.putExtra(VMConstant.KEY_PERMISSION_MSG, mMessage);
-        intent.putParcelableArrayListExtra(VMConstant.KEY_PERMISSION_LIST, (ArrayList<? extends Parcelable>) mPermissions);
+        intent.putExtra(VMConstant.VM_KEY_PERMISSION_ENABLE_DIALOG, mEnableDialog);
+        intent.putExtra(VMConstant.VM_KEY_PERMISSION_TITLE, mTitle);
+        intent.putExtra(VMConstant.VM_KEY_PERMISSION_MSG, mMessage);
+        intent.putParcelableArrayListExtra(VMConstant.VM_KEY_PERMISSION_LIST, (ArrayList<? extends Parcelable>) mPermissions);
         VMRouter.goPermission(mContext, intent);
     }
 }

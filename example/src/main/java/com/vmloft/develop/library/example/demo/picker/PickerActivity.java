@@ -1,7 +1,6 @@
 package com.vmloft.develop.library.example.demo.picker;
 
 import android.content.Intent;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -15,9 +14,9 @@ import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import com.vmloft.develop.library.example.R;
 import com.vmloft.develop.library.example.common.AppActivity;
+import com.vmloft.develop.library.tools.base.VMConstant;
 import com.vmloft.develop.library.tools.picker.VMPicker;
 import com.vmloft.develop.library.tools.picker.bean.VMPictureBean;
-import com.vmloft.develop.library.tools.picker.ui.VMPickGridActivity;
 import com.vmloft.develop.library.tools.widget.VMCropView;
 import com.vmloft.develop.library.tools.utils.VMDimen;
 import com.vmloft.develop.library.tools.widget.VMViewGroup;
@@ -27,39 +26,61 @@ import java.util.ArrayList;
 import butterknife.BindView;
 
 /**
- * ================================================
- * 作    者：jeasonlzy（廖子尧 Github地址：https://github.com/jeasonlzy0216
- * 版    本：1.0
- * 创建日期：2016/5/19
- * 描    述：
- * 修订历史：
- * ================================================
+ * Create by lzan13 on 2019/05/19 20:20
+ *
+ * 测试图片选择器
  */
 public class PickerActivity extends AppActivity{
+    // 选择模式 单选 or 多选
+    @BindView(R.id.picker_single_mode_rb) RadioButton mSingleModeRB;
+    @BindView(R.id.picker_multi_mode_rb) RadioButton mMultiModeRB;
 
-    private VMPicker VMPicker;
+    // 是否开启裁剪
+    @BindView(R.id.picker_crop_cb) CheckBox mCropCB;
+    // 裁剪矩形 及 宽高
+    @BindView(R.id.picker_crop_focus_rectangle_rb) RadioButton mCropRectangleRB;
+    @BindView(R.id.picker_crop_focus_width_et) EditText mCropWidthET;
+    @BindView(R.id.picker_crop_focus_height_et) EditText mCropHeightET;
+    // 裁剪圆形 及 半径
+    @BindView(R.id.picker_crop_focus_circle_rb) RadioButton mCropCircleRB;
+    @BindView(R.id.picker_crop_focus_circle_et) EditText mCropSizeET;
+    // 裁剪后输出宽高
+    @BindView(R.id.picker_crop_out_width_et) EditText mCropOutWidthET;
+    @BindView(R.id.picker_crop_out_height_et) EditText mCropOutHeightET;
 
-    @BindView(R.id.rb_single_select) RadioButton rb_single_select;
-    @BindView(R.id.rb_muti_select) RadioButton rb_muti_select;
-    @BindView(R.id.rb_crop_square) RadioButton rb_crop_square;
-    @BindView(R.id.rb_crop_circle) RadioButton rb_crop_circle;
+    // 是否显示相机
+    @BindView(R.id.picker_show_camera_cb) CheckBox mShowCameraCB;
 
-    @BindView(R.id.et_crop_width) EditText et_crop_width;
-    @BindView(R.id.et_crop_height) EditText et_crop_height;
-    @BindView(R.id.et_crop_radius) EditText et_crop_radius;
-    @BindView(R.id.et_outputx) EditText et_outputx;
-    @BindView(R.id.et_outputy) EditText et_outputy;
+    // 裁剪后是否保存矩形
+    @BindView(R.id.picker_save_rectangle_cb) CheckBox mSaveRectangleCB;
 
-    @BindView(R.id.pick_show_camera_cb) CheckBox mShowCameraCB;
-    @BindView(R.id.pick_crop_cb) CheckBox mCropCB;
-    @BindView(R.id.pick_save_rectangle_cb) CheckBox mSaveRectangleCB;
-    @BindView(R.id.pick_test_iv) ImageView mTestImgView;
+    // 展示选择结果
+    @BindView(R.id.picker_test_iv) ImageView mTestImgView;
+    @BindView(R.id.picker_view_group) VMViewGroup mViewGroup;
 
-    @BindView(R.id.view_group) VMViewGroup mViewGroup;
+    // 多选模式
+    private boolean isMultiMode = false;
+    // 是否显示相机
+    private boolean isShowCamera = false;
+    // 是否开启裁剪
+    private boolean isCrop = true;
+    // 裁剪焦点框的宽度
+    private int mCropFocusWidth = 256;
+    // 裁剪焦点框的高度
+    private int mCropFocusHeight = 256;
+    // 裁剪图片保存宽度
+    private int mCropOutWidth = 720;
+    // 裁剪图片保存高度
+    private int mCropOutHeight = 720;
+    private VMCropView.Style mCropStyle = VMCropView.Style.RECTANGLE;
+    // 裁剪后是否保存矩形
+    private boolean isSaveRectangle = true;
 
-    private GlideIPictureLoader imageLoader;
+
+    // 实现加载图片接口
+    private GlideIPictureLoader mPictureLoader;
     // 选择列表
-    private ArrayList<VMPictureBean> pickImages;
+    private ArrayList<VMPictureBean> mSelectPictures;
     // 展示选择图片高度
     private int height;
 
@@ -76,80 +97,75 @@ public class PickerActivity extends AppActivity{
      */
     @Override
     protected void init() {
-        VMPicker = VMPicker.getInstance();
-        VMPicker.setPictureLoader(new GlideIPictureLoader());
+        mSingleModeRB.setChecked(true);
 
-        rb_muti_select.setChecked(true);
-        rb_crop_square.setChecked(true);
-
-        et_crop_width.setText("280");
-        et_crop_height.setText("280");
-        et_crop_radius.setText("140");
-        et_outputx.setText("800");
-        et_outputy.setText("800");
-
-        VMPicker.setSelectLimit(9);
-
-        mShowCameraCB.setChecked(true);
         mCropCB.setChecked(true);
+        mCropRectangleRB.setChecked(true);
+        mCropWidthET.setText("256");
+        mCropHeightET.setText("256");
+
+        mCropSizeET.setText("128");
+        mCropOutWidthET.setText("720");
+        mCropOutHeightET.setText("720");
+
         mSaveRectangleCB.setChecked(true);
 
+        mShowCameraCB.setChecked(true);
 
-        imageLoader = new GlideIPictureLoader();
+        mPictureLoader = new GlideIPictureLoader();
+
         height = VMDimen.dp2px(72);
     }
 
-    @OnCheckedChanged({ R.id.pick_show_camera_cb, R.id.pick_crop_cb, R.id.pick_save_rectangle_cb })
+    @OnCheckedChanged({R.id.picker_crop_cb, R.id.picker_save_rectangle_cb,  R.id.picker_show_camera_cb })
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         switch (buttonView.getId()) {
-        case R.id.pick_show_camera_cb:
-            VMPicker.setShowCamera(isChecked);
+        case R.id.picker_crop_cb:
+            isCrop = isChecked;
             break;
-        case R.id.pick_crop_cb:
-            VMPicker.setCrop(isChecked);
+        case R.id.picker_save_rectangle_cb:
+            isSaveRectangle = isChecked;
             break;
-        case R.id.pick_save_rectangle_cb:
-            VMPicker.setSaveRectangle(isChecked);
+        case R.id.picker_show_camera_cb:
+            isShowCamera = isChecked;
             break;
         }
     }
 
-    @OnClick({ R.id.pick_picture_btn })
+    @OnClick({ R.id.picker_picture_btn })
     public void onClick(View v) {
         switch (v.getId()) {
-        case R.id.pick_picture_btn:
-            VMPicker.setPictureLoader(new GlideIPictureLoader());
-
-            if (rb_single_select.isChecked()) {
-                VMPicker.setMultiMode(false);
-            } else if (rb_muti_select.isChecked()) {
-                VMPicker.setMultiMode(true);
+        case R.id.picker_picture_btn:
+            if (mSingleModeRB.isChecked()) {
+                isMultiMode= false;
+            } else if (mMultiModeRB.isChecked()) {
+                isMultiMode= true;
             }
-            if (rb_crop_square.isChecked()) {
-                VMPicker.setStyle(VMCropView.Style.RECTANGLE);
-                Integer width = Integer.valueOf(et_crop_width.getText().toString());
-                Integer height = Integer.valueOf(et_crop_height.getText().toString());
-                width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources()
-                    .getDisplayMetrics());
-                height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, height, getResources()
-                    .getDisplayMetrics());
-                VMPicker.setFocusWidth(width);
-                VMPicker.setFocusHeight(height);
-            } else if (rb_crop_circle.isChecked()) {
-                VMPicker.setStyle(VMCropView.Style.CIRCLE);
-                Integer radius = Integer.valueOf(et_crop_radius.getText().toString());
-                radius = VMDimen.dp2px(radius);
-                VMPicker.setFocusWidth(radius * 2);
-                VMPicker.setFocusHeight(radius * 2);
+            if (mCropRectangleRB.isChecked()) {
+                mCropStyle = VMCropView.Style.RECTANGLE;
+                mCropFocusWidth = VMDimen.dp2px(Integer.valueOf(mCropWidthET.getText().toString()));
+                mCropFocusHeight = VMDimen.dp2px(Integer.valueOf(mCropHeightET.getText().toString()));
+            } else if (mCropCircleRB.isChecked()) {
+                mCropFocusWidth = VMDimen.dp2px(Integer.valueOf(mCropSizeET.getText().toString())) * 2;
+                mCropFocusHeight = mCropFocusWidth;
+                mCropStyle = VMCropView.Style.CIRCLE;
             }
+            mCropOutWidth = VMDimen.dp2px(Integer.valueOf(mCropOutWidthET.getText().toString()));
+            mCropOutHeight = VMDimen.dp2px(Integer.valueOf(mCropOutHeightET.getText().toString()));
 
-            VMPicker.setOutPutX(Integer.valueOf(et_outputx.getText().toString()));
-            VMPicker.setOutPutY(Integer.valueOf(et_outputy.getText().toString()));
-
-            Intent intent = new Intent(this, VMPickGridActivity.class);
-            intent.putExtra(VMPickGridActivity.EXTRAS_IMAGES, pickImages);
-            //VMPicker.getInstance().setSelectedPictures(pictures);
-            startActivityForResult(intent, 100);
+            VMPicker.getInstance().setMultiMode(isMultiMode)
+                    .setPictureLoader(new GlideIPictureLoader())
+                    .setCrop(isCrop)
+                    .setCropFocusWidth(mCropFocusWidth)
+                    .setCropFocusHeight(mCropFocusHeight)
+                    .setCropOutWidth(mCropOutWidth)
+                    .setCropOutHeight(mCropOutHeight)
+                    .setCropStyle(mCropStyle)
+                    .setSaveRectangle(isSaveRectangle)
+                    .setSelectLimit(6)
+                    .setShowCamera(isShowCamera)
+                    .setSelectedPictures(mSelectPictures)
+                    .startPicker(mActivity);
             break;
         }
     }
@@ -164,10 +180,11 @@ public class PickerActivity extends AppActivity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == VMPicker.RESULT_CODE_ITEMS) {
-            if (data != null && requestCode == 100) {
-                ArrayList<VMPictureBean> images = (ArrayList<VMPictureBean>) data.getSerializableExtra(VMPicker.EXTRA_RESULT_ITEMS);
-                showPickImages(images);
+        if (resultCode == VMConstant.VM_PICK_RESULT_CODE_PICTURES) {
+            if (data != null && requestCode == VMConstant.VM_PICK_REQUEST_CODE) {
+//                ArrayList<VMPictureBean> pictures = (ArrayList<VMPictureBean>) data.getSerializableExtra(VMPicker.EXTRA_RESULT_ITEMS);
+                ArrayList<VMPictureBean> pictures = VMPicker.getInstance().getSelectedPictures();
+                showPickImages(pictures);
             } else {
                 Toast.makeText(this, "没有数据", Toast.LENGTH_SHORT).show();
             }
@@ -178,15 +195,15 @@ public class PickerActivity extends AppActivity{
      * 显示选择的图片
      */
     private void showPickImages(ArrayList<VMPictureBean> images) {
-        pickImages = images;
+        mSelectPictures = images;
         mViewGroup.removeAllViews();
-        for (int i = 0; i < pickImages.size(); i++) {
-            VMPictureBean item = pickImages.get(i);
+        for (int i = 0; i < mSelectPictures.size(); i++) {
+            VMPictureBean item = mSelectPictures.get(i);
             int width = item.width * height / item.height;
             ImageView imageView = new ImageView(mActivity);
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(width, height);
-            imageLoader.displayImage(mActivity, item.path, imageView, width, height);
+            mPictureLoader.displayImage(mActivity, item.path, imageView, width, height);
             mViewGroup.addView(imageView, lp);
         }
     }

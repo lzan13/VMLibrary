@@ -128,6 +128,7 @@ public class VMPictureAdapter extends VMAdapter<VMPictureBean, VMHolder> {
             final VMPictureBean VMPictureBean = getItemData(position);
             // 根据是否多选，显示或隐藏checkbox
             if (VMPicker.getInstance().isMultiMode()) {
+                mHotRegionCB.setVisibility(View.VISIBLE);
                 mPickCB.setVisibility(View.VISIBLE);
                 boolean checked = mSelectedPictures.contains(VMPictureBean);
                 if (checked) {
@@ -138,6 +139,7 @@ public class VMPictureAdapter extends VMAdapter<VMPictureBean, VMHolder> {
                     mPickCB.setChecked(false);
                 }
             } else {
+                mHotRegionCB.setVisibility(View.GONE);
                 mPickCB.setVisibility(View.GONE);
             }
 

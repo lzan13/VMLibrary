@@ -70,10 +70,10 @@ public class VMPermissionActivity extends VMActivity {
         // 初始化获取数据
         mAppName = VMSystem.getAppName(mActivity);
         mCallback = VMPermission.getInstance(mActivity).getPermissionCallback();
-        mEnableDialog = getIntent().getBooleanExtra(VMConstant.KEY_PERMISSION_ENABLE_DIALOG, false);
-        mTitle = getIntent().getStringExtra(VMConstant.KEY_PERMISSION_TITLE);
-        mMessage = getIntent().getStringExtra(VMConstant.KEY_PERMISSION_MSG);
-        mPermissions = getIntent().getParcelableArrayListExtra(VMConstant.KEY_PERMISSION_LIST);
+        mEnableDialog = getIntent().getBooleanExtra(VMConstant.VM_KEY_PERMISSION_ENABLE_DIALOG, false);
+        mTitle = getIntent().getStringExtra(VMConstant.VM_KEY_PERMISSION_TITLE);
+        mMessage = getIntent().getStringExtra(VMConstant.VM_KEY_PERMISSION_MSG);
+        mPermissions = getIntent().getParcelableArrayListExtra(VMConstant.VM_KEY_PERMISSION_LIST);
         mPermissionsCopy = mPermissions;
 
         if (mPermissions == null || mPermissions.size() == 0) {

@@ -48,6 +48,13 @@ public class VMRouter {
     }
 
     /**
+     * 打开选择器
+     */
+    public static void goPicker(Context context, Intent intent, int requestCode) {
+        overlayResult(context, intent, requestCode);
+    }
+
+    /**
      * ------------------- 传递 Intent 参数进行跳转-------------------
      *
      * @param context 开始界面上下文

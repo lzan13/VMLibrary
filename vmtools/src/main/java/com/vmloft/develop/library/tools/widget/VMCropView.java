@@ -63,7 +63,7 @@ public class VMCropView extends AppCompatImageView {
     // 默认焦点框的形状
     private int mDefaultStyleIndex = 0;
 
-    private Style mStyle = styles[mDefaultStyleIndex];
+    private Style mFocusStyle = styles[mDefaultStyleIndex];
 
     private Paint mBorderPaint = new Paint();
     private Path mFocusPath = new Path();
@@ -125,7 +125,7 @@ public class VMCropView extends AppCompatImageView {
         mFocusWidth = a.getDimensionPixelSize(R.styleable.VMCropView_vm_crop_focus_width, mFocusWidth);
         mFocusHeight = a.getDimensionPixelSize(R.styleable.VMCropView_vm_crop_focus_height, mFocusHeight);
         mDefaultStyleIndex = a.getInteger(R.styleable.VMCropView_vm_crop_style, mDefaultStyleIndex);
-        mStyle = styles[mDefaultStyleIndex];
+        mFocusStyle = styles[mDefaultStyleIndex];
         a.recycle();
 
         //只允许图片为当前的缩放模式
@@ -183,7 +183,7 @@ public class VMCropView extends AppCompatImageView {
         float midPointY = viewHeight / 2;
         mFocusMidPoint = new PointF(midPointX, midPointY);
 
-        if (mStyle == Style.CIRCLE) {
+        if (mFocusStyle == Style.CIRCLE) {
             int focusSize = Math.min(mFocusWidth, mFocusHeight);
             mFocusWidth = focusSize;
             mFocusHeight = focusSize;
@@ -234,14 +234,14 @@ public class VMCropView extends AppCompatImageView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (Style.RECTANGLE == mStyle) {
+        if (Style.RECTANGLE == mFocusStyle) {
             mFocusPath.addRect(mFocusRect, Path.Direction.CCW);
             canvas.save();
             canvas.clipRect(0, 0, getWidth(), getHeight());
             canvas.clipPath(mFocusPath, Region.Op.DIFFERENCE);
             canvas.drawColor(mMaskColor);
             canvas.restore();
-        } else if (Style.CIRCLE == mStyle) {
+        } else if (Style.CIRCLE == mFocusStyle) {
             float radius = Math.min((mFocusRect.right - mFocusRect.left) / 2, (mFocusRect.bottom - mFocusRect.top) / 2);
             mFocusPath.addCircle(mFocusMidPoint.x, mFocusMidPoint.y, radius, Path.Direction.CCW);
             canvas.save();
@@ -547,7 +547,7 @@ public class VMCropView extends AppCompatImageView {
             bitmap = Bitmap.createBitmap(bitmap, left, top, width, height);
             if (expectWidth != width || exceptHeight != height) {
                 bitmap = Bitmap.createScaledBitmap(bitmap, expectWidth, exceptHeight, true);
-                if (mStyle == VMCropView.Style.CIRCLE && !isSaveRectangle) {
+                if (mFocusStyle == VMCropView.Style.CIRCLE && !isSaveRectangle) {
                     //如果是圆形，就将图片裁剪成圆的
                     int length = Math.min(expectWidth, exceptHeight);
                     int radius = length / 2;
@@ -588,7 +588,7 @@ public class VMCropView extends AppCompatImageView {
         final Bitmap croppedImage = getCropBitmap(expectWidth, exceptHeight, isSaveRectangle);
         Bitmap.CompressFormat outputFormat = Bitmap.CompressFormat.JPEG;
         File saveFile = VMFile.createFile(folder, "IMG_", ".jpg");
-        if (mStyle == VMCropView.Style.CIRCLE && !isSaveRectangle) {
+        if (mFocusStyle == VMCropView.Style.CIRCLE && !isSaveRectangle) {
             outputFormat = Bitmap.CompressFormat.PNG;
             saveFile = VMFile.createFile(folder, "IMG_", ".png");
             bean.mimeType = "image/png";
@@ -728,7 +728,7 @@ public class VMCropView extends AppCompatImageView {
      * 设置焦点框的形状
      */
     public void setFocusStyle(Style style) {
-        this.mStyle = style;
+        this.mFocusStyle = style;
         invalidate();
     }
 
@@ -736,6 +736,6 @@ public class VMCropView extends AppCompatImageView {
      * 获取焦点框的形状
      */
     public Style getFocusStyle() {
-        return mStyle;
+        return mFocusStyle;
     }
 }

@@ -6,10 +6,10 @@ import android.graphics.BitmapFactory;
 import android.util.DisplayMetrics;
 import android.view.View;
 
+import com.vmloft.develop.library.tools.base.VMConstant;
 import com.vmloft.develop.library.tools.picker.VMPicker;
 import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.picker.bean.VMPictureBean;
-import com.vmloft.develop.library.tools.utils.VMFile;
 import com.vmloft.develop.library.tools.utils.bitmap.VMBitmap;
 import com.vmloft.develop.library.tools.widget.VMCropView;
 
@@ -25,9 +25,9 @@ public class VMPickCropActivity extends VMPickBaseActivity implements VMCropView
     private VMCropView mCropView;
     private Bitmap mBitmap;
     private boolean mIsSaveRectangle;
-    private int mOutputX;
-    private int mOutputY;
-    private ArrayList<VMPictureBean> mVMPictureBeans;
+    private int mCropOutWidth;
+    private int mCropOutHeight;
+    private ArrayList<VMPictureBean> mPictureBeans;
 
     @Override
     protected int layoutId() {
@@ -54,19 +54,19 @@ public class VMPickCropActivity extends VMPickBaseActivity implements VMCropView
         getTopBar().setEndBtnListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCropView.saveBitmapToFile(VMFile.getCacheFromSDCard(), mOutputX, mOutputY, mIsSaveRectangle);
+                mCropView.saveBitmapToFile(VMPicker.getInstance().getCropCacheFolder(), mCropOutWidth, mCropOutHeight, mIsSaveRectangle);
             }
         });
         //获取需要的参数
-        mOutputX = VMPicker.getInstance().getOutPutX();
-        mOutputY = VMPicker.getInstance().getOutPutY();
+        mCropOutWidth = VMPicker.getInstance().getCropOutWidth();
+        mCropOutHeight = VMPicker.getInstance().getCropOutHeight();
         mIsSaveRectangle = VMPicker.getInstance().isSaveRectangle();
-        mVMPictureBeans = VMPicker.getInstance().getSelectedPictures();
-        String imagePath = mVMPictureBeans.get(0).path;
+        mPictureBeans = VMPicker.getInstance().getSelectedPictures();
+        String imagePath = mPictureBeans.get(0).path;
 
-        mCropView.setFocusStyle(VMPicker.getInstance().getStyle());
-        mCropView.setFocusWidth(VMPicker.getInstance().getFocusWidth());
-        mCropView.setFocusHeight(VMPicker.getInstance().getFocusHeight());
+        mCropView.setFocusStyle(VMPicker.getInstance().getCropStyle());
+        mCropView.setFocusWidth(VMPicker.getInstance().getCropFocusWidth());
+        mCropView.setFocusHeight(VMPicker.getInstance().getCropFocusHeight());
 
         //缩放图片
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -97,12 +97,13 @@ public class VMPickCropActivity extends VMPickBaseActivity implements VMCropView
     @Override
     public void onBitmapSaveSuccess(VMPictureBean bean) {
         // 裁剪后替换掉返回数据的内容，但是不要改变全局中的选中数据
-        mVMPictureBeans.remove(0);
-        mVMPictureBeans.add(bean);
+        mPictureBeans.remove(0);
+        mPictureBeans.add(bean);
 
+        // 单选不需要裁剪，返回数据
         Intent intent = new Intent();
-        intent.putExtra(VMPicker.EXTRA_RESULT_ITEMS, mVMPictureBeans);
-        setResult(VMPicker.RESULT_CODE_ITEMS, intent);   //单选不需要裁剪，返回数据
+        intent.putExtra(VMPicker.EXTRA_RESULT_ITEMS, mPictureBeans);
+        setResult(VMConstant.VM_PICK_RESULT_CODE_PICTURES, intent);
         finish();
     }
 
