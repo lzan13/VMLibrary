@@ -33,7 +33,7 @@ public class FolderPopupWindow extends PopupWindow implements View.OnClickListen
     public FolderPopupWindow(Context context, BaseAdapter adapter) {
         super(context);
 
-        final View view = View.inflate(context, R.layout.vm_pick_folder_popup, null);
+        final View view = View.inflate(context, R.layout.vm_pick_folder_list_window, null);
         masker = view.findViewById(R.id.vm_pick_folder_mask_ll);
         masker.setOnClickListener(this);
         marginView = view.findViewById(R.id.margin);
