@@ -4,14 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/vm_gray_black"
-    tools:context=".picker.ui.VMPickPreviewActivity"
-    >
+    tools:context=".picker.ui.VMPickPreviewActivity">
 
     <com.vmloft.develop.library.tools.widget.VMViewPager
         android:id="@+id/vm_pick_preview_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent" />
 
     <com.vmloft.develop.library.tools.widget.VMTopBar
         android:id="@+id/vm_common_top_bar"
@@ -21,8 +19,7 @@
         app:vm_top_bar_end_btn="@string/vm_pick_complete"
         app:vm_top_bar_icon="@drawable/vm_ic_arrow_left"
         app:vm_top_bar_title="@string/vm_pick_preview"
-        app:vm_top_bar_title_color="@color/vm_white"
-        />
+        app:vm_top_bar_title_color="@color/vm_white" />
 
     <LinearLayout
         android:id="@+id/vm_preview_bottom_bar"
@@ -31,17 +28,16 @@
         android:layout_alignParentBottom="true"
         android:background="@color/vm_gray_black_54"
         android:orientation="vertical"
-        android:visibility="gone"
-        tools:visibility="visible"
-        >
+        android:visibility="visible"
+        tools:visibility="visible">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            >
+            android:layout_height="48dp">
 
             <CheckBox
                 android:id="@+id/vm_preview_origin_cb"
+                style="@style/VMRadio"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
@@ -50,12 +46,11 @@
                 android:text="原图(3.07M)"
                 android:textColor="@color/vm_btn_text_light"
                 android:textSize="@dimen/vm_size_16"
-                android:visibility="gone"
-                style="@style/VMRadio"
-                />
+                android:visibility="gone" />
 
             <CheckBox
                 android:id="@+id/vm_preview_select_cb"
+                style="@style/VMCheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -66,15 +61,12 @@
                 android:paddingStart="@dimen/vm_padding_normal"
                 android:text="选择"
                 android:textColor="@color/vm_btn_text_light"
-                android:textSize="@dimen/vm_size_16"
-                style="@style/VMCheckBox"
-                />
+                android:textSize="@dimen/vm_size_16" />
         </RelativeLayout>
 
         <View
             android:id="@+id/vm_preview_bottom_space"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            />
+            android:layout_height="0dp" />
     </LinearLayout>
 </RelativeLayout>

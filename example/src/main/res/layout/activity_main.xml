@@ -21,7 +21,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/vm_margin_large"
         android:background="@color/app_white"
         android:orientation="vertical"
         >

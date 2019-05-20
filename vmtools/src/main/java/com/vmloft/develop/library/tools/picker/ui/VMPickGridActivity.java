@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
@@ -27,6 +28,7 @@ import com.vmloft.develop.library.tools.picker.widget.FolderPopupWindow;
 
 import com.vmloft.develop.library.tools.utils.VMDimen;
 
+import com.vmloft.develop.library.tools.utils.VMNavBarUtil;
 import com.vmloft.develop.library.tools.utils.VMStr;
 import com.vmloft.develop.library.tools.widget.toast.VMToast;
 import java.util.ArrayList;
@@ -55,7 +57,8 @@ public class VMPickGridActivity extends VMPickBaseActivity implements VMPicker.O
     private boolean isOrigin = false;
 
     // 底部栏
-    private View mFooterBar;
+    private View mBottomBar;
+    private View mBottomSpaceView;
     // 文件夹切换按钮
     private View mChangeDirView;
     // 显示当前文件夹
@@ -81,10 +84,13 @@ public class VMPickGridActivity extends VMPickBaseActivity implements VMPicker.O
     protected void initUI() {
         super.initUI();
         mRecyclerView = findViewById(R.id.vm_pick_grid_recycler_view);
-        mFooterBar = findViewById(R.id.vm_pick_grid_bottom_bar_rl);
+        mBottomBar = findViewById(R.id.vm_pick_grid_bottom_bar_rl);
+        mBottomSpaceView = findViewById(R.id.vm_pick_grid_bottom_space);
         mChangeDirView = findViewById(R.id.vm_pick_grid_choose_folder_rl);
         mCurrDirView = findViewById(R.id.vm_pick_grid_choose_folder_tv);
         mPreviewBtn = findViewById(R.id.vm_pick_grid_preview_btn);
+
+        initNavBarListener();
     }
 
     @Override
@@ -138,6 +144,42 @@ public class VMPickGridActivity extends VMPickBaseActivity implements VMPicker.O
         onPictureSelected(0, null, false);
         // 初始化完成 扫描图片
         scanPicture();
+    }
+
+    /**
+     * 初始化底部导航栏变化监听
+     */
+    private void initNavBarListener() {
+        VMNavBarUtil.with(this).setListener(new VMNavBarUtil.OnNavBarChangeListener() {
+            @Override
+            public void onShow(int orientation, int height) {
+                mBottomSpaceView.setVisibility(View.VISIBLE);
+                ViewGroup.LayoutParams layoutParams = mBottomSpaceView.getLayoutParams();
+                if (layoutParams.height == 0) {
+                    layoutParams.height = VMDimen.getNavigationBarHeight();
+                    mBottomSpaceView.requestLayout();
+                }
+            }
+
+            @Override
+            public void onHide(int orientation) {
+                mBottomSpaceView.setVisibility(View.GONE);
+            }
+        });
+        VMNavBarUtil.with(this, VMNavBarUtil.ORIENTATION_HORIZONTAL)
+                .setListener(new VMNavBarUtil.OnNavBarChangeListener() {
+                    @Override
+                    public void onShow(int orientation, int height) {
+                        mTopBar.setPadding(0, 0, height, 0);
+                        mBottomBar.setPadding(0, 0, height, 0);
+                    }
+
+                    @Override
+                    public void onHide(int orientation) {
+                        mTopBar.setPadding(0, 0, 0, 0);
+                        mBottomBar.setPadding(0, 0, 0, 0);
+                    }
+                });
     }
 
     /**
@@ -208,7 +250,7 @@ public class VMPickGridActivity extends VMPickBaseActivity implements VMPicker.O
                 if (mFolderPopupWindow.isShowing()) {
                     mFolderPopupWindow.dismiss();
                 } else {
-                    mFolderPopupWindow.showAtLocation(mFooterBar, Gravity.NO_GRAVITY, 0, 0);
+                    mFolderPopupWindow.showAtLocation(mBottomBar, Gravity.NO_GRAVITY, 0, 0);
                     //默认选择当前选择的上一个，当目录很多时，直接定位到已选中的条目
                     int index = mFolderAdapter.getSelectIndex();
                     index = index == 0 ? index : index - 1;
@@ -245,7 +287,7 @@ public class VMPickGridActivity extends VMPickBaseActivity implements VMPicker.O
                 }
             }
         });
-        mFolderPopupWindow.setMargin(mFooterBar.getHeight());
+        mFolderPopupWindow.setMargin(mBottomBar.getHeight());
     }
 
     /**
