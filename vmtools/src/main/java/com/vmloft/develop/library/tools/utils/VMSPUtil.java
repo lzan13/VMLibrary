@@ -17,25 +17,11 @@ public class VMSPUtil {
     /**
      * 保存在手机里面的文件名
      */
-    public static final String VM_SP_PREFIX = "vm_sp_";
-    public static String spName;
-
-    /**
-     * VMSPUtil 工具类的初始化，主要是设置自己的 SharedPreferences 文件名，如果没有调用，则使用当前应用包名
-     *
-     * @param name
-     */
-    public static void init(String name) {
-        spName = name;
-    }
+    private static final String VM_SP_PREFIX = "vm_sp_";
+    private static final String VM_SP_SUFFIX = ".sp";
 
     private static SharedPreferences getSharedPreferences(Context context) {
-        String spFileName;
-        if (TextUtils.isEmpty(spName)) {
-            spFileName = VM_SP_PREFIX + context.getPackageName();
-        } else {
-            spFileName = VM_SP_PREFIX + spName;
-        }
+        String spFileName = VM_SP_PREFIX + context.getPackageName() + VM_SP_SUFFIX;
         return context.getSharedPreferences(spFileName, Context.MODE_PRIVATE);
     }
 
