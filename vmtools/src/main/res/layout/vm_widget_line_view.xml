@@ -45,20 +45,19 @@
         android:id="@+id/vm_line_caption_icon_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/vm_margin_normal"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/vm_line_caption_tv"
         app:layout_constraintEnd_toStartOf="@+id/vm_line_caption_tv"
         app:layout_constraintStart_toEndOf="@+id/vm_line_title_tv"
         app:layout_constraintTop_toTopOf="@+id/vm_line_caption_tv"
         tools:src="@drawable/vm_ic_eye_on"
-        tools:tint="@color/vm_green"
         />
 
     <!--右侧描述文本-->
     <TextView
         android:id="@+id/vm_line_caption_tv"
         android:layout_marginEnd="@dimen/vm_margin_large"
-        android:layout_marginStart="@dimen/vm_margin_small"
         android:textColor="@color/vm_black_54"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/vm_line_right_icon_iv"
