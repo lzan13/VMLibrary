@@ -27,8 +27,11 @@ import android.view.MotionEvent;
 import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.picker.bean.VMPictureBean;
 
+import com.vmloft.develop.library.tools.utils.VMDate;
+import com.vmloft.develop.library.tools.utils.VMDimen;
 import com.vmloft.develop.library.tools.utils.VMFile;
 import com.vmloft.develop.library.tools.utils.bitmap.VMBitmap;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -48,7 +51,7 @@ public class VMCropView extends AppCompatImageView {
         RECTANGLE, CIRCLE
     }
 
-    private Style[] styles = { Style.RECTANGLE, Style.CIRCLE };
+    private Style[] styles = {Style.RECTANGLE, Style.CIRCLE};
 
     // 遮罩颜色
     private int mMaskColor = 0x89222222;
@@ -57,9 +60,9 @@ public class VMCropView extends AppCompatImageView {
     // 焦点边框的宽度（画笔宽度）
     private int mBorderWidth = 1;
     // 焦点框的宽度
-    private int mFocusWidth = 256;
+    private int mFocusWidth;
     // 焦点框的高度
-    private int mFocusHeight = 256;
+    private int mFocusHeight;
     // 默认焦点框的形状
     private int mDefaultStyleIndex = 0;
 
@@ -111,25 +114,44 @@ public class VMCropView extends AppCompatImageView {
 
     public VMCropView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        mFocusWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, mFocusWidth, getResources()
-            .getDisplayMetrics());
-        mFocusHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, mFocusHeight, getResources()
-            .getDisplayMetrics());
-        mBorderWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, mBorderWidth, getResources()
-            .getDisplayMetrics());
+        init(context, attrs);
+    }
 
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.VMCropView);
-        mMaskColor = a.getColor(R.styleable.VMCropView_vm_crop_mask_color, mMaskColor);
-        mBorderColor = a.getColor(R.styleable.VMCropView_vm_crop_border_color, mBorderColor);
-        mBorderWidth = a.getDimensionPixelSize(R.styleable.VMCropView_vm_crop_border_width, mBorderWidth);
-        mFocusWidth = a.getDimensionPixelSize(R.styleable.VMCropView_vm_crop_focus_width, mFocusWidth);
-        mFocusHeight = a.getDimensionPixelSize(R.styleable.VMCropView_vm_crop_focus_height, mFocusHeight);
-        mDefaultStyleIndex = a.getInteger(R.styleable.VMCropView_vm_crop_style, mDefaultStyleIndex);
-        mFocusStyle = styles[mDefaultStyleIndex];
-        a.recycle();
+    /**
+     * 初始化
+     */
+    private void init(Context context, AttributeSet attrs) {
+        mFocusWidth = VMDimen.dp2px(256);
+        mFocusHeight = VMDimen.dp2px(256);
+        mBorderWidth = VMDimen.dp2px(1);
+
+        handleAttrs(context, attrs);
 
         //只允许图片为当前的缩放模式
         setScaleType(ScaleType.MATRIX);
+    }
+
+    /**
+     * 获取资源属性
+     *
+     * @param context
+     * @param attrs
+     */
+    private void handleAttrs(Context context, AttributeSet attrs) {
+        if (attrs == null) {
+            return;
+        }
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.VMCropView);
+        // 获取自定义属性值，如果没有设置就是默认值
+        mMaskColor = array.getColor(R.styleable.VMCropView_vm_crop_mask_color, mMaskColor);
+        mBorderColor = array.getColor(R.styleable.VMCropView_vm_crop_border_color, mBorderColor);
+        mBorderWidth = array.getDimensionPixelSize(R.styleable.VMCropView_vm_crop_border_width, mBorderWidth);
+        mFocusWidth = array.getDimensionPixelSize(R.styleable.VMCropView_vm_crop_focus_width, mFocusWidth);
+        mFocusHeight = array.getDimensionPixelSize(R.styleable.VMCropView_vm_crop_focus_height, mFocusHeight);
+        mDefaultStyleIndex = array.getInteger(R.styleable.VMCropView_vm_crop_style, mDefaultStyleIndex);
+        mFocusStyle = styles[mDefaultStyleIndex];
+        // 回收资源
+        array.recycle();
     }
 
     @Override
@@ -264,114 +286,114 @@ public class VMCropView extends AppCompatImageView {
             return super.onTouchEvent(event);
         }
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
-        case MotionEvent.ACTION_DOWN:  //第一个点按下
-            savedMatrix.set(matrix);   //以后每次需要变换的时候，以现在的状态为基础进行变换
-            pA.set(event.getX(), event.getY());
-            pB.set(event.getX(), event.getY());
-            mode = DRAG;
-            break;
-        case MotionEvent.ACTION_POINTER_DOWN:  //第二个点按下
-            if (event.getActionIndex() > 1) {
+            case MotionEvent.ACTION_DOWN:  //第一个点按下
+                savedMatrix.set(matrix);   //以后每次需要变换的时候，以现在的状态为基础进行变换
+                pA.set(event.getX(), event.getY());
+                pB.set(event.getX(), event.getY());
+                mode = DRAG;
                 break;
-            }
-            pA.set(event.getX(0), event.getY(0));
-            pB.set(event.getX(1), event.getY(1));
-            midPoint.set((pA.x + pB.x) / 2, (pA.y + pB.y) / 2);
-            oldDist = spacing(pA, pB);
-            savedMatrix.set(matrix);  //以后每次需要变换的时候，以现在的状态为基础进行变换
-            if (oldDist > 10f) {
-                mode = ZOOM_OR_ROTATE;//两点之间的距离大于10才有效
-            }
-            break;
-        case MotionEvent.ACTION_MOVE:
-            if (mode == ZOOM_OR_ROTATE) {
-                PointF pC = new PointF(event.getX(1) - event.getX(0) + pA.x, event.getY(1) - event.getY(0) + pA.y);
-                double a = spacing(pB.x, pB.y, pC.x, pC.y);
-                double b = spacing(pA.x, pA.y, pC.x, pC.y);
-                double c = spacing(pA.x, pA.y, pB.x, pB.y);
-                if (a >= 10) {
-                    double cosB = (a * a + c * c - b * b) / (2 * a * c);
-                    double angleB = Math.acos(cosB);
-                    double PID4 = Math.PI / 4;
-                    //旋转时，默认角度在 45 - 135 度之间
-                    if (angleB > PID4 && angleB < 3 * PID4) {
-                        mode = ROTATE;
-                    } else {
-                        mode = ZOOM;
+            case MotionEvent.ACTION_POINTER_DOWN:  //第二个点按下
+                if (event.getActionIndex() > 1) {
+                    break;
+                }
+                pA.set(event.getX(0), event.getY(0));
+                pB.set(event.getX(1), event.getY(1));
+                midPoint.set((pA.x + pB.x) / 2, (pA.y + pB.y) / 2);
+                oldDist = spacing(pA, pB);
+                savedMatrix.set(matrix);  //以后每次需要变换的时候，以现在的状态为基础进行变换
+                if (oldDist > 10f) {
+                    mode = ZOOM_OR_ROTATE;//两点之间的距离大于10才有效
+                }
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if (mode == ZOOM_OR_ROTATE) {
+                    PointF pC = new PointF(event.getX(1) - event.getX(0) + pA.x, event.getY(1) - event.getY(0) + pA.y);
+                    double a = spacing(pB.x, pB.y, pC.x, pC.y);
+                    double b = spacing(pA.x, pA.y, pC.x, pC.y);
+                    double c = spacing(pA.x, pA.y, pB.x, pB.y);
+                    if (a >= 10) {
+                        double cosB = (a * a + c * c - b * b) / (2 * a * c);
+                        double angleB = Math.acos(cosB);
+                        double PID4 = Math.PI / 4;
+                        //旋转时，默认角度在 45 - 135 度之间
+                        if (angleB > PID4 && angleB < 3 * PID4) {
+                            mode = ROTATE;
+                        } else {
+                            mode = ZOOM;
+                        }
                     }
                 }
-            }
-            if (mode == DRAG) {
-                matrix.set(savedMatrix);
-                matrix.postTranslate(event.getX() - pA.x, event.getY() - pA.y);
-                fixTranslation();
-                setImageMatrix(matrix);
-            } else if (mode == ZOOM) {
-                float newDist = spacing(event.getX(0), event.getY(0), event.getX(1), event.getY(1));
-                if (newDist > 10f) {
+                if (mode == DRAG) {
                     matrix.set(savedMatrix);
-                    // 这里之所以用 maxPostScale 矫正一下，主要是防止缩放到最大时，继续缩放图片会产生位移
-                    float tScale = Math.min(newDist / oldDist, maxPostScale());
-                    if (tScale != 0) {
-                        matrix.postScale(tScale, tScale, midPoint.x, midPoint.y);
-                        fixScale();
-                        fixTranslation();
+                    matrix.postTranslate(event.getX() - pA.x, event.getY() - pA.y);
+                    fixTranslation();
+                    setImageMatrix(matrix);
+                } else if (mode == ZOOM) {
+                    float newDist = spacing(event.getX(0), event.getY(0), event.getX(1), event.getY(1));
+                    if (newDist > 10f) {
+                        matrix.set(savedMatrix);
+                        // 这里之所以用 maxPostScale 矫正一下，主要是防止缩放到最大时，继续缩放图片会产生位移
+                        float tScale = Math.min(newDist / oldDist, maxPostScale());
+                        if (tScale != 0) {
+                            matrix.postScale(tScale, tScale, midPoint.x, midPoint.y);
+                            fixScale();
+                            fixTranslation();
+                            setImageMatrix(matrix);
+                        }
+                    }
+                } else if (mode == ROTATE) {
+                    PointF pC = new PointF(event.getX(1) - event.getX(0) + pA.x, event.getY(1) - event.getY(0) + pA.y);
+                    double a = spacing(pB.x, pB.y, pC.x, pC.y);
+                    double b = spacing(pA.x, pA.y, pC.x, pC.y);
+                    double c = spacing(pA.x, pA.y, pB.x, pB.y);
+                    if (b > 10) {
+                        double cosA = (b * b + c * c - a * a) / (2 * b * c);
+                        double angleA = Math.acos(cosA);
+                        double ta = pB.y - pA.y;
+                        double tb = pA.x - pB.x;
+                        double tc = pB.x * pA.y - pA.x * pB.y;
+                        double td = ta * pC.x + tb * pC.y + tc;
+                        if (td > 0) {
+                            angleA = 2 * Math.PI - angleA;
+                        }
+                        rotation = angleA;
+                        matrix.set(savedMatrix);
+                        matrix.postRotate((float) (rotation * 180 / Math.PI), midPoint.x, midPoint.y);
                         setImageMatrix(matrix);
                     }
                 }
-            } else if (mode == ROTATE) {
-                PointF pC = new PointF(event.getX(1) - event.getX(0) + pA.x, event.getY(1) - event.getY(0) + pA.y);
-                double a = spacing(pB.x, pB.y, pC.x, pC.y);
-                double b = spacing(pA.x, pA.y, pC.x, pC.y);
-                double c = spacing(pA.x, pA.y, pB.x, pB.y);
-                if (b > 10) {
-                    double cosA = (b * b + c * c - a * a) / (2 * b * c);
-                    double angleA = Math.acos(cosA);
-                    double ta = pB.y - pA.y;
-                    double tb = pA.x - pB.x;
-                    double tc = pB.x * pA.y - pA.x * pB.y;
-                    double td = ta * pC.x + tb * pC.y + tc;
-                    if (td > 0) {
-                        angleA = 2 * Math.PI - angleA;
+                break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_POINTER_UP:
+                if (mode == DRAG) {
+                    if (spacing(pA, pB) < 50) {
+                        long now = System.currentTimeMillis();
+                        if (now - doubleClickTime < 500 && spacing(pA, doubleClickPos) < 50) {
+                            doubleClick(pA.x, pA.y);
+                            now = 0;
+                        }
+                        doubleClickPos.set(pA);
+                        doubleClickTime = now;
                     }
-                    rotation = angleA;
+                } else if (mode == ROTATE) {
+                    int rotateLevel = (int) Math.floor((rotation + Math.PI / 4) / (Math.PI / 2));
+                    if (rotateLevel == 4) {
+                        rotateLevel = 0;
+                    }
                     matrix.set(savedMatrix);
-                    matrix.postRotate((float) (rotation * 180 / Math.PI), midPoint.x, midPoint.y);
-                    setImageMatrix(matrix);
-                }
-            }
-            break;
-        case MotionEvent.ACTION_UP:
-        case MotionEvent.ACTION_POINTER_UP:
-            if (mode == DRAG) {
-                if (spacing(pA, pB) < 50) {
-                    long now = System.currentTimeMillis();
-                    if (now - doubleClickTime < 500 && spacing(pA, doubleClickPos) < 50) {
-                        doubleClick(pA.x, pA.y);
-                        now = 0;
+                    matrix.postRotate(90 * rotateLevel, midPoint.x, midPoint.y);
+                    if (rotateLevel == 1 || rotateLevel == 3) {
+                        int tmp = mRotatedImageWidth;
+                        mRotatedImageWidth = mRotatedImageHeight;
+                        mRotatedImageHeight = tmp;
                     }
-                    doubleClickPos.set(pA);
-                    doubleClickTime = now;
+                    fixScale();
+                    fixTranslation();
+                    setImageMatrix(matrix);
+                    sumRotateLevel += rotateLevel;
                 }
-            } else if (mode == ROTATE) {
-                int rotateLevel = (int) Math.floor((rotation + Math.PI / 4) / (Math.PI / 2));
-                if (rotateLevel == 4) {
-                    rotateLevel = 0;
-                }
-                matrix.set(savedMatrix);
-                matrix.postRotate(90 * rotateLevel, midPoint.x, midPoint.y);
-                if (rotateLevel == 1 || rotateLevel == 3) {
-                    int tmp = mRotatedImageWidth;
-                    mRotatedImageWidth = mRotatedImageHeight;
-                    mRotatedImageHeight = tmp;
-                }
-                fixScale();
-                fixTranslation();
-                setImageMatrix(matrix);
-                sumRotateLevel += rotateLevel;
-            }
-            mode = NONE;
-            break;
+                mode = NONE;
+                break;
         }
         //解决部分机型无法拖动的问题
         ViewCompat.postInvalidateOnAnimation(this);
@@ -593,7 +615,9 @@ public class VMCropView extends AppCompatImageView {
             saveFile = VMFile.createFile(folder, "IMG_", ".png");
             bean.mimeType = "image/png";
         }
+        bean.name = saveFile.getName();
         bean.path = saveFile.getAbsolutePath();
+        bean.addTime = VMDate.currentMilli();
         final Bitmap.CompressFormat finalOutputFormat = outputFormat;
         new Thread() {
             @Override
@@ -617,16 +641,16 @@ public class VMCropView extends AppCompatImageView {
         public void handleMessage(Message msg) {
             VMPictureBean bean = (VMPictureBean) msg.obj;
             switch (msg.what) {
-            case SAVE_SUCCESS:
-                if (mListener != null) {
-                    mListener.onBitmapSaveSuccess(bean);
-                }
-                break;
-            case SAVE_ERROR:
-                if (mListener != null) {
-                    mListener.onBitmapSaveError(bean);
-                }
-                break;
+                case SAVE_SUCCESS:
+                    if (mListener != null) {
+                        mListener.onBitmapSaveSuccess(bean);
+                    }
+                    break;
+                case SAVE_ERROR:
+                    if (mListener != null) {
+                        mListener.onBitmapSaveError(bean);
+                    }
+                    break;
             }
         }
     }

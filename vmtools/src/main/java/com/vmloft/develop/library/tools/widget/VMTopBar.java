@@ -108,17 +108,6 @@ public class VMTopBar extends RelativeLayout {
     }
 
     /**
-     * 装载控件颜色
-     */
-    private void setupColor() {
-        mTitleView.setTextColor(mTitleColor);
-        mSubtitleView.setTextColor(mTitleColor);
-        // 对图标着色
-        mIconBtn.setImageTintList(ColorStateList.valueOf(mTitleColor));
-        mEndIconBtn.setImageTintList(ColorStateList.valueOf(mTitleColor));
-    }
-
-    /**
      * 获取资源属性
      *
      * @param context
@@ -138,6 +127,17 @@ public class VMTopBar extends RelativeLayout {
         mTitleColor = array.getColor(R.styleable.VMTopBar_vm_top_bar_title_color, mTitleColor);
         // 回收资源
         array.recycle();
+    }
+
+    /**
+     * 装载控件颜色
+     */
+    private void setupColor() {
+        mTitleView.setTextColor(mTitleColor);
+        mSubtitleView.setTextColor(mTitleColor);
+        // 对图标着色
+        mIconBtn.setImageTintList(ColorStateList.valueOf(mTitleColor));
+        mEndIconBtn.setImageTintList(ColorStateList.valueOf(mTitleColor));
     }
 
     /**

@@ -20,6 +20,7 @@ import com.vmloft.develop.library.tools.picker.bean.VMPictureBean;
 import com.vmloft.develop.library.tools.widget.VMCropView;
 import com.vmloft.develop.library.tools.utils.VMDimen;
 import com.vmloft.develop.library.tools.widget.VMViewGroup;
+import com.vmloft.develop.library.tools.widget.toast.VMToast;
 
 import java.util.ArrayList;
 
@@ -156,10 +157,10 @@ public class PickerActivity extends AppActivity{
             VMPicker.getInstance().setMultiMode(isMultiMode)
                     .setPictureLoader(new GlideIPictureLoader())
                     .setCrop(isCrop)
-                    .setCropFocusWidth(mCropFocusWidth)
-                    .setCropFocusHeight(mCropFocusHeight)
-                    .setCropOutWidth(mCropOutWidth)
-                    .setCropOutHeight(mCropOutHeight)
+//                    .setCropFocusWidth(mCropFocusWidth)
+//                    .setCropFocusHeight(mCropFocusHeight)
+//                    .setCropOutWidth(mCropOutWidth)
+//                    .setCropOutHeight(mCropOutHeight)
                     .setCropStyle(mCropStyle)
                     .setSaveRectangle(isSaveRectangle)
                     .setSelectLimit(6)
@@ -186,7 +187,7 @@ public class PickerActivity extends AppActivity{
                 ArrayList<VMPictureBean> pictures = VMPicker.getInstance().getSelectedPictures();
                 showPickImages(pictures);
             } else {
-                Toast.makeText(this, "没有数据", Toast.LENGTH_SHORT).show();
+                VMToast.make(mActivity, "没有数据").error();
             }
         }
     }
