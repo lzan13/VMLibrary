@@ -19,6 +19,7 @@ import com.vmloft.develop.library.tools.picker.bean.VMFolderBean;
 import com.vmloft.develop.library.tools.picker.bean.VMPictureBean;
 import com.vmloft.develop.library.tools.picker.ui.VMPickGridActivity;
 import com.vmloft.develop.library.tools.router.VMRouter;
+import com.vmloft.develop.library.tools.utils.VMDimen;
 import com.vmloft.develop.library.tools.utils.VMStr;
 import com.vmloft.develop.library.tools.widget.VMCropView;
 
@@ -34,17 +35,6 @@ import java.util.List;
  * 图片选择的入口类，采用单例和弱引用解决Intent传值限制导致的异常
  */
 public class VMPicker {
-
-//    public static final int REQUEST_CODE_TAKE = 1001;
-//    public static final int REQUEST_CODE_CROP = 1002;
-//    public static final int REQUEST_CODE_PREVIEW = 1003;
-//    public static final int RESULT_CODE_ITEMS = 1004;
-//    public static final int RESULT_CODE_BACK = 1005;
-
-    //public static final String EXTRA_RESULT_ITEMS = "extra_result_items";
-    //public static final String EXTRA_SELECTED_IMAGE_POSITION = "selected_image_position";
-    //public static final String EXTRA_FROM_ITEMS = "extra_from_items";
-
     // 图片选择模式 是否多选 默认为 true
     private boolean mMultiMode = true;
     // 图片加载器接口，需要外部实现，减少三方库依赖
@@ -81,6 +71,8 @@ public class VMPicker {
     private List<OnSelectedPictureListener> mSelectedPictureListeners;
 
     private VMPicker() {
+        mCropFocusWidth = VMDimen.dp2px(256);
+        mCropFocusHeight = VMDimen.dp2px(256);
     }
 
     /**
@@ -128,10 +120,11 @@ public class VMPicker {
                     uri = FileProvider.getUriForFile(activity, VMPickerProvider.getAuthority(activity), mTakePicture);
                     //加入uri权限 要不三星手机不能拍照
                     List<ResolveInfo> resInfoList = activity.getPackageManager()
-                            .queryIntentActivities(takePictureIntent, PackageManager.MATCH_DEFAULT_ONLY);
+                        .queryIntentActivities(takePictureIntent, PackageManager.MATCH_DEFAULT_ONLY);
                     for (ResolveInfo resolveInfo : resInfoList) {
                         String packageName = resolveInfo.activityInfo.packageName;
-                        activity.grantUriPermission(packageName, uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        activity.grantUriPermission(packageName, uri,
+                            Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     }
                 }
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
@@ -149,7 +142,6 @@ public class VMPicker {
         mediaScanIntent.setData(contentUri);
         context.sendBroadcast(mediaScanIntent);
     }
-
 
     /**
      * 添加选中图片，选中的图片时全局保存的，方便统一管理
@@ -345,7 +337,6 @@ public class VMPicker {
     public void setCurrentFolderPosition(int position) {
         mCurrentFolderPosition = position;
     }
-
 
     /**
      * --------------------------- 获取一些属性 ---------------------------
@@ -586,5 +577,4 @@ public class VMPicker {
         }
         mSelectedPictureListeners.remove(listener);
     }
-
 }
