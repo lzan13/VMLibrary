@@ -145,12 +145,12 @@ public class VMLineView extends RelativeLayout {
      * 设置图标
      */
     public void setIconRes(@DrawableRes int resId) {
-        if (resId == 0) {
+        mIconRes = resId;
+        if (mIconRes == 0) {
             mIconView.setVisibility(GONE);
             return;
         }
         mIconView.setVisibility(VISIBLE);
-        mIconRes = resId;
         mIconView.setImageResource(mIconRes);
     }
 
@@ -166,12 +166,12 @@ public class VMLineView extends RelativeLayout {
      * 设置右侧描述图标
      */
     public void setCaptionIcon(@DrawableRes int resId) {
-        if (resId == 0) {
+        mCaptionIconRes = resId;
+        if (mCaptionIconRes == 0) {
             mCaptionIconView.setVisibility(GONE);
             return;
         }
         mCaptionIconView.setVisibility(VISIBLE);
-        mCaptionIconRes = resId;
         mCaptionIconView.setImageResource(mCaptionIconRes);
     }
 
@@ -180,6 +180,11 @@ public class VMLineView extends RelativeLayout {
      */
     public void setCaption(String caption) {
         mCaption = caption;
+        if (VMStr.isEmpty(mCaption)) {
+            mCaptionView.setVisibility(GONE);
+            return;
+        }
+        mCaptionView.setVisibility(VISIBLE);
         mCaptionView.setText(mCaption);
     }
 
@@ -187,12 +192,12 @@ public class VMLineView extends RelativeLayout {
      * 设置右侧图标
      */
     public void setRightIcon(@DrawableRes int resId) {
-        if (resId == 0) {
+        mRightIconRes = resId;
+        if (mRightIconRes == 0) {
             mRightIconView.setVisibility(GONE);
             return;
         }
         mRightIconView.setVisibility(VISIBLE);
-        mRightIconRes = resId;
         mRightIconView.setImageResource(mRightIconRes);
     }
 
@@ -201,6 +206,11 @@ public class VMLineView extends RelativeLayout {
      */
     public void setDescription(String description) {
         mDescription = description;
+        if (VMStr.isEmpty(mDescription)) {
+            mDescriptionView.setVisibility(GONE);
+            return;
+        }
+        mDescriptionView.setVisibility(VISIBLE);
         mDescriptionView.setText(mDescription);
     }
 
