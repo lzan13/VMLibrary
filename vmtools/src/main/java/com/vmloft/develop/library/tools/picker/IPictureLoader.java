@@ -13,9 +13,8 @@ import java.io.Serializable;
  */
 public interface IPictureLoader extends Serializable {
 
-    void displayImage(Context context, String path, ImageView imageView, int width, int height);
+    void loadThumb(Context context, String path, ImageView imageView, int width, int height);
 
-    void displayImagePreview(Context context, String path, ImageView imageView, int width, int height);
+    void loadFull(Context context, String path, ImageView imageView, int width, int height);
 
-    void clearMemoryCache();
 }

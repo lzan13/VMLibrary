@@ -45,7 +45,7 @@ public class VMPreviewPageAdapter extends PagerAdapter {
         VMPictureBean VMPictureBean = images.get(position);
         VMPicker.getInstance()
             .getPictureLoader()
-            .displayImagePreview(mActivity, VMPictureBean.path, photoView, screenWidth, screenHeight);
+            .loadFull(mActivity, VMPictureBean.path, photoView, screenWidth, screenHeight);
 
         photoView.setOnPhotoTapListener(new OnPhotoTapListener() {
             @Override

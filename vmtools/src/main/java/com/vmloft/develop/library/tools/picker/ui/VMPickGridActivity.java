@@ -83,6 +83,7 @@ public class VMPickGridActivity extends VMPickBaseActivity {
     protected void initUI() {
         super.initUI();
         mRecyclerView = findViewById(R.id.vm_pick_grid_recycler_view);
+
         mBottomBar = findViewById(R.id.vm_pick_grid_bottom_bar_rl);
         mBottomSpaceView = findViewById(R.id.vm_pick_grid_bottom_space);
         mChangeDirView = findViewById(R.id.vm_pick_grid_choose_folder_rl);
@@ -114,6 +115,8 @@ public class VMPickGridActivity extends VMPickBaseActivity {
             mPreviewBtn.setVisibility(View.GONE);
         }
 
+        initPictureRecyclerView();
+
         initNavBarListener();
     }
 
@@ -127,13 +130,33 @@ public class VMPickGridActivity extends VMPickBaseActivity {
         VMPicker.getInstance().setSelectedPictures(pictures);
 
         mFolderAdapter = new VMFolderAdapter(mActivity, null);
-        mPictureAdapter = new VMPictureAdapter(mActivity, null);
 
         refreshBtnStatus();
         // 初始化扫描图片， 要先扫描图片
         initScanPicture();
         // 初始化选择图片监听
         initSelectPictureListener();
+    }
+
+    /**
+     * 初始化图片列表
+     */
+    private void initPictureRecyclerView() {
+        mPictureAdapter = new VMPictureAdapter(mActivity, null);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(mActivity, 4));
+        mRecyclerView.addItemDecoration(new VMSpaceGridDecoration(4, VMDimen.dp2px(2)));
+        mRecyclerView.setAdapter(mPictureAdapter);
+        mPictureAdapter.setClickListener(new VMAdapter.IClickListener() {
+            @Override
+            public void onItemAction(int position, Object object) {
+                onPictureClick(position);
+            }
+
+            @Override
+            public boolean onItemLongAction(int action, Object object) {
+                return false;
+            }
+        });
     }
 
     /**
@@ -184,20 +207,6 @@ public class VMPickGridActivity extends VMPickBaseActivity {
                 } else {
                     mPictureAdapter.refresh(mFolderBeans.get(0).pictures);
                 }
-                mPictureAdapter.setClickListener(new VMAdapter.IClickListener() {
-                    @Override
-                    public void onItemAction(int position, Object object) {
-                        onPictureClick(position);
-                    }
-
-                    @Override
-                    public boolean onItemLongAction(int action, Object object) {
-                        return false;
-                    }
-                });
-                mRecyclerView.setLayoutManager(new GridLayoutManager(mActivity, 4));
-                mRecyclerView.addItemDecoration(new VMSpaceGridDecoration(4, VMDimen.dp2px(2)));
-                mRecyclerView.setAdapter(mPictureAdapter);
                 mFolderAdapter.refreshData(mFolderBeans);
             }
         };

@@ -83,7 +83,7 @@ public class VMFolderAdapter extends BaseAdapter {
             .size()));
         VMPicker.getInstance()
             .getPictureLoader()
-            .displayImage(mActivity, folder.cover.path, holder.cover, mImageSize, mImageSize);
+            .loadThumb(mActivity, folder.cover.path, holder.cover, mImageSize, mImageSize);
 
         if (lastSelected == position) {
             holder.folderRB.setChecked(true);

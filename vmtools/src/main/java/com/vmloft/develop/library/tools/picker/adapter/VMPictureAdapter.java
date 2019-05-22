@@ -162,7 +162,7 @@ public class VMPictureAdapter extends VMAdapter<VMPictureBean, VMHolder> {
             });
             VMPicker.getInstance()
                 .getPictureLoader()
-                .displayImage(mContext, VMPictureBean.path, mThumbView, mItemSize, mItemSize); //显示图片
+                .loadThumb(mContext, VMPictureBean.path, mThumbView, mItemSize, mItemSize); //显示图片
         }
     }
 

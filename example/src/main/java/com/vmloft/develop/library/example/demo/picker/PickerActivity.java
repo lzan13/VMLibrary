@@ -203,7 +203,7 @@ public class PickerActivity extends AppActivity{
             ImageView imageView = new ImageView(mActivity);
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(width, height);
-            mPictureLoader.displayImage(mActivity, item.path, imageView, width, height);
+            mPictureLoader.loadThumb(mActivity, item.path, imageView, width, height);
             mViewGroup.addView(imageView, lp);
         }
     }
