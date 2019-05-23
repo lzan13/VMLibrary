@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/vm_ic_check_box" android:state_selected="true"/>
-    <item android:drawable="@drawable/vm_ic_check_box" android:state_checked="true"/>
-    <item android:drawable="@drawable/vm_ic_check_box_outline"/>
+    <item android:drawable="@drawable/vm_ic_check_box" android:state_pressed="true" />
+    <item android:drawable="@drawable/vm_ic_check_box" android:state_checked="true" />
+    <item android:drawable="@drawable/vm_ic_check_box_outline" />
 </selector>

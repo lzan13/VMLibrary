@@ -29,6 +29,7 @@ import com.vmloft.develop.library.tools.utils.VMDimen;
 import com.vmloft.develop.library.tools.utils.VMNavBarUtil;
 import com.vmloft.develop.library.tools.utils.VMStr;
 import com.vmloft.develop.library.tools.widget.toast.VMToast;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -236,12 +237,7 @@ public class VMPickGridActivity extends VMPickBaseActivity {
             @Override
             public void onPictureSelected(int position, VMPictureBean bean, boolean isAdd) {
                 refreshBtnStatus();
-                for (int i = isShowCamera ? 1 : 0; i < mPictureAdapter.getItemCount(); i++) {
-                    if (mPictureAdapter.getItemData(i).path != null && mPictureAdapter.getItemData(i).path.equals(bean.path)) {
-                        mPictureAdapter.notifyItemChanged(i);
-                        return;
-                    }
-                }
+                mPictureAdapter.notifyItemChanged(position, 1);
             }
         };
         VMPicker.getInstance().addOnSelectedPictureListener(mSelectedPictureListener);
