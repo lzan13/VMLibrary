@@ -12,14 +12,6 @@
         android:scaleType="centerCrop"
         />
 
-    <View
-        android:id="@+id/vm_pick_grid_item_mask_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/vm_gray_black_38"
-        android:visibility="gone"
-        />
-
     <LinearLayout
         android:id="@+id/vm_pick_grid_item_check_layout"
         android:layout_width="wrap_content"

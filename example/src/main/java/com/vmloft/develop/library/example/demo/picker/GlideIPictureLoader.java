@@ -1,11 +1,14 @@
 package com.vmloft.develop.library.example.demo.picker;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.vmloft.develop.library.tools.picker.IPictureLoader;
@@ -21,17 +24,13 @@ public class GlideIPictureLoader implements IPictureLoader {
 
     @Override
     public void loadThumb(Context context, String path, ImageView imageView, int width, int height) {
-        Glide.with(context)
-                .load(Uri.fromFile(new File(path)))
-                .apply(new RequestOptions().bitmapTransform(new RoundedCorners(24)))
-                .into(imageView);
+        Glide.with(context).load(Uri.fromFile(new File(path)))
+            //.apply(new RequestOptions().bitmapTransform(new RoundedCorners(24)))
+            .transform(new MultiTransformation<Bitmap>(new CenterCrop(), new RoundedCorners(16))).into(imageView);
     }
 
     @Override
     public void loadFull(Context context, String path, ImageView imageView, int width, int height) {
-        Glide.with(context)
-                .load(Uri.fromFile(new File(path)))
-                .into(imageView);
+        Glide.with(context).load(Uri.fromFile(new File(path))).into(imageView);
     }
-
 }

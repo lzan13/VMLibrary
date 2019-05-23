@@ -66,24 +66,26 @@ public class VMPictureAdapter extends VMAdapter<VMPictureBean, VMHolder> {
     public void onBindViewHolder(VMHolder holder, int position) {
         super.onBindViewHolder(holder, position);
         switch (getItemViewType(position)) {
-            case ITEM_TYPE_CAMERA:
-                ((CameraViewHolder) holder).bindCamera();
-                break;
-            case ITEM_TYPE_NORMAL:
-                ((PictureViewHolder) holder).bind(position);
-                break;
+        case ITEM_TYPE_CAMERA:
+            ((CameraViewHolder) holder).bindCamera();
+            break;
+        case ITEM_TYPE_NORMAL:
+            ((PictureViewHolder) holder).bind(position);
+            break;
         }
     }
 
     @Override
     public void onBindViewHolder(@NonNull VMHolder holder, int position, @NonNull List<Object> payloads) {
-//        super.onBindViewHolder(holder, position, payloads);
+        //        super.onBindViewHolder(holder, position, payloads);
         if (payloads.isEmpty()) {
             onBindViewHolder(holder, position);
             return;
         }
-        VMPictureBean bean = getItemData(position);
-        ((PictureViewHolder) holder).refreshCheckBox(bean);
+        if (VMPicker.getInstance().isMultiMode()) {
+            VMPictureBean bean = getItemData(position);
+            ((PictureViewHolder) holder).refreshCheckBox(bean);
+        }
     }
 
     @Override
@@ -115,8 +117,6 @@ public class VMPictureAdapter extends VMAdapter<VMPictureBean, VMHolder> {
 
         // 图片
         public ImageView mThumbView;
-        // 遮罩
-        public View mMaskView;
         // 选择框热区
         public View mHotRegionCB;
         // 选择框
@@ -125,7 +125,6 @@ public class VMPictureAdapter extends VMAdapter<VMPictureBean, VMHolder> {
         public PictureViewHolder(View itemView) {
             super(itemView);
             mThumbView = itemView.findViewById(R.id.vm_pick_grid_item_thumb_iv);
-            mMaskView = itemView.findViewById(R.id.vm_pick_grid_item_mask_view);
             mHotRegionCB = itemView.findViewById(R.id.vm_pick_grid_item_check_layout);
             mItemCB = itemView.findViewById(R.id.vm_pick_grid_item_cb);
             itemView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mItemSize)); //让图片是个正方形
@@ -156,16 +155,12 @@ public class VMPictureAdapter extends VMAdapter<VMPictureBean, VMHolder> {
                         String toastMsg = VMStr.byResArgs(R.string.vm_pick_select_limit, selectLimit);
                         VMToast.make((Activity) mContext, toastMsg).error();
                         mItemCB.setChecked(false);
-                        mMaskView.setVisibility(View.GONE);
                     } else {
                         VMPicker.getInstance().addSelectedPicture(position, bean, mItemCB.isChecked());
-                        mMaskView.setVisibility(View.VISIBLE);
                     }
                 }
             });
-            VMPicker.getInstance()
-                    .getPictureLoader()
-                    .loadThumb(mContext, bean.path, mThumbView, mItemSize, mItemSize); //显示图片
+            VMPicker.getInstance().getPictureLoader().loadThumb(mContext, bean.path, mThumbView, mItemSize, mItemSize); //显示图片
         }
 
         /**
@@ -177,10 +172,8 @@ public class VMPictureAdapter extends VMAdapter<VMPictureBean, VMHolder> {
             List<VMPictureBean> selectedList = VMPicker.getInstance().getSelectedPictures();
             boolean checked = selectedList.contains(bean);
             if (checked) {
-                mMaskView.setVisibility(View.VISIBLE);
                 mItemCB.setChecked(true);
             } else {
-                mMaskView.setVisibility(View.GONE);
                 mItemCB.setChecked(false);
             }
         }
@@ -201,18 +194,6 @@ public class VMPictureAdapter extends VMAdapter<VMPictureBean, VMHolder> {
         public void bindCamera() {
             mItemView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mItemSize)); //让图片是个正方形
             mItemView.setTag(null);
-            //            mItemView.setOnClickListener(new View.OnClickListener() {
-            //                @Override
-            //                public void onClick(View v) {
-            //                    if (!((VMPickBaseActivity) mContext).checkPermission(Manifest.permission.CAMERA)) {
-            //                        ActivityCompat.requestPermissions(mActivity, new String[]{
-            //                                Manifest.permission.CAMERA
-            //                        }, VMPickGridActivity.REQUEST_PERMISSION_CAMERA);
-            //                    } else {
-            //                        VMPicker.getInstance().takePicture(mActivity, VMPicker.REQUEST_CODE_TAKE);
-            //                    }
-            //                }
-            //            });
         }
     }
 }
