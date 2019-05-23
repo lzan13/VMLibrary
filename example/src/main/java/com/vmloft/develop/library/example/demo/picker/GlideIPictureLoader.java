@@ -24,9 +24,9 @@ public class GlideIPictureLoader implements IPictureLoader {
 
     @Override
     public void loadThumb(Context context, String path, ImageView imageView, int width, int height) {
-        Glide.with(context).load(Uri.fromFile(new File(path)))
-            //.apply(new RequestOptions().bitmapTransform(new RoundedCorners(24)))
-            .transform(new MultiTransformation<Bitmap>(new CenterCrop(), new RoundedCorners(16))).into(imageView);
+        RequestOptions options = new RequestOptions();
+        options.transform(new MultiTransformation<Bitmap>(new CenterCrop(), new RoundedCorners(16)));
+        Glide.with(context).load(Uri.fromFile(new File(path))).apply(options).into(imageView);
     }
 
     @Override
