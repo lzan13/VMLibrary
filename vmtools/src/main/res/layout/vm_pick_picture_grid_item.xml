@@ -9,7 +9,6 @@
         android:id="@+id/vm_pick_grid_item_thumb_iv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/vm_gray_black_54"
         android:scaleType="centerCrop"
         />
 
