@@ -29,15 +29,24 @@ public abstract class VMAdapter<T, VH extends VMHolder> extends RecyclerView.Ada
      */
     protected List<T> mDataList;
 
+
+    public VMAdapter(Context context) {
+        mActivity = (Activity) context;
+        mContext = context;
+        mInflater = LayoutInflater.from(context);
+
+        mDataList = new ArrayList<>();
+    }
+
     public VMAdapter(Context context, List<T> list) {
         mActivity = (Activity) context;
         mContext = context;
         mInflater = LayoutInflater.from(context);
 
         if (list == null || list.size() == 0) {
-            this.mDataList = new ArrayList<>();
+            mDataList = new ArrayList<>();
         } else {
-            this.mDataList = list;
+            mDataList = list;
         }
     }
 
