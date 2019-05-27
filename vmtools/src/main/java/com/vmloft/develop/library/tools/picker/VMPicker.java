@@ -12,6 +12,7 @@ import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 
 import com.vmloft.develop.library.tools.base.VMConstant;
@@ -317,7 +318,16 @@ public class VMPicker {
     public void startPicker(Activity activity) {
         Intent intent = new Intent(activity, VMPickGridActivity.class);
         intent.putExtra(VMConstant.VM_KEY_PICK_PICTURES, mSelectedPictures);
-        VMRouter.goPicker(activity, intent, VMConstant.VM_PICK_REQUEST_CODE);
+        activity.startActivityForResult(intent, VMConstant.VM_PICK_REQUEST_CODE);
+    }
+
+    /**
+     * 启动选择器，通过 Fragment 打开
+     */
+    public void startPicker(Fragment fragment) {
+        Intent intent = new Intent(fragment.getContext(), VMPickGridActivity.class);
+        intent.putExtra(VMConstant.VM_KEY_PICK_PICTURES, mSelectedPictures);
+        fragment.startActivityForResult(intent, VMConstant.VM_PICK_REQUEST_CODE);
     }
 
     /**
