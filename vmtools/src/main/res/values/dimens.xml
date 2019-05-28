@@ -33,9 +33,10 @@
 
     <!--控件 Z 轴高度-->
     <dimen name="vm_elevation_no">0dp</dimen>
-    <dimen name="vm_elevation_low">1dp</dimen>
-    <dimen name="vm_elevation_normal">2dp</dimen>
-    <dimen name="vm_elevation_high">4dp</dimen>
+    <dimen name="vm_elevation_very_low">2dp</dimen>
+    <dimen name="vm_elevation_low">4dp</dimen>
+    <dimen name="vm_elevation_normal">8dp</dimen>
+    <dimen name="vm_elevation_high">16dp</dimen>
 
 
     <!--margin-->

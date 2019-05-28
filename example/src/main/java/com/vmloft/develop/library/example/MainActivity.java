@@ -37,7 +37,7 @@ public class MainActivity extends AppActivity {
         getTopBar().setTitle("工具库");
 
         String[] btnArray = {
-            "工具", "描点控件", "详情控件", "自定义控件", "录制屏幕", "声音播放", "按钮样式", "弹出窗口", "Web 功能", "指示器", "识别验证码",
+            "工具", "描点控件", "详情控件", "自定义控件", "录制屏幕", "声音播放", "按钮样式", "悬浮菜单", "Web 功能", "指示器", "识别验证码",
             "图片选择器", "单权限申请", "多权限申请"
         };
         for (int i = 0; i < btnArray.length; i++) {

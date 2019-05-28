@@ -17,7 +17,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         >
         <Button
-            android:id="@+id/btn_popup_window_top_left"
+            android:id="@+id/float_menu_left_top_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -25,7 +25,7 @@
             />
 
         <Button
-            android:id="@+id/btn_popup_window_top_right"
+            android:id="@+id/float_menu_right_top_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -33,7 +33,7 @@
             />
 
         <Button
-            android:id="@+id/btn_popup_window_center"
+            android:id="@+id/float_menu_center_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -41,7 +41,7 @@
             />
 
         <Button
-            android:id="@+id/btn_popup_window_bottom_left"
+            android:id="@+id/float_menu_left_bottom_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -50,7 +50,7 @@
             />
 
         <Button
-            android:id="@+id/btn_popup_window_bottom_right"
+            android:id="@+id/float_menu_right_bottom_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

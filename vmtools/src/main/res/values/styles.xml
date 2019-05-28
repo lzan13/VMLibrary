@@ -203,7 +203,7 @@
     <style name="VMBtn" parent="Widget.AppCompat.Button">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:elevation">@dimen/vm_elevation_normal</item>
+        <item name="android:elevation">@dimen/vm_elevation_very_low</item>
         <item name="android:stateListAnimator">@animator/vm_click_anim</item>
         <item name="android:background">@drawable/vm_click_rectangle_gray</item>
         <item name="android:colorControlHighlight">@color/vm_btn_ripple</item>
@@ -308,4 +308,24 @@
         <item name="android:foreground">@drawable/vm_click_full_fillet_transparent</item>
     </style>
 
+    <!--定义悬浮菜单动画-->
+    <style name="VMFloatMenuLT">
+        <item name="android:windowEnterAnimation">@anim/vm_float_menu_left_top_show</item>
+        <item name="android:windowExitAnimation">@anim/vm_float_menu_left_top_hide</item>
+    </style>
+
+    <style name="VMFloatMenuRT">
+        <item name="android:windowEnterAnimation">@anim/vm_float_menu_right_top_show</item>
+        <item name="android:windowExitAnimation">@anim/vm_float_menu_right_top_hide</item>
+    </style>
+
+    <style name="VMFloatMenuRB">
+        <item name="android:windowEnterAnimation">@anim/vm_float_menu_right_bottom_show</item>
+        <item name="android:windowExitAnimation">@anim/vm_float_menu_right_bottom_hide</item>
+    </style>
+
+    <style name="VMFloatMenuLB">
+        <item name="android:windowEnterAnimation">@anim/vm_float_menu_left_bottom_show</item>
+        <item name="android:windowExitAnimation">@anim/vm_float_menu_left_bottom_hide</item>
+    </style>
 </resources>

@@ -6,7 +6,7 @@ import com.vmloft.develop.library.example.demo.audio.PlayAudioActivity;
 import com.vmloft.develop.library.example.demo.custom.DotLineActivity;
 import com.vmloft.develop.library.example.demo.custom.CustomViewActivity;
 import com.vmloft.develop.library.example.demo.details.DetailsActivity;
-import com.vmloft.develop.library.example.demo.dialog.PWDialogActivity;
+import com.vmloft.develop.library.example.demo.dialog.FloatMenuActivity;
 import com.vmloft.develop.library.example.demo.image.ImageDiscernActivity;
 import com.vmloft.develop.library.example.demo.indicator.IndicatorActivity;
 import com.vmloft.develop.library.example.demo.picker.PickerActivity;
@@ -71,7 +71,7 @@ public class ARouter extends VMRouter {
      * 跳转弹出对话框
      */
     public static void goPWDialog(Context context) {
-        overlay(context, PWDialogActivity.class);
+        overlay(context, FloatMenuActivity.class);
     }
 
     /**

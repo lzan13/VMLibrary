@@ -8,6 +8,9 @@
     <!--透明度改变持续时间-->
     <integer name="vm_time_alpha_change">300</integer>
 
+    <!--悬浮窗动画时间-->
+    <integer name="vm_time_float_menu">220</integer>
+
     <!--过渡动画持续时间-->
     <integer name="vm_time_transition">300</integer>
     <integer name="vm_time_transition_fast">180</integer>

@@ -7,12 +7,12 @@
             <objectAnimator
                 android:duration="@integer/vm_time_btn_pressed_duration"
                 android:propertyName="translationZ"
-                android:valueTo="@dimen/vm_elevation_low"
+                android:valueTo="@dimen/vm_elevation_very_low"
                 android:valueType="floatType" />
             <objectAnimator
                 android:duration="0"
                 android:propertyName="elevation"
-                android:valueTo="@dimen/vm_elevation_low"
+                android:valueTo="@dimen/vm_elevation_very_low"
                 android:valueType="floatType" />
         </set>
     </item>
@@ -23,12 +23,12 @@
                 android:duration="@integer/vm_time_btn_pressed_duration"
                 android:propertyName="translationZ"
                 android:startDelay="@integer/vm_time_btn_pressed_delay"
-                android:valueTo="@dimen/vm_elevation_normal"
+                android:valueTo="@dimen/vm_elevation_low"
                 android:valueType="floatType" />
             <objectAnimator
                 android:duration="0"
                 android:propertyName="elevation"
-                android:valueTo="@dimen/vm_elevation_normal"
+                android:valueTo="@dimen/vm_elevation_low"
                 android:valueType="floatType" />
         </set>
     </item>
