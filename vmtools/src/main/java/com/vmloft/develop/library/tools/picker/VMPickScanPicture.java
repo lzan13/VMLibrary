@@ -11,6 +11,7 @@ import android.support.v4.content.Loader;
 import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.picker.bean.VMFolderBean;
 import com.vmloft.develop.library.tools.picker.bean.VMPictureBean;
+import com.vmloft.develop.library.tools.utils.bitmap.VMBitmap;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -28,20 +29,20 @@ public class VMPickScanPicture implements LoaderManager.LoaderCallbacks<Cursor> 
     public static final int LOADER_CATEGORY = 1;
     // 查询图片需要的数据列
     private final String[] IMAGE_PROJECTION = {
-        // 图片的显示名称  aaa.jpg
-        MediaStore.Images.Media.DISPLAY_NAME,
-        // 图片的真实路径  /storage/emulated/0/pp/downloader/wallpaper/aaa.jpg
-        MediaStore.Images.Media.DATA,
-        // 图片的大小 long型  132492
-        MediaStore.Images.Media.SIZE,
-        // 图片的宽度 int型  1920
-        MediaStore.Images.Media.WIDTH,
-        // 图片的高度 int型  1080
-        MediaStore.Images.Media.HEIGHT,
-        // 图片的类型 image/jpeg
-        MediaStore.Images.Media.MIME_TYPE,
-        // 图片被添加的时间，long型  1450518608
-        MediaStore.Images.Media.DATE_ADDED
+            // 图片的显示名称  aaa.jpg
+            MediaStore.Images.Media.DISPLAY_NAME,
+            // 图片的真实路径  /storage/emulated/0/pp/downloader/wallpaper/aaa.jpg
+            MediaStore.Images.Media.DATA,
+            // 图片的大小 long型  132492
+            MediaStore.Images.Media.SIZE,
+            // 图片的宽度 int型  1920
+            MediaStore.Images.Media.WIDTH,
+            // 图片的高度 int型  1080
+            MediaStore.Images.Media.HEIGHT,
+            // 图片的类型 image/jpeg
+            MediaStore.Images.Media.MIME_TYPE,
+            // 图片被添加的时间，long型  1450518608
+            MediaStore.Images.Media.DATE_ADDED
     };
 
     private FragmentActivity activity;
@@ -76,13 +77,13 @@ public class VMPickScanPicture implements LoaderManager.LoaderCallbacks<Cursor> 
         //扫描所有图片
         if (id == LOADER_ALL) {
             cursorLoader = new CursorLoader(activity, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, IMAGE_PROJECTION, null, null,
-                IMAGE_PROJECTION[6] + " DESC");
+                    IMAGE_PROJECTION[6] + " DESC");
         }
         //扫描某个图片文件夹
         if (id == LOADER_CATEGORY) {
             cursorLoader = new CursorLoader(activity, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, IMAGE_PROJECTION,
-                IMAGE_PROJECTION[1] + " like '%" + args
-                .getString("path") + "%'", null, IMAGE_PROJECTION[6] + " DESC");
+                    IMAGE_PROJECTION[1] + " like '%" + args
+                            .getString("path") + "%'", null, IMAGE_PROJECTION[6] + " DESC");
         }
 
         return cursorLoader;
@@ -117,8 +118,13 @@ public class VMPickScanPicture implements LoaderManager.LoaderCallbacks<Cursor> 
                 pictureBean.name = imageName;
                 pictureBean.path = imagePath;
                 pictureBean.size = imageSize;
-                pictureBean.width = imageWidth;
-                pictureBean.height = imageHeight;
+                if (VMBitmap.getBitmapDegree(imagePath) == 90 || VMBitmap.getBitmapDegree(imagePath) == 270) {
+                    pictureBean.width = imageHeight;
+                    pictureBean.height = imageWidth;
+                } else {
+                    pictureBean.width = imageWidth;
+                    pictureBean.height = imageHeight;
+                }
                 pictureBean.mimeType = imageMimeType;
                 pictureBean.addTime = imageAddTime;
                 allPictures.add(pictureBean);
