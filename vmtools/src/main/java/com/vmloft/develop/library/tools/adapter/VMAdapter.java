@@ -114,11 +114,11 @@ public abstract class VMAdapter<T, VH extends VMHolder> extends RecyclerView.Ada
     /**
      * Item 点击监听接口
      */
-    public static interface IClickListener {
+    public static interface IClickListener<T> {
 
-        void onItemAction(int action, Object object);
+        void onItemAction(int action, T t);
 
-        boolean onItemLongAction(int action, Object object);
+        boolean onItemLongAction(int action, T t);
     }
 }
 
