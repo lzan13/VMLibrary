@@ -89,6 +89,7 @@ booelan isEmail = VMReg.isEmail(email);
     - [VMImageView](src/main/java/com/vmloft/develop/library/tools/widget/VMImageView.java) 圆角图片
     - [VMImageView](src/main/java/com/vmloft/develop/library/tools/widget/VMLineView.java) 单行选项控件
     - [VMRecordView](src/main/java/com/vmloft/develop/library/tools/widget/VMRecordView.java) 录音控件
+    - [VMSquareLayout](src/main/java/com/vmloft/develop/library/tools/widget/VMSquareLayout.java) 正方形控件
     - [VMTimerBtn](src/main/java/com/vmloft/develop/library/tools/widget/VMTimerBtn.java) 定时按钮
     - [VMViewGroup](src/main/java/com/vmloft/develop/library/tools/widget/VMViewGroup.java) ViewGroup
     - [VMWaveformView](src/main/java/com/vmloft/develop/library/tools/widget/VMWaveformView.java) 波形图
