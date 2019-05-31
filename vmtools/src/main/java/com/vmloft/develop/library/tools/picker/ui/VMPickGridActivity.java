@@ -1,7 +1,7 @@
 package com.vmloft.develop.library.tools.picker.ui;
 
 import android.content.Intent;
-import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -10,13 +10,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
+import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.adapter.VMAdapter;
 import com.vmloft.develop.library.tools.base.VMConstant;
 import com.vmloft.develop.library.tools.permission.VMPermission;
 import com.vmloft.develop.library.tools.permission.VMPermissionCallback;
 import com.vmloft.develop.library.tools.picker.VMPickScanPicture;
 import com.vmloft.develop.library.tools.picker.VMPicker;
-import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.picker.adapter.VMFolderAdapter;
 import com.vmloft.develop.library.tools.adapter.VMSpaceGridDecoration;
 import com.vmloft.develop.library.tools.picker.adapter.VMPictureAdapter;
@@ -105,7 +105,8 @@ public class VMPickGridActivity extends VMPickBaseActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent();
-                    intent.putExtra(VMConstant.KEY_PICK_RESULT_PICTURES, VMPicker.getInstance().getSelectedPictures());
+                    List<VMPictureBean> result = VMPicker.getInstance().getSelectedPictures();
+                    intent.putParcelableArrayListExtra(VMConstant.KEY_PICK_RESULT_PICTURES, (ArrayList<? extends Parcelable>) result);
                     setResult(VMConstant.VM_PICK_RESULT_CODE_PICTURES, intent);
                     onFinish();
                 }
@@ -127,7 +128,7 @@ public class VMPickGridActivity extends VMPickBaseActivity {
         VMPicker.getInstance().reset();
 
         isShowCamera = VMPicker.getInstance().isShowCamera();
-        ArrayList<VMPictureBean> pictures = (ArrayList<VMPictureBean>) getIntent().getSerializableExtra(VMConstant.VM_KEY_PICK_PICTURES);
+        List<VMPictureBean> pictures = (List<VMPictureBean>) getIntent().getSerializableExtra(VMConstant.VM_KEY_PICK_PICTURES);
         VMPicker.getInstance().setSelectedPictures(pictures);
 
         mFolderAdapter = new VMFolderAdapter(mActivity, null);
@@ -288,7 +289,8 @@ public class VMPickGridActivity extends VMPickBaseActivity {
                     startActivityForResult(intent, VMConstant.VM_PICK_REQUEST_CODE_CROP);  //单选需要裁剪，进入裁剪界面
                 } else {
                     Intent intent = new Intent();
-                    intent.putExtra(VMConstant.KEY_PICK_RESULT_PICTURES, VMPicker.getInstance().getSelectedPictures());
+                    List<VMPictureBean> result = VMPicker.getInstance().getSelectedPictures();
+                    intent.putParcelableArrayListExtra(VMConstant.KEY_PICK_RESULT_PICTURES, (ArrayList<? extends Parcelable>) result);
                     setResult(VMConstant.VM_PICK_RESULT_CODE_PICTURES, intent);   //单选不需要裁剪，返回数据
                     finish();
                 }
@@ -408,7 +410,8 @@ public class VMPickGridActivity extends VMPickBaseActivity {
                     startActivityForResult(intent, VMConstant.VM_PICK_REQUEST_CODE_CROP);  //单选需要裁剪，进入裁剪界面
                 } else {
                     Intent intent = new Intent();
-                    intent.putExtra(VMConstant.KEY_PICK_RESULT_PICTURES, VMPicker.getInstance().getSelectedPictures());
+                    List<VMPictureBean> result = VMPicker.getInstance().getSelectedPictures();
+                    intent.putParcelableArrayListExtra(VMConstant.KEY_PICK_RESULT_PICTURES, (ArrayList<? extends Parcelable>) result);
                     setResult(VMConstant.VM_PICK_RESULT_CODE_PICTURES, intent);   //单选不需要裁剪，返回数据
                     onFinish();
                 }

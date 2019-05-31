@@ -3,6 +3,7 @@ package com.vmloft.develop.library.tools.picker.ui;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Parcelable;
 import android.util.DisplayMetrics;
 import android.view.View;
 
@@ -14,6 +15,7 @@ import com.vmloft.develop.library.tools.utils.bitmap.VMBitmap;
 import com.vmloft.develop.library.tools.widget.VMCropView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Create by lzan13 on 2019/05/16 20:37
@@ -27,7 +29,7 @@ public class VMPickCropActivity extends VMPickBaseActivity implements VMCropView
     private boolean mIsSaveRectangle;
     private int mCropOutWidth;
     private int mCropOutHeight;
-    private ArrayList<VMPictureBean> mPictureBeans;
+    private List<VMPictureBean> mPictureBeans;
 
     @Override
     protected int layoutId() {
@@ -102,7 +104,7 @@ public class VMPickCropActivity extends VMPickBaseActivity implements VMCropView
 
         // 单选不需要裁剪，返回数据
         Intent intent = new Intent();
-        intent.putExtra(VMConstant.KEY_PICK_RESULT_PICTURES, mPictureBeans);
+        intent.putParcelableArrayListExtra(VMConstant.KEY_PICK_RESULT_PICTURES, (ArrayList<? extends Parcelable>) mPictureBeans);
         setResult(VMConstant.VM_PICK_RESULT_CODE_PICTURES, intent);
         onFinish();
     }

@@ -267,8 +267,7 @@ public class VMTopBar extends RelativeLayout {
      * @param listener 回调接口
      */
     public void setEndBtnListener(String str, OnClickListener listener) {
-        mEndText = str;
-        mEndBtn.setText(mEndText);
+        setEndBtn(str);
         mEndBtn.setOnClickListener(listener);
     }
 }

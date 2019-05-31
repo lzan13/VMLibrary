@@ -13,6 +13,7 @@ import com.vmloft.develop.library.tools.picker.bean.VMPictureBean;
 
 import com.vmloft.develop.library.tools.utils.VMDimen;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Create by lzan13 on 2019/05/16 21:51
@@ -23,26 +24,22 @@ public class VMPreviewPageAdapter extends PagerAdapter {
 
     private int screenWidth;
     private int screenHeight;
-    private ArrayList<VMPictureBean> images = new ArrayList<>();
+    private List<VMPictureBean> mDataList;
     private Activity mActivity;
     public OnPreviewClickListener listener;
 
-    public VMPreviewPageAdapter(Activity activity, ArrayList<VMPictureBean> images) {
+    public VMPreviewPageAdapter(Activity activity, List<VMPictureBean> images) {
         this.mActivity = activity;
-        this.images = images;
+        this.mDataList = images;
 
         screenWidth = VMDimen.getScreenSize().x;
         screenHeight = VMDimen.getScreenSize().x;
     }
 
-    public void setData(ArrayList<VMPictureBean> images) {
-        this.images = images;
-    }
-
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         PhotoView photoView = new PhotoView(mActivity);
-        VMPictureBean VMPictureBean = images.get(position);
+        VMPictureBean VMPictureBean = mDataList.get(position);
         VMPicker.getInstance()
             .getPictureLoader()
             .loadFull(mActivity, VMPictureBean.path, photoView, screenWidth, screenHeight);
@@ -61,7 +58,7 @@ public class VMPreviewPageAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return images.size();
+        return mDataList.size();
     }
 
     @Override

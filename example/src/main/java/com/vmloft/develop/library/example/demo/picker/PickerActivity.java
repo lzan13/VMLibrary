@@ -25,13 +25,14 @@ import com.vmloft.develop.library.tools.widget.toast.VMToast;
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import java.util.List;
 
 /**
  * Create by lzan13 on 2019/05/19 20:20
  *
  * 测试图片选择器
  */
-public class PickerActivity extends AppActivity{
+public class PickerActivity extends AppActivity {
     // 选择模式 单选 or 多选
     @BindView(R.id.picker_single_mode_rb) RadioButton mSingleModeRB;
     @BindView(R.id.picker_multi_mode_rb) RadioButton mMultiModeRB;
@@ -77,11 +78,10 @@ public class PickerActivity extends AppActivity{
     // 裁剪后是否保存矩形
     private boolean isSaveRectangle = true;
 
-
     // 实现加载图片接口
     private GlideIPictureLoader mPictureLoader;
     // 选择列表
-    private ArrayList<VMPictureBean> mSelectPictures;
+    private List<VMPictureBean> mSelectPictures;
     // 展示选择图片高度
     private int height;
 
@@ -118,7 +118,7 @@ public class PickerActivity extends AppActivity{
         height = VMDimen.dp2px(72);
     }
 
-    @OnCheckedChanged({R.id.picker_crop_cb, R.id.picker_save_rectangle_cb,  R.id.picker_show_camera_cb })
+    @OnCheckedChanged({ R.id.picker_crop_cb, R.id.picker_save_rectangle_cb, R.id.picker_show_camera_cb })
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         switch (buttonView.getId()) {
         case R.id.picker_crop_cb:
@@ -138,9 +138,9 @@ public class PickerActivity extends AppActivity{
         switch (v.getId()) {
         case R.id.picker_picture_btn:
             if (mSingleModeRB.isChecked()) {
-                isMultiMode= false;
+                isMultiMode = false;
             } else if (mMultiModeRB.isChecked()) {
-                isMultiMode= true;
+                isMultiMode = true;
             }
             if (mCropRectangleRB.isChecked()) {
                 mCropStyle = VMCropView.Style.RECTANGLE;
@@ -154,19 +154,20 @@ public class PickerActivity extends AppActivity{
             mCropOutWidth = VMDimen.dp2px(Integer.valueOf(mCropOutWidthET.getText().toString()));
             mCropOutHeight = VMDimen.dp2px(Integer.valueOf(mCropOutHeightET.getText().toString()));
 
-            VMPicker.getInstance().setMultiMode(isMultiMode)
-                    .setPictureLoader(new GlideIPictureLoader())
-                    .setCrop(isCrop)
-//                    .setCropFocusWidth(mCropFocusWidth)
-//                    .setCropFocusHeight(mCropFocusHeight)
-//                    .setCropOutWidth(mCropOutWidth)
-//                    .setCropOutHeight(mCropOutHeight)
-                    .setCropStyle(mCropStyle)
-                    .setSaveRectangle(isSaveRectangle)
-                    .setSelectLimit(6)
-                    .setShowCamera(isShowCamera)
-                    .setSelectedPictures(mSelectPictures)
-                    .startPicker(mActivity);
+            VMPicker.getInstance()
+                .setMultiMode(isMultiMode)
+                .setPictureLoader(new GlideIPictureLoader())
+                .setCrop(isCrop)
+                //                    .setCropFocusWidth(mCropFocusWidth)
+                //                    .setCropFocusHeight(mCropFocusHeight)
+                //                    .setCropOutWidth(mCropOutWidth)
+                //                    .setCropOutHeight(mCropOutHeight)
+                .setCropStyle(mCropStyle)
+                .setSaveRectangle(isSaveRectangle)
+                .setSelectLimit(6)
+                .setShowCamera(isShowCamera)
+                .setSelectedPictures(mSelectPictures)
+                .startPicker(mActivity);
             break;
         }
     }
@@ -183,9 +184,8 @@ public class PickerActivity extends AppActivity{
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == VMConstant.VM_PICK_RESULT_CODE_PICTURES) {
             if (data != null && requestCode == VMConstant.VM_PICK_REQUEST_CODE) {
-//                ArrayList<VMPictureBean> pictures = (ArrayList<VMPictureBean>) data.getSerializableExtra(VMPicker.EXTRA_RESULT_ITEMS);
-                ArrayList<VMPictureBean> pictures = VMPicker.getInstance().getSelectedPictures();
-                showPickImages(pictures);
+                List<VMPictureBean> result = VMPicker.getInstance().getResultData();
+                showPickImages(result);
             } else {
                 VMToast.make(mActivity, "没有数据").error();
             }
@@ -195,8 +195,8 @@ public class PickerActivity extends AppActivity{
     /**
      * 显示选择的图片
      */
-    private void showPickImages(ArrayList<VMPictureBean> images) {
-        mSelectPictures = images;
+    private void showPickImages(List<VMPictureBean> list) {
+        mSelectPictures = list;
         mViewGroup.removeAllViews();
         for (int i = 0; i < mSelectPictures.size(); i++) {
             VMPictureBean item = mSelectPictures.get(i);

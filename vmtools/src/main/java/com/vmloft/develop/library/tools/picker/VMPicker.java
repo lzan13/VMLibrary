@@ -11,6 +11,7 @@ import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
@@ -61,7 +62,7 @@ public class VMPicker {
     // 显示相机
     private boolean mShowCamera = true;
     // 选中的图片集合
-    private ArrayList<VMPictureBean> mSelectedPictures = new ArrayList<>();
+    private List<VMPictureBean> mSelectedPictures = new ArrayList<>();
     // 定义调用拍照保存文件
     private File mTakePicture;
     // 所有的图片文件夹
@@ -304,7 +305,7 @@ public class VMPicker {
      *
      * @param pictures 已经选中的图片集合
      */
-    public VMPicker setSelectedPictures(ArrayList<VMPictureBean> pictures) {
+    public VMPicker setSelectedPictures(List<VMPictureBean> pictures) {
         if (pictures == null) {
             return this;
         }
@@ -317,7 +318,7 @@ public class VMPicker {
      */
     public void startPicker(Activity activity) {
         Intent intent = new Intent(activity, VMPickGridActivity.class);
-        intent.putExtra(VMConstant.VM_KEY_PICK_PICTURES, mSelectedPictures);
+        intent.putParcelableArrayListExtra(VMConstant.VM_KEY_PICK_PICTURES, (ArrayList<? extends Parcelable>) mSelectedPictures);
         activity.startActivityForResult(intent, VMConstant.VM_PICK_REQUEST_CODE);
     }
 
@@ -326,7 +327,7 @@ public class VMPicker {
      */
     public void startPicker(Fragment fragment) {
         Intent intent = new Intent(fragment.getContext(), VMPickGridActivity.class);
-        intent.putExtra(VMConstant.VM_KEY_PICK_PICTURES, mSelectedPictures);
+        intent.putParcelableArrayListExtra(VMConstant.VM_KEY_PICK_PICTURES, (ArrayList<? extends Parcelable>) mSelectedPictures);
         fragment.startActivityForResult(intent, VMConstant.VM_PICK_REQUEST_CODE);
     }
 
@@ -443,7 +444,7 @@ public class VMPicker {
     /**
      * 获取已选择的图片集合
      */
-    public ArrayList<VMPictureBean> getSelectedPictures() {
+    public List<VMPictureBean> getSelectedPictures() {
         return mSelectedPictures;
     }
 
@@ -492,6 +493,16 @@ public class VMPicker {
      */
     public ArrayList<VMPictureBean> getCurrentFolderPictures() {
         return mFolderBeans.get(mCurrentFolderPosition).pictures;
+    }
+
+    /**
+     * 获取选择结果数据
+     */
+    public List<VMPictureBean> getResultData() {
+        List<VMPictureBean> result = new ArrayList<>();
+        result.addAll(mSelectedPictures);
+        reset();
+        return result;
     }
 
     /**

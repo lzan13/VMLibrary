@@ -1,6 +1,7 @@
 package com.vmloft.develop.library.tools.picker.ui;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v4.view.ViewPager;
 import android.text.format.Formatter;
 import android.view.View;
@@ -21,7 +22,9 @@ import com.vmloft.develop.library.tools.utils.VMStr;
 import com.vmloft.develop.library.tools.widget.VMViewPager;
 
 import com.vmloft.develop.library.tools.widget.toast.VMToast;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Create by lzan13 on 2019/05/17
@@ -31,9 +34,9 @@ import java.util.ArrayList;
 public class VMPickPreviewActivity extends VMPickBaseActivity implements CompoundButton.OnCheckedChangeListener {
 
     // 预览图片集合
-    protected ArrayList<VMPictureBean> mPictures;
+    protected List<VMPictureBean> mPictures;
     // 所以已选择图片
-    protected ArrayList<VMPictureBean> mSelectedPictures;
+    protected List<VMPictureBean> mSelectedPictures;
     // 当前位置
     protected int mCurrentPosition = 0;
     protected VMViewPager mViewPager;
@@ -104,7 +107,8 @@ public class VMPickPreviewActivity extends VMPickBaseActivity implements Compoun
                     VMPicker.getInstance().addSelectedPicture(mCurrentPosition, bean, mSelectCB.isChecked());
                 }
                 Intent intent = new Intent();
-                intent.putExtra(VMConstant.KEY_PICK_RESULT_PICTURES, VMPicker.getInstance().getSelectedPictures());
+                List<VMPictureBean> result = VMPicker.getInstance().getSelectedPictures();
+                intent.putParcelableArrayListExtra(VMConstant.KEY_PICK_RESULT_PICTURES, (ArrayList<? extends Parcelable>) result);
                 setResult(VMConstant.VM_PICK_RESULT_CODE_PICTURES, intent);
                 onFinish();
             }
