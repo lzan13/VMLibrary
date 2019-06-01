@@ -125,7 +125,7 @@ public class VMPickGridActivity extends VMPickBaseActivity {
     @Override
     protected void initData() {
         // 每次打开都重置选择器
-        VMPicker.getInstance().reset();
+        //VMPicker.getInstance().reset();
 
         isShowCamera = VMPicker.getInstance().isShowCamera();
         List<VMPictureBean> pictures = (List<VMPictureBean>) getIntent().getSerializableExtra(VMConstant.VM_KEY_PICK_PICTURES);

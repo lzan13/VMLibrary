@@ -20,17 +20,20 @@
         <activity
             android:name="com.vmloft.develop.library.tools.picker.ui.VMPickGridActivity"
             android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
             android:theme="@style/VMTheme.Picker" />
         <!--剪切界面-->
         <activity
             android:name="com.vmloft.develop.library.tools.picker.ui.VMPickCropActivity"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="false"
+            android:screenOrientation="portrait"
             android:theme="@style/VMTheme.Picker" />
         <!--预览界面-->
         <activity
             android:name="com.vmloft.develop.library.tools.picker.ui.VMPickPreviewActivity"
             android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
             android:theme="@style/VMTheme.Picker" />
 
         <provider

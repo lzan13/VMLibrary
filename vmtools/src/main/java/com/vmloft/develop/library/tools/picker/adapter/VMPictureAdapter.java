@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import com.vmloft.develop.library.tools.adapter.VMAdapter;
 import com.vmloft.develop.library.tools.adapter.VMHolder;
+import com.vmloft.develop.library.tools.picker.IPictureLoader;
 import com.vmloft.develop.library.tools.picker.VMPicker;
 import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.picker.bean.VMPictureBean;
@@ -36,8 +37,6 @@ public class VMPictureAdapter extends VMAdapter<VMPictureBean, VMHolder> {
 
     // 是否显示拍照按钮
     private boolean isShowCamera;
-    // Item 的大小，这个需要根据屏幕大小计算
-    private int mItemSize;
 
     /**
      * 构造方法
@@ -46,7 +45,6 @@ public class VMPictureAdapter extends VMAdapter<VMPictureBean, VMHolder> {
         super(context, pictures);
 
         int space = VMDimen.dp2px(2);
-        mItemSize = (VMDimen.getScreenSize().x - space * 3) / 4;
 
         isShowCamera = VMPicker.getInstance().isShowCamera();
         if (isShowCamera) {
@@ -127,7 +125,6 @@ public class VMPictureAdapter extends VMAdapter<VMPictureBean, VMHolder> {
             mThumbView = itemView.findViewById(R.id.vm_pick_grid_item_thumb_iv);
             mHotRegionCB = itemView.findViewById(R.id.vm_pick_grid_item_check_layout);
             mItemCB = itemView.findViewById(R.id.vm_pick_grid_item_cb);
-            itemView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mItemSize)); //让图片是个正方形
         }
 
         /**
@@ -160,7 +157,10 @@ public class VMPictureAdapter extends VMAdapter<VMPictureBean, VMHolder> {
                     }
                 }
             });
-            VMPicker.getInstance().getPictureLoader().loadThumb(mContext, bean.path, mThumbView, mItemSize, mItemSize); //显示图片
+            IPictureLoader.Options options = new IPictureLoader.Options(bean.path);
+            options.isRadius = true;
+            options.radiusSize = VMDimen.dp2px(4);
+            VMPicker.getInstance().getPictureLoader().load(mContext, options, mThumbView); //显示图片
         }
 
         /**
@@ -192,7 +192,6 @@ public class VMPictureAdapter extends VMAdapter<VMPictureBean, VMHolder> {
         }
 
         public void bindCamera() {
-            mItemView.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mItemSize)); //让图片是个正方形
             mItemView.setTag(null);
         }
     }

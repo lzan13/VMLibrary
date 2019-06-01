@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import com.github.chrisbanes.photoview.OnPhotoTapListener;
 import com.github.chrisbanes.photoview.PhotoView;
+import com.vmloft.develop.library.tools.picker.IPictureLoader;
 import com.vmloft.develop.library.tools.picker.VMPicker;
 import com.vmloft.develop.library.tools.picker.bean.VMPictureBean;
 
@@ -22,8 +23,6 @@ import java.util.List;
  */
 public class VMPreviewPageAdapter extends PagerAdapter {
 
-    private int screenWidth;
-    private int screenHeight;
     private List<VMPictureBean> mDataList;
     private Activity mActivity;
     public OnPreviewClickListener listener;
@@ -31,18 +30,14 @@ public class VMPreviewPageAdapter extends PagerAdapter {
     public VMPreviewPageAdapter(Activity activity, List<VMPictureBean> images) {
         this.mActivity = activity;
         this.mDataList = images;
-
-        screenWidth = VMDimen.getScreenSize().x;
-        screenHeight = VMDimen.getScreenSize().x;
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         PhotoView photoView = new PhotoView(mActivity);
-        VMPictureBean VMPictureBean = mDataList.get(position);
-        VMPicker.getInstance()
-            .getPictureLoader()
-            .loadFull(mActivity, VMPictureBean.path, photoView, screenWidth, screenHeight);
+        VMPictureBean bean = mDataList.get(position);
+        IPictureLoader.Options options = new IPictureLoader.Options(bean.path);
+        VMPicker.getInstance().getPictureLoader().load(mActivity, options, photoView);
 
         photoView.setOnPhotoTapListener(new OnPhotoTapListener() {
             @Override

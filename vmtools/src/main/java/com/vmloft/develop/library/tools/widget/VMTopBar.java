@@ -210,7 +210,7 @@ public class VMTopBar extends RelativeLayout {
     /**
      * 设置标题颜色
      */
-    public void setTitleCOlor(int resId) {
+    public void setTitleColor(int resId) {
         if (resId != 0) {
             mTitleColor = VMColor.byRes(resId);
             setupColor();

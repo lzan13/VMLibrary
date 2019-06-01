@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.vmloft.develop.library.tools.picker.IPictureLoader;
 import com.vmloft.develop.library.tools.picker.VMPicker;
 import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.picker.bean.VMFolderBean;
@@ -27,7 +28,6 @@ public class VMFolderAdapter extends BaseAdapter {
 
     private Activity mActivity;
     private LayoutInflater mInflater;
-    private int mImageSize;
     private List<VMFolderBean> mFolderBeans;
     private int lastSelected = 0;
 
@@ -39,7 +39,6 @@ public class VMFolderAdapter extends BaseAdapter {
             mFolderBeans = new ArrayList<>();
         }
 
-        mImageSize = VMDimen.dp2px(56);
         mInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -79,11 +78,12 @@ public class VMFolderAdapter extends BaseAdapter {
 
         VMFolderBean folder = getItem(position);
         holder.folderName.setText(folder.name);
-        holder.imageCount.setText(mActivity.getString(R.string.vm_pick_folder_picture_count, folder.pictures
-            .size()));
-        VMPicker.getInstance()
-            .getPictureLoader()
-            .loadThumb(mActivity, folder.cover.path, holder.cover, mImageSize, mImageSize);
+        holder.imageCount.setText(mActivity.getString(R.string.vm_pick_folder_picture_count, folder.pictures.size()));
+
+        IPictureLoader.Options options = new IPictureLoader.Options(folder.cover.path);
+        options.isRadius = true;
+        options.radiusSize = VMDimen.dp2px(4);
+        VMPicker.getInstance().getPictureLoader().load(mActivity, options, holder.cover); //显示图片
 
         if (lastSelected == position) {
             holder.folderRB.setChecked(true);

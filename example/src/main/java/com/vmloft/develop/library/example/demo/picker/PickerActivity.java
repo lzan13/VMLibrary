@@ -8,21 +8,19 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import com.vmloft.develop.library.example.R;
 import com.vmloft.develop.library.example.common.AppActivity;
 import com.vmloft.develop.library.tools.base.VMConstant;
+import com.vmloft.develop.library.tools.picker.IPictureLoader;
 import com.vmloft.develop.library.tools.picker.VMPicker;
 import com.vmloft.develop.library.tools.picker.bean.VMPictureBean;
 import com.vmloft.develop.library.tools.widget.VMCropView;
 import com.vmloft.develop.library.tools.utils.VMDimen;
 import com.vmloft.develop.library.tools.widget.VMViewGroup;
 import com.vmloft.develop.library.tools.widget.toast.VMToast;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import java.util.List;
@@ -79,7 +77,7 @@ public class PickerActivity extends AppActivity {
     private boolean isSaveRectangle = true;
 
     // 实现加载图片接口
-    private GlideIPictureLoader mPictureLoader;
+    private PickerLoader mPictureLoader;
     // 选择列表
     private List<VMPictureBean> mSelectPictures;
     // 展示选择图片高度
@@ -113,7 +111,7 @@ public class PickerActivity extends AppActivity {
 
         mShowCameraCB.setChecked(true);
 
-        mPictureLoader = new GlideIPictureLoader();
+        mPictureLoader = new PickerLoader();
 
         height = VMDimen.dp2px(72);
     }
@@ -156,7 +154,7 @@ public class PickerActivity extends AppActivity {
 
             VMPicker.getInstance()
                 .setMultiMode(isMultiMode)
-                .setPictureLoader(new GlideIPictureLoader())
+                .setPictureLoader(new PickerLoader())
                 .setCrop(isCrop)
                 //                    .setCropFocusWidth(mCropFocusWidth)
                 //                    .setCropFocusHeight(mCropFocusHeight)
@@ -199,13 +197,15 @@ public class PickerActivity extends AppActivity {
         mSelectPictures = list;
         mViewGroup.removeAllViews();
         for (int i = 0; i < mSelectPictures.size(); i++) {
-            VMPictureBean item = mSelectPictures.get(i);
-            int width = item.width * height / item.height;
+            VMPictureBean bean = mSelectPictures.get(i);
+            int width = bean.width * height / bean.height;
             ImageView imageView = new ImageView(mActivity);
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(width, height);
-            mPictureLoader.loadThumb(mActivity, item.path, imageView, width, height);
             mViewGroup.addView(imageView, lp);
+
+            IPictureLoader.Options options = new IPictureLoader.Options(bean.path);
+            mPictureLoader.load(mActivity, options, imageView);
         }
     }
 }
