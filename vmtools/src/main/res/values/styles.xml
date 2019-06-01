@@ -173,6 +173,26 @@
         <item name="android:textColor">@color/vm_caption</item>
     </style>
 
+    <!--带有阴影的标题文本样式-->
+    <style name="VMText.Title.Shadow">
+        <item name="android:paddingStart">@dimen/vm_padding_small</item>
+        <item name="android:paddingEnd">@dimen/vm_padding_small</item>
+        <item name="android:paddingBottom">@dimen/vm_padding_small</item>
+        <item name="android:shadowColor">@color/vm_black_38</item>
+        <item name="android:shadowDy">@integer/vm_text_shadow</item>
+        <item name="android:shadowRadius">@integer/vm_text_shadow_radius</item>
+    </style>
+
+    <!--带有阴影的内容文本样式-->
+    <style name="VMText.Body.Shadow" parent="VMText.Body1">
+        <item name="android:paddingStart">@dimen/vm_padding_small</item>
+        <item name="android:paddingEnd">@dimen/vm_padding_small</item>
+        <item name="android:paddingBottom">@dimen/vm_padding_small</item>
+        <item name="android:shadowColor">@color/vm_black_38</item>
+        <item name="android:shadowDy">@integer/vm_text_shadow</item>
+        <item name="android:shadowRadius">@integer/vm_text_shadow_radius</item>
+    </style>
+
     <!--输入框样式-->
     <style name="VMEdit" parent="Base.Widget.AppCompat.EditText">
         <item name="android:layout_width">match_parent</item>

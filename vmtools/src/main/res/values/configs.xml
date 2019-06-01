@@ -51,4 +51,10 @@
     <integer name="vm_img_blur_20">20</integer>
     <integer name="vm_img_blur_24">24</integer>
     <integer name="vm_img_blur_32">32</integer>
+
+    <!--阴影-->
+    <integer name="vm_text_shadow">4</integer>
+    <integer name="vm_text_shadow_radius">8</integer>
+
+
 </resources>
