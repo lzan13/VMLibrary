@@ -6,7 +6,9 @@ import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.text.method.DigitsKeyListener;
 import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.NumberKeyListener;
 import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -14,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.utils.VMColor;
@@ -40,6 +41,7 @@ public class VMEditView extends RelativeLayout {
     private int mTextColor;
     private int mTextSize;
     private String mHint;
+    private String mLimit;
     // 输入模式
     private int mMode;
 
@@ -72,10 +74,10 @@ public class VMEditView extends RelativeLayout {
         mEyeIcon = findViewById(R.id.vm_edit_eye_icon);
 
         // 定义默认值
-
         mTextColor = VMColor.byRes(R.color.vm_black_87);
         mTextSize = (int) VMDimen.sp2px(14);
         mHint = "";
+        mLimit = "";
         mMode = Mode.TEXT;
         mEnableClear = true;
         mEnableEye = false;
@@ -104,6 +106,7 @@ public class VMEditView extends RelativeLayout {
         mTextSize = array.getDimensionPixelOffset(R.styleable.VMEditView_vm_edit_text_size, mTextSize);
 
         mHint = array.getString(R.styleable.VMEditView_vm_edit_hint);
+        mLimit = array.getString(R.styleable.VMEditView_vm_edit_limit);
 
         mMode = array.getInt(R.styleable.VMEditView_vm_edit_mode, mMode);
 
@@ -123,32 +126,48 @@ public class VMEditView extends RelativeLayout {
         mInputView.setTextColor(mTextColor);
         mInputView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
         mInputView.setHint(mHint);
-        //mHintView.setText(mHint);
         // 设置输入模式
         int inputMode;
         switch (mMode) {
-        case Mode.NUMBER:
-            inputMode = InputType.TYPE_CLASS_NUMBER;
-            break;
-        case Mode.PHONE:
-            inputMode = InputType.TYPE_CLASS_PHONE;
-            break;
-        case Mode.EMAIL:
-            inputMode = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS;
-            break;
-        case Mode.TEXT:
-            inputMode = InputType.TYPE_CLASS_TEXT;
-            break;
-        case Mode.PASSWORD:
-            mEyeIcon.setVisibility(VISIBLE);
-            mInputView.setTransformationMethod(PasswordTransformationMethod.getInstance());
-            inputMode = InputType.TYPE_TEXT_VARIATION_PASSWORD;
-            break;
-        default:
-            inputMode = InputType.TYPE_CLASS_TEXT;
-            break;
+            case Mode.NUMBER:
+                inputMode = InputType.TYPE_CLASS_NUMBER;
+                break;
+            case Mode.PHONE:
+                inputMode = InputType.TYPE_CLASS_PHONE;
+                break;
+            case Mode.EMAIL:
+                inputMode = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS;
+                break;
+            case Mode.ACCOUNT:
+                inputMode = InputType.TYPE_CLASS_TEXT;
+                mLimit = VMStr.isEmpty(mLimit) ? VMStr.byRes(R.string.vm_edit_limit_account) : mLimit;
+                break;
+            case Mode.TEXT:
+                inputMode = InputType.TYPE_CLASS_TEXT;
+                break;
+            case Mode.PASSWORD:
+                mEyeIcon.setVisibility(VISIBLE);
+                mInputView.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                inputMode = InputType.TYPE_TEXT_VARIATION_PASSWORD;
+                break;
+            default:
+                inputMode = InputType.TYPE_CLASS_TEXT;
+                break;
         }
         mInputView.setInputType(inputMode);
+        if (!VMStr.isEmpty(mLimit)) {
+            // 设置字符过滤功能
+            NumberKeyListener keyListener = new NumberKeyListener() {
+                public int getInputType() {
+                    return InputType.TYPE_CLASS_TEXT;
+                }
+
+                protected char[] getAcceptedChars() {
+                    return mLimit.toCharArray();
+                }
+            };
+            mInputView.setKeyListener(keyListener);
+        }
         // 设置图标
         mClearIcon.setImageResource(mClearRes);
         mEyeIcon.setImageResource(mEyeRes);
@@ -199,13 +218,45 @@ public class VMEditView extends RelativeLayout {
     }
 
     /**
+     * 获取输入内容
+     */
+    public String getText() {
+        return mInputView.getText().toString().trim();
+    }
+
+    /**
+     * 设置输入内容
+     */
+    public void setText(String text) {
+        mInputView.setText(text);
+    }
+
+    /**
+     * 设置输入限制
+     */
+    public void setLimit(String limit) {
+        mLimit = limit;
+        if (!VMStr.isEmpty(mLimit)) {
+            mInputView.setKeyListener(DigitsKeyListener.getInstance(mLimit));
+        }
+    }
+
+    /**
+     * 添加文本变化监听
+     */
+    public void addTextChangedListener(TextWatcher watcher) {
+        mInputView.addTextChangedListener(watcher);
+    }
+
+    /**
      * 输入模式
      */
     public interface Mode {
         int NUMBER = 0;
         int PHONE = 1;
         int EMAIL = 2;
-        int TEXT = 3;
-        int PASSWORD = 4;
+        int ACCOUNT = 3;
+        int TEXT = 4;
+        int PASSWORD = 5;
     }
 }

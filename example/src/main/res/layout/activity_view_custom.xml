@@ -31,8 +31,8 @@
             android:layout_margin="@dimen/vm_dimen_8"
             android:background="@drawable/vm_bg_fillet_white"
             android:elevation="@dimen/vm_dimen_8"
-            app:vm_edit_hint="手机号"
-            app:vm_edit_mode="phone"
+            app:vm_edit_hint="数字"
+            app:vm_edit_mode="number"
             app:vm_edit_text_color="@color/vm_body"
             app:vm_edit_text_size="@dimen/vm_size_14"
             />
@@ -44,6 +44,17 @@
             android:elevation="@dimen/vm_dimen_8"
             app:vm_edit_hint="手机号"
             app:vm_edit_mode="phone"
+            app:vm_edit_text_color="@color/vm_body"
+            app:vm_edit_text_size="@dimen/vm_size_14"
+            />
+
+        <com.vmloft.develop.library.tools.widget.VMEditView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_dimen_8"
+            android:elevation="@dimen/vm_dimen_8"
+            app:vm_edit_hint="账户"
+            app:vm_edit_mode="account"
             app:vm_edit_text_color="@color/vm_body"
             app:vm_edit_text_size="@dimen/vm_size_14"
             />

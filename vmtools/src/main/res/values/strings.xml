@@ -30,4 +30,6 @@
     <string name="vm_pick_crop_picture">图片裁剪</string>
     <string name="vm_pick_picture">图片选择</string>
 
+    <string name="vm_edit_limit_account">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@._-</string>
+
 </resources>

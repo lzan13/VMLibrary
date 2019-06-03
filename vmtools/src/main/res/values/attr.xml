@@ -143,6 +143,8 @@
     <declare-styleable name="VMEditView">
         <!--输入提示文案-->
         <attr format="string|reference" name="vm_edit_hint" />
+        <!--输入限制-->
+        <attr format="string|reference" name="vm_edit_limit" />
         <!--文本颜色-->
         <attr format="color|integer" name="vm_edit_text_color" />
         <!--文本大小-->
@@ -152,8 +154,9 @@
             <enum name="number" value="0" />
             <enum name="phone" value="1" />
             <enum name="email" value="2" />
-            <enum name="text" value="3" />
-            <enum name="password" value="4" />
+            <enum name="account" value="3" />
+            <enum name="text" value="4" />
+            <enum name="password" value="5" />
         </attr>
         <!--是否启用输入提示-->
         <!--<attr name="vm_enable_hint" format="boolean" />-->
