@@ -2,7 +2,7 @@ package com.vmloft.develop.library.example.router;
 
 import android.content.Context;
 
-import com.vmloft.develop.library.example.demo.audio.PlayAudioActivity;
+import com.vmloft.develop.library.example.demo.audio.MediaPlayActivity;
 import com.vmloft.develop.library.example.demo.custom.DotLineActivity;
 import com.vmloft.develop.library.example.demo.custom.CustomViewActivity;
 import com.vmloft.develop.library.example.demo.details.DetailsActivity;
@@ -64,7 +64,7 @@ public class ARouter extends VMRouter {
      * 跳转播放音频
      */
     public static void goPlayAudio(Context context) {
-        overlay(context, PlayAudioActivity.class);
+        overlay(context, MediaPlayActivity.class);
     }
 
     /**

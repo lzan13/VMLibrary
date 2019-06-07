@@ -21,6 +21,12 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    // 设置使用 Java 1.8
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -30,7 +36,7 @@ dependencies {
     // ButterKnife 库
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    
+
     // Glide 图片加载库 https://github.com/bumptech/glide
     implementation('com.github.bumptech.glide:glide:4.9.0') {
         exclude group: "com.android.support"
@@ -39,7 +45,11 @@ dependencies {
 
     // 网络请求库
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+
+    // 一个可视化展示音频频谱控件 https://github.com/gauravk95/audio-visualizer-android
+    implementation 'com.gauravk.audiovisualizer:audiovisualizer:0.9.2'
+
     // 引入自己封装的库
-//    implementation project(':vmpicker')
+    //    implementation project(':vmpicker')
     implementation project(':vmtools')
 }

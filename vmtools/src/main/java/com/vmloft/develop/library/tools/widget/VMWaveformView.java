@@ -19,16 +19,6 @@ import com.vmloft.develop.library.tools.utils.VMDimen;
  */
 public class VMWaveformView extends View {
 
-    // 上下文对象
-    protected Context context;
-
-    protected WaveformCallback waveformCallback;
-
-    // 是否在触摸区域
-    protected boolean isTouch = false;
-    // 是否正在播放
-    protected boolean isPlay = false;
-
     // 点坐标集合，四个一组
     protected float[] waveformPoints;
     // 采集到的声音信息
@@ -74,14 +64,6 @@ public class VMWaveformView extends View {
 
     public VMWaveformView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.context = context;
-        init(attrs);
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public VMWaveformView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        this.context = context;
         init(attrs);
     }
 
@@ -103,7 +85,7 @@ public class VMWaveformView extends View {
         textSize = VMDimen.getDimenPixel(R.dimen.vm_size_12);
 
         // 获取控件的属性值
-        handleAttrs(context, attrs);
+        handleAttrs(attrs);
 
         // 初始化画笔
         waveformPaint = new Paint();
@@ -116,15 +98,12 @@ public class VMWaveformView extends View {
 
     /**
      * 获取资源属性
-     *
-     * @param context
-     * @param attrs
      */
-    private void handleAttrs(Context context, AttributeSet attrs) {
+    private void handleAttrs(AttributeSet attrs) {
         if (attrs == null) {
             return;
         }
-        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.VMWaveformView);
+        TypedArray array = getContext().obtainStyledAttributes(attrs, R.styleable.VMWaveformView);
         // 获取自定义属性值，如果没有设置就是默认值
         textColor = array.getColor(R.styleable.VMWaveformView_vm_waveform_text_color, textColor);
         textSize = array.getDimensionPixelOffset(R.styleable.VMWaveformView_vm_waveform_text_size, textSize);
@@ -144,8 +123,8 @@ public class VMWaveformView extends View {
         // 绘制文字
         drawText(canvas);
 
-        // 绘制波形
-        drawFFT(canvas);
+        // 绘制声音波形图
+        drawLine(canvas);
     }
 
     /**
@@ -166,9 +145,9 @@ public class VMWaveformView extends View {
     }
 
     /**
-     * 绘制频谱波形图
+     * 绘制线性波形图
      */
-    private void drawFFT(Canvas canvas) {
+    private void drawLine(Canvas canvas) {
         // 设置画笔颜色
         waveformPaint.setColor(waveformColor);
         // 设置画笔末尾样式
@@ -203,12 +182,9 @@ public class VMWaveformView extends View {
     }
 
     /**
-     * 绘制树状波形
-     * TODO 由于采集数据频率以及数据大小，导致展示树状波形不是很理想，暂时不用
-     *
-     * @param canvas 当前控件的画布
+     * 绘制树状波形 TODO 由于采集数据频率以及数据大小，导致展示树状波形不是很理想，暂时不用
      */
-    private void drawWaveform(Canvas canvas) {
+    private void drawTree(Canvas canvas) {
         // 设置画笔颜色
         waveformPaint.setColor(waveformColor);
         // 设置画笔宽度
@@ -246,17 +222,6 @@ public class VMWaveformView extends View {
         canvas.drawLines(waveformPoints, waveformPaint);
     }
 
-    /**
-     * 设置控件持续时间
-     *
-     * @param time 持续时间
-     */
-    public void setTimeText(int time) {
-        timeText = String.format("%d'%d\"%d", time / 1000 / 60, time / 1000 % 60, time % 1000 / 100);
-        // 通知画布更新
-        postInvalidate();
-    }
-
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
@@ -266,36 +231,12 @@ public class VMWaveformView extends View {
         viewHeight = viewBounds.bottom - viewBounds.top;
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        // 触摸点横坐标
-        float x = event.getX();
-        float y = event.getY();
-        switch (event.getAction()) {
-        case MotionEvent.ACTION_DOWN:
-            break;
-        case MotionEvent.ACTION_UP:
-            break;
-        case MotionEvent.ACTION_MOVE:
-            if (isTouch) {
-                waveformCallback.onDrag((int) x);
-            }
-            postInvalidate();
-            break;
-        default:
-            break;
-        }
-        // 这里不调用系统的onTouchEvent方法，防止抬起时画面无法重绘
-        return super.onTouchEvent(event);
-    }
-
     /**
      * 更新 FFT 频域数据
      *
-     * @param bytes    采集到的数据信息
-     * @param position 音源当前播放位置
+     * @param bytes 采集到的数据信息
      */
-    public void updateFFTData(byte[] bytes, int position) {
+    public void updateFFTData(byte[] bytes) {
         waveformBytes = bytes;
         invalidate();
     }
@@ -303,29 +244,10 @@ public class VMWaveformView extends View {
     /**
      * 更新波形数据
      *
-     * @param bytes    采集到的数据信息
-     * @param position 音源当前播放位置
+     * @param bytes 采集到的数据信息
      */
-    public void updateWaveformData(byte[] bytes, int position) {
+    public void updateWaveformData(byte[] bytes) {
         waveformBytes = bytes;
         invalidate();
-    }
-
-    /**
-     * 设置回调接口
-     */
-    public void setWaveformCallback(WaveformCallback callback) {
-        waveformCallback = callback;
-    }
-
-    /**
-     * 控件回调接口
-     */
-    public interface WaveformCallback {
-
-        /**
-         * 拖动
-         */
-        void onDrag(int position);
     }
 }

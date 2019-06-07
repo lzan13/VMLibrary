@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/vm_theme_background"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".demo.audio.MediaPlayActivity"
+    >
+    <include layout="@layout/widget_common_top_bar" />
+
+    <com.vmloft.develop.library.tools.widget.VMViewGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <Button
+            android:id="@+id/btn_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="播放音频"
+            />
+        <Button
+            android:id="@+id/btn_stop_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="停止播放"
+            />
+    </com.vmloft.develop.library.tools.widget.VMViewGroup>
+    <!--展示波形控件-->
+    <com.gauravk.audiovisualizer.visualizer.BarVisualizer
+        android:id="@+id/bar_visualizer_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/vm_dimen_72"
+        app:avColor="@color/vm_black_54"
+        app:avDensity="0.8"
+        app:avSpeed="normal"
+        app:avType="fill"
+        />
+    <com.gauravk.audiovisualizer.visualizer.WaveVisualizer
+        android:id="@+id/wave_visualizer_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/vm_dimen_72"
+        app:avColor="@color/vm_black_54"
+        app:avDensity="0.8"
+        app:avSpeed="normal"
+        app:avType="fill"
+        />
+</LinearLayout>

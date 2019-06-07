@@ -60,7 +60,7 @@
         <service android:name=".demo.screen.SRService" />
 
         <!--播放音频-->
-        <activity android:name=".demo.audio.PlayAudioActivity" />
+        <activity android:name=".demo.audio.MediaPlayActivity" />
 
         <!--按钮主题样式-->
         <activity android:name=".demo.style.BtnStyleActivity" />
