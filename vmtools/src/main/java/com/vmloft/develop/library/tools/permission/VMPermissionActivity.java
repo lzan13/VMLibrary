@@ -55,7 +55,7 @@ public class VMPermissionActivity extends VMActivity {
     // 授权提示框
     private AlertDialog mDialog;
     private String mAppName;
-    private VMPermissionCallback mCallback;
+    private VMPermission.PCallback mCallback;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

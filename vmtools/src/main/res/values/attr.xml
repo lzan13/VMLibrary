@@ -45,24 +45,26 @@
 
     <!--自定义音频录制控件-->
     <declare-styleable name="VMRecordView">
-        <!--录制指示器颜色-->
-        <attr format="color" name="vm_indicator_color" />
-        <!--录制指示器大小-->
-        <attr format="dimension" name="vm_indicator_size" />
-        <!--文字颜色-->
-        <attr format="color" name="vm_text_color" />
-        <!--文字大小-->
-        <attr format="dimension" name="vm_text_size" />
-        <!--触摸区域颜色-->
-        <attr format="color" name="vm_touch_color" />
+        <!--取消颜色-->
+        <attr format="color" name="vm_cancel_color" />
+        <!--触摸区域外圈颜色-->
+        <attr format="color" name="vm_outer_color" />
+        <attr format="dimension" name="vm_outer_size" />
+        <!--触摸区域内圈颜色-->
+        <attr format="color" name="vm_inner_color" />
+        <attr format="dimension" name="vm_inner_size" />
         <!--触摸区域提示文字-->
-        <attr format="string|reference" name="vm_touch_text" />
-        <!--波形刻度颜色-->
-        <attr format="color" name="vm_waveform_color" />
-        <!--波形刻度间隔距离-->
-        <attr format="dimension" name="vm_waveform_interval" />
-        <!--波形刻度宽度-->
-        <attr format="dimension" name="vm_waveform_width" />
+        <attr format="string|reference" name="vm_touch_normal_desc" />
+        <attr format="string|reference" name="vm_touch_cancel_desc" />
+        <!--触摸提示文本颜色-->
+        <attr format="color" name="vm_touch_desc_color" />
+        <!--触摸提示文本大小-->
+        <attr format="dimension" name="vm_touch_desc_size" />
+        <!--时间文本颜色-->
+        <attr format="color" name="vm_time_normal_color" />
+        <attr format="color" name="vm_time_cancel_color" />
+        <!--时间文本大小-->
+        <attr format="dimension" name="vm_time_size" />
     </declare-styleable>
 
     <!--自定义波形展示控件-->

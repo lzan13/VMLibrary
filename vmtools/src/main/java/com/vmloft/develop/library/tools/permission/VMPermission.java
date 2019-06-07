@@ -24,7 +24,7 @@ public class VMPermission {
     // 上下文对象
     private static Context mContext;
     // 授权处理回调
-    private VMPermissionCallback mCallback;
+    private PCallback mCallback;
 
     private boolean mEnableDialog;
     private String mTitle;
@@ -55,7 +55,7 @@ public class VMPermission {
     /**
      * 获取回调
      */
-    public VMPermissionCallback getPermissionCallback() {
+    public PCallback getPermissionCallback() {
         return mCallback;
     }
 
@@ -147,7 +147,7 @@ public class VMPermission {
      *
      * @param callback 授权回调接口
      */
-    public void requestPermission(VMPermissionCallback callback) {
+    public void requestPermission(PCallback callback) {
         if (mPermissions == null || mPermissions.size() == 0) {
             if (callback != null) {
                 callback.onComplete();
@@ -191,11 +191,11 @@ public class VMPermission {
     }
 
     /**
-     * 默认实现 访问相机 权限
+     * 默认实现请求 访问相机 权限
      *
      * @param callback 回调接口
      */
-    public void requestCamera(VMPermissionCallback callback) {
+    public void requestCamera(PCallback callback) {
         VMPermissionBean bean = new VMPermissionBean(Manifest.permission.CAMERA, "访问相机", "拍摄照片需要 “访问相机” 权限，请授权此权限");
         setPermission(bean);
         requestPermission(callback);
@@ -209,12 +209,31 @@ public class VMPermission {
     }
 
     /**
-     * 默认实现 读写手机存储 权限
+     * 默认实现请求 读写手机存储 权限
      *
      * @param callback 回调接口
      */
-    public void requestStorage(VMPermissionCallback callback) {
-        VMPermissionBean bean = new VMPermissionBean(Manifest.permission.WRITE_EXTERNAL_STORAGE, "读写手机存储", "访问设备图片等文件需要 “访问手机存储” 权限，请授权此权限");
+    public void requestStorage(PCallback callback) {
+        VMPermissionBean bean = new VMPermissionBean(Manifest.permission.WRITE_EXTERNAL_STORAGE, "读写手机存储", "访问设备图片等文件需要 “访问手机存储” "
+            + "权限，请授权此权限");
+        setPermission(bean);
+        requestPermission(callback);
+    }
+
+    /**
+     * 默认实现检查 录音 权限
+     */
+    public boolean checkRecord() {
+        return checkPermission(Manifest.permission.RECORD_AUDIO);
+    }
+
+    /**
+     * 默认实现请求 录音 权限
+     *
+     * @param callback 回调接口
+     */
+    public void requestRecord(PCallback callback) {
+        VMPermissionBean bean = new VMPermissionBean(Manifest.permission.RECORD_AUDIO, "录音", "录制语音需要 “录音” 权限，请授权此权限");
         setPermission(bean);
         requestPermission(callback);
     }
@@ -229,5 +248,23 @@ public class VMPermission {
         intent.putExtra(VMConstant.VM_KEY_PERMISSION_MSG, mMessage);
         intent.putParcelableArrayListExtra(VMConstant.VM_KEY_PERMISSION_LIST, (ArrayList<? extends Parcelable>) mPermissions);
         VMRouter.goPermission(mContext, intent);
+    }
+
+    /**
+     * Create by lzan13 on 2019/04/25
+     *
+     * 权限申请授权结果回调接口
+     */
+    public interface PCallback {
+
+        /**
+         * 权限申请被拒绝回调
+         */
+        void onReject();
+
+        /**
+         * 权限申请完成回调
+         */
+        void onComplete();
     }
 }

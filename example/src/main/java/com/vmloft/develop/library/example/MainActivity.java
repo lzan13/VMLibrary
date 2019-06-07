@@ -8,7 +8,6 @@ import android.widget.Button;
 import com.vmloft.develop.library.example.common.AppActivity;
 import com.vmloft.develop.library.example.router.ARouter;
 import com.vmloft.develop.library.tools.permission.VMPermission;
-import com.vmloft.develop.library.tools.permission.VMPermissionCallback;
 import com.vmloft.develop.library.tools.permission.VMPermissionBean;
 import com.vmloft.develop.library.tools.widget.VMViewGroup;
 
@@ -37,8 +36,7 @@ public class MainActivity extends AppActivity {
         getTopBar().setTitle("工具库");
 
         String[] btnArray = {
-            "工具", "描点控件", "详情控件", "自定义控件", "录制屏幕", "声音播放", "按钮样式", "悬浮菜单", "Web 功能", "指示器", "识别验证码",
-            "图片选择器", "单权限申请", "多权限申请"
+            "工具", "按钮样式", "描点控件", "详情控件", "自定义控件", "录制屏幕", "声音播放", "悬浮菜单", "Web 功能", "指示器", "识别验证码", "图片选择器", "单权限申请", "多权限申请"
         };
         for (int i = 0; i < btnArray.length; i++) {
             Button btn = new Button(new ContextThemeWrapper(mActivity, R.style.VMBtn_Flat));
@@ -57,22 +55,22 @@ public class MainActivity extends AppActivity {
                 ARouter.goTools(mActivity);
                 break;
             case CLICK_START_ID + 1:
-                ARouter.goDotLine(mActivity);
+                ARouter.goBtnStyle(mActivity);
                 break;
             case CLICK_START_ID + 2:
-                ARouter.goDetails(mActivity);
+                ARouter.goDotLine(mActivity);
                 break;
             case CLICK_START_ID + 3:
-                ARouter.goCustomView(mActivity);
+                ARouter.goDetails(mActivity);
                 break;
             case CLICK_START_ID + 4:
-                ARouter.goRecordScreen(mActivity);
+                ARouter.goCustomView(mActivity);
                 break;
             case CLICK_START_ID + 5:
-                ARouter.goPlayAudio(mActivity);
+                ARouter.goRecordScreen(mActivity);
                 break;
             case CLICK_START_ID + 6:
-                ARouter.goBtnStyle(mActivity);
+                ARouter.goPlayAudio(mActivity);
                 break;
             case CLICK_START_ID + 7:
                 ARouter.goPWDialog(mActivity);
@@ -114,13 +112,14 @@ public class MainActivity extends AppActivity {
      * 检查权限
      */
     private void checkOnePermissions() {
-        VMPermissionBean bean = new VMPermissionBean(Manifest.permission.CAMERA, R.mipmap.ic_launcher_round, "访问相机", "扫描二维码需要使用到相机，请允许我们获取拍照权限");
+        VMPermissionBean bean = new VMPermissionBean(Manifest.permission.CAMERA, R.mipmap.ic_launcher_round, "访问相机",
+            "扫描二维码需要使用到相机，请允许我们获取拍照权限");
         VMPermission.getInstance(mActivity)
             .setEnableDialog(true)
             .setTitle("权限申请")
             .setMessage("为保证应用的正常运行，请授予一下权限")
             .setPermission(bean)
-            .requestPermission(new VMPermissionCallback() {
+            .requestPermission(new VMPermission.PCallback() {
                 @Override
                 public void onReject() {
                     VMToast.make(mActivity, "权限申请被拒绝").error();
@@ -139,14 +138,16 @@ public class MainActivity extends AppActivity {
     private void checkPermissions() {
         List<VMPermissionBean> permissions = new ArrayList<>();
         permissions.add(new VMPermissionBean(Manifest.permission.CAMERA, R.mipmap.ic_launcher_round, "访问相机", "拍摄图片需要使用到相机，请允许我们获取访问相机"));
-        permissions.add(new VMPermissionBean(Manifest.permission.READ_EXTERNAL_STORAGE, R.mipmap.ic_launcher_round, "读写存储", "我们需要将文件保存到你的设备，请允许我们获取存储权限"));
-        permissions.add(new VMPermissionBean(Manifest.permission.RECORD_AUDIO, R.mipmap.ic_launcher_round, "访问麦克风", "发送语音消息需要录制声音，请允许我们访问设备麦克风"));
+        permissions.add(new VMPermissionBean(Manifest.permission.READ_EXTERNAL_STORAGE, R.mipmap.ic_launcher_round, "读写存储",
+            "我们需要将文件保存到你的设备，请允许我们获取存储权限"));
+        permissions.add(new VMPermissionBean(Manifest.permission.RECORD_AUDIO, R.mipmap.ic_launcher_round, "访问麦克风",
+            "发送语音消息需要录制声音，请允许我们访问设备麦克风"));
         VMPermission.getInstance(mActivity)
             .setEnableDialog(true)
             .setTitle("权限申请")
             .setMessage("为保证应用的正常运行，请您授予以下权限")
             .setPermissionList(permissions)
-            .requestPermission(new VMPermissionCallback() {
+            .requestPermission(new VMPermission.PCallback() {
                 @Override
                 public void onReject() {
                     VMToast.make(mActivity, "权限申请被拒绝").error();

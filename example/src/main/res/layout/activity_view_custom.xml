@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_bg"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
+    tools:context=".demo.custom.CustomViewActivity"
     >
     <!--<include layout="@layout/widget_common_top_bar" />-->
     <com.vmloft.develop.library.tools.widget.VMTopBar
@@ -71,7 +73,7 @@
             app:vm_edit_text_size="@dimen/vm_size_14"
             />
 
-        <LinearLayout
+        <com.vmloft.develop.library.tools.widget.VMViewGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -85,13 +87,6 @@
                 app:vm_timer_time="10"
                 style="@style/VMBtn.Fillet.Green"
                 />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
 
             <Button
                 android:id="@+id/btn_toast_1"
@@ -110,82 +105,16 @@
                 android:text="Toast3"
                 style="@style/VMBtn.Fillet.Green"
                 />
-        </LinearLayout>
-        <!--录音控件-->
-        <com.vmloft.develop.library.tools.widget.VMRecordView
-            android:id="@+id/view_record"
+        </com.vmloft.develop.library.tools.widget.VMViewGroup>
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/vm_dimen_56"
-            app:vm_indicator_color="@color/vm_theme_primary"
-            app:vm_indicator_size="@dimen/vm_dimen_16"
-            app:vm_text_color="@color/vm_black_54"
-            app:vm_text_size="@dimen/vm_size_16"
-            app:vm_touch_color="@color/vm_red"
-            app:vm_touch_text="滑动取消"
-            app:vm_waveform_color="@color/vm_orange_87"
-            app:vm_waveform_interval="@dimen/vm_dimen_1"
-            app:vm_waveform_width="@dimen/vm_dimen_2"
-            />
-        <!--设置项控件-->
-        <!--单控件-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/vm_margin_normal"
-            android:background="@color/app_white"
-            android:orientation="vertical"
+            android:layout_height="@dimen/vm_dimen_256"
             >
-
-            <com.vmloft.develop.library.tools.widget.VMLineView
-                android:id="@+id/custom_switch_line"
+            <com.vmloft.develop.library.tools.widget.record.VMRecordView
+                android:id="@+id/custom_record_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:vm_line_icon="@drawable/vm_ic_emoticon"
-                app:vm_line_right_icon="@drawable/switch_selector"
-                app:vm_line_title="设置选项"
+                android:layout_height="match_parent"
                 />
-
-        </LinearLayout>
-        <!--多控件-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/vm_margin_normal"
-            android:background="@color/app_white"
-            android:orientation="vertical"
-            >
-
-            <com.vmloft.develop.library.tools.widget.VMLineView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:vm_line_caption="多控件描述 1"
-                app:vm_line_caption_icon="@drawable/vm_ic_check_box"
-                app:vm_line_decoration="true"
-                app:vm_line_title="多控件 1"
-                />
-
-            <com.vmloft.develop.library.tools.widget.VMLineView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:vm_line_caption="多控件描述 2"
-                app:vm_line_caption_icon="@drawable/vm_ic_close"
-                app:vm_line_decoration="true"
-                app:vm_line_icon="@drawable/vm_ic_camera"
-                app:vm_line_right_icon="@drawable/vm_ic_arrow_right"
-                app:vm_line_title="多控件 2"
-                />
-
-            <com.vmloft.develop.library.tools.widget.VMLineView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:vm_line_caption="多控件描述 3"
-                app:vm_line_caption_icon="@drawable/vm_ic_check_box"
-                app:vm_line_decoration="false"
-                app:vm_line_description="底部描述部分内容"
-                app:vm_line_icon="@drawable/vm_ic_eye_on"
-                app:vm_line_right_icon="@drawable/vm_ic_arrow_right"
-                app:vm_line_title="多控件 3"
-                />
-        </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

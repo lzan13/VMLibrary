@@ -14,7 +14,6 @@ import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.adapter.VMAdapter;
 import com.vmloft.develop.library.tools.base.VMConstant;
 import com.vmloft.develop.library.tools.permission.VMPermission;
-import com.vmloft.develop.library.tools.permission.VMPermissionCallback;
 import com.vmloft.develop.library.tools.picker.VMPickScanPicture;
 import com.vmloft.develop.library.tools.picker.VMPicker;
 import com.vmloft.develop.library.tools.picker.adapter.VMFolderAdapter;
@@ -214,7 +213,7 @@ public class VMPickGridActivity extends VMPickBaseActivity {
         };
         // 检查权限
         if (!VMPermission.getInstance(mActivity).checkStorage()) {
-            VMPermission.getInstance(mActivity).requestStorage(new VMPermissionCallback() {
+            VMPermission.getInstance(mActivity).requestStorage(new VMPermission.PCallback() {
                 @Override
                 public void onReject() {
                     VMToast.make(mActivity, "读写手机存储 权限被拒绝，无法使用此功能").error();
@@ -304,7 +303,7 @@ public class VMPickGridActivity extends VMPickBaseActivity {
     private void openCamera() {
         // 检查是否有相机权限
         if (!VMPermission.getInstance(mActivity).checkCamera()) {
-            VMPermission.getInstance(mActivity).requestCamera(new VMPermissionCallback() {
+            VMPermission.getInstance(mActivity).requestCamera(new VMPermission.PCallback() {
                 @Override
                 public void onReject() {
                     VMToast.make(mActivity, "访问相机 权限被拒绝，无法使用此功能").error();

@@ -7,11 +7,14 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
 
+import android.widget.TextView;
 import com.vmloft.develop.library.example.R;
 import com.vmloft.develop.library.example.common.AppActivity;
 import com.vmloft.develop.library.tools.utils.VMCrypto;
 import com.vmloft.develop.library.tools.utils.VMLog;
 
+import com.vmloft.develop.library.tools.utils.VMStr;
+import com.vmloft.develop.library.tools.utils.VMUtils;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -23,10 +26,9 @@ import butterknife.OnClick;
  * 签名工具
  */
 public class ToolsActivity extends AppActivity {
-    @BindView(R.id.edit_str)
-    EditText inputStrEdit;
+    @BindView(R.id.edit_str) EditText inputStrEdit;
+    @BindView(R.id.tools_result_tv) TextView mResultTV;
     private String inputStr;
-
 
     @Override
     protected int layoutId() {
@@ -38,24 +40,34 @@ public class ToolsActivity extends AppActivity {
 
     }
 
-    @OnClick({R.id.btn_key_hashes, R.id.btn_md5_signature, R.id.btn_base64})
+    @OnClick({ R.id.btn_key_hashes, R.id.btn_md5_signature, R.id.btn_base64, R.id.tools_random_btn })
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_key_hashes:
-                getKeyHashes();
-                break;
-            case R.id.btn_md5_signature:
-                md5Encryption();
-                break;
-            case R.id.btn_base64:
-                base64Encryption();
-                break;
+        case R.id.btn_key_hashes:
+            getKeyHashes();
+            break;
+        case R.id.btn_md5_signature:
+            md5Encryption();
+            break;
+        case R.id.btn_base64:
+            base64Encryption();
+            break;
+        case R.id.tools_random_btn:
+            random();
+            break;
         }
     }
 
     private void getInputStr() {
         inputStr = inputStrEdit.getText().toString().trim();
+    }
 
+    /**
+     * 获取随机数
+     */
+    private void random() {
+        int random = VMUtils.random(1, 6);
+        mResultTV.setText(VMStr.byArgs("获取的随机数: %d", random));
     }
 
     /**

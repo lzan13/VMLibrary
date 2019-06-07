@@ -46,6 +46,7 @@ booelan isEmail = VMReg.isEmail(email);
 主要实现了工具类以及自定义控件的封装，一起一些其他平常使用的代码封装
 
 - [adapter](src/main/java/com/vmloft/develop/library/tools/adapter) RecyclerView.Adapter 简单封装
+- [animator](src/main/java/com/vmloft/develop/library/tools/animator) 对属性动画进行简单封装
 
 - [base](src/main/java/com/vmloft/develop/library/tools/base) 当前库所定义的一些基类
     - [VMActivity](src/main/java/com/vmloft/develop/library/tools/base/VMActivity.java) Activity 基类
@@ -78,6 +79,7 @@ booelan isEmail = VMReg.isEmail(email);
 
 - [widget](src/main/java/com/vmloft/develop/library/tools/widget) 自定义控件部分
     - [VMIndicatorView](src/main/java/com/vmloft/develop/library/tools/widget/indicator/VMIndicatorView.java) 指示器控件
+    - [VMRecordView](src/main/java/com/vmloft/develop/library/tools/widget/record/VMRecordView.java) 录音控件
     - [VMToast](src/main/java/com/vmloft/develop/library/tools/widget/toast/VMToast.java) 全局 Toast 提醒
     - [VMAuthCodeBtn](src/main/java/com/vmloft/develop/library/tools/widget/VMAuthCodeBtn.java) 验证码按钮
     - [VMDetailsView](src/main/java/com/vmloft/develop/library/tools/widget/VMDetailsView.java) 显示更多
@@ -88,7 +90,6 @@ booelan isEmail = VMReg.isEmail(email);
     - [VMFloatMenu](src/main/java/com/vmloft/develop/library/tools/widget/VMFloatMenu.java) 悬浮菜单
     - [VMImageView](src/main/java/com/vmloft/develop/library/tools/widget/VMImageView.java) 圆角图片
     - [VMImageView](src/main/java/com/vmloft/develop/library/tools/widget/VMLineView.java) 单行选项控件
-    - [VMRecordView](src/main/java/com/vmloft/develop/library/tools/widget/VMRecordView.java) 录音控件
     - [VMSquareLayout](src/main/java/com/vmloft/develop/library/tools/widget/VMSquareLayout.java) 正方形控件
     - [VMTimerBtn](src/main/java/com/vmloft/develop/library/tools/widget/VMTimerBtn.java) 定时按钮
     - [VMViewGroup](src/main/java/com/vmloft/develop/library/tools/widget/VMViewGroup.java) ViewGroup
