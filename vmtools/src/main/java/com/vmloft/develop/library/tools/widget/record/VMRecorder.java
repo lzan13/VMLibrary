@@ -6,6 +6,7 @@ import com.vmloft.develop.library.tools.utils.VMDate;
 import com.vmloft.develop.library.tools.utils.VMFile;
 import com.vmloft.develop.library.tools.utils.VMLog;
 import com.vmloft.develop.library.tools.utils.VMStr;
+
 import java.io.IOException;
 
 /**
@@ -27,7 +28,7 @@ public class VMRecorder {
     // 音频编码比特率
     protected int mEncodingBitRate = 64;
     // 录音最大持续时间 10 分钟
-    protected int mMaxDuration = 10 * 1000;
+    protected int mMaxDuration = 10 * 60 * 1000;
     // 计算分贝基准值
     protected int mDecibelBase = 200;
 
@@ -40,7 +41,8 @@ public class VMRecorder {
     /**
      * 单例类的私有构造方法
      */
-    private VMRecorder() {}
+    private VMRecorder() {
+    }
 
     /**
      * 内部类实现单例模式
@@ -194,11 +196,9 @@ public class VMRecorder {
 
     /**
      * 获取声音分贝信息
-     *
-     * @return
      */
-    public int getVoiceWaveform() {
-        int waveform = 1;
+    public int getDecibel() {
+        int decibel = 1;
         if (mMediaRecorder != null) {
             int ratio = 0;
             try {
@@ -210,10 +210,10 @@ public class VMRecorder {
             }
             if (ratio > 0) {
                 // 根据麦克风采集到的声音振幅计算声音分贝大小
-                waveform = (int) (20 * Math.log10(ratio)) / 10;
+                decibel = (int) (20 * Math.log10(ratio)) / 10;
             }
         }
-        return waveform;
+        return decibel;
     }
 
     /**
@@ -223,6 +223,9 @@ public class VMRecorder {
         return isRecording;
     }
 
+    /**
+     * 重置录音机
+     */
     public void reset() {
         isRecording = false;
         mRecordFile = null;

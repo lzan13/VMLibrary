@@ -49,7 +49,6 @@
         <attr format="color" name="vm_cancel_color" />
         <!--触摸区域外圈颜色-->
         <attr format="color" name="vm_outer_color" />
-        <attr format="dimension" name="vm_outer_size" />
         <!--触摸区域内圈颜色-->
         <attr format="color" name="vm_inner_color" />
         <attr format="dimension" name="vm_inner_size" />
@@ -57,12 +56,11 @@
         <attr format="string|reference" name="vm_touch_normal_desc" />
         <attr format="string|reference" name="vm_touch_cancel_desc" />
         <!--触摸提示文本颜色-->
-        <attr format="color" name="vm_touch_desc_color" />
+        <attr format="color" name="vm_desc_color" />
         <!--触摸提示文本大小-->
-        <attr format="dimension" name="vm_touch_desc_size" />
+        <attr format="dimension" name="vm_desc_size" />
         <!--时间文本颜色-->
-        <attr format="color" name="vm_time_normal_color" />
-        <attr format="color" name="vm_time_cancel_color" />
+        <attr format="color" name="vm_time_color" />
         <!--时间文本大小-->
         <attr format="dimension" name="vm_time_size" />
     </declare-styleable>
