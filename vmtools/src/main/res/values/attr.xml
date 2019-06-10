@@ -107,6 +107,12 @@
         <attr format="boolean" name="vm_el_expandable" />
     </declare-styleable>
 
+    <!--自定义正方形布局-->
+    <declare-styleable name="VMSquareLayout">
+        <!--正方形布局大小取宽还是高度-->
+        <attr format="boolean" name="vm_unify_width" />
+    </declare-styleable>
+
     <!--自定义定时按钮-->
     <declare-styleable name="VMTimerBtn">
         <!--倒计时文案-->

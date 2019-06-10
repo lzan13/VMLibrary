@@ -111,5 +111,11 @@
                 app:vm_touch_cancel_desc="松开"
                 app:vm_touch_normal_desc="按下" />
         </RelativeLayout>
+
+        <com.vmloft.develop.library.tools.widget.VMSquareLayout
+            android:id="@+id/custom_square_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/vm_dimen_48"
+            android:background="@color/vm_green" />
     </LinearLayout>
 </LinearLayout>
