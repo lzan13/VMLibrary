@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         app:vm_top_bar_end_btn="@string/vm_pick_complete"
         app:vm_top_bar_icon="@drawable/vm_ic_arrow_left"
+        app:vm_top_bar_title_color="@color/vm_title"
         app:vm_top_bar_title="@string/vm_pick_picture" />
 
     <RelativeLayout

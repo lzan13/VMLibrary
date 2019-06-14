@@ -19,7 +19,7 @@
         app:vm_top_bar_end_btn="@string/vm_pick_complete"
         app:vm_top_bar_icon="@drawable/vm_ic_arrow_left"
         app:vm_top_bar_title="@string/vm_pick_preview"
-        app:vm_top_bar_title_color="@color/vm_white" />
+        app:vm_top_bar_title_color="@color/vm_white_87" />
 
     <LinearLayout
         android:id="@+id/vm_preview_bottom_bar"
