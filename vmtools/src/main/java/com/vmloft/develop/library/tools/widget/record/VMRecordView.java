@@ -65,7 +65,7 @@ public class VMRecordView extends View {
     // 分贝
     protected int mDecibel = 1;
     // 分贝取样时间 毫秒值
-    protected long mSampleTime = 220;
+    protected long mSampleTime = 260;
 
     public VMRecordView(Context context) {
         this(context, null);
