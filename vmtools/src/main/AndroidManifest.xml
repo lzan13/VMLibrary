@@ -13,7 +13,6 @@
         <activity
             android:name=".permission.VMPermissionActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
             android:theme="@style/VMTheme.Permission" />
 
         <!--选择器界面-->

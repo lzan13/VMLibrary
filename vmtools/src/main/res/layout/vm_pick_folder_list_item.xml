@@ -38,14 +38,12 @@
             />
     </LinearLayout>
 
-    <RadioButton
-        android:id="@+id/vm_pick_folder_rb"
+    <ImageView
+        android:id="@+id/vm_pick_folder_select_iv"
         android:layout_width="@dimen/vm_dimen_24"
         android:layout_height="@dimen/vm_dimen_24"
         android:layout_marginEnd="@dimen/vm_margin_large"
         android:layout_marginStart="@dimen/vm_margin_normal"
-        android:clickable="false"
-        android:enabled="false"
-        style="@style/VMRadio"
+        android:src="@drawable/vm_ic_radio_button_selector"
         />
 </LinearLayout>

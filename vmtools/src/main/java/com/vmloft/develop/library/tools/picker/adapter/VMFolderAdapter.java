@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.vmloft.develop.library.tools.picker.IPictureLoader;
@@ -86,9 +85,9 @@ public class VMFolderAdapter extends BaseAdapter {
         VMPicker.getInstance().getPictureLoader().load(mActivity, options, holder.cover); //显示图片
 
         if (lastSelected == position) {
-            holder.folderRB.setChecked(true);
+            holder.mSelectView.setSelected(true);
         } else {
-            holder.folderRB.setChecked(false);
+            holder.mSelectView.setSelected(false);
         }
 
         return convertView;
@@ -110,13 +109,13 @@ public class VMFolderAdapter extends BaseAdapter {
         ImageView cover;
         TextView folderName;
         TextView imageCount;
-        RadioButton folderRB;
+        ImageView mSelectView;
 
         public ViewHolder(View view) {
             cover = view.findViewById(R.id.vm_pick_folder_cover_iv);
             folderName = view.findViewById(R.id.vm_pick_folder_name_tv);
             imageCount = view.findViewById(R.id.vm_pick_folder_count_tv);
-            folderRB = view.findViewById(R.id.vm_pick_folder_rb);
+            mSelectView = view.findViewById(R.id.vm_pick_folder_select_iv);
             view.setTag(this);
         }
     }

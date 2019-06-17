@@ -109,12 +109,12 @@
 
     <!--自定义 Checkbox 样式-->
     <style name="VMCheckBox" parent="@android:style/Widget.CompoundButton.CheckBox">
-        <item name="android:button">@drawable/vm_checkbox_selector</item>
+        <item name="android:button">@drawable/vm_ic_check_box_selector</item>
     </style>
 
     <!--自定义 Radio Button 样式-->
     <style name="VMRadio" parent="@android:style/Widget.CompoundButton.RadioButton">
-        <item name="android:button">@drawable/vm_radio_button_selector</item>
+        <item name="android:button">@drawable/vm_ic_radio_button_selector</item>
     </style>
 
     <!--文字样式 Display1-->

@@ -298,10 +298,9 @@ public class VMPickGridActivity extends VMPickBaseActivity {
     }
 
     /**
-     * 开启相机
+     * 开启相机，先检查是否有相机权限
      */
     private void openCamera() {
-        // 检查是否有相机权限
         if (!VMPermission.getInstance(mActivity).checkCamera()) {
             VMPermission.getInstance(mActivity).requestCamera(new VMPermission.PCallback() {
                 @Override
@@ -314,6 +313,8 @@ public class VMPickGridActivity extends VMPickBaseActivity {
                     VMPicker.getInstance().takePicture(mActivity, VMConstant.VM_PICK_REQUEST_CODE_TAKE);
                 }
             });
+        }else{
+            VMPicker.getInstance().takePicture(mActivity, VMConstant.VM_PICK_REQUEST_CODE_TAKE);
         }
     }
 
@@ -326,17 +327,14 @@ public class VMPickGridActivity extends VMPickBaseActivity {
             return;
         }
         mFolderPopupWindow = new FolderPopupWindow(mActivity, mFolderAdapter);
-        mFolderPopupWindow.setOnItemClickListener(new FolderPopupWindow.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                mFolderAdapter.setSelectIndex(position);
-                VMPicker.getInstance().setCurrentFolderPosition(position);
-                mFolderPopupWindow.dismiss();
-                VMFolderBean folderBean = (VMFolderBean) adapterView.getAdapter().getItem(position);
-                if (null != folderBean) {
-                    mPictureAdapter.refresh(folderBean.pictures);
-                    mCurrDirView.setText(folderBean.name);
-                }
+        mFolderPopupWindow.setOnItemClickListener((AdapterView<?> adapterView, View view, int position, long l) -> {
+            mFolderAdapter.setSelectIndex(position);
+            VMPicker.getInstance().setCurrentFolderPosition(position);
+            mFolderPopupWindow.dismiss();
+            VMFolderBean folderBean = (VMFolderBean) adapterView.getAdapter().getItem(position);
+            if (null != folderBean) {
+                mPictureAdapter.refresh(folderBean.pictures);
+                mCurrDirView.setText(folderBean.name);
             }
         });
         mFolderPopupWindow.setMargin(mBottomBar.getHeight());
