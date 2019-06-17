@@ -130,7 +130,7 @@ public class VMSystem {
         long code = 0;
         try {
             PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 code = info.getLongVersionCode();
             } else {
                 code = info.versionCode;
