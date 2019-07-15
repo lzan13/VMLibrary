@@ -1,6 +1,10 @@
 更新日志
 =======
 
+### 2019/07/15 V0.9.1
+- 更新日志输出
+- 优化 VMLineView 可设置 title 颜色
+
 ### 2019/06/17 V0.9.0
 - 解决 OPPO 上 getLongVersionCode 崩溃的问题
 

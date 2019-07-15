@@ -46,21 +46,21 @@
     <!--自定义音频录制控件-->
     <declare-styleable name="VMRecordView">
         <!--取消颜色-->
-        <attr format="color" name="vm_cancel_color" />
+        <attr format="color|integer" name="vm_cancel_color" />
         <!--触摸区域外圈颜色-->
-        <attr format="color" name="vm_outer_color" />
+        <attr format="color|integer" name="vm_outer_color" />
         <!--触摸区域内圈颜色-->
-        <attr format="color" name="vm_inner_color" />
+        <attr format="color|integer" name="vm_inner_color" />
         <attr format="dimension" name="vm_inner_size" />
         <!--触摸区域提示文字-->
         <attr format="string|reference" name="vm_touch_normal_desc" />
         <attr format="string|reference" name="vm_touch_cancel_desc" />
         <!--触摸提示文本颜色-->
-        <attr format="color" name="vm_desc_color" />
+        <attr format="color|integer" name="vm_desc_color" />
         <!--触摸提示文本大小-->
         <attr format="dimension" name="vm_desc_size" />
         <!--时间文本颜色-->
-        <attr format="color" name="vm_time_color" />
+        <attr format="color|integer" name="vm_time_color" />
         <!--时间文本大小-->
         <attr format="dimension" name="vm_time_size" />
     </declare-styleable>
@@ -68,11 +68,11 @@
     <!--自定义波形展示控件-->
     <declare-styleable name="VMWaveformView">
         <!--文字颜色-->
-        <attr format="color" name="vm_waveform_text_color" />
+        <attr format="color|integer" name="vm_waveform_text_color" />
         <!--文字大小-->
         <attr format="dimension" name="vm_waveform_text_size" />
         <!--波形颜色-->
-        <attr format="color" name="vm_waveform_waveform_color" />
+        <attr format="color|integer" name="vm_waveform_waveform_color" />
         <!--波形间隔 树状图时才需要-->
         <attr format="dimension" name="vm_waveform_waveform_interval" />
         <!--波形宽度-->
@@ -82,7 +82,7 @@
     <!--自定义 VMDotLineView 属性-->
     <declare-styleable name="VMDotLineView">
         <!--点的颜色-->
-        <attr format="color" name="vm_dot_color" />
+        <attr format="color|integer" name="vm_dot_color" />
         <!--点的半径-->
         <attr format="dimension" name="vm_dot_radius" />
         <!--点圆弧线宽-->
@@ -90,7 +90,7 @@
         <!--是否闭合-->
         <attr format="boolean" name="vm_is_closure" />
         <!--线段颜色-->
-        <attr format="color" name="vm_line_color" />
+        <attr format="color|integer" name="vm_line_color" />
         <!--线段宽度-->
         <attr format="dimension" name="vm_line_width" />
         <!--绘制速度-->
@@ -182,6 +182,7 @@
         <attr format="reference" name="vm_line_icon" />
         <!--标题-->
         <attr format="string|reference" name="vm_line_title" />
+        <attr format="color|integer" name="vm_line_title_color" />
         <!--描述图标-->
         <attr format="reference" name="vm_line_caption_icon" />
         <!--内容描述-->

@@ -30,6 +30,7 @@ public class VMLineView extends RelativeLayout {
 
     private int mIconRes;
     private String mTitle;
+    private int mTitleColor;
     private int mCaptionIconRes;
     private String mCaption;
     private int mRightIconRes;
@@ -72,6 +73,30 @@ public class VMLineView extends RelativeLayout {
     }
 
     /**
+     * 获取资源属性
+     *
+     * @param context
+     * @param attrs
+     */
+    private void handleAttrs(Context context, AttributeSet attrs) {
+        // 获取控件的属性值
+        if (attrs == null) {
+            return;
+        }
+
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.VMLineView);
+        mIconRes = array.getResourceId(R.styleable.VMLineView_vm_line_icon, mIconRes);
+        mTitle = array.getString(R.styleable.VMLineView_vm_line_title);
+        mTitleColor = array.getColor(R.styleable.VMLineView_vm_line_title_color, mTitleColor);
+        mCaptionIconRes = array.getResourceId(R.styleable.VMLineView_vm_line_caption_icon, mCaptionIconRes);
+        mCaption = array.getString(R.styleable.VMLineView_vm_line_caption);
+        mRightIconRes = array.getResourceId(R.styleable.VMLineView_vm_line_right_icon, mRightIconRes);
+        mDescription = array.getString(R.styleable.VMLineView_vm_line_description);
+        mDecoration = array.getBoolean(R.styleable.VMLineView_vm_line_decoration, mDecoration);
+        array.recycle();
+    }
+
+    /**
      * 装载控件内容
      */
     private void setupView() {
@@ -83,6 +108,9 @@ public class VMLineView extends RelativeLayout {
         }
         if (!VMStr.isEmpty(mTitle)) {
             mTitleView.setText(mTitle);
+        }
+        if (mTitleColor != 0) {
+            mTitleView.setTextColor(mTitleColor);
         }
 
         if (mCaptionIconRes == 0) {
@@ -117,29 +145,6 @@ public class VMLineView extends RelativeLayout {
     }
 
     /**
-     * 获取资源属性
-     *
-     * @param context
-     * @param attrs
-     */
-    private void handleAttrs(Context context, AttributeSet attrs) {
-        // 获取控件的属性值
-        if (attrs == null) {
-            return;
-        }
-
-        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.VMLineView);
-        mIconRes = array.getResourceId(R.styleable.VMLineView_vm_line_icon, mIconRes);
-        mTitle = array.getString(R.styleable.VMLineView_vm_line_title);
-        mCaptionIconRes = array.getResourceId(R.styleable.VMLineView_vm_line_caption_icon, mCaptionIconRes);
-        mCaption = array.getString(R.styleable.VMLineView_vm_line_caption);
-        mRightIconRes = array.getResourceId(R.styleable.VMLineView_vm_line_right_icon, mRightIconRes);
-        mDescription = array.getString(R.styleable.VMLineView_vm_line_description);
-        mDecoration = array.getBoolean(R.styleable.VMLineView_vm_line_decoration, mDecoration);
-        array.recycle();
-    }
-
-    /**
      * ----------------------------------- 内容设置 -----------------------------------
      *
      * 设置图标
@@ -160,6 +165,11 @@ public class VMLineView extends RelativeLayout {
     public void setTitle(String title) {
         mTitle = title;
         mTitleView.setText(mTitle);
+    }
+
+    public void setTitleColor(int color) {
+        mTitleColor = color;
+        mTitleView.setTextColor(mTitleColor);
     }
 
     /**
