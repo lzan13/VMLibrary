@@ -26,8 +26,10 @@ public class VMDate {
     /**
      * 定义时间的格式化不同样式
      */
+    public static SimpleDateFormat sdfFilenameDateTime = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+    public static SimpleDateFormat sdfFilenameDate = new SimpleDateFormat("yyyy-MM-dd");
+
     public static SimpleDateFormat sdfNormal = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-    public static SimpleDateFormat sdfFilename = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
     public static SimpleDateFormat sdfUTC = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     public static SimpleDateFormat sdfNoYear = new SimpleDateFormat("MM/dd HH:mm");
     public static SimpleDateFormat sdfOnlyDate = new SimpleDateFormat("yyyy/MM/dd");
@@ -65,7 +67,14 @@ public class VMDate {
      * @return 返回格式化后的时间
      */
     public static String filenameDateTime() {
-        return sdfFilename.format(new Date());
+        return sdfFilenameDateTime.format(new Date());
+    }
+
+    /**
+     * 获取当前事件拼接的字符串，只有日期
+     */
+    public static String filenameDate() {
+        return sdfFilenameDate.format(new Date());
     }
 
     /**

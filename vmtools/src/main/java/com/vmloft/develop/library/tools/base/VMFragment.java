@@ -1,7 +1,9 @@
 package com.vmloft.develop.library.tools.base;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -23,73 +25,91 @@ public abstract class VMFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        VMLog.d("onAttach: %s", className);
+        VMLog.v("onAttach: %s", className);
         mContext = context;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        VMLog.d("onCreate: %s", className);
+        VMLog.v("onCreate: %s", className);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        VMLog.d("onCreateView: %s", className);
+        VMLog.v("onCreateView: %s", className);
         View view = inflater.inflate(layoutId(), container, false);
         return view;
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        VMLog.v("onViewCreated: %s", className);
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        VMLog.d("onActivityCreated: %s", className);
+        VMLog.v("onActivityCreated: %s", className);
 
         init();
     }
 
-    //@Override
-    //public void onStart() {
-    //    super.onStart();
-    //    VMLog.d("onStart: %s", className);
-    //}
-    //
-    //@Override
-    //public void onResume() {
-    //    super.onResume();
-    //    VMLog.d("onResume: %s", className);
-    //}
-    //
-    //@Override
-    //public void onPause() {
-    //    super.onPause();
-    //    VMLog.d("onPause: %s", className);
-    //}
-    //
-    //@Override
-    //public void onStop() {
-    //    super.onStop();
-    //    VMLog.d("onStop: %s", className);
-    //}
-    //
-    //@Override
-    //public void onDestroyView() {
-    //    super.onDestroyView();
-    //    VMLog.d("onDestroyView: %s", className);
-    //}
-    //
-    //@Override
-    //public void onDetach() {
-    //    super.onDetach();
-    //    VMLog.d("onDetach: %s", className);
-    //}
-    //
-    //@Override
-    //public void onDestroy() {
-    //    super.onDestroy();
-    //    VMLog.d("onDestroy: %s", className);
-    //}
+    @Override
+    public void onStart() {
+        super.onStart();
+        VMLog.v("onStart: %s", className);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        VMLog.v("onResume: %s", className);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        VMLog.v("onActivityResult: %s", className);
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        VMLog.v("onHiddenChanged: %s", className);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        VMLog.v("onPause: %s", className);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        VMLog.v("onStop: %s", className);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        VMLog.v("onDestroyView: %s", className);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        VMLog.v("onDetach: %s", className);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        VMLog.v("onDestroy: %s", className);
+    }
 
 
     /**
