@@ -31,6 +31,7 @@ public class VMDate {
 
     public static SimpleDateFormat sdfNormal = new SimpleDateFormat("yyyy/MM/dd HH:mm");
     public static SimpleDateFormat sdfUTC = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    public static SimpleDateFormat sdfDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
     public static SimpleDateFormat sdfNoYear = new SimpleDateFormat("MM/dd HH:mm");
     public static SimpleDateFormat sdfOnlyDate = new SimpleDateFormat("yyyy/MM/dd");
     public static SimpleDateFormat sdfOnlyDateNoDay = new SimpleDateFormat("yyyy月MM日");
@@ -46,8 +47,6 @@ public class VMDate {
 
     /**
      * 获取当前格式化后的标准时间
-     *
-     * @return 返回格式化后的时间
      */
     public static String currentDateTime() {
         return sdfNormal.format(new Date());
@@ -63,8 +62,6 @@ public class VMDate {
 
     /**
      * 获取当前时间拼接的字符串，没有间隔，主要用于文件命名等
-     *
-     * @return 返回格式化后的时间
      */
     public static String filenameDateTime() {
         return sdfFilenameDateTime.format(new Date());
@@ -83,7 +80,6 @@ public class VMDate {
      * @param srcFormat 原来的时间格式
      * @param desFormat 目标的时间格式
      * @param dateStr 原来的时间
-     * @return 返回格式化后的时间格式
      */
     public static String converDateTime(String srcFormat, String desFormat, String dateStr) {
         try {

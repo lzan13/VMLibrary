@@ -43,7 +43,7 @@ public class VMSystem {
     }
 
     /**
-     * 在 UI 线程中执行
+     * 在 UI 线程中延迟执行
      */
     public static void runInUIThread(Runnable runnable, long delayMillis) {
         handler.postDelayed(runnable, delayMillis);
@@ -65,8 +65,7 @@ public class VMSystem {
             c.setPrimaryClip(ClipData.newPlainText(context.getPackageName(), content));
             return true;
         } catch (Exception e) {
-            //need logger
-            VMLog.e("has fail:" + e.getMessage());
+            VMLog.e("copyToClipboard %s", e.getMessage());
         }
         return false;
     }

@@ -14,6 +14,7 @@ public class App extends VMApp {
         super.onCreate();
 
         VMTools.init(mContext, VMLog.Level.VERBOSE);
+        VMLog.setEnableSave(true);
     }
 
 }

@@ -2,7 +2,11 @@ package com.vmloft.develop.library.tools.utils;
 
 import android.util.Log;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Created by lzan13 on 2014/12/16.
@@ -13,10 +17,18 @@ public class VMLog {
 
     // 这里设置默认的 Tag
     private static String mTag = "VMTools";
+
     // 日志级别，默认为 ERROR
     private static int mLevel = Level.ERROR;
     // 是否保存日志到文件 默认为 false
-    private static boolean isSave = false;
+    private static boolean isEnableSave = false;
+
+    // 日志文件路径
+    private static String mLogDir;
+    private static String mLogPath;
+    // 日志信息队列
+    private static LinkedBlockingQueue<String> mQueue;
+    private static Thread mSaveThread;
 
     /**
      * 初始化日志 Tag，即设置自己的TAG
@@ -30,6 +42,34 @@ public class VMLog {
      */
     public static void setDebug(int level) {
         mLevel = level;
+    }
+
+    /**
+     * 设置是否保存日志到文件
+     */
+    public static void setEnableSave(boolean enable) {
+        isEnableSave = enable;
+        if (isEnableSave) {
+            // 判断是否存在 sdcard
+            if (VMFile.hasSdcard()) {
+                mLogDir = VMFile.getFilesFromSDCard() + "logs/";
+            } else {
+                mLogDir = VMFile.getFilesFromData() + "logs/";
+            }
+            mLogPath = mLogDir + VMDate.filenameDate() + ".log";
+            VMFile.createFile(mLogPath);
+            mQueue = new LinkedBlockingQueue<>();
+            startSaveThread();
+        } else {
+            if (mSaveThread != null) {
+                mSaveThread.interrupt();
+                mSaveThread = null;
+            }
+            if (mQueue != null) {
+                mQueue.clear();
+                mQueue = null;
+            }
+        }
     }
 
 
@@ -137,6 +177,12 @@ public class VMLog {
         log(level, "┆──────────────────────────────────────────────────────────────────────────");
     }
 
+    /**
+     * 统一处理日志输出
+     *
+     * @param level   日志级别
+     * @param message 日志内容
+     */
     private static void log(int level, String message) {
         switch (level) {
             case Level.VERBOSE:
@@ -152,21 +198,50 @@ public class VMLog {
                 Log.e(mTag, message);
                 break;
         }
-        // TODO 这里处理是否保存日志到文件中
-        if (isSave) {
-            writeToFile(level, message);
+        if (isEnableSave && mQueue != null) {
+            try {
+                mQueue.put(String.format("%s %s %s", VMDate.currentUTCDateTime(), mTag, message));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     /**
-     * 写入文件，这里必须在子线程操作
+     * 开始写入文件，这里必须在子线程操作
      */
-    private static void writeToFile(int level, String message) {
-        String path = VMFile.getFilesFromSDCard() + "logs/" + VMDate.filenameDate() + ".log";
-        File file = VMFile.createFile(path);
-
+    private static void startSaveThread() {
+        mSaveThread = new Thread(() -> {
+            while (isEnableSave && mQueue != null) {
+                try {
+                    String logInfo = mQueue.take();
+                    writeLog(logInfo);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        mSaveThread.start();
     }
 
+    /**
+     * 打开日志文件并写入日志
+     **/
+    public static void writeLog(String message) {
+        try {
+            File file = new File(mLogPath);
+            // 第二个参数代表是不是要接上文件中原来的数据，不进行覆盖
+            FileWriter filerWriter = new FileWriter(file, true);
+            BufferedWriter bufWriter = new BufferedWriter(filerWriter);
+            bufWriter.write(message);
+            bufWriter.newLine();
+
+            bufWriter.close();
+            filerWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * 根据堆栈信息定位 Log，生成 Log 为 类名 + 方法名 + 行数
@@ -213,7 +288,6 @@ public class VMLog {
     private static String getClassFileName() {
         return getCallerStackTraceElement().getFileName();
     }
-
 
     /**
      * 日志级别
