@@ -23,12 +23,25 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * Created by lzan13 on 2014/12/16.
  * 文件相关工具类，包括文件的创建 拷贝 删除 以及路径的获取判断的等
  */
 public class VMFile {
+
+    /**
+     * 判断sdcard是否被挂载
+     */
+    public static boolean hasSdcard() {
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /**
      * 判断目录是否存在
@@ -108,6 +121,44 @@ public class VMFile {
         }
         String filename = prefix + VMDate.filenameDateTime() + suffix;
         return createFile(path + filename);
+    }
+
+    /**
+     * 压缩文件
+     *
+     * @param srcPath  源文件路径
+     * @param destPath 压缩问及那路径
+     * @return 压缩结果
+     */
+    public static boolean zipFile(String srcPath, String destPath) {
+        if (VMStr.isEmpty(srcPath) || VMStr.isEmpty(destPath)) {
+            return false;
+        }
+        try {
+            File srcFile = new File(srcPath);
+            File zipFile = new File(destPath);
+            // 输入流读取数据
+            FileInputStream input = new FileInputStream(srcFile);
+            // 输出流输出数据，输出Zip
+            ZipOutputStream output = new ZipOutputStream(new FileOutputStream(zipFile));
+            // 用于缓存数据
+            int temp;
+            // 用于生成说明，会位于打开Zip后，右边的区域
+            output.setComment(srcFile.getName());
+            // 从输入流中获取的数据不能直接写入 Zip 文件，而是需要在 Zip 文件中新建一个 ZipEntry，然后将数据写入新建的文件
+            output.putNextEntry(new ZipEntry(srcFile.getName()));
+            while ((temp = input.read()) != -1) {
+                output.write(temp);
+            }
+            // 关闭流
+            input.close();
+            output.close();
+
+            return true;
+        } catch (IOException e) {
+            VMLog.e("压缩文件失败 %s", e.getMessage());
+        }
+        return false;
     }
 
     /**
@@ -290,7 +341,7 @@ public class VMFile {
     /**
      * 根据文件路径解析文件名，不包含扩展类型
      */
-    public static String parseResourceId(String path) {
+    public static String parseFilename(String path) {
         String result = null;
         if (path != null && path.length() > 0) {
             int index = path.lastIndexOf("/");
@@ -301,14 +352,23 @@ public class VMFile {
     }
 
     /**
-     * 判断sdcard是否被挂载
+     * 获取文件扩展名，
+     *
+     * @param path 可以是路径，可以是文件名
      */
-    public static boolean hasSdcard() {
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            return true;
-        } else {
-            return false;
+    public static String parseSuffix(String path) {
+        String result = null;
+        if (path != null && path.length() > 0) {
+            int index = path.lastIndexOf("/");
+            String filename;
+            if (index == -1) {
+                filename = path;
+            } else {
+                filename = path.substring(index + 1);
+            }
+            result = filename.substring(filename.lastIndexOf("."));
         }
+        return result;
     }
 
     /**
@@ -418,8 +478,7 @@ public class VMFile {
      * @return 返回得到的路径
      */
     public static String getDCIM() {
-        return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
-                .getAbsolutePath() + "/";
+        return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath() + "/";
     }
 
     /**
@@ -428,8 +487,7 @@ public class VMFile {
      * @return 返回得到的路径
      */
     public static String getDownload() {
-        return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                .getAbsolutePath() + "/";
+        return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + "/";
     }
 
     /**
@@ -438,8 +496,7 @@ public class VMFile {
      * @return 返回得到的路径
      */
     public static String getMusic() {
-        return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)
-                .getAbsolutePath() + "/";
+        return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).getAbsolutePath() + "/";
     }
 
     /**
@@ -448,16 +505,14 @@ public class VMFile {
      * @return 返回得到的路径
      */
     public static String getMovies() {
-        return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES)
-                .getAbsolutePath() + "/";
+        return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES).getAbsolutePath() + "/";
     }
 
     /**
      * 获取设备默认的图片目录
      */
     public static String getPictures() {
-        return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-                .getAbsolutePath() + "/";
+        return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath() + "/";
     }
 
     /**
@@ -516,8 +571,7 @@ public class VMFile {
             } else if (isDownloadsDocument(uri)) {
                 // DownloadsProvider
                 final String id = DocumentsContract.getDocumentId(uri);
-                final Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long
-                        .valueOf(id));
+                final Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
 
                 return getDataColumn(VMTools.getContext(), contentUri, null, null);
             } else if (isMediaDocument(uri)) {
@@ -536,7 +590,7 @@ public class VMFile {
                 }
 
                 final String selection = "_id=?";
-                final String[] selectionArgs = new String[]{split[1]};
+                final String[] selectionArgs = new String[] { split[1] };
 
                 return getDataColumn(VMTools.getContext(), contentUri, selection, selectionArgs);
             }
@@ -571,11 +625,10 @@ public class VMFile {
 
         Cursor cursor = null;
         final String column = "_data";
-        final String[] projection = {column};
+        final String[] projection = { column };
 
         try {
-            cursor = context.getContentResolver()
-                    .query(uri, projection, selection, selectionArgs, null);
+            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, null);
             if (cursor != null && cursor.moveToFirst()) {
                 final int index = cursor.getColumnIndexOrThrow(column);
                 return cursor.getString(index);

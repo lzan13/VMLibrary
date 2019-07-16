@@ -5,7 +5,10 @@ import android.util.Log;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.FilenameFilter;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
@@ -22,7 +25,8 @@ public class VMLog {
     private static int mLevel = Level.ERROR;
     // 是否保存日志到文件 默认为 false
     private static boolean isEnableSave = false;
-
+    // 最大保存日志文件个数
+    private static int mMaxCount = 3;
     // 日志文件路径
     private static String mLogDir;
     private static String mLogPath;
@@ -47,8 +51,9 @@ public class VMLog {
     /**
      * 设置是否保存日志到文件
      */
-    public static void setEnableSave(boolean enable) {
+    public static void setEnableSave(boolean enable, int count) {
         isEnableSave = enable;
+        mMaxCount = count;
         if (isEnableSave) {
             // 判断是否存在 sdcard
             if (VMFile.hasSdcard()) {
@@ -60,6 +65,9 @@ public class VMLog {
             VMFile.createFile(mLogPath);
             mQueue = new LinkedBlockingQueue<>();
             startSaveThread();
+
+            // 异步处理
+            VMSystem.runTask(() -> { checkLog();});
         } else {
             if (mSaveThread != null) {
                 mSaveThread.interrupt();
@@ -71,7 +79,6 @@ public class VMLog {
             }
         }
     }
-
 
     /**
      * 使用格式化的方式输出 Verbose 日志信息
@@ -185,18 +192,18 @@ public class VMLog {
      */
     private static void log(int level, String message) {
         switch (level) {
-            case Level.VERBOSE:
-                Log.v(mTag, message);
-                break;
-            case Level.DEBUG:
-                Log.d(mTag, message);
-                break;
-            case Level.INFO:
-                Log.i(mTag, message);
-                break;
-            case Level.ERROR:
-                Log.e(mTag, message);
-                break;
+        case Level.VERBOSE:
+            Log.v(mTag, message);
+            break;
+        case Level.DEBUG:
+            Log.d(mTag, message);
+            break;
+        case Level.INFO:
+            Log.i(mTag, message);
+            break;
+        case Level.ERROR:
+            Log.e(mTag, message);
+            break;
         }
         if (isEnableSave && mQueue != null) {
             try {
@@ -225,9 +232,76 @@ public class VMLog {
     }
 
     /**
+     * 检查日志文件，主要是限制文件个数和大小
+     */
+    private static void checkLog() {
+        File logDir = new File(mLogDir);
+        FilenameFilter filter = (File dir, String name) -> {
+            // 过滤日志文件
+            if (VMFile.parseSuffix(name).equals(".log")) {
+                return true;
+            }
+            return false;
+        };
+        // 获取文件并按照最后修改时间排序
+        File[] files = logDir.listFiles(filter);
+        sortFiles(files);
+        // 这里从 1 开始，第一个日志文件还要写入，因此不处理
+        for (int i = 1; i < files.length; i++) {
+            File file = files[i];
+            int dot = file.getName().lastIndexOf(".");
+            String zipPath = mLogDir + file.getName().substring(0, dot + 1) + "zip";
+            if (i < mMaxCount) {
+                VMFile.zipFile(file.getAbsolutePath(), zipPath);
+            }
+            VMFile.deleteFile(file.getAbsolutePath());
+        }
+
+        /**
+         * 处理压缩过的文件
+         */
+        filter = (File dir, String name) -> {
+            // 过滤日志文件
+            if (VMFile.parseSuffix(name).equals(".zip")) {
+                return true;
+            }
+            return false;
+        };
+        // 获取文件并按照最后修改时间排序
+        files = logDir.listFiles(filter);
+        sortFiles(files);
+        for (int i = 2; i < files.length; i++) {
+            VMFile.deleteFile(files[i].getAbsolutePath());
+        }
+    }
+
+    /**
+     * 按照时间降序排列文件集合
+     */
+    private static void sortFiles(File[] files) {
+        Arrays.sort(files, new Comparator<File>() {
+            public int compare(File f1, File f2) {
+                // 降序排列
+                long diff = f1.lastModified() - f2.lastModified();
+                if (diff > 0) {
+                    return -1;
+                } else if (diff == 0) {
+                    return 0;
+                } else {
+                    return 1;
+                }
+            }
+
+            public boolean equals(Object obj) {
+                return true;
+            }
+        });
+    }
+
+    /**
      * 打开日志文件并写入日志
-     **/
-    public static void writeLog(String message) {
+     */
+    private static void writeLog(String message) {
         try {
             File file = new File(mLogPath);
             // 第二个参数代表是不是要接上文件中原来的数据，不进行覆盖

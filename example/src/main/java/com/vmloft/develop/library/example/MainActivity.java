@@ -9,6 +9,7 @@ import com.vmloft.develop.library.example.common.AppActivity;
 import com.vmloft.develop.library.example.router.ARouter;
 import com.vmloft.develop.library.tools.permission.VMPermission;
 import com.vmloft.develop.library.tools.permission.VMPermissionBean;
+import com.vmloft.develop.library.tools.utils.VMLog;
 import com.vmloft.develop.library.tools.widget.VMViewGroup;
 
 import com.vmloft.develop.library.tools.widget.toast.VMToast;
