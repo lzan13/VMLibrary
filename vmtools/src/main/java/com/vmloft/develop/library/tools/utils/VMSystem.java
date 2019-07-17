@@ -14,6 +14,9 @@ import com.vmloft.develop.library.tools.VMTools;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Create by lzan13 at 2018/11/23
@@ -30,6 +33,8 @@ public class VMSystem {
      * 回调在UI线程中处理
      */
     private static Handler handler = new Handler(Looper.getMainLooper());
+    // 线程池
+    private static ExecutorService mExecutorPool = Executors.newCachedThreadPool();
 
     private VMSystem() {
         throw new AssertionError();
@@ -47,6 +52,10 @@ public class VMSystem {
      */
     public static void runInUIThread(Runnable runnable, long delayMillis) {
         handler.postDelayed(runnable, delayMillis);
+    }
+
+    public static void runTask(Runnable runnable) {
+        mExecutorPool.execute(runnable);
     }
 
     /**
@@ -198,5 +207,4 @@ public class VMSystem {
         // 没有匹配的项，返回为null
         return processName;
     }
-
 }
