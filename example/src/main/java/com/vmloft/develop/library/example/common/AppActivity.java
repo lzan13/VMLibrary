@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import android.view.View;
+
 import com.vmloft.develop.library.example.R;
 import com.vmloft.develop.library.tools.base.VMActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import com.vmloft.develop.library.tools.utils.VMTheme;
 import com.vmloft.develop.library.tools.widget.VMTopBar;
 
@@ -40,11 +42,9 @@ public abstract class AppActivity extends VMActivity {
     protected void setupTobBar() {
         mTopBar = findViewById(R.id.widget_top_bar);
         if (mTopBar != null) {
-            mTopBar.setIconListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onBackPressed();
-                }
+            mTopBar.setIcon(R.drawable.ic_arrow_left);
+            mTopBar.setIconListener(v -> {
+                onBackPressed();
             });
         }
     }
@@ -54,6 +54,24 @@ public abstract class AppActivity extends VMActivity {
      */
     protected VMTopBar getTopBar() {
         return mTopBar;
+    }
+
+    /**
+     * 设置标题
+     */
+    protected void setTopTitle(String title) {
+        if (mTopBar != null) {
+            mTopBar.setTitle(title);
+        }
+    }
+
+    /**
+     * 设置子标题
+     */
+    protected void setTopSubtitle(String title) {
+        if (mTopBar != null) {
+            mTopBar.setSubtitle(title);
+        }
     }
 
     @Override

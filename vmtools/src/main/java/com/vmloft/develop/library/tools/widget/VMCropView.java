@@ -46,7 +46,7 @@ import java.util.Locale;
  */
 public class VMCropView extends AppCompatImageView {
 
-    /******************************** 中间的FocusView绘图相关的参数 *****************************/
+    // 中间的 FocusView 绘图相关的参数
     public enum Style {
         RECTANGLE, CIRCLE
     }
@@ -72,7 +72,7 @@ public class VMCropView extends AppCompatImageView {
     private Path mFocusPath = new Path();
     private RectF mFocusRect = new RectF();
 
-    /******************************** 图片缩放位移控制的参数 ************************************/
+    // 图片缩放位移控制的参数
     private static final float MAX_SCALE = 4.0f;  //最大缩放比，图片缩放后的大小与中间选中区域的比值
     private static final int NONE = 0;   // 初始化
     private static final int DRAG = 1;   // 拖拽
@@ -87,21 +87,21 @@ public class VMCropView extends AppCompatImageView {
     private int mImageHeight;
     private int mRotatedImageWidth;
     private int mRotatedImageHeight;
-    private Matrix matrix = new Matrix();      //图片变换的matrix
-    private Matrix savedMatrix = new Matrix(); //开始变幻的时候，图片的matrix
-    private PointF pA = new PointF();          //第一个手指按下点的坐标
-    private PointF pB = new PointF();          //第二个手指按下点的坐标
-    private PointF midPoint = new PointF();    //两个手指的中间点
-    private PointF doubleClickPos = new PointF();  //双击图片的时候，双击点的坐标
-    private PointF mFocusMidPoint = new PointF();  //中间View的中间点
-    private int mode = NONE;            //初始的模式
-    private long doubleClickTime = 0;   //第二次双击的时间
-    private double rotation = 0;        //手指旋转的角度，不是90的整数倍，可能为任意值，需要转换成level
-    private float oldDist = 1;          //双指第一次的距离
-    private int sumRotateLevel = 0;     //旋转的角度，90的整数倍
-    private float mMaxScale = MAX_SCALE;//程序根据不同图片的大小，动态得到的最大缩放比
-    private boolean isInited = false;   //是否经过了 onSizeChanged 初始化
-    private boolean mSaving = false;    //是否正在保存
+    private Matrix matrix = new Matrix();      // 图片变换的matrix
+    private Matrix savedMatrix = new Matrix(); // 开始变幻的时候，图片的matrix
+    private PointF pA = new PointF();          // 第一个手指按下点的坐标
+    private PointF pB = new PointF();          // 第二个手指按下点的坐标
+    private PointF midPoint = new PointF();    // 两个手指的中间点
+    private PointF doubleClickPos = new PointF();  // 双击图片的时候，双击点的坐标
+    private PointF mFocusMidPoint = new PointF();  // 中间View的中间点
+    private int mode = NONE;            // 初始的模式
+    private long doubleClickTime = 0;   // 第二次双击的时间
+    private double rotation = 0;        // 手指旋转的角度，不是90的整数倍，可能为任意值，需要转换成level
+    private float oldDist = 1;          // 双指第一次的距离
+    private int sumRotateLevel = 0;     // 旋转的角度，90的整数倍
+    private float mMaxScale = MAX_SCALE;// 程序根据不同图片的大小，动态得到的最大缩放比
+    private boolean isInited = false;   // 是否经过了 onSizeChanged 初始化
+    private boolean mSaving = false;    // 是否正在保存
     private static Handler mHandler = new InnerHandler();
 
     public VMCropView(Context context) {
@@ -395,7 +395,7 @@ public class VMCropView extends AppCompatImageView {
                 mode = NONE;
                 break;
         }
-        //解决部分机型无法拖动的问题
+        //          解决部分机型无法拖动的问题
         ViewCompat.postInvalidateOnAnimation(this);
         return true;
     }
@@ -410,7 +410,7 @@ public class VMCropView extends AppCompatImageView {
         float minScale = getScale(mRotatedImageWidth, mRotatedImageHeight, mFocusWidth, mFocusHeight, true);
         mMaxScale = minScale * MAX_SCALE;
 
-        //保证图片最小是占满中间的焦点空间
+        // 保证图片最小是占满中间的焦点空间
         if (currentScale < minScale) {
             float scale = minScale / currentScale;
             matrix.postScale(scale, scale);
@@ -425,7 +425,7 @@ public class VMCropView extends AppCompatImageView {
      */
     private void fixTranslation() {
         RectF imageRect = new RectF(0, 0, mImageWidth, mImageHeight);
-        matrix.mapRect(imageRect);  //获取当前图片（缩放以后的）相对于当前控件的位置区域，超过控件的上边缘或左边缘为负
+        matrix.mapRect(imageRect);  // 获取当前图片（缩放以后的）相对于当前控件的位置区域，超过控件的上边缘或左边缘为负
         float deltaX = 0, deltaY = 0;
         if (imageRect.left > mFocusRect.left) {
             deltaX = -imageRect.left + mFocusRect.left;

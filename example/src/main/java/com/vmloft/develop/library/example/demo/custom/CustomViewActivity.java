@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.vmloft.develop.library.example.R;
 import com.vmloft.develop.library.example.common.AppActivity;
+import com.vmloft.develop.library.tools.widget.VMEmojiRainView;
 import com.vmloft.develop.library.tools.widget.VMSquareLayout;
 import com.vmloft.develop.library.tools.widget.VMTimerBtn;
 
@@ -21,6 +22,8 @@ public class CustomViewActivity extends AppActivity {
     @BindView(R.id.custom_btn_timer) VMTimerBtn mTimerBtn;
     @BindView(R.id.custom_record_view) VMRecordView mRecordView;
     @BindView(R.id.custom_square_layout) VMSquareLayout mSquareLayout;
+
+    @BindView(R.id.custom_emoji_rain_view) VMEmojiRainView mEmojiRainView;
 
     @Override
     protected int layoutId() {
@@ -65,7 +68,8 @@ public class CustomViewActivity extends AppActivity {
             VMToast.make(mActivity, "测试自定义弹出 Toast 提醒功能，这是默认提醒样式！自定义颜色的").show();
             break;
         case R.id.btn_toast_2:
-            VMToast.make(mActivity, "测试自定义弹出 Toast 提醒功能，这是完成提醒默认样式！绿色的").done();
+            VMToast.make(mActivity, "测试自定义表情雨控件").done();
+            startEmojiRain();
             break;
         case R.id.btn_toast_3:
             VMToast.make(mActivity, "测试自定义弹出 Toast 提醒功能，这是错误提醒默认样式！红色的").error();
@@ -74,5 +78,19 @@ public class CustomViewActivity extends AppActivity {
             mSquareLayout.setUnifyWidth(false);
             break;
         }
+    }
+
+    /**
+     * 开启表情雨
+     */
+    private void startEmojiRain() {
+//        mEmojiRainView.addEmoji(R.drawable.emoji_cake);
+//        mEmojiRainView.addEmoji(R.drawable.emoji_christmas);
+//        mEmojiRainView.addEmoji(R.drawable.emoji_dog);
+//        mEmojiRainView.addEmoji(R.drawable.emoji_happy);
+//        mEmojiRainView.addEmoji(R.drawable.emoji_red_lip);
+//        mEmojiRainView.addEmoji(R.drawable.emoji_rose);
+        mEmojiRainView.start();
+
     }
 }

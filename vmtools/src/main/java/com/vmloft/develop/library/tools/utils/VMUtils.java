@@ -12,7 +12,7 @@ public class VMUtils {
     /**
      * 生成 [0, max) 范围内的随机数
      *
-     * @param max 最大值
+     * @param max 最大值（不包含）
      */
     public static int random(int max) {
         return random(0, max);
@@ -21,8 +21,8 @@ public class VMUtils {
     /**
      * 生成制定范围内的随机数 范围 [start, end)
      *
-     * @param min 最小值
-     * @param max 最大值
+     * @param min 最小值（包含）
+     * @param max 最大值（不包含）
      */
     public static int random(int min, int max) {
         Random random = new Random();

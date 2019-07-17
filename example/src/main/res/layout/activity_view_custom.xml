@@ -1,141 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout_coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_bg"
     android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    tools:context=".demo.custom.CustomViewActivity"
-    >
-    <!--<include layout="@layout/widget_common_top_bar" />-->
-    <com.vmloft.develop.library.tools.widget.VMTopBar
-        android:id="@+id/widget_top_bar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/vm_dimen_48"
-        app:vm_top_bar_icon="@drawable/ic_arrow_left"
-        app:vm_top_bar_subtitle="这里主要展示自己实现的自定义控件"
-        app:vm_top_bar_title="验证自定义控件"
-        />
+    android:background="@color/app_bg"
+    tools:context=".demo.custom.CustomViewActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/app_white"
-        android:orientation="vertical"
-        >
-        <!--自定义输入框-->
-        <com.vmloft.develop.library.tools.widget.VMEditView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/vm_dimen_8"
-            android:background="@drawable/vm_bg_fillet_white"
-            android:elevation="@dimen/vm_dimen_8"
-            app:vm_edit_hint="数字"
-            app:vm_edit_mode="number"
-            app:vm_edit_text_color="@color/vm_body"
-            app:vm_edit_text_size="@dimen/vm_size_14"
-            />
-
-        <com.vmloft.develop.library.tools.widget.VMEditView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/vm_dimen_8"
-            android:elevation="@dimen/vm_dimen_8"
-            app:vm_edit_hint="手机号"
-            app:vm_edit_mode="phone"
-            app:vm_edit_text_color="@color/vm_body"
-            app:vm_edit_text_size="@dimen/vm_size_14"
-            />
-
-        <com.vmloft.develop.library.tools.widget.VMEditView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/vm_dimen_8"
-            android:elevation="@dimen/vm_dimen_8"
-            app:vm_edit_hint="账户"
-            app:vm_edit_mode="account"
-            app:vm_edit_text_color="@color/vm_body"
-            app:vm_edit_text_size="@dimen/vm_size_14"
-            />
-
-        <com.vmloft.develop.library.tools.widget.VMEditView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/vm_dimen_8"
-            android:background="@drawable/vm_bg_fillet_white"
-            android:elevation="@dimen/vm_dimen_8"
-            app:vm_edit_hint="密码"
-            app:vm_edit_mode="password"
-            app:vm_edit_text_color="@color/vm_body"
-            app:vm_edit_text_size="@dimen/vm_size_14"
-            />
-
-        <com.vmloft.develop.library.tools.widget.VMViewGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-
-            <!--倒计时控件-->
-            <com.vmloft.develop.library.tools.widget.VMTimerBtn
-                android:id="@+id/custom_btn_timer"
-                android:text="开启定时"
-                app:vm_timer_text="%ds 后结束"
-                app:vm_timer_time="10"
-                style="@style/VMBtn.Fillet.Green"
-                />
-
-            <Button
-                android:id="@+id/btn_toast_1"
-                android:text="Toast1"
-                style="@style/VMBtn.Fillet.Green"
-                />
-
-            <Button
-                android:id="@+id/btn_toast_2"
-                android:text="Toast2"
-                style="@style/VMBtn.Fillet.Green"
-                />
-
-            <Button
-                android:id="@+id/btn_toast_3"
-                android:text="Toast3"
-                style="@style/VMBtn.Fillet.Green"
-                />
-        </com.vmloft.develop.library.tools.widget.VMViewGroup>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/vm_dimen_256"
-            >
-
-            <com.vmloft.develop.library.tools.widget.record.VMRecordView
-                android:id="@+id/custom_record_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:vm_cancel_color="@color/vm_deep_orange"
-                app:vm_desc_color="@color/vm_white_87"
-                app:vm_inner_color="@color/vm_blue"
-                app:vm_outer_color="@color/vm_blue_38"
-                app:vm_time_color="@color/vm_blue"
-                app:vm_touch_cancel_desc="松开"
-                app:vm_touch_normal_desc="按下"
-                />
-        </RelativeLayout>
-        <com.vmloft.develop.library.tools.widget.VMLineView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:vm_line_title="测试颜色"
-            app:vm_line_title_color="@color/app_accent"
-            />
-        <com.vmloft.develop.library.tools.widget.VMSquareLayout
-            android:id="@+id/custom_square_layout"
+        android:orientation="vertical">
+        <!--<include layout="@layout/widget_common_top_bar" />-->
+        <com.vmloft.develop.library.tools.widget.VMTopBar
+            android:id="@+id/widget_top_bar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/vm_dimen_48"
-            android:background="@color/vm_green"
-            />
+            app:vm_top_bar_subtitle="这里主要展示自己实现的自定义控件"
+            app:vm_top_bar_title="验证自定义控件"
+            app:vm_top_bar_title_color="@color/app_accent"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/app_white"
+            android:orientation="vertical">
+            <!--自定义输入框-->
+            <com.vmloft.develop.library.tools.widget.VMEditView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/vm_dimen_8"
+                android:background="@drawable/vm_bg_fillet_white"
+                android:elevation="@dimen/vm_dimen_8"
+                app:vm_edit_hint="数字"
+                app:vm_edit_mode="number"
+                app:vm_edit_text_color="@color/vm_body"
+                app:vm_edit_text_size="@dimen/vm_size_14" />
+
+            <com.vmloft.develop.library.tools.widget.VMEditView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/vm_dimen_8"
+                android:elevation="@dimen/vm_dimen_8"
+                app:vm_edit_hint="手机号"
+                app:vm_edit_mode="phone"
+                app:vm_edit_text_color="@color/vm_body"
+                app:vm_edit_text_size="@dimen/vm_size_14" />
+
+            <com.vmloft.develop.library.tools.widget.VMEditView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/vm_dimen_8"
+                android:elevation="@dimen/vm_dimen_8"
+                app:vm_edit_hint="账户"
+                app:vm_edit_mode="account"
+                app:vm_edit_text_color="@color/vm_body"
+                app:vm_edit_text_size="@dimen/vm_size_14" />
+
+            <com.vmloft.develop.library.tools.widget.VMEditView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/vm_dimen_8"
+                android:background="@drawable/vm_bg_fillet_white"
+                android:elevation="@dimen/vm_dimen_8"
+                app:vm_edit_hint="密码"
+                app:vm_edit_mode="password"
+                app:vm_edit_text_color="@color/vm_body"
+                app:vm_edit_text_size="@dimen/vm_size_14" />
+
+            <com.vmloft.develop.library.tools.widget.VMViewGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!--倒计时控件-->
+                <com.vmloft.develop.library.tools.widget.VMTimerBtn
+                    android:id="@+id/custom_btn_timer"
+                    style="@style/VMBtn.Fillet.Green"
+                    android:text="开启定时"
+                    app:vm_timer_text="%ds 后结束"
+                    app:vm_timer_time="10" />
+
+                <Button
+                    android:id="@+id/btn_toast_1"
+                    style="@style/VMBtn.Fillet.Green"
+                    android:text="Toast1" />
+
+                <Button
+                    android:id="@+id/btn_toast_2"
+                    style="@style/VMBtn.Fillet.Green"
+                    android:text="Toast2" />
+
+                <Button
+                    android:id="@+id/btn_toast_3"
+                    style="@style/VMBtn.Fillet.Green"
+                    android:text="Toast3" />
+            </com.vmloft.develop.library.tools.widget.VMViewGroup>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/vm_dimen_256">
+
+                <com.vmloft.develop.library.tools.widget.record.VMRecordView
+                    android:id="@+id/custom_record_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:vm_cancel_color="@color/vm_deep_orange"
+                    app:vm_desc_color="@color/vm_white_87"
+                    app:vm_inner_color="@color/vm_blue"
+                    app:vm_outer_color="@color/vm_blue_38"
+                    app:vm_time_color="@color/vm_blue"
+                    app:vm_touch_cancel_desc="松开"
+                    app:vm_touch_normal_desc="按下" />
+            </RelativeLayout>
+
+            <com.vmloft.develop.library.tools.widget.VMLineView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:vm_line_title="测试颜色"
+                app:vm_line_title_color="@color/app_accent" />
+
+            <com.vmloft.develop.library.tools.widget.VMSquareLayout
+                android:id="@+id/custom_square_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/vm_dimen_48"
+                android:background="@color/vm_green" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+    <com.vmloft.develop.library.tools.widget.VMEmojiRainView
+        android:id="@+id/custom_emoji_rain_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:vm_emoji_count="60"
+        app:vm_emoji_id="@drawable/emoji_rose"/>
+</RelativeLayout>
