@@ -2,23 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout_coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_bg"
-    android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".demo.indicator.IndicatorActivity"
     >
 
-    <!--<include layout="@layout/widget_common_top_bar" />-->
-    <com.vmloft.develop.library.tools.widget.VMTopBar
-        android:id="@+id/widget_top_bar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/vm_dimen_48"
-        app:vm_top_bar_icon="@drawable/ic_arrow_left"
-        app:vm_top_bar_title="自定义指示器"
-        />
+    <include layout="@layout/widget_common_top_bar" />
 
     <RelativeLayout
         android:layout_width="match_parent"

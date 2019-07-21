@@ -20,10 +20,8 @@ import java.util.List;
  */
 public class IndicatorActivity extends AppActivity {
 
-    @BindView(R.id.view_pager)
-    ViewPager mViewPager;
-    @BindView(R.id.indicator_view)
-    VMIndicatorView mIndicatorView;
+    @BindView(R.id.view_pager) ViewPager mViewPager;
+    @BindView(R.id.indicator_view) VMIndicatorView mIndicatorView;
 
     private List<Fragment> fragmentList;
     private VMFragmentPagerAdapter mAdapter;

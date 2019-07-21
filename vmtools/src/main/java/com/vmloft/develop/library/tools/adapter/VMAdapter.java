@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +49,12 @@ public abstract class VMAdapter<T, VH extends VMHolder> extends RecyclerView.Ada
         } else {
             mDataList = list;
         }
+    }
+
+    @NonNull
+    @Override
+    public VH onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        return null;
     }
 
     @Override

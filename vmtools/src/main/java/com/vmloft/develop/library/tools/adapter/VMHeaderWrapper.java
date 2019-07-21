@@ -89,7 +89,6 @@ public class VMHeaderWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
     /**
      * 重写方法，实现 headerView 和 footerView 的包装
      */
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (headerViews.get(viewType) != null) {

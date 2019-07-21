@@ -1,50 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/layout_coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/vm_theme_background"
-    android:fitsSystemWindows="true">
+    android:background="@color/app_bg"
+    android:orientation="vertical"
+    >
 
     <include layout="@layout/widget_common_top_bar" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/id_img_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:scaleType="centerInside"
-                android:src="@drawable/img_baymax" />
-
-            <ImageView
-                android:id="@+id/id_img_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:scaleType="centerInside"
-                android:src="@drawable/img_baymax" />
-        </LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        >
 
         <ImageView
-            android:id="@+id/id_img_3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:id="@+id/id_img_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:scaleType="centerInside"
-            android:src="@drawable/img_baymax" />
+            android:src="@drawable/img_baymax"
+            />
 
+        <ImageView
+            android:id="@+id/id_img_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scaleType="centerInside"
+            android:src="@drawable/img_baymax"
+            />
     </LinearLayout>
-</android.support.design.widget.CoordinatorLayout>
+
+    <ImageView
+        android:id="@+id/id_img_3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:scaleType="centerInside"
+        android:src="@drawable/img_baymax"
+        />
+
+</LinearLayout>

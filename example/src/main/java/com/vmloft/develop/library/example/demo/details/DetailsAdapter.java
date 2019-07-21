@@ -1,13 +1,12 @@
 package com.vmloft.develop.library.example.demo.details;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.vmloft.develop.library.example.R;
-import com.vmloft.develop.library.tools.utils.VMLog;
+import com.vmloft.develop.library.tools.adapter.VMAdapter;
+import com.vmloft.develop.library.tools.adapter.VMHolder;
 import com.vmloft.develop.library.tools.widget.VMDetailsView;
 
 import java.util.List;
@@ -17,82 +16,44 @@ import java.util.List;
  *
  * 历史通话适配器
  */
-public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ConversationViewHolder> {
-
-    private Context context;
-    private LayoutInflater inflater;
-    private List<DetailsEntity> list;
-    private ItemListener itemListener;
+public class DetailsAdapter extends VMAdapter<DetailsEntity, DetailsAdapter.DataHolder> {
 
     public DetailsAdapter(Context context, List<DetailsEntity> list) {
-        this.context = context;
-        this.list = list;
-        inflater = LayoutInflater.from(context);
+        super(context, list);
     }
 
-    @Override public ConversationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.activity_details_list_item, parent, false);
-        ConversationViewHolder viewHolder = new ConversationViewHolder(view);
+    @Override
+    public DataHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = mInflater.inflate(R.layout.details_list_item, parent, false);
+        DataHolder viewHolder = new DataHolder(view);
         return viewHolder;
     }
 
-    @Override public void onBindViewHolder(final ConversationViewHolder holder, final int position) {
-        final DetailsEntity detailsEntity = list.get(position);
+    @Override
+    public void onBindViewHolder(DataHolder holder, int position) {
+        super.onBindViewHolder(holder, position);
+        final DetailsEntity detailsEntity = getItemData(position);
 
-        holder.detailsView.setFold(detailsEntity.isFold());
-        holder.detailsView.setContentText(detailsEntity.getContent());
-
-        // 设置 item 点击监听
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                VMLog.d("The item view position: %d", position);
-                if (itemListener != null) {
-                    itemListener.onItemClick(holder.itemView, position);
-                }
-            }
-        });
-    }
-
-    @Override public int getItemCount() {
-        return list.size();
-    }
-
-    /**
-     * 设置 RecyclerView 事件监听接口
-     */
-    public interface ItemListener {
-        /**
-         * RecyclerView item 点击回调
-         *
-         * @param view 当前点击的 view
-         * @param position 当前点击位置
-         */
-        void onItemClick(View view, int position);
-    }
-
-    /**
-     * 设置 RecyclerView item 事件监听回调
-     */
-    public void setItemListener(ItemListener listener) {
-        itemListener = listener;
+        holder.mDetailsView.setFold(detailsEntity.isFold());
+        holder.mDetailsView.setContentText(detailsEntity.getContent());
     }
 
     /**
      * 自定义会话列表项的 ViewHolder 用来显示会话列表项的内容
      */
-    static class ConversationViewHolder extends RecyclerView.ViewHolder {
+    static class DataHolder extends VMHolder {
 
-        VMDetailsView detailsView;
+        VMDetailsView mDetailsView;
 
         /**
          * 构造方法，初始化列表项的控件
          *
          * @param itemView item项的父控件
          */
-        ConversationViewHolder(View itemView) {
+        DataHolder(View itemView) {
             super(itemView);
 
-            detailsView = (VMDetailsView) itemView.findViewById(R.id.view_details);
+            mDetailsView = itemView.findViewById(R.id.view_details);
         }
     }
 }

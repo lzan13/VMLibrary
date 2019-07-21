@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 /**
  * Created by lzan13 on 2017/12/9.
- * 为 Adapter 添加空数据包装
+ * 包装 Adapter
  */
 public class VMEmptyWrapper extends RecyclerView.Adapter {
 

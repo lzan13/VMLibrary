@@ -5,17 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_bg"
-    android:fitsSystemWindows="true"
     android:orientation="vertical"
     >
 
-    <!--<include layout="@layout/widget_common_top_bar" />-->
-    <com.vmloft.develop.library.tools.widget.VMTopBar
-        android:id="@+id/widget_top_bar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/vm_dimen_48"
-        app:vm_top_bar_title="自定义按钮样式"
-        />
+    <include layout="@layout/widget_common_top_bar" />
 
     <LinearLayout
         android:layout_width="match_parent"

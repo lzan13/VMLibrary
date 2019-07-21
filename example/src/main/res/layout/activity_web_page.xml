@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/layout_coordinator"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/vm_theme_background"
-    android:fitsSystemWindows="true">
+    android:background="@color/app_bg"
+    tools:context=".demo.web.WebActivity"
+    >
 
     <include layout="@layout/widget_common_top_bar" />
 
@@ -13,21 +14,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        >
 
         <com.vmloft.develop.library.tools.widget.VMViewGroup
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
 
             <Button
                 android:id="@+id/btn_call_js"
+                android:text="Call js"
                 style="@style/VMBtn.Green"
-                android:text="Call js" />
+                />
 
             <Button
                 android:id="@+id/btn_call_js_params"
+                android:text="Call js params"
                 style="@style/VMBtn.Green"
-                android:text="Call js params" />
+                />
 
         </com.vmloft.develop.library.tools.widget.VMViewGroup>
 
@@ -35,6 +39,7 @@
             android:id="@+id/layout_web_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" />
+            android:orientation="vertical"
+            />
     </LinearLayout>
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

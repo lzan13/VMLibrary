@@ -1,17 +1,15 @@
 package com.vmloft.develop.library.example.common;
 
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 
 import android.view.View;
-
 import com.vmloft.develop.library.example.R;
 import com.vmloft.develop.library.tools.base.VMActivity;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+import com.vmloft.develop.library.tools.utils.VMDimen;
 import com.vmloft.develop.library.tools.utils.VMTheme;
 import com.vmloft.develop.library.tools.widget.VMTopBar;
 
@@ -21,6 +19,7 @@ public abstract class AppActivity extends VMActivity {
     private Unbinder unbinder;
     // 统一的 TopBar
     protected VMTopBar mTopBar;
+    protected View mSpaceView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +39,17 @@ public abstract class AppActivity extends VMActivity {
      * 装载 TopBar
      */
     protected void setupTobBar() {
-        mTopBar = findViewById(R.id.widget_top_bar);
+        mSpaceView = findViewById(R.id.common_top_space);
+        if (mSpaceView != null) {
+            if (mSpaceView != null) {
+                // 设置状态栏透明主题时，布局整体会上移，所以给头部 View 设置 StatusBar 的高度
+                mSpaceView.getLayoutParams().height = VMDimen.getStatusBarHeight();
+            }
+        }
+        mTopBar = findViewById(R.id.common_top_bar);
         if (mTopBar != null) {
             mTopBar.setIcon(R.drawable.ic_arrow_left);
-            mTopBar.setIconListener(v -> {
-                onBackPressed();
-            });
+            mTopBar.setIconListener(v -> {onBackPressed();});
         }
     }
 

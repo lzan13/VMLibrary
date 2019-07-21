@@ -2,21 +2,15 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/layout_coordinator"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_bg"
-    android:fitsSystemWindows="true"
     android:orientation="vertical"
+    tools:context=".MainActivity"
     >
 
-    <!--<include layout="@layout/widget_common_top_bar" />-->
-    <com.vmloft.develop.library.tools.widget.VMTopBar
-        android:id="@+id/widget_top_bar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/vm_dimen_48"
-        app:vm_top_bar_end_btn="确定"
-        />
+    <include layout="@layout/widget_common_top_bar" />
 
     <LinearLayout
         android:layout_width="match_parent"
