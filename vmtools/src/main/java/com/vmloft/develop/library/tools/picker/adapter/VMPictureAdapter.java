@@ -53,16 +53,15 @@ public class VMPictureAdapter extends VMAdapter<VMPictureBean, VMHolder> {
     }
 
     @Override
-    public VMHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public VMHolder createHolder(@NonNull ViewGroup root, int viewType) {
         if (viewType == ITEM_TYPE_CAMERA) {
-            return new CameraViewHolder(mInflater.inflate(R.layout.vm_pick_picture_grid_camera_item, parent, false));
+            return new CameraViewHolder(mInflater.inflate(R.layout.vm_pick_picture_grid_camera_item, root, false));
         }
-        return new PictureViewHolder(mInflater.inflate(R.layout.vm_pick_picture_grid_item, parent, false));
+        return new PictureViewHolder(mInflater.inflate(R.layout.vm_pick_picture_grid_item, root, false));
     }
 
     @Override
-    public void onBindViewHolder(VMHolder holder, int position) {
-        super.onBindViewHolder(holder, position);
+    public void bindHolder(@NonNull VMHolder holder, int position) {
         switch (getItemViewType(position)) {
         case ITEM_TYPE_CAMERA:
             ((CameraViewHolder) holder).bindCamera();

@@ -147,16 +147,8 @@ public class VMPickGridActivity extends VMPickBaseActivity {
         mRecyclerView.setLayoutManager(new GridLayoutManager(mActivity, 4));
         mRecyclerView.addItemDecoration(new VMSpaceGridDecoration(4, VMDimen.dp2px(2)));
         mRecyclerView.setAdapter(mPictureAdapter);
-        mPictureAdapter.setClickListener(new VMAdapter.IClickListener() {
-            @Override
-            public void onItemAction(int position, Object object) {
-                onPictureClick(position);
-            }
-
-            @Override
-            public boolean onItemLongAction(int action, Object object) {
-                return false;
-            }
+        mPictureAdapter.setClickListener((int position, Object object) -> {
+            onPictureClick(position);
         });
     }
 
@@ -313,7 +305,7 @@ public class VMPickGridActivity extends VMPickBaseActivity {
                     VMPicker.getInstance().takePicture(mActivity, VMConstant.VM_PICK_REQUEST_CODE_TAKE);
                 }
             });
-        }else{
+        } else {
             VMPicker.getInstance().takePicture(mActivity, VMConstant.VM_PICK_REQUEST_CODE_TAKE);
         }
     }

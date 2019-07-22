@@ -13,28 +13,22 @@ import java.util.List;
  */
 public class VMWrapper<T> extends RecyclerView.Adapter<VMHolder> {
 
-    public static final int ITEM_TYPE_EMPTY = 100;
-    public static final int ITEM_TYPE_HEADER = 200;
-    public static final int ITEM_TYPE_FOOTER = 300;
+    public static final int ITEM_TYPE_EMPTY = 1000;
+    public static final int ITEM_TYPE_HEADER = 2000;
+    public static final int ITEM_TYPE_FOOTER = 3000;
     public static final int ITEM_TYPE_LOAD_MORE = Integer.MAX_VALUE - 1;
 
-    public VMAdapter mInnerAdapter;
+    public VMAdapter mAdapter;
 
     // HeaderView 集合
     private SparseArrayCompat<View> mHeaderViews = new SparseArrayCompat<>();
     // FooterView 集合
     private SparseArrayCompat<View> mFooterViews = new SparseArrayCompat<>();
-
     // 空数据视图
     public View mEmptyView;
-    public int mEmptyLayoutId;
 
     public VMWrapper(VMAdapter adapter) {
-        mInnerAdapter = adapter;
-    }
-
-    public void updateAdapter(VMAdapter adapter) {
-        mInnerAdapter = adapter;
+        mAdapter = adapter;
     }
 
     /**
@@ -48,15 +42,14 @@ public class VMWrapper<T> extends RecyclerView.Adapter<VMHolder> {
     public VMHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (mHeaderViews.get(viewType) != null) {
             return new VMHolder(mHeaderViews.get(viewType));
-        } else if (mFooterViews.get(viewType) != null) {
-            return new VMHolder(mFooterViews.get(viewType));
         }
         if (isEmpty()) {
-            if (mEmptyView != null) {
-                return new VMHolder(mEmptyView);
-            }
+            return new VMHolder(mEmptyView);
         }
-        return mInnerAdapter.onCreateViewHolder(parent, viewType);
+        if (mFooterViews.get(viewType) != null) {
+            return new VMHolder(mFooterViews.get(viewType));
+        }
+        return mAdapter.onCreateViewHolder(parent, viewType);
     }
 
     @Override
@@ -64,7 +57,7 @@ public class VMWrapper<T> extends RecyclerView.Adapter<VMHolder> {
         if (isEmpty() || isHeaderView(position) || isFooterView(position)) {
             return;
         }
-        mInnerAdapter.onBindViewHolder(holder, position);
+        mAdapter.onBindViewHolder(holder, position - getHeaderCount());
     }
 
     /**
@@ -85,13 +78,14 @@ public class VMWrapper<T> extends RecyclerView.Adapter<VMHolder> {
     public int getItemViewType(int position) {
         if (isHeaderView(position)) {
             return mHeaderViews.keyAt(position);
-        } else if (isFooterView(position)) {
-            mFooterViews.keyAt(position - getHeaderCount() - getRealItemCount());
+        }
+        if (isFooterView(position)) {
+            return mFooterViews.keyAt(position - getHeaderCount() - getRealItemCount());
         }
         if (isEmpty()) {
             return ITEM_TYPE_EMPTY;
         }
-        return mInnerAdapter.getItemViewType(position - getHeaderCount());
+        return mAdapter.getItemViewType(position - getHeaderCount());
     }
 
     /**
@@ -135,7 +129,7 @@ public class VMWrapper<T> extends RecyclerView.Adapter<VMHolder> {
      * 刷新 Adapter
      */
     public void refresh(List<T> list) {
-        mInnerAdapter.refresh(list);
+        mAdapter.refresh(list);
         notifyDataSetChanged();
     }
 
@@ -157,7 +151,7 @@ public class VMWrapper<T> extends RecyclerView.Adapter<VMHolder> {
      * 判断是否为空
      */
     private boolean isEmpty() {
-        return (mEmptyView != null || mEmptyLayoutId != 0) && getRealItemCount() == 0;
+        return mEmptyView != null && getRealItemCount() == 0;
     }
 
     /**
@@ -178,6 +172,6 @@ public class VMWrapper<T> extends RecyclerView.Adapter<VMHolder> {
      * 获取真实 Item 个数
      */
     private int getRealItemCount() {
-        return mInnerAdapter.getItemCount();
+        return mAdapter.getItemCount();
     }
 }

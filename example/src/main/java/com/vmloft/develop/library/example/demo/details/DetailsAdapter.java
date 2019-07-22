@@ -1,9 +1,11 @@
 package com.vmloft.develop.library.example.demo.details;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.TextView;
 import com.vmloft.develop.library.example.R;
 import com.vmloft.develop.library.tools.adapter.VMAdapter;
 import com.vmloft.develop.library.tools.adapter.VMHolder;
@@ -23,19 +25,18 @@ public class DetailsAdapter extends VMAdapter<DetailsEntity, DetailsAdapter.Data
     }
 
     @Override
-    public DataHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.details_list_item, parent, false);
-        DataHolder viewHolder = new DataHolder(view);
-        return viewHolder;
+    public DataHolder createHolder(@NonNull ViewGroup root, int viewType) {
+        View view = mInflater.inflate(R.layout.details_list_item, root, false);
+        return new DataHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(DataHolder holder, int position) {
-        super.onBindViewHolder(holder, position);
+    public void bindHolder(@NonNull DataHolder holder, int position) {
         final DetailsEntity detailsEntity = getItemData(position);
 
-        holder.mDetailsView.setFold(detailsEntity.isFold());
-        holder.mDetailsView.setContentText(detailsEntity.getContent());
+        //holder.mDetailsView.setFold(detailsEntity.isFold());
+        //holder.mDetailsView.setContentText(detailsEntity.getContent());
+        holder.mDetailsView.setText(detailsEntity.getContent());
     }
 
     /**
@@ -43,7 +44,7 @@ public class DetailsAdapter extends VMAdapter<DetailsEntity, DetailsAdapter.Data
      */
     static class DataHolder extends VMHolder {
 
-        VMDetailsView mDetailsView;
+        TextView mDetailsView;
 
         /**
          * 构造方法，初始化列表项的控件

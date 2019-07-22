@@ -10,8 +10,6 @@ import android.widget.Toast;
 import com.vmloft.develop.library.example.R;
 import com.vmloft.develop.library.example.common.AppActivity;
 import com.vmloft.develop.library.tools.adapter.VMAdapter;
-import com.vmloft.develop.library.tools.adapter.VMWrapper;
-import com.vmloft.develop.library.tools.widget.VMDetailsView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +25,7 @@ public class DetailsActivity extends AppActivity {
     @BindView(R.id.swipe_refresh_layout) SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.recycler_view) RecyclerView mRecyclerView;
 
-    private VMWrapper mWrapper;
+    //private VMWrapper<DetailsEntity> mWrapper;
     private DetailsAdapter mAdapter;
     private List<DetailsEntity> mDetailsList = new ArrayList<>();
 
@@ -45,17 +43,20 @@ public class DetailsActivity extends AppActivity {
 
         mAdapter = new DetailsAdapter(mActivity, mDetailsList);
 
-        mWrapper = new VMWrapper(mAdapter);
-        // 添加空数据部分
-        View emptyView = LayoutInflater.from(mActivity).inflate(R.layout.details_empty_view, null);
-        mWrapper.setEmptyView(emptyView);
-
         // 添加 Header View
         View headerView = LayoutInflater.from(mActivity).inflate(R.layout.details_header_view, null);
-        mWrapper.addHeaderView(headerView);
+        mAdapter.addHeaderView(headerView);
+
+        // 添加空数据部分
+        View emptyView = LayoutInflater.from(mActivity).inflate(R.layout.details_empty_view, null);
+        mAdapter.setEmptyView(emptyView);
+
+        // 添加 Footer View
+        View footerView = LayoutInflater.from(mActivity).inflate(R.layout.details_footer_view, null);
+        mAdapter.addFooterView(footerView);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
-        mRecyclerView.setAdapter(mWrapper);
+        mRecyclerView.setAdapter(mAdapter);
 
         initItemListener();
         //loadData();
@@ -67,7 +68,7 @@ public class DetailsActivity extends AppActivity {
     private void initItemListener() {
         mAdapter.setClickListener(new VMAdapter.IClickListener<DetailsEntity>() {
             @Override
-            public void onItemAction(int action, DetailsEntity detailsEntity) {
+            public void onItemClick(int action, DetailsEntity detailsEntity) {
                 Toast.makeText(mActivity, "点击", Toast.LENGTH_SHORT).show();
 
                 if (detailsEntity.isFold()) {
@@ -75,11 +76,6 @@ public class DetailsActivity extends AppActivity {
                 } else {
                     detailsEntity.setFold(true);
                 }
-            }
-
-            @Override
-            public boolean onItemLongAction(int action, DetailsEntity detailsEntity) {
-                return false;
             }
         });
     }
@@ -102,6 +98,6 @@ public class DetailsActivity extends AppActivity {
     }
 
     private void refresh() {
-        mWrapper.refresh(mDetailsList);
+        mAdapter.refresh(mDetailsList);
     }
 }
