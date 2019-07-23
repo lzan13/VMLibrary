@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import com.vmloft.develop.library.tools.utils.VMLog;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +24,7 @@ public abstract class VMAdapter<T, VH extends VMHolder> extends RecyclerView.Ada
     protected static final int ITEM_TYPE_EMPTY = 1000;
     protected static final int ITEM_TYPE_HEADER = 2000;
     protected static final int ITEM_TYPE_FOOTER = 3000;
-    protected static final int ITEM_TYPE_LOAD_MORE = Integer.MAX_VALUE - 1;
+    protected static final int ITEM_TYPE_MORE = Integer.MAX_VALUE - 1;
 
     protected Activity mActivity;
     protected Context mContext;
@@ -34,6 +36,9 @@ public abstract class VMAdapter<T, VH extends VMHolder> extends RecyclerView.Ada
     protected SparseArrayCompat<View> mFooterViews = new SparseArrayCompat<>();
     // 空数据视图
     protected View mEmptyView;
+    // 更多视图
+    private View mMoreView;
+    private OnMoreListener mMoreListener;
 
     // Item 点击回调
     protected IClickListener mClickListener;
@@ -67,18 +72,29 @@ public abstract class VMAdapter<T, VH extends VMHolder> extends RecyclerView.Ada
         if (mHeaderViews.get(viewType) != null) {
             return new VMHolder(mHeaderViews.get(viewType));
         }
-        if (isEmpty()) {
+        if (isEmpty() && viewType == ITEM_TYPE_EMPTY) {
+            mEmptyView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
             return new VMHolder(mEmptyView);
         }
         if (mFooterViews.get(viewType) != null) {
             return new VMHolder(mFooterViews.get(viewType));
+        }
+        if (viewType == ITEM_TYPE_MORE) {
+            return new VMHolder(mMoreView);
         }
         return createHolder(root, viewType);
     }
 
     @Override
     public void onBindViewHolder(@NonNull VMHolder holder, final int position) {
-        if (isEmpty() || isHeaderView(position) || isFooterView(position)) {
+        if (isHeaderView(position) || isEmpty() || isFooterView(position)) {
+            return;
+        }
+        if (isMoreView(position)) {
+            if (mMoreListener != null) {
+                mMoreListener.onLoadMore();
+            }
             return;
         }
         final T data = getItemData(position - getHeaderCount());
@@ -104,11 +120,14 @@ public abstract class VMAdapter<T, VH extends VMHolder> extends RecyclerView.Ada
         if (isHeaderView(position)) {
             return mHeaderViews.keyAt(position);
         }
+        if (isEmpty() && position == getHeaderCount()) {
+            return ITEM_TYPE_EMPTY;
+        }
         if (isFooterView(position)) {
             return mFooterViews.keyAt(position - getHeaderCount() - getRealItemCount());
         }
-        if (isEmpty()) {
-            return ITEM_TYPE_EMPTY;
+        if (isMoreView(position)) {
+            return ITEM_TYPE_MORE;
         }
         return getItemType(position - getHeaderCount());
     }
@@ -129,9 +148,9 @@ public abstract class VMAdapter<T, VH extends VMHolder> extends RecyclerView.Ada
     @Override
     public int getItemCount() {
         if (isEmpty()) {
-            return getHeaderCount() + 1 + getFooterCount();
+            return getHeaderCount() + 1;
         }
-        return getHeaderCount() + getRealItemCount() + getFooterCount();
+        return getHeaderCount() + getRealItemCount() + getFooterCount() + (hasMore() ? 1 : 0);
     }
 
     /**
@@ -184,6 +203,13 @@ public abstract class VMAdapter<T, VH extends VMHolder> extends RecyclerView.Ada
     }
 
     /**
+     * 设置 MoreView
+     */
+    public void setMoreView(View view) {
+        mMoreView = view;
+    }
+
+    /**
      * 删除 Footer View
      */
     public void removeFooterView(View view) {
@@ -223,7 +249,27 @@ public abstract class VMAdapter<T, VH extends VMHolder> extends RecyclerView.Ada
      * 判断是不是 footerView
      */
     private boolean isFooterView(int position) {
-        return position >= getHeaderCount() + getRealItemCount();
+        return position >= getHeaderCount() + getRealItemCount() && position < getHeaderCount() + getRealItemCount() + getFooterCount();
+    }
+
+    /**
+     * 是否有 MoreView
+     */
+    private boolean hasMore() {
+        if (mMoreView != null) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 是否显示 mMoreView
+     */
+    private boolean isMoreView(int position) {
+        if (!isEmpty() && hasMore() && position >= getHeaderCount() + getRealItemCount() + getFooterCount()) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -271,6 +317,17 @@ public abstract class VMAdapter<T, VH extends VMHolder> extends RecyclerView.Ada
 
     public interface ILongClickListener<T> {
         boolean onItemLongClick(int action, T t);
+    }
+
+    /**
+     * 设置加载更多监听
+     */
+    public void setMoreListener(OnMoreListener listener) {
+        mMoreListener = listener;
+    }
+
+    public interface OnMoreListener {
+        void onLoadMore();
     }
 }
 

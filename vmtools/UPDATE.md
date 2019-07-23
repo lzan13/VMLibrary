@@ -1,9 +1,12 @@
 更新日志
 =======
 
+### 2019/07/23 V0.9.3
+- 优化 VMAdapter 集合实现 HeaderView FooterView MoreView EmptyView 功能
+
 ### 2019/07/17 V0.9.2
 - 实现保存日志文件以及压缩日志
-- 实现表情雨彩蛋控件
+- 实现表情雨彩蛋控件 VMEmojiRainView
 
 ### 2019/07/15 V0.9.1
 - 更新日志输出

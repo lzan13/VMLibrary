@@ -11,6 +11,7 @@ import com.vmloft.develop.library.example.R;
 import com.vmloft.develop.library.example.common.AppActivity;
 import com.vmloft.develop.library.tools.adapter.VMAdapter;
 
+import com.vmloft.develop.library.tools.utils.VMSystem;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +56,10 @@ public class DetailsActivity extends AppActivity {
         View footerView = LayoutInflater.from(mActivity).inflate(R.layout.details_footer_view, null);
         mAdapter.addFooterView(footerView);
 
+        // 添加 More View
+        View moreView = LayoutInflater.from(mActivity).inflate(R.layout.details_more_view, null);
+        mAdapter.setMoreView(moreView);
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         mRecyclerView.setAdapter(mAdapter);
 
@@ -78,6 +83,12 @@ public class DetailsActivity extends AppActivity {
                 }
             }
         });
+        mAdapter.setMoreListener(new VMAdapter.OnMoreListener() {
+            @Override
+            public void onLoadMore() {
+                loadData();
+            }
+        });
     }
 
     private void loadData() {
@@ -98,6 +109,6 @@ public class DetailsActivity extends AppActivity {
     }
 
     private void refresh() {
-        mAdapter.refresh(mDetailsList);
+        VMSystem.runInUIThread(() -> {mAdapter.refresh(mDetailsList);});
     }
 }

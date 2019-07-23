@@ -86,6 +86,7 @@ booelan isEmail = VMReg.isEmail(email);
     - [VMDotLineView](src/main/java/com/vmloft/develop/library/tools/widget/VMDotLineView.java) 描点连线
     - [VMDrawView](src/main/java/com/vmloft/develop/library/tools/widget/VMDrawView.java) 可绘制 View
     - [VMEditView](src/main/java/com/vmloft/develop/library/tools/widget/VMEditView.java) 输入控件
+    - [VMEmojiRainView](src/main/java/com/vmloft/develop/library/tools/widget/VMEmojiRainView.java) 表情雨控件
     - [VMExpandableLayout](src/main/java/com/vmloft/develop/library/tools/widget/VMExpandableLayout.java) 可伸缩布局
     - [VMFloatMenu](src/main/java/com/vmloft/develop/library/tools/widget/VMFloatMenu.java) 悬浮菜单
     - [VMImageView](src/main/java/com/vmloft/develop/library/tools/widget/VMImageView.java) 圆角图片

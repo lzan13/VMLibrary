@@ -5,10 +5,14 @@
     android:gravity="center"
     android:orientation="vertical"
     >
+    <ProgressBar
+        android:layout_width="@dimen/vm_dimen_24"
+        android:layout_height="@dimen/vm_dimen_24"
+        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/vm_dimen_16"
-        android:text="这是 FooterView"
+        android:text="这是 MoreView"
         />
 </LinearLayout>
