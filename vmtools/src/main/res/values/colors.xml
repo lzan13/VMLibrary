@@ -184,6 +184,7 @@
     <color name="vm_headline">@color/vm_black_87</color>
     <color name="vm_title">@color/vm_black_87</color>
     <color name="vm_subhead">@color/vm_black_87</color>
+    <color name="vm_subtitle">@color/vm_black_54</color>
     <color name="vm_body">@color/vm_black_54</color>
     <color name="vm_menu">@color/vm_black_87</color>
     <color name="vm_caption">@color/vm_black_54</color>

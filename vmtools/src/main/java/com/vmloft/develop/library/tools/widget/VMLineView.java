@@ -2,6 +2,7 @@ package com.vmloft.develop.library.tools.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -20,12 +21,19 @@ import com.vmloft.develop.library.tools.utils.VMStr;
  */
 public class VMLineView extends RelativeLayout {
 
+    // 左侧图标
     private ImageView mIconView;
+    // 标题
     private TextView mTitleView;
+    // 说明图标
     private ImageView mCaptionIconView;
+    // 说明文本
     private TextView mCaptionView;
+    // 右侧图标
     private ImageView mRightIconView;
+    // 底部描述文本
     private TextView mDescriptionView;
+    // 分割线
     private View mDecorationView;
 
     private int mIconRes;
@@ -74,9 +82,6 @@ public class VMLineView extends RelativeLayout {
 
     /**
      * 获取资源属性
-     *
-     * @param context
-     * @param attrs
      */
     private void handleAttrs(Context context, AttributeSet attrs) {
         // 获取控件的属性值
@@ -167,9 +172,23 @@ public class VMLineView extends RelativeLayout {
         mTitleView.setText(mTitle);
     }
 
+    /**
+     * 设置标题颜色
+     */
     public void setTitleColor(int color) {
         mTitleColor = color;
         mTitleView.setTextColor(mTitleColor);
+    }
+
+    /**
+     * 设置标题样式
+     */
+    public void setTitleStyle(int resId) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mTitleView.setTextAppearance(resId);
+        } else {
+            mTitleView.setTextAppearance(getContext(), resId);
+        }
     }
 
     /**
@@ -199,6 +218,17 @@ public class VMLineView extends RelativeLayout {
     }
 
     /**
+     * 设置右侧描述样式
+     */
+    public void setCaptionStyle(int resId) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mCaptionView.setTextAppearance(resId);
+        } else {
+            mCaptionView.setTextAppearance(getContext(), resId);
+        }
+    }
+
+    /**
      * 设置右侧图标
      */
     public void setRightIcon(@DrawableRes int resId) {
@@ -212,7 +242,7 @@ public class VMLineView extends RelativeLayout {
     }
 
     /**
-     * 设置底部标书
+     * 设置底部描述
      */
     public void setDescription(String description) {
         mDescription = description;

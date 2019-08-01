@@ -32,6 +32,7 @@ public class CustomViewActivity extends AppActivity {
 
     @Override
     protected void init() {
+        setTopTitle("自定义控件演示");
         mRecordView.setRecordListener(new VMRecordView.RecordListener() {
             @Override
             public void onStart() {

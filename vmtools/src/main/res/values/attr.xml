@@ -88,14 +88,15 @@
         <attr name="vm_line_icon" format="reference" />
         <!--标题-->
         <attr name="vm_line_title" format="string|reference" />
+        <!--标题颜色-->
         <attr name="vm_line_title_color" format="color|integer" />
-        <!--描述图标-->
+        <!--说明图标-->
         <attr name="vm_line_caption_icon" format="reference" />
-        <!--内容描述-->
+        <!--说明文本-->
         <attr name="vm_line_caption" format="string|reference" />
         <!--右侧图标-->
         <attr name="vm_line_right_icon" format="reference" />
-        <!--说明-->
+        <!--底部描述-->
         <attr name="vm_line_description" format="string|reference" />
         <!--装饰分割线-->
         <attr name="vm_line_decoration" format="boolean" />

@@ -1,6 +1,9 @@
 更新日志
 =======
 
+### 2019/07/23 V0.9.4
+- 优化 VMTopBar 以及 VMLineView 控件，可自定义文本样式
+
 ### 2019/07/23 V0.9.3
 - 优化 VMAdapter 集合实现 HeaderView FooterView MoreView EmptyView 功能
 

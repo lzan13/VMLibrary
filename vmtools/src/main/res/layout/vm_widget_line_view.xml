@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:foreground="@drawable/vm_click_full_transparent"
     android:minHeight="@dimen/vm_dimen_48"
+    tools:context=".widget.VMLineView"
     >
 
     <!--图标-->

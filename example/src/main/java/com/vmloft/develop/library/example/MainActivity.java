@@ -34,7 +34,8 @@ public class MainActivity extends AppActivity {
 
     @Override
     protected void init() {
-        getTopBar().setTitle("工具库");
+        setTopTitle("工具库");
+        setTopSubtitle("这个是我的工具类库入口");
 
         String[] btnArray = {
             "工具", "按钮样式", "描点控件", "详情控件", "自定义控件", "录制屏幕", "声音播放", "悬浮菜单", "Web 功能", "指示器", "识别验证码", "图片选择器", "单权限申请", "多权限申请"

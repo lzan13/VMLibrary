@@ -18,6 +18,15 @@
     <dimen name="vm_size_12">12sp</dimen>
     <dimen name="vm_size_14">14sp</dimen>
     <dimen name="vm_size_16">16sp</dimen>
+    <dimen name="vm_size_18">18sp</dimen>
+    <dimen name="vm_size_20">20sp</dimen>
+    <dimen name="vm_size_22">22sp</dimen>
+    <dimen name="vm_size_24">24sp</dimen>
+    <dimen name="vm_size_26">26sp</dimen>
+    <dimen name="vm_size_28">28sp</dimen>
+    <dimen name="vm_size_30">30sp</dimen>
+    <dimen name="vm_size_32">32sp</dimen>
+    <dimen name="vm_size_36">36sp</dimen>
 
 
     <!--定义头像尺寸-->
@@ -56,6 +65,7 @@
     <dimen name="vm_btn_fillet_radius">36dp</dimen>
     <dimen name="vm_btn_rectangle_radius">2dp</dimen>
 
+
     <!--定义一些通用尺寸-->
     <dimen name="vm_dimen_0">0dp</dimen>
     <dimen name="vm_dimen_0_5">0.5dp</dimen>
@@ -77,8 +87,10 @@
     <dimen name="vm_dimen_56">56dp</dimen>
     <dimen name="vm_dimen_64">64dp</dimen>
     <dimen name="vm_dimen_72">72dp</dimen>
+    <dimen name="vm_dimen_80">80dp</dimen>
     <dimen name="vm_dimen_96">96dp</dimen>
     <dimen name="vm_dimen_128">128dp</dimen>
+    <dimen name="vm_dimen_144">144dp</dimen>
     <dimen name="vm_dimen_192">192dp</dimen>
     <dimen name="vm_dimen_220">220dp</dimen>
     <dimen name="vm_dimen_256">256dp</dimen>
