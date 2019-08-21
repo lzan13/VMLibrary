@@ -3,6 +3,7 @@ package com.vmloft.develop.library.example.common;
 import android.os.Bundle;
 
 import android.view.View;
+
 import com.vmloft.develop.library.example.R;
 import com.vmloft.develop.library.tools.base.VMActivity;
 
@@ -49,7 +50,9 @@ public abstract class AppActivity extends VMActivity {
         mTopBar = findViewById(R.id.common_top_bar);
         if (mTopBar != null) {
             mTopBar.setIcon(R.drawable.ic_arrow_left);
-            mTopBar.setIconListener(v -> {onBackPressed();});
+            mTopBar.setIconListener(v -> {
+                onBackPressed();
+            });
         }
     }
 
@@ -58,6 +61,15 @@ public abstract class AppActivity extends VMActivity {
      */
     protected VMTopBar getTopBar() {
         return mTopBar;
+    }
+
+    /**
+     * 设置图标
+     */
+    protected void setTopIcon(int resId) {
+        if (mTopBar != null) {
+            mTopBar.setIcon(0);
+        }
     }
 
     /**

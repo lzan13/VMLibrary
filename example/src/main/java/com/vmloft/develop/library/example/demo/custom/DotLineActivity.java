@@ -28,6 +28,9 @@ public class DotLineActivity extends AppActivity {
 
     @Override
     protected void init() {
+        setTopTitle("自定义描点控件");
+        getTopBar().setTitleStyle(R.style.VMText_Display1);
+
         dotLineView.addPoint(new Point(100, 100));
         dotLineView.addPoint(new Point(200, 200));
         dotLineView.addPoint(new Point(400, 400));

@@ -3,6 +3,7 @@ package com.vmloft.develop.library.tools.widget;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.utils.VMColor;
 import com.vmloft.develop.library.tools.utils.VMStr;
@@ -172,15 +174,47 @@ public class VMTopBar extends RelativeLayout {
     }
 
     /**
+     * 设置标题颜色
+     */
+    public void setTitleColor(int resId) {
+        if (resId != 0) {
+            mTitleColor = VMColor.byRes(resId);
+            setupColor();
+        }
+    }
+
+    /**
+     * 设置标题样式
+     */
+    public void setTitleStyle(int resId) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mTitleView.setTextAppearance(resId);
+        } else {
+            mTitleView.setTextAppearance(getContext(), resId);
+        }
+    }
+
+    /**
      * 设置子标题
      */
     public void setSubtitle(String title) {
         mSubtitle = title;
         if (VMStr.isEmpty(mSubtitle)) {
-            mTitleView.setVisibility(GONE);
+            mSubtitleView.setVisibility(GONE);
         } else {
-            mTitleView.setVisibility(VISIBLE);
-            mTitleView.setText(mSubtitle);
+            mSubtitleView.setVisibility(VISIBLE);
+            mSubtitleView.setText(mSubtitle);
+        }
+    }
+
+    /**
+     * 设置子标题样式
+     */
+    public void setSubTitleStyle(int resId) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mSubtitleView.setTextAppearance(resId);
+        } else {
+            mSubtitleView.setTextAppearance(getContext(), resId);
         }
     }
 
@@ -204,16 +238,6 @@ public class VMTopBar extends RelativeLayout {
         } else {
             mEndIconBtn.setVisibility(VISIBLE);
             mEndIconBtn.setImageResource(mEndIcon);
-        }
-    }
-
-    /**
-     * 设置标题颜色
-     */
-    public void setTitleColor(int resId) {
-        if (resId != 0) {
-            mTitleColor = VMColor.byRes(resId);
-            setupColor();
         }
     }
 
