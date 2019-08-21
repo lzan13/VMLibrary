@@ -79,7 +79,7 @@ public class VMPictureAdapter extends VMAdapter<VMPictureBean, VMHolder> {
             onBindViewHolder(holder, position);
             return;
         }
-        if (VMPicker.getInstance().isMultiMode()) {
+        if (VMPicker.getInstance().isMultiMode() && position > 0) {
             VMPictureBean bean = getItemData(position);
             ((PictureViewHolder) holder).refreshCheckBox(bean);
         }

@@ -198,11 +198,11 @@ public class PickerActivity extends AppActivity {
         mViewGroup.removeAllViews();
         for (int i = 0; i < mSelectPictures.size(); i++) {
             VMPictureBean bean = mSelectPictures.get(i);
-            int width = bean.width * height / bean.height;
+            //int width = bean.width * height / bean.height;
             ImageView imageView = new ImageView(mActivity);
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(width, height);
-            mViewGroup.addView(imageView, lp);
+            //RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(width, height);
+            mViewGroup.addView(imageView);
 
             IPictureLoader.Options options = new IPictureLoader.Options(bean.path);
             mPictureLoader.load(mActivity, options, imageView);
