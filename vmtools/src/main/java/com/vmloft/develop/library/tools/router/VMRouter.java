@@ -58,22 +58,6 @@ public class VMRouter {
     }
 
     /**
-     * ------------------- 传递 Intent 参数进行跳转-------------------
-     *
-     * @param context 开始界面上下文
-     * @param intent
-     */
-    protected static void overlayResult(Context context, Intent intent) {
-        overlayResult(context, intent, 0);
-    }
-
-    protected static void overlayResult(Context context, Intent intent, int requestCode) {
-        if (isActivity(context)) {
-            ((Activity) context).startActivityForResult(intent, requestCode);
-        }
-    }
-
-    /**
      * ------------------- 正常跳转，直接跳到下一个界面，当前界面处于 stop 状态 -------------------
      *
      * 最普通的跳转
@@ -196,18 +180,36 @@ public class VMRouter {
     }
 
     /**
+     * ------------------- 需要返回值的跳转 -------------------
+     */
+    protected static void overlayResult(Context context, Intent intent, int requestCode) {
+        if (isActivity(context)) {
+            ((Activity) context).startActivityForResult(intent, requestCode);
+        }
+    }
+
+    /**
+     * 设置返回值
+     */
+    public static void setResult(Activity activity, Intent intent, int code, Parcelable parcelable) {
+        putParams(intent, parcelable);
+        activity.setResult(code, intent);
+        activity.finish();
+    }
+
+    /**
      * ---------------------------- 界面跳转参数传递 ----------------------------
      * 获取序列化的参数
      */
-    public static VMParams getParams(Activity activity) {
+    public static Parcelable getParams(Activity activity) {
         Parcelable parcelable = activity.getIntent().getParcelableExtra(VMParams.VM_ROUTER_PARAMS);
-        return (VMParams) parcelable;
+        return parcelable;
     }
 
     /**
      * 添加可序列化的参数对象
      */
-    private static void putParams(Intent intent, Parcelable parcelable) {
+    protected static void putParams(Intent intent, Parcelable parcelable) {
         if (intent == null) {
             return;
         }
@@ -217,7 +219,7 @@ public class VMRouter {
     /**
      * 设置标记
      */
-    private static void setFlags(Intent intent, int flags) {
+    protected static void setFlags(Intent intent, int flags) {
         if (flags < 0) {
             return;
         }
@@ -229,7 +231,7 @@ public class VMRouter {
      *
      * @param context 上下文
      */
-    private static boolean isActivity(Context context) {
+    protected static boolean isActivity(Context context) {
         if (context instanceof Activity) {
             return true;
         }
