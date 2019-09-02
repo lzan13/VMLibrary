@@ -95,5 +95,6 @@
     <dimen name="vm_dimen_220">220dp</dimen>
     <dimen name="vm_dimen_256">256dp</dimen>
     <dimen name="vm_dimen_320">320dp</dimen>
+    <dimen name="vm_dimen_512">512dp</dimen>
 
 </resources>

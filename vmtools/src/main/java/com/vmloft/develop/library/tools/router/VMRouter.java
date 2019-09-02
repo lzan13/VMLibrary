@@ -68,7 +68,6 @@ public class VMRouter {
     protected static void overlay(Context context, Class<? extends Activity> target) {
         Intent intent = new Intent(context, target);
         context.startActivity(intent);
-        context = null;
     }
 
     /**
@@ -81,7 +80,6 @@ public class VMRouter {
         Intent intent = new Intent(context, target);
         putParams(intent, parcelable);
         context.startActivity(intent);
-        context = null;
     }
 
     /**
@@ -95,7 +93,6 @@ public class VMRouter {
         Intent intent = new Intent(context, target);
         intent.setFlags(flags);
         context.startActivity(intent);
-        context = null;
     }
 
     /**
@@ -106,9 +103,9 @@ public class VMRouter {
      */
     protected static void overlay(Context context, Class<? extends Activity> target, int flags, Parcelable parcelable) {
         Intent intent = new Intent(context, target);
+        intent.setFlags(flags);
         putParams(intent, parcelable);
         context.startActivity(intent);
-        context = null;
     }
 
     /**
@@ -124,7 +121,6 @@ public class VMRouter {
         context.startActivity(intent);
         if (isActivity(context)) {
             ((Activity) context).finish();
-            context = null;
         }
     }
 
@@ -140,7 +136,6 @@ public class VMRouter {
         context.startActivity(intent);
         if (isActivity(context)) {
             ((Activity) context).finish();
-            context = null;
         }
     }
 
@@ -157,7 +152,6 @@ public class VMRouter {
         context.startActivity(intent);
         if (isActivity(context)) {
             ((Activity) context).finish();
-            context = null;
         }
     }
 
@@ -175,7 +169,6 @@ public class VMRouter {
         context.startActivity(intent);
         if (isActivity(context)) {
             ((Activity) context).finish();
-            context = null;
         }
     }
 
