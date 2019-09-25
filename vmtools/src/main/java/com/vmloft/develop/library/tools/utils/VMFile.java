@@ -325,18 +325,24 @@ public class VMFile {
             return;
         }
         File fileSrc = new File(path);
-        if (fileSrc.isFile()) {
-            fileSrc.delete();
-            return;
-        }
-        if (fileSrc.isDirectory()) {
-            File[] files = fileSrc.listFiles();
-            if (files == null || files.length == 0) {
+        // 文件/目录存在（包括文件及文件夹）
+        if (fileSrc.exists()) {
+            if (fileSrc.isFile()) {
                 fileSrc.delete();
-                return;
-            }
-            for (File file : files) {
-                deleteFolder(file.getAbsolutePath(), true);
+            } else if (fileSrc.isDirectory()) {
+                //接收文件夹目录下所有的文件实例
+                File[] listFiles = fileSrc.listFiles();
+                //文件夹为空 递归出口
+                if (listFiles == null) {
+                    return;
+                }
+                for (File file : listFiles) {
+                    deleteFolder(file.getAbsolutePath(), true);
+                }
+                if (deleteThis) {
+                    // 递归跳出来的时候删除空文件夹
+                    fileSrc.delete();
+                }
             }
         }
     }
