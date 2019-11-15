@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/widget_common_top_bar" />
+
+    <com.vmloft.develop.library.tools.widget.VMViewGroup
+        android:id="@+id/view_group"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/thread_btn_1"
+            style="@style/VMBtn.Green"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ThreadBtn"
+            android:textAllCaps="false" />
+    </com.vmloft.develop.library.tools.widget.VMViewGroup>
+
+</LinearLayout>

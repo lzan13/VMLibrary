@@ -2,6 +2,7 @@ package com.vmloft.develop.library.example.router;
 
 import android.content.Context;
 
+import com.vmloft.develop.library.example.demo.ThreadActivity;
 import com.vmloft.develop.library.example.demo.audio.MediaPlayActivity;
 import com.vmloft.develop.library.example.demo.custom.DotLineActivity;
 import com.vmloft.develop.library.example.demo.custom.CustomViewActivity;
@@ -100,6 +101,12 @@ public class ARouter extends VMRouter {
      */
     public static void goPicker(Context context) {
         overlay(context, PickerActivity.class);
+    }
+    /**
+     * 测试线程
+     */
+    public static void goThread(Context context) {
+        overlay(context, ThreadActivity.class);
     }
 
 }
