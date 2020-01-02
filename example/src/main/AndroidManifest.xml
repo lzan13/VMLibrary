@@ -79,7 +79,22 @@
         <activity android:name=".demo.image.ImageDiscernActivity" />
         <!--图片选择器-->
         <activity android:name=".demo.picker.PickerActivity" />
-        <activity android:name=".demo.ThreadActivity"/>
+        <activity android:name=".demo.ThreadActivity" />
+
+        <!--通过 url 打开页面 vmlibrary://demo/with?id=1001-->
+        <activity android:name=".demo.scheme.SchemeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="demo"
+                    android:pathPrefix="/with"
+                    android:scheme="vmlibrary" />
+            </intent-filter>
+        </activity>
 
     </application>
 </manifest>

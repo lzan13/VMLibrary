@@ -1,6 +1,8 @@
 package com.vmloft.develop.library.example.router;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 
 import com.vmloft.develop.library.example.demo.ThreadActivity;
 import com.vmloft.develop.library.example.demo.audio.MediaPlayActivity;
@@ -102,6 +104,7 @@ public class ARouter extends VMRouter {
     public static void goPicker(Context context) {
         overlay(context, PickerActivity.class);
     }
+
     /**
      * 测试线程
      */
@@ -109,4 +112,11 @@ public class ARouter extends VMRouter {
         overlay(context, ThreadActivity.class);
     }
 
+    /**
+     * 通过 Url 打开页面
+     */
+    public static void goScheme(Context context) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vmlibrary://demo/with?id=1001"));
+        overlay(context, intent);
+    }
 }

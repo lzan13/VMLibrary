@@ -40,7 +40,7 @@ public class MainActivity extends AppActivity {
         setTopSubtitle("这个是我的工具类库入口");
 
         String[] btnArray = {
-                "工具", "按钮样式", "描点控件", "详情控件", "自定义控件", "录制屏幕", "声音播放", "悬浮菜单", "Web 功能", "指示器", "识别验证码", "图片选择器", "单权限申请", "多权限申请", "线程测试"
+                "工具", "按钮样式", "描点控件", "详情控件", "自定义控件", "录制屏幕", "声音播放", "悬浮菜单", "Web 功能", "指示器", "识别验证码", "图片选择器", "单权限申请", "多权限申请", "线程测试","Scheme"
         };
         for (int i = 0; i < btnArray.length; i++) {
             Button btn = new Button(new ContextThemeWrapper(mActivity, R.style.VMBtn_Flat));
@@ -99,6 +99,9 @@ public class MainActivity extends AppActivity {
                     break;
                 case CLICK_START_ID + 14:
                     ARouter.goThread(mActivity);
+                    break;
+                case CLICK_START_ID + 15:
+                    ARouter.goScheme(mActivity);
                     break;
                 default:
                     ARouter.goTools(mActivity);
