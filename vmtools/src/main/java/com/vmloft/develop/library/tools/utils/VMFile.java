@@ -240,32 +240,6 @@ public class VMFile {
     }
 
     /**
-     * 删除文件
-     */
-    public static boolean deleteFile(String filepath) {
-        if (VMStr.isEmpty(filepath)) {
-            return false;
-        }
-        File file = new File(filepath);
-        if (file.exists() && file.isFile()) {
-            return file.delete();
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * 删除文件集合
-     *
-     * @param paths 文件路径集合
-     */
-    public static void deleteFiles(List<String> paths) {
-        for (String path : paths) {
-            deleteFile(path);
-        }
-    }
-
-    /**
      * 格式化文件字节大小
      */
     public static String formatSize(long size) {
@@ -315,25 +289,60 @@ public class VMFile {
     }
 
     /**
+     * 删除文件
+     */
+    public static boolean deleteFile(String filepath) {
+        if (VMStr.isEmpty(filepath)) {
+            return false;
+        }
+        File file = new File(filepath);
+        if (file.exists() && file.isFile()) {
+            return file.delete();
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 删除文件集合
+     *
+     * @param paths 文件路径集合
+     */
+    public static void deleteFiles(List<String> paths) {
+        for (String path : paths) {
+            deleteFile(path);
+        }
+    }
+
+    /**
      * 递归删除文件夹内的文件
      *
-     * @param path           需要操作的路径
-     * @param deleteThisPath 删除自己
+     * @param path       需要操作的路径
+     * @param deleteThis 删除自己
      */
-    public static void deleteFolderFile(String path, boolean deleteThisPath) {
-        if (path == "" || path == null) {
+    public static void deleteFolder(String path, boolean deleteThis) {
+        if (VMStr.isEmpty(path)) {
             return;
         }
         File fileSrc = new File(path);
-        if (fileSrc.isDirectory()) {
-            File[] files = fileSrc.listFiles();
-            for (File file : files) {
-                deleteFolderFile(file.getAbsolutePath(), true);
-            }
-        }
-        if (deleteThisPath) {
-            if (!fileSrc.isDirectory()) {
+        // 文件/目录存在（包括文件及文件夹）
+        if (fileSrc.exists()) {
+            if (fileSrc.isFile()) {
                 fileSrc.delete();
+            } else if (fileSrc.isDirectory()) {
+                //接收文件夹目录下所有的文件实例
+                File[] listFiles = fileSrc.listFiles();
+                //文件夹为空 递归出口
+                if (listFiles == null) {
+                    return;
+                }
+                for (File file : listFiles) {
+                    deleteFolder(file.getAbsolutePath(), true);
+                }
+                if (deleteThis) {
+                    // 递归跳出来的时候删除空文件夹
+                    fileSrc.delete();
+                }
             }
         }
     }
@@ -590,7 +599,7 @@ public class VMFile {
                 }
 
                 final String selection = "_id=?";
-                final String[] selectionArgs = new String[] { split[1] };
+                final String[] selectionArgs = new String[]{split[1]};
 
                 return getDataColumn(VMTools.getContext(), contentUri, selection, selectionArgs);
             }
@@ -625,7 +634,7 @@ public class VMFile {
 
         Cursor cursor = null;
         final String column = "_data";
-        final String[] projection = { column };
+        final String[] projection = {column};
 
         try {
             cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, null);

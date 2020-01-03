@@ -26,19 +26,25 @@ public class VMDimen {
     }
 
     /**
-     * 获取屏幕大小
+     * 获取屏幕宽高
      */
-    public static Point getScreenSize() {
-        WindowManager wm = (WindowManager) VMTools.getContext().getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        Point outSize = new Point();
-        display.getSize(outSize);
-        return outSize;
+    public static int getScreenWidth() {
+        return getScreenSize().x;
+    }
+
+    public static int getScreenHeight() {
+        return getScreenSize().y;
     }
 
     /**
      * 获取屏幕大小
-     * @param
+     */
+    public static Point getScreenSize() {
+        return getScreenSize(VMTools.getContext());
+    }
+
+    /**
+     * 获取屏幕大小
      */
     public static Point getScreenSize(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
