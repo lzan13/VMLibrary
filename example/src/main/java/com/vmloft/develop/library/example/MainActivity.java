@@ -10,6 +10,7 @@ import com.vmloft.develop.library.example.router.ARouter;
 import com.vmloft.develop.library.tools.permission.VMPermission;
 import com.vmloft.develop.library.tools.permission.VMPermissionBean;
 import com.vmloft.develop.library.tools.utils.VMLog;
+import com.vmloft.develop.library.tools.widget.VMTopBar;
 import com.vmloft.develop.library.tools.widget.VMViewGroup;
 
 import com.vmloft.develop.library.tools.widget.toast.VMToast;
@@ -36,6 +37,11 @@ public class MainActivity extends AppActivity {
     protected void init() {
         setTopTitle("工具库");
         setTopSubtitle("这个是我的工具类库入口");
+        setTopIcon(0);
+        getTopBar().setEndBtnListener("测试", v -> {
+            VMToast.make(mActivity, "测试自定义 VMTopBar 右侧按钮样式");
+        });
+        getTopBar().setEndBtnBackground(R.drawable.rectangle_red_shape_bg);
 
         String[] btnArray = {
             "工具", "按钮样式", "描点控件", "详情控件", "自定义控件", "录制屏幕", "声音播放", "悬浮菜单", "Web 功能", "指示器", "识别验证码", "图片选择器", "单权限申请", "多权限申请"

@@ -276,6 +276,24 @@ public class VMTopBar extends RelativeLayout {
     }
 
     /**
+     * 设置按钮背景样式
+     *
+     * @param resId 背景资源 id
+     */
+    public void setEndBtnBackground(int resId) {
+        mEndBtn.setBackgroundResource(resId);
+    }
+
+    /**
+     * 设置按钮文字颜色
+     *
+     * @param color 颜色值
+     */
+    public void setEndBtnTextColor(int color) {
+        mEndBtn.setTextColor(color);
+    }
+
+    /**
      * 设置右侧的按钮点击的监听
      *
      * @param listener 回调接口
