@@ -184,9 +184,9 @@ public class VMRouter {
     /**
      * 设置返回值
      */
-    public static void setResult(Activity activity, Intent intent, int code, Parcelable parcelable) {
+    public static void setResult(Activity activity, Intent intent, Parcelable parcelable) {
         putParams(intent, parcelable);
-        activity.setResult(code, intent);
+        activity.setResult(Activity.RESULT_OK, intent);
         activity.finish();
     }
 
