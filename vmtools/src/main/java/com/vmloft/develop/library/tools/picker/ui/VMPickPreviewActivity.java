@@ -89,29 +89,23 @@ public class VMPickPreviewActivity extends VMPickBaseActivity implements Compoun
 
         mSelectedPictures = VMPicker.getInstance().getSelectedPictures();
         getTopBar().setTitle(VMStr.byResArgs(R.string.vm_pick_preview_picture_count, mCurrentPosition + 1, mPictures.size()));
-        getTopBar().setIconListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.putExtra(VMConstant.VM_KEY_PICK_IS_ORIGIN, isOrigin);
-                setResult(VMConstant.VM_PICK_RESULT_CODE_BACK, intent);
-                onFinish();
-            }
+        getTopBar().setIconListener(v -> {
+            Intent intent = new Intent();
+            intent.putExtra(VMConstant.VM_KEY_PICK_IS_ORIGIN, isOrigin);
+            setResult(VMConstant.VM_PICK_RESULT_CODE_BACK, intent);
+            onFinish();
         });
-        getTopBar().setEndBtnListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (VMPicker.getInstance().getSelectedPictures().size() == 0) {
-                    mSelectCB.setChecked(true);
-                    VMPictureBean bean = mPictures.get(mCurrentPosition);
-                    VMPicker.getInstance().addSelectedPicture(mCurrentPosition, bean, mSelectCB.isChecked());
-                }
-                Intent intent = new Intent();
-                List<VMPictureBean> result = VMPicker.getInstance().getSelectedPictures();
-                intent.putParcelableArrayListExtra(VMConstant.KEY_PICK_RESULT_PICTURES, (ArrayList<? extends Parcelable>) result);
-                setResult(VMConstant.VM_PICK_RESULT_CODE_PICTURES, intent);
-                onFinish();
+        getTopBar().setEndBtnListener(v -> {
+            if (VMPicker.getInstance().getSelectedPictures().size() == 0) {
+                mSelectCB.setChecked(true);
+                VMPictureBean bean = mPictures.get(mCurrentPosition);
+                VMPicker.getInstance().addSelectedPicture(mCurrentPosition, bean, mSelectCB.isChecked());
             }
+            Intent intent = new Intent();
+            List<VMPictureBean> result = VMPicker.getInstance().getSelectedPictures();
+            intent.putParcelableArrayListExtra(VMConstant.KEY_PICK_RESULT_PICTURES, (ArrayList<? extends Parcelable>) result);
+            setResult(RESULT_OK, intent);
+            onFinish();
         });
 
         mOriginCB.setText(getString(R.string.vm_pick_origin));
@@ -129,17 +123,14 @@ public class VMPickPreviewActivity extends VMPickBaseActivity implements Compoun
         initNavBarListener();
 
         //当点击当前选中按钮的时候，需要根据当前的选中状态添加和移除图片
-        mSelectCB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                VMPictureBean VMPictureBean = mPictures.get(mCurrentPosition);
-                int selectLimit = VMPicker.getInstance().getSelectLimit();
-                if (mSelectCB.isChecked() && mSelectedPictures.size() >= selectLimit) {
-                    VMToast.make(mActivity, VMStr.byResArgs(R.string.vm_pick_select_limit, selectLimit)).error();
-                    mSelectCB.setChecked(false);
-                } else {
-                    VMPicker.getInstance().addSelectedPicture(mCurrentPosition, VMPictureBean, mSelectCB.isChecked());
-                }
+        mSelectCB.setOnClickListener(v -> {
+            VMPictureBean VMPictureBean = mPictures.get(mCurrentPosition);
+            int selectLimit = VMPicker.getInstance().getSelectLimit();
+            if (mSelectCB.isChecked() && mSelectedPictures.size() >= selectLimit) {
+                VMToast.make(mActivity, VMStr.byResArgs(R.string.vm_pick_select_limit, selectLimit)).error();
+                mSelectCB.setChecked(false);
+            } else {
+                VMPicker.getInstance().addSelectedPicture(mCurrentPosition, VMPictureBean, mSelectCB.isChecked());
             }
         });
     }
@@ -185,12 +176,7 @@ public class VMPickPreviewActivity extends VMPickBaseActivity implements Compoun
     private void initViewPager() {
         mViewPager = findViewById(R.id.vm_pick_preview_viewpager);
         mAdapter = new VMPreviewPageAdapter(mActivity, mPictures);
-        mAdapter.setPreviewClickListener(new VMPreviewPageAdapter.OnPreviewClickListener() {
-            @Override
-            public void onPreviewClick(View view, float v, float v1) {
-                onPictureClick();
-            }
-        });
+        mAdapter.setPreviewClickListener((view, v, v1) -> onPictureClick());
         mViewPager.setAdapter(mAdapter);
         mViewPager.setCurrentItem(mCurrentPosition, false);
 
@@ -212,26 +198,23 @@ public class VMPickPreviewActivity extends VMPickBaseActivity implements Compoun
      * 图片添加成功后，修改当前图片的选中数量
      */
     private void initSelectedPictureListener() {
-        mSelectedPictureListener = new VMPicker.OnSelectedPictureListener() {
-            @Override
-            public void onPictureSelected(int position, VMPictureBean item, boolean isAdd) {
-                if (VMPicker.getInstance().getSelectPictureCount() > 0) {
-                    int selectCount = VMPicker.getInstance().getSelectPictureCount();
-                    int selectLimit = VMPicker.getInstance().getSelectLimit();
-                    String complete = VMStr.byResArgs(R.string.vm_pick_complete_select, selectCount, selectLimit);
-                    getTopBar().setEndBtn(complete);
-                } else {
-                    getTopBar().setEndBtn(VMStr.byRes(R.string.vm_pick_complete));
-                }
+        mSelectedPictureListener = (position, item, isAdd) -> {
+            if (VMPicker.getInstance().getSelectPictureCount() > 0) {
+                int selectCount = VMPicker.getInstance().getSelectPictureCount();
+                int selectLimit = VMPicker.getInstance().getSelectLimit();
+                String complete = VMStr.byResArgs(R.string.vm_pick_complete_select, selectCount, selectLimit);
+                getTopBar().setEndBtn(complete);
+            } else {
+                getTopBar().setEndBtn(VMStr.byRes(R.string.vm_pick_complete));
+            }
 
-                if (mOriginCB.isChecked()) {
-                    long size = 0;
-                    for (VMPictureBean VMPictureBean : mSelectedPictures) {
-                        size += VMPictureBean.size;
-                    }
-                    String fileSize = Formatter.formatFileSize(mActivity, size);
-                    mOriginCB.setText(getString(R.string.vm_pick_origin_size, fileSize));
+            if (mOriginCB.isChecked()) {
+                long size = 0;
+                for (VMPictureBean VMPictureBean : mSelectedPictures) {
+                    size += VMPictureBean.size;
                 }
+                String fileSize = Formatter.formatFileSize(mActivity, size);
+                mOriginCB.setText(getString(R.string.vm_pick_origin_size, fileSize));
             }
         };
         VMPicker.getInstance().addOnSelectedPictureListener(mSelectedPictureListener);

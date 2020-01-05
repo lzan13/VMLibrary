@@ -35,12 +35,7 @@ public abstract class VMPickBaseActivity extends VMBActivity {
             params.topMargin = VMDimen.getStatusBarHeight();
             mTopBar.setLayoutParams(params);
 
-            mTopBar.setIconListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onBackPressed();
-                }
-            });
+            mTopBar.setIconListener(v -> onBackPressed());
         }
     }
 

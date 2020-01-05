@@ -42,20 +42,12 @@ public class VMPickCropActivity extends VMPickBaseActivity implements VMCropView
         mCropView = findViewById(R.id.vm_pick_crop_iv);
         mCropView.setOnBitmapSaveCompleteListener(this);
 
-        getTopBar().setIconListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setResult(RESULT_CANCELED);
-                onFinish();
-            }
+        getTopBar().setIconListener(v -> {
+            setResult(RESULT_CANCELED);
+            onFinish();
         });
 
-        getTopBar().setEndBtnListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mCropView.saveBitmapToFile(VMPicker.getInstance().getCropCacheFolder(), mCropOutWidth, mCropOutHeight, mIsSaveRectangle);
-            }
-        });
+        getTopBar().setEndBtnListener(v -> mCropView.saveBitmapToFile(VMPicker.getInstance().getCropCacheFolder(), mCropOutWidth, mCropOutHeight, mIsSaveRectangle));
     }
 
     @Override
@@ -105,7 +97,7 @@ public class VMPickCropActivity extends VMPickBaseActivity implements VMCropView
         // 单选不需要裁剪，返回数据
         Intent intent = new Intent();
         intent.putParcelableArrayListExtra(VMConstant.KEY_PICK_RESULT_PICTURES, (ArrayList<? extends Parcelable>) mPictureBeans);
-        setResult(VMConstant.VM_PICK_RESULT_CODE_PICTURES, intent);
+        setResult(RESULT_OK, intent);
         onFinish();
     }
 

@@ -141,19 +141,16 @@ public class VMPictureAdapter extends VMAdapter<VMPictureBean, VMHolder> {
                 mItemCB.setVisibility(View.GONE);
             }
 
-            mHotRegionCB.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mItemCB.setChecked(!mItemCB.isChecked());
-                    List<VMPictureBean> selectedList = VMPicker.getInstance().getSelectedPictures();
-                    int selectLimit = VMPicker.getInstance().getSelectLimit();
-                    if (mItemCB.isChecked() && selectedList.size() >= selectLimit) {
-                        String toastMsg = VMStr.byResArgs(R.string.vm_pick_select_limit, selectLimit);
-                        VMToast.make((Activity) mContext, toastMsg).error();
-                        mItemCB.setChecked(false);
-                    } else {
-                        VMPicker.getInstance().addSelectedPicture(position, bean, mItemCB.isChecked());
-                    }
+            mHotRegionCB.setOnClickListener(v -> {
+                mItemCB.setChecked(!mItemCB.isChecked());
+                List<VMPictureBean> selectedList = VMPicker.getInstance().getSelectedPictures();
+                int selectLimit = VMPicker.getInstance().getSelectLimit();
+                if (mItemCB.isChecked() && selectedList.size() >= selectLimit) {
+                    String toastMsg = VMStr.byResArgs(R.string.vm_pick_select_limit, selectLimit);
+                    VMToast.make((Activity) mContext, toastMsg).error();
+                    mItemCB.setChecked(false);
+                } else {
+                    VMPicker.getInstance().addSelectedPicture(position, bean, mItemCB.isChecked());
                 }
             });
             IPictureLoader.Options options = new IPictureLoader.Options(bean.path);

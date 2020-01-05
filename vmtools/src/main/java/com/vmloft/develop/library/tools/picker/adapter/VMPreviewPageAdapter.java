@@ -39,12 +39,9 @@ public class VMPreviewPageAdapter extends PagerAdapter {
         IPictureLoader.Options options = new IPictureLoader.Options(bean.path);
         VMPicker.getInstance().getPictureLoader().load(mActivity, options, photoView);
 
-        photoView.setOnPhotoTapListener(new OnPhotoTapListener() {
-            @Override
-            public void onPhotoTap(ImageView view, float x, float y) {
-                if (listener != null) {
-                    listener.onPreviewClick(view, x, y);
-                }
+        photoView.setOnPhotoTapListener((view, x, y) -> {
+            if (listener != null) {
+                listener.onPreviewClick(view, x, y);
             }
         });
         container.addView(photoView);

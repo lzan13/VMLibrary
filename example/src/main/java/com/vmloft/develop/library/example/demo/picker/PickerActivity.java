@@ -180,7 +180,7 @@ public class PickerActivity extends AppActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == VMConstant.VM_PICK_RESULT_CODE_PICTURES) {
+        if (resultCode == RESULT_OK) {
             if (data != null && requestCode == VMConstant.VM_PICK_REQUEST_CODE) {
                 List<VMPictureBean> result = VMPicker.getInstance().getResultData();
                 showPickImages(result);

@@ -126,13 +126,10 @@ public class VMPermissionActivity extends VMActivity {
         AlertDialog alertDialog = new AlertDialog.Builder(mActivity).setTitle(title)
             .setMessage(message)
             .setCancelable(false)
-            .setNegativeButton(cancelStr, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                    onPermissionReject();
-                    onFinish();
-                }
+            .setNegativeButton(cancelStr, (dialog, which) -> {
+                dialog.dismiss();
+                onPermissionReject();
+                onFinish();
             })
             .setPositiveButton(okStr, listener)
             .create();
@@ -166,15 +163,12 @@ public class VMPermissionActivity extends VMActivity {
             viewGroup.addView(pView);
         }
 
-        view.findViewById(R.id.vm_i_know_btn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mDialog != null && mDialog.isShowing()) {
-                    mDialog.dismiss();
-                }
-                // 开始申请权限
-                requestPermission(getPermissionArray(), REQUEST_PERMISSION);
+        view.findViewById(R.id.vm_i_know_btn).setOnClickListener(v -> {
+            if (mDialog != null && mDialog.isShowing()) {
+                mDialog.dismiss();
             }
+            // 开始申请权限
+            requestPermission(getPermissionArray(), REQUEST_PERMISSION);
         });
         mDialog = builder.create();
         mDialog.setCancelable(false);
@@ -199,12 +193,9 @@ public class VMPermissionActivity extends VMActivity {
     private void requestPermissionAgain(final VMPermissionBean item) {
         String alertTitle = String.format(getString(R.string.vm_permission_again_title), item.name);
         String msg = String.format(getString(R.string.vm_permission_again_reason), item.name, item.reason);
-        showAlertDialog(alertTitle, msg, getString(R.string.vm_btn_cancel), getString(R.string.vm_btn_ok), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                requestPermission(new String[] { item.permission }, REQUEST_PERMISSION_AGAIN);
-            }
+        showAlertDialog(alertTitle, msg, getString(R.string.vm_btn_cancel), getString(R.string.vm_btn_ok), (dialog, which) -> {
+            dialog.dismiss();
+            requestPermission(new String[] { item.permission }, REQUEST_PERMISSION_AGAIN);
         });
     }
 
@@ -246,12 +237,7 @@ public class VMPermissionActivity extends VMActivity {
                 VMPermissionBean item = mPermissions.get(0);
                 String title = String.format(getString(R.string.vm_permission_again_title), item.name);
                 String msg = String.format(getString(R.string.vm_permission_denied_setting), mAppName, item.name, mAppName);
-                showAlertDialog(title, msg, getString(R.string.vm_btn_reject), getString(R.string.vm_btn_go_to_setting), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        VMRouter.goSettingDetail(mActivity, REQUEST_SETTING);
-                    }
-                });
+                showAlertDialog(title, msg, getString(R.string.vm_btn_reject), getString(R.string.vm_btn_go_to_setting), (dialog, which) -> VMRouter.goSettingDetail(mActivity, REQUEST_SETTING));
             } else {
                 if (mAgainIndex < mPermissions.size() - 1) {
                     // 继续申请下一个被拒绝的权限

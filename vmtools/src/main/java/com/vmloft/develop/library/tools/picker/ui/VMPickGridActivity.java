@@ -92,23 +92,15 @@ public class VMPickGridActivity extends VMPickBaseActivity {
 
         mPreviewBtn.setOnClickListener(viewListener);
         mChangeDirView.setOnClickListener(viewListener);
-        getTopBar().setIconListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onFinish();
-            }
-        });
+        getTopBar().setIconListener(v -> onFinish());
 
         if (VMPicker.getInstance().isMultiMode()) {
-            getTopBar().setEndBtnListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent();
-                    List<VMPictureBean> result = VMPicker.getInstance().getSelectedPictures();
-                    intent.putParcelableArrayListExtra(VMConstant.KEY_PICK_RESULT_PICTURES, (ArrayList<? extends Parcelable>) result);
-                    setResult(VMConstant.VM_PICK_RESULT_CODE_PICTURES, intent);
-                    onFinish();
-                }
+            getTopBar().setEndBtnListener(v -> {
+                Intent intent = new Intent();
+                List<VMPictureBean> result = VMPicker.getInstance().getSelectedPictures();
+                intent.putParcelableArrayListExtra(VMConstant.KEY_PICK_RESULT_PICTURES, (ArrayList<? extends Parcelable>) result);
+                setResult(RESULT_OK, intent);
+                onFinish();
             });
             mPreviewBtn.setVisibility(View.VISIBLE);
         } else {
@@ -191,17 +183,14 @@ public class VMPickGridActivity extends VMPickBaseActivity {
      * 扫描图片
      */
     private void initScanPicture() {
-        mScanPictureListener = new VMPickScanPicture.OnScanPictureListener() {
-            @Override
-            public void onLoadComplete(List<VMFolderBean> folderBeans) {
-                mFolderBeans = folderBeans;
-                if (mFolderBeans.size() == 0) {
-                    mPictureAdapter.refresh(null);
-                } else {
-                    mPictureAdapter.refresh(mFolderBeans.get(0).pictures);
-                }
-                mFolderAdapter.refreshData(mFolderBeans);
+        mScanPictureListener = folderBeans -> {
+            mFolderBeans = folderBeans;
+            if (mFolderBeans.size() == 0) {
+                mPictureAdapter.refresh(null);
+            } else {
+                mPictureAdapter.refresh(mFolderBeans.get(0).pictures);
             }
+            mFolderAdapter.refreshData(mFolderBeans);
         };
         // 检查权限
         if (!VMPermission.getInstance(mActivity).checkStorage()) {
@@ -225,12 +214,9 @@ public class VMPickGridActivity extends VMPickBaseActivity {
      * 初始化选择图片监听
      */
     private void initSelectPictureListener() {
-        mSelectedPictureListener = new VMPicker.OnSelectedPictureListener() {
-            @Override
-            public void onPictureSelected(int position, VMPictureBean bean, boolean isAdd) {
-                refreshBtnStatus();
-                mPictureAdapter.notifyItemChanged(position, 1);
-            }
+        mSelectedPictureListener = (position, bean, isAdd) -> {
+            refreshBtnStatus();
+            mPictureAdapter.notifyItemChanged(position, 1);
         };
         VMPicker.getInstance().addOnSelectedPictureListener(mSelectedPictureListener);
     }
@@ -282,7 +268,7 @@ public class VMPickGridActivity extends VMPickBaseActivity {
                     Intent intent = new Intent();
                     List<VMPictureBean> result = VMPicker.getInstance().getSelectedPictures();
                     intent.putParcelableArrayListExtra(VMConstant.KEY_PICK_RESULT_PICTURES, (ArrayList<? extends Parcelable>) result);
-                    setResult(VMConstant.VM_PICK_RESULT_CODE_PICTURES, intent);   //单选不需要裁剪，返回数据
+                    setResult(RESULT_OK, intent);   //单选不需要裁剪，返回数据
                     finish();
                 }
             }
@@ -347,18 +333,15 @@ public class VMPickGridActivity extends VMPickBaseActivity {
     /**
      * 界面控件点击事件
      */
-    private View.OnClickListener viewListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (v.getId() == R.id.vm_pick_grid_choose_folder_rl) {
-                showFolderList();
-            } else if (v.getId() == R.id.vm_pick_grid_preview_btn) {
-                Intent intent = new Intent(mActivity, VMPickPreviewActivity.class);
-                intent.putExtra(VMConstant.KEY_PICK_CURRENT_SELECTED_POSITION, 0);
-                intent.putExtra(VMConstant.VM_KEY_PICK_IS_ORIGIN, isOrigin);
-                intent.putExtra(VMConstant.KEY_PICK_PREVIEW_ALL, false);
-                startActivityForResult(intent, VMConstant.VM_PICK_REQUEST_CODE_PREVIEW);
-            }
+    private View.OnClickListener viewListener = v -> {
+        if (v.getId() == R.id.vm_pick_grid_choose_folder_rl) {
+            showFolderList();
+        } else if (v.getId() == R.id.vm_pick_grid_preview_btn) {
+            Intent intent = new Intent(mActivity, VMPickPreviewActivity.class);
+            intent.putExtra(VMConstant.KEY_PICK_CURRENT_SELECTED_POSITION, 0);
+            intent.putExtra(VMConstant.VM_KEY_PICK_IS_ORIGIN, isOrigin);
+            intent.putExtra(VMConstant.KEY_PICK_PREVIEW_ALL, false);
+            startActivityForResult(intent, VMConstant.VM_PICK_REQUEST_CODE_PREVIEW);
         }
     };
 
@@ -375,7 +358,7 @@ public class VMPickGridActivity extends VMPickBaseActivity {
                     //什么都不做，直接返回
                 } else {
                     //说明是从裁剪页面过来的数据，直接返回就可以
-                    setResult(VMConstant.VM_PICK_RESULT_CODE_PICTURES, data);
+                    setResult(RESULT_OK, data);
                 }
                 onFinish();
             }
@@ -401,7 +384,7 @@ public class VMPickGridActivity extends VMPickBaseActivity {
                     Intent intent = new Intent();
                     List<VMPictureBean> result = VMPicker.getInstance().getSelectedPictures();
                     intent.putParcelableArrayListExtra(VMConstant.KEY_PICK_RESULT_PICTURES, (ArrayList<? extends Parcelable>) result);
-                    setResult(VMConstant.VM_PICK_RESULT_CODE_PICTURES, intent);   //单选不需要裁剪，返回数据
+                    setResult(RESULT_OK, intent);   //单选不需要裁剪，返回数据
                     onFinish();
                 }
             } else if (isDirectCamera) {
