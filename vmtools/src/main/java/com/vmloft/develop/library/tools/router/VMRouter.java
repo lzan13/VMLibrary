@@ -200,6 +200,14 @@ public class VMRouter {
     }
 
     /**
+     * 获取序列化参数
+     */
+    public static Parcelable getParams(Intent data) {
+        Parcelable parcelable = data.getParcelableExtra(VMParams.VM_ROUTER_PARAMS);
+        return parcelable;
+    }
+
+    /**
      * 添加可序列化的参数对象
      */
     protected static void putParams(Intent intent, Parcelable parcelable) {

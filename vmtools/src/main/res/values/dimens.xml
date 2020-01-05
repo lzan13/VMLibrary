@@ -14,9 +14,13 @@
     <dimen name="vm_size_caption">12sp</dimen>
 
     <dimen name="vm_size_8">8sp</dimen>
+    <dimen name="vm_size_9">9sp</dimen>
     <dimen name="vm_size_10">10sp</dimen>
+    <dimen name="vm_size_11">11sp</dimen>
     <dimen name="vm_size_12">12sp</dimen>
+    <dimen name="vm_size_13">13sp</dimen>
     <dimen name="vm_size_14">14sp</dimen>
+    <dimen name="vm_size_15">15sp</dimen>
     <dimen name="vm_size_16">16sp</dimen>
     <dimen name="vm_size_18">18sp</dimen>
     <dimen name="vm_size_20">20sp</dimen>
@@ -75,10 +79,13 @@
     <dimen name="vm_dimen_4">4dp</dimen>
     <dimen name="vm_dimen_6">6dp</dimen>
     <dimen name="vm_dimen_8">8dp</dimen>
+    <dimen name="vm_dimen_10">10dp</dimen>
     <dimen name="vm_dimen_12">12dp</dimen>
     <dimen name="vm_dimen_16">16dp</dimen>
     <dimen name="vm_dimen_20">20dp</dimen>
     <dimen name="vm_dimen_24">24dp</dimen>
+    <dimen name="vm_dimen_28">28dp</dimen>
+    <dimen name="vm_dimen_30">30dp</dimen>
     <dimen name="vm_dimen_32">32dp</dimen>
     <dimen name="vm_dimen_36">36dp</dimen>
     <dimen name="vm_dimen_40">40dp</dimen>
