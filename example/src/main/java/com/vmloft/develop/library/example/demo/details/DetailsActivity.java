@@ -71,24 +71,16 @@ public class DetailsActivity extends AppActivity {
      * 设置 Item 项监听
      */
     private void initItemListener() {
-        mAdapter.setClickListener(new VMAdapter.IClickListener<DetailsEntity>() {
-            @Override
-            public void onItemClick(int action, DetailsEntity detailsEntity) {
-                Toast.makeText(mActivity, "点击", Toast.LENGTH_SHORT).show();
+        mAdapter.setClickListener((VMAdapter.IClickListener<DetailsEntity>) (action, detailsEntity) -> {
+            Toast.makeText(mActivity, "点击", Toast.LENGTH_SHORT).show();
 
-                if (detailsEntity.isFold()) {
-                    detailsEntity.setFold(false);
-                } else {
-                    detailsEntity.setFold(true);
-                }
+            if (detailsEntity.isFold()) {
+                detailsEntity.setFold(false);
+            } else {
+                detailsEntity.setFold(true);
             }
         });
-        mAdapter.setMoreListener(new VMAdapter.OnMoreListener() {
-            @Override
-            public void onLoadMore() {
-                loadData();
-            }
-        });
+        mAdapter.setMoreListener(() -> loadData());
     }
 
     private void loadData() {

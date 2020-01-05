@@ -231,6 +231,16 @@ public class VMRouter {
     }
 
     /**
+     * 添加可序列化的参数对象
+     */
+    protected static void putParams(Intent intent, Serializable serializable) {
+        if (intent == null) {
+            return;
+        }
+        intent.putExtra(VMParams.VM_ROUTER_PARAMS, serializable);
+    }
+
+    /**
      * 设置标记
      */
     protected static void setFlags(Intent intent, int flags) {
