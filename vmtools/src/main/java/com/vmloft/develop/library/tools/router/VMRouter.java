@@ -192,6 +192,15 @@ public class VMRouter {
     }
 
     /**
+     * 设置返回值
+     */
+    public static void setResult(Activity activity, Intent intent, Serializable serializable) {
+        putParams(intent, serializable);
+        activity.setResult(Activity.RESULT_OK, intent);
+        activity.finish();
+    }
+
+    /**
      * ---------------------------- 界面跳转参数传递 ----------------------------
      * 获取序列化的参数
      */
