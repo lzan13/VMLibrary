@@ -8,6 +8,7 @@ import android.os.Parcelable;
 import android.provider.Settings;
 
 import com.vmloft.develop.library.tools.permission.VMPermissionActivity;
+import java.io.Serializable;
 
 /**
  * Created by lzan13 on 2018/4/24.
@@ -194,17 +195,29 @@ public class VMRouter {
      * ---------------------------- 界面跳转参数传递 ----------------------------
      * 获取序列化的参数
      */
-    public static Parcelable getParams(Activity activity) {
-        Parcelable parcelable = activity.getIntent().getParcelableExtra(VMParams.VM_ROUTER_PARAMS);
-        return parcelable;
+    public static Parcelable getParcelable(Activity activity) {
+        return activity.getIntent().getParcelableExtra(VMParams.VM_ROUTER_PARAMS);
     }
 
     /**
      * 获取序列化参数
      */
-    public static Parcelable getParams(Intent data) {
-        Parcelable parcelable = data.getParcelableExtra(VMParams.VM_ROUTER_PARAMS);
-        return parcelable;
+    public static Parcelable getParcelable(Intent data) {
+        return data.getParcelableExtra(VMParams.VM_ROUTER_PARAMS);
+    }
+
+    /**
+     * 获取序列化参数
+     */
+    public static Serializable getSerializable(Activity activity) {
+        return activity.getIntent().getSerializableExtra(VMParams.VM_ROUTER_PARAMS);
+    }
+
+    /**
+     * 获取序列化参数
+     */
+    public static Serializable getSerializable(Intent data) {
+        return data.getSerializableExtra(VMParams.VM_ROUTER_PARAMS);
     }
 
     /**
