@@ -1,6 +1,9 @@
 更新日志
 =======
 
+### 2020/01/05 V0.9.19
+- 自定义 VMTopBar 与 VMLineView 添加自定义控件方法
+
 ### 2020/01/05 V0.9.18
 - 设置 VMRouter 参数支持 Serializable
 

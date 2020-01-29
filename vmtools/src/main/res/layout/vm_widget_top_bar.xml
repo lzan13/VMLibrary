@@ -38,16 +38,16 @@
         android:layout_alignParentBottom="true"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textSize="@dimen/vm_size_12"
         android:textColor="@color/vm_subtitle"
+        android:textSize="@dimen/vm_size_12"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/vm_top_bar_title_tv"
         app:layout_constraintTop_toBottomOf="@+id/vm_top_bar_title_tv"
         tools:text="子标题" />
-    <!--自定义容器-->
+    <!--尾部容器-->
     <LinearLayout
-        android:id="@+id/vm_top_bar_custom_container"
+        android:id="@+id/vm_top_bar_end_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

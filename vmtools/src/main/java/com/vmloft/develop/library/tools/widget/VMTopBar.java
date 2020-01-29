@@ -28,7 +28,7 @@ public class VMTopBar extends RelativeLayout {
     private ImageButton mIconBtn;
     private TextView mTitleView;
     private TextView mSubtitleView;
-    private LinearLayout mCustomContainer;
+    private LinearLayout mEndContainer;
     private Button mEndBtn;
     private ImageButton mEndIconBtn;
 
@@ -65,7 +65,7 @@ public class VMTopBar extends RelativeLayout {
         mIconBtn = findViewById(R.id.vm_top_bar_icon);
         mTitleView = findViewById(R.id.vm_top_bar_title_tv);
         mSubtitleView = findViewById(R.id.vm_top_bar_subtitle_tv);
-        mCustomContainer = findViewById(R.id.vm_top_bar_custom_container);
+        mEndContainer = findViewById(R.id.vm_top_bar_end_container);
         mEndBtn = findViewById(R.id.vm_top_bar_end_btn);
         mEndIconBtn = findViewById(R.id.vm_top_bar_end_icon);
 
@@ -219,12 +219,14 @@ public class VMTopBar extends RelativeLayout {
     }
 
     /**
-     * 设置自定义控件
+     * 设置添加尾部控件
      */
-    public void setCustomView(View view) {
+    public void addEndView(View view) {
         if (view != null) {
-            mCustomContainer.removeAllViews();
-            mCustomContainer.addView(view);
+            mEndContainer.removeAllViews();
+            mEndContainer.addView(view);
+        }else{
+            mEndContainer.removeAllViews();
         }
     }
 

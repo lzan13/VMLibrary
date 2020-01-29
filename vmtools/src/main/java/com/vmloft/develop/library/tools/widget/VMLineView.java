@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -25,6 +26,8 @@ public class VMLineView extends RelativeLayout {
     private ImageView mIconView;
     // 标题
     private TextView mTitleView;
+    // 右侧容器
+    private LinearLayout mRightContainer;
     // 说明图标
     private ImageView mCaptionIconView;
     // 说明文本
@@ -33,6 +36,8 @@ public class VMLineView extends RelativeLayout {
     private ImageView mRightIconView;
     // 底部描述文本
     private TextView mDescriptionView;
+    // 底部容器
+    private LinearLayout mBottomContainer;
     // 分割线
     private View mDecorationView;
 
@@ -66,10 +71,12 @@ public class VMLineView extends RelativeLayout {
 
         mIconView = findViewById(R.id.vm_line_icon_iv);
         mTitleView = findViewById(R.id.vm_line_title_tv);
+        mRightContainer = findViewById(R.id.vm_line_right_container);
         mCaptionIconView = findViewById(R.id.vm_line_caption_icon_iv);
         mCaptionView = findViewById(R.id.vm_line_caption_tv);
         mRightIconView = findViewById(R.id.vm_line_right_icon_iv);
         mDescriptionView = findViewById(R.id.vm_line_description_tv);
+        mBottomContainer = findViewById(R.id.vm_line_bottom_container);
         mDecorationView = findViewById(R.id.vm_line_decoration);
 
         // 获取控件的属性值
@@ -192,6 +199,18 @@ public class VMLineView extends RelativeLayout {
     }
 
     /**
+     * 添加控件到右侧容器
+     */
+    public void setRightView(View view) {
+        if (view != null) {
+            mRightContainer.removeAllViews();
+            mRightContainer.addView(view);
+        }else{
+            mRightContainer.removeAllViews();
+        }
+    }
+
+    /**
      * 设置右侧描述图标
      */
     public void setCaptionIcon(@DrawableRes int resId) {
@@ -252,6 +271,18 @@ public class VMLineView extends RelativeLayout {
         }
         mDescriptionView.setVisibility(VISIBLE);
         mDescriptionView.setText(mDescription);
+    }
+
+    /**
+     * 添加控件到底部容器
+     */
+    public void setBottomView(View view) {
+        if (view != null) {
+            mBottomContainer.removeAllViews();
+            mBottomContainer.addView(view);
+        }else{
+            mBottomContainer.removeAllViews();
+        }
     }
 
     /**
