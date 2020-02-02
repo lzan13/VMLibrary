@@ -68,7 +68,7 @@ public abstract class AppActivity extends VMActivity {
      */
     protected void setTopIcon(int resId) {
         if (mTopBar != null) {
-            mTopBar.setIcon(0);
+            mTopBar.setIcon(resId);
         }
     }
 

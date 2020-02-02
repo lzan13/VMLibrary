@@ -5,6 +5,7 @@ import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.utils.VMColor;
+import com.vmloft.develop.library.tools.utils.VMDimen;
 import com.vmloft.develop.library.tools.utils.VMStr;
 
 /**
@@ -35,10 +37,15 @@ public class VMTopBar extends RelativeLayout {
     // 设置数据
     private int mIcon;
     private String mTitle;
+    private int mTitleColor;
+
     private String mSubtitle;
+    private int mSubtitleColor;
+
     private String mEndText;
     private int mEndIcon;
-    private int mTitleColor;
+    // 居中
+    private boolean isCenter;
 
     public VMTopBar(Context context) {
         this(context, null);
@@ -69,7 +76,8 @@ public class VMTopBar extends RelativeLayout {
         mEndBtn = findViewById(R.id.vm_top_bar_end_btn);
         mEndIconBtn = findViewById(R.id.vm_top_bar_end_icon);
 
-        mTitleColor = VMColor.byRes(R.color.vm_btn_text_dark);
+        mTitleColor = VMColor.byRes(R.color.vm_title);
+        mSubtitleColor = VMColor.byRes(R.color.vm_subtitle);
 
         // 获取控件的属性值
         handleAttrs(context, attrs);
@@ -106,7 +114,7 @@ public class VMTopBar extends RelativeLayout {
             mEndIconBtn.setImageResource(mEndIcon);
         }
 
-        setupColor();
+        setupText();
     }
 
     /**
@@ -121,12 +129,15 @@ public class VMTopBar extends RelativeLayout {
         }
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.VMTopBar);
         // 获取自定义属性值，如果没有设置就是默认值
-        mIcon = array.getResourceId(R.styleable.VMTopBar_vm_top_bar_icon, mIcon);
-        mTitle = array.getString(R.styleable.VMTopBar_vm_top_bar_title);
-        mSubtitle = array.getString(R.styleable.VMTopBar_vm_top_bar_subtitle);
-        mEndText = array.getString(R.styleable.VMTopBar_vm_top_bar_end_btn);
-        mEndIcon = array.getResourceId(R.styleable.VMTopBar_vm_top_bar_end_icon, mEndIcon);
-        mTitleColor = array.getColor(R.styleable.VMTopBar_vm_top_bar_title_color, mTitleColor);
+        mIcon = array.getResourceId(R.styleable.VMTopBar_vm_icon, mIcon);
+        mTitle = array.getString(R.styleable.VMTopBar_vm_title);
+        mSubtitle = array.getString(R.styleable.VMTopBar_vm_subtitle);
+        mEndText = array.getString(R.styleable.VMTopBar_vm_end_btn);
+        mEndIcon = array.getResourceId(R.styleable.VMTopBar_vm_end_icon, mEndIcon);
+        mTitleColor = array.getColor(R.styleable.VMTopBar_vm_title_color, mTitleColor);
+        mSubtitleColor = array.getColor(R.styleable.VMTopBar_vm_subtitle_color, mSubtitleColor);
+        isCenter = array.getBoolean(R.styleable.VMTopBar_vm_is_center, isCenter);
+
         // 回收资源
         array.recycle();
     }
@@ -134,12 +145,17 @@ public class VMTopBar extends RelativeLayout {
     /**
      * 装载控件颜色
      */
-    private void setupColor() {
+    private void setupText() {
         mTitleView.setTextColor(mTitleColor);
-        mSubtitleView.setTextColor(mTitleColor);
-        // 对图标着色
-        mIconBtn.setImageTintList(ColorStateList.valueOf(mTitleColor));
-        mEndIconBtn.setImageTintList(ColorStateList.valueOf(mTitleColor));
+        mSubtitleView.setTextColor(mSubtitleColor);
+        if (isCenter) {
+            if (!mEndContainer.isShown() && !mEndIconBtn.isShown() && !mEndBtn.isShown()) {
+                mEndContainer.setVisibility(VISIBLE);
+                mEndContainer.getLayoutParams().width = VMDimen.dp2px(48);
+            }
+            mTitleView.setGravity(Gravity.CENTER);
+            mSubtitleView.setGravity(Gravity.CENTER);
+        }
     }
 
     /**
@@ -153,6 +169,23 @@ public class VMTopBar extends RelativeLayout {
             mIconBtn.setVisibility(VISIBLE);
             mIconBtn.setImageResource(mIcon);
         }
+    }
+
+    /**
+     * 设置图标颜色
+     */
+    private void setIconColor() {
+        // 对图标着色
+        mIconBtn.setImageTintList(ColorStateList.valueOf(mTitleColor));
+        mEndIconBtn.setImageTintList(ColorStateList.valueOf(mTitleColor));
+    }
+
+    /**
+     * 是否居中
+     */
+    public void setCenter(boolean center) {
+        isCenter = center;
+        setupText();
     }
 
     /**
@@ -179,7 +212,17 @@ public class VMTopBar extends RelativeLayout {
     public void setTitleColor(int resId) {
         if (resId != 0) {
             mTitleColor = VMColor.byRes(resId);
-            setupColor();
+            setupText();
+        }
+    }
+
+    /**
+     * 设置标题颜色
+     */
+    public void setSubTitleColor(int resId) {
+        if (resId != 0) {
+            mSubtitleColor = VMColor.byRes(resId);
+            setupText();
         }
     }
 
@@ -225,8 +268,10 @@ public class VMTopBar extends RelativeLayout {
         if (view != null) {
             mEndContainer.removeAllViews();
             mEndContainer.addView(view);
-        }else{
+            mEndContainer.setVisibility(VISIBLE);
+        } else {
             mEndContainer.removeAllViews();
+            mEndContainer.setVisibility(GONE);
         }
     }
 

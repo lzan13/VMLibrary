@@ -37,7 +37,10 @@ public class ToolsActivity extends AppActivity {
 
     @Override
     protected void init() {
-
+        setTopIcon(R.drawable.ic_back);
+        setTopTitle("工具类");
+        getTopBar().setCenter(true);
+        //getTopBar().setEndIcon(R.drawable.ic_search);
     }
 
     @OnClick({ R.id.btn_key_hashes, R.id.btn_md5_signature, R.id.btn_base64, R.id.tools_random_btn })

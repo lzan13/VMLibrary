@@ -17,8 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/vm_black_12"
-        app:vm_top_bar_end_btn="@string/vm_pick_complete"
-        app:vm_top_bar_icon="@drawable/vm_ic_arrow_left"
-        app:vm_top_bar_title="@string/vm_pick_crop_picture"
-        app:vm_top_bar_title_color="@color/vm_white_87" />
+        app:vm_end_btn="@string/vm_pick_complete"
+        app:vm_icon="@drawable/vm_ic_arrow_left"
+        app:vm_title="@string/vm_pick_crop_picture"
+        app:vm_title_color="@color/vm_white_87" />
 </RelativeLayout>
