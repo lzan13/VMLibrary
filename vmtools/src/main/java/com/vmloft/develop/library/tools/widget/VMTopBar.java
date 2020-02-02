@@ -174,10 +174,10 @@ public class VMTopBar extends RelativeLayout {
     /**
      * 设置图标颜色
      */
-    private void setIconColor() {
+    private void setIconColor(int color) {
         // 对图标着色
-        mIconBtn.setImageTintList(ColorStateList.valueOf(mTitleColor));
-        mEndIconBtn.setImageTintList(ColorStateList.valueOf(mTitleColor));
+        mIconBtn.setImageTintList(ColorStateList.valueOf(color));
+        mEndIconBtn.setImageTintList(ColorStateList.valueOf(color));
     }
 
     /**
@@ -299,7 +299,7 @@ public class VMTopBar extends RelativeLayout {
      * 设置右侧图标点击监听
      */
     public void setEndIconListener(OnClickListener listener) {
-        mEndBtn.setOnClickListener(listener);
+        mEndIconBtn.setOnClickListener(listener);
     }
 
     /**
