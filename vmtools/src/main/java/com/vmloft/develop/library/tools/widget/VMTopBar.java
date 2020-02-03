@@ -155,6 +155,9 @@ public class VMTopBar extends RelativeLayout {
             }
             mTitleView.setGravity(Gravity.CENTER);
             mSubtitleView.setGravity(Gravity.CENTER);
+        }else{
+            mTitleView.setGravity(Gravity.START);
+            mSubtitleView.setGravity(Gravity.START);
         }
     }
 
