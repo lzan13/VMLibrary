@@ -40,7 +40,7 @@ public class ToolsActivity extends AppActivity {
         setTopIcon(R.drawable.ic_back);
         setTopTitle("工具类");
         getTopBar().setCenter(true);
-        //getTopBar().setEndIcon(R.drawable.ic_search);
+        getTopBar().setEndBtn("测试");
     }
 
     @OnClick({ R.id.btn_key_hashes, R.id.btn_md5_signature, R.id.btn_base64, R.id.tools_random_btn })

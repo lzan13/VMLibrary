@@ -149,7 +149,7 @@ public class VMTopBar extends RelativeLayout {
         mTitleView.setTextColor(mTitleColor);
         mSubtitleView.setTextColor(mSubtitleColor);
         if (isCenter) {
-            if (!mEndContainer.isShown() && !mEndIconBtn.isShown() && !mEndBtn.isShown()) {
+            if (!mEndContainer.isShown() && !mEndBtn.isShown()) {
                 mEndContainer.setVisibility(VISIBLE);
                 mEndContainer.getLayoutParams().width = VMDimen.dp2px(48);
             }

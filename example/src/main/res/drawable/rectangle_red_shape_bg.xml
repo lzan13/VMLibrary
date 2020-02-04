@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_enabled="false">
-        <inset android:insetLeft="@dimen/vm_dimen_4" android:insetTop="@dimen/vm_dimen_6" android:insetRight="@dimen/vm_dimen_4" android:insetBottom="@dimen/vm_dimen_6">
+        <inset android:insetRight="@dimen/vm_dimen_8">
             <shape android:shape="rectangle">
                 <corners android:radius="@dimen/vm_btn_rectangle_radius" />
-                <padding android:bottom="@dimen/vm_dimen_4" android:left="@dimen/vm_dimen_8" android:right="@dimen/vm_dimen_8" android:top="@dimen/vm_dimen_4" />
                 <solid android:color="@color/vm_btn_red_unable" />
             </shape>
         </inset>
@@ -12,10 +11,9 @@
     <item>
         <ripple android:color="?attr/colorControlHighlight">
             <item>
-                <inset android:insetLeft="@dimen/vm_dimen_4" android:insetTop="@dimen/vm_dimen_6" android:insetRight="@dimen/vm_dimen_4" android:insetBottom="@dimen/vm_dimen_6">
+                <inset android:insetRight="@dimen/vm_dimen_8">
                     <shape android:shape="rectangle">
                         <corners android:radius="@dimen/vm_btn_rectangle_radius" />
-                        <padding android:bottom="@dimen/vm_dimen_4" android:left="@dimen/vm_dimen_8" android:right="@dimen/vm_dimen_8" android:top="@dimen/vm_dimen_4" />
                         <solid android:color="@color/vm_btn_red" />
                     </shape>
                 </inset>
