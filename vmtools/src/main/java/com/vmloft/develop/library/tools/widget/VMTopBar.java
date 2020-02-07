@@ -31,7 +31,7 @@ public class VMTopBar extends RelativeLayout {
     private TextView mTitleView;
     private TextView mSubtitleView;
     private LinearLayout mEndContainer;
-    private Button mEndBtn;
+    private TextView mEndBtn;
     private ImageButton mEndIconBtn;
 
     // 设置数据
@@ -177,7 +177,7 @@ public class VMTopBar extends RelativeLayout {
     /**
      * 设置图标颜色
      */
-    private void setIconColor(int color) {
+    public void setIconColor(int color) {
         // 对图标着色
         mIconBtn.setImageTintList(ColorStateList.valueOf(color));
         mEndIconBtn.setImageTintList(ColorStateList.valueOf(color));

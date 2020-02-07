@@ -23,6 +23,7 @@
         style="@style/VMText.Title"
         android:layout_width="@dimen/vm_dimen_0"
         android:ellipsize="end"
+        android:gravity="center"
         android:maxLines="1"
         android:textSize="@dimen/vm_size_18"
         app:layout_constraintBottom_toTopOf="@+id/vm_top_bar_subtitle_tv"
@@ -61,12 +62,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_goneMarginEnd="@dimen/vm_margin_normal" />
     <!--右侧的按钮-->
-    <Button
+    <TextView
         android:id="@+id/vm_top_bar_end_btn"
-        style="@style/VMBtn.Flat"
-        android:layout_width="@dimen/vm_dimen_64"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/vm_dimen_36"
-        android:visibility="gone"
+        android:layout_marginEnd="@dimen/vm_dimen_8"
+        android:gravity="center"
+        android:paddingStart="@dimen/vm_dimen_16"
+        android:paddingEnd="@dimen/vm_dimen_16"
+        android:textColor="@color/vm_btn_text_dark"
+        android:textSize="@dimen/vm_size_16"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/vm_top_bar_end_icon"
         app:layout_constraintTop_toTopOf="parent"

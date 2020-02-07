@@ -11,6 +11,7 @@ import com.vmloft.develop.library.tools.base.VMConstant;
 import com.vmloft.develop.library.tools.picker.VMPicker;
 import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.picker.bean.VMPictureBean;
+import com.vmloft.develop.library.tools.utils.VMColor;
 import com.vmloft.develop.library.tools.utils.bitmap.VMBitmap;
 import com.vmloft.develop.library.tools.widget.VMCropView;
 
@@ -42,12 +43,14 @@ public class VMPickCropActivity extends VMPickBaseActivity implements VMCropView
         mCropView = findViewById(R.id.vm_pick_crop_iv);
         mCropView.setOnBitmapSaveCompleteListener(this);
 
+        getTopBar().setIconColor(VMColor.byRes(R.color.vm_white));
         getTopBar().setIconListener(v -> {
             setResult(RESULT_CANCELED);
             onFinish();
         });
-
-        getTopBar().setEndBtnListener(v -> mCropView.saveBitmapToFile(VMPicker.getInstance().getCropCacheFolder(), mCropOutWidth, mCropOutHeight, mIsSaveRectangle));
+        getTopBar().setEndBtnTextColor(VMColor.byRes(R.color.vm_btn_white));
+        getTopBar().setEndBtnListener(v -> mCropView.saveBitmapToFile(VMPicker.getInstance()
+            .getCropCacheFolder(), mCropOutWidth, mCropOutHeight, mIsSaveRectangle));
     }
 
     @Override

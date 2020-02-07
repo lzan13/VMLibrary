@@ -16,6 +16,7 @@ import com.vmloft.develop.library.tools.base.VMConstant;
 import com.vmloft.develop.library.tools.picker.VMPicker;
 import com.vmloft.develop.library.tools.picker.adapter.VMPreviewPageAdapter;
 import com.vmloft.develop.library.tools.picker.bean.VMPictureBean;
+import com.vmloft.develop.library.tools.utils.VMColor;
 import com.vmloft.develop.library.tools.utils.VMNavBarUtil;
 import com.vmloft.develop.library.tools.utils.VMDimen;
 import com.vmloft.develop.library.tools.utils.VMStr;
@@ -68,6 +69,8 @@ public class VMPickPreviewActivity extends VMPickBaseActivity implements Compoun
     @Override
     protected void initUI() {
         super.initUI();
+        getTopBar().setIconColor(VMColor.byRes(R.color.vm_white));
+        getTopBar().setEndBtnTextColor(VMColor.byRes(R.color.vm_btn_white));
         mBottomBar = findViewById(R.id.vm_preview_bottom_bar);
         mSelectCB = findViewById(R.id.vm_preview_select_cb);
         mOriginCB = findViewById(R.id.vm_preview_origin_cb);
