@@ -49,7 +49,6 @@
         <!--自定义控件-->
         <activity
             android:name=".demo.custom.CustomViewActivity"
-            android:theme="@style/AppTheme.Transparent"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <!--描点控件-->
         <activity android:name=".demo.custom.DotLineActivity" />

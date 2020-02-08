@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.vmloft.develop.library.example.R;
 import com.vmloft.develop.library.tools.adapter.VMAdapter;
 import com.vmloft.develop.library.tools.adapter.VMHolder;
-import com.vmloft.develop.library.tools.widget.VMDetailsView;
 
 import java.util.List;
 

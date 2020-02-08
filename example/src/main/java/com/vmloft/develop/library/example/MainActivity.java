@@ -41,7 +41,7 @@ public class MainActivity extends AppActivity {
         setTopSubtitle("这个是我的工具类库入口");
         setTopIcon(0);
         getTopBar().setEndBtnListener("测试", v -> {
-            VMToast.make(mActivity, "测试自定义 VMTopBar 右侧按钮样式");
+            VMToast.make(mActivity, "测试自定义 VMTopBar 右侧按钮样式").show();
         });
         getTopBar().setEndBtnTextColor(VMColor.byRes(R.color.app_accent));
         //getTopBar().setEndBtnBackground(R.drawable.rectangle_red_shape_bg);

@@ -29,10 +29,10 @@ public class VMSystem {
      */
     public static final int VM_THREAD_POOL_DEFAULT_SIZE = getThreadPoolDefaultSize();
 
-    /**
-     * 回调在UI线程中处理
-     */
+    // 在UI线程中处理
     private static Handler handler = new Handler(Looper.getMainLooper());
+    // 异步处理
+    private static Handler taskHandler = new Handler();
     // 线程池
     private static ExecutorService mExecutorPool = Executors.newCachedThreadPool();
 
@@ -50,12 +50,23 @@ public class VMSystem {
     /**
      * 在 UI 线程中延迟执行
      */
-    public static void runInUIThread(Runnable runnable, long delayMillis) {
-        handler.postDelayed(runnable, delayMillis);
+    public static void runInUIThread(Runnable runnable, long delay) {
+        handler.postDelayed(runnable, delay);
+    }
+
+    /**
+     * 添加要给异步任务
+     */
+    public static void addTask(Runnable runnable) {
+        mExecutorPool.execute(runnable);
     }
 
     public static void runTask(Runnable runnable) {
-        mExecutorPool.execute(runnable);
+        taskHandler.post(runnable);
+    }
+
+    public static void runTask(Runnable runnable, long delay) {
+        taskHandler.postDelayed(runnable, delay);
     }
 
     /**

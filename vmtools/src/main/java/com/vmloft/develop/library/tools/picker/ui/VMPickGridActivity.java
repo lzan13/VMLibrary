@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.vmloft.develop.library.tools.R;
-import com.vmloft.develop.library.tools.adapter.VMAdapter;
 import com.vmloft.develop.library.tools.base.VMConstant;
 import com.vmloft.develop.library.tools.permission.VMPermission;
 import com.vmloft.develop.library.tools.picker.VMPickScanPicture;

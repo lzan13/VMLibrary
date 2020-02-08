@@ -74,7 +74,7 @@ public class VMBitmap {
      * @param view 需要保存图像的 View 控件
      * @return 返回保存的 Bitmap 图像
      */
-    private Bitmap loadCacheBitmapFromView(View view) {
+    public Bitmap loadCacheBitmapFromView(View view) {
         final boolean drawingCacheEnabled = true;
         view.setDrawingCacheEnabled(drawingCacheEnabled);
         view.buildDrawingCache(drawingCacheEnabled);
@@ -233,12 +233,23 @@ public class VMBitmap {
     }
 
     /**
-     * 质量压缩
+     * 质量压缩到指定大小
+     *
+     * @param bitmap 原图
+     * @param size   指定大小
+     */
+    public static Bitmap compressByQuality(Bitmap bitmap, int size) {
+        maxSize = size;
+        return compressByQuality(bitmap);
+    }
+
+    /**
+     * 质量压缩，默认压缩到 500K 以下
      *
      * @param bitmap 原图
      * @return 压缩后的图片
      */
-    private static Bitmap compressByQuality(Bitmap bitmap) {
+    public static Bitmap compressByQuality(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         int options = 70;
         //质量压缩方法，100表示不压缩，把压缩后的数据存放到baos中
@@ -260,49 +271,14 @@ public class VMBitmap {
     }
 
     /**
-     * 质量压缩到指定大小
+     * 临时压缩图片到指定尺寸
      *
-     * @param bitmap 原图
-     * @param size   指定大小
-     */
-    private static Bitmap compressByQuality(Bitmap bitmap, int size) {
-        maxSize = size;
-        return compressByQuality(bitmap);
-    }
-
-    /**
-     * 等比例压缩到指定尺寸
-     *
-     * @param path 图片路径
-     */
-    private static Bitmap compressByDimension(String path) {
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        // 开始读入图片，此时把options.inJustDecodeBounds 设回true了
-        options.inJustDecodeBounds = true;
-        // 此时返回 bitmap 为空，并不会真正的加载图片
-        Bitmap bitmap = BitmapFactory.decodeFile(path, options);
-        options.inJustDecodeBounds = false;
-        int w = options.outWidth;
-        int h = options.outHeight;
-        // 缩放比，由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可
-        int be = getZoomScale(w, h, maxDimension);
-        // 设置缩放比例
-        options.inSampleSize = be;
-        // 重新读入图片，注意此时已经把options.inJustDecodeBounds 设回false了
-        bitmap = BitmapFactory.decodeFile(path, options);
-        // 等比例压缩后再进行质量压缩
-        return bitmap;
-    }
-
-    /**
-     * 等比例压缩到指定尺寸大小
-     *
-     * @param path      图片路径
+     * @param path      原始路径
      * @param dimension 最大尺寸
      */
-    private static Bitmap compressByDimension(String path, int dimension) {
+    public static String compressTempImageByDimension(String path, int dimension) {
         maxDimension = dimension;
-        return compressByDimension(path);
+        return compressTempImage(path);
     }
 
     /**
@@ -325,14 +301,38 @@ public class VMBitmap {
     }
 
     /**
-     * 临时压缩图片到指定尺寸
+     * 等比例压缩到指定尺寸大小
      *
-     * @param path      原始路径
+     * @param path      图片路径
      * @param dimension 最大尺寸
      */
-    public static String compressTempImageByDimension(String path, int dimension) {
+    public static Bitmap compressByDimension(String path, int dimension) {
         maxDimension = dimension;
-        return compressTempImage(path);
+        return compressByDimension(path);
+    }
+
+    /**
+     * 等比例压缩到指定尺寸 默认到 1920 以下
+     *
+     * @param path 图片路径
+     */
+    public static Bitmap compressByDimension(String path) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        // 开始读入图片，此时把options.inJustDecodeBounds 设回true了
+        options.inJustDecodeBounds = true;
+        // 此时返回 bitmap 为空，并不会真正的加载图片
+        Bitmap bitmap = BitmapFactory.decodeFile(path, options);
+        options.inJustDecodeBounds = false;
+        int w = options.outWidth;
+        int h = options.outHeight;
+        // 缩放比，由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可
+        int be = getZoomScale(w, h, maxDimension);
+        // 设置缩放比例
+        options.inSampleSize = be;
+        // 重新读入图片，注意此时已经把options.inJustDecodeBounds 设回false了
+        bitmap = BitmapFactory.decodeFile(path, options);
+        // 等比例压缩后再进行质量压缩
+        return bitmap;
     }
 
     /**
@@ -373,11 +373,11 @@ public class VMBitmap {
      *
      * @param path 文件原始路径
      */
-    private static String getExtensionName(String path) {
+    public static String getExtensionName(String path) {
         if ((path != null) && (path.length() > 0)) {
             int dot = path.lastIndexOf('.');
             if ((dot > -1) && (dot < (path.length() - 1))) {
-                return path.substring(dot, path.length());
+                return path.substring(dot);
             }
         }
         return path;

@@ -13,7 +13,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.vmloft.develop.library.tools.R;
+import com.vmloft.develop.library.tools.animator.VMAnimator;
 import com.vmloft.develop.library.tools.utils.VMColor;
+import com.vmloft.develop.library.tools.utils.VMDimen;
 
 /**
  * Create by lzan13 on 2019/5/11 12:34
@@ -24,6 +26,8 @@ public class VMToastView extends RelativeLayout {
 
     // 移除提醒
     private static final int TOAST_REMOVE = 1001;
+    // 动画时间
+    private static final int ANIM_DURATION = 225;
 
     // Toast 背景控件
     private View mBGView;
@@ -33,6 +37,7 @@ public class VMToastView extends RelativeLayout {
     private TextView mMsgView;
     // 记录 Toast 是否正在展示
     private boolean isShow;
+    private float mHeight;
 
     public VMToastView(Context context) {
         this(context, null);
@@ -45,6 +50,12 @@ public class VMToastView extends RelativeLayout {
     public VMToastView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        mHeight = h;
     }
 
     /**
@@ -95,17 +106,15 @@ public class VMToastView extends RelativeLayout {
     /**
      * 显示提醒
      *
-     * @param duration 持续时间
+     * @param duration Toast 显示持续时间
      */
     public void showToast(final int duration) {
-        // 载入XML动画
-        Animator animator = AnimatorInflater.loadAnimator(getContext(), R.animator.vm_toast_top_in);
-        // 设置动画对象
-        animator.setTarget(this);
-        // 启动动画
-        animator.start();
         mHandler.removeMessages(TOAST_REMOVE);
-        animator.addListener(new Animator.AnimatorListener() {
+        if (mHeight == 0) {
+            mHeight = VMDimen.dp2px(72);
+        }
+        VMAnimator.Options options = VMAnimator.createOptions(this, VMAnimator.TRANSY, -mHeight, 0.0f);
+        VMAnimator.createAnimator().play(options).addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
                 isShow = true;
@@ -122,22 +131,17 @@ public class VMToastView extends RelativeLayout {
 
             @Override
             public void onAnimationRepeat(Animator animation) {}
-        });
+        }).start(ANIM_DURATION);
     }
 
     /**
      * 移除提醒
      */
     private void removeToast() {
-        final ViewGroup viewGroup = (ViewGroup) VMToastView.this.getParent();
+        ViewGroup viewGroup = (ViewGroup) this.getParent();
         if (viewGroup != null) {
-            // 载入XML动画
-            Animator animator = AnimatorInflater.loadAnimator(getContext(), R.animator.vm_toast_top_out);
-            // 设置动画对象
-            animator.setTarget(this);
-            // 启动动画
-            animator.start();
-            animator.addListener(new Animator.AnimatorListener() {
+            VMAnimator.Options options = VMAnimator.createOptions(this, VMAnimator.TRANSY, 0.0f, -mHeight);
+            VMAnimator.createAnimator().play(options).addListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationStart(Animator animation) {}
 
@@ -152,7 +156,7 @@ public class VMToastView extends RelativeLayout {
 
                 @Override
                 public void onAnimationRepeat(Animator animation) {}
-            });
+            }).start(ANIM_DURATION);
         }
     }
 

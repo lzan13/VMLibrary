@@ -1,39 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/vm_toast_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/vm_green"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/vm_dimen_24"
-        />
+        android:layout_height="@dimen/vm_dimen_24" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
+        android:minHeight="@dimen/vm_dimen_48"
         android:orientation="horizontal"
-        android:padding="@dimen/vm_dimen_16"
-        >
+        android:paddingStart="@dimen/vm_dimen_16"
+        android:paddingEnd="@dimen/vm_dimen_16">
+
 
         <ImageView
             android:id="@+id/vm_toast_icon_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/vm_ic_emoticon"
-            />
+            android:src="@drawable/vm_ic_emoticon" />
 
         <TextView
             android:id="@+id/vm_toast_msg_tv"
+            style="@style/VMText.Body2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/vm_dimen_8"
             android:layout_marginStart="@dimen/vm_dimen_8"
-            android:text="@string/vm_name"
+            android:layout_marginTop="@dimen/vm_dimen_8"
+            android:layout_marginEnd="@dimen/vm_dimen_8"
+            android:layout_marginBottom="@dimen/vm_dimen_8"
             android:textColor="@color/vm_white_87"
-            style="@style/VMText.Body2"
-            />
+            tools:text="@string/vm_name" />
     </LinearLayout>
 </LinearLayout>

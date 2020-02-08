@@ -23,12 +23,22 @@ public class VMReg {
     }
 
     /**
-     * 是否是手机号
+     * 严格手机号判断
      *
      * @param phoneNumber 要判断的手机号
      */
-    public static boolean isPhoneNumber(String phoneNumber) {
-        Pattern p = Pattern.compile("^((13[0-9])|(15[^4])|(18[0-9])|(17[0-8])|(147,145))\\d{8}$");
+    public static boolean isPhoneMobileNumber(String phoneNumber) {
+        Pattern p = Pattern.compile("^[1](([3][0-9])|([4][5-9])|([5][0-3,5-9])|([6][5,6])|([7][0-8])|([8][0-9])|([9][1,8,9]))[0-9]{8}$");
+        return p.matcher(phoneNumber).matches();
+    }
+
+    /**
+     * 简单手机号判断
+     *
+     * @param phoneNumber 要判断的手机号
+     */
+    public static boolean isSimpleMobileNumber(String phoneNumber) {
+        Pattern p = Pattern.compile("^[1]([3-9])[0-9]{9}$");
         return p.matcher(phoneNumber).matches();
     }
 
