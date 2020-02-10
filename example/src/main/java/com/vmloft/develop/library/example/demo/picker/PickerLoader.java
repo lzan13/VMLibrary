@@ -7,15 +7,15 @@ import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.vmloft.develop.library.tools.picker.IPictureLoader;
-
+import com.github.chrisbanes.photoview.PhotoView;
+import com.vmloft.develop.library.tools.picker.VMPickerLoader;
 
 /**
  * Create by lzan13 on 2019/05/19 22:30
  *
  * 实现图片选择器加载图片接口
  */
-public class PickerLoader implements IPictureLoader {
+public class PickerLoader extends VMPickerLoader {
 
     /**
      * 通过上下文对象加载图片
@@ -30,8 +30,14 @@ public class PickerLoader implements IPictureLoader {
         if (options.isCircle) {
             requestOptions.circleCrop();
         } else if (options.isRadius) {
-            requestOptions.transform(new MultiTransformation<>(new CenterCrop(),new RoundedCorners(options.radiusSize)));
+            requestOptions.transform(new MultiTransformation<>(new CenterCrop(), new RoundedCorners(options.radiusSize)));
         }
         GlideApp.with(context).load(options.url).apply(requestOptions).into(imageView);
+    }
+
+    @Override
+    public ImageView createView(Context context) {
+        //return super.createView(context);
+        return new PhotoView(context);
     }
 }

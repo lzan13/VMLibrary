@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
@@ -20,7 +19,6 @@ import com.vmloft.develop.library.tools.base.VMConstant;
 import com.vmloft.develop.library.tools.picker.bean.VMFolderBean;
 import com.vmloft.develop.library.tools.picker.bean.VMPictureBean;
 import com.vmloft.develop.library.tools.picker.ui.VMPickGridActivity;
-import com.vmloft.develop.library.tools.router.VMRouter;
 import com.vmloft.develop.library.tools.utils.VMDimen;
 import com.vmloft.develop.library.tools.utils.VMStr;
 import com.vmloft.develop.library.tools.widget.VMCropView;
@@ -40,7 +38,7 @@ public class VMPicker {
     // 图片选择模式 是否多选 默认为 true
     private boolean mMultiMode = true;
     // 图片加载器接口，需要外部实现，减少三方库依赖
-    private IPictureLoader mPictureLoader;
+    private ILoaderListener mLoaderListener;
     // 是否开启裁剪，单选模式有效
     private boolean mCrop = true;
     // 裁剪焦点框的宽度
@@ -196,8 +194,8 @@ public class VMPicker {
      *
      * @param pictureLoader 外部实现的图片加载类
      */
-    public VMPicker setPictureLoader(IPictureLoader pictureLoader) {
-        this.mPictureLoader = pictureLoader;
+    public VMPicker setPictureLoader(ILoaderListener pictureLoader) {
+        this.mLoaderListener = pictureLoader;
         return this;
     }
 
@@ -362,8 +360,8 @@ public class VMPicker {
     /**
      * 获取图片加载实例
      */
-    public IPictureLoader getPictureLoader() {
-        return mPictureLoader;
+    public ILoaderListener getPictureLoader() {
+        return mLoaderListener;
     }
 
     /**
@@ -547,7 +545,7 @@ public class VMPicker {
         mCropFocusHeight = savedInstanceState.getInt("focusHeight");
         mCropStyle = (VMCropView.Style) savedInstanceState.getSerializable("style");
         mCropCacheFolder = savedInstanceState.getString("cropCacheFolder");
-        mPictureLoader = (IPictureLoader) savedInstanceState.getSerializable("mPictureLoader");
+        mLoaderListener = (ILoaderListener) savedInstanceState.getSerializable("mLoaderListener");
         mTakePicture = (File) savedInstanceState.getSerializable("takeImageFile");
     }
 
@@ -566,7 +564,7 @@ public class VMPicker {
         outState.putInt("focusHeight", mCropFocusHeight);
         outState.putSerializable("style", mCropStyle);
         outState.putString("cropCacheFolder", mCropCacheFolder);
-        outState.putSerializable("mPictureLoader", mPictureLoader);
+        outState.putSerializable("mLoaderListener", mLoaderListener);
         outState.putSerializable("takeImageFile", mTakePicture);
     }
 

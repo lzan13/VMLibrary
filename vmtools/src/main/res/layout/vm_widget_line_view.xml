@@ -67,6 +67,7 @@
         android:id="@+id/vm_line_caption_tv"
         style="@style/VMText.Body1"
         android:layout_marginEnd="@dimen/vm_margin_large"
+        android:textColor="@color/vm_black_54"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/vm_line_right_icon_iv"
         app:layout_constraintEnd_toStartOf="@+id/vm_line_right_icon_iv"

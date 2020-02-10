@@ -6,14 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.github.chrisbanes.photoview.OnPhotoTapListener;
-import com.github.chrisbanes.photoview.PhotoView;
-import com.vmloft.develop.library.tools.picker.IPictureLoader;
+import com.vmloft.develop.library.tools.picker.ILoaderListener;
 import com.vmloft.develop.library.tools.picker.VMPicker;
 import com.vmloft.develop.library.tools.picker.bean.VMPictureBean;
 
-import com.vmloft.develop.library.tools.utils.VMDimen;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,18 +30,21 @@ public class VMPreviewPageAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        PhotoView photoView = new PhotoView(mActivity);
-        VMPictureBean bean = mDataList.get(position);
-        IPictureLoader.Options options = new IPictureLoader.Options(bean.path);
-        VMPicker.getInstance().getPictureLoader().load(mActivity, options, photoView);
+        ImageView imageView = VMPicker.getInstance().getPictureLoader().createView(mActivity);
 
-        photoView.setOnPhotoTapListener((view, x, y) -> {
-            if (listener != null) {
-                listener.onPreviewClick(view, x, y);
-            }
-        });
-        container.addView(photoView);
-        return photoView;
+        VMPictureBean bean = mDataList.get(position);
+        ILoaderListener.Options options = new ILoaderListener.Options(bean.path);
+        VMPicker.getInstance().getPictureLoader().load(mActivity, options, imageView);
+
+        //photoView.setOnPhotoTapListener((view, x, y) -> {
+        //    if (listener != null) {
+        //        listener.onPreviewClick(view, x, y);
+        //    }
+        //});
+        imageView.setOnClickListener(v -> {
+            listener.onPreviewClick(v);
+        }); container.addView(imageView);
+        return imageView;
     }
 
     @Override
@@ -79,6 +78,6 @@ public class VMPreviewPageAdapter extends PagerAdapter {
      * 定义预览点击监听接口
      */
     public interface OnPreviewClickListener {
-        void onPreviewClick(View view, float x, float y);
+        void onPreviewClick(View view);
     }
 }

@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 import com.vmloft.develop.library.tools.adapter.VMAdapter;
 import com.vmloft.develop.library.tools.adapter.VMHolder;
-import com.vmloft.develop.library.tools.picker.IPictureLoader;
+import com.vmloft.develop.library.tools.picker.ILoaderListener;
 import com.vmloft.develop.library.tools.picker.VMPicker;
 import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.picker.bean.VMPictureBean;
@@ -152,7 +152,7 @@ public class VMPictureAdapter extends VMAdapter<VMPictureBean, VMHolder> {
                     VMPicker.getInstance().addSelectedPicture(position, bean, mItemCB.isChecked());
                 }
             });
-            IPictureLoader.Options options = new IPictureLoader.Options(bean.path);
+            ILoaderListener.Options options = new ILoaderListener.Options(bean.path);
             options.isRadius = true;
             options.radiusSize = VMDimen.dp2px(4);
             VMPicker.getInstance().getPictureLoader().load(mContext, options, mThumbView); //显示图片

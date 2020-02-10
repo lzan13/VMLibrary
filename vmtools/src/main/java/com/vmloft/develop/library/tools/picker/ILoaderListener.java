@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * 定义图片加载接口，外部需要实现这个接口去加载图片，为的是减少对第三方库的依赖
  */
-public interface IPictureLoader extends Serializable {
+public interface ILoaderListener extends Serializable {
     /**
      * 通过上下文对象加载图片
      *
@@ -20,10 +20,12 @@ public interface IPictureLoader extends Serializable {
      */
     void load(Context context, Options options, ImageView imageView);
 
+    ImageView createView(Context context);
+
     /**
      * 图片加载相关参数类
      */
-    public class Options {
+    class Options {
 
         public Options(String url) {
             this.url = url;

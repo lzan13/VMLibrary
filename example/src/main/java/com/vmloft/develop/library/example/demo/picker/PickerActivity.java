@@ -7,14 +7,13 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.RelativeLayout;
 
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import com.vmloft.develop.library.example.R;
 import com.vmloft.develop.library.example.common.AppActivity;
 import com.vmloft.develop.library.tools.base.VMConstant;
-import com.vmloft.develop.library.tools.picker.IPictureLoader;
+import com.vmloft.develop.library.tools.picker.ILoaderListener;
 import com.vmloft.develop.library.tools.picker.VMPicker;
 import com.vmloft.develop.library.tools.picker.bean.VMPictureBean;
 import com.vmloft.develop.library.tools.widget.VMCropView;
@@ -204,7 +203,7 @@ public class PickerActivity extends AppActivity {
             //RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(width, height);
             mViewGroup.addView(imageView);
 
-            IPictureLoader.Options options = new IPictureLoader.Options(bean.path);
+            ILoaderListener.Options options = new ILoaderListener.Options(bean.path);
             mPictureLoader.load(mActivity, options, imageView);
         }
     }

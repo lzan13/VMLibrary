@@ -3,8 +3,6 @@ package com.vmloft.develop.library.tools;
 import android.content.Context;
 
 import com.vmloft.develop.library.tools.base.VMApp;
-import com.vmloft.develop.library.tools.picker.IPictureLoader;
-import com.vmloft.develop.library.tools.picker.VMPicker;
 import com.vmloft.develop.library.tools.utils.VMLog;
 
 /**

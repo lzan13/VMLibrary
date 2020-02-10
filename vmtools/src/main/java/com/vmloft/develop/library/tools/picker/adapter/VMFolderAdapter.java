@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.vmloft.develop.library.tools.picker.IPictureLoader;
+import com.vmloft.develop.library.tools.picker.ILoaderListener;
 import com.vmloft.develop.library.tools.picker.VMPicker;
 import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.picker.bean.VMFolderBean;
@@ -79,7 +79,7 @@ public class VMFolderAdapter extends BaseAdapter {
         holder.folderName.setText(folder.name);
         holder.imageCount.setText(mActivity.getString(R.string.vm_pick_folder_picture_count, folder.pictures.size()));
 
-        IPictureLoader.Options options = new IPictureLoader.Options(folder.cover.path);
+        ILoaderListener.Options options = new ILoaderListener.Options(folder.cover.path);
         options.isRadius = true;
         options.radiusSize = VMDimen.dp2px(4);
         VMPicker.getInstance().getPictureLoader().load(mActivity, options, holder.cover); //显示图片

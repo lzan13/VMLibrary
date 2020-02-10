@@ -43,6 +43,9 @@ dependencies {
     }
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
+    // 一个比较强大的图片浏览控件
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+
     // 网络请求库
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
 

@@ -46,6 +46,7 @@ public class VMLineView extends RelativeLayout {
     private int mTitleColor;
     private int mCaptionIconRes;
     private String mCaption;
+    private int mCaptionColor;
     private int mRightIconRes;
     private String mDescription;
     private boolean mDecoration;
@@ -102,6 +103,7 @@ public class VMLineView extends RelativeLayout {
         mTitleColor = array.getColor(R.styleable.VMLineView_vm_line_title_color, mTitleColor);
         mCaptionIconRes = array.getResourceId(R.styleable.VMLineView_vm_line_caption_icon, mCaptionIconRes);
         mCaption = array.getString(R.styleable.VMLineView_vm_line_caption);
+        mCaptionColor = array.getColor(R.styleable.VMLineView_vm_line_caption_color, mCaptionColor);
         mRightIconRes = array.getResourceId(R.styleable.VMLineView_vm_line_right_icon, mRightIconRes);
         mDescription = array.getString(R.styleable.VMLineView_vm_line_description);
         mDecoration = array.getBoolean(R.styleable.VMLineView_vm_line_decoration, mDecoration);
@@ -118,6 +120,7 @@ public class VMLineView extends RelativeLayout {
             mIconView.setVisibility(VISIBLE);
             mIconView.setImageResource(mIconRes);
         }
+
         if (!VMStr.isEmpty(mTitle)) {
             mTitleView.setText(mTitle);
         }
@@ -131,18 +134,24 @@ public class VMLineView extends RelativeLayout {
             mCaptionIconView.setVisibility(VISIBLE);
             mCaptionIconView.setImageResource(mCaptionIconRes);
         }
+
         if (VMStr.isEmpty(mCaption)) {
             mCaptionView.setVisibility(GONE);
         } else {
             mCaptionView.setVisibility(VISIBLE);
             mCaptionView.setText(mCaption);
         }
+        if (mCaptionColor != 0) {
+            mCaptionView.setTextColor(mCaptionColor);
+        }
+
         if (mRightIconRes == 0) {
             mRightIconView.setVisibility(GONE);
         } else {
             mRightIconView.setVisibility(VISIBLE);
             mRightIconView.setImageResource(mRightIconRes);
         }
+
         if (VMStr.isEmpty(mDescription)) {
             mDescriptionView.setVisibility(GONE);
         } else {
@@ -205,7 +214,7 @@ public class VMLineView extends RelativeLayout {
         if (view != null) {
             mRightContainer.removeAllViews();
             mRightContainer.addView(view);
-        }else{
+        } else {
             mRightContainer.removeAllViews();
         }
     }
@@ -234,6 +243,14 @@ public class VMLineView extends RelativeLayout {
         }
         mCaptionView.setVisibility(VISIBLE);
         mCaptionView.setText(mCaption);
+    }
+
+    /**
+     * 设置描述文本颜色
+     */
+    public void setCaptionColor(int color) {
+        mCaptionColor = color;
+        mCaptionView.setTextColor(mCaptionColor);
     }
 
     /**
@@ -280,7 +297,7 @@ public class VMLineView extends RelativeLayout {
         if (view != null) {
             mBottomContainer.removeAllViews();
             mBottomContainer.addView(view);
-        }else{
+        } else {
             mBottomContainer.removeAllViews();
         }
     }

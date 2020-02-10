@@ -179,7 +179,7 @@ public class VMPickPreviewActivity extends VMPickBaseActivity implements Compoun
     private void initViewPager() {
         mViewPager = findViewById(R.id.vm_pick_preview_viewpager);
         mAdapter = new VMPreviewPageAdapter(mActivity, mPictures);
-        mAdapter.setPreviewClickListener((view, v, v1) -> onPictureClick());
+        mAdapter.setPreviewClickListener((view) -> onPictureClick());
         mViewPager.setAdapter(mAdapter);
         mViewPager.setCurrentItem(mCurrentPosition, false);
 

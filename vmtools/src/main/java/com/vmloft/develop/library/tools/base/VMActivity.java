@@ -67,6 +67,6 @@ public class VMActivity extends AppCompatActivity {
      */
     protected void onFinish() {
         VMLog.v("%s onFinish", className);
-        mActivity.finish();
+        finish();
     }
 }
