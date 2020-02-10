@@ -31,8 +31,6 @@ public class VMSystem {
 
     // 在UI线程中处理
     private static Handler handler = new Handler(Looper.getMainLooper());
-    // 异步处理
-    private static Handler taskHandler = new Handler();
     // 线程池
     private static ExecutorService mExecutorPool = Executors.newCachedThreadPool();
 
@@ -55,18 +53,10 @@ public class VMSystem {
     }
 
     /**
-     * 添加要给异步任务
+     * 异步任务
      */
-    public static void addTask(Runnable runnable) {
-        mExecutorPool.execute(runnable);
-    }
-
     public static void runTask(Runnable runnable) {
-        taskHandler.post(runnable);
-    }
-
-    public static void runTask(Runnable runnable, long delay) {
-        taskHandler.postDelayed(runnable, delay);
+        mExecutorPool.execute(runnable);
     }
 
     /**
