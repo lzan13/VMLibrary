@@ -1,16 +1,17 @@
 package com.vmloft.develop.library.example.demo.indicator;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import com.vmloft.develop.library.example.R;
 import com.vmloft.develop.library.example.common.AppActivity;
 import com.vmloft.develop.library.tools.adapter.VMFragmentPagerAdapter;
 import com.vmloft.develop.library.tools.widget.indicator.VMIndicatorView;
 
-import java.util.ArrayList;
-
 import butterknife.BindView;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**

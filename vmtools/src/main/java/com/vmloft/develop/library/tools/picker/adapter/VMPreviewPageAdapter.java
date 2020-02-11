@@ -1,10 +1,10 @@
 package com.vmloft.develop.library.tools.picker.adapter;
 
 import android.app.Activity;
-import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import androidx.viewpager.widget.PagerAdapter;
 
 import com.vmloft.develop.library.tools.picker.ILoaderListener;
 import com.vmloft.develop.library.tools.picker.VMPicker;

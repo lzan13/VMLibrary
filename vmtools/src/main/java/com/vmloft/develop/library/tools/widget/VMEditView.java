@@ -2,7 +2,6 @@ package com.vmloft.develop.library.tools.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -16,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.utils.VMColor;

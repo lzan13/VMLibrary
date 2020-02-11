@@ -2,7 +2,6 @@ package com.vmloft.develop.library.tools.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.text.TextUtils;
 
 import com.vmloft.develop.library.tools.VMTools;
 

@@ -1,7 +1,7 @@
 package com.vmloft.develop.library.tools.picker;
 
 import android.content.Context;
-import android.support.v4.content.FileProvider;
+import androidx.core.content.FileProvider;
 
 /**
  * Create by lzan13 on 2019/05/16/21:06

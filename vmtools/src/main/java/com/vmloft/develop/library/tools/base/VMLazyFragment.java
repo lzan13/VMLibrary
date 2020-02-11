@@ -1,11 +1,11 @@
 package com.vmloft.develop.library.tools.base;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import androidx.annotation.Nullable;
 
 import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.utils.VMLog;

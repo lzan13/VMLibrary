@@ -4,14 +4,10 @@ import android.media.MediaPlayer;
 import android.media.audiofx.Visualizer;
 import android.view.View;
 
-import butterknife.BindView;
-import com.gauravk.audiovisualizer.visualizer.BarVisualizer;
-import com.gauravk.audiovisualizer.visualizer.WaveVisualizer;
 import com.vmloft.develop.library.example.R;
 import com.vmloft.develop.library.example.common.AppActivity;
 
 import butterknife.OnClick;
-import com.vmloft.develop.library.tools.widget.VMWaveformView;
 import java.io.IOException;
 
 /**
@@ -19,9 +15,6 @@ import java.io.IOException;
  * 测试系统播放音频相关界面
  */
 public class MediaPlayActivity extends AppActivity {
-
-    @BindView(R.id.bar_visualizer_view) BarVisualizer mBarVisualizerView;
-    @BindView(R.id.wave_visualizer_view) WaveVisualizer mWaveVisualizerView;
 
     private final int MEDIA_STATUS_NORMAL = 0;
     private final int MEDIA_STATUS_PAUSING = 1;
@@ -128,7 +121,7 @@ public class MediaPlayActivity extends AppActivity {
      */
     private void onSetupVisualizer() {
         //mBarVisualizerView.setAudioSessionId(mMediaPlayer.getAudioSessionId());
-        mWaveVisualizerView.setAudioSessionId(mMediaPlayer.getAudioSessionId());
+        //mWaveVisualizerView.setAudioSessionId(mMediaPlayer.getAudioSessionId());
     }
 
 }

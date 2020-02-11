@@ -7,17 +7,12 @@ import android.view.View;
 import com.vmloft.develop.library.example.R;
 import com.vmloft.develop.library.tools.base.VMActivity;
 
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
-
 import com.vmloft.develop.library.tools.utils.VMDimen;
 import com.vmloft.develop.library.tools.utils.VMTheme;
 import com.vmloft.develop.library.tools.widget.VMTopBar;
 
 public abstract class AppActivity extends VMActivity {
 
-    // ButterKnife 注册返回对象
-    private Unbinder unbinder;
     // 统一的 TopBar
     protected VMTopBar mTopBar;
     protected View mSpaceView;
@@ -28,8 +23,6 @@ public abstract class AppActivity extends VMActivity {
         setContentView(layoutId());
 
         VMTheme.setDarkStatusBar(mActivity, true);
-
-        unbinder = ButterKnife.bind(mActivity);
 
         setupTobBar();
 
@@ -87,14 +80,6 @@ public abstract class AppActivity extends VMActivity {
     protected void setTopSubtitle(String title) {
         if (mTopBar != null) {
             mTopBar.setSubtitle(title);
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (unbinder != null) {
-            unbinder.unbind();
         }
     }
 

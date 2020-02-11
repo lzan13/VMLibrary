@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import com.vmloft.develop.library.example.R;
 import com.vmloft.develop.library.example.common.AppActivity;
 import com.vmloft.develop.library.tools.utils.VMDate;
@@ -22,14 +23,11 @@ import butterknife.OnClick;
 
 public class RecordScreenActivity extends AppActivity {
 
-    @BindView(R.id.text_timer)
-    TextView timerView;
-    @BindView(R.id.img_screen_short)
-    ImageView imageView;
+    @BindView(R.id.text_timer) TextView timerView;
+    @BindView(R.id.img_screen_short) ImageView imageView;
 
     private SRService srService;
     private boolean isRecord = false;
-
 
     @Override
     protected int layoutId() {
@@ -43,7 +41,8 @@ public class RecordScreenActivity extends AppActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == SRManager.RECORD_REQUEST_CODE) {
                 SRManager.getInstance().initMediaProjection(resultCode, data);
@@ -55,18 +54,18 @@ public class RecordScreenActivity extends AppActivity {
     /**
      * 按钮点击事件
      */
-    @OnClick({R.id.btn_start_screen_short, R.id.btn_start_screen_record, R.id.btn_stop})
+    @OnClick({ R.id.btn_start_screen_short, R.id.btn_start_screen_record, R.id.btn_stop })
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_start_screen_short:
-                prepare(false);
-                break;
-            case R.id.btn_start_screen_record:
-                prepare(true);
-                break;
-            case R.id.btn_stop:
-                stop();
-                break;
+        case R.id.btn_start_screen_short:
+            prepare(false);
+            break;
+        case R.id.btn_start_screen_record:
+            prepare(true);
+            break;
+        case R.id.btn_stop:
+            stop();
+            break;
         }
     }
 
@@ -170,6 +169,4 @@ public class RecordScreenActivity extends AppActivity {
         public void onServiceDisconnected(ComponentName name) {
         }
     };
-
-
 }

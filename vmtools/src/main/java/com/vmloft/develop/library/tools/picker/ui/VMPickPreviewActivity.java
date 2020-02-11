@@ -2,7 +2,6 @@ package com.vmloft.develop.library.tools.picker.ui;
 
 import android.content.Intent;
 import android.os.Parcelable;
-import android.support.v4.view.ViewPager;
 import android.text.format.Formatter;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +9,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
-import com.vmloft.develop.library.tools.R;
+import androidx.viewpager.widget.ViewPager;
 
+import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.base.VMConstant;
 import com.vmloft.develop.library.tools.picker.VMPicker;
 import com.vmloft.develop.library.tools.picker.adapter.VMPreviewPageAdapter;

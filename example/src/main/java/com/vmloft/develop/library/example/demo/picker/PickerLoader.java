@@ -7,7 +7,6 @@ import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.github.chrisbanes.photoview.PhotoView;
 import com.vmloft.develop.library.tools.picker.VMPickerLoader;
 
 /**
@@ -35,9 +34,9 @@ public class PickerLoader extends VMPickerLoader {
         GlideApp.with(context).load(options.url).apply(requestOptions).into(imageView);
     }
 
-    @Override
-    public ImageView createView(Context context) {
-        //return super.createView(context);
-        return new PhotoView(context);
-    }
+    //@Override
+    //public ImageView createView(Context context) {
+    //    //return super.createView(context);
+    //    return new PhotoView(context);
+    //}
 }
