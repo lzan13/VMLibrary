@@ -13,7 +13,7 @@ public class App extends VMApp {
     public void onCreate() {
         super.onCreate();
 
-        VMTools.init(mContext, VMLog.Level.VERBOSE);
+        VMTools.init(appContext, VMLog.Level.VERBOSE);
         VMLog.setEnableSave(true, 3);
     }
 }

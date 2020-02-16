@@ -150,7 +150,7 @@ public class VMFloatMenu extends PopupWindow {
         itemView.setId(bean.itemId);
         itemView.setText(bean.itemTitle);
         itemView.setPadding(mItemPadding, mItemPadding, mItemPadding * 2, mItemPadding);
-        itemView.setTextColor(ContextCompat.getColor(mContext, R.color.vm_black_87));
+        itemView.setTextColor(ContextCompat.getColor(mContext, bean.itemColor));
         itemView.setBackgroundResource(R.drawable.vm_click_full_transparent);
 
         mItemContainer.addView(itemView);
@@ -163,13 +163,10 @@ public class VMFloatMenu extends PopupWindow {
      * 设置菜单项点击事件
      */
     private void setItemClick(View view) {
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-                if (listener != null) {
-                    listener.onItemClick(v.getId());
-                }
+        view.setOnClickListener(v -> {
+            dismiss();
+            if (listener != null) {
+                listener.onItemClick(v.getId());
             }
         });
     }
@@ -180,10 +177,18 @@ public class VMFloatMenu extends PopupWindow {
     public static class ItemBean {
         public int itemId;
         public String itemTitle;
+        public int itemColor;
 
         public ItemBean(int id, String title) {
             this.itemId = id;
             this.itemTitle = title;
+            this.itemColor = R.color.vm_black_87;
+        }
+
+        public ItemBean(int id, String title, int color) {
+            this.itemId = id;
+            this.itemTitle = title;
+            this.itemColor = color;
         }
     }
 
@@ -197,5 +202,4 @@ public class VMFloatMenu extends PopupWindow {
     public void setItemClickListener(IItemClickListener listener) {
         this.listener = listener;
     }
-
 }
