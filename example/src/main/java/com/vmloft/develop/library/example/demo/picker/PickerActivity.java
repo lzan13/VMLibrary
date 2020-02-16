@@ -94,7 +94,8 @@ public class PickerActivity extends AppActivity {
      * 初始化
      */
     @Override
-    protected void init() {
+    protected void initUI() {
+        super.initUI();
         mSingleModeRB.setChecked(true);
 
         mCropCB.setChecked(true);
@@ -113,6 +114,11 @@ public class PickerActivity extends AppActivity {
         mPictureLoader = new PickerLoader();
 
         height = VMDimen.dp2px(72);
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     @OnCheckedChanged({ R.id.picker_crop_cb, R.id.picker_save_rectangle_cb, R.id.picker_show_camera_cb })

@@ -1,14 +1,12 @@
 package com.vmloft.develop.library.tools.widget;
 
 import android.content.Context;
-import android.graphics.Outline;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewOutlineProvider;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;

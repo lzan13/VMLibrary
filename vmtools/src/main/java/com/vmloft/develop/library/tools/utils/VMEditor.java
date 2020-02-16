@@ -1,9 +1,9 @@
 package com.vmloft.develop.library.tools.utils;
 
-import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import androidx.annotation.NonNull;
 
 import java.util.Stack;
 

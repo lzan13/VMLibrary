@@ -22,10 +22,15 @@ public class ThreadActivity extends AppActivity {
     }
 
     @Override
-    protected void init() {
+    protected void initUI() {
+        super.initUI();
         setTopTitle("验证线程操作");
     }
 
+    @Override
+    protected void initData() {
+
+    }
     @OnClick({R.id.thread_btn_1})
     public void onClick(View view) {
         switch (view.getId()) {

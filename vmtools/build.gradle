@@ -1,13 +1,16 @@
 apply plugin: 'com.android.library'
 
+// 获取配置信息
+def configs = rootProject.ext.configs
+
 android {
-    compileSdkVersion 28
+    compileSdkVersion configs.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 35
-        versionName '0.10.5'
+        minSdkVersion configs.minSdkVersion
+        targetSdkVersion configs.targetSdkVersion
+        versionCode configs.versionCode
+        versionName configs.versionName
     }
     buildTypes {
         release {
@@ -28,9 +31,9 @@ android {
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    // Android Material design 设计风格库，包含了support-v4, appcompat-v7, recyclerView扩展库
-    implementation 'com.android.support:design:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
 }
 

@@ -17,8 +17,7 @@ public class IndicatorFragment extends AppLazyFragment {
 
     private static final String ARG_CONTENT_ID = "arg_content_id";
 
-    @BindView(R.id.default_title)
-    TextView titleView;
+    @BindView(R.id.default_title) TextView titleView;
 
     private String mContent;
 
@@ -46,5 +45,4 @@ public class IndicatorFragment extends AppLazyFragment {
         mContent = getArguments().getString(ARG_CONTENT_ID);
         titleView.setText(mContent);
     }
-
 }

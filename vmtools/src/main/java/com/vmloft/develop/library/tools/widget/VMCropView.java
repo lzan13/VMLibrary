@@ -18,11 +18,10 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.MotionEvent;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.view.ViewCompat;
 
 import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.picker.bean.VMPictureBean;
@@ -33,11 +32,6 @@ import com.vmloft.develop.library.tools.utils.VMFile;
 import com.vmloft.develop.library.tools.utils.bitmap.VMBitmap;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * Create by lzan13 on 2019/05/19 20:56

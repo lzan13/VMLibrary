@@ -1,0 +1,12 @@
+ext {
+    // 配置
+    configs = [
+        compileSdkVersion: 29,
+        applicationId: "com.vmloft.develop.library.example",
+        minSdkVersion: 21,
+        targetSdkVersion: 29,
+        versionCode: 10,
+        versionName: "1.0.0",
+
+    ]
+}

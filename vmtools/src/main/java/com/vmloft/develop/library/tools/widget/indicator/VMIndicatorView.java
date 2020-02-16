@@ -8,11 +8,12 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
-import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 
+import androidx.annotation.Nullable;
+
+import androidx.viewpager.widget.ViewPager;
 import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.utils.VMColor;
 import com.vmloft.develop.library.tools.utils.VMDimen;

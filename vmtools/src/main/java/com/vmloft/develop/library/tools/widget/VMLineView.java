@@ -3,7 +3,6 @@ package com.vmloft.develop.library.tools.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
-import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -170,7 +169,7 @@ public class VMLineView extends RelativeLayout {
      *
      * 设置图标
      */
-    public void setIconRes(@DrawableRes int resId) {
+    public void setIconRes(int resId) {
         mIconRes = resId;
         if (mIconRes == 0) {
             mIconView.setVisibility(GONE);
@@ -222,7 +221,7 @@ public class VMLineView extends RelativeLayout {
     /**
      * 设置右侧描述图标
      */
-    public void setCaptionIcon(@DrawableRes int resId) {
+    public void setCaptionIcon(int resId) {
         mCaptionIconRes = resId;
         if (mCaptionIconRes == 0) {
             mCaptionIconView.setVisibility(GONE);
@@ -267,7 +266,7 @@ public class VMLineView extends RelativeLayout {
     /**
      * 设置右侧图标
      */
-    public void setRightIcon(@DrawableRes int resId) {
+    public void setRightIcon(int resId) {
         mRightIconRes = resId;
         if (mRightIconRes == 0) {
             mRightIconView.setVisibility(GONE);

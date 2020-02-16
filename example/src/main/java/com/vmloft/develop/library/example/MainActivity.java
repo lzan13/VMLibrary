@@ -36,7 +36,9 @@ public class MainActivity extends AppActivity {
     }
 
     @Override
-    protected void init() {
+    protected void initUI() {
+        super.initUI();
+
         setTopTitle("工具库");
         setTopSubtitle("这个是我的工具类库入口");
         setTopIcon(0);
@@ -59,62 +61,64 @@ public class MainActivity extends AppActivity {
         }
     }
 
-    private View.OnClickListener viewListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-            case CLICK_START_ID + 0:
-                ARouter.goTools(mActivity);
-                break;
-            case CLICK_START_ID + 1:
-                ARouter.goBtnStyle(mActivity);
-                break;
-            case CLICK_START_ID + 2:
-                ARouter.goDotLine(mActivity);
-                break;
-            case CLICK_START_ID + 3:
-                ARouter.goDetails(mActivity);
-                break;
-            case CLICK_START_ID + 4:
-                ARouter.goCustomView(mActivity);
-                break;
-            case CLICK_START_ID + 5:
-                ARouter.goRecordScreen(mActivity);
-                break;
-            case CLICK_START_ID + 6:
-                ARouter.goPlayAudio(mActivity);
-                break;
-            case CLICK_START_ID + 7:
-                ARouter.goPWDialog(mActivity);
-                break;
-            case CLICK_START_ID + 8:
-                ARouter.goWeb(mActivity);
-                break;
-            case CLICK_START_ID + 9:
-                ARouter.goIndicator(mActivity);
-                break;
-            case CLICK_START_ID + 10:
-                ARouter.goImageDiscern(mActivity);
-                break;
-            case CLICK_START_ID + 11:
-                ARouter.goPicker(mActivity);
-                break;
-            case CLICK_START_ID + 12:
-                checkOnePermissions();
-                break;
-            case CLICK_START_ID + 13:
-                checkPermissions();
-                break;
-            case CLICK_START_ID + 14:
-                ARouter.goThread(mActivity);
-                break;
-            case CLICK_START_ID + 15:
-                ARouter.goScheme(mActivity);
-                break;
-            default:
-                ARouter.goTools(mActivity);
-                break;
-            }
+    @Override
+    protected void initData() {
+
+    }
+
+    private View.OnClickListener viewListener = v -> {
+        switch (v.getId()) {
+        case CLICK_START_ID + 0:
+            ARouter.goTools(mActivity);
+            break;
+        case CLICK_START_ID + 1:
+            ARouter.goBtnStyle(mActivity);
+            break;
+        case CLICK_START_ID + 2:
+            ARouter.goDotLine(mActivity);
+            break;
+        case CLICK_START_ID + 3:
+            ARouter.goDetails(mActivity);
+            break;
+        case CLICK_START_ID + 4:
+            ARouter.goCustomView(mActivity);
+            break;
+        case CLICK_START_ID + 5:
+            ARouter.goRecordScreen(mActivity);
+            break;
+        case CLICK_START_ID + 6:
+            ARouter.goPlayAudio(mActivity);
+            break;
+        case CLICK_START_ID + 7:
+            ARouter.goPWDialog(mActivity);
+            break;
+        case CLICK_START_ID + 8:
+            ARouter.goWeb(mActivity);
+            break;
+        case CLICK_START_ID + 9:
+            ARouter.goIndicator(mActivity);
+            break;
+        case CLICK_START_ID + 10:
+            ARouter.goImageDiscern(mActivity);
+            break;
+        case CLICK_START_ID + 11:
+            ARouter.goPicker(mActivity);
+            break;
+        case CLICK_START_ID + 12:
+            checkOnePermissions();
+            break;
+        case CLICK_START_ID + 13:
+            checkPermissions();
+            break;
+        case CLICK_START_ID + 14:
+            ARouter.goThread(mActivity);
+            break;
+        case CLICK_START_ID + 15:
+            ARouter.goScheme(mActivity);
+            break;
+        default:
+            ARouter.goTools(mActivity);
+            break;
         }
     };
 

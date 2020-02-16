@@ -17,7 +17,7 @@
         android:gravity="center"
         >
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -35,6 +35,5 @@
             app:vm_indicator_radius="@dimen/vm_dimen_4"
             app:vm_indicator_selected="@color/app_indicator_selected"
             />
-
     </RelativeLayout>
 </LinearLayout>

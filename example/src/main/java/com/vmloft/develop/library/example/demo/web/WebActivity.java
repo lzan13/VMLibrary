@@ -23,10 +23,8 @@ import butterknife.OnClick;
  */
 public class WebActivity extends AppActivity {
 
-    @BindView(R.id.btn_call_js)
-    Button callJSBtn;
-    @BindView(R.id.layout_web_container)
-    LinearLayout webContainer;
+    @BindView(R.id.btn_call_js) Button callJSBtn;
+    @BindView(R.id.layout_web_container) LinearLayout webContainer;
 
     private WebView webView;
 
@@ -36,7 +34,9 @@ public class WebActivity extends AppActivity {
     }
 
     @Override
-    protected void init() {
+    protected void initUI() {
+        super.initUI();
+
         webView = new WebView(mActivity);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setVerticalScrollBarEnabled(false);
@@ -47,18 +47,22 @@ public class WebActivity extends AppActivity {
         webContainer.addView(webView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
         webView.loadUrl("file:///android_asset/index.html");
+    }
+
+    @Override
+    protected void initData() {
 
     }
 
-    @OnClick({R.id.btn_call_js, R.id.btn_call_js_params})
+    @OnClick({ R.id.btn_call_js, R.id.btn_call_js_params })
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_call_js:
-                javaCallJs("javaCallJs");
-                break;
-            case R.id.btn_call_js_params:
-                javaCallJs("javaCallJsArgs", "Hi Title 2\n======\n\n 你好啊2");
-                break;
+        case R.id.btn_call_js:
+            javaCallJs("javaCallJs");
+            break;
+        case R.id.btn_call_js_params:
+            javaCallJs("javaCallJsArgs", "Hi Title 2\n======\n\n 你好啊2");
+            break;
         }
     }
 
@@ -109,7 +113,6 @@ public class WebActivity extends AppActivity {
         //        }
     }
 
-
     private WebViewClient viewClient = new WebViewClient() {
 
         @Override
@@ -117,12 +120,10 @@ public class WebActivity extends AppActivity {
         }
 
         @Override
-        public void onReceivedError(WebView view, WebResourceRequest request,
-                                    WebResourceError error) {
+        public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
             super.onReceivedError(view, request, error);
         }
     };
-
 
     private WebChromeClient chromeClient = new WebChromeClient() {
 

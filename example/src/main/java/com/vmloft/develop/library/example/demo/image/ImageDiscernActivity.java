@@ -19,12 +19,9 @@ import butterknife.BindView;
  */
 public class ImageDiscernActivity extends AppActivity {
 
-    @BindView(R.id.id_img_1)
-    ImageView oneView;
-    @BindView(R.id.id_img_2)
-    ImageView twoView;
-    @BindView(R.id.id_img_3)
-    ImageView destView;
+    @BindView(R.id.id_img_1) ImageView oneView;
+    @BindView(R.id.id_img_2) ImageView twoView;
+    @BindView(R.id.id_img_3) ImageView destView;
 
     @Override
     protected int layoutId() {
@@ -32,10 +29,11 @@ public class ImageDiscernActivity extends AppActivity {
     }
 
     @Override
-    protected void init() {
+    protected void initUI() {
+        super.initUI();
         Bitmap oneBitmap = BitmapFactory.decodeFile("/sdcard/DCIM/Screenshots/verification_code_1.png");
         Bitmap twoBitmap = BitmapFactory.decodeFile("/sdcard/DCIM/Screenshots/verification_code_2.png");
-//        Bitmap threeBitmap = BitmapFactory.decodeFile("/sdcard/DCIM/Screenshots/verification_code_2.png");
+        //        Bitmap threeBitmap = BitmapFactory.decodeFile("/sdcard/DCIM/Screenshots/verification_code_2.png");
         if (oneBitmap == null || twoBitmap == null) {
             return;
         }
@@ -54,5 +52,10 @@ public class ImageDiscernActivity extends AppActivity {
         destView.setImageBitmap(destBitmap);
 
         VMLog.d("不同点坐标: start(%d, %d) - target(%d, %d)", startPoint.x, startPoint.y, targetPoint.x, targetPoint.y);
+    }
+
+    @Override
+    protected void initData() {
+
     }
 }

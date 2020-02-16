@@ -1,12 +1,12 @@
 package com.vmloft.develop.library.tools.widget;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.annotation.Nullable;
 
 /**
  * Created by lzan13 on 2017/5/12.

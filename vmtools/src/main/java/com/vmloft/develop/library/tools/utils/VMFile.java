@@ -407,20 +407,20 @@ public class VMFile {
      * SDCard 目录
      * Environment.getExternalStorageDirectory().getPath();
      * 当前 app 在 root 下的缓存目录
-     * VMTools.getContext().getCacheDir().getPath();
+     * VMTools.getAppContext().getCacheDir().getPath();
      * 当前 app 在 SDCard 下的缓存目录
-     * VMTools.getContext().getExternalCacheDir().getPath();
+     * VMTools.getAppContext().getExternalCacheDir().getPath();
      * 当前 app 在 root 下的 files 目录
-     * VMTools.getContext().getFilesDir().getPath();
-     * VMTools.getContext().getFilesDir().getPath();
+     * VMTools.getAppContext().getFilesDir().getPath();
+     * VMTools.getAppContext().getFilesDir().getPath();
      * 当前 app 在 SDCard 下的 obb 目录，一般是apk包过大要分出资源包，游戏用的比较多
-     * VMTools.getContext().getObbDir().getPath();
+     * VMTools.getAppContext().getObbDir().getPath();
      * 获取当前 app 包名
-     * VMTools.getContext().getPackageName();
+     * VMTools.getAppContext().getPackageName();
      * 获取当前 app 代码路径
-     * VMTools.getContext().getPackageCodePath();
+     * VMTools.getAppContext().getPackageCodePath();
      * 获取当前 app 资源路径
-     * VMTools.getContext().getPackageResourcePath();
+     * VMTools.getAppContext().getPackageResourcePath();
      *
      * 获取常用目录的方法，参数是需要获取的目录类型，可以是download，camera
      * Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);

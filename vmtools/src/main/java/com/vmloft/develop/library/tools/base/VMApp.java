@@ -12,20 +12,20 @@ import java.util.List;
  */
 public class VMApp extends Application {
 
-    protected static Context mContext;
-    private static List<VMActivity> activityList = new ArrayList<>();
+    protected static Context appContext;
+    protected static List<VMActivity> activityList = new ArrayList<>();
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mContext = this;
+        appContext = getApplicationContext();
     }
 
     /**
      * 获取项目上下文对象
      */
-    public static Context getContext() {
-        return mContext;
+    public static Context getAppContext() {
+        return appContext;
     }
 
     /**

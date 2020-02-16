@@ -1,16 +1,16 @@
 package com.vmloft.develop.library.example.demo.indicator;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import com.vmloft.develop.library.example.R;
 import com.vmloft.develop.library.example.common.AppActivity;
 import com.vmloft.develop.library.tools.adapter.VMFragmentPagerAdapter;
 import com.vmloft.develop.library.tools.widget.indicator.VMIndicatorView;
 
-import java.util.ArrayList;
-
 import butterknife.BindView;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,7 +32,8 @@ public class IndicatorActivity extends AppActivity {
     }
 
     @Override
-    protected void init() {
+    protected void initUI() {
+        super.initUI();
 
         fragmentList = new ArrayList<>();
         fragmentList.add(IndicatorFragment.newInstance("第 1 页"));
@@ -44,5 +45,10 @@ public class IndicatorActivity extends AppActivity {
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mAdapter);
         mIndicatorView.setViewPager(mViewPager);
+    }
+
+    @Override
+    protected void initData() {
+
     }
 }

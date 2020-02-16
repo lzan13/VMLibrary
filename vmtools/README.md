@@ -1,10 +1,10 @@
 VMTools
 =======
 
-[![Download](https://api.bintray.com/packages/lzan13/VMLibrary/vmtools/images/download.svg)](https://bintray.com/lzan13/VMLibrary/vmtools/_latestVersion)
+[![Download](https://api.bintray.com/packages/lzan13/VMLibrary/vmtoolsx/images/download.svg)](https://bintray.com/lzan13/VMLibrary/vmtoolsx/_latestVersion)
 [![](https://img.shields.io/badge/author-lzan13-green.svg)](https://github.com/lzan13)
 [![](https://img.shields.io/badge/weibo-@lzan13-red.svg)](http://weibo.com/lzan13)
-[![](https://img.shields.io/badge/blog-@%E7%A9%BF%E8%A3%A4%E8%A1%A9%E9%97%AF%E5%A4%A9%E4%B8%8B-blue.svg)](http://blog.melove.net)
+[![](https://img.shields.io/badge/blog-%E7%A9%BF%E8%A3%A4%E8%A1%A9%E9%97%AF%E5%A4%A9%E4%B8%8B-blue.svg)](https://blog.melove.net)
 
 
 封装自己开发中常用的一些工具类，以及自定义控件等，方便以后开发项目的使用，以及分享给其他开发者直接使用
@@ -13,11 +13,12 @@ VMTools
 ### #使用
 **引用库**
 
-现已将库发布到 JCenter 仓库，需要使用的同学可以直接通过远程方式引用
+现已将库发布到 JCenter 仓库，需要使用的同学可以直接通过远程方式引用，最新版 1.0.0 为 androidx 版本，
+如果项目还未迁移到 androidx 需使用 0.10.5 版本
 ```
 dependencies {
     ...
-    implementation 'com.vmloft.library:vmtools:0.5.1'
+    implementation 'com.vmloft.library:vmtools:0.10.5'
 }
 ```
 

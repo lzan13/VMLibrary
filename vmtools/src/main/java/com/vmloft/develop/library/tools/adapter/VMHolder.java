@@ -1,7 +1,7 @@
 package com.vmloft.develop.library.tools.adapter;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by lzan13 on 2018/4/27.

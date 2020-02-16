@@ -2,11 +2,12 @@ package com.vmloft.develop.library.tools.picker.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
 
 import com.vmloft.develop.library.tools.adapter.VMAdapter;
 import com.vmloft.develop.library.tools.adapter.VMHolder;

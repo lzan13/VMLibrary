@@ -1,9 +1,9 @@
 package com.vmloft.develop.library.tools.widget;
 
 import android.content.Context;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * Create by lzan13 on 2019/05/16 21:57

@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Parcelable;
 import android.util.DisplayMetrics;
-import android.view.View;
 
 import com.vmloft.develop.library.tools.base.VMConstant;
 import com.vmloft.develop.library.tools.picker.VMPicker;

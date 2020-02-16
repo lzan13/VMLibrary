@@ -29,23 +29,4 @@
             android:text="停止播放"
             />
     </com.vmloft.develop.library.tools.widget.VMViewGroup>
-    <!--展示波形控件-->
-    <com.gauravk.audiovisualizer.visualizer.BarVisualizer
-        android:id="@+id/bar_visualizer_view"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/vm_dimen_72"
-        app:avColor="@color/vm_black_54"
-        app:avDensity="0.8"
-        app:avSpeed="normal"
-        app:avType="fill"
-        />
-    <com.gauravk.audiovisualizer.visualizer.WaveVisualizer
-        android:id="@+id/wave_visualizer_view"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/vm_dimen_72"
-        app:avColor="@color/vm_black_54"
-        app:avDensity="0.8"
-        app:avSpeed="normal"
-        app:avType="fill"
-        />
 </LinearLayout>

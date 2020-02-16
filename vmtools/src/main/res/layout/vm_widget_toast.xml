@@ -20,7 +20,6 @@
         android:paddingStart="@dimen/vm_dimen_16"
         android:paddingEnd="@dimen/vm_dimen_16">
 
-
         <ImageView
             android:id="@+id/vm_toast_icon_iv"
             android:layout_width="wrap_content"

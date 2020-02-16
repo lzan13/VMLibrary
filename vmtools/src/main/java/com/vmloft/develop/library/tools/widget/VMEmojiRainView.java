@@ -1,25 +1,19 @@
 package com.vmloft.develop.library.tools.widget;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.View;
 
-import com.vmloft.develop.library.tools.R;
-import com.vmloft.develop.library.tools.VMTools;
 import com.vmloft.develop.library.tools.utils.VMDimen;
 import com.vmloft.develop.library.tools.utils.VMUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Create by lzan13 on 2019/7/17 10:34

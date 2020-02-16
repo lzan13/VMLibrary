@@ -3,11 +3,12 @@ package com.vmloft.develop.library.tools.utils;
 import android.app.Activity;
 import android.graphics.Outline;
 import android.os.Build;
-import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.view.ViewOutlineProvider;
 import android.view.Window;
 import android.view.WindowManager;
+
+import androidx.appcompat.app.AppCompatDelegate;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -39,19 +40,19 @@ public class VMTheme {
      */
     public static int setDarkStatusBar(Activity activity, boolean dark) {
         int result = 0;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (statusBarDarkModeFromMIUI(activity, dark)) {
-                result = 1;
-            } else if (statusBarDarkModeFromFlyme(activity.getWindow(), dark)) {
-                result = 2;
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (dark) {
-                    activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-                } else {
-                    activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
-                }
-                result = 3;
+        if (statusBarDarkModeFromMIUI(activity, dark)) {
+            result = 1;
+        } else if (statusBarDarkModeFromFlyme(activity.getWindow(), dark)) {
+            result = 2;
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (dark) {
+                activity.getWindow()
+                    .getDecorView()
+                    .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            } else {
+                activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
             }
+            result = 3;
         }
         return result;
     }
@@ -116,7 +117,9 @@ public class VMTheme {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     //开发版 7.7.13 及以后版本采用了系统API，旧方法无效但不会报错，所以两个方式都要加上
                     if (dark) {
-                        activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                        activity.getWindow()
+                            .getDecorView()
+                            .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
                     } else {
                         activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
                     }

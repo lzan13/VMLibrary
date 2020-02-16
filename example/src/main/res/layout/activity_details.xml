@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_bg"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
+
     <include layout="@layout/widget_common_top_bar" />
 
     <!--<com.vmloft.develop.library.tools.widget.VMDetailsView-->
@@ -16,15 +15,14 @@
     <!--android:layout_height="wrap_content"-->
     <!--android:layout_margin="16dp"-->
     <!--/>-->
-    <android.support.v4.widget.SwipeRefreshLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-        <android.support.v7.widget.RecyclerView
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
-    </android.support.v4.widget.SwipeRefreshLayout>
+            android:layout_height="match_parent" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

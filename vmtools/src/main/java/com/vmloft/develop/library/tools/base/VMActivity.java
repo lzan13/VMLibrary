@@ -1,7 +1,8 @@
 package com.vmloft.develop.library.tools.base;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.vmloft.develop.library.tools.utils.VMLog;
 
