@@ -2,7 +2,7 @@ VMLibrary
 =========
 [![](https://img.shields.io/badge/author-lzan13-green.svg)](https://github.com/lzan13)
 [![](https://img.shields.io/badge/weibo-@lzan13-red.svg)](http://weibo.com/lzan13)
-[![](https://img.shields.io/badge/blog-@%E7%A9%BF%E8%A3%A4%E8%A1%A9%E9%97%AF%E5%A4%A9%E4%B8%8B-blue.svg)](http://blog.melove.net)
+[![](https://img.shields.io/badge/blog-%E7%A9%BF%E8%A3%A4%E8%A1%A9%E9%97%AF%E5%A4%A9%E4%B8%8B-blue.svg)](http://blog.melove.net)
 
 封装自己开发中常用的一些工具类以及自定义控件等，这个项目包含了多个`module`，现在已经将 `vmtools`发布到`JCenter`仓库，
 有需要的同学可以通过远程引用的方式使用
@@ -16,7 +16,6 @@ VMLibrary
 ### #详细
 - [example](./example) 示例`Module`主要都是一些自己测试代码
 - [vmtools](./vmtools) 自己封装的工具类库，包含常用工具类以及一些自定义控件等
-- [vmutils](./vmutils) 放置一些自己测试的`Java`代码
 
 
 ### #LICENSE

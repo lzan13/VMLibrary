@@ -14,11 +14,11 @@ VMTools
 **引用库**
 
 现已将库发布到 JCenter 仓库，需要使用的同学可以直接通过远程方式引用，最新版 1.0.0 为 androidx 版本，
-如果项目还未迁移到 androidx 需使用 0.10.4 版本
+如果项目还未迁移到 androidx 需使用 0.10.5 版本
 ```
 dependencies {
     ...
-    implementation 'com.vmloft.library:vmtools:0.10.4'
+    implementation 'com.vmloft.library:vmtools:0.10.5'
 }
 ```
 
