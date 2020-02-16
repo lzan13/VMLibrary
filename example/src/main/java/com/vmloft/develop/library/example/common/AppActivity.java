@@ -1,32 +1,30 @@
 package com.vmloft.develop.library.example.common;
 
-import android.os.Bundle;
-
 import android.view.View;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import com.vmloft.develop.library.example.R;
-import com.vmloft.develop.library.tools.base.VMActivity;
-
+import com.vmloft.develop.library.tools.base.VMBActivity;
 import com.vmloft.develop.library.tools.utils.VMDimen;
 import com.vmloft.develop.library.tools.utils.VMTheme;
 import com.vmloft.develop.library.tools.widget.VMTopBar;
 
-public abstract class AppActivity extends VMActivity {
+public abstract class AppActivity extends VMBActivity {
+
+    // ButterKnife 注册对象
+    private Unbinder unbinder;
 
     // 统一的 TopBar
     protected VMTopBar mTopBar;
     protected View mSpaceView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(layoutId());
+    protected void initUI() {
+        unbinder = ButterKnife.bind(mActivity);
 
         VMTheme.setDarkStatusBar(mActivity, true);
-
         setupTobBar();
-
-        init();
     }
 
     /**
@@ -35,10 +33,8 @@ public abstract class AppActivity extends VMActivity {
     protected void setupTobBar() {
         mSpaceView = findViewById(R.id.common_top_space);
         if (mSpaceView != null) {
-            if (mSpaceView != null) {
-                // 设置状态栏透明主题时，布局整体会上移，所以给头部 View 设置 StatusBar 的高度
-                mSpaceView.getLayoutParams().height = VMDimen.getStatusBarHeight();
-            }
+            // 设置状态栏透明主题时，布局整体会上移，所以给头部 View 设置 StatusBar 的高度
+            mSpaceView.getLayoutParams().height = VMDimen.getStatusBarHeight();
         }
         mTopBar = findViewById(R.id.common_top_bar);
         if (mTopBar != null) {
@@ -83,15 +79,11 @@ public abstract class AppActivity extends VMActivity {
         }
     }
 
-    /**
-     * 加载布局 id
-     *
-     * @return 返回布局 id
-     */
-    protected abstract int layoutId();
-
-    /**
-     * 初始化
-     */
-    protected abstract void init();
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (unbinder != null) {
+            unbinder.unbind();
+        }
+    }
 }

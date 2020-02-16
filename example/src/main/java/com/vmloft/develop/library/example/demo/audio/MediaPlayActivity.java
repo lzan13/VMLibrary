@@ -34,7 +34,7 @@ public class MediaPlayActivity extends AppActivity {
     }
 
     @Override
-    protected void init() {
+    protected void initData() {
 
     }
 
@@ -123,5 +123,4 @@ public class MediaPlayActivity extends AppActivity {
         //mBarVisualizerView.setAudioSessionId(mMediaPlayer.getAudioSessionId());
         //mWaveVisualizerView.setAudioSessionId(mMediaPlayer.getAudioSessionId());
     }
-
 }

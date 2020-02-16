@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         app:vm_end_btn="@string/vm_pick_complete"
         app:vm_icon="@drawable/vm_ic_arrow_left"
-        app:vm_title_color="@color/vm_title"
-        app:vm_title="@string/vm_pick_picture" />
+        app:vm_title="@string/vm_pick_picture"
+        app:vm_title_color="@color/vm_title" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -73,7 +73,7 @@
 
         </RelativeLayout>
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/vm_pick_grid_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -19,7 +19,12 @@ public class SchemeActivity extends AppActivity {
     }
 
     @Override
-    protected void init() {
+    protected void initUI() {
+        super.initUI();
+    }
+
+    @Override
+    protected void initData() {
         Uri uri = getIntent().getData();
         if (uri != null) {
             // 完整的url信息

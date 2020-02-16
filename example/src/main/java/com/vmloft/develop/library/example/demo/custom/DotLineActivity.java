@@ -16,10 +16,7 @@ import butterknife.OnClick;
  */
 public class DotLineActivity extends AppActivity {
 
-
-    @BindView(R.id.view_dot_line)
-    VMDotLineView dotLineView;
-
+    @BindView(R.id.view_dot_line) VMDotLineView dotLineView;
 
     @Override
     protected int layoutId() {
@@ -27,7 +24,8 @@ public class DotLineActivity extends AppActivity {
     }
 
     @Override
-    protected void init() {
+    protected void initUI() {
+        super.initUI();
         setTopTitle("自定义描点控件");
         getTopBar().setTitleStyle(R.style.VMText_Display1);
 
@@ -41,21 +39,26 @@ public class DotLineActivity extends AppActivity {
         dotLineView.addPoint(new Point(300, 400));
     }
 
-    @OnClick({R.id.btn_big_dipper, R.id.btn_square, R.id.btn_dot_color, R.id.btn_line_color})
+    @Override
+    protected void initData() {
+
+    }
+
+    @OnClick({ R.id.btn_big_dipper, R.id.btn_square, R.id.btn_dot_color, R.id.btn_line_color })
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_big_dipper:
-                drawBigDipper();
-                break;
-            case R.id.btn_square:
-                drawSquare();
-                break;
-            case R.id.btn_dot_color:
-                dotLineView.setDotColor(0xddfe8729);
-                break;
-            case R.id.btn_line_color:
-                dotLineView.setLineColor(0xddfe8729);
-                break;
+        case R.id.btn_big_dipper:
+            drawBigDipper();
+            break;
+        case R.id.btn_square:
+            drawSquare();
+            break;
+        case R.id.btn_dot_color:
+            dotLineView.setDotColor(0xddfe8729);
+            break;
+        case R.id.btn_line_color:
+            dotLineView.setLineColor(0xddfe8729);
+            break;
         }
         dotLineView.refresh();
     }

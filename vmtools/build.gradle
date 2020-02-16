@@ -1,14 +1,16 @@
 apply plugin: 'com.android.library'
 
+// 获取配置信息
+def configs = rootProject.ext.configs
+
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    compileSdkVersion configs.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 100
-        versionName '1.0.0'
+        minSdkVersion configs.minSdkVersion
+        targetSdkVersion configs.targetSdkVersion
+        versionCode configs.versionCode
+        versionName configs.versionName
     }
     buildTypes {
         release {

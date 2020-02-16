@@ -38,7 +38,8 @@ public class CustomViewActivity extends AppActivity {
     }
 
     @Override
-    protected void init() {
+    protected void initUI() {
+        super.initUI();
         setTopTitle("自定义控件演示");
         mRecordView.setRecordListener(new VMRecordView.RecordListener() {
             @Override
@@ -61,6 +62,11 @@ public class CustomViewActivity extends AppActivity {
                 VMToast.make(mActivity, "录音完成 %s %d", path, time).done();
             }
         });
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     @OnClick({

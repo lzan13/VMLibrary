@@ -15,7 +15,7 @@ public abstract class AppFragment extends VMFragment {
     private Unbinder unbinder;
 
     @Override
-    protected void init() {
+    protected void initUI() {
         unbinder = ButterKnife.bind(this, getView());
     }
 

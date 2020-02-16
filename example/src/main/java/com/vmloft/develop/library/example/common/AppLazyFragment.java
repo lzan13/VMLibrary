@@ -15,8 +15,9 @@ public abstract class AppLazyFragment extends VMLazyFragment {
     private Unbinder unbinder;
 
     @Override
-    protected void initView() {
+    protected void initUI() {
         unbinder = ButterKnife.bind(this, getView());
+        super.initUI();
     }
 
     @Override

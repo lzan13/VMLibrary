@@ -15,7 +15,7 @@ public class BtnStyleActivity extends AppActivity {
     }
 
     @Override
-    protected void init() {
+    protected void initData() {
 
     }
 }

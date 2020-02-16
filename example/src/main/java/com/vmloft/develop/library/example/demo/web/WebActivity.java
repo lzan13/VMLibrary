@@ -34,7 +34,9 @@ public class WebActivity extends AppActivity {
     }
 
     @Override
-    protected void init() {
+    protected void initUI() {
+        super.initUI();
+
         webView = new WebView(mActivity);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setVerticalScrollBarEnabled(false);
@@ -45,6 +47,11 @@ public class WebActivity extends AppActivity {
         webContainer.addView(webView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
         webView.loadUrl("file:///android_asset/index.html");
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     @OnClick({ R.id.btn_call_js, R.id.btn_call_js_params })

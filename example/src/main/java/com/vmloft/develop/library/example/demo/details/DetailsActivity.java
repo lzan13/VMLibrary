@@ -37,7 +37,8 @@ public class DetailsActivity extends AppActivity {
     }
 
     @Override
-    protected void init() {
+    protected void initUI() {
+        super.initUI();
 
         mSwipeRefreshLayout.setOnRefreshListener(() -> {
             loadData();
@@ -66,6 +67,11 @@ public class DetailsActivity extends AppActivity {
 
         initItemListener();
         //loadData();
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     /**

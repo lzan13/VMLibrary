@@ -1,6 +1,5 @@
 package com.vmloft.develop.library.example.demo.indicator;
 
-
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -33,7 +32,8 @@ public class IndicatorActivity extends AppActivity {
     }
 
     @Override
-    protected void init() {
+    protected void initUI() {
+        super.initUI();
 
         fragmentList = new ArrayList<>();
         fragmentList.add(IndicatorFragment.newInstance("第 1 页"));
@@ -45,5 +45,10 @@ public class IndicatorActivity extends AppActivity {
         mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mAdapter);
         mIndicatorView.setViewPager(mViewPager);
+    }
+
+    @Override
+    protected void initData() {
+
     }
 }

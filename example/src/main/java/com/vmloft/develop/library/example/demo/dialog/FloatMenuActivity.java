@@ -37,15 +37,18 @@ public class FloatMenuActivity extends AppActivity {
     }
 
     @Override
-    protected void init() {
+    protected void initUI() {
+        super.initUI();
         mFloatMenu = new VMFloatMenu(mActivity);
-        mFloatMenu.setItemClickListener(new VMFloatMenu.IItemClickListener() {
-            @Override
-            public void onItemClick(int id) {
-                VMLog.d("点击了悬浮菜单 %d", id);
-                VMToast.make(mActivity, "点击了悬浮菜单 " + id).done();
-            }
+        mFloatMenu.setItemClickListener(id -> {
+            VMLog.d("点击了悬浮菜单 %d", id);
+            VMToast.make(mActivity, "点击了悬浮菜单 " + id).done();
         });
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     @OnTouch({

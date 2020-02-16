@@ -54,7 +54,9 @@ public abstract class VMFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         VMLog.v("onActivityCreated: %s", className);
 
-        init();
+        initUI();
+
+        initData();
     }
 
     @Override
@@ -111,7 +113,6 @@ public abstract class VMFragment extends Fragment {
         VMLog.v("onDestroy: %s", className);
     }
 
-
     /**
      * 加载 Fragment 界面布局
      *
@@ -120,9 +121,14 @@ public abstract class VMFragment extends Fragment {
     protected abstract int layoutId();
 
     /**
-     * 初始化 Fragment 界面
+     * 初始化 Fragment 界面 UI
      */
-    protected abstract void init();
+    protected abstract void initUI();
+
+    /**
+     * 加载数据
+     */
+    protected abstract void initData();
 
     /**
      * 定义 Fragmnet 回调接口，方便 Activity 与 Fragment 通讯

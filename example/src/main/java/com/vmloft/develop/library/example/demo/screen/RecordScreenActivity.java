@@ -35,9 +35,15 @@ public class RecordScreenActivity extends AppActivity {
     }
 
     @Override
-    protected void init() {
+    protected void initUI() {
+        super.initUI();
         Intent intent = new Intent(mActivity, SRService.class);
         bindService(intent, serviceConnection, BIND_AUTO_CREATE);
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     @Override
