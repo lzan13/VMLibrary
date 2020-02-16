@@ -23,16 +23,11 @@ public class FloatMenuActivity extends AppActivity {
 
     private FloatMenuActivity activity;
 
-    @BindView(R.id.float_menu_left_top_btn)
-    Button leftTopBtn;
-    @BindView(R.id.float_menu_left_bottom_btn)
-    Button leftBottomBtn;
-    @BindView(R.id.float_menu_center_btn)
-    Button centerBtn;
-    @BindView(R.id.float_menu_right_top_btn)
-    Button rightTopBtn;
-    @BindView(R.id.float_menu_right_bottom_btn)
-    Button rightBottomBtn;
+    @BindView(R.id.float_menu_left_top_btn) Button leftTopBtn;
+    @BindView(R.id.float_menu_left_bottom_btn) Button leftBottomBtn;
+    @BindView(R.id.float_menu_center_btn) Button centerBtn;
+    @BindView(R.id.float_menu_right_top_btn) Button rightTopBtn;
+    @BindView(R.id.float_menu_right_bottom_btn) Button rightBottomBtn;
 
     private int touchX;
     private int touchY;
@@ -53,11 +48,12 @@ public class FloatMenuActivity extends AppActivity {
                 VMToast.make(mActivity, "点击了悬浮菜单 " + id).done();
             }
         });
-
     }
 
-    @OnTouch({R.id.float_menu_left_top_btn, R.id.float_menu_right_top_btn, R.id.float_menu_center_btn,
-            R.id.float_menu_left_bottom_btn, R.id.float_menu_right_bottom_btn})
+    @OnTouch({
+        R.id.float_menu_left_top_btn, R.id.float_menu_right_top_btn, R.id.float_menu_center_btn, R.id.float_menu_left_bottom_btn,
+        R.id.float_menu_right_bottom_btn
+    })
     public boolean onTouch(View v, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             touchX = (int) event.getRawX();
@@ -66,28 +62,19 @@ public class FloatMenuActivity extends AppActivity {
         return false;
     }
 
-
     @OnClick({
-            R.id.float_menu_left_top_btn, R.id.float_menu_right_top_btn, R.id.float_menu_center_btn,
-            R.id.float_menu_left_bottom_btn, R.id.float_menu_right_bottom_btn
+        R.id.float_menu_left_top_btn, R.id.float_menu_right_top_btn, R.id.float_menu_center_btn, R.id.float_menu_left_bottom_btn,
+        R.id.float_menu_right_bottom_btn
     })
     void onClick(View view) {
         switch (view.getId()) {
-            case R.id.float_menu_left_top_btn:
-                showFloatMenu(view);
-                break;
-            case R.id.float_menu_left_bottom_btn:
-                showFloatMenu(view);
-                break;
-            case R.id.float_menu_center_btn:
-                showFloatMenu(view);
-                break;
-            case R.id.float_menu_right_top_btn:
-                showFloatMenu(view);
-                break;
-            case R.id.float_menu_right_bottom_btn:
-                showFloatMenu(view);
-                break;
+        case R.id.float_menu_left_top_btn:
+        case R.id.float_menu_left_bottom_btn:
+        case R.id.float_menu_center_btn:
+        case R.id.float_menu_right_top_btn:
+        case R.id.float_menu_right_bottom_btn:
+            showFloatMenu(view);
+            break;
         }
     }
 
@@ -98,7 +85,7 @@ public class FloatMenuActivity extends AppActivity {
         mFloatMenu.clearAllItem();
         mFloatMenu.addItem(new VMFloatMenu.ItemBean(1, "悬浮菜单"));
         mFloatMenu.addItem(new VMFloatMenu.ItemBean(2, "悬浮"));
-        mFloatMenu.addItem(new VMFloatMenu.ItemBean(3, "悬浮菜单"));
+        mFloatMenu.addItem(new VMFloatMenu.ItemBean(3, "悬浮菜单", R.color.vm_red));
         mFloatMenu.addItem(new VMFloatMenu.ItemBean(4, "悬浮菜单菜单"));
         mFloatMenu.addItem(new VMFloatMenu.ItemBean(5, "悬浮菜单"));
         mFloatMenu.addItem(new VMFloatMenu.ItemBean(6, "菜单"));
