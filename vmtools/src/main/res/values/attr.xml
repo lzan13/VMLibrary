@@ -176,10 +176,12 @@
         <attr name="vm_time_size" format="dimension" />
     </declare-styleable>
 
-    <!--自定义正方形布局-->
-    <declare-styleable name="VMSquareLayout">
-        <!--正方形布局大小取宽还是高度-->
-        <attr name="vm_unify_width" format="boolean" />
+    <!--自定义等比例布局-->
+    <declare-styleable name="VMRatioLayout">
+        <!--宽高比-->
+        <attr name="vm_layout_ratio" format="float" />
+        <!--固定宽或高-->
+        <attr name="vm_follow_width" format="boolean" />
     </declare-styleable>
 
     <!--自定义定时按钮-->

@@ -8,7 +8,7 @@ import com.vmloft.develop.library.example.R;
 import com.vmloft.develop.library.example.common.AppActivity;
 import com.vmloft.develop.library.tools.utils.VMDimen;
 import com.vmloft.develop.library.tools.widget.VMEmojiRainView;
-import com.vmloft.develop.library.tools.widget.VMSquareLayout;
+import com.vmloft.develop.library.tools.widget.VMRatioLayout;
 import com.vmloft.develop.library.tools.widget.VMTimerBtn;
 
 import butterknife.BindView;
@@ -28,7 +28,7 @@ public class CustomViewActivity extends AppActivity {
 
     @BindView(R.id.custom_btn_timer) VMTimerBtn mTimerBtn;
     @BindView(R.id.custom_record_view) VMRecordView mRecordView;
-    @BindView(R.id.custom_square_layout) VMSquareLayout mSquareLayout;
+    @BindView(R.id.custom_ratio_layout) VMRatioLayout mRatioLayout;
 
     @BindView(R.id.custom_emoji_rain_view) VMEmojiRainView mEmojiRainView;
 
@@ -70,7 +70,7 @@ public class CustomViewActivity extends AppActivity {
     }
 
     @OnClick({
-        R.id.custom_btn_timer, R.id.btn_toast_1, R.id.btn_toast_2, R.id.btn_toast_3, R.id.custom_square_layout
+        R.id.custom_btn_timer, R.id.btn_toast_1, R.id.btn_toast_2, R.id.btn_toast_3, R.id.custom_ratio_layout
     })
     public void onClick(View view) {
         switch (view.getId()) {
@@ -92,8 +92,8 @@ public class CustomViewActivity extends AppActivity {
         case R.id.btn_toast_3:
             VMToast.make(mActivity, "测试自定义弹出 Toast 提醒功能，这是错误提醒默认样式！红色的").error();
             break;
-        case R.id.custom_square_layout:
-            mSquareLayout.setUnifyWidth(false);
+        case R.id.custom_ratio_layout:
+            mRatioLayout.setFollowWidth(false);
             break;
         }
     }
