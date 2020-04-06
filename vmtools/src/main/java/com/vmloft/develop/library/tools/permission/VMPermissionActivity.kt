@@ -69,7 +69,8 @@ class VMPermissionActivity : AppCompatActivity() {
         mEnableDialog = intent.getBooleanExtra(VMConstant.VM_KEY_PERMISSION_ENABLE_DIALOG, false)
         mTitle = intent.getStringExtra(VMConstant.VM_KEY_PERMISSION_TITLE)
         mMessage = intent.getStringExtra(VMConstant.VM_KEY_PERMISSION_MSG)
-        mPermissions = intent.getParcelableArrayListExtra(VMConstant.VM_KEY_PERMISSION_LIST)
+        mPermissions.clear()
+        mPermissions.addAll(intent.getParcelableArrayListExtra(VMConstant.VM_KEY_PERMISSION_LIST))
         mPermissionsCopy = mPermissions
         if (mPermissions == null || mPermissions.size == 0) {
             finish()
@@ -157,15 +158,13 @@ class VMPermissionActivity : AppCompatActivity() {
             viewGroup.addView(pView)
         }
         view.findViewById<View>(id.vm_i_know_btn).setOnClickListener {
-            if (mDialog != null && mDialog!!.isShowing) {
-                mDialog!!.dismiss()
-            }
+            mDialog?.dismiss()
             // 开始申请权限
             requestPermission(permissionArray, REQUEST_PERMISSION)
         }
         mDialog = builder.create()
-        mDialog!!.setCancelable(false)
-        mDialog!!.show()
+        mDialog?.setCancelable(false)
+        mDialog?.show()
     }
 
     /**
@@ -277,9 +276,9 @@ class VMPermissionActivity : AppCompatActivity() {
      */
     private fun checkPermission() {
         mPermissions = mPermissionsCopy
-        val iterator: MutableIterator<VMPermissionBean?> = mPermissions.listIterator()
+        val iterator: MutableIterator<VMPermissionBean> = mPermissions.listIterator()
         while (iterator.hasNext()) {
-            val checkPermission = ContextCompat.checkSelfPermission(this, iterator.next()!!.permission!!)
+            val checkPermission = ContextCompat.checkSelfPermission(this, iterator.next().permission!!)
             if (checkPermission == PackageManager.PERMISSION_GRANTED) {
                 iterator.remove()
             }
@@ -307,9 +306,7 @@ class VMPermissionActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         mCallback = null
-        if (mDialog != null && mDialog!!.isShowing) {
-            mDialog!!.dismiss()
-        }
+        mDialog?.dismiss()
     }
 
     companion object {

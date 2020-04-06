@@ -8,15 +8,10 @@ import android.widget.Button
 
 import com.alibaba.android.arouter.launcher.ARouter
 
-import com.vmloft.develop.library.example.R.color
-import com.vmloft.develop.library.example.R.layout
-import com.vmloft.develop.library.example.R.mipmap
-import com.vmloft.develop.library.example.R.style
 import com.vmloft.develop.library.example.base.AppActivity
 import com.vmloft.develop.library.tools.permission.VMPermission
 import com.vmloft.develop.library.tools.permission.VMPermission.PCallback
 import com.vmloft.develop.library.tools.permission.VMPermissionBean
-import com.vmloft.develop.library.tools.utils.VMColor
 import com.vmloft.develop.library.tools.utils.logger.VMLog
 import com.vmloft.develop.library.tools.widget.toast.VMToast
 
@@ -43,8 +38,8 @@ class MainActivity : AppActivity() {
 
     override fun layoutId(): Int {
         // 修改界面主题
-        setTheme(style.AppTheme)
-        return layout.activity_main
+        setTheme(R.style.AppTheme)
+        return R.layout.activity_main
     }
 
     override fun initUI() {
@@ -74,7 +69,7 @@ class MainActivity : AppActivity() {
      * 添加一个按钮
      */
     private fun addBtn(title: String, id: Int) {
-        val btn = Button(ContextThemeWrapper(mActivity, style.VMBtn_Flat))
+        val btn = Button(ContextThemeWrapper(mActivity, R.style.VMBtn_Flat))
         btn.text = title
         btn.id = id
         btn.setOnClickListener(viewListener)
@@ -102,9 +97,7 @@ class MainActivity : AppActivity() {
      * 检查权限
      */
     private fun checkOnePermissions() {
-        val bean = VMPermissionBean(
-            permission.CAMERA, mipmap.ic_launcher_round, "访问相机", "扫描二维码需要使用到相机，请允许我们获取拍照权限"
-        )
+        val bean = VMPermissionBean(permission.CAMERA, "访问相机", "扫描二维码需要使用到相机，请允许我们获取拍照权限", R.mipmap.ic_launcher_round)
         VMPermission.getInstance(mActivity)
             .setEnableDialog(true)
             .setTitle("权限申请")
@@ -126,17 +119,9 @@ class MainActivity : AppActivity() {
      */
     private fun checkPermissions() {
         val permissions: MutableList<VMPermissionBean> = ArrayList()
-        permissions.add(VMPermissionBean(permission.CAMERA, mipmap.ic_launcher_round, "访问相机", "拍摄图片需要使用到相机，请允许我们获取访问相机"))
-        permissions.add(
-            VMPermissionBean(
-                permission.READ_EXTERNAL_STORAGE, mipmap.ic_launcher_round, "读写存储", "我们需要将文件保存到你的设备，请允许我们获取存储权限"
-            )
-        )
-        permissions.add(
-            VMPermissionBean(
-                permission.RECORD_AUDIO, mipmap.ic_launcher_round, "访问麦克风", "发送语音消息需要录制声音，请允许我们访问设备麦克风"
-            )
-        )
+        permissions.add(VMPermissionBean(permission.CAMERA, "访问相机", "拍摄图片需要使用到相机，请允许我们获取访问相机", R.mipmap.ic_launcher_round))
+        permissions.add(VMPermissionBean(permission.READ_EXTERNAL_STORAGE, "读写存储", "我们需要将文件保存到你的设备，请允许我们获取存储权限", R.mipmap.ic_launcher_round))
+        permissions.add(VMPermissionBean(permission.RECORD_AUDIO, "访问麦克风", "发送语音消息需要录制声音，请允许我们访问设备麦克风", R.mipmap.ic_launcher_round))
         VMPermission.getInstance(mActivity)
             .setEnableDialog(true)
             .setTitle("权限申请")
