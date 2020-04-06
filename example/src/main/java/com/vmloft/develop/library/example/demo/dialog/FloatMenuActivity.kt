@@ -10,6 +10,7 @@ import com.vmloft.develop.library.example.R.layout
 import com.vmloft.develop.library.example.base.AppActivity
 import com.vmloft.develop.library.tools.utils.logger.VMLog
 import com.vmloft.develop.library.tools.widget.VMFloatMenu
+import com.vmloft.develop.library.tools.widget.VMFloatMenu.IItemClickListener
 import com.vmloft.develop.library.tools.widget.VMFloatMenu.ItemBean
 import com.vmloft.develop.library.tools.widget.toast.VMToast
 
@@ -39,11 +40,14 @@ class FloatMenuActivity : AppActivity() {
     @Override
     public override fun initUI() {
         super.initUI()
-        mFloatMenu = VMFloatMenu(mActivity)
-        mFloatMenu!!.setItemClickListener { id: Int ->
-            VMLog.d("点击了悬浮菜单 $id")
-            VMToast.make(mActivity, "点击了悬浮菜单 $id").done()
-        }
+        mFloatMenu = VMFloatMenu(mActivity!!)
+        mFloatMenu?.setItemClickListener(object : IItemClickListener() {
+            override fun onItemClick(id: Int) {
+                VMLog.d("点击了悬浮菜单 $id")
+                VMToast.make(mActivity, "点击了悬浮菜单 $id").done()
+            }
+        })
+
         leftTopBtn.setOnTouchListener { view, event -> onTouch(view, event) }
         leftBottomBtn.setOnTouchListener { view, event -> onTouch(view, event) }
         centerBtn.setOnTouchListener { view, event -> onTouch(view, event) }

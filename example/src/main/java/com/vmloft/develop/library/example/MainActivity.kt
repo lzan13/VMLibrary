@@ -30,7 +30,6 @@ import kotlinx.android.synthetic.main.activity_main.viewGroup
 class MainActivity : AppActivity() {
     // 定义动态添加的控件 Id
     private val btnStyleBtnId = 0x100;
-    private val dotLineBtnId = 0x101;
     private val customViewBtnId = 0x102;
     private val playAudioBtnId = 0x103;
     private val floatMenuBtnId = 0x104;
@@ -53,14 +52,12 @@ class MainActivity : AppActivity() {
         setTopTitle("工具库")
         setTopSubtitle("这个是我的工具类库入口")
         setTopIcon(0)
-        topBar!!.setEndBtnListener("测试") {
+        topBar?.setEndBtnListener("测试", OnClickListener {
             VMToast.make(mActivity, "测试自定义 VMTopBar 右侧按钮样式").show()
             VMLog.json("{'app':'VMLibrary', 'version':'1.0.0', 'tag':['tools','kotlin','android']}")
-        }
-        topBar!!.setEndBtnTextColor(VMColor.byRes(color.app_accent))
+        })
 
         addBtn("按钮样式", btnStyleBtnId)
-        addBtn("描点控件", dotLineBtnId)
         addBtn("自定义控件", customViewBtnId)
         addBtn("声音播放", playAudioBtnId)
         addBtn("悬浮菜单", floatMenuBtnId)
@@ -88,7 +85,6 @@ class MainActivity : AppActivity() {
     private val viewListener = OnClickListener { v: View ->
         when (v.id) {
             btnStyleBtnId -> ARouter.getInstance().build("/VMLoft/BtnStyle").navigation()
-            dotLineBtnId -> ARouter.getInstance().build("/VMLoft/DotLine").navigation()
             customViewBtnId -> ARouter.getInstance().build("/VMLoft/CustomView").navigation()
             playAudioBtnId -> ARouter.getInstance().build("/VMLoft/MediaPlay").navigation()
             floatMenuBtnId -> ARouter.getInstance().build("/VMLoft/FloatMenu").navigation()

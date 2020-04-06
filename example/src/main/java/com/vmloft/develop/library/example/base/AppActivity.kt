@@ -16,8 +16,9 @@ abstract class AppActivity : VMBActivity() {
     // 统一的 TopBar
     protected var topBar: VMTopBar? = null
     protected var mSpaceView: View? = null
+
     override fun initUI() {
-        VMTheme.setDarkStatusBar(mActivity, true)
+        VMTheme.setDarkStatusBar(mActivity!!, true)
         setupTobBar()
     }
 
@@ -28,12 +29,12 @@ abstract class AppActivity : VMBActivity() {
         mSpaceView = findViewById(id.common_top_space)
         if (mSpaceView != null) {
             // 设置状态栏透明主题时，布局整体会上移，所以给头部 View 设置 StatusBar 的高度
-            mSpaceView!!.layoutParams.height = VMDimen.getStatusBarHeight()
+            mSpaceView!!.layoutParams.height = VMDimen.statusBarHeight
         }
         topBar = findViewById(id.common_top_bar)
         if (topBar != null) {
-            topBar!!.setIcon(drawable.ic_arrow_left)
-            topBar!!.setIconListener { onBackPressed() }
+            topBar?.setIcon(drawable.ic_arrow_left)
+            topBar?.setIconListener(View.OnClickListener { onBackPressed() })
         }
     }
 

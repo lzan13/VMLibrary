@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/vm_float_menu_container"
+        android:id="@+id/vmFloatMenuContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/vm_margin_large"

@@ -22,52 +22,6 @@
             android:background="@color/app_white"
             android:orientation="vertical"
             >
-            <!--自定义输入框-->
-            <com.vmloft.develop.library.tools.widget.VMEditView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/vm_dimen_8"
-                android:background="@drawable/vm_bg_fillet_white"
-                android:elevation="@dimen/vm_dimen_8"
-                app:vm_edit_hint="数字"
-                app:vm_edit_mode="number"
-                app:vm_edit_text_color="@color/vm_body"
-                app:vm_edit_text_size="@dimen/vm_size_14"
-                />
-
-            <com.vmloft.develop.library.tools.widget.VMEditView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/vm_dimen_8"
-                android:elevation="@dimen/vm_dimen_8"
-                app:vm_edit_hint="手机号"
-                app:vm_edit_mode="phone"
-                app:vm_edit_text_color="@color/vm_body"
-                app:vm_edit_text_size="@dimen/vm_size_14"
-                />
-
-            <com.vmloft.develop.library.tools.widget.VMEditView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/vm_dimen_8"
-                android:elevation="@dimen/vm_dimen_8"
-                app:vm_edit_hint="账户"
-                app:vm_edit_mode="account"
-                app:vm_edit_text_color="@color/vm_body"
-                app:vm_edit_text_size="@dimen/vm_size_14"
-                />
-
-            <com.vmloft.develop.library.tools.widget.VMEditView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/vm_dimen_8"
-                android:background="@drawable/vm_bg_fillet_white"
-                android:elevation="@dimen/vm_dimen_8"
-                app:vm_edit_hint="密码"
-                app:vm_edit_mode="password"
-                app:vm_edit_text_color="@color/vm_body"
-                app:vm_edit_text_size="@dimen/vm_size_14"
-                />
 
             <com.vmloft.develop.library.tools.widget.VMViewGroup
                 android:layout_width="match_parent"
@@ -136,24 +90,4 @@
                 />
         </LinearLayout>
     </ScrollView>
-
-    <com.vmloft.develop.library.tools.widget.VMEditView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/vm_dimen_8"
-        android:elevation="@dimen/vm_dimen_8"
-        app:vm_edit_hint="输入内容"
-        app:vm_edit_mode="account"
-        app:vm_edit_text_color="@color/vm_body"
-        app:vm_edit_text_size="@dimen/vm_size_14"
-        />
-
-    <com.vmloft.develop.library.tools.widget.VMEmojiRainView
-        android:id="@+id/customEmojiRainView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:vm_emoji_count="60"
-        app:vm_emoji_id="@drawable/emoji_rose"
-        />
 </RelativeLayout>

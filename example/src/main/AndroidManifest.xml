@@ -47,8 +47,6 @@
         <activity
             android:name=".demo.custom.CustomViewActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <!--描点控件-->
-        <activity android:name=".demo.custom.DotLineActivity" />
 
         <!--播放音频-->
         <activity android:name=".demo.audio.MediaPlayActivity" />

@@ -18,37 +18,6 @@
         <attr name="vm_speed" format="integer" />
     </declare-styleable>
 
-    <!--自定义输入框按钮-->
-    <declare-styleable name="VMEditView">
-        <!--输入提示文案-->
-        <attr name="vm_edit_hint" format="string|reference" />
-        <!--输入限制-->
-        <attr name="vm_edit_limit" format="string|reference" />
-        <!--文本颜色-->
-        <attr name="vm_edit_text_color" format="color|integer" />
-        <!--文本大小-->
-        <attr name="vm_edit_text_size" format="dimension" />
-        <!--输入类型-->
-        <attr name="vm_edit_mode">
-            <enum name="number" value="0" />
-            <enum name="phone" value="1" />
-            <enum name="email" value="2" />
-            <enum name="account" value="3" />
-            <enum name="text" value="4" />
-            <enum name="password" value="5" />
-        </attr>
-        <!--是否启用输入提示-->
-        <!--<attr name="vm_enable_hint" format="boolean" />-->
-        <!--是否启用清空图标-->
-        <attr name="vm_enable_clear" format="boolean" />
-        <!--是否启用眼睛图标，密码模式下有效-->
-        <attr name="vm_enable_eye" format="boolean" />
-        <!--清空图标-->
-        <attr name="vm_edit_clear_res" format="boolean" />
-        <!--眼睛图标，密码模式下有效-->
-        <attr name="vm_edit_eye_res" format="boolean" />
-    </declare-styleable>
-
     <!--表情雨控件-->
     <declare-styleable name="VMEmojiRainView">
         <!--表情数量-->
@@ -87,32 +56,6 @@
         <attr name="vm_line_description" format="string|reference" />
         <!--装饰分割线-->
         <attr name="vm_line_decoration" format="boolean" />
-    </declare-styleable>
-
-    <!--自定义VMImageView的属性-->
-    <declare-styleable name="VMImageView">
-        <!--模糊半径-->
-        <attr name="vm_blur_radius" format="integer" />
-        <!--模糊图片是缩放比例-->
-        <attr name="vm_blur_scale" format="integer" />
-        <!--控件边框颜色-->
-        <attr name="vm_border_color" format="color" />
-        <!--控件边框宽度-->
-        <attr name="vm_border_width" format="dimension" />
-        <!--控件按下时颜色的透明度-->
-        <attr name="vm_press_alpha" format="integer" />
-        <!--控件按下的颜色-->
-        <attr name="vm_press_color" format="color" />
-        <!--控件圆角半径-->
-        <attr name="vm_radius" format="dimension" />
-        <!--自定义控件的几种枚举样式 0 正常、1 圆形、2 圆角矩形-->
-        <attr name="vm_shape_type" format="enum">
-            <enum name="normal" value="0" />
-            <enum name="round" value="1" />
-            <enum name="rectangle" value="2" />
-        </attr>
-        <!--是否拦截触摸事件-->
-        <attr name="vm_dispatch_touch_event" format="boolean" />
     </declare-styleable>
 
     <!--自定义指示器控件属性-->
@@ -196,20 +139,5 @@
         <!--装饰分割线-->
         <attr name="vm_is_center" format="boolean" />
     </declare-styleable>
-
-    <!--自定义波形展示控件-->
-    <declare-styleable name="VMWaveformView">
-        <!--文字颜色-->
-        <attr name="vm_waveform_text_color" format="color|integer" />
-        <!--文字大小-->
-        <attr name="vm_waveform_text_size" format="dimension" />
-        <!--波形颜色-->
-        <attr name="vm_waveform_waveform_color" format="color|integer" />
-        <!--波形间隔 树状图时才需要-->
-        <attr name="vm_waveform_waveform_interval" format="dimension" />
-        <!--波形宽度-->
-        <attr name="vm_waveform_waveform_width" format="dimension" />
-    </declare-styleable>
-
 
 </resources>
