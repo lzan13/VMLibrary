@@ -8,7 +8,7 @@ import android.content.Context
  * 工具初始化入口
  */
 object VMTools {
-    private lateinit var mContext: Context
+    private var mContext: Context? = null
 
     /**
      * 初始化工具类库
