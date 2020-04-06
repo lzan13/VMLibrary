@@ -10,7 +10,7 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 import com.vmloft.develop.library.tools.R;
-import com.vmloft.develop.library.tools.utils.VMLog;
+import com.vmloft.develop.library.tools.utils.logger.VMLog;
 
 import java.util.ArrayList;
 import java.util.List;

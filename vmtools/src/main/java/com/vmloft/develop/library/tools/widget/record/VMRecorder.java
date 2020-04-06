@@ -4,7 +4,7 @@ import android.media.MediaRecorder;
 
 import com.vmloft.develop.library.tools.utils.VMDate;
 import com.vmloft.develop.library.tools.utils.VMFile;
-import com.vmloft.develop.library.tools.utils.VMLog;
+import com.vmloft.develop.library.tools.utils.logger.VMLog;
 import com.vmloft.develop.library.tools.utils.VMStr;
 
 import java.io.IOException;
@@ -125,7 +125,7 @@ public class VMRecorder {
             mMediaRecorder.start();
         } catch (IOException e) {
             reset();
-            VMLog.e("录音系统出现错误 %s", e.getMessage());
+            VMLog.e("录音系统出现错误 " + e.getMessage());
             return ERROR_SYSTEM;
         }
         return ERROR_NONE;
@@ -145,11 +145,11 @@ public class VMRecorder {
                 // 停止录制
                 mMediaRecorder.stop();
             } catch (IllegalStateException e) {
-                VMLog.e("录音系统出现错误 %s", e.getMessage());
+                VMLog.e("录音系统出现错误 " + e.getMessage());
                 reset();
                 return ERROR_SYSTEM;
             } catch (RuntimeException e) {
-                VMLog.e("录音系统出现错误 %s", e.getMessage());
+                VMLog.e("录音系统出现错误 " + e.getMessage());
                 reset();
                 return ERROR_SYSTEM;
             }
@@ -174,10 +174,10 @@ public class VMRecorder {
                 // 停止录制
                 mMediaRecorder.stop();
             } catch (IllegalStateException e) {
-                VMLog.e("录音系统出现错误 %s", e.getMessage());
+                VMLog.e("录音系统出现错误 " + e.getMessage());
                 reset();
             } catch (RuntimeException e) {
-                VMLog.e("录音系统出现错误 %s", e.getMessage());
+                VMLog.e("录音系统出现错误 " + e.getMessage());
                 reset();
             }
         }

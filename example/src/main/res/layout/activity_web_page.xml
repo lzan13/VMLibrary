@@ -22,21 +22,20 @@
             >
 
             <Button
-                android:id="@+id/btn_call_js"
                 android:text="Call js"
                 style="@style/VMBtn.Green"
+                android:onClick="callJS"
                 />
 
             <Button
-                android:id="@+id/btn_call_js_params"
                 android:text="Call js params"
                 style="@style/VMBtn.Green"
+                android:onClick="callJSArgs"
                 />
-
         </com.vmloft.develop.library.tools.widget.VMViewGroup>
 
         <LinearLayout
-            android:id="@+id/layout_web_container"
+            android:id="@+id/webContainerLL"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"

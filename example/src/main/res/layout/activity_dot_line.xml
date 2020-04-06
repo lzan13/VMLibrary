@@ -21,27 +21,27 @@
             android:orientation="horizontal"
             >
             <Button
-                android:id="@+id/btn_big_dipper"
+                android:id="@+id/dipperBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="北斗七星"
                 />
             <Button
-                android:id="@+id/btn_square"
+                android:id="@+id/squareBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="正方形"
                 />
 
             <Button
-                android:id="@+id/btn_dot_color"
+                android:id="@+id/dotColorBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="点颜色"
                 />
 
             <Button
-                android:id="@+id/btn_line_color"
+                android:id="@+id/lineColorBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="线颜色"
@@ -54,7 +54,7 @@
         <!--android:layout_height="match_parent"-->
         <!--/>-->
         <com.vmloft.develop.library.tools.widget.VMDotLineView
-            android:id="@+id/view_dot_line"
+            android:id="@+id/dotLineView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:vm_dot_color="@color/vm_gray_87"

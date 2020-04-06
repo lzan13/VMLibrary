@@ -22,19 +22,19 @@
         android:layout_below="@+id/vm_common_top_bar">
 
         <View
-            android:id="@+id/vm_pick_grid_bottom_space"
+            android:id="@+id/vmPickGridBottomSpaceView"
             android:layout_width="match_parent"
             android:layout_height="@dimen/vm_dimen_0"
             android:layout_alignParentBottom="true" />
 
         <RelativeLayout
-            android:id="@+id/vm_pick_grid_bottom_bar_rl"
+            android:id="@+id/vmPickGridBottomBarRL"
             android:layout_width="match_parent"
             android:layout_height="@dimen/vm_dimen_48"
-            android:layout_above="@+id/vm_pick_grid_bottom_space">
+            android:layout_above="@+id/vmPickGridBottomSpaceView">
 
             <RelativeLayout
-                android:id="@+id/vm_pick_grid_choose_folder_rl"
+                android:id="@+id/vmPickGridChooseFolderRL"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
@@ -42,7 +42,7 @@
                 android:paddingRight="@dimen/vm_padding_large">
 
                 <TextView
-                    android:id="@+id/vm_pick_grid_choose_folder_tv"
+                    android:id="@+id/vmPickGridChooseFolderTV"
                     style="@style/VMText.Menu"
                     android:layout_centerVertical="true"
                     android:ellipsize="end"
@@ -54,14 +54,14 @@
                 <ImageView
                     android:layout_width="@dimen/vm_dimen_12"
                     android:layout_height="@dimen/vm_dimen_12"
-                    android:layout_alignBottom="@id/vm_pick_grid_choose_folder_tv"
-                    android:layout_toRightOf="@id/vm_pick_grid_choose_folder_tv"
+                    android:layout_alignBottom="@id/vmPickGridChooseFolderTV"
+                    android:layout_toRightOf="@id/vmPickGridChooseFolderTV"
                     android:src="@drawable/vm_ic_triangle_indicator"
                     android:tint="@color/vm_gray_54" />
             </RelativeLayout>
 
             <TextView
-                android:id="@+id/vm_pick_grid_preview_btn"
+                android:id="@+id/vmPickGridPreviewBtn"
                 style="@style/VMBtn.Flat.Fillet"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
@@ -74,9 +74,9 @@
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/vm_pick_grid_recycler_view"
+            android:id="@+id/vmPickGridRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/vm_pick_grid_bottom_bar_rl" />
+            android:layout_above="@+id/vmPickGridBottomBarRL" />
     </RelativeLayout>
 </RelativeLayout>

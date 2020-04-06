@@ -13,25 +13,25 @@
 
 
     <Button
-        android:id="@+id/btn_start_screen_short"
+        android:id="@+id/startScreenShortBtn"
         android:text="Start Screen Short"
         style="@style/VMBtn.Fillet.Green"
         />
 
     <Button
-        android:id="@+id/btn_start_screen_record"
+        android:id="@+id/startScreenRecordBtn"
         android:text="Start Screen Record"
         style="@style/VMBtn.Fillet.Green"
         />
 
     <Button
-        android:id="@+id/btn_stop"
+        android:id="@+id/stopBtn"
         android:text="Stop"
         style="@style/VMBtn.Fillet.Green"
         />
 
     <TextView
-        android:id="@+id/text_timer"
+        android:id="@+id/timerTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="0"
@@ -45,7 +45,7 @@
         >
 
         <ImageView
-            android:id="@+id/img_screen_short"
+            android:id="@+id/screenShortIV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/vm_margin_normal"

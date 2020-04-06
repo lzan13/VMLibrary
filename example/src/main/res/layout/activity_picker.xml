@@ -52,7 +52,7 @@
                         >
 
                         <RadioButton
-                            android:id="@+id/picker_single_mode_rb"
+                            android:id="@+id/pickerSingleModeRB"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -60,7 +60,7 @@
                             />
 
                         <RadioButton
-                            android:id="@+id/picker_multi_mode_rb"
+                            android:id="@+id/pickerMultiModeRB"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -79,14 +79,14 @@
                     >
                     <!--是否裁剪-->
                     <CheckBox
-                        android:id="@+id/picker_crop_cb"
+                        android:id="@+id/pickerCropCB"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="裁剪选择的图片"
                         />
                     <!--是否按照矩形区域保存裁剪图片-->
                     <CheckBox
-                        android:id="@+id/picker_save_rectangle_cb"
+                        android:id="@+id/pickerSaveRectangleCB"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="是否按矩形区域保存裁剪图片"
@@ -102,7 +102,7 @@
                         >
                         <!--裁剪为矩形-->
                         <RadioButton
-                            android:id="@+id/picker_crop_focus_rectangle_rb"
+                            android:id="@+id/pickerCropFocusRectangleRB"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="矩形"
@@ -110,7 +110,7 @@
                             />
                         <!--裁剪宽高-->
                         <EditText
-                            android:id="@+id/picker_crop_focus_width_et"
+                            android:id="@+id/pickerCropFocusWidthET"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:hint="Width"
@@ -120,7 +120,7 @@
                             />
 
                         <EditText
-                            android:id="@+id/picker_crop_focus_height_et"
+                            android:id="@+id/pickerCropFocusHeightET"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:hint="Height"
@@ -130,7 +130,7 @@
                             />
                         <!--裁剪为圆形-->
                         <RadioButton
-                            android:id="@+id/picker_crop_focus_circle_rb"
+                            android:id="@+id/pickerCropFocusCircleRB"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="圆形"
@@ -138,7 +138,7 @@
                             />
                         <!--裁剪半径-->
                         <EditText
-                            android:id="@+id/picker_crop_focus_circle_et"
+                            android:id="@+id/pickerCropFocusCircleET"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:hint="Radius"
@@ -149,7 +149,7 @@
                     </RadioGroup>
                     <!--是否显示相机-->
                     <CheckBox
-                        android:id="@+id/picker_show_camera_cb"
+                        android:id="@+id/pickerShowCameraCB"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/vm_margin_large"
@@ -174,7 +174,7 @@
                         />
 
                     <EditText
-                        android:id="@+id/picker_crop_out_width_et"
+                        android:id="@+id/pickerCropOutWidthET"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="Width"
@@ -191,7 +191,7 @@
                         />
 
                     <EditText
-                        android:id="@+id/picker_crop_out_height_et"
+                        android:id="@+id/pickerCropOutHeightET"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="Height"
@@ -202,21 +202,21 @@
                 </LinearLayout>
                 <!--开启选择器-->
                 <Button
-                    android:id="@+id/picker_picture_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="pickerPicture"
                     android:text="打开相册"
                     android:textAllCaps="false"
                     />
 
                 <ImageView
-                    android:id="@+id/picker_test_iv"
+                    android:id="@+id/pickerTestIV"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     />
 
                 <com.vmloft.develop.library.tools.widget.VMViewGroup
-                    android:id="@+id/picker_view_group"
+                    android:id="@+id/pickerViewGroup"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     />

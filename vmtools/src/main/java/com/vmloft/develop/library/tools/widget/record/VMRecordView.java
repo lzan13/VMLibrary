@@ -14,7 +14,6 @@ import com.vmloft.develop.library.tools.R;
 import com.vmloft.develop.library.tools.permission.VMPermission;
 import com.vmloft.develop.library.tools.utils.VMColor;
 import com.vmloft.develop.library.tools.utils.VMDimen;
-import com.vmloft.develop.library.tools.utils.VMLog;
 import com.vmloft.develop.library.tools.utils.VMStr;
 import com.vmloft.develop.library.tools.utils.VMSystem;
 

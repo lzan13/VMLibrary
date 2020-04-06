@@ -15,6 +15,7 @@ import android.provider.MediaStore;
 
 import com.vmloft.develop.library.tools.VMTools;
 
+import com.vmloft.develop.library.tools.utils.logger.VMLog;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -156,7 +157,7 @@ public class VMFile {
 
             return true;
         } catch (IOException e) {
-            VMLog.e("压缩文件失败 %s", e.getMessage());
+            VMLog.e("压缩文件失败 " + e.getMessage());
         }
         return false;
     }

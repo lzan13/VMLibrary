@@ -9,7 +9,6 @@ import android.os.Parcelable;
 import androidx.core.content.ContextCompat;
 
 import com.vmloft.develop.library.tools.base.VMConstant;
-import com.vmloft.develop.library.tools.router.VMRouter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -242,12 +241,14 @@ public class VMPermission {
      * 开启授权
      */
     private void startActivity() {
-        Intent intent = new Intent();
+        Intent intent = new Intent(mContext,VMPermissionActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
         intent.putExtra(VMConstant.VM_KEY_PERMISSION_ENABLE_DIALOG, mEnableDialog);
         intent.putExtra(VMConstant.VM_KEY_PERMISSION_TITLE, mTitle);
         intent.putExtra(VMConstant.VM_KEY_PERMISSION_MSG, mMessage);
         intent.putParcelableArrayListExtra(VMConstant.VM_KEY_PERMISSION_LIST, (ArrayList<? extends Parcelable>) mPermissions);
-        VMRouter.goPermission(mContext, intent);
+        mContext.startActivity(intent);
     }
 
     /**

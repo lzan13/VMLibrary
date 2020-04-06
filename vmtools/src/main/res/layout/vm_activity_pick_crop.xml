@@ -8,7 +8,7 @@
     tools:context=".picker.ui.VMPickCropActivity">
 
     <com.vmloft.develop.library.tools.widget.VMCropView
-        android:id="@+id/vm_pick_crop_iv"
+        android:id="@+id/vmPickCropIV"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

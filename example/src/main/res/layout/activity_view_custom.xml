@@ -77,9 +77,10 @@
 
                 <!--倒计时控件-->
                 <com.vmloft.develop.library.tools.widget.VMTimerBtn
-                    android:id="@+id/custom_btn_timer"
+                    android:id="@+id/customTimerBtn"
                     style="@style/VMBtn.Fillet.Green"
                     android:text="开启定时"
+                    android:onClick="startTimer"
                     app:vm_timer_text="%ds 后结束"
                     app:vm_timer_time="10"
                     />
@@ -87,18 +88,21 @@
                 <Button
                     android:id="@+id/btn_toast_1"
                     style="@style/VMBtn.Fillet.Green"
+                    android:onClick="toast1"
                     android:text="Toast1"
                     />
 
                 <Button
                     android:id="@+id/btn_toast_2"
                     style="@style/VMBtn.Fillet.Green"
+                    android:onClick="toast2"
                     android:text="Toast2"
                     />
 
                 <Button
                     android:id="@+id/btn_toast_3"
                     style="@style/VMBtn.Fillet.Green"
+                    android:onClick="toast3"
                     android:text="Toast3"
                     />
             </com.vmloft.develop.library.tools.widget.VMViewGroup>
@@ -109,7 +113,7 @@
                 >
 
                 <com.vmloft.develop.library.tools.widget.record.VMRecordView
-                    android:id="@+id/custom_record_view"
+                    android:id="@+id/customRecordView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:vm_cancel_color="@color/vm_deep_orange"
@@ -123,9 +127,10 @@
             </RelativeLayout>
 
             <com.vmloft.develop.library.tools.widget.VMRatioLayout
-                android:id="@+id/custom_ratio_layout"
+                android:id="@+id/customRatioLayout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/vm_dimen_48"
+                android:onClick="setRatioLayout"
                 android:layout_margin="@dimen/vm_dimen_16"
                 android:background="@color/vm_green"
                 />
@@ -145,7 +150,7 @@
         />
 
     <com.vmloft.develop.library.tools.widget.VMEmojiRainView
-        android:id="@+id/custom_emoji_rain_view"
+        android:id="@+id/customEmojiRainView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:vm_emoji_count="60"

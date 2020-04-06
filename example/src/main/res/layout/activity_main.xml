@@ -19,7 +19,7 @@
         android:orientation="vertical"
         >
         <com.vmloft.develop.library.tools.widget.VMViewGroup
-            android:id="@+id/view_group"
+            android:id="@+id/viewGroup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />

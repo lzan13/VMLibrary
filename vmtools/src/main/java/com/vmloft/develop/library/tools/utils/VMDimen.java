@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Paint;
 import android.graphics.Point;
-import android.util.TypedValue;
 import android.view.Display;
 import android.view.WindowManager;
 
 import com.vmloft.develop.library.tools.VMTools;
 
+import com.vmloft.develop.library.tools.utils.logger.VMLog;
 import java.lang.reflect.Method;
 
 /**
@@ -64,7 +64,6 @@ public class VMDimen {
         if (resId > 0) {
             height = res.getDimensionPixelSize(resId);
         }
-        VMLog.i("statusBar.h." + height);
         return height;
     }
 
@@ -78,7 +77,6 @@ public class VMDimen {
             String key = RES_NAV_BAR_HEIGHT;
             height = getInternalDimensionSize(res, key);
         }
-        VMLog.i("navigationbar.h." + height);
         return height;
     }
 

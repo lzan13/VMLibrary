@@ -18,13 +18,13 @@
         >
 
         <androidx.viewpager.widget.ViewPager
-            android:id="@+id/view_pager"
+            android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
 
         <com.vmloft.develop.library.tools.widget.indicator.VMIndicatorView
-            android:id="@+id/indicator_view"
+            android:id="@+id/indicatorView"
             android:layout_width="match_parent"
             android:layout_height="@dimen/vm_dimen_56"
             android:layout_alignParentBottom="true"

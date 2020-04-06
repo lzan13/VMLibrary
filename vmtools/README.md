@@ -1,7 +1,7 @@
 VMTools
 =======
 
-[![Download](https://api.bintray.com/packages/lzan13/VMLibrary/vmtoolsx/images/download.svg)](https://bintray.com/lzan13/VMLibrary/vmtoolsx/_latestVersion)
+[![Download](https://api.bintray.com/packages/lzan13/VMLoft/vmtoolsx/images/download.svg)](https://bintray.com/lzan13/VMLoft/vmtoolsx/_latestVersion)
 [![](https://img.shields.io/badge/author-lzan13-green.svg)](https://github.com/lzan13)
 [![](https://img.shields.io/badge/weibo-@lzan13-red.svg)](http://weibo.com/lzan13)
 [![](https://img.shields.io/badge/blog-%E7%A9%BF%E8%A3%A4%E8%A1%A9%E9%97%AF%E5%A4%A9%E4%B8%8B-blue.svg)](https://blog.melove.net)

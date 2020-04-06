@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 // 获取配置信息
 def configs = rootProject.ext.configs
@@ -29,23 +32,36 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    // kotlin 配置
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+    // 阿里巴巴 ARouter Kotlin 下的配置
+    kapt{
+        arguments {
+            arg("AROUTER_MODULE_NAME", project.getName())
+        }
+    }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    implementation 'androidx.core:core-ktx:1.2.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.annotation:annotation:1.1.0'
-    annotationProcessor 'androidx.annotation:annotation:1.1.0'
+    kapt 'androidx.annotation:annotation:1.1.0'
 
     implementation 'com.google.android.material:material:1.1.0'
 
-    // ButterKnife 库
-    implementation 'com.jakewharton:butterknife:10.2.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
-
     // Glide 图片加载库 https://github.com/bumptech/glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    kapt 'com.github.bumptech.glide:compiler:4.11.0'
+
+    // 阿里巴巴 ARouter 库 https://github.com/alibaba/ARouter
+    implementation 'com.alibaba:arouter-api:1.5.0'
+    kapt 'com.alibaba:arouter-compiler:1.2.2'
 
     // 引入自己封装的库
     //    implementation project(':vmpicker')

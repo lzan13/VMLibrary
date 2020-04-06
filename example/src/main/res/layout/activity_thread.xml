@@ -9,15 +9,15 @@
     <include layout="@layout/widget_common_top_bar" />
 
     <com.vmloft.develop.library.tools.widget.VMViewGroup
-        android:id="@+id/view_group"
+        android:id="@+id/viewGroup"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <Button
-            android:id="@+id/thread_btn_1"
             style="@style/VMBtn.Green"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="startTask"
             android:text="ThreadBtn"
             android:textAllCaps="false" />
     </com.vmloft.develop.library.tools.widget.VMViewGroup>

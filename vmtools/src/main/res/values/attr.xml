@@ -1,20 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-
-    <!--自定义剪切控件-->
-    <declare-styleable name="VMCropView">
-        <attr name="vm_crop_mask_color" format="color|integer" />
-        <attr name="vm_crop_border_color" format="color|integer" />
-        <attr name="vm_crop_border_width" format="dimension" />
-        <attr name="vm_crop_focus_width" format="dimension" />
-        <attr name="vm_crop_focus_height" format="dimension" />
-        <attr name="vm_crop_style" format="enum">
-            <enum name="rectangle" value="0" />
-            <enum name="circle" value="1" />
-        </attr>
-    </declare-styleable>
-
     <!--自定义 VMDotLineView 属性-->
     <declare-styleable name="VMDotLineView">
         <!--点的颜色-->

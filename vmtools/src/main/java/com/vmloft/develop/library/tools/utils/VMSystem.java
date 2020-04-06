@@ -12,6 +12,7 @@ import android.os.Looper;
 
 import com.vmloft.develop.library.tools.VMTools;
 
+import com.vmloft.develop.library.tools.utils.logger.VMLog;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -74,7 +75,7 @@ public class VMSystem {
             c.setPrimaryClip(ClipData.newPlainText(context.getPackageName(), content));
             return true;
         } catch (Exception e) {
-            VMLog.e("copyToClipboard %s", e.getMessage());
+            VMLog.e("copyToClipboard " + e.getMessage());
         }
         return false;
     }

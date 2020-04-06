@@ -15,7 +15,7 @@
         android:orientation="vertical"
         >
         <Button
-            android:id="@+id/float_menu_left_top_btn"
+            android:id="@+id/leftTopBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -23,7 +23,7 @@
             />
 
         <Button
-            android:id="@+id/float_menu_right_top_btn"
+            android:id="@+id/rightTopBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -31,7 +31,7 @@
             />
 
         <Button
-            android:id="@+id/float_menu_center_btn"
+            android:id="@+id/centerBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -39,7 +39,7 @@
             />
 
         <Button
-            android:id="@+id/float_menu_left_bottom_btn"
+            android:id="@+id/leftBottomBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -48,7 +48,7 @@
             />
 
         <Button
-            android:id="@+id/float_menu_right_bottom_btn"
+            android:id="@+id/rightBottomBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

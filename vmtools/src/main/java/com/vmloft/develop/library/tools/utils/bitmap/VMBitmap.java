@@ -8,7 +8,7 @@ import android.util.Base64;
 import android.view.View;
 
 import com.vmloft.develop.library.tools.utils.VMFile;
-import com.vmloft.develop.library.tools.utils.VMLog;
+import com.vmloft.develop.library.tools.utils.logger.VMLog;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
