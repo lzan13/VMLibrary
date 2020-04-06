@@ -37,7 +37,6 @@ object VMFile {
     /**
      * 判断sdcard是否被挂载
      */
-    @JvmStatic
     fun hasSdcard(): Boolean {
         return Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED
     }
@@ -47,7 +46,6 @@ object VMFile {
      *
      * @param path 目录路径
      */
-    @JvmStatic
     fun isDirExists(path: String?): Boolean {
         if (VMStr.isEmpty(path)) {
             return false
@@ -61,7 +59,6 @@ object VMFile {
      *
      * @param path 文件路径
      */
-    @JvmStatic
     fun isFileExists(path: String?): Boolean {
         if (VMStr.isEmpty(path)) {
             return false
@@ -73,7 +70,6 @@ object VMFile {
     /**
      * 创建目录，多层目录会递归创建
      */
-    @JvmStatic
     fun createDirectory(path: String?): Boolean {
         if (VMStr.isEmpty(path)) {
             return false
@@ -87,7 +83,6 @@ object VMFile {
     /**
      * 创建新文件
      */
-    @JvmStatic
     fun createFile(filepath: String?): File? {
         val isSuccess: Boolean
         if (VMStr.isEmpty(filepath)) {
@@ -116,7 +111,6 @@ object VMFile {
     /**
      * 创建新文件，外部传入前缀和后缀
      */
-    @JvmStatic
     fun createFile(path: String, prefix: String, suffix: String): File? {
         if (!createDirectory(path)) {
             return null
@@ -132,7 +126,6 @@ object VMFile {
      * @param destPath 压缩问及那路径
      * @return 压缩结果
      */
-    @JvmStatic
     fun zipFile(srcPath: String?, destPath: String?): Boolean {
         if (VMStr.isEmpty(srcPath) || VMStr.isEmpty(destPath)) {
             return false
@@ -170,7 +163,6 @@ object VMFile {
      * @param destPath 目标文件地址
      * @return 返回复制结果
      */
-    @JvmStatic
     fun copyFile(srcPath: String?, destPath: String?): File? {
         if (VMStr.isEmpty(srcPath)) {
             e("源文件不存在，无法完成复制")
@@ -212,7 +204,6 @@ object VMFile {
     /**
      * 读取文件到 Bitmap
      */
-    @JvmStatic
     fun fileToBitmap(filepath: String?): Bitmap? {
         if (VMStr.isEmpty(filepath)) {
             return null
@@ -229,7 +220,6 @@ object VMFile {
      * @param filepath 文件路径
      * @return 返回Drawable资源
      */
-    @JvmStatic
     fun fileToDrawable(filepath: String?): Drawable? {
         if (VMStr.isEmpty(filepath)) {
             return null
@@ -243,7 +233,6 @@ object VMFile {
     /**
      * 格式化文件字节大小
      */
-    @JvmStatic
     fun formatSize(size: Long): String {
         val result: BigDecimal
         val kiloByte = size / 1024.toDouble()
@@ -274,7 +263,6 @@ object VMFile {
      *
      * @param fileDir 要计算的文件夹
      */
-    @JvmStatic
     fun getFolderSize(fileDir: File): Long {
         var size: Long = 0
         if (!fileDir.exists()) {
@@ -294,7 +282,6 @@ object VMFile {
     /**
      * 删除文件
      */
-    @JvmStatic
     fun deleteFile(filepath: String?): Boolean {
         if (VMStr.isEmpty(filepath)) {
             return false
@@ -312,7 +299,6 @@ object VMFile {
      *
      * @param paths 文件路径集合
      */
-    @JvmStatic
     fun deleteFiles(paths: List<String?>) {
         for (path in paths) {
             deleteFile(path)
@@ -325,7 +311,6 @@ object VMFile {
      * @param path       需要操作的路径
      * @param deleteThis 删除自己
      */
-    @JvmStatic
     fun deleteFolder(path: String?, deleteThis: Boolean) {
         if (VMStr.isEmpty(path)) {
             return
@@ -353,7 +338,6 @@ object VMFile {
     /**
      * 根据文件路径解析文件名，不包含扩展类型
      */
-    @JvmStatic
     fun parseFilename(path: String?): String? {
         var result: String? = null
         if (path != null && path.length > 0) {
@@ -369,7 +353,6 @@ object VMFile {
      *
      * @param path 可以是路径，可以是文件名
      */
-    @JvmStatic
     fun parseSuffix(path: String?): String? {
         var result: String? = null
         if (path != null && path.length > 0) {
@@ -435,7 +418,6 @@ object VMFile {
      *
      * @return 返回得到的路径
      */
-    @JvmStatic
     val SDCard: String
         get() = Environment.getExternalStorageDirectory().path + "/"
 
@@ -444,7 +426,6 @@ object VMFile {
      *
      * @return 返回得到的路径
      */
-    @JvmStatic
     val cacheFromData: String
         get() = context.cacheDir.path + "/"
 
@@ -453,7 +434,7 @@ object VMFile {
      *
      * @return 返回得到的路径
      */
-    @JvmStatic val cacheFromSDCard: String
+     val cacheFromSDCard: String
         get() = context.externalCacheDir!!.path + "/"
 
     /**
@@ -461,7 +442,6 @@ object VMFile {
      *
      * @return 返回得到的路径
      */
-    @JvmStatic
     val filesFromData: String
         get() = context.filesDir.path + "/"
 
@@ -470,7 +450,6 @@ object VMFile {
      *
      * @return 返回得到的路径
      */
-    @JvmStatic
     val filesFromSDCard: String
         get() = context.getExternalFilesDir("")!!.absolutePath + "/"
 
@@ -479,7 +458,6 @@ object VMFile {
      *
      * @return 返回得到的路径
      */
-    @JvmStatic
     val BBB: String
         get() = context.obbDir.absolutePath + "/"
 
@@ -488,7 +466,6 @@ object VMFile {
      *
      * @return 返回得到的路径
      */
-    @JvmStatic
     val DCIM: String
         get() = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath + "/"
 
@@ -497,7 +474,6 @@ object VMFile {
      *
      * @return 返回得到的路径
      */
-    @JvmStatic
     val download: String
         get() = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath + "/"
 
@@ -506,7 +482,6 @@ object VMFile {
      *
      * @return 返回得到的路径
      */
-    @JvmStatic
     val music: String
         get() = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).absolutePath + "/"
 
@@ -515,14 +490,12 @@ object VMFile {
      *
      * @return 返回得到的路径
      */
-    @JvmStatic
     val movies: String
         get() = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES).absolutePath + "/"
 
     /**
      * 获取设备默认的图片目录
      */
-    @JvmStatic
     val pictures: String
         get() = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).absolutePath + "/"
 
@@ -531,7 +504,6 @@ object VMFile {
      *
      * @return 返回得到的路径
      */
-    @JvmStatic
     val packageName: String
         get() = context.packageName
 
@@ -540,7 +512,6 @@ object VMFile {
      *
      * @return 返回得到的路径
      */
-    @JvmStatic
     val packageCode: String
         get() = context.packageCodePath
 
@@ -549,7 +520,6 @@ object VMFile {
      *
      * @return 返回得到的路径
      */
-    @JvmStatic
     val packageResource: String
         get() = context.packageResourcePath
 
@@ -560,10 +530,7 @@ object VMFile {
      * @param uri 包含文件信息的 Uri
      * @return 返回文件真实路径
      */
-    @TargetApi(VERSION_CODES.KITKAT)
-    @JvmStatic
     fun getPath(uri: Uri): String? {
-
         // 判断当前系统 API 4.4（19）及以上
         val isKitKat = VERSION.SDK_INT >= VERSION_CODES.KITKAT
 

@@ -38,7 +38,6 @@ object VMBitmap {
      * @param bitmap 需要转为Base64 字符串的Bitmap对象
      * @return 返回转换后的字符串
      */
-    @JvmStatic
     fun bitmp2String(bitmap: Bitmap): String? {
         var result: String? = null
         val baos = ByteArrayOutputStream()
@@ -54,7 +53,6 @@ object VMBitmap {
      * @param imageData 需要转为Bitmap的 Base64 字符串
      * @return 转为Bitmap的对象
      */
-    @JvmStatic
     fun string2Bitmap(imageData: String?): Bitmap? {
         var bitmap: Bitmap? = null
         val decode = Base64.decode(imageData, Base64.DEFAULT)
@@ -69,7 +67,6 @@ object VMBitmap {
      * @param dimension 设置缩略图最大尺寸
      * @return 返回压缩后的缩略图
      */
-    @JvmStatic
     fun loadBitmapThumbnail(path: String?, dimension: Int): Bitmap {
         val bitmap = loadBitmapByFile(path, dimension)
         // 调用矩阵方法压缩图片
@@ -83,7 +80,6 @@ object VMBitmap {
      * @param dimension 定义压缩后的最大尺寸
      * @return 返回经过压缩处理的图片
      */
-    @JvmStatic
     fun loadBitmapByFile(path: String?, dimension: Int): Bitmap {
         return compressByDimension(path, dimension)
     }
@@ -94,7 +90,6 @@ object VMBitmap {
      * @param view 需要保存图像的 View 控件
      * @return 返回保存的 Bitmap 图像
      */
-    @JvmStatic
     fun loadCacheBitmapFromView(view: View): Bitmap? {
         val drawingCacheEnabled = true
         view.isDrawingCacheEnabled = drawingCacheEnabled
@@ -118,7 +113,6 @@ object VMBitmap {
      * @param dimension    定义压缩后最大尺寸
      * @return 返回最佳缩放比例
      */
-    @JvmStatic
     fun getZoomScale(actualWidth: Int, actualHeight: Int, dimension: Int): Int {
         var scale = 1
         if (actualWidth > actualHeight && actualWidth > dimension) {
@@ -140,7 +134,6 @@ object VMBitmap {
      * @param filepath 图片文件的路径
      * @return 返回图片的宽高是拼接的字符串
      */
-    @JvmStatic
     fun getImageSize(filepath: String?): String {
         val options = Options()
         // 开始读入图片，此时把options.inJustDecodeBounds 设为true了
@@ -160,7 +153,6 @@ object VMBitmap {
      * @param path 图片绝对路径
      * @return 图片的旋转角度
      */
-    @JvmStatic
     fun getBitmapDegree(path: String?): Int {
         var degree = 0
         try {
@@ -186,7 +178,6 @@ object VMBitmap {
      * @param degree 指定的旋转角度
      * @return 旋转后的图片
      */
-    @JvmStatic
     fun rotateBitmap(bitmap: Bitmap, degree: Int): Bitmap {
         // 根据旋转角度，生成旋转矩阵
         val matrix = Matrix()
@@ -208,7 +199,6 @@ object VMBitmap {
      * @param dimension 图片压缩后最大宽高
      * @return 返回压缩后的 Bitmap
      */
-    @JvmStatic
     fun compressBitmapByMatrix(bitmap: Bitmap, dimension: Int): Bitmap {
         val w = bitmap.width
         val h = bitmap.height
@@ -231,7 +221,6 @@ object VMBitmap {
      * @param scale  图片压缩比率(0-1)
      * @return 返回压缩后的 Bitmap
      */
-    @JvmStatic
     fun compressBitmapByScale(bitmap: Bitmap, scale: Int): Bitmap {
         // 使用矩阵进行压缩图片
         val matrix = Matrix()
@@ -246,7 +235,6 @@ object VMBitmap {
      * @param bitmap 原图
      * @param size   指定大小
      */
-    @JvmStatic
     fun compressByQuality(bitmap: Bitmap, size: Int): Bitmap? {
         maxSize = size
         return compressByQuality(bitmap)
@@ -258,7 +246,6 @@ object VMBitmap {
      * @param bitmap 原图
      * @return 压缩后的图片
      */
-    @JvmStatic
     fun compressByQuality(bitmap: Bitmap): Bitmap? {
         val baos = ByteArrayOutputStream()
         var options = 70
@@ -286,7 +273,6 @@ object VMBitmap {
      * @param path      原始路径
      * @param dimension 最大尺寸
      */
-    @JvmStatic
     fun compressTempImageByDimension(path: String?, dimension: Int): String {
         maxDimension = dimension
         return compressTempImage(path)
@@ -298,7 +284,6 @@ object VMBitmap {
      * @param path 图片路径
      * @return 压缩后的图片临时路径
      */
-    @JvmStatic
     fun compressTempImage(path: String?): String {
         VMLog.d("compressTempImage start")
         val bitmap = compressByQuality(compressByDimension(path))
@@ -318,7 +303,6 @@ object VMBitmap {
      * @param path      图片路径
      * @param dimension 最大尺寸
      */
-    @JvmStatic
     fun compressByDimension(path: String?, dimension: Int): Bitmap {
         maxDimension = dimension
         return compressByDimension(path)
@@ -329,7 +313,6 @@ object VMBitmap {
      *
      * @param path 图片路径
      */
-    @JvmStatic
     fun compressByDimension(path: String?): Bitmap {
         val options = Options()
         // 开始读入图片，此时把options.inJustDecodeBounds 设回true了
@@ -355,7 +338,6 @@ object VMBitmap {
      * @param path 原始路径
      * @param size 最大大小
      */
-    @JvmStatic
     fun compressTempImageBySize(path: String?, size: Int): String {
         maxSize = size
         return compressTempImage(path)
@@ -368,7 +350,6 @@ object VMBitmap {
      * @param dimension 最大尺寸
      * @param size      最大大小
      */
-    @JvmStatic
     fun compressTempImage(path: String?, dimension: Int, size: Int): String {
         maxDimension = dimension
         maxSize = size
@@ -389,7 +370,6 @@ object VMBitmap {
      *
      * @param path 文件原始路径
      */
-    @JvmStatic
     fun getExtensionName(path: String?): String? {
         if (path != null && path.length > 0) {
             val dot = path.lastIndexOf('.')
@@ -406,7 +386,6 @@ object VMBitmap {
      * @param bitmap 需要保存的图片数据
      * @param path   保存路径
      */
-    @JvmStatic
     fun saveBitmapToSDCard(bitmap: Bitmap?, path: String?): Boolean {
         //VMLog.VMLog.d("saveBitmapToSDCard start");
         //OutputStream outputStream = new FileOutputStream(path);
@@ -425,7 +404,6 @@ object VMBitmap {
      * @param format 格式类型
      * @param path   保存路径
      */
-    @JvmStatic
     fun saveBitmapToSDCard(bitmap: Bitmap?, format: CompressFormat?, path: String?): Boolean {
         VMLog.d("saveBitmapToSDCard -start-")
         var result: Boolean

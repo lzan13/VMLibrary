@@ -98,9 +98,7 @@ private constructor() {
      */
     fun checkPermission(permission: String?): Boolean {
         val checkPermission = ContextCompat.checkSelfPermission(mContext!!, permission!!)
-        return if (checkPermission == PackageManager.PERMISSION_GRANTED) {
-            true
-        } else false
+        return checkPermission == PackageManager.PERMISSION_GRANTED
     }
 
     /**

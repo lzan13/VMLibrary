@@ -28,7 +28,6 @@ object VMSystem {
     /**
      * 在 UI 线程中延迟执行
      */
-    @JvmStatic
     fun runInUIThread(runnable: Runnable?, delay: Long = 0) {
         handler.postDelayed(runnable, delay)
     }
@@ -36,23 +35,18 @@ object VMSystem {
     /**
      * 异步任务
      */
-    @JvmStatic
     fun runTask(runnable: Runnable?) {
         mExecutorPool.execute(runnable)
     }
-
     /**
      * 复制到剪贴板
      */
-    @JvmStatic
     fun copyToClipboard(content: String?): Boolean {
         return copyToClipboard(context, content)
     }
-
     /**
      * 复制到剪贴板
      */
-    @JvmStatic
     fun copyToClipboard(context: Context, content: String?): Boolean {
         try {
             val c = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -67,7 +61,7 @@ object VMSystem {
     /**
      * 获取线程池默认的大小
      */
-    @JvmStatic val threadPoolDefaultSize: Int
+    val threadPoolDefaultSize: Int
         get() = getThreadPoolDefaultSize(8)
 
     /**
@@ -76,7 +70,6 @@ object VMSystem {
      * @param max 线程池最大
      * @return 如果可用处理器*2 +1 小于最大线程数，则返回计算的线程池大小，否则返回传入的最大数
      */
-    @JvmStatic
     fun getThreadPoolDefaultSize(max: Int): Int {
         val availableProcessors = 2 * Runtime.getRuntime().availableProcessors() + 1
         return if (availableProcessors > max) max else availableProcessors
@@ -85,7 +78,7 @@ object VMSystem {
     /**
      * 获取应用程序名称
      */
-    @JvmStatic val appName: String?
+    val appName: String?
         get() = getAppName(context)
 
     /**
@@ -93,7 +86,6 @@ object VMSystem {
      *
      * @param context 上下文对象
      */
-    @JvmStatic
     fun getAppName(context: Context): String? {
         try {
             val packageManager = context.packageManager
@@ -109,7 +101,7 @@ object VMSystem {
     /**
      * 获取应用当前版本号
      */
-    @JvmStatic val versionCode: Long
+    val versionCode: Long
         get() = getVersionCode(context)
 
     /**
@@ -117,7 +109,6 @@ object VMSystem {
      *
      * @param context 上下文对象
      */
-    @JvmStatic
     fun getVersionCode(context: Context): Long {
         val manager = context.packageManager
         var code: Long = 0
@@ -137,7 +128,7 @@ object VMSystem {
     /**
      * 获取当前应用版本名称
      */
-    @JvmStatic val versionName: String?
+    val versionName: String?
         get() = getVersionName(context)
 
     /**
@@ -145,7 +136,6 @@ object VMSystem {
      *
      * @param context 上下文对象
      */
-    @JvmStatic
     fun getVersionName(context: Context): String? {
         val manager = context.packageManager
         var name: String? = null
@@ -161,7 +151,7 @@ object VMSystem {
     /**
      * 获取当前进程名
      */
-    @JvmStatic val processName: String?
+    val processName: String?
         get() = getProcessName(context)
 
     /**
@@ -169,7 +159,6 @@ object VMSystem {
      *
      * @param context 上下文对象
      */
-    @JvmStatic
     fun getProcessName(context: Context): String? {
         val pid = Process.myPid()
         var processName: String? = null

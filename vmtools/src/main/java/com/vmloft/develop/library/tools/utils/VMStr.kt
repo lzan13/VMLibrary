@@ -36,7 +36,6 @@ object VMStr {
      * @param separator 分隔符
      * @return 数组
      */
-    @JvmStatic
     fun strToArray(string: String, separator: String?): Array<String> {
         return string.split(separator!!).toTypedArray()
     }
@@ -48,7 +47,6 @@ object VMStr {
      * @param separator 分隔符
      * @return 字符串
      */
-    @JvmStatic
     fun arrayToStr(array: Array<String?>?, separator: String?): String? {
         if (array == null || array.isEmpty()) {
             return null
@@ -69,7 +67,6 @@ object VMStr {
      * @param list     集合
      * @param splitStr 分隔符
      */
-    @JvmStatic
     fun listToStr(list: List<String?>?, splitStr: String?): String? {
         if (list == null || list.isEmpty()) {
             return null
@@ -90,7 +87,6 @@ object VMStr {
      * @param list 字符串集合
      * @return 数组
      */
-    @JvmStatic
     fun listToArray(list: List<String>): Array<String> {
         return list.toTypedArray()
     }
@@ -98,7 +94,6 @@ object VMStr {
     /**
      * 根据参数格式化字符串
      */
-    @JvmStatic
     fun byArgs(str: String?, vararg args: Any?): String {
         return String.format(str!!, *args)
     }
@@ -106,7 +101,6 @@ object VMStr {
     /**
      * 根据资源 id 获取字符串
      */
-    @JvmStatic
     fun byRes(resId: Int): String {
         return byRes(context, resId)
     }
@@ -114,7 +108,6 @@ object VMStr {
     /**
      * 根据资源 id 获取字符串
      */
-    @JvmStatic
     fun byRes(context: Context, resId: Int): String {
         return context.getString(resId)
     }
@@ -122,7 +115,6 @@ object VMStr {
     /**
      * 根据资源 id 格式化字符串
      */
-    @JvmStatic
     fun byResArgs(resId: Int, vararg args: Any?): String {
         return byResArgs(context, resId, *args)
     }
@@ -130,7 +122,6 @@ object VMStr {
     /**
      * 根据资源 id 格式化字符串
      */
-    @JvmStatic
     fun byResArgs(context: Context, resId: Int, vararg args: Any?): String {
         return context.getString(resId, *args)
     }
@@ -138,7 +129,6 @@ object VMStr {
     /**
      * 检测字符串是否为空白字符串
      */
-    @JvmStatic
     fun isEmpty(str: CharSequence?): Boolean {
         if (str == null || "" == str) {
             return true

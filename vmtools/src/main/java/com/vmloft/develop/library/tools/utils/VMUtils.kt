@@ -13,7 +13,6 @@ object VMUtils {
      *
      * @param max 最大值（不包含）
      */
-    @JvmStatic
     fun random(max: Int): Int {
         return random(0, max)
     }
@@ -24,7 +23,6 @@ object VMUtils {
      * @param min 最小值（包含）
      * @param max 最大值（不包含）
      */
-    @JvmStatic
     fun random(min: Int, max: Int): Int {
         val random = Random()
         return min + random.nextInt(max - min)

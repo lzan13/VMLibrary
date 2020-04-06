@@ -34,9 +34,6 @@ ext {
   allLicenses = ["Apache-2.0"]
 }
 
-group = publishedGroupId // Maven Group ID for the artifact
-version = libraryVersion
-
 // 生成pom的版本号,如：1.0.0
 version = libraryVersion
 // 生成pom的groupId，如：com.pingerx
@@ -51,6 +48,8 @@ task sourcesJar(type: Jar) {
 // 打包内容
 artifacts {
   archives sourcesJar
+//  archives generateJavadoc //javadocJar
+//  archives generateSourcesJar //sourcesJar
 }
 
 // 获取本地的local.properties，主要为了拿到bintray的账号和密码
@@ -64,11 +63,12 @@ bintray {
   // 读取配置文件中的用户名和key
   user = properties.getProperty("bintray.user")
   key = properties.getProperty("bintray.apikey")
+
   configurations = ['archives']
+
   pkg {
-    userOrg = bintrayRepo // bintray上的组织Id
-    repo = bintrayName // bintray上创建的库的名称
-    name = libraryName // bintray上的项目名称
+    repo = bintrayRepo // bintray上创建的库的名称
+    name = bintrayName // bintray上的项目名称
     desc = libraryDescription
     websiteUrl = siteUrl
     vcsUrl = gitUrl

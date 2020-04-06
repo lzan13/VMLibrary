@@ -26,13 +26,11 @@ object VMLog {
      * 支持用户自己传tag，可扩展性更好
      * @param tag
      */
-    @JvmStatic
     fun init(level: Int = mLevel, tag: String = mTag) {
         mLevel = level
         mTag = tag
     }
 
-    @JvmStatic
     fun e(msg: String) {
         if (Level.ERROR <= mLevel) {
             if (msg.isNotBlank()) {
@@ -41,7 +39,6 @@ object VMLog {
         }
     }
 
-    @JvmStatic
     fun w(msg: String) {
         if (Level.WARN <= mLevel) {
             if (msg.isNotBlank()) {
@@ -50,7 +47,6 @@ object VMLog {
         }
     }
 
-    @JvmStatic
     fun i(msg: String) {
         if (Level.INFO <= mLevel) {
             if (msg.isNotBlank()) {
@@ -60,7 +56,6 @@ object VMLog {
         }
     }
 
-    @JvmStatic
     fun d(msg: String) {
         if (Level.DEBUG <= mLevel) {
             if (msg.isNotBlank()) {
@@ -69,7 +64,9 @@ object VMLog {
         }
     }
 
-    @JvmStatic
+    /**
+     * 格式化 JSON 日志输出
+     */
     fun json(json: String) {
         var jsonContent = json
 

@@ -23,7 +23,6 @@ object VMSPUtil {
     /**
      * 保存数据的方法，这里不需要传入上下文对象
      */
-    @JvmStatic
     fun put(key: String?, obj: Any) {
         put(context, key, obj)
     }
@@ -31,7 +30,6 @@ object VMSPUtil {
     /**
      * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
      */
-    @JvmStatic
     fun put(context: Context, key: String?, obj: Any) {
         val sp = getSharedPreferences(context)
         val editor = sp.edit()
@@ -54,7 +52,6 @@ object VMSPUtil {
     /**
      * 得到保存数据的方法，这里不需要传入上下文对象
      */
-    @JvmStatic
     fun get(key: String?, defaultObject: Any?): Any? {
         return get(context, key, defaultObject)
     }
@@ -62,7 +59,6 @@ object VMSPUtil {
     /**
      * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
      */
-    @JvmStatic
     fun get(context: Context, key: String?, defaultObject: Any?): Any? {
         val sp = getSharedPreferences(context)
         if (defaultObject is String) {
@@ -82,7 +78,6 @@ object VMSPUtil {
     /**
      * 移除某个key值已经对应的值
      */
-    @JvmStatic
     fun remove(key: String?) {
         remove(context, key)
     }
@@ -90,7 +85,6 @@ object VMSPUtil {
     /**
      * 移除某个key值已经对应的值
      */
-    @JvmStatic
     fun remove(context: Context, key: String?) {
         val sp = getSharedPreferences(context)
         val editor = sp.edit()
@@ -101,7 +95,6 @@ object VMSPUtil {
     /**
      * 清除所有数据
      */
-    @JvmStatic
     fun clear(context: Context = VMTools.context) {
         val sp = getSharedPreferences(context)
         val editor = sp.edit()
@@ -112,7 +105,6 @@ object VMSPUtil {
     /**
      * 查询某个key是否已经存在
      */
-    @JvmStatic
     fun contains(key: String?): Boolean {
         return contains(context, key)
     }
@@ -120,7 +112,6 @@ object VMSPUtil {
     /**
      * 查询某个key是否已经存在
      */
-    @JvmStatic
     fun contains(context: Context, key: String?): Boolean {
         val sp = getSharedPreferences(context)
         return sp.contains(key)
@@ -129,13 +120,12 @@ object VMSPUtil {
     /**
      * 返回所有的键值对
      */
-    @JvmStatic val all: Map<String, *>
+    val all: Map<String, *>
         get() = getAll(context)
 
     /**
      * 返回所有的键值对
      */
-    @JvmStatic
     fun getAll(context: Context): Map<String, *> {
         val sp = getSharedPreferences(context)
         return sp.all

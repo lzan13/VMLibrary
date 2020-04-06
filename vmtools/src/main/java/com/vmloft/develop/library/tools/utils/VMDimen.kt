@@ -19,16 +19,16 @@ object VMDimen {
     /**
      * 获取屏幕宽高
      */
-    @JvmStatic val screenWidth: Int
+     val screenWidth: Int
         get() = screenSize.x
 
-    @JvmStatic val screenHeight: Int
+     val screenHeight: Int
         get() = screenSize.y
 
     /**
      * 获取屏幕大小
      */
-    @JvmStatic val screenSize: Point
+     val screenSize: Point
         get() = getScreenSize(VMTools.context)
 
     /**
@@ -47,7 +47,6 @@ object VMDimen {
      *
      * @param resId 尺寸资源id
      */
-    @JvmStatic
     fun getDimenPixel(resId: Int): Int {
         val res = VMTools.context.resources
         return res.getDimensionPixelSize(resId)
@@ -58,7 +57,6 @@ object VMDimen {
      *
      * @param dp 控件尺寸大小
      */
-    @JvmStatic
     fun dp2px(dp: Int): Int {
         val res = VMTools.context.resources
         val density = res.displayMetrics.density
@@ -70,7 +68,6 @@ object VMDimen {
      *
      * @param sp 字体的尺寸大小
      */
-    @JvmStatic
     fun sp2px(sp: Int): Float {
         val res = VMTools.context.resources
         val density = res.displayMetrics.scaledDensity
@@ -84,7 +81,6 @@ object VMDimen {
      * @param str   需要计算宽度的字符串
      * @return 返回字符串宽度
      */
-    @JvmStatic
     fun getTextWidth(paint: Paint, str: String?): Float {
         var textWidth = 0f
         if (str != null && str.isNotEmpty()) {
@@ -105,7 +101,6 @@ object VMDimen {
      * @param paint 绘制文字的画笔
      * @return 返回字符串高度
      */
-    @JvmStatic
     fun getTextHeight(paint: Paint): Float {
         val fm = paint.fontMetrics
         return Math.ceil(fm.descent - fm.ascent.toDouble()).toFloat()
@@ -114,7 +109,7 @@ object VMDimen {
     /**
      * 获取状态栏高度
      */
-    @JvmStatic val statusBarHeight: Int
+     val statusBarHeight: Int
         get() {
             var height = 0
             val res = VMTools.context.resources
@@ -128,7 +123,7 @@ object VMDimen {
     /**
      * 获取导航栏的高度（在 NavigationBar 存在的情况下）
      */
-    @JvmStatic val navigationBarHeight: Int
+     val navigationBarHeight: Int
         get() {
             var height = 0
             val res = VMTools.context.resources
@@ -142,7 +137,6 @@ object VMDimen {
     /**
      * 判断是否有虚拟导航栏NavigationBar，
      */
-    @JvmStatic
     fun hasNavigationBar(): Boolean {
         var hasNavigationBar = false
         val rs = VMTools.context.resources

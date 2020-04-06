@@ -39,7 +39,6 @@ object VMDate {
     /**
      * 获取当前时间的毫秒值
      */
-    @JvmStatic
     fun currentMilli(): Long {
         return System.currentTimeMillis()
     }
@@ -47,7 +46,6 @@ object VMDate {
     /**
      * 获取当前格式化后的标准时间
      */
-    @JvmStatic
     fun currentDateTime(): String {
         return sdfNormal.format(Date())
     }
@@ -55,7 +53,6 @@ object VMDate {
     /**
      * 获取当前时间的 UTC 格式字符串表示
      */
-    @JvmStatic
     fun currentUTCDateTime(): String {
         sdfUTC.timeZone = TimeZone.getTimeZone("UTC")
         return sdfUTC.format(Date())
@@ -64,7 +61,6 @@ object VMDate {
     /**
      * 获取当前时间拼接的字符串，没有间隔，主要用于文件命名等
      */
-    @JvmStatic
     fun filenameDateTime(): String {
         return sdfFilenameDateTime.format(Date())
     }
@@ -72,7 +68,6 @@ object VMDate {
     /**
      * 获取当前事件拼接的字符串，只有日期
      */
-    @JvmStatic
     fun filenameDate(): String {
         return sdfFilenameDate.format(Date())
     }
@@ -84,7 +79,6 @@ object VMDate {
      * @param desFormat 目标的时间格式
      * @param dateStr 原来的时间
      */
-    @JvmStatic
     fun convertDateTime(srcFormat: String?, desFormat: String?, dateStr: String?): String? {
         return try {
             val date = SimpleDateFormat(srcFormat).parse(dateStr)
@@ -100,7 +94,6 @@ object VMDate {
      *
      * @param dateStr 需要转换的日期
      */
-    @JvmStatic
     fun milliFormUTC(dateStr: String?): Long {
         return if (VMStr.isEmpty(dateStr)) {
             0L
@@ -119,7 +112,6 @@ object VMDate {
      *
      * @param time 时间，单位 秒
      */
-    @JvmStatic
     fun toTimeString(time: Long): String {
         val seconds = time % 60
         val minutes = time / 60 % 60
@@ -132,7 +124,6 @@ object VMDate {
      *
      * @param time 字符串格式的时间
      */
-    @JvmStatic
     fun fromTimeString(time: String): Long {
         // Handle "00:00:00.000" pattern, drop the milliseconds
         var time = time
@@ -153,7 +144,6 @@ object VMDate {
      * @param time 需要格式化的 long 型的时间
      * @return 返回得到的不包含年月日的时间值
      */
-    @JvmStatic
     fun long2Time(time: Long): String {
         val date = Date(time)
         return sdfOnlyTime.format(date)
@@ -164,7 +154,6 @@ object VMDate {
      *
      * @param time 需要格式化的时间毫秒值
      */
-    @JvmStatic
     fun long2Normal(time: Long): String {
         val date = Date(time)
         return sdfNormal.format(date)
@@ -175,7 +164,6 @@ object VMDate {
      *
      * @param time 需要格式化的时间毫秒值
      */
-    @JvmStatic
     fun long2NormalNoYear(time: Long): String {
         val date = Date(time)
         return sdfNoYear.format(date)
@@ -186,7 +174,6 @@ object VMDate {
      *
      * @param time 需要格式化的时间毫秒值
      */
-    @JvmStatic
     fun long2Date(time: Long): String {
         val date = Date(time)
         return sdfOnlyDate.format(date)
@@ -197,7 +184,6 @@ object VMDate {
      *
      * @param time 需要格式化的时间毫秒值
      */
-    @JvmStatic
     fun long2DateNoYear(time: Long): String {
         val date = Date(time)
         return sdfOnlyDateNoYear.format(date)
@@ -208,7 +194,6 @@ object VMDate {
      *
      * @param time 需要格式化的时间毫秒值
      */
-    @JvmStatic
     fun long2DateNoDay(time: Long): String {
         val date = Date(time)
         return sdfOnlyDateNoDay.format(date)
@@ -220,7 +205,6 @@ object VMDate {
      * @param time 需要判断的时间点的毫秒值
      * @return 返回相对时间
      */
-    @JvmStatic
     fun getRelativeTime(time: Long): String? {
         val currentTime = System.currentTimeMillis()
         val offset = currentTime - time
@@ -251,7 +235,6 @@ object VMDate {
      * @param time2 第二个日期
      * @return 返回是否是同一天
      */
-    @JvmStatic
     fun isSameDate(time1: Long, time2: Long): Boolean {
         // 求余取整，判断天数是否相等
         val day1 = time1 / DAY
