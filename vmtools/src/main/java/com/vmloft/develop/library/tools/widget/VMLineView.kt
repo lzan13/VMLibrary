@@ -10,8 +10,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.annotation.AttrRes
-import androidx.annotation.StyleRes
 import com.vmloft.develop.library.tools.R
 import com.vmloft.develop.library.tools.R.layout
 import com.vmloft.develop.library.tools.R.styleable
@@ -64,15 +62,15 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
      */
     init {
         LayoutInflater.from(context).inflate(layout.vm_widget_line_view, this)
-        mIconView = findViewById(R.id.vm_line_icon_iv)
-        mTitleView = findViewById(R.id.vm_line_title_tv)
-        mRightContainer = findViewById(R.id.vm_line_right_container)
-        mCaptionIconView = findViewById(R.id.vm_line_caption_icon_iv)
-        mCaptionView = findViewById(R.id.vm_line_caption_tv)
-        mRightIconView = findViewById(R.id.vm_line_right_icon_iv)
-        mDescriptionView = findViewById(R.id.vm_line_description_tv)
-        mBottomContainer = findViewById(R.id.vm_line_bottom_container)
-        mDecorationView = findViewById(R.id.vm_line_decoration)
+        mIconView = findViewById(R.id.vmLineIconIV)
+        mTitleView = findViewById(R.id.vmLineTitleTV)
+        mRightContainer = findViewById(R.id.vmLineRightContainer)
+        mCaptionIconView = findViewById(R.id.vmLineCaptionIconIV)
+        mCaptionView = findViewById(R.id.vmLineCaptionTV)
+        mRightIconView = findViewById(R.id.vmLineRightIconIV)
+        mDescriptionView = findViewById(R.id.vmLineDescriptionTV)
+        mBottomContainer = findViewById(R.id.vmLineBottomContainer)
+        mDecorationView = findViewById(R.id.vmLineDecoration)
 
         // 获取控件的属性值
         handleAttrs(context, attrs)

@@ -18,14 +18,6 @@
         <attr name="vm_speed" format="integer" />
     </declare-styleable>
 
-    <!--表情雨控件-->
-    <declare-styleable name="VMEmojiRainView">
-        <!--表情数量-->
-        <attr name="vm_emoji_count" format="integer" />
-        <!--表情资源，这里设置只能显示一种，可以通过 add 方式添加更多-->
-        <attr name="vm_emoji_id" format="reference" />
-    </declare-styleable>
-
     <!--可膨胀的布局控件-->
     <declare-styleable name="VMExpandableLayout">
         <!--持续时间-->

@@ -18,7 +18,7 @@ VMTools
 ```
 dependencies {
     ...
-    implementation 'com.vmloft.library:vmtools:0.10.5'
+    implementation 'com.vmloft.library:vmtools:1.1.3'
 }
 ```
 
@@ -50,51 +50,36 @@ booelan isEmail = VMReg.isEmail(email);
 - [animator](src/main/java/com/vmloft/develop/library/tools/animator) 对属性动画进行简单封装
 
 - [base](src/main/java/com/vmloft/develop/library/tools/base) 当前库所定义的一些基类
-    - [VMActivity](src/main/java/com/vmloft/develop/library/tools/base/VMActivity.java) Activity 基类
-    - [VMApp](src/main/java/com/vmloft/develop/library/tools/base/VMApp.java) Application 基类
-    - [VMCallback](src/main/java/com/vmloft/develop/library/tools/base/VMCallback.java) 通用回调，可继承重载
-    - [VMFragment](src/main/java/com/vmloft/develop/library/tools/base/VMFragment.java) Fragment 基类 实现数据懒加载
-    - [VMLazyFragment](src/main/java/com/vmloft/develop/library/tools/base/VMFragment.java) Fragment 基类 实现数据懒加载
-    
-- [permission](src/main/java/com/vmloft/develop/library/tools/permission) 6.X以上权限申请工具
+    - [VMActivity](src/main/java/com/vmloft/develop/library/tools/base/VMBActivity.java) Activity 基类
+    - [VMFragment](src/main/java/com/vmloft/develop/library/tools/base/VMBFragment.java) Fragment 基类
 
-- [router](src/main/java/com/vmloft/develop/library/tools/router) 项目跳转路由
-    - [VMParams](src/main/java/com/vmloft/develop/library/tools/utils/VMParams.java) 路由跳转传参
-    - [VMRouter](src/main/java/com/vmloft/develop/library/tools/utils/VMRouter.java) 路由基类，业务层继承实现自己业务跳转
+- [permission](src/main/java/com/vmloft/develop/library/tools/permission) 6.X以上权限申请工具
 
 - [utils](src/main/java/com/vmloft/develop/library/tools/utils) 自定义工具类部分
     - [bitmap](src/main/java/com/vmloft/develop/library/tools/utils/bitmap) 图片处理
-    - [VMCrypto](src/main/java/com/vmloft/develop/library/tools/utils/VMCrypto.java) 加密解密
+    - [VMLog](src/main/java/com/vmloft/develop/library/tools/utils/logger) 日志
+    - [VMDate](src/main/java/com/vmloft/develop/library/tools/utils/VMColor.java) 颜色
     - [VMDate](src/main/java/com/vmloft/develop/library/tools/utils/VMDate.java) 时间
     - [VMDimen](src/main/java/com/vmloft/develop/library/tools/utils/VMDimen.java) 尺寸
-    - [VMEditor](src/main/java/com/vmloft/develop/library/tools/utils/VMEditor.java) 针对 EditText 封装撤销和回复功能
     - [VMFile](src/main/java/com/vmloft/develop/library/tools/utils/VMFile.java) 文件
-    - [VMLanguage](src/main/java/com/vmloft/develop/library/tools/utils/VMLanguage.java) 语言切换
-    - [VMLog](src/main/java/com/vmloft/develop/library/tools/utils/VMLog.java) 日志
     - [VMNetwork](src/main/java/com/vmloft/develop/library/tools/utils/VMNetwork.java) 网络
     - [VMReg](src/main/java/com/vmloft/develop/library/tools/utils/VMReg.java) 正则
     - [VMSPUtil](src/main/java/com/vmloft/develop/library/tools/utils/VMSPUtil.java) SharedPreference 工具
     - [VMStr](src/main/java/com/vmloft/develop/library/tools/utils/VMStr.java) 字符串操作
     - [VMStr](src/main/java/com/vmloft/develop/library/tools/utils/VMSystem.java) 系统相关
     - [VMTheme](src/main/java/com/vmloft/develop/library/tools/utils/VMTheme.java) 主题
+    - [VMTheme](src/main/java/com/vmloft/develop/library/tools/utils/VMUtils.java) 工具
 
 - [widget](src/main/java/com/vmloft/develop/library/tools/widget) 自定义控件部分
     - [VMIndicatorView](src/main/java/com/vmloft/develop/library/tools/widget/indicator/VMIndicatorView.java) 指示器控件
     - [VMRecordView](src/main/java/com/vmloft/develop/library/tools/widget/record/VMRecordView.java) 录音控件
-    - [VMToast](src/main/java/com/vmloft/develop/library/tools/widget/toast/VMToast.java) 全局 Toast 提醒
-    - [VMAuthCodeBtn](src/main/java/com/vmloft/develop/library/tools/widget/VMAuthCodeBtn.java) 验证码按钮
-    - [VMDetailsView](src/main/java/com/vmloft/develop/library/tools/widget/VMDetailsView.java) 显示更多
-    - [VMDotLineView](src/main/java/com/vmloft/develop/library/tools/widget/VMDotLineView.java) 描点连线
-    - [VMDrawView](src/main/java/com/vmloft/develop/library/tools/widget/VMDrawView.java) 可绘制 View
-    - [VMEditView](src/main/java/com/vmloft/develop/library/tools/widget/VMEditView.java) 输入控件
-    - [VMEmojiRainView](src/main/java/com/vmloft/develop/library/tools/widget/VMEmojiRainView.java) 表情雨控件
+    - [VMToast](src/main/java/com/vmloft/develop/library/tools/widget/toast) 全局 Toast 提醒
     - [VMExpandableLayout](src/main/java/com/vmloft/develop/library/tools/widget/VMExpandableLayout.java) 可伸缩布局
     - [VMFloatMenu](src/main/java/com/vmloft/develop/library/tools/widget/VMFloatMenu.java) 悬浮菜单
-    - [VMImageView](src/main/java/com/vmloft/develop/library/tools/widget/VMImageView.java) 圆角图片
     - [VMImageView](src/main/java/com/vmloft/develop/library/tools/widget/VMLineView.java) 单行选项控件
-    - [VMSquareLayout](src/main/java/com/vmloft/develop/library/tools/widget/VMSquareLayout.java) 正方形控件
+    - [VMSquareLayout](src/main/java/com/vmloft/develop/library/tools/widget/VMRatioLayout.java) 正方形控件
     - [VMTimerBtn](src/main/java/com/vmloft/develop/library/tools/widget/VMTimerBtn.java) 定时按钮
-    - [VMViewGroup](src/main/java/com/vmloft/develop/library/tools/widget/VMViewGroup.java) ViewGroup
-    - [VMWaveformView](src/main/java/com/vmloft/develop/library/tools/widget/VMWaveformView.java) 波形图
-    
+    - [VMTimerBtn](src/main/java/com/vmloft/develop/library/tools/widget/VMTopBar.java) 顶部 TopBar
+    - [VMViewGroup](src/main/java/com/vmloft/develop/library/tools/widget/VMViewGroup.java) 自动换行 ViewGroup
+
 - [VMTools](src/main/java/com/vmloft/develop/library/tools/VMTools.java) 工具初始化类

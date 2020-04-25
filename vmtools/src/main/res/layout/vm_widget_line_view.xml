@@ -1,131 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:foreground="@drawable/vm_click_full_transparent"
     android:minHeight="@dimen/vm_dimen_48"
-    tools:context=".widget.VMLineView">
+    tools:context=".widget.VMLineView"
+    >
 
     <!--图标-->
     <ImageView
-        android:id="@+id/vm_line_icon_iv"
+        android:id="@+id/vmLineIconIV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/vm_margin_large"
-        android:maxWidth="@dimen/vm_dimen_24"
-        android:maxHeight="@dimen/vm_dimen_24"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/vm_line_title_tv"
+        app:layout_constraintBottom_toBottomOf="@+id/vmLineTitleTV"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/vm_line_title_tv"
+        app:layout_constraintTop_toTopOf="@+id/vmLineTitleTV"
         tools:src="@drawable/vm_ic_close"
-        tools:tint="@color/vm_black_87" />
+        />
 
     <!--标题-->
     <TextView
-        android:id="@+id/vm_line_title_tv"
-        style="@style/VMText.Menu"
+        android:id="@+id/vmLineTitleTV"
+        style="@style/VMText.Subhead"
         android:layout_width="@dimen/vm_dimen_0"
         android:layout_marginStart="@dimen/vm_margin_large"
         android:layout_marginTop="@dimen/vm_margin_large"
         android:layout_marginEnd="@dimen/vm_margin_small"
-        app:layout_constraintBottom_toTopOf="@+id/vm_line_description_tv"
-        app:layout_constraintEnd_toStartOf="@+id/vm_line_right_container"
-        app:layout_constraintStart_toEndOf="@+id/vm_line_icon_iv"
+        app:layout_constraintBottom_toTopOf="@+id/vmLineDescriptionTV"
+        app:layout_constraintEnd_toStartOf="@+id/vmLineRightContainer"
+        app:layout_constraintStart_toEndOf="@+id/vmLineIconIV"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_goneMarginBottom="@dimen/vm_margin_large"
-        tools:text="设置" />
+        tools:text="设置"
+        />
 
     <!--自定义容器-->
     <LinearLayout
-        android:id="@+id/vm_line_right_container"
+        android:id="@+id/vmLineRightContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/vm_line_title_tv"
-        app:layout_constraintEnd_toStartOf="@+id/vm_line_caption_icon_iv"
-        app:layout_constraintStart_toEndOf="@+id/vm_line_title_tv"
-        app:layout_constraintTop_toTopOf="@+id/vm_line_title_tv" />
+        app:layout_constraintBottom_toBottomOf="@+id/vmLineTitleTV"
+        app:layout_constraintEnd_toStartOf="@+id/vmLineCaptionIconIV"
+        app:layout_constraintStart_toEndOf="@+id/vmLineTitleTV"
+        app:layout_constraintTop_toTopOf="@+id/vmLineTitleTV"
+        />
 
     <!--描述文本图标-->
     <ImageView
-        android:id="@+id/vm_line_caption_icon_iv"
+        android:id="@+id/vmLineCaptionIconIV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/vm_margin_normal"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/vm_line_caption_tv"
-        app:layout_constraintEnd_toStartOf="@+id/vm_line_caption_tv"
-        app:layout_constraintStart_toEndOf="@+id/vm_line_right_container"
-        app:layout_constraintTop_toTopOf="@+id/vm_line_caption_tv"
-        tools:src="@drawable/vm_ic_emoticon" />
+        app:layout_constraintBottom_toBottomOf="@+id/vmLineCaptionTV"
+        app:layout_constraintEnd_toStartOf="@+id/vmLineCaptionTV"
+        app:layout_constraintStart_toEndOf="@+id/vmLineRightContainer"
+        app:layout_constraintTop_toTopOf="@+id/vmLineCaptionTV"
+        tools:src="@drawable/vm_ic_close"
+        />
 
     <!--右侧描述文本-->
     <TextView
-        android:id="@+id/vm_line_caption_tv"
+        android:id="@+id/vmLineCaptionTV"
         style="@style/VMText.Body1"
         android:layout_marginEnd="@dimen/vm_margin_large"
         android:textColor="@color/vm_black_54"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/vm_line_right_icon_iv"
-        app:layout_constraintEnd_toStartOf="@+id/vm_line_right_icon_iv"
-        app:layout_constraintStart_toEndOf="@+id/vm_line_caption_icon_iv"
-        app:layout_constraintTop_toTopOf="@+id/vm_line_right_icon_iv"
-        tools:text="15617021612" />
+        app:layout_constraintBottom_toBottomOf="@+id/vmLineRightIconIV"
+        app:layout_constraintEnd_toStartOf="@+id/vmLineRightIconIV"
+        app:layout_constraintStart_toEndOf="@+id/vmLineCaptionIconIV"
+        app:layout_constraintTop_toTopOf="@+id/vmLineRightIconIV"
+        tools:text="15617021612"
+        />
 
     <!--右侧图标-->
     <ImageView
-        android:id="@+id/vm_line_right_icon_iv"
+        android:id="@+id/vmLineRightIconIV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/vm_margin_large"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/vm_line_title_tv"
+        app:layout_constraintBottom_toBottomOf="@+id/vmLineTitleTV"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/vm_line_caption_tv"
-        app:layout_constraintTop_toTopOf="@+id/vm_line_title_tv"
+        app:layout_constraintStart_toEndOf="@+id/vmLineCaptionTV"
+        app:layout_constraintTop_toTopOf="@+id/vmLineTitleTV"
         tools:src="@drawable/vm_ic_arrow_right"
-        tools:tint="@color/vm_black_87" />
+        />
 
     <!--描述-->
     <TextView
-        android:id="@+id/vm_line_description_tv"
+        android:id="@+id/vmLineDescriptionTV"
         style="@style/VMText.Body1"
         android:layout_width="@dimen/vm_dimen_0"
         android:layout_marginTop="@dimen/vm_margin_normal"
         android:textColor="@color/vm_black_54"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/vm_line_bottom_container"
+        app:layout_constraintBottom_toTopOf="@+id/vmLineBottomContainer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/vm_line_title_tv"
-        app:layout_constraintTop_toBottomOf="@+id/vm_line_title_tv"
+        app:layout_constraintStart_toStartOf="@+id/vmLineTitleTV"
+        app:layout_constraintTop_toBottomOf="@+id/vmLineTitleTV"
         app:layout_goneMarginBottom="@dimen/vm_margin_large"
-        tools:text="设置描述内容" />
+        tools:text="设置描述内容"
+        />
 
     <!--预留容器-->
     <LinearLayout
-        android:id="@+id/vm_line_bottom_container"
+        android:id="@+id/vmLineBottomContainer"
         android:layout_width="@dimen/vm_dimen_0"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/vm_margin_normal"
         android:orientation="vertical"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/vm_line_decoration"
+        app:layout_constraintBottom_toTopOf="@+id/vmLineDecoration"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/vm_line_title_tv"
-        app:layout_constraintTop_toBottomOf="@+id/vm_line_description_tv"
-        app:layout_goneMarginBottom="@dimen/vm_margin_large" />
+        app:layout_constraintStart_toStartOf="@+id/vmLineTitleTV"
+        app:layout_constraintTop_toBottomOf="@+id/vmLineDescriptionTV"
+        app:layout_goneMarginBottom="@dimen/vm_margin_large"
+        />
     <!--分割线-->
     <View
-        android:id="@+id/vm_line_decoration"
+        android:id="@+id/vmLineDecoration"
         android:layout_width="@dimen/vm_dimen_0"
         android:layout_height="@dimen/vm_dimen_0_5"
         android:background="@color/vm_decoration_gray"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/vm_line_title_tv"
-        app:layout_constraintTop_toBottomOf="@+id/vm_line_bottom_container" />
+        app:layout_constraintStart_toStartOf="@+id/vmLineTitleTV"
+        app:layout_constraintTop_toBottomOf="@+id/vmLineBottomContainer"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
