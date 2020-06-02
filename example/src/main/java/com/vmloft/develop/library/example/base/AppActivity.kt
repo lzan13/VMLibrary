@@ -18,7 +18,7 @@ abstract class AppActivity : VMBActivity() {
     protected var mSpaceView: View? = null
 
     override fun initUI() {
-        VMTheme.setDarkStatusBar(mActivity!!, true)
+        VMTheme.setDarkStatusBar(mActivity!!, false)
         setupTobBar()
     }
 

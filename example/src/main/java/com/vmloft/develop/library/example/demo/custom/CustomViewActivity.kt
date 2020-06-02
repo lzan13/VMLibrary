@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_view_custom.customTimerBtn
 
 /**
  * Created by lzan13 on 2017/4/1.
- * 测试录音控件
+ * 描述：测试录音控件
  */
 @Route(path = "/VMLoft/CustomView")
 class CustomViewActivity : AppActivity() {
@@ -39,7 +39,7 @@ class CustomViewActivity : AppActivity() {
             }
 
             override fun onError(code: Int, desc: String?) {
-                VMToast.make(mActivity, "录音失败 %d " + code, desc).error()
+                VMToast.make(mActivity, "录音失败 %d %s", code, desc).error()
             }
 
             override fun onComplete(path: String?, time: Long) {

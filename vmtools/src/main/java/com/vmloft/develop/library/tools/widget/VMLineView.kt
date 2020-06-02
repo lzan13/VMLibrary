@@ -22,31 +22,32 @@ import com.vmloft.develop.library.tools.utils.VMStr
  */
 class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RelativeLayout(context, attrs, defStyleAttr) {
     // 左侧图标
-    private var mIconView: ImageView? = null
+    private var mIconView: ImageView
 
     // 标题
-    private var mTitleView: TextView? = null
+    private var mTitleView: TextView
 
     // 右侧容器
-    private var mRightContainer: LinearLayout? = null
+    private var mRightContainer: LinearLayout
 
     // 说明图标
-    private var mCaptionIconView: ImageView? = null
+    private var mCaptionIconView: ImageView
 
     // 说明文本
-    private var mCaptionView: TextView? = null
+    private var mCaptionView: TextView
 
     // 右侧图标
-    private var mRightIconView: ImageView? = null
+    private var mRightIconView: ImageView
 
     // 底部描述文本
-    private var mDescriptionView: TextView? = null
+    private var mDescriptionView: TextView
 
     // 底部容器
-    private var mBottomContainer: LinearLayout? = null
+    private var mBottomContainer: LinearLayout
 
     // 分割线
-    private var mDecorationView: View? = null
+    private var mDecorationView: View
+
     private var mIconRes = 0
     private var mTitle: String? = null
     private var mTitleColor = 0
@@ -104,48 +105,48 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
      */
     private fun setupView() {
         if (mIconRes == 0) {
-            mIconView!!.visibility = View.GONE
+            mIconView.visibility = View.GONE
         } else {
-            mIconView!!.visibility = View.VISIBLE
-            mIconView!!.setImageResource(mIconRes)
+            mIconView.visibility = View.VISIBLE
+            mIconView.setImageResource(mIconRes)
         }
         if (!VMStr.isEmpty(mTitle)) {
-            mTitleView!!.text = mTitle
+            mTitleView.text = mTitle
         }
         if (mTitleColor != 0) {
-            mTitleView!!.setTextColor(mTitleColor)
+            mTitleView.setTextColor(mTitleColor)
         }
         if (mCaptionIconRes == 0) {
-            mCaptionIconView!!.visibility = View.GONE
+            mCaptionIconView.visibility = View.GONE
         } else {
-            mCaptionIconView!!.visibility = View.VISIBLE
-            mCaptionIconView!!.setImageResource(mCaptionIconRes)
+            mCaptionIconView.visibility = View.VISIBLE
+            mCaptionIconView.setImageResource(mCaptionIconRes)
         }
         if (VMStr.isEmpty(mCaption)) {
-            mCaptionView!!.visibility = View.GONE
+            mCaptionView.visibility = View.GONE
         } else {
-            mCaptionView!!.visibility = View.VISIBLE
-            mCaptionView!!.text = mCaption
+            mCaptionView.visibility = View.VISIBLE
+            mCaptionView.text = mCaption
         }
         if (mCaptionColor != 0) {
-            mCaptionView!!.setTextColor(mCaptionColor)
+            mCaptionView.setTextColor(mCaptionColor)
         }
         if (mRightIconRes == 0) {
-            mRightIconView!!.visibility = View.GONE
+            mRightIconView.visibility = View.GONE
         } else {
-            mRightIconView!!.visibility = View.VISIBLE
-            mRightIconView!!.setImageResource(mRightIconRes)
+            mRightIconView.visibility = View.VISIBLE
+            mRightIconView.setImageResource(mRightIconRes)
         }
         if (VMStr.isEmpty(mDescription)) {
-            mDescriptionView!!.visibility = View.GONE
+            mDescriptionView.visibility = View.GONE
         } else {
-            mDescriptionView!!.visibility = View.VISIBLE
-            mDescriptionView!!.text = mDescription
+            mDescriptionView.visibility = View.VISIBLE
+            mDescriptionView.text = mDescription
         }
         if (mDecoration) {
-            mDecorationView!!.visibility = View.VISIBLE
+            mDecorationView.visibility = View.VISIBLE
         } else {
-            mDecorationView!!.visibility = View.GONE
+            mDecorationView.visibility = View.GONE
         }
     }
 
@@ -157,11 +158,11 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
     fun setIconRes(resId: Int) {
         mIconRes = resId
         if (mIconRes == 0) {
-            mIconView!!.visibility = View.GONE
+            mIconView.visibility = View.GONE
             return
         }
-        mIconView!!.visibility = View.VISIBLE
-        mIconView!!.setImageResource(mIconRes)
+        mIconView.visibility = View.VISIBLE
+        mIconView.setImageResource(mIconRes)
     }
 
     /**
@@ -169,7 +170,7 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
      */
     fun setTitle(title: String?) {
         mTitle = title
-        mTitleView!!.text = mTitle
+        mTitleView.text = mTitle
     }
 
     /**
@@ -177,7 +178,7 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
      */
     fun setTitleColor(color: Int) {
         mTitleColor = color
-        mTitleView!!.setTextColor(mTitleColor)
+        mTitleView.setTextColor(mTitleColor)
     }
 
     /**
@@ -185,9 +186,9 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
      */
     fun setTitleStyle(resId: Int) {
         if (VERSION.SDK_INT >= VERSION_CODES.M) {
-            mTitleView!!.setTextAppearance(resId)
+            mTitleView.setTextAppearance(resId)
         } else {
-            mTitleView!!.setTextAppearance(context, resId)
+            mTitleView.setTextAppearance(context, resId)
         }
     }
 
@@ -196,10 +197,10 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
      */
     fun setRightView(view: View?) {
         if (view != null) {
-            mRightContainer!!.removeAllViews()
-            mRightContainer!!.addView(view)
+            mRightContainer.removeAllViews()
+            mRightContainer.addView(view)
         } else {
-            mRightContainer!!.removeAllViews()
+            mRightContainer.removeAllViews()
         }
     }
 
@@ -209,11 +210,11 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
     fun setCaptionIcon(resId: Int) {
         mCaptionIconRes = resId
         if (mCaptionIconRes == 0) {
-            mCaptionIconView!!.visibility = View.GONE
+            mCaptionIconView.visibility = View.GONE
             return
         }
-        mCaptionIconView!!.visibility = View.VISIBLE
-        mCaptionIconView!!.setImageResource(mCaptionIconRes)
+        mCaptionIconView.visibility = View.VISIBLE
+        mCaptionIconView.setImageResource(mCaptionIconRes)
     }
 
     /**
@@ -222,11 +223,11 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
     fun setCaption(caption: String?) {
         mCaption = caption
         if (VMStr.isEmpty(mCaption)) {
-            mCaptionView!!.visibility = View.GONE
+            mCaptionView.visibility = View.GONE
             return
         }
-        mCaptionView!!.visibility = View.VISIBLE
-        mCaptionView!!.text = mCaption
+        mCaptionView.visibility = View.VISIBLE
+        mCaptionView.text = mCaption
     }
 
     /**
@@ -234,7 +235,7 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
      */
     fun setCaptionColor(color: Int) {
         mCaptionColor = color
-        mCaptionView!!.setTextColor(mCaptionColor)
+        mCaptionView.setTextColor(mCaptionColor)
     }
 
     /**
@@ -242,9 +243,9 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
      */
     fun setCaptionStyle(resId: Int) {
         if (VERSION.SDK_INT >= VERSION_CODES.M) {
-            mCaptionView!!.setTextAppearance(resId)
+            mCaptionView.setTextAppearance(resId)
         } else {
-            mCaptionView!!.setTextAppearance(context, resId)
+            mCaptionView.setTextAppearance(context, resId)
         }
     }
 
@@ -254,11 +255,11 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
     fun setRightIcon(resId: Int) {
         mRightIconRes = resId
         if (mRightIconRes == 0) {
-            mRightIconView!!.visibility = View.GONE
+            mRightIconView.visibility = View.GONE
             return
         }
-        mRightIconView!!.visibility = View.VISIBLE
-        mRightIconView!!.setImageResource(mRightIconRes)
+        mRightIconView.visibility = View.VISIBLE
+        mRightIconView.setImageResource(mRightIconRes)
     }
 
     /**
@@ -267,11 +268,11 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
     fun setDescription(description: String?) {
         mDescription = description
         if (VMStr.isEmpty(mDescription)) {
-            mDescriptionView!!.visibility = View.GONE
+            mDescriptionView.visibility = View.GONE
             return
         }
-        mDescriptionView!!.visibility = View.VISIBLE
-        mDescriptionView!!.text = mDescription
+        mDescriptionView.visibility = View.VISIBLE
+        mDescriptionView.text = mDescription
     }
 
     /**
@@ -279,10 +280,10 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
      */
     fun setBottomView(view: View?) {
         if (view != null) {
-            mBottomContainer!!.removeAllViews()
-            mBottomContainer!!.addView(view)
+            mBottomContainer.removeAllViews()
+            mBottomContainer.addView(view)
         } else {
-            mBottomContainer!!.removeAllViews()
+            mBottomContainer.removeAllViews()
         }
     }
 
@@ -291,7 +292,7 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
      */
     override fun setActivated(activated: Boolean) {
         super.setActivated(activated)
-        mRightIconView!!.isActivated = activated
+        mRightIconView.isActivated = activated
     }
 
 }

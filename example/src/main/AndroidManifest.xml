@@ -63,6 +63,9 @@
         <!--指示器界面-->
         <activity android:name=".demo.indicator.IndicatorActivity" />
 
+        <!--通知提醒-->
+        <activity android:name=".demo.notify.NotifyActivity" />
+
         <!--测试线程-->
         <activity android:name=".demo.thread.ThreadActivity" />
 

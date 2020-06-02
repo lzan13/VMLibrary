@@ -38,17 +38,21 @@ object VMTheme {
     @JvmStatic
     fun setDarkStatusBar(activity: Activity, dark: Boolean): Int {
         var result = 0
-        if (statusBarDarkModeFromMIUI(activity, dark)) {
-            result = 1
-        } else if (statusBarDarkModeFromFlyme(activity.window, dark)) {
-            result = 2
-        } else if (VERSION.SDK_INT >= VERSION_CODES.M) {
-            if (dark) {
-                activity.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            } else {
-                activity.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
+        when {
+            statusBarDarkModeFromMIUI(activity, dark) -> {
+                result = 1
             }
-            result = 3
+            statusBarDarkModeFromFlyme(activity.window, dark) -> {
+                result = 2
+            }
+            VERSION.SDK_INT >= VERSION_CODES.M -> {
+                if (dark) {
+                    activity.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                } else {
+                    activity.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
+                }
+                result = 3
+            }
         }
         return result
     }
