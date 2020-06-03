@@ -43,32 +43,20 @@
             </intent-filter>
         </activity>
 
+        <!--弹幕-->
+        <activity android:name=".demo.barrage.BarrageActivity" />
         <!--自定义控件-->
         <activity
             android:name=".demo.custom.CustomViewActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-
-        <!--播放音频-->
-        <activity android:name=".demo.audio.MediaPlayActivity" />
-
-        <!--按钮主题样式-->
-        <activity android:name=".demo.style.BtnStyleActivity" />
-
         <!--弹出PopupWindow窗口-->
         <activity android:name=".demo.dialog.FloatMenuActivity" />
-
-        <!--Web 功能界面-->
-        <activity android:name=".demo.web.WebActivity" />
-
         <!--指示器界面-->
         <activity android:name=".demo.indicator.IndicatorActivity" />
-
+        <!--播放音频-->
+        <activity android:name=".demo.media.MediaPlayActivity" />
         <!--通知提醒-->
         <activity android:name=".demo.notify.NotifyActivity" />
-
-        <!--测试线程-->
-        <activity android:name=".demo.thread.ThreadActivity" />
-
         <!--通过 url 打开页面 vmlibrary://demo/with?id=1001-->
         <activity android:name=".demo.scheme.SchemeActivity">
             <intent-filter>
@@ -83,6 +71,13 @@
                     android:scheme="vmlibrary" />
             </intent-filter>
         </activity>
+        <!--按钮主题样式-->
+        <activity android:name=".demo.style.BtnStyleActivity" />
+        <!--测试线程-->
+        <activity android:name=".demo.thread.ThreadActivity" />
+        <!--Web 功能界面-->
+        <activity android:name=".demo.web.WebActivity" />
+
 
     </application>
 </manifest>

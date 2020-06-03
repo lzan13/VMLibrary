@@ -25,18 +25,19 @@ import java.util.ArrayList
  */
 class MainActivity : AppActivity() {
     // 定义动态添加的控件 Id
-    private val btnStyleBtnId = 0x100;
-    private val customViewBtnId = 0x102;
-    private val playAudioBtnId = 0x103;
-    private val floatMenuBtnId = 0x104;
-    private val webBtnId = 0x105;
-    private val indicatorBtnId = 0x106;
-    private val notifyBtnId = 0x107;
-    private val threadBtnId = 0x108;
-    private val schemeBtnId = 0x109;
+    private val barrage = "barrage"
+    private val customView = "customView"
+    private val floatMenu = "floatMenu"
+    private val indicator = "indicator"
+    private val mediaPlay = "mediaPlay"
+    private val notify = "notify"
+    private val scheme = "scheme"
+    private val style = "style"
+    private val thread = "thread"
+    private val web = "web"
 
-    private val singlePermissionBtnId = 0x200;
-    private val multiPermissionBtnId = 0x201;
+    private val singlePermission = "singlePermission"
+    private val multiPermission = "multiPermission"
 
     override fun layoutId(): Int {
         // 修改界面主题
@@ -54,18 +55,19 @@ class MainActivity : AppActivity() {
             VMLog.json("{'app':'VMLibrary', 'version':'1.0.0', 'tag':['tools','kotlin','android']}")
         })
 
-        addBtn("按钮样式", btnStyleBtnId)
-        addBtn("自定义控件", customViewBtnId)
-        addBtn("声音播放", playAudioBtnId)
-        addBtn("悬浮菜单", floatMenuBtnId)
-        addBtn("Web 功能", webBtnId)
-        addBtn("指示器", indicatorBtnId)
-        addBtn("通知提醒", notifyBtnId)
-        addBtn("线程测试", threadBtnId)
-        addBtn("Scheme", schemeBtnId)
+        addBtn("弹幕", barrage.hashCode())
+        addBtn("自定义控件", customView.hashCode())
+        addBtn("悬浮菜单", floatMenu.hashCode())
+        addBtn("声音播放", mediaPlay.hashCode())
+        addBtn("指示器", indicator.hashCode())
+        addBtn("通知提醒", notify.hashCode())
+        addBtn("Scheme", scheme.hashCode())
+        addBtn("按钮", style.hashCode())
+        addBtn("线程测试", thread.hashCode())
+        addBtn("Web 功能", web.hashCode())
 
-        addBtn("单权限申请", singlePermissionBtnId)
-        addBtn("多权限申请", multiPermissionBtnId)
+        addBtn("单权限申请", singlePermission.hashCode())
+        addBtn("多权限申请", multiPermission.hashCode())
     }
 
     /**
@@ -87,18 +89,19 @@ class MainActivity : AppActivity() {
 
     private val viewListener = OnClickListener { v: View ->
         when (v.id) {
-            btnStyleBtnId -> ARouter.getInstance().build("/VMLoft/BtnStyle").navigation()
-            customViewBtnId -> ARouter.getInstance().build("/VMLoft/CustomView").navigation()
-            playAudioBtnId -> ARouter.getInstance().build("/VMLoft/MediaPlay").navigation()
-            floatMenuBtnId -> ARouter.getInstance().build("/VMLoft/FloatMenu").navigation()
-            webBtnId -> ARouter.getInstance().build("/VMLoft/Web").navigation()
-            indicatorBtnId -> ARouter.getInstance().build("/VMLoft/Indicator").navigation()
-            notifyBtnId -> ARouter.getInstance().build("/VMLoft/Notify").navigation()
-            threadBtnId -> ARouter.getInstance().build("/VMLoft/Thread").navigation()
-            schemeBtnId -> ARouter.getInstance().build("/VMLoft/Scheme").navigation()
+            barrage.hashCode() -> ARouter.getInstance().build("/VMLoft/Barrage").navigation()
+            customView.hashCode() -> ARouter.getInstance().build("/VMLoft/CustomView").navigation()
+            floatMenu.hashCode() -> ARouter.getInstance().build("/VMLoft/FloatMenu").navigation()
+            mediaPlay.hashCode() -> ARouter.getInstance().build("/VMLoft/MediaPlay").navigation()
+            indicator.hashCode() -> ARouter.getInstance().build("/VMLoft/Indicator").navigation()
+            notify.hashCode() -> ARouter.getInstance().build("/VMLoft/Notify").navigation()
+            scheme.hashCode() -> ARouter.getInstance().build("/VMLoft/Scheme").navigation()
+            style.hashCode() -> ARouter.getInstance().build("/VMLoft/BtnStyle").navigation()
+            thread.hashCode() -> ARouter.getInstance().build("/VMLoft/Thread").navigation()
+            web.hashCode() -> ARouter.getInstance().build("/VMLoft/Web").navigation()
 
-            singlePermissionBtnId -> checkOnePermissions()
-            multiPermissionBtnId -> checkPermissions()
+            singlePermission.hashCode() -> checkOnePermissions()
+            multiPermission.hashCode() -> checkPermissions()
         }
     }
 

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg"
+    android:orientation="vertical"
+    >
+
+    <include layout="@layout/widget_common_top_bar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <!--弹幕容器-->
+        <com.vmloft.develop.library.tools.widget.barrage.VMBarrageView
+            android:id="@+id/barrageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            >
+
+            <!--启动弹幕-->
+            <Button
+                android:id="@+id/barrageStartBtn"
+                style="@style/VMBtn.Flat.Green"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="启动弹幕"
+                />
+            <!--停止弹幕-->
+            <Button
+                android:id="@+id/barrageStopBtn"
+                style="@style/VMBtn.Flat.Green"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="停止弹幕"
+                />
+            <!--发出弹幕-->
+            <Button
+                android:id="@+id/barrageSendBtn"
+                style="@style/VMBtn.Flat.Green"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发送弹幕"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

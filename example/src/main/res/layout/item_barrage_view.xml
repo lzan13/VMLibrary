@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_bg_fillet_white"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/vm_dimen_8"
+    android:paddingTop="@dimen/vm_dimen_4"
+    android:paddingEnd="@dimen/vm_dimen_8"
+    android:paddingBottom="@dimen/vm_dimen_4"
+    >
+
+    <ImageView
+        android:layout_width="@dimen/vm_dimen_24"
+        android:layout_height="@dimen/vm_dimen_24"
+        android:src="@drawable/emoji_dog"
+        />
+
+    <TextView
+        android:id="@+id/barrageItemTV"
+        style="@style/VMText.Body2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/vm_dimen_4"
+        />
+</LinearLayout>

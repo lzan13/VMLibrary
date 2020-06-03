@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.example.demo.audio
+package com.vmloft.develop.library.example.demo.media
 
 import android.media.MediaPlayer
 import android.media.audiofx.Visualizer

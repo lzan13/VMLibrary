@@ -21,7 +21,7 @@ class VMPermissionView @JvmOverloads constructor(context: Context?, attrs: Attri
     /**
      * 初始化方法
      */
-    fun init(context: Context?) {
+    init {
         LayoutInflater.from(context).inflate(layout.vm_widget_permission_item, this)
         iconView = findViewById(R.id.vm_permission_item_icon_iv)
         titleView = findViewById(R.id.vm_permission_item_name_iv)
@@ -47,7 +47,4 @@ class VMPermissionView @JvmOverloads constructor(context: Context?, attrs: Attri
         titleView!!.text = name
     }
 
-    init {
-        init(context)
-    }
 }
