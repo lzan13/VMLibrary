@@ -18,7 +18,8 @@ abstract class AppActivity : VMBActivity() {
     protected var mSpaceView: View? = null
 
     override fun initUI() {
-        VMTheme.setDarkStatusBar(mActivity!!, false)
+        // 设置黑色状态栏，这个需要和主题色配置使用，主题色是深色的话建议设置 false
+        VMTheme.setDarkStatusBar(this, true)
         setupTobBar()
     }
 
@@ -28,7 +29,7 @@ abstract class AppActivity : VMBActivity() {
     protected fun setupTobBar() {
         mSpaceView = findViewById(id.common_top_space)
         if (mSpaceView != null) {
-            // 设置状态栏透明主题时，布局整体会上移，所以给头部 View 设置 StatusBar 的高度
+            // TODO 设置状态栏透明主题时，布局整体会上移，需要给头部 View 设置 StatusBar 的高度
             mSpaceView!!.layoutParams.height = VMDimen.statusBarHeight
         }
         topBar = findViewById(id.common_top_bar)
