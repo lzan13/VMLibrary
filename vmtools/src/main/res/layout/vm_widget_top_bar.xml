@@ -40,7 +40,7 @@
     <!--子标题-->
     <TextView
         android:id="@+id/vmTopBarSubtitleTV"
-        style="@style/VMText.Title"
+        style="@style/VMText.Subhead"
         android:layout_width="@dimen/vm_dimen_0"
         android:layout_below="@+id/vmTopBarTitleTV"
         android:layout_alignParentBottom="true"

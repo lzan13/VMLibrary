@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/vm_toast_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/vm_green"
+    android:background="@color/vm_toast_bg"
     android:orientation="vertical"
     >
 

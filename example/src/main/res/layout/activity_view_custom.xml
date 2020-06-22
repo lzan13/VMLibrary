@@ -79,6 +79,13 @@
                     />
             </RelativeLayout>
 
+            <com.vmloft.develop.library.tools.widget.VMLineView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:vm_line_title="测试 Item"
+                app:vm_line_description="测试描述文本，这是底部的描述文本"
+                app:vm_line_caption="右侧说明"
+                />
             <com.vmloft.develop.library.tools.widget.VMRatioLayout
                 android:id="@+id/customRatioLayout"
                 android:layout_width="match_parent"

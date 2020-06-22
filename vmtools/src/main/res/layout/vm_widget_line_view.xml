@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -65,12 +64,12 @@
         tools:src="@drawable/vm_ic_close"
         />
 
-    <!--右侧描述文本-->
+    <!--右侧说明文本-->
     <TextView
         android:id="@+id/vmLineCaptionTV"
         style="@style/VMText.Body1"
         android:layout_marginEnd="@dimen/vm_margin_large"
-        android:textColor="@color/vm_black_54"
+        android:textColor="@color/vm_caption"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/vmLineRightIconIV"
         app:layout_constraintEnd_toStartOf="@+id/vmLineRightIconIV"
@@ -93,13 +92,13 @@
         tools:src="@drawable/vm_ic_arrow_right"
         />
 
-    <!--描述-->
+    <!--底部描述-->
     <TextView
         android:id="@+id/vmLineDescriptionTV"
         style="@style/VMText.Body1"
         android:layout_width="@dimen/vm_dimen_0"
         android:layout_marginTop="@dimen/vm_margin_normal"
-        android:textColor="@color/vm_black_54"
+        android:textColor="@color/vm_description"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/vmLineBottomContainer"
         app:layout_constraintEnd_toEndOf="parent"

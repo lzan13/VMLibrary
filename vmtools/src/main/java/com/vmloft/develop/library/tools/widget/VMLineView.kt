@@ -13,6 +13,7 @@ import android.widget.TextView
 import com.vmloft.develop.library.tools.R
 import com.vmloft.develop.library.tools.R.layout
 import com.vmloft.develop.library.tools.R.styleable
+import com.vmloft.develop.library.tools.utils.VMColor
 import com.vmloft.develop.library.tools.utils.VMStr
 
 /**
@@ -56,6 +57,9 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
     private var mCaptionColor = 0
     private var mRightIconRes = 0
     private var mDescription: String? = null
+    private var mDescriptionColor = 0
+
+    // 是否展示分割线
     private var mDecoration = false
 
     /**
@@ -63,6 +67,11 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
      */
     init {
         LayoutInflater.from(context).inflate(layout.vm_widget_line_view, this)
+
+        mTitleColor = VMColor.byRes(R.color.vm_title)
+        mCaptionColor = VMColor.byRes(R.color.vm_caption)
+        mDescriptionColor = VMColor.byRes(R.color.vm_description)
+
         mIconView = findViewById(R.id.vmLineIconIV)
         mTitleView = findViewById(R.id.vmLineTitleTV)
         mRightContainer = findViewById(R.id.vmLineRightContainer)
@@ -96,6 +105,7 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         mCaptionColor = array.getColor(styleable.VMLineView_vm_line_caption_color, mCaptionColor)
         mRightIconRes = array.getResourceId(styleable.VMLineView_vm_line_right_icon, mRightIconRes)
         mDescription = array.getString(styleable.VMLineView_vm_line_description)
+        mDescriptionColor = array.getColor(styleable.VMLineView_vm_line_description_color, mDescriptionColor)
         mDecoration = array.getBoolean(styleable.VMLineView_vm_line_decoration, mDecoration)
         array.recycle()
     }
@@ -130,6 +140,9 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         }
         if (mCaptionColor != 0) {
             mCaptionView.setTextColor(mCaptionColor)
+        }
+        if (mDescriptionColor != 0) {
+            mDescriptionView.setTextColor(mDescriptionColor)
         }
         if (mRightIconRes == 0) {
             mRightIconView.visibility = View.GONE
@@ -218,7 +231,7 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
     }
 
     /**
-     * 设置右侧描述内容
+     * 设置右侧说明文本内容
      */
     fun setCaption(caption: String?) {
         mCaption = caption
@@ -231,7 +244,7 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
     }
 
     /**
-     * 设置描述文本颜色
+     * 设置右侧说明文本颜色
      */
     fun setCaptionColor(color: Int) {
         mCaptionColor = color
@@ -239,7 +252,7 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
     }
 
     /**
-     * 设置右侧描述样式
+     * 设置右侧说明文本样式
      */
     fun setCaptionStyle(resId: Int) {
         if (VERSION.SDK_INT >= VERSION_CODES.M) {
@@ -273,6 +286,25 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         }
         mDescriptionView.visibility = View.VISIBLE
         mDescriptionView.text = mDescription
+    }
+
+    /**
+     * 设置右侧说明文本颜色
+     */
+    fun setDescriptionColor(color: Int) {
+        mDescriptionColor = color
+        mDescriptionView.setTextColor(mDescriptionColor)
+    }
+
+    /**
+     * 设置右侧说明文本样式
+     */
+    fun setDescriptionStyle(resId: Int) {
+        if (VERSION.SDK_INT >= VERSION_CODES.M) {
+            mDescriptionView.setTextAppearance(resId)
+        } else {
+            mDescriptionView.setTextAppearance(context, resId)
+        }
     }
 
     /**
