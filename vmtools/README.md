@@ -71,6 +71,7 @@ booelan isEmail = VMReg.isEmail(email);
     - [VMTheme](src/main/java/com/vmloft/develop/library/tools/utils/VMUtils.java) 工具
 
 - [widget](src/main/java/com/vmloft/develop/library/tools/widget) 自定义控件部分
+    - [VMBarrageView](src/main/java/com/vmloft/develop/library/tools/widget/barrage/VMBarrageView.java) 弹幕控件
     - [VMIndicatorView](src/main/java/com/vmloft/develop/library/tools/widget/indicator/VMIndicatorView.java) 指示器控件
     - [VMRecordView](src/main/java/com/vmloft/develop/library/tools/widget/record/VMRecordView.java) 录音控件
     - [VMToast](src/main/java/com/vmloft/develop/library/tools/widget/toast) 全局 Toast 提醒
