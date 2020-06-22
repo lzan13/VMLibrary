@@ -237,24 +237,24 @@ object VMFile {
         val result: BigDecimal
         val kiloByte = size / 1024.toDouble()
         if (kiloByte < 1) {
-            return size.toString() + "Byte"
+            return size.toString() + "B"
         }
         val megaByte = kiloByte / 1024
         if (megaByte < 1) {
-            result = BigDecimal(java.lang.Double.toString(kiloByte))
+            result = BigDecimal(kiloByte.toString())
             return result.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "KB"
         }
         val gigaByte = megaByte / 1024
         if (gigaByte < 1) {
-            result = BigDecimal(java.lang.Double.toString(megaByte))
+            result = BigDecimal(megaByte.toString())
             return result.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "MB"
         }
         val teraByte = gigaByte / 1024
         if (teraByte < 1) {
-            result = BigDecimal(java.lang.Double.toString(gigaByte))
+            result = BigDecimal(gigaByte.toString())
             return result.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "GB"
         }
-        result = BigDecimal(java.lang.Double.toString(teraByte))
+        result = BigDecimal(teraByte.toString())
         return result.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "TB"
     }
 

@@ -4,7 +4,7 @@
     <!--暗色主题-->
     <color name="vm_theme_primary_dark">@color/vm_black_87</color>
     <color name="vm_theme_primary">@color/vm_black</color>
-    <color name="vm_theme_accent">@color/vm_green</color>
+    <color name="vm_theme_accent">@color/vm_green_54</color>
     <color name="vm_theme_background">#ff363636</color>
     <color name="vm_toolbar_control">#89f8f8f8</color>
 
@@ -38,7 +38,6 @@
     <color name="vm_btn_gray">@color/vm_gray_white_54</color>
     <color name="vm_btn_gray_unable">@color/vm_gray_white_12</color>
     <color name="vm_btn_ripple">@color/vm_white</color>
-    <color name="vm_btn_translucent">@color/vm_white_12</color>
 
     <!--装饰线-->
     <color name="vm_decoration_gray">@color/vm_gray_12</color>

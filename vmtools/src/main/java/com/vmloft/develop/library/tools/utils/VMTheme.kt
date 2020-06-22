@@ -16,19 +16,19 @@ import com.vmloft.develop.library.tools.R
  * 主题工具类
  */
 object VMTheme {
+
     /**
-     * 设置是否使用夜间模式，这里只是切换主题设置，具体的主题样式资源等还需要自己配置，
+     * 设置使用黑暗模式方式，这里只是切换主题设置，具体的主题样式资源等还需要自己配置，
      * 参考项目的 values-night 配置
-     *
-     * @param night 是否设置为夜间模式
+     * [AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM] 亮色
+     * [AppCompatDelegate.MODE_NIGHT_YES] 黑暗
+     * [AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM] 跟随系统
+     * [AppCompatDelegate.MODE_NIGHT_AUTO_TIME] 跟随日落
+     * [AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY] 跟随电量
+     * @param dark 设置黑暗模式方式
      */
-    @JvmStatic
-    fun setNightTheme(night: Boolean) {
-        if (night) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        }
+    fun setDarkTheme(dark: Int) {
+        AppCompatDelegate.setDefaultNightMode(dark)
     }
 
     /**
