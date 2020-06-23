@@ -63,9 +63,9 @@ private constructor() {
      * 自定义完成操作的提示
      */
     fun done() {
-        mToastView!!.setBGColor(color.vm_green)
+        mToastView!!.setBGColor(color.vm_toast_bg)
         mToastView!!.setIconRes(drawable.vm_ic_emotion)
-        mToastView!!.setMsgColor(color.vm_white)
+        mToastView!!.setMsgColor(color.vm_toast_content)
         mToastView!!.showToast(mDuration)
     }
 
@@ -73,9 +73,9 @@ private constructor() {
      * 自定义错误操作的提示
      */
     fun error() {
-        mToastView!!.setBGColor(color.vm_red)
+        mToastView!!.setBGColor(color.vm_toast_error_bg)
         mToastView!!.setIconRes(drawable.vm_ic_emotion_sad)
-        mToastView!!.setMsgColor(color.vm_white)
+        mToastView!!.setMsgColor(color.vm_toast_content)
         mToastView!!.showToast(mDuration)
     }
 

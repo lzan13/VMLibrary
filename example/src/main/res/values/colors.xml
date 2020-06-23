@@ -7,7 +7,9 @@
     <color name="app_bg">#fff8f8f8</color>
     <color name="app_bg_item">#ffffffff</color>
     <color name="app_bg_dark">#ff363636</color>
-    <color name="app_white">@color/vm_white</color>
+    <color name="app_bg_barrage">#ffffffff</color>
+
+
     <color name="app_title">@color/vm_title</color>
     <color name="app_title_light">@color/vm_white</color>
     <color name="app_indicator_background">@color/vm_gray_white</color>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="app_primary">#ff363636</color>
+    <color name="app_primary_dark">#ff363636</color>
+    <color name="app_accent">#1A7700</color>
+
+    <color name="app_bg">#ff222222</color>
+    <color name="app_bg_item">#ff363636</color>
+    <color name="app_bg_dark">#ff222222</color>
+    <color name="app_bg_barrage">#ff363636</color>
+
+    <color name="app_title">@color/vm_gray</color>
+    <color name="app_title_light">@color/vm_gray_white</color>
+    <color name="app_indicator_background">@color/vm_gray</color>
+    <color name="app_indicator_selected">#1A7700</color>
+</resources>

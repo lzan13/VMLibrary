@@ -214,10 +214,10 @@ private constructor() {
     private fun startActivity() {
         val intent = Intent(mContext, VMPermissionActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        intent.putExtra(VMConstant.VM_KEY_PERMISSION_ENABLE_DIALOG, mEnableDialog)
-        intent.putExtra(VMConstant.VM_KEY_PERMISSION_TITLE, mTitle)
-        intent.putExtra(VMConstant.VM_KEY_PERMISSION_MSG, mMessage)
-        intent.putParcelableArrayListExtra(VMConstant.VM_KEY_PERMISSION_LIST, mPermissions as ArrayList<out Parcelable>?)
+        intent.putExtra(VMConstant.vmPermissionEnableDialogKey, mEnableDialog)
+        intent.putExtra(VMConstant.vmPermissionTitleKey, mTitle)
+        intent.putExtra(VMConstant.vmPermissionMsgKey, mMessage)
+        intent.putParcelableArrayListExtra(VMConstant.vmPermissionListKey, mPermissions as ArrayList<out Parcelable>?)
         mContext!!.startActivity(intent)
     }
 

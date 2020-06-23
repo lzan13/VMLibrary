@@ -56,10 +56,10 @@ class CustomViewActivity : AppActivity() {
 
     fun toast1(view: View) {
         VMToast.make(mActivity, "测试自定义弹出 Toast 提醒功能，这是默认提醒样式！自定义颜色的")
-            .setBGColor(color.app_bg_dark)
-            .setIcon(drawable.emoji_dog)
-            .setMsgColor(color.app_title_light)
-            .show()
+                .setBGColor(color.app_bg_dark)
+                .setIcon(drawable.emoji_dog)
+                .setMsgColor(color.app_title_light)
+                .show()
     }
 
     fun toast2(view: View) {

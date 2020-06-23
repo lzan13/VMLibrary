@@ -1,6 +1,7 @@
 package com.vmloft.develop.library.tools.widget
 
 import android.content.Context
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -91,24 +92,6 @@ class VMFloatMenu(private val mContext: Context) : PopupWindow(mContext) {
     }
 
     /**
-     * 设置悬浮菜单在触摸位置弹出动画
-     */
-    fun setMenuAnim() {
-        if (showAtOrientation == SHOW_ON_RIGHT && showAtVertical == SHOW_ON_UP) {
-            animationStyle = style.VMFloatMenuLB
-        }
-        if (showAtOrientation == SHOW_ON_RIGHT && showAtVertical == SHOW_ON_DOWN) {
-            animationStyle = style.VMFloatMenuLT
-        }
-        if (showAtOrientation == SHOW_ON_LEFT && showAtVertical == SHOW_ON_UP) {
-            animationStyle = style.VMFloatMenuRB
-        }
-        if (showAtOrientation == SHOW_ON_LEFT && showAtVertical == SHOW_ON_DOWN) {
-            animationStyle = style.VMFloatMenuRT
-        }
-    }
-
-    /**
      * 清空之前添加的 Item
      */
     fun clearAllItem() {
@@ -132,12 +115,31 @@ class VMFloatMenu(private val mContext: Context) : PopupWindow(mContext) {
         val itemView = TextView(mContext)
         itemView.id = bean.itemId
         itemView.text = bean.itemTitle
+        itemView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16.0f)
         itemView.setPadding(mItemPadding, mItemPadding, mItemPadding * 2, mItemPadding)
         itemView.setTextColor(ContextCompat.getColor(mContext, bean.itemColor))
         itemView.setBackgroundResource(drawable.vm_click_full_transparent)
         mItemContainer.addView(itemView)
         mItemCount++
         setItemClick(itemView)
+    }
+
+    /**
+     * 设置悬浮菜单在触摸位置弹出动画
+     */
+    private fun setMenuAnim() {
+        if (showAtOrientation == SHOW_ON_RIGHT && showAtVertical == SHOW_ON_UP) {
+            animationStyle = style.VMFloatMenuLB
+        }
+        if (showAtOrientation == SHOW_ON_RIGHT && showAtVertical == SHOW_ON_DOWN) {
+            animationStyle = style.VMFloatMenuLT
+        }
+        if (showAtOrientation == SHOW_ON_LEFT && showAtVertical == SHOW_ON_UP) {
+            animationStyle = style.VMFloatMenuRB
+        }
+        if (showAtOrientation == SHOW_ON_LEFT && showAtVertical == SHOW_ON_DOWN) {
+            animationStyle = style.VMFloatMenuRT
+        }
     }
 
     /**
@@ -163,7 +165,7 @@ class VMFloatMenu(private val mContext: Context) : PopupWindow(mContext) {
         constructor(id: Int, title: String) {
             itemId = id
             itemTitle = title
-            itemColor = color.vm_black_87
+            itemColor = color.vm_menu
         }
 
         constructor(id: Int, title: String, color: Int) {

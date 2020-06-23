@@ -7,13 +7,13 @@
     android:padding="@dimen/vm_dimen_8">
 
     <ImageView
-        android:id="@+id/vm_permission_item_icon_iv"
+        android:id="@+id/vmPermissionItemIconIV"
         android:layout_width="@dimen/vm_dimen_48"
         android:layout_height="@dimen/vm_dimen_48"
         android:layout_margin="@dimen/vm_dimen_4" />
 
     <TextView
-        android:id="@+id/vm_permission_item_name_iv"
+        android:id="@+id/vmPermissionItemNameTV"
         style="@style/VMText.Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

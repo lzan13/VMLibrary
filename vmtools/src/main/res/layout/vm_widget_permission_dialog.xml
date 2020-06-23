@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/vm_permission_dialog_content_tv"
+        android:id="@+id/vmPermissionCialogContentTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/vm_dimen_24"
@@ -16,7 +16,7 @@
         android:text="@string/vm_permission_again_reason" />
 
     <com.vmloft.develop.library.tools.widget.VMViewGroup
-        android:id="@+id/vm_permission_dialog_custom_vg"
+        android:id="@+id/vmPermissionDialogCustomVG"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/vm_dimen_24"
@@ -24,7 +24,7 @@
         android:layout_marginEnd="@dimen/vm_dimen_24" />
 
     <Button
-        android:id="@+id/vm_i_know_btn"
+        android:id="@+id/vmIKnowBtn"
         style="@style/VMBtn.Flat.Fillet.Green"
         android:layout_width="match_parent"
         android:layout_marginStart="@dimen/vm_dimen_24"

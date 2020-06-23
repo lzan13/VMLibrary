@@ -49,7 +49,7 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         LayoutInflater.from(context).inflate(layout.vm_widget_top_bar, this)
 
         mTitleColor = VMColor.byRes(R.color.vm_title)
-        mSubtitleColor = VMColor.byRes(R.color.vm_subtitle)
+        mSubtitleColor = VMColor.byRes(R.color.vm_subhead)
 
         // 获取控件的属性值
         handleAttrs(context, attrs)

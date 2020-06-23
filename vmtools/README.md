@@ -18,7 +18,7 @@ VMTools
 ```
 dependencies {
     ...
-    implementation 'com.vmloft.library:vmtools:1.1.3'
+    implementation 'com.vmloft.library:vmtools:1.1.7'
 }
 ```
 

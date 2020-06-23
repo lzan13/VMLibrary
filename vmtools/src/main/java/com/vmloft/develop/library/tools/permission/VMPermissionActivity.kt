@@ -66,11 +66,11 @@ class VMPermissionActivity : AppCompatActivity() {
         // 初始化获取数据
         mAppName = VMSystem.getAppName(this)
         mCallback = VMPermission.getInstance(this).permissionCallback
-        mEnableDialog = intent.getBooleanExtra(VMConstant.VM_KEY_PERMISSION_ENABLE_DIALOG, false)
-        mTitle = intent.getStringExtra(VMConstant.VM_KEY_PERMISSION_TITLE)
-        mMessage = intent.getStringExtra(VMConstant.VM_KEY_PERMISSION_MSG)
+        mEnableDialog = intent.getBooleanExtra(VMConstant.vmPermissionEnableDialogKey, false)
+        mTitle = intent.getStringExtra(VMConstant.vmPermissionTitleKey)
+        mMessage = intent.getStringExtra(VMConstant.vmPermissionMsgKey)
         mPermissions.clear()
-        mPermissions.addAll(intent.getParcelableArrayListExtra(VMConstant.VM_KEY_PERMISSION_LIST))
+        mPermissions.addAll(intent.getParcelableArrayListExtra(VMConstant.vmPermissionListKey))
         mPermissionsCopy = mPermissions
         if (mPermissions == null || mPermissions.size == 0) {
             finish()
@@ -148,16 +148,16 @@ class VMPermissionActivity : AppCompatActivity() {
         if (VMStr.isEmpty(mMessage)) {
             mMessage = VMStr.byRes(string.vm_permission_reason)
         }
-        val contentView = view.findViewById<TextView>(id.vm_permission_dialog_content_tv)
+        val contentView = view.findViewById<TextView>(id.vmPermissionCialogContentTV)
         contentView.text = mMessage
-        val viewGroup: VMViewGroup = view.findViewById(id.vm_permission_dialog_custom_vg)
+        val viewGroup: VMViewGroup = view.findViewById(id.vmPermissionDialogCustomVG)
         for (bean in mPermissions) {
             val pView = VMPermissionView(this)
             pView.setPermissionIcon(bean.resId)
             pView.setPermissionName(bean.name)
             viewGroup.addView(pView)
         }
-        view.findViewById<View>(id.vm_i_know_btn).setOnClickListener {
+        view.findViewById<View>(id.vmIKnowBtn).setOnClickListener {
             mDialog?.dismiss()
             // 开始申请权限
             requestPermission(permissionArray, REQUEST_PERMISSION)

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_bg"
     android:orientation="vertical"
+    tools:context=".demo.dialog.FloatMenuActivity"
     >
+
     <include layout="@layout/widget_common_top_bar" />
 
     <RelativeLayout
@@ -14,6 +16,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
+
         <Button
             android:id="@+id/leftTopBtn"
             android:layout_width="wrap_content"
@@ -42,8 +45,8 @@
             android:id="@+id/leftBottomBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
             android:text="Bottom Left"
             />
 
@@ -51,8 +54,8 @@
             android:id="@+id/rightBottomBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
             android:text="Bottom Right"
             />
     </RelativeLayout>

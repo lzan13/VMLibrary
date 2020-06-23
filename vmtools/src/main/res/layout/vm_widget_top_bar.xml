@@ -46,7 +46,6 @@
         android:layout_alignParentBottom="true"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textColor="@color/vm_subtitle"
         android:textSize="@dimen/vm_size_12"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/vm_margin_large"
-        android:background="@color/vm_white"
+        android:background="@color/vm_bg_float_menu"
         android:elevation="@dimen/vm_elevation_normal"
         android:orientation="vertical" />
 </LinearLayout>
