@@ -180,8 +180,8 @@
     <style name="VMEdit" parent="Base.Widget.AppCompat.EditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/vm_edit_dark</item>
-        <item name="android:textColorHint">@color/vm_edit_dark_hint</item>
+        <item name="android:textColor">@color/vm_edit</item>
+        <item name="android:textColorHint">@color/vm_edit_hint</item>
         <item name="android:inputType">textImeMultiLine</item>
         <item name="android:textSize">@dimen/vm_size_body</item>
     </style>
@@ -195,8 +195,8 @@
         <item name="android:padding">@dimen/vm_padding_large</item>
         <item name="android:scrollbars">vertical</item>
         <item name="android:scrollHorizontally">false</item>
-        <item name="android:textColor">@color/vm_edit_dark</item>
-        <item name="android:textColorHint">@color/vm_edit_dark_hint</item>
+        <item name="android:textColor">@color/vm_edit</item>
+        <item name="android:textColorHint">@color/vm_edit_hint</item>
         <item name="android:textSize">@dimen/vm_size_body</item>
         <item name="android:inputType">textMultiLine|textLongMessage</item>
         <item name="android:singleLine">false</item>

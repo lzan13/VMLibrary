@@ -30,10 +30,8 @@
     <color name="vm_btn_text_light">@color/vm_gray_white</color>
     <color name="vm_btn_text_light_unusable">@color/vm_gray_white_87</color>
     <!--输入-->
-    <color name="vm_edit_dark">@color/vm_black_87</color>
-    <color name="vm_edit_dark_hint">@color/vm_black_54</color>
-    <color name="vm_edit_light">@color/vm_white_87</color>
-    <color name="vm_edit_light_hint">@color/vm_white_54</color>
+    <color name="vm_edit">@color/vm_gray_white_87</color>
+    <color name="vm_edit_hint">@color/vm_gray_white_54</color>
 
     <!--按钮-->
     <color name="vm_btn_red">@color/vm_red_54</color>
