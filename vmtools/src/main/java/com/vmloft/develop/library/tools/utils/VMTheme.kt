@@ -1,6 +1,7 @@
 package com.vmloft.develop.library.tools.utils
 
 import android.app.Activity
+import android.content.res.Configuration
 import android.graphics.Outline
 import android.os.Build
 import android.view.View
@@ -10,6 +11,7 @@ import android.view.WindowManager
 
 import androidx.appcompat.app.AppCompatDelegate
 import com.vmloft.develop.library.tools.R
+import com.vmloft.develop.library.tools.VMTools
 
 /**
  * Created by lzan13 on 2018/4/17.
@@ -32,6 +34,14 @@ object VMTheme {
     }
 
     /**
+     * 判断当前是否为暗色主题模式
+     */
+    fun isDarkMode(): Boolean {
+        val mode = VMTools.context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        return mode == Configuration.UI_MODE_NIGHT_YES
+    }
+
+    /**
      * 设置黑色状态栏标题
      */
     fun setDarkStatusBar(activity: Activity, dark: Boolean) {
@@ -42,7 +52,7 @@ object VMTheme {
                 window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
                 window.statusBarColor = VMColor.byRes(R.color.vm_transparent)
-                if (dark) {
+                if (dark && !isDarkMode()) {
                     window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
                 } else {
                     window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN

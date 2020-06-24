@@ -33,6 +33,12 @@
 
     <!--启动时的主题样式-->
     <style name="AppTheme.Splash">
+        <!--半透明状态栏-->
+        <item name="android:windowTranslucentStatus">false</item>
+        <!--充满屏幕-->
+        <item name="android:windowFullscreen">false</item>
+        <!--设置状态栏颜色-->
+        <item name="android:statusBarColor">@color/app_bg</item>
         <!--防止启动瞬间黑屏或白屏，程序启动时的背景图，可以设置为一张代表性的logo，或者设置app框架类图-->
         <item name="android:windowBackground">@drawable/splash_bg</item>
     </style>
