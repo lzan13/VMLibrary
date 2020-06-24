@@ -34,7 +34,7 @@ abstract class AppActivity : VMBActivity() {
         }
         topBar = findViewById(id.common_top_bar)
         if (topBar != null) {
-            topBar?.setIcon(drawable.ic_arrow_left)
+            topBar?.setIcon(drawable.ic_arrow_back)
             topBar?.setIconListener(View.OnClickListener { onBackPressed() })
         }
     }

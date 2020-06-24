@@ -11,10 +11,11 @@
     <include layout="@layout/widget_common_top_bar" />
 
     <ScrollView
-        android:layout_below="@+id/common_top_bar_rl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/common_top_bar_rl"
         >
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -31,8 +32,8 @@
                 <com.vmloft.develop.library.tools.widget.VMTimerBtn
                     android:id="@+id/customTimerBtn"
                     style="@style/VMBtn.Fillet.Green"
-                    android:text="开启定时"
                     android:onClick="startTimer"
+                    android:text="开启定时"
                     app:vm_timer_text="%ds 后结束"
                     app:vm_timer_time="10"
                     />
@@ -81,17 +82,45 @@
             <com.vmloft.develop.library.tools.widget.VMLineView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:vm_line_decoration="true"
+                app:vm_line_right_icon="@drawable/ic_arrow_next"
                 app:vm_line_title="测试 Item"
-                app:vm_line_description="测试描述文本，这是底部的描述文本"
-                app:vm_line_caption="右侧说明"
                 />
+
+            <com.vmloft.develop.library.tools.widget.VMLineView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:vm_line_caption="右侧说明"
+                app:vm_line_decoration="true"
+                app:vm_line_right_icon="@drawable/ic_arrow_next"
+                app:vm_line_title="测试 Item"
+                />
+
+            <com.vmloft.develop.library.tools.widget.VMLineView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:vm_line_caption="右侧说明"
+                app:vm_line_decoration="true"
+                app:vm_line_description="测试描述文本，这是底部的描述文本"
+                app:vm_line_right_icon="@drawable/ic_arrow_next"
+                app:vm_line_title="测试 Item"
+                />
+
+            <com.vmloft.develop.library.tools.widget.VMLineView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:vm_line_caption="右侧说明"
+                app:vm_line_description="测试描述文本，这是底部的描述文本"
+                app:vm_line_title="测试 Item"
+                />
+
             <com.vmloft.develop.library.tools.widget.VMRatioLayout
                 android:id="@+id/customRatioLayout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/vm_dimen_48"
-                android:onClick="setRatioLayout"
                 android:layout_margin="@dimen/vm_dimen_16"
                 android:background="@color/vm_green"
+                android:onClick="setRatioLayout"
                 />
         </LinearLayout>
     </ScrollView>

@@ -50,8 +50,8 @@ class VMToastView @JvmOverloads constructor(context: Context, attrs: AttributeSe
     private fun init(context: Context) {
         LayoutInflater.from(context).inflate(layout.vm_widget_toast, this)
         mBGView = findViewById(R.id.vm_toast_layout)
-        mIconView = findViewById(R.id.vm_toast_icon_iv)
-        mMsgView = findViewById(R.id.vm_toast_msg_tv)
+        mIconView = findViewById(R.id.vmToastIconIV)
+        mMsgView = findViewById(R.id.vmToastMsgTV)
     }
 
     fun setIconRes(resId: Int) {
@@ -73,7 +73,6 @@ class VMToastView @JvmOverloads constructor(context: Context, attrs: AttributeSe
         if (resId == 0) {
             return
         }
-        mIconView!!.setColorFilter(VMColor.byRes(resId))
         mMsgView!!.setTextColor(VMColor.byRes(resId))
     }
 

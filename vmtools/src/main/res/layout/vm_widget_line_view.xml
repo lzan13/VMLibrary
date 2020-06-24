@@ -19,7 +19,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/vmLineTitleTV"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/vmLineTitleTV"
-        tools:src="@drawable/vm_ic_close"
         />
 
     <!--标题-->
@@ -62,7 +61,6 @@
         app:layout_constraintEnd_toStartOf="@+id/vmLineCaptionTV"
         app:layout_constraintStart_toEndOf="@+id/vmLineRightContainer"
         app:layout_constraintTop_toTopOf="@+id/vmLineCaptionTV"
-        tools:src="@drawable/vm_ic_close"
         />
 
     <!--右侧说明文本-->
@@ -89,7 +87,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/vmLineCaptionTV"
         app:layout_constraintTop_toTopOf="@+id/vmLineTitleTV"
-        tools:src="@drawable/vm_ic_arrow_right"
         />
 
     <!--底部描述-->

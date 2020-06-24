@@ -33,12 +33,12 @@ class FloatMenuActivity : AppActivity() {
     private var mFloatMenu: VMFloatMenu? = null
 
     @Override
-    public override fun layoutId(): Int {
+    override fun layoutId(): Int {
         return layout.activity_float_menu
     }
 
     @Override
-    public override fun initUI() {
+    override fun initUI() {
         super.initUI()
         mFloatMenu = VMFloatMenu(mActivity!!)
         mFloatMenu?.setItemClickListener(object : IItemClickListener() {
@@ -62,7 +62,7 @@ class FloatMenuActivity : AppActivity() {
     }
 
     @Override
-    public override fun initData() {
+    override fun initData() {
     }
 
     fun onTouch(v: View?, event: MotionEvent): Boolean {

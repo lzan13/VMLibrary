@@ -24,15 +24,14 @@
         >
 
         <ImageView
-            android:id="@+id/vm_toast_icon_iv"
+            android:id="@+id/vmToastIconIV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/vm_ic_emotion"
-            android:tint="@color/vm_toast_content"
+            android:visibility="gone"
             />
 
         <TextView
-            android:id="@+id/vm_toast_msg_tv"
+            android:id="@+id/vmToastMsgTV"
             style="@style/VMText.Body2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

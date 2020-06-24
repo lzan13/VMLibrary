@@ -64,7 +64,6 @@ private constructor() {
      */
     fun done() {
         mToastView!!.setBGColor(color.vm_toast_bg)
-        mToastView!!.setIconRes(drawable.vm_ic_emotion)
         mToastView!!.setMsgColor(color.vm_toast_content)
         mToastView!!.showToast(mDuration)
     }
@@ -74,7 +73,6 @@ private constructor() {
      */
     fun error() {
         mToastView!!.setBGColor(color.vm_toast_error_bg)
-        mToastView!!.setIconRes(drawable.vm_ic_emotion_sad)
         mToastView!!.setMsgColor(color.vm_toast_content)
         mToastView!!.showToast(mDuration)
     }

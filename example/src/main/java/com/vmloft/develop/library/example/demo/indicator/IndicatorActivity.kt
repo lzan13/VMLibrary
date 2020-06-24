@@ -22,6 +22,8 @@ class IndicatorActivity : AppActivity() {
 
     override fun initUI() {
         super.initUI()
+        setTopTitle("自定义指示器")
+
         fragmentList = ArrayList()
         fragmentList.add(IndicatorFragment.newInstance("第 1 页"))
         fragmentList.add(IndicatorFragment.newInstance("第 2 页"))
