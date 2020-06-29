@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.example.demo.indicator
+package com.vmloft.develop.library.example.demo.custom
 
 import android.os.Bundle
 import com.vmloft.develop.library.example.R.layout
@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.fragment_default.titleTV
  *
  * 通用界面 Fragment 实现容器
  */
-class IndicatorFragment : VMBFragment() {
+class IndicatorViewFragment : VMBFragment() {
     private var mContent: String? = null
     override fun layoutId(): Int {
         return layout.fragment_default
@@ -29,8 +29,8 @@ class IndicatorFragment : VMBFragment() {
         /**
          * Fragment 的工厂方法，方便创建并设置参数
          */
-        fun newInstance(content: String?): IndicatorFragment {
-            val fragment = IndicatorFragment()
+        fun newInstance(content: String?): IndicatorViewFragment {
+            val fragment = IndicatorViewFragment()
             val args = Bundle()
             args.putString(ARG_CONTENT_ID, content)
             fragment.arguments = args

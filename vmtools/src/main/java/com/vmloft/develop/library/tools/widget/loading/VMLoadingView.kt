@@ -1,6 +1,5 @@
 package com.vmloft.develop.library.tools.widget.loading
 
-import android.R
 import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.Color
@@ -8,80 +7,64 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.widget.AppCompatImageView
 
+import com.vmloft.develop.library.tools.R
+
 
 /**
  * Create by lzan13 on 2020/6/28 17:45
- * 描述：
+ * 描述：自定义 Loading 控件
  */
-class VMLoadingView constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatImageView(context, attrs, defStyleAttr) {
+class VMLoadingView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatImageView(context, attrs, defStyleAttr) {
 
-    private var mZLoadingDrawable: ZLoadingDrawable? = null
-    protected var mZLoadingBuilder: ZLoadingBuilder? = null
+    private lateinit var mDrawable: VMLoadingDrawable
+    private lateinit var mBuilder: VMLoadingBuilder
 
-    fun ZLoadingView(context: Context?) {
-        this(context, null)
-    }
 
-    fun ZLoadingView(context: Context?, attrs: AttributeSet?) {
-        this(context, attrs, -1)
-    }
-
-    fun ZLoadingView(context: Context, attrs: AttributeSet, defStyleAttr: Int) {
-        super(context, attrs, defStyleAttr)
-        init(context, attrs)
-    }
-
-    private fun init(context: Context, attrs: AttributeSet) {
+    init {
         try {
-            val ta: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.ZLoadingView)
-            val typeId = ta.getInt(R.styleable.ZLoadingView_z_type, 0)
-            val color = ta.getColor(R.styleable.ZLoadingView_z_color, Color.BLACK)
-            val durationTimePercent = ta.getFloat(R.styleable.ZLoadingView_z_duration_percent, 1.0f)
+            val ta: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.VMLoadingView)
+            val typeId = ta.getInt(R.styleable.VMLoadingView_vm_loading_type, 0)
+            val color = ta.getColor(R.styleable.VMLoadingView_vm_loading_color, Color.BLACK)
+            val durationTimePercent = ta.getFloat(R.styleable.VMLoadingView_vm_loading_percent, 1.0f)
             ta.recycle()
-            setLoadingBuilder(Z_TYPE.values().get(typeId), durationTimePercent.toDouble())
+            setLoadingBuilder(VMLoadingType.values().get(typeId), durationTimePercent.toDouble())
             setColorFilter(color)
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
-    fun setLoadingBuilder(builder: Z_TYPE) {
-        mZLoadingBuilder = builder.newInstance()
-        initZLoadingDrawable()
+    fun setLoadingBuilder(builder: VMLoadingType) {
+        mBuilder = builder.newInstance()
+        initLoadingDrawable()
     }
 
-    fun setLoadingBuilder(builder: Z_TYPE, durationPercent: Double) {
+    fun setLoadingBuilder(builder: VMLoadingType, durationPercent: Double) {
         this.setLoadingBuilder(builder)
         initDurationTimePercent(durationPercent)
     }
 
-    private fun initZLoadingDrawable() {
-        if (mZLoadingBuilder == null) {
-            throw RuntimeException("mZLoadingBuilder is null.")
-        }
-        mZLoadingDrawable = ZLoadingDrawable(mZLoadingBuilder)
-        mZLoadingDrawable.initParams(getContext())
-        setImageDrawable(mZLoadingDrawable)
+    private fun initLoadingDrawable() {
+        mDrawable = VMLoadingDrawable(mBuilder)
+        mDrawable.initParams(getContext())
+        setImageDrawable(mDrawable)
     }
 
     private fun initDurationTimePercent(durationPercent: Double) {
-        if (mZLoadingBuilder == null) {
-            throw RuntimeException("mZLoadingBuilder is null.")
-        }
-        mZLoadingBuilder.setDurationTimePercent(durationPercent)
+        mBuilder.setDurationTimePercent(durationPercent)
     }
 
-    protected fun onAttachedToWindow() {
+    override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         startAnimation()
     }
 
-    protected fun onDetachedFromWindow() {
+    override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         stopAnimation()
     }
 
-    protected fun onVisibilityChanged(changedView: View, visibility: Int) {
+    override fun onVisibilityChanged(changedView: View, visibility: Int) {
         super.onVisibilityChanged(changedView, visibility)
         val visible = visibility == VISIBLE && getVisibility() === VISIBLE
         if (visible) {
@@ -92,14 +75,10 @@ class VMLoadingView constructor(context: Context, attrs: AttributeSet? = null, d
     }
 
     private fun startAnimation() {
-        if (mZLoadingDrawable != null) {
-            mZLoadingDrawable.start()
-        }
+        mDrawable.start()
     }
 
     private fun stopAnimation() {
-        if (mZLoadingDrawable != null) {
-            mZLoadingDrawable.stop()
-        }
+        mDrawable.stop()
     }
 }

@@ -6,32 +6,22 @@ import android.graphics.ColorFilter
 import android.graphics.PixelFormat
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
+import android.util.AttributeSet
+import android.view.View
 import androidx.constraintlayout.solver.widgets.WidgetContainer.getBounds
 
 
 /**
  * Create by lzan13 on 2020/6/28 17:48
- * 描述：
+ * 描述：自定义实现 Loading 控件绘制类
  */
-class VMLoadingDrawable : Drawable(), Animatable {
+class VMLoadingDrawable constructor(builder: VMLoadingBuilder) : Drawable(), Animatable {
 
-    private var mBuilder: VMLoadingBuilder? = null
+    private lateinit var mBuilder: VMLoadingBuilder
 
-    fun VMLoadingDrawable(builder: VMLoadingBuilder?) {
+    init {
         mBuilder = builder
-        mBuilder?.setCallback(object : Callback{
-//            override fun invalidateDrawable(d: Drawable?) {
-//                invalidateSelf()
-//            }
-//
-//            override fun scheduleDrawable(d: Drawable?, what: Runnable?, time: Long) {
-//                scheduleSelf(what, time)
-//            }
-//
-//            override fun unscheduleDrawable(d: Drawable?, what: Runnable?) {
-//                unscheduleSelf(what)
-//            }
-
+        mBuilder.setCallback(object : Callback {
             override fun unscheduleDrawable(who: Drawable, what: Runnable) {
                 unscheduleSelf(what)
             }
@@ -47,10 +37,8 @@ class VMLoadingDrawable : Drawable(), Animatable {
     }
 
     fun initParams(context: Context) {
-        if (mBuilder != null) {
-            mBuilder?.init(context)
-            mBuilder?.initParams(context)
-        }
+        mBuilder.init(context)
+        mBuilder.initParams(context)
     }
 
     override fun draw(canvas: Canvas) {
@@ -84,10 +72,10 @@ class VMLoadingDrawable : Drawable(), Animatable {
     }
 
     override fun getIntrinsicHeight(): Int {
-        return mBuilder.getIntrinsicHeight()
+        return mBuilder.getIntrinsicHeight().toInt()
     }
 
     override fun getIntrinsicWidth(): Int {
-        return mBuilder.getIntrinsicWidth()
+        return mBuilder.getIntrinsicWidth().toInt()
     }
 }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg"
+    android:orientation="vertical"
+    tools:context=".demo.custom.LoadingViewActivity"
+    >
+
+    <include layout="@layout/widget_common_top_bar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <!--弹幕容器-->
+        <com.vmloft.develop.library.tools.widget.VMViewGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <!--循环进度-->
+            <com.vmloft.develop.library.tools.widget.loading.VMLoadingView
+                android:layout_width="@dimen/vm_dimen_56"
+                android:layout_height="@dimen/vm_dimen_56"
+                app:vm_loading_color="@color/vm_green"
+                app:vm_loading_percent="0.5"
+                app:vm_loading_type="CircleBuilder"
+                />
+        </com.vmloft.develop.library.tools.widget.VMViewGroup>
+    </RelativeLayout>
+</LinearLayout>

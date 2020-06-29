@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.example.demo.barrage
+package com.vmloft.develop.library.example.demo.custom
 
 /**
  * Create by lzan13 on 2020/6/3 13:22

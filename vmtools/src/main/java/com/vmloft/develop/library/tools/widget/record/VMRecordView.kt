@@ -23,7 +23,7 @@ import com.vmloft.develop.library.tools.utils.VMSystem
  *
  * 自定义录音控件
  */
-class VMRecordView constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
+class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
     private var mWidth = 0
     private var mHeight = 0
 

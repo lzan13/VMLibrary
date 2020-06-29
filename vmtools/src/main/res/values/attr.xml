@@ -51,6 +51,32 @@
         <!--装饰分割线-->
         <attr name="vm_line_decoration" format="boolean" />
     </declare-styleable>
+    <!--自定义 Loading 控件-->
+    <declare-styleable name="VMLoadingView">
+        <attr name="vm_loading_type">
+            <enum name="CircleBuilder" value="0" />
+            <enum name="ClockBuilder" value="1" />
+            <enum name="StarBuilder" value="2" />
+            <enum name="LeafBuilder" value="3" />
+            <enum name="DoubleCircleBuilder" value="4" />
+            <enum name="PacManBuilder" value="5" />
+            <enum name="ElasticBallBuilder" value="6" />
+            <enum name="InfectionBallBuilder" value="7" />
+            <enum name="IntertwineBuilder" value="8" />
+            <enum name="TextBuilder" value="9" />
+            <enum name="SearchPathBuilder" value="10" />
+            <enum name="RotateCircleBuilder" value="11" />
+            <enum name="SingleCircleBuilder" value="12" />
+
+            <enum name="SnakeCircleBuilder" value="13" />
+            <enum name="StairsPathBuilder" value="14" />
+            <enum name="MusicPathBuilder" value="15" />
+            <enum name="StairsRectBuilder" value="16" />
+            <enum name="ChartRectBuilder" value="17" />
+        </attr>
+        <attr name="vm_loading_color" format="color" />
+        <attr name="vm_loading_percent" format="float" />
+    </declare-styleable>
 
     <!--自定义指示器控件属性-->
     <declare-styleable name="VMIndicatorView">

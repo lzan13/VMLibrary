@@ -29,6 +29,7 @@ class MainActivity : AppActivity() {
     private val customView = "customView"
     private val floatMenu = "floatMenu"
     private val indicator = "indicator"
+    private val loading = "loading"
     private val mediaPlay = "mediaPlay"
     private val notify = "notify"
     private val scheme = "scheme"
@@ -60,6 +61,7 @@ class MainActivity : AppActivity() {
         addBtn("悬浮菜单", floatMenu.hashCode())
         addBtn("声音播放", mediaPlay.hashCode())
         addBtn("指示器", indicator.hashCode())
+        addBtn("Loading", loading.hashCode())
         addBtn("通知提醒", notify.hashCode())
         addBtn("Scheme", scheme.hashCode())
         addBtn("按钮", style.hashCode())
@@ -94,6 +96,7 @@ class MainActivity : AppActivity() {
             floatMenu.hashCode() -> ARouter.getInstance().build("/VMLoft/FloatMenu").navigation()
             mediaPlay.hashCode() -> ARouter.getInstance().build("/VMLoft/MediaPlay").navigation()
             indicator.hashCode() -> ARouter.getInstance().build("/VMLoft/Indicator").navigation()
+            loading.hashCode() -> ARouter.getInstance().build("/VMLoft/Loading").navigation()
             notify.hashCode() -> ARouter.getInstance().build("/VMLoft/Notify").navigation()
             scheme.hashCode() -> ARouter.getInstance().build("/VMLoft/Scheme").navigation()
             style.hashCode() -> ARouter.getInstance().build("/VMLoft/BtnStyle").navigation()

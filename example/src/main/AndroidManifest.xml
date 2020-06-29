@@ -43,16 +43,21 @@
             </intent-filter>
         </activity>
 
-        <!--弹幕-->
-        <activity android:name=".demo.barrage.BarrageActivity" />
+        <!--自定义弹幕-->
+        <activity android:name=".demo.custom.BarrageViewActivity" />
         <!--自定义控件-->
         <activity
             android:name=".demo.custom.CustomViewActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
+        <!--自定义Loading-->
+        <activity
+            android:name=".demo.custom.LoadingViewActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
         <!--弹出PopupWindow窗口-->
         <activity android:name=".demo.dialog.FloatMenuActivity" />
         <!--指示器界面-->
-        <activity android:name=".demo.indicator.IndicatorActivity" />
+        <activity android:name=".demo.custom.IndicatorViewActivity" />
         <!--播放音频-->
         <activity android:name=".demo.media.MediaPlayActivity" />
         <!--通知提醒-->

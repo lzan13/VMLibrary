@@ -21,15 +21,15 @@ abstract class VMLoadingBuilder : ValueAnimator.AnimatorUpdateListener, Animator
      * 外部可以修改，但是不建议
      */
     var DEFAULT_SIZE = 56.0f
-    val ANIMATION_START_DELAY: Long = 333
-    val ANIMATION_DURATION: Long = 1333
+    val ANIMATION_START_DELAY: Long = 320
+    val ANIMATION_DURATION: Long = 1500
 
     private var mAllSize = 0f
     private var mViewWidth = 0f
     private var mViewHeight = 0f
 
     private var mCallback: Drawable.Callback? = null
-    private var mFloatValueAnimator: ValueAnimator? = null
+    private lateinit var mFloatValueAnimator: ValueAnimator
 
     private var mDurationTimePercent = 1.0
 
@@ -42,57 +42,57 @@ abstract class VMLoadingBuilder : ValueAnimator.AnimatorUpdateListener, Animator
 
     private fun initAnimators() {
         mFloatValueAnimator = ValueAnimator.ofFloat(0.0f, 1.0f)
-        mFloatValueAnimator?.setRepeatCount(Animation.INFINITE)
-        mFloatValueAnimator?.setDuration(getAnimationDuration())
-        mFloatValueAnimator?.setStartDelay(getAnimationStartDelay())
-        mFloatValueAnimator?.setInterpolator(LinearInterpolator())
+        mFloatValueAnimator.setRepeatCount(Animation.INFINITE)
+        mFloatValueAnimator.setDuration(getAnimationDuration())
+        mFloatValueAnimator.setStartDelay(getAnimationStartDelay())
+        mFloatValueAnimator.setInterpolator(LinearInterpolator())
     }
 
-    protected abstract fun initParams(context: Context)
+    abstract fun initParams(context: Context)
 
-    protected abstract fun onDraw(canvas: Canvas)
+    abstract fun onDraw(canvas: Canvas)
 
-    protected abstract fun setAlpha(alpha: Int)
+    abstract fun setAlpha(alpha: Int)
 
-    protected abstract fun prepareStart(animation: ValueAnimator)
+    abstract fun prepareStart(animation: ValueAnimator)
 
-    protected abstract fun prepareEnd()
+    abstract fun prepareEnd()
 
-    protected abstract fun computeUpdateValue(animation: ValueAnimator, @FloatRange(from = 0.0, to = 1.0) animatedValue: Float)
+    abstract fun computeUpdateValue(animation: ValueAnimator, @FloatRange(from = 0.0, to = 1.0) animatedValue: Float)
 
-    protected abstract fun setColorFilter(colorFilter: ColorFilter?)
+    abstract fun setColorFilter(colorFilter: ColorFilter?)
 
     fun setCallback(callback: Drawable.Callback?) {
         mCallback = callback
     }
 
-    fun draw(canvas: Canvas?) {
+    fun draw(canvas: Canvas) {
         onDraw(canvas)
     }
 
     fun start() {
-        if (mFloatValueAnimator!!.isStarted) {
+        if (mFloatValueAnimator.isStarted) {
             return
         }
-        mFloatValueAnimator!!.addUpdateListener(this)
-        mFloatValueAnimator!!.addListener(this)
-        mFloatValueAnimator!!.repeatCount = Animation.INFINITE
-        mFloatValueAnimator!!.duration = getAnimationDuration()
-        prepareStart(mFloatValueAnimator)
-        mFloatValueAnimator!!.start()
+        mFloatValueAnimator.addUpdateListener(this)
+        mFloatValueAnimator.addListener(this)
+        mFloatValueAnimator.repeatCount = Animation.INFINITE
+        mFloatValueAnimator.duration = getAnimationDuration()
+        prepareStart(mFloatValueAnimator!!)
+        mFloatValueAnimator.start()
     }
 
     fun stop() {
-        mFloatValueAnimator!!.removeAllUpdateListeners()
-        mFloatValueAnimator!!.removeAllListeners()
-        mFloatValueAnimator!!.repeatCount = 0
-        mFloatValueAnimator!!.duration = 0
+        mFloatValueAnimator.removeAllUpdateListeners()
+        mFloatValueAnimator.removeAllListeners()
+        mFloatValueAnimator.repeatCount = 0
+        mFloatValueAnimator.duration = 0
         prepareEnd()
-        mFloatValueAnimator!!.end()
+        mFloatValueAnimator.end()
     }
 
     fun isRunning(): Boolean {
-        return mFloatValueAnimator!!.isRunning
+        return mFloatValueAnimator.isRunning
     }
 
     override fun onAnimationUpdate(animation: ValueAnimator) {
@@ -101,7 +101,7 @@ abstract class VMLoadingBuilder : ValueAnimator.AnimatorUpdateListener, Animator
     }
 
     private fun invalidateSelf() {
-        mCallback?.invalidateDrawable(null)
+        mCallback?.invalidateDrawable(VMLoadingDrawable(this))
     }
 
     override fun onAnimationStart(animation: Animator?) {}
@@ -120,40 +120,40 @@ abstract class VMLoadingBuilder : ValueAnimator.AnimatorUpdateListener, Animator
         }
     }
 
-    protected fun getAnimationStartDelay(): Long {
+    fun getAnimationStartDelay(): Long {
         return ANIMATION_START_DELAY
     }
 
-    protected fun getAnimationDuration(): Long {
+    fun getAnimationDuration(): Long {
         return ceil(ANIMATION_DURATION * mDurationTimePercent)
     }
 
-    protected fun getIntrinsicHeight(): Float {
+    fun getIntrinsicHeight(): Float {
         return mViewHeight
     }
 
-    protected fun getIntrinsicWidth(): Float {
+    fun getIntrinsicWidth(): Float {
         return mViewWidth
     }
 
-    protected fun getViewCenterX(): Float {
+    fun getViewCenterX(): Float {
         return getIntrinsicWidth() * 0.5f
     }
 
-    protected fun getViewCenterY(): Float {
+    fun getViewCenterY(): Float {
         return getIntrinsicHeight() * 0.5f
     }
 
-    protected fun getAllSize(): Float {
+    fun getAllSize(): Float {
         return mAllSize
     }
 
-    protected fun dip2px(context: Context, dpValue: Float): Float {
+    fun dip2px(context: Context, dpValue: Float): Float {
         val scale: Float = context.getResources().getDisplayMetrics().density
         return dpValue * scale
     }
 
-    protected fun ceil(value: Double): Long {
+    fun ceil(value: Double): Long {
         return Math.ceil(value).toLong()
     }
 }
