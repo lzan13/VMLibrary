@@ -2,13 +2,13 @@ package com.vmloft.develop.library.tools.widget.loading
 
 import android.animation.Animator
 import android.animation.ValueAnimator
-import android.content.Context
 import android.graphics.Canvas
 import android.graphics.ColorFilter
 import android.graphics.drawable.Drawable
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import androidx.annotation.FloatRange
+import com.vmloft.develop.library.tools.utils.VMDimen
 
 
 /**
@@ -17,38 +17,38 @@ import androidx.annotation.FloatRange
  */
 abstract class VMLoadingBuilder : ValueAnimator.AnimatorUpdateListener, Animator.AnimatorListener {
 
-    /**
-     * 外部可以修改，但是不建议
-     */
-    var DEFAULT_SIZE = 56.0f
-    val ANIMATION_START_DELAY: Long = 320
-    val ANIMATION_DURATION: Long = 1500
+    // 大小
+    var defaultSize = 56
+    // 延迟
+    private val animationStartDelay: Long = 320
+    // 持续时间
+    private val animationDuration: Long = 1200
+    // 速度
+    private var mSpeed = 1.0f
 
-    private var mAllSize = 0f
-    private var mViewWidth = 0f
-    private var mViewHeight = 0f
+    private var mMaxSize = 0
+    private var mViewWidth = 0
+    private var mViewHeight = 0
 
-    private var mCallback: Drawable.Callback? = null
+    private lateinit var mDrawable: Drawable
     private lateinit var mFloatValueAnimator: ValueAnimator
 
-    private var mDurationTimePercent = 1.0
-
-    fun init(context: Context) {
-        mAllSize = dip2px(context, DEFAULT_SIZE * 0.5f - 12)
-        mViewWidth = dip2px(context, DEFAULT_SIZE)
-        mViewHeight = dip2px(context, DEFAULT_SIZE)
+    fun init() {
+        mMaxSize = VMDimen.dp2px((defaultSize * 0.5f - 12).toInt())
+        mViewWidth = VMDimen.dp2px(defaultSize)
+        mViewHeight = VMDimen.dp2px(defaultSize)
         initAnimators()
     }
 
     private fun initAnimators() {
         mFloatValueAnimator = ValueAnimator.ofFloat(0.0f, 1.0f)
-        mFloatValueAnimator.setRepeatCount(Animation.INFINITE)
-        mFloatValueAnimator.setDuration(getAnimationDuration())
-        mFloatValueAnimator.setStartDelay(getAnimationStartDelay())
-        mFloatValueAnimator.setInterpolator(LinearInterpolator())
+        mFloatValueAnimator.repeatCount = Animation.INFINITE
+        mFloatValueAnimator.duration = getAnimationDuration()
+        mFloatValueAnimator.startDelay = getAnimationStartDelay()
+        mFloatValueAnimator.interpolator = LinearInterpolator()
     }
 
-    abstract fun initParams(context: Context)
+    abstract fun initParams()
 
     abstract fun onDraw(canvas: Canvas)
 
@@ -62,8 +62,8 @@ abstract class VMLoadingBuilder : ValueAnimator.AnimatorUpdateListener, Animator
 
     abstract fun setColorFilter(colorFilter: ColorFilter?)
 
-    fun setCallback(callback: Drawable.Callback?) {
-        mCallback = callback
+    fun setDrawable(drawable: Drawable) {
+        mDrawable = drawable
     }
 
     fun draw(canvas: Canvas) {
@@ -78,7 +78,7 @@ abstract class VMLoadingBuilder : ValueAnimator.AnimatorUpdateListener, Animator
         mFloatValueAnimator.addListener(this)
         mFloatValueAnimator.repeatCount = Animation.INFINITE
         mFloatValueAnimator.duration = getAnimationDuration()
-        prepareStart(mFloatValueAnimator!!)
+        prepareStart(mFloatValueAnimator)
         mFloatValueAnimator.start()
     }
 
@@ -97,42 +97,38 @@ abstract class VMLoadingBuilder : ValueAnimator.AnimatorUpdateListener, Animator
 
     override fun onAnimationUpdate(animation: ValueAnimator) {
         computeUpdateValue(animation, animation.animatedValue as Float)
-        invalidateSelf()
+        mDrawable.invalidateSelf()
     }
 
-    private fun invalidateSelf() {
-        mCallback?.invalidateDrawable(VMLoadingDrawable(this))
-    }
+    override fun onAnimationStart(animation: Animator) {}
 
-    override fun onAnimationStart(animation: Animator?) {}
+    override fun onAnimationEnd(animation: Animator) {}
 
-    override fun onAnimationEnd(animation: Animator?) {}
+    override fun onAnimationCancel(animation: Animator) {}
 
-    override fun onAnimationCancel(animation: Animator?) {}
+    override fun onAnimationRepeat(animation: Animator) {}
 
-    override fun onAnimationRepeat(animation: Animator?) {}
-
-    fun setDurationTimePercent(durationTimePercent: Double) {
-        mDurationTimePercent = if (durationTimePercent <= 0) {
-            1.0
+    fun setSpeed(speed: Float) {
+        mSpeed = if (speed <= 0) {
+            1.0f
         } else {
-            durationTimePercent
+            speed
         }
     }
 
     fun getAnimationStartDelay(): Long {
-        return ANIMATION_START_DELAY
+        return (animationStartDelay * mSpeed).toLong()
     }
 
     fun getAnimationDuration(): Long {
-        return ceil(ANIMATION_DURATION * mDurationTimePercent)
+        return animationDuration
     }
 
-    fun getIntrinsicHeight(): Float {
+    fun getIntrinsicHeight(): Int {
         return mViewHeight
     }
 
-    fun getIntrinsicWidth(): Float {
+    fun getIntrinsicWidth(): Int {
         return mViewWidth
     }
 
@@ -144,16 +140,7 @@ abstract class VMLoadingBuilder : ValueAnimator.AnimatorUpdateListener, Animator
         return getIntrinsicHeight() * 0.5f
     }
 
-    fun getAllSize(): Float {
-        return mAllSize
-    }
-
-    fun dip2px(context: Context, dpValue: Float): Float {
-        val scale: Float = context.getResources().getDisplayMetrics().density
-        return dpValue * scale
-    }
-
-    fun ceil(value: Double): Long {
-        return Math.ceil(value).toLong()
+    fun getMaxSize(): Int {
+        return mMaxSize
     }
 }

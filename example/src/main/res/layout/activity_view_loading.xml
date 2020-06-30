@@ -16,18 +16,60 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-        <!--弹幕容器-->
+        <!--容器-->
         <com.vmloft.develop.library.tools.widget.VMViewGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
-            <!--循环进度-->
+
+            <!--双循环进度-->
             <com.vmloft.develop.library.tools.widget.loading.VMLoadingView
-                android:layout_width="@dimen/vm_dimen_56"
-                android:layout_height="@dimen/vm_dimen_56"
-                app:vm_loading_color="@color/vm_green"
-                app:vm_loading_percent="0.5"
-                app:vm_loading_type="CircleBuilder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/vm_dimen_16"
+                app:vm_loading_color="@color/vm_red"
+                app:vm_loading_speed="0.9"
+                app:vm_loading_type="DoubleCircle"
+                />
+
+            <!--吃豆人-->
+            <com.vmloft.develop.library.tools.widget.loading.VMLoadingView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/vm_dimen_16"
+                app:vm_loading_color="@color/vm_red"
+                app:vm_loading_speed="0.9"
+                app:vm_loading_type="Pacman"
+                />
+
+            <!--雷蛇-->
+            <com.vmloft.develop.library.tools.widget.loading.VMLoadingView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/vm_dimen_16"
+                app:vm_loading_color="@color/vm_red"
+                app:vm_loading_speed="0.9"
+                app:vm_loading_type="Snake"
+                />
+
+            <!--跳跃的星星-->
+            <com.vmloft.develop.library.tools.widget.loading.VMLoadingView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/vm_dimen_16"
+                app:vm_loading_color="@color/vm_red"
+                app:vm_loading_speed="0.9"
+                app:vm_loading_type="Star"
+                />
+
+            <!--文字-->
+            <com.vmloft.develop.library.tools.widget.loading.VMLoadingView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/vm_dimen_16"
+                app:vm_loading_color="@color/vm_red"
+                app:vm_loading_speed="0.9"
+                app:vm_loading_type="Text"
                 />
         </com.vmloft.develop.library.tools.widget.VMViewGroup>
     </RelativeLayout>

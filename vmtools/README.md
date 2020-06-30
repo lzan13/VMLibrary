@@ -73,6 +73,7 @@ booelan isEmail = VMReg.isEmail(email);
 - [widget](src/main/java/com/vmloft/develop/library/tools/widget) 自定义控件部分
     - [VMBarrageView](src/main/java/com/vmloft/develop/library/tools/widget/barrage/VMBarrageView.java) 弹幕控件
     - [VMIndicatorView](src/main/java/com/vmloft/develop/library/tools/widget/indicator/VMIndicatorView.java) 指示器控件
+    - [VMRecordView](src/main/java/com/vmloft/develop/library/tools/widget/loading/VMLoadingView.java) 加载控件
     - [VMRecordView](src/main/java/com/vmloft/develop/library/tools/widget/record/VMRecordView.java) 录音控件
     - [VMToast](src/main/java/com/vmloft/develop/library/tools/widget/toast) 全局 Toast 提醒
     - [VMExpandableLayout](src/main/java/com/vmloft/develop/library/tools/widget/VMExpandableLayout.java) 可伸缩布局

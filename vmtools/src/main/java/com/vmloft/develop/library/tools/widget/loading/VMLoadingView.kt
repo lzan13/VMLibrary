@@ -8,6 +8,7 @@ import android.view.View
 import androidx.appcompat.widget.AppCompatImageView
 
 import com.vmloft.develop.library.tools.R
+import com.vmloft.develop.library.tools.utils.logger.VMLog
 
 
 /**
@@ -23,35 +24,36 @@ class VMLoadingView @JvmOverloads constructor(context: Context, attrs: Attribute
     init {
         try {
             val ta: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.VMLoadingView)
-            val typeId = ta.getInt(R.styleable.VMLoadingView_vm_loading_type, 0)
+            val type = ta.getInt(R.styleable.VMLoadingView_vm_loading_type, 0)
             val color = ta.getColor(R.styleable.VMLoadingView_vm_loading_color, Color.BLACK)
-            val durationTimePercent = ta.getFloat(R.styleable.VMLoadingView_vm_loading_percent, 1.0f)
+            val speed = ta.getFloat(R.styleable.VMLoadingView_vm_loading_speed, 1.0f)
             ta.recycle()
-            setLoadingBuilder(VMLoadingType.values().get(typeId), durationTimePercent.toDouble())
+
+            initLoadingDrawable(type, speed)
+
             setColorFilter(color)
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
-    fun setLoadingBuilder(builder: VMLoadingType) {
-        mBuilder = builder.newInstance()
-        initLoadingDrawable()
-    }
+    /**
+     * 初始化 Loading 绘制
+     */
+    private fun initLoadingDrawable(type: Int, speed:Float) {
+        mBuilder = when (type) {
+            0 -> DoubleCircleBuilder()
+            1 -> PacmanBuilder()
+            2 -> SnakeCircleBuilder()
+            3 -> StarBuilder()
+            4 -> TextBuilder()
+            else -> DoubleCircleBuilder()
+        }
+        mBuilder.setSpeed(speed)
 
-    fun setLoadingBuilder(builder: VMLoadingType, durationPercent: Double) {
-        this.setLoadingBuilder(builder)
-        initDurationTimePercent(durationPercent)
-    }
-
-    private fun initLoadingDrawable() {
         mDrawable = VMLoadingDrawable(mBuilder)
-        mDrawable.initParams(getContext())
+        mDrawable.initParams()
         setImageDrawable(mDrawable)
-    }
-
-    private fun initDurationTimePercent(durationPercent: Double) {
-        mBuilder.setDurationTimePercent(durationPercent)
     }
 
     override fun onAttachedToWindow() {
@@ -66,19 +68,22 @@ class VMLoadingView @JvmOverloads constructor(context: Context, attrs: Attribute
 
     override fun onVisibilityChanged(changedView: View, visibility: Int) {
         super.onVisibilityChanged(changedView, visibility)
-        val visible = visibility == VISIBLE && getVisibility() === VISIBLE
+        val visible = (visibility == VISIBLE && getVisibility() == VISIBLE)
         if (visible) {
             startAnimation()
         } else {
             stopAnimation()
         }
+        invalidate()
     }
 
     private fun startAnimation() {
+        VMLog.d("startAnimation")
         mDrawable.start()
     }
 
     private fun stopAnimation() {
+        VMLog.d("stopAnimation")
         mDrawable.stop()
     }
 }
