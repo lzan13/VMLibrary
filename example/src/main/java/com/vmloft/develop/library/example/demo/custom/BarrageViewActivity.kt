@@ -37,6 +37,12 @@ class BarrageViewActivity : AppActivity() {
                     .start()
         }
 
+        barrageResumeBtn.setOnClickListener {
+            barrageView.resume()
+        }
+        barragePauseBtn.setOnClickListener {
+            barrageView.pause()
+        }
         barrageStopBtn.setOnClickListener {
             barrageView.stop()
         }

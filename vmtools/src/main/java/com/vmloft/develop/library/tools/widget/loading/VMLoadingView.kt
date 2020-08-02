@@ -78,12 +78,10 @@ class VMLoadingView @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
     private fun startAnimation() {
-        VMLog.d("startAnimation")
         mDrawable.start()
     }
 
     private fun stopAnimation() {
-        VMLog.d("stopAnimation")
         mDrawable.stop()
     }
 }

@@ -12,7 +12,7 @@ import com.vmloft.develop.library.tools.utils.VMDimen
 
 /**
  * Create by lzan13 on 2020/6/30 15:41
- * 描述：跳动的星星
+ * 描述：跳动的星星构建器
  */
 class StarBuilder : VMLoadingBuilder() {
 

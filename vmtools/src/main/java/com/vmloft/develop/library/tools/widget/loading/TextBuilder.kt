@@ -10,7 +10,7 @@ import androidx.annotation.FloatRange
 
 /**
  * Create by lzan13 on 2020/6/30 16:13
- * 描述：
+ * 描述：文本加载构建器
  */
 class TextBuilder : VMLoadingBuilder() {
 

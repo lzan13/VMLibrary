@@ -13,7 +13,7 @@ import com.vmloft.develop.library.tools.utils.VMDimen
 
 /**
  * Create by lzan13 on 2020/6/28 17:53
- * 描述：
+ * 描述：构建 Loading 控件基类
  */
 abstract class VMLoadingBuilder : ValueAnimator.AnimatorUpdateListener, Animator.AnimatorListener {
 

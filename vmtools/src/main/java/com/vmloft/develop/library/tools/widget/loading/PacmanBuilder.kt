@@ -8,7 +8,7 @@ import androidx.annotation.FloatRange
 
 /**
  * Create by lzan13 on 2020/6/30 15:06
- * 描述：
+ * 描述：吃豆人构建器
  */
 class PacmanBuilder : VMLoadingBuilder() {
     //最终阶段

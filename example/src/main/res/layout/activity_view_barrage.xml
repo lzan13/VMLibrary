@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_coordinator"
     android:layout_width="match_parent"
@@ -21,11 +22,10 @@
             android:layout_height="match_parent"
             />
 
-        <LinearLayout
+        <com.vmloft.develop.library.tools.widget.VMViewGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:orientation="horizontal"
             >
 
             <!--启动弹幕-->
@@ -35,6 +35,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="启动弹幕"
+                />
+            <!--继续弹幕-->
+            <Button
+                android:id="@+id/barrageResumeBtn"
+                style="@style/VMBtn.Flat.Green"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="继续弹幕"
+                />
+            <!--暂停弹幕-->
+            <Button
+                android:id="@+id/barragePauseBtn"
+                style="@style/VMBtn.Flat.Green"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="暂停弹幕"
                 />
             <!--停止弹幕-->
             <Button
@@ -52,6 +68,6 @@
                 android:layout_height="wrap_content"
                 android:text="发送弹幕"
                 />
-        </LinearLayout>
+        </com.vmloft.develop.library.tools.widget.VMViewGroup>
     </RelativeLayout>
 </LinearLayout>

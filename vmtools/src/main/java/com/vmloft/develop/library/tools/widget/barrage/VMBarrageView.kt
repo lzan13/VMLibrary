@@ -1,17 +1,17 @@
 package com.vmloft.develop.library.tools.widget.barrage
 
+import android.animation.Animator
+import android.animation.Animator.AnimatorListener
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
-import android.view.animation.TranslateAnimation
 import android.widget.RelativeLayout
-
 import com.vmloft.develop.library.tools.utils.VMSystem
 import com.vmloft.develop.library.tools.utils.logger.VMLog
-
 import java.util.concurrent.LinkedBlockingQueue
 
 /**
@@ -21,11 +21,12 @@ import java.util.concurrent.LinkedBlockingQueue
 class VMBarrageView<T> @JvmOverloads constructor(context: Context?, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RelativeLayout(context, attrs, defStyleAttr) {
     // 默认最大展示 100 个
     private val defaultMaxSize: Int = 100
+
     // 弹幕动画默认耗时
     private val defaultDuration: Long = 5 * 1000
+
     // 弹幕之间最大间隔时间
     private val defaultMaxInterval: Long = 100
-
 
     // 是否激活中
     private var isActive: Boolean = false
@@ -33,8 +34,10 @@ class VMBarrageView<T> @JvmOverloads constructor(context: Context?, attrs: Attri
 
     // 最大数量
     private var mMaxSize: Int = defaultMaxSize
+
     // 活动中的数量
     private var mActiveSize: Int = 0
+
     // 最后一个弹幕弹出时间
     private var mLastTime: Long = 0
 
@@ -43,8 +46,12 @@ class VMBarrageView<T> @JvmOverloads constructor(context: Context?, attrs: Attri
 
     // 数据队列
     private lateinit var mDataQueue: LinkedBlockingQueue<T>
+
     // View 队列，循环利用
     private lateinit var mViewQueue: LinkedBlockingQueue<View>
+
+    // Anim 集合
+    private var mAnimList: MutableList<ObjectAnimator> = mutableListOf()
 
     /**
      * 设置 View 构造器
@@ -82,8 +89,16 @@ class VMBarrageView<T> @JvmOverloads constructor(context: Context?, attrs: Attri
             mDataQueue.addAll(list)
         }
         mViewQueue = LinkedBlockingQueue(mMaxSize)
-
         return this
+    }
+
+    /**
+     * 添加一个新的弹幕数据
+     */
+    fun addBarrage(bean: T) {
+        if (isActive) {
+            mDataQueue.add(bean)
+        }
     }
 
     /**
@@ -96,22 +111,28 @@ class VMBarrageView<T> @JvmOverloads constructor(context: Context?, attrs: Attri
         }
     }
 
-
     /**
-     * 添加一个新的弹幕数据
+     * 继续弹幕
      */
-    fun addBarrage(bean: T) {
+    fun resume() {
+        isPause = false
         if (isActive) {
-            mDataQueue.add(bean)
+            for (anim in mAnimList) {
+                anim.resume()
+            }
         }
     }
 
-    private fun resume() {
-        isPause = false
-    }
-
-    private fun pause() {
+    /**
+     * 暂停弹幕
+     */
+    fun pause() {
         isPause = true
+        if (isActive) {
+            for (anim in mAnimList) {
+                anim.pause()
+            }
+        }
     }
 
     /**
@@ -123,11 +144,11 @@ class VMBarrageView<T> @JvmOverloads constructor(context: Context?, attrs: Attri
 
             mDataQueue.clear()
             mViewQueue.clear()
+            mAnimList.clear()
 
             removeAllViews()
         }
     }
-
 
     /**
      * 开启循环
@@ -158,7 +179,6 @@ class VMBarrageView<T> @JvmOverloads constructor(context: Context?, attrs: Attri
         })
     }
 
-
     /**
      * 弹幕动画
      */
@@ -178,22 +198,27 @@ class VMBarrageView<T> @JvmOverloads constructor(context: Context?, attrs: Attri
         view.layoutParams = params
 
         val randomDuration = (Math.random() * defaultDuration + defaultDuration).toInt()
-        val anim = TranslateAnimation(width, -width, 0f, 0f)
+        val anim = ObjectAnimator.ofFloat(view, "translationX", width, -width)
         anim.duration = randomDuration.toLong()
         anim.interpolator = LinearInterpolator()
-        anim.setAnimationListener(object : Animation.AnimationListener {
-            override fun onAnimationStart(animation: Animation) {}
-            override fun onAnimationEnd(animation: Animation) {
+        anim.addListener(object : AnimatorListener {
+            override fun onAnimationRepeat(animation: Animator) {}
+
+            override fun onAnimationEnd(animation: Animator) {
                 // 结束之后移除 view 并添加到缓存
                 removeView(view)
                 mViewQueue.put(view)
                 mDataQueue.put(bean)
+                mAnimList.remove(animation)
                 mActiveSize--
             }
 
-            override fun onAnimationRepeat(animation: Animation) {}
-        })
-        view.startAnimation(anim)
+            override fun onAnimationCancel(animation: Animator) {}
+
+            override fun onAnimationStart(animation: Animator) {}
+        });
+        mAnimList.add(anim)
+        anim.start()
     }
 
     /**
