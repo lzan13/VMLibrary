@@ -50,6 +50,10 @@
         <attr name="vm_line_description_color" format="color|integer" />
         <!--装饰分割线-->
         <attr name="vm_line_decoration" format="boolean" />
+        <!--装饰分割线高度-->
+        <attr name="vm_line_decoration_height" format="dimension" />
+        <!--装饰分割线颜色-->
+        <attr name="vm_line_decoration_color" format="color|integer" />
     </declare-styleable>
     <!--自定义 Loading 控件-->
     <declare-styleable name="VMLoadingView">

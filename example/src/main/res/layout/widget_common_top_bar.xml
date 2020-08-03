@@ -6,13 +6,13 @@
 
     <!--TopBar 顶部 statusBar 填充-->
     <View
-        android:id="@+id/common_top_space"
+        android:id="@+id/commonTopSpaceView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/vm_dimen_0" />
 
     <com.vmloft.develop.library.tools.widget.VMTopBar
-        android:id="@+id/common_top_bar"
+        android:id="@+id/commonTopBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/common_top_space" />
+        android:layout_below="@+id/commonTopSpaceView" />
 </RelativeLayout>

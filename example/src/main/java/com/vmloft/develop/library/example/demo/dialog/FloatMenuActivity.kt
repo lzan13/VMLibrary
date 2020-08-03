@@ -40,6 +40,8 @@ class FloatMenuActivity : AppActivity() {
     @Override
     override fun initUI() {
         super.initUI()
+        setTopTitle("自定义悬浮菜单")
+
         mFloatMenu = VMFloatMenu(mActivity!!)
         mFloatMenu?.setItemClickListener(object : IItemClickListener() {
             override fun onItemClick(id: Int) {

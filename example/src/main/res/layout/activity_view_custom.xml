@@ -83,6 +83,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:vm_line_decoration="true"
+                app:vm_line_decoration_color="@color/vm_red"
+                app:vm_line_decoration_height="1px"
                 app:vm_line_right_icon="@drawable/ic_arrow_next"
                 app:vm_line_title="测试 Item"
                 />

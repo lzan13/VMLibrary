@@ -17,6 +17,7 @@ import com.vmloft.develop.library.tools.permission.VMPermissionBean
 import com.vmloft.develop.library.tools.utils.logger.VMLog
 import com.vmloft.develop.library.tools.widget.toast.VMToast
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.widget_common_top_bar.*
 
 import java.util.ArrayList
 
@@ -50,8 +51,8 @@ class MainActivity : AppActivity() {
         super.initUI()
         setTopTitle("工具库")
         setTopSubtitle("这个是我的工具类库入口")
-        setTopIcon(0)
-        topBar?.setEndBtnListener("测试", OnClickListener {
+        commonTopBar?.setCenter(true)
+        commonTopBar?.setEndBtnListener("测试", OnClickListener {
             VMToast.make(mActivity, "测试自定义 VMTopBar 右侧按钮样式").show()
             VMLog.json("{'app':'VMLibrary', 'version':'1.0.0', 'tag':['tools','kotlin','android']}")
         })

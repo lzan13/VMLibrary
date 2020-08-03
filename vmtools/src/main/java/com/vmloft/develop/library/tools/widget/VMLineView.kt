@@ -14,6 +14,7 @@ import com.vmloft.develop.library.tools.R
 import com.vmloft.develop.library.tools.R.layout
 import com.vmloft.develop.library.tools.R.styleable
 import com.vmloft.develop.library.tools.utils.VMColor
+import com.vmloft.develop.library.tools.utils.VMDimen
 import com.vmloft.develop.library.tools.utils.VMStr
 
 /**
@@ -61,6 +62,10 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
 
     // 是否展示分割线
     private var mDecoration = false
+    // 分割线高度
+    private var mDecorationHeight = 0
+    // 分割线高度
+    private var mDecorationColor = 0
 
     /**
      * 初始化
@@ -71,6 +76,9 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         mTitleColor = VMColor.byRes(R.color.vm_title)
         mCaptionColor = VMColor.byRes(R.color.vm_caption)
         mDescriptionColor = VMColor.byRes(R.color.vm_description)
+
+        mDecorationHeight = VMDimen.getDimenPixel(R.dimen.vm_dimen_0_1)
+        mDecorationColor = VMColor.byRes(R.color.vm_decoration_gray)
 
         mIconView = findViewById(R.id.vmLineIconIV)
         mTitleView = findViewById(R.id.vmLineTitleTV)
@@ -107,6 +115,8 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         mDescription = array.getString(styleable.VMLineView_vm_line_description)
         mDescriptionColor = array.getColor(styleable.VMLineView_vm_line_description_color, mDescriptionColor)
         mDecoration = array.getBoolean(styleable.VMLineView_vm_line_decoration, mDecoration)
+        mDecorationHeight = array.getDimensionPixelOffset(styleable.VMLineView_vm_line_decoration_height, mDecorationHeight)
+        mDecorationColor = array.getColor(styleable.VMLineView_vm_line_decoration_color, mDecorationColor)
         array.recycle()
     }
 
@@ -156,8 +166,11 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
             mDescriptionView.visibility = View.VISIBLE
             mDescriptionView.text = mDescription
         }
+
         if (mDecoration) {
             mDecorationView.visibility = View.VISIBLE
+            mDecorationView.layoutParams.height = mDecorationHeight
+            mDecorationView.setBackgroundColor(mDecorationColor)
         } else {
             mDecorationView.visibility = View.GONE
         }

@@ -5,24 +5,17 @@ import android.content.res.ColorStateList
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.util.AttributeSet
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RelativeLayout
-import androidx.annotation.AttrRes
-import androidx.annotation.StyleRes
+
 import com.vmloft.develop.library.tools.R
 import com.vmloft.develop.library.tools.R.layout
 import com.vmloft.develop.library.tools.R.styleable
 import com.vmloft.develop.library.tools.utils.VMColor
-import com.vmloft.develop.library.tools.utils.VMDimen.dp2px
 import com.vmloft.develop.library.tools.utils.VMStr
-import kotlinx.android.synthetic.main.vm_widget_top_bar.view.vmTopBarEndBtn
-import kotlinx.android.synthetic.main.vm_widget_top_bar.view.vmTopBarEndCcon
-import kotlinx.android.synthetic.main.vm_widget_top_bar.view.vmTopBarEndContainer
-import kotlinx.android.synthetic.main.vm_widget_top_bar.view.vmTopBarIconBtn
-import kotlinx.android.synthetic.main.vm_widget_top_bar.view.vmTopBarSubtitleTV
-import kotlinx.android.synthetic.main.vm_widget_top_bar.view.vmTopBarTitleTV
+
+import kotlinx.android.synthetic.main.vm_widget_top_bar.view.*
 
 /**
  * Create by lzan13 on 2019/5/19 12:36
@@ -59,15 +52,7 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
             vmTopBarIconBtn.visibility = View.VISIBLE
             vmTopBarIconBtn.setImageResource(mIcon)
         }
-        if (!VMStr.isEmpty(mTitle)) {
-            vmTopBarTitleTV.text = mTitle
-        }
-        if (!VMStr.isEmpty(mSubtitle)) {
-            vmTopBarSubtitleTV.visibility = View.VISIBLE
-            vmTopBarSubtitleTV.text = mSubtitle
-        } else {
-            vmTopBarSubtitleTV.visibility = View.GONE
-        }
+
         if (!VMStr.isEmpty(mEndText)) {
             vmTopBarEndBtn.visibility = View.VISIBLE
             vmTopBarEndBtn.text = mEndText
@@ -75,12 +60,14 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
             vmTopBarEndBtn.visibility = View.GONE
         }
         if (mEndIcon == 0) {
-            vmTopBarEndCcon.visibility = View.GONE
+            vmTopBarEndIcon.visibility = View.GONE
         } else {
-            vmTopBarEndCcon.visibility = View.VISIBLE
-            vmTopBarEndCcon.setImageResource(mEndIcon)
+            vmTopBarEndIcon.visibility = View.VISIBLE
+            vmTopBarEndIcon.setImageResource(mEndIcon)
         }
-        setupText()
+
+        bindTitle()
+        bindSubtitle()
     }
 
     /**
@@ -109,25 +96,6 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
     }
 
     /**
-     * 装载控件颜色
-     */
-    private fun setupText() {
-        vmTopBarTitleTV.setTextColor(mTitleColor)
-        vmTopBarSubtitleTV.setTextColor(mSubtitleColor)
-        if (isCenter) {
-            if (!vmTopBarEndContainer.isShown && !vmTopBarEndBtn.isShown) {
-                vmTopBarEndContainer.visibility = View.VISIBLE
-                vmTopBarEndContainer.layoutParams.width = dp2px(48)
-            }
-            vmTopBarTitleTV.gravity = Gravity.CENTER
-            vmTopBarSubtitleTV.gravity = Gravity.CENTER
-        } else {
-            vmTopBarTitleTV.gravity = Gravity.START
-            vmTopBarSubtitleTV.gravity = Gravity.START
-        }
-    }
-
-    /**
      * 设置图标
      */
     fun setIcon(resId: Int) {
@@ -146,7 +114,7 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
     fun setIconColor(color: Int) {
         // 对图标着色
         vmTopBarIconBtn.imageTintList = ColorStateList.valueOf(color)
-        vmTopBarEndCcon.imageTintList = ColorStateList.valueOf(color)
+        vmTopBarEndIcon.imageTintList = ColorStateList.valueOf(color)
     }
 
     /**
@@ -154,7 +122,8 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
      */
     fun setCenter(center: Boolean) {
         isCenter = center
-        setupText()
+        bindTitle()
+        bindSubtitle()
     }
 
     /**
@@ -162,7 +131,7 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
      */
     fun setTitle(resId: Int) {
         mTitle = VMStr.byRes(resId)
-        vmTopBarTitleTV.text = mTitle
+        bindTitle()
     }
 
     /**
@@ -170,9 +139,7 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
      */
     fun setTitle(title: String?) {
         mTitle = title
-        if (!VMStr.isEmpty(mTitle)) {
-            vmTopBarTitleTV.text = mTitle
-        }
+        bindTitle()
     }
 
     /**
@@ -181,17 +148,7 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
     fun setTitleColor(resId: Int) {
         if (resId != 0) {
             mTitleColor = VMColor.byRes(resId)
-            setupText()
-        }
-    }
-
-    /**
-     * 设置标题颜色
-     */
-    fun setSubTitleColor(resId: Int) {
-        if (resId != 0) {
-            mSubtitleColor = VMColor.byRes(resId)
-            setupText()
+            bindTitle()
         }
     }
 
@@ -201,8 +158,10 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
     fun setTitleStyle(resId: Int) {
         if (VERSION.SDK_INT >= VERSION_CODES.M) {
             vmTopBarTitleTV.setTextAppearance(resId)
+            vmTopBarCenterTitleTV.setTextAppearance(resId)
         } else {
             vmTopBarTitleTV.setTextAppearance(context, resId)
+            vmTopBarCenterTitleTV.setTextAppearance(context, resId)
         }
     }
 
@@ -211,11 +170,73 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
      */
     fun setSubtitle(title: String?) {
         mSubtitle = title
-        if (VMStr.isEmpty(mSubtitle)) {
-            vmTopBarSubtitleTV.visibility = View.GONE
+        bindSubtitle()
+    }
+
+    /**
+     * 设置标题颜色
+     */
+    fun setSubTitleColor(resId: Int) {
+        if (resId != 0) {
+            mSubtitleColor = VMColor.byRes(resId)
+            bindSubtitle()
+        }
+    }
+
+
+    /**
+     * 绑定标题数据
+     */
+    private fun bindTitle() {
+        if (isCenter) {
+            vmTopBarCenterTitleTV.setTextColor(mTitleColor)
         } else {
-            vmTopBarSubtitleTV.visibility = View.VISIBLE
-            vmTopBarSubtitleTV.text = mSubtitle
+            vmTopBarTitleTV.setTextColor(mTitleColor)
+        }
+
+        if (!VMStr.isEmpty(mTitle)) {
+            if (isCenter) {
+                vmTopBarTitleTV.visibility = View.GONE
+
+                vmTopBarCenterTitleTV.visibility = View.VISIBLE
+                vmTopBarCenterTitleTV.text = mTitle
+            } else {
+                vmTopBarTitleTV.text = mTitle
+                vmTopBarTitleTV.visibility = View.VISIBLE
+
+                vmTopBarCenterTitleTV.visibility = View.GONE
+            }
+        } else {
+            vmTopBarTitleTV.visibility = View.GONE
+            vmTopBarCenterTitleTV.visibility = View.GONE
+        }
+    }
+
+    /**
+     * 绑定子标题数据
+     */
+    private fun bindSubtitle() {
+        if (isCenter) {
+            vmTopBarCenterSubtitleTV.setTextColor(mSubtitleColor)
+        } else {
+            vmTopBarSubtitleTV.setTextColor(mSubtitleColor)
+        }
+
+        if (!VMStr.isEmpty(mSubtitle)) {
+            if (isCenter) {
+                vmTopBarSubtitleTV.visibility = View.GONE
+
+                vmTopBarCenterSubtitleTV.visibility = View.VISIBLE
+                vmTopBarCenterSubtitleTV.text = mSubtitle
+            } else {
+                vmTopBarSubtitleTV.text = mSubtitle
+                vmTopBarSubtitleTV.visibility = View.VISIBLE
+
+                vmTopBarCenterSubtitleTV.visibility = View.GONE
+            }
+        } else {
+            vmTopBarSubtitleTV.visibility = View.GONE
+            vmTopBarCenterSubtitleTV.visibility = View.GONE
         }
     }
 
@@ -250,10 +271,10 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
     fun setEndIcon(resId: Int) {
         mEndIcon = resId
         if (mEndIcon == 0) {
-            vmTopBarEndCcon.visibility = View.GONE
+            vmTopBarEndIcon.visibility = View.GONE
         } else {
-            vmTopBarEndCcon.visibility = View.VISIBLE
-            vmTopBarEndCcon.setImageResource(mEndIcon)
+            vmTopBarEndIcon.visibility = View.VISIBLE
+            vmTopBarEndIcon.setImageResource(mEndIcon)
         }
     }
 
@@ -268,7 +289,7 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
      * 设置右侧图标点击监听
      */
     fun setEndIconListener(listener: OnClickListener?) {
-        vmTopBarEndCcon.setOnClickListener(listener)
+        vmTopBarEndIcon.setOnClickListener(listener)
     }
 
     /**

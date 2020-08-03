@@ -13,6 +13,10 @@ import com.vmloft.develop.library.tools.utils.logger.VMLog
 class SchemeActivity : AppActivity() {
 
     override fun layoutId(): Int = layout.activity_scheme
+    override fun initUI() {
+        super.initUI()
+        setTopTitle("Url 跳转")
+    }
 
     override fun initData() {
         val uri = intent.data

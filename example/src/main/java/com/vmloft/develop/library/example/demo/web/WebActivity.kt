@@ -28,6 +28,8 @@ class WebActivity : AppActivity() {
 
     override fun initUI() {
         super.initUI()
+        setTopTitle("加载 Web 页面")
+
         webView = WebView(mActivity)
         webView?.settings?.javaScriptEnabled = true
         webView?.isVerticalScrollBarEnabled = false

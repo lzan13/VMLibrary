@@ -32,6 +32,12 @@ class MediaPlayActivity : AppActivity() {
         return layout.activity_media_play
     }
 
+    override fun initUI() {
+        super.initUI()
+        setTopTitle("媒体播放")
+
+    }
+
     override fun initData() {
     }
 
