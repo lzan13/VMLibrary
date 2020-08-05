@@ -59,6 +59,9 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
 
+    // 动画库 https://github.com/LottieFiles/lottie-android
+    implementation 'com.airbnb.android:lottie:3.4.1'
+
     // 阿里巴巴 ARouter 库 https://github.com/alibaba/ARouter
     implementation 'com.alibaba:arouter-api:1.5.0'
     kapt 'com.alibaba:arouter-compiler:1.2.2'

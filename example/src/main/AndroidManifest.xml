@@ -58,6 +58,8 @@
         <activity android:name=".demo.dialog.FloatMenuActivity" />
         <!--指示器界面-->
         <activity android:name=".demo.custom.IndicatorViewActivity" />
+        <!--Lottie 动画-->
+        <activity android:name=".demo.anim.LottieAnimActivity" />
         <!--播放音频-->
         <activity android:name=".demo.media.MediaPlayActivity" />
         <!--通知提醒-->
