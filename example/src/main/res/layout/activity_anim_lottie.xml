@@ -1,64 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_bg"
     android:orientation="vertical"
+    tools:context=".demo.anim.LottieAnimActivity"
     >
 
     <include layout="@layout/widget_common_top_bar" />
 
-    <com.vmloft.develop.library.tools.widget.VMViewGroup
-        android:id="@+id/viewGroup"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="lottie_eye_night.json"
-            app:lottie_loop="true"
+        <com.vmloft.develop.library.tools.widget.VMViewGroup
+            android:id="@+id/viewGroup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             />
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="lottie_flutter_love.json"
-            app:lottie_loop="true"
-            />
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="lottie_tab_square_disappear.json"
-            app:lottie_loop="true"
-            />
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="lottie_room_atmophere.json"
-            app:lottie_loop="true"
-            />
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="lottie_room_sound_wave.json"
-            app:lottie_loop="true"
-            />
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="lottie_board_custom_expression.json"
-            app:lottie_loop="true"
-            />
-    </com.vmloft.develop.library.tools.widget.VMViewGroup>
-
+    </ScrollView>
 </LinearLayout>

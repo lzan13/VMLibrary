@@ -87,9 +87,6 @@ class MainActivity : AppActivity() {
     }
 
     override fun initData() {
-        val typeface: Typeface = Typeface.createFromAsset(App.appContext.assets, "wdb_wdzht_medium.otf");
-        testTypefaceTV.text = "&#165;1025.234";
-        testTypefaceTV.typeface = typeface
     }
 
     private val viewListener = OnClickListener { v: View ->
