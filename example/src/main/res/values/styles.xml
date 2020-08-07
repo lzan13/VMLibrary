@@ -75,4 +75,7 @@
     <style name="AppTheme.PopupOverlay" parent="VMTheme.PopupOverlay">
     </style>
 
+    <style name="TopBarEndBtnStyle">
+        <item name="android:textColor">@color/topbar_end_btn</item>
+    </style>
 </resources>

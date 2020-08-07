@@ -52,8 +52,10 @@ class MainActivity : AppActivity() {
         super.initUI()
         setTopTitle("工具库")
         setTopSubtitle("这个是我的工具类库入口")
-        commonTopBar?.setCenter(true)
-        commonTopBar?.setEndBtnListener("测试", OnClickListener {
+        commonTopBar.setCenter(true)
+        commonTopBar.setEndBtnEnable(true)
+        commonTopBar.setEndBtnTextStyle(R.style.TopBarEndBtnStyle)
+        commonTopBar.setEndBtnListener("测试(1/9)", OnClickListener {
             VMToast.make(mActivity, "测试自定义 VMTopBar 右侧按钮样式").show()
             VMLog.json("{'app':'VMLibrary', 'version':'1.0.0', 'tag':['tools','kotlin','android']}")
         })
@@ -115,19 +117,21 @@ class MainActivity : AppActivity() {
     private fun checkOnePermissions() {
         val bean = VMPermissionBean(permission.CAMERA, "访问相机", "扫描二维码需要使用到相机，请允许我们获取拍照权限", R.mipmap.ic_launcher_round)
         VMPermission.getInstance(mActivity)
-                .setEnableDialog(true)
-                .setTitle("权限申请")
-                .setMessage("为保证应用的正常运行，请授予一下权限")
-                .setPermission(bean)
-                .requestPermission(object : PCallback {
-                    override fun onReject() {
-                        VMToast.make(mActivity, "权限申请被拒绝").error()
-                    }
+            .setEnableDialog(true)
+            .setTitle("权限申请")
+            .setMessage("为保证应用的正常运行，请授予一下权限")
+            .setPermission(bean)
+            .requestPermission(object : PCallback {
+                override fun onReject() {
+                    VMToast.make(mActivity, "权限申请被拒绝")
+                        .error()
+                }
 
-                    override fun onComplete() {
-                        VMToast.make(mActivity, "权限申请完成").done()
-                    }
-                })
+                override fun onComplete() {
+                    VMToast.make(mActivity, "权限申请完成")
+                        .done()
+                }
+            })
     }
 
     /**
@@ -139,18 +143,20 @@ class MainActivity : AppActivity() {
         permissions.add(VMPermissionBean(permission.READ_EXTERNAL_STORAGE, "读写存储", "我们需要将文件保存到你的设备，请允许我们获取存储权限", R.mipmap.ic_launcher_round))
         permissions.add(VMPermissionBean(permission.RECORD_AUDIO, "访问麦克风", "发送语音消息需要录制声音，请允许我们访问设备麦克风", R.mipmap.ic_launcher_round))
         VMPermission.getInstance(mActivity)
-                .setEnableDialog(true)
-                .setTitle("权限申请")
-                .setMessage("为保证应用的正常运行，请您授予以下权限")
-                .setPermissionList(permissions)
-                .requestPermission(object : PCallback {
-                    override fun onReject() {
-                        VMToast.make(mActivity, "权限申请被拒绝").error()
-                    }
+            .setEnableDialog(true)
+            .setTitle("权限申请")
+            .setMessage("为保证应用的正常运行，请您授予以下权限")
+            .setPermissionList(permissions)
+            .requestPermission(object : PCallback {
+                override fun onReject() {
+                    VMToast.make(mActivity, "权限申请被拒绝")
+                        .error()
+                }
 
-                    override fun onComplete() {
-                        VMToast.make(mActivity, "权限申请完成").done()
-                    }
-                })
+                override fun onComplete() {
+                    VMToast.make(mActivity, "权限申请完成")
+                        .done()
+                }
+            })
     }
 }

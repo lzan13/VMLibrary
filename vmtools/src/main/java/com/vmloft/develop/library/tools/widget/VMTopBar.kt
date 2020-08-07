@@ -25,11 +25,16 @@ import kotlinx.android.synthetic.main.vm_widget_top_bar.view.*
 class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RelativeLayout(context, attrs, defStyleAttr) {
     // 设置数据
     private var mIcon = 0
+
     private var mTitle: String? = null
     private var mTitleColor = 0
+
     private var mSubtitle: String? = null
     private var mSubtitleColor = 0
-    private var mEndText: String? = null
+
+    private var mEndBtnText: String? = null
+    private var mEndBtnColor: Int = 0
+    private var mEndBtnBG: Int = 0
     private var mEndIcon = 0
 
     // 居中
@@ -39,13 +44,17 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
      * 初始化
      */
     init {
-        LayoutInflater.from(context).inflate(layout.vm_widget_top_bar, this)
+        LayoutInflater.from(context)
+            .inflate(layout.vm_widget_top_bar, this)
 
         mTitleColor = VMColor.byRes(R.color.vm_title)
         mSubtitleColor = VMColor.byRes(R.color.vm_subhead)
+        mEndBtnColor = VMColor.byRes(R.color.vm_text_dark_color)
+        mEndBtnBG = R.drawable.vm_click_rectangle_transparent
 
         // 获取控件的属性值
         handleAttrs(context, attrs)
+
         if (mIcon == 0) {
             vmTopBarIconBtn.visibility = View.GONE
         } else {
@@ -53,12 +62,19 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
             vmTopBarIconBtn.setImageResource(mIcon)
         }
 
-        if (!VMStr.isEmpty(mEndText)) {
+        if (!VMStr.isEmpty(mEndBtnText)) {
             vmTopBarEndBtn.visibility = View.VISIBLE
-            vmTopBarEndBtn.text = mEndText
+            vmTopBarEndBtn.text = mEndBtnText
         } else {
             vmTopBarEndBtn.visibility = View.GONE
         }
+        if (mEndBtnColor != 0) {
+            vmTopBarEndBtn.setTextColor(mEndBtnColor)
+        }
+        if (mEndBtnBG != 0) {
+            vmTopBarEndBtn.setBackgroundResource(mEndBtnBG)
+        }
+
         if (mEndIcon == 0) {
             vmTopBarEndIcon.visibility = View.GONE
         } else {
@@ -83,12 +99,19 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         val array = context.obtainStyledAttributes(attrs, styleable.VMTopBar)
         // 获取自定义属性值，如果没有设置就是默认值
         mIcon = array.getResourceId(styleable.VMTopBar_vm_icon, mIcon)
+
         mTitle = array.getString(styleable.VMTopBar_vm_title)
-        mSubtitle = array.getString(styleable.VMTopBar_vm_subtitle)
-        mEndText = array.getString(styleable.VMTopBar_vm_end_btn)
-        mEndIcon = array.getResourceId(styleable.VMTopBar_vm_end_icon, mEndIcon)
         mTitleColor = array.getColor(styleable.VMTopBar_vm_title_color, mTitleColor)
+
+        mSubtitle = array.getString(styleable.VMTopBar_vm_subtitle)
         mSubtitleColor = array.getColor(styleable.VMTopBar_vm_subtitle_color, mSubtitleColor)
+
+        mEndBtnText = array.getString(styleable.VMTopBar_vm_end_btn)
+        mEndBtnColor = array.getColor(styleable.VMTopBar_vm_end_btn_color, mEndBtnColor)
+        mEndBtnBG = array.getResourceId(styleable.VMTopBar_vm_end_btn_bg, mEndBtnBG)
+
+        mEndIcon = array.getResourceId(styleable.VMTopBar_vm_end_icon, mEndIcon)
+
         isCenter = array.getBoolean(styleable.VMTopBar_vm_is_center, isCenter)
 
         // 回收资源
@@ -183,6 +206,18 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         }
     }
 
+    /**
+     * 设置子标题样式
+     */
+    fun setSubTitleStyle(resId: Int) {
+        if (VERSION.SDK_INT >= VERSION_CODES.M) {
+            vmTopBarSubtitleTV.setTextAppearance(resId)
+            vmTopBarCenterSubtitleTV.setTextAppearance(resId)
+        } else {
+            vmTopBarSubtitleTV.setTextAppearance(context, resId)
+            vmTopBarCenterSubtitleTV.setTextAppearance(context, resId)
+        }
+    }
 
     /**
      * 绑定标题数据
@@ -241,17 +276,6 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
     }
 
     /**
-     * 设置子标题样式
-     */
-    fun setSubTitleStyle(resId: Int) {
-        if (VERSION.SDK_INT >= VERSION_CODES.M) {
-            vmTopBarSubtitleTV.setTextAppearance(resId)
-        } else {
-            vmTopBarSubtitleTV.setTextAppearance(context, resId)
-        }
-    }
-
-    /**
      * 设置添加尾部控件
      */
     fun addEndView(view: View?) {
@@ -303,12 +327,12 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
      * 设置右侧的按钮
      */
     fun setEndBtn(text: String?) {
-        mEndText = text
-        if (VMStr.isEmpty(mEndText)) {
+        mEndBtnText = text
+        if (VMStr.isEmpty(mEndBtnText)) {
             vmTopBarEndBtn.visibility = View.GONE
         } else {
             vmTopBarEndBtn.visibility = View.VISIBLE
-            vmTopBarEndBtn.text = mEndText
+            vmTopBarEndBtn.text = mEndBtnText
         }
     }
 
@@ -318,16 +342,31 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
      * @param resId 背景资源 id
      */
     fun setEndBtnBackground(resId: Int) {
+        mEndBtnBG = resId;
         vmTopBarEndBtn.setBackgroundResource(resId)
     }
 
     /**
      * 设置按钮文字颜色
      *
-     * @param color 颜色值
+     * @param resId 颜色资源Id
      */
-    fun setEndBtnTextColor(color: Int) {
-        vmTopBarEndBtn.setTextColor(color)
+    fun setEndBtnTextColor(resId: Int) {
+        mEndBtnColor = VMColor.byRes(resId)
+        vmTopBarEndBtn.setTextColor(mEndBtnColor)
+    }
+
+    /**
+     * 设置按钮文字样式
+     *
+     * @param resId 样式 Id
+     */
+    fun setEndBtnTextStyle(resId: Int) {
+        if (VERSION.SDK_INT >= VERSION_CODES.M) {
+            vmTopBarEndBtn.setTextAppearance(resId)
+        } else {
+            vmTopBarEndBtn.setTextAppearance(context, resId)
+        }
     }
 
     /**
@@ -336,7 +375,7 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
      * @param listener 回调接口
      */
     fun setEndBtnListener(listener: OnClickListener?) {
-        setEndBtnListener(mEndText, listener)
+        setEndBtnListener(mEndBtnText, listener)
     }
 
     /**

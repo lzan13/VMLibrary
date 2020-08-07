@@ -141,14 +141,18 @@
         <attr name="vm_title" format="string|reference" />
         <!--子标题-->
         <attr name="vm_subtitle" format="string|reference" />
-        <!--右侧按钮-->
-        <attr name="vm_end_btn" format="string|reference" />
-        <!--右侧图标-->
-        <attr name="vm_end_icon" format="reference" />
         <!--标题颜色-->
         <attr name="vm_title_color" format="color|integer" />
         <!--子标题颜色-->
         <attr name="vm_subtitle_color" format="color|integer" />
+        <!--右侧按钮-->
+        <attr name="vm_end_btn" format="string|reference" />
+        <!--右侧按钮背景-->
+        <attr name="vm_end_btn_bg" format="reference" />
+        <!--右侧按钮颜色-->
+        <attr name="vm_end_btn_color" format="color|integer" />
+        <!--右侧图标-->
+        <attr name="vm_end_icon" format="reference" />
         <!--装饰分割线-->
         <attr name="vm_is_center" format="boolean" />
     </declare-styleable>
