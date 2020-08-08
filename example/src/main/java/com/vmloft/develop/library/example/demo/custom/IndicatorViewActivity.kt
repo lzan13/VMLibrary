@@ -3,7 +3,7 @@ package com.vmloft.develop.library.example.demo.custom
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.vmloft.develop.library.example.R.layout
-import com.vmloft.develop.library.example.base.AppActivity
+import com.vmloft.develop.library.example.base.BaseActivity
 import com.vmloft.develop.library.tools.adapter.VMFragmentPagerAdapter
 import kotlinx.android.synthetic.main.activity_view_indicator.indicatorView
 import kotlinx.android.synthetic.main.activity_view_indicator.viewPager
@@ -15,7 +15,7 @@ import java.util.ArrayList
  * 自定义指示器验证示例
  */
 @Route(path = "/VMLoft/Indicator")
-class IndicatorViewActivity : AppActivity() {
+class IndicatorViewActivity : BaseActivity() {
     private var fragmentList: MutableList<Fragment> = mutableListOf()
     private var mAdapter: VMFragmentPagerAdapter? = null
     override fun layoutId(): Int = layout.activity_view_indicator

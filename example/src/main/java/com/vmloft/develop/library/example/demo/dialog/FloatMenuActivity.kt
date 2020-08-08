@@ -7,7 +7,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.vmloft.develop.library.example.R.color
 import com.vmloft.develop.library.example.R.id
 import com.vmloft.develop.library.example.R.layout
-import com.vmloft.develop.library.example.base.AppActivity
+import com.vmloft.develop.library.example.base.BaseActivity
 import com.vmloft.develop.library.tools.utils.logger.VMLog
 import com.vmloft.develop.library.tools.widget.VMFloatMenu
 import com.vmloft.develop.library.tools.widget.VMFloatMenu.IItemClickListener
@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.activity_float_menu.rightTopBtn
  * 测试悬浮菜单
  */
 @Route(path = "/VMLoft/FloatMenu")
-class FloatMenuActivity : AppActivity() {
+class FloatMenuActivity : BaseActivity() {
 
     private var touchX = 0
     private var touchY = 0

@@ -7,7 +7,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.vmloft.develop.library.example.R.color
 import com.vmloft.develop.library.example.R.drawable
 import com.vmloft.develop.library.example.R.layout
-import com.vmloft.develop.library.example.base.AppActivity
+import com.vmloft.develop.library.example.base.BaseActivity
 import com.vmloft.develop.library.tools.widget.record.VMRecordView.RecordListener
 import com.vmloft.develop.library.tools.widget.toast.VMToast
 
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_view_custom.customTimerBtn
  * 描述：测试录音控件
  */
 @Route(path = "/VMLoft/CustomView")
-class CustomViewActivity : AppActivity() {
+class CustomViewActivity : BaseActivity() {
 
     override fun layoutId(): Int {
         return layout.activity_view_custom
@@ -56,9 +56,9 @@ class CustomViewActivity : AppActivity() {
 
     fun toast1(view: View) {
         VMToast.make(mActivity, "测试自定义弹出 Toast 提醒功能，这是默认提醒样式！自定义颜色的")
-                .setBGColor(color.app_bg_dark)
+                .setBGColor(color.app_bg)
                 .setIcon(drawable.emoji_dog)
-                .setMsgColor(color.app_title_light)
+                .setMsgColor(color.app_title)
                 .show()
     }
 

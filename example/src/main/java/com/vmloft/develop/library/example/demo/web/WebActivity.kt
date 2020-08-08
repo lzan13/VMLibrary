@@ -11,7 +11,7 @@ import android.widget.LinearLayout.LayoutParams
 import com.alibaba.android.arouter.facade.annotation.Route
 
 import com.vmloft.develop.library.example.R.layout
-import com.vmloft.develop.library.example.base.AppActivity
+import com.vmloft.develop.library.example.base.BaseActivity
 
 import kotlinx.android.synthetic.main.activity_web_page.webContainerLL
 
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_web_page.webContainerLL
  * WebView 测试界面
  */
 @Route(path = "/VMLoft/Web")
-class WebActivity : AppActivity() {
+class WebActivity : BaseActivity() {
     private var webView: WebView? = null
     override fun layoutId(): Int {
         return layout.activity_web_page

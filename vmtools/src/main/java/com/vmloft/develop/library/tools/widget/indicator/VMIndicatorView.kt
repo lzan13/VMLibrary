@@ -36,9 +36,8 @@ class VMIndicatorView @JvmOverloads constructor(context: Context, attrs: Attribu
     // 指示器之间的距离
     private var mIndicatorMargin = 0
 
-    // 指示器背景色
-    private var mIndicatorBackground = 0
-
+    // 指示器正常颜色
+    private var mIndicatorNormal = 0
     // 指示器选中颜色
     private var mIndicatorSelected = 0
 
@@ -66,7 +65,7 @@ class VMIndicatorView @JvmOverloads constructor(context: Context, attrs: Attribu
         // 初始化默认值
         mIndicatorRadius = VMDimen.dp2px(4)
         mIndicatorMargin = VMDimen.dp2px(8)
-        mIndicatorBackground = VMColor.byRes(color.vm_indicator_normal)
+        mIndicatorNormal = VMColor.byRes(color.vm_indicator_normal)
         mIndicatorSelected = VMColor.byRes(color.vm_indicator_selected)
         mCurrentPosition = 0
         mCurrentPositionOffset = 0f
@@ -83,7 +82,7 @@ class VMIndicatorView @JvmOverloads constructor(context: Context, attrs: Attribu
         val typedArray = context.obtainStyledAttributes(attrs, styleable.VMIndicatorView)
         mIndicatorRadius = typedArray.getDimensionPixelSize(styleable.VMIndicatorView_vm_indicator_radius, mIndicatorRadius)
         mIndicatorMargin = typedArray.getDimensionPixelSize(styleable.VMIndicatorView_vm_indicator_margin, mIndicatorMargin)
-        mIndicatorBackground = typedArray.getColor(styleable.VMIndicatorView_vm_indicator_background, mIndicatorBackground)
+        mIndicatorNormal = typedArray.getColor(styleable.VMIndicatorView_vm_indicator_normal, mIndicatorNormal)
         mIndicatorSelected = typedArray.getColor(styleable.VMIndicatorView_vm_indicator_selected, mIndicatorSelected)
         val layoutGravity = typedArray.getInt(styleable.VMIndicatorView_vm_indicator_gravity, mIndicatorLayoutGravity.ordinal)
         mIndicatorLayoutGravity = Gravity.values()[layoutGravity]
@@ -144,7 +143,7 @@ class VMIndicatorView @JvmOverloads constructor(context: Context, attrs: Attribu
             val drawable = ShapeDrawable(circle)
             val holder = VMIndicatorHolder(drawable)
             val paint = drawable.paint
-            paint.color = mIndicatorBackground
+            paint.color = mIndicatorNormal
             paint.isAntiAlias = true
             holder.paint = paint
             mHolders.add(holder)
@@ -206,7 +205,6 @@ class VMIndicatorView @JvmOverloads constructor(context: Context, attrs: Attribu
      * @param curItemPositionOffset
      */
     private fun layoutMoveItem(curItemPosition: Int, curItemPositionOffset: Float) {
-        requireNotNull(moveHolder) { "忘记创建可移动的 Item 了？" }
         if (0 == mHolders.size) {
             return
         }
@@ -274,13 +272,6 @@ class VMIndicatorView @JvmOverloads constructor(context: Context, attrs: Attribu
      */
     fun setIndicatorLayoutGravity(indicatorLayoutGravity: Gravity) {
         mIndicatorLayoutGravity = indicatorLayoutGravity
-    }
-
-    /**
-     * 修改指示器背景色
-     */
-    fun setIndicatorBackground(indicatorBackground: Int) {
-        mIndicatorBackground = indicatorBackground
     }
 
     /**

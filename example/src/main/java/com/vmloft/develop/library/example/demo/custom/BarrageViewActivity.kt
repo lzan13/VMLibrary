@@ -5,7 +5,7 @@ import android.widget.TextView
 import com.alibaba.android.arouter.facade.annotation.Route
 
 import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.example.base.AppActivity
+import com.vmloft.develop.library.example.base.BaseActivity
 import com.vmloft.develop.library.tools.widget.barrage.VMBarrageView
 import com.vmloft.develop.library.tools.widget.barrage.VMViewCreator
 import kotlinx.android.synthetic.main.activity_view_barrage.*
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_view_barrage.*
  * 描述：测试通知提醒界面
  */
 @Route(path = "/VMLoft/Barrage")
-class BarrageViewActivity : AppActivity() {
+class BarrageViewActivity : BaseActivity() {
 
     private val mDataList: MutableList<BarrageBean> = mutableListOf()
 

@@ -2,7 +2,7 @@ package com.vmloft.develop.library.example.demo.scheme
 
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.vmloft.develop.library.example.R.layout
-import com.vmloft.develop.library.example.base.AppActivity
+import com.vmloft.develop.library.example.base.BaseActivity
 import com.vmloft.develop.library.tools.utils.logger.VMLog
 
 /**
@@ -10,7 +10,7 @@ import com.vmloft.develop.library.tools.utils.logger.VMLog
  * 测试 Scheme 方式打开 app
  */
 @Route(path = "/VMLoft/Scheme")
-class SchemeActivity : AppActivity() {
+class SchemeActivity : BaseActivity() {
 
     override fun layoutId(): Int = layout.activity_scheme
     override fun initUI() {

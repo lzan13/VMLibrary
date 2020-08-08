@@ -1,23 +1,24 @@
-package com.vmloft.develop.library.example.demo.notify
+package com.vmloft.develop.library.template.notify
 
 import android.app.NotificationChannel
 import android.app.NotificationChannelGroup
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.provider.Settings
-import android.text.TextUtils
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+
+import com.vmloft.develop.library.example.R
+import com.vmloft.develop.library.example.common.SPManager
+import com.vmloft.develop.library.tools.utils.VMStr
 import com.vmloft.develop.library.tools.utils.logger.VMLog
-import java.util.*
 
 /**
- * Create by lzan13 on 2020/6/2 16:07
+ * Create by lzan13 on 2020/6/22 10:20
  * 描述：通知管理类
  */
 object NotifyManager {
@@ -57,22 +58,32 @@ object NotifyManager {
      * 发送通知
      */
     fun sendNotify(content: String, title: String) {
+        if (!SPManager.instance.getNotifyMsgSwitch()) {
+            return
+        }
         val builder: NotificationCompat.Builder = getBuilder(notifyMsgChannelId)
 
-        // 开始在状态栏上显示的提示文案
-        builder.setTicker("你有一条新的消息通知")
         // 通知标题
-        if (!TextUtils.isEmpty(title)) {
+        if (!VMStr.isEmpty(title)) {
             builder.setContentTitle(title)
         }
         // 通知内容
-        builder.setContentText(content)
 
-        val intent = Intent(mContext, NotifyActivity::class.java)
+        // 开始在状态栏上显示的提示文案
+        if (SPManager.instance.getNotifyMsgDetailSwitch()) {
+            builder.setTicker(content)
+            builder.setContentText(content)
+        } else {
+            builder.setTicker(VMStr.byRes(R.string.notify_content))
+            builder.setContentText(VMStr.byRes(R.string.notify_content))
+        }
+
+        // TODO 视具体业务打开对应界面
+//        val intent = Intent(mContext, NotifyActivity::class.java)
 //        val pendingIntent = PendingIntent.getBroadcast(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-        val pendingIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+//        val pendingIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         // 设置通知点击跳转
-        builder.setContentIntent(pendingIntent)
+//        builder.setContentIntent(pendingIntent)
 
         val notifyId: Int = notifyMsgChannelId.hashCode()
 
@@ -169,7 +180,7 @@ object NotifyManager {
             // 创建通知分组
             val group = NotificationChannelGroup(groupId, name)
             // 设置分组描述
-            group.description = desc
+//            group.description = desc
 
             val groups = ArrayList<NotificationChannelGroup>()
             groups.add(group)
@@ -197,7 +208,7 @@ object NotifyManager {
             // 设置绕过免打扰模式
             channel.setBypassDnd(true)
             // 设置通知所属分组
-            if (!TextUtils.isEmpty(groupId)) {
+            if (!VMStr.isEmpty(groupId)) {
                 channel.group = groupId
             }
             // 设置通知通道描述

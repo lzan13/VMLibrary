@@ -77,9 +77,8 @@
         <attr name="vm_indicator_radius" format="dimension" />
         <!--指示器距离-->
         <attr name="vm_indicator_margin" format="dimension" />
-        <!--指示器背景色-->
-        <attr name="vm_indicator_background" format="color|integer" />
-        <!--选中色-->
+        <!--指示器圆点颜色-->
+        <attr name="vm_indicator_normal" format="color|integer" />
         <attr name="vm_indicator_selected" format="color|integer" />
         <!--指示器定位-->
         <attr name="vm_indicator_gravity">

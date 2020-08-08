@@ -33,7 +33,7 @@
         tools:ignore="GoogleAppIndexingWarning">
         <!--主界面-->
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.main.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.Splash">
             <intent-filter>
@@ -42,6 +42,57 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!--设置页面-->
+        <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/AppTheme"
+            />
+        <!--通知设置页面-->
+        <activity
+            android:name=".ui.settings.NotifySettingsActivity"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/AppTheme"
+            />
+        <!--暗色主题设置页面-->
+        <activity
+            android:name=".ui.settings.DarkSettingsActivity"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/AppTheme"
+            />
+        <!--图片资源设置页面-->
+        <activity
+            android:name=".ui.settings.PictureSettingsActivity"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/AppTheme"
+            />
+        <!--调试设置页面-->
+        <activity
+            android:name=".ui.settings.DebugSettingsActivity"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/AppTheme"
+            />
+        <!--关于页面-->
+        <activity
+            android:name=".ui.settings.AboutSettingsActivity"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/AppTheme"
+            />
+        <!--问题反馈页面-->
+        <activity
+            android:name=".ui.feedback.FeedbackActivity"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/AppTheme"
+            />
+
+        <!--通用界面-->
+        <!--Web页面-->
+        <activity
+            android:name=".ui.web.WebActivity"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/AppTheme"
+            />
 
         <!--自定义弹幕-->
         <activity android:name=".demo.custom.BarrageViewActivity" />

@@ -1,6 +1,9 @@
 更新日志
 =======
 
+### 2020/01/05 V1.2.4
+- 优化 SharedPreferences 工具类，example一些操作正式化
+
 ### 2020/01/05 V1.2.3
 - 修改 VMTopBar endBtn 样式设置
 

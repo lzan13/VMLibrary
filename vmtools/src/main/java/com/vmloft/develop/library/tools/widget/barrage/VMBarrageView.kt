@@ -10,6 +10,7 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import android.widget.RelativeLayout
+import com.vmloft.develop.library.tools.utils.VMDimen
 import com.vmloft.develop.library.tools.utils.VMSystem
 import com.vmloft.develop.library.tools.utils.logger.VMLog
 import java.util.concurrent.LinkedBlockingQueue
@@ -189,7 +190,8 @@ class VMBarrageView<T> @JvmOverloads constructor(context: Context?, attrs: Attri
         mCreator.onBind(view, bean)
 
         val width = width.toFloat()
-        val height = height.toFloat()
+        // 这里高度加上 48dp 防止随机到最底部时把内容挤压
+        val height = height.toFloat() - VMDimen.dp2px(48)
 
         // 随机设置位置
         val randomTop = (Math.random() * height).toInt()
@@ -225,7 +227,8 @@ class VMBarrageView<T> @JvmOverloads constructor(context: Context?, attrs: Attri
      * 创建弹幕
      */
     private fun createView(): View {
-        return LayoutInflater.from(context).inflate(mCreator.layoutId(), null)
+        return LayoutInflater.from(context)
+            .inflate(mCreator.layoutId(), null)
     }
 
     override fun onVisibilityChanged(changedView: View, visibility: Int) {

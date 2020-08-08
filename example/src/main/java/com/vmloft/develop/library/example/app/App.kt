@@ -4,9 +4,9 @@ import android.app.Application
 import android.content.Context
 
 import com.alibaba.android.arouter.launcher.ARouter
-import com.vmloft.develop.library.example.BuildConfig
-import com.vmloft.develop.library.example.demo.notify.NotifyManager
 
+import com.vmloft.develop.library.example.BuildConfig
+import com.vmloft.develop.library.template.notify.NotifyManager
 import com.vmloft.develop.library.tools.VMTools
 import com.vmloft.develop.library.tools.utils.logger.VMLog
 

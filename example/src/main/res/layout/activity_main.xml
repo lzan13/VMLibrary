@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_bg"
-    android:orientation="vertical"
-    tools:context=".MainActivity"
+    tools:context=".ui.main.MainActivity"
     >
 
-    <include layout="@layout/widget_common_top_bar" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/mainNav"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/vm_dimen_48"
+        android:layout_alignParentBottom="true"
+        android:background="@color/app_bg_nav"
+        app:itemBackground="@color/app_bg_nav"
+        app:itemHorizontalTranslationEnabled="false"
+        app:itemIconTint="@color/selector_bottom_nav"
+        app:itemTextAppearanceActive="@style/AppText.BNV.Active"
+        app:itemTextAppearanceInactive="@style/AppText.BNV.Inactive"
+        app:itemTextColor="@color/selector_bottom_nav"
+        app:labelVisibilityMode="unlabeled"
+        app:menu="@menu/main_nav_menu"
+        />
 
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/mainFragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
-
-        <com.vmloft.develop.library.tools.widget.VMViewGroup
-            android:id="@+id/viewGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-
-        <TextView
-            android:id="@+id/testTypefaceTV"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/vm_dimen_16"
-            android:text="&#165;1025.234"
-            />
-    </LinearLayout>
-</LinearLayout>
+        android:layout_above="@+id/mainNav"
+        android:background="@color/app_bg"
+        />
+</RelativeLayout>

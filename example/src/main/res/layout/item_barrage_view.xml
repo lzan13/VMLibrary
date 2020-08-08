@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/shape_bg_fillet_white"
-    android:backgroundTint="@color/app_bg_barrage"
+    android:backgroundTint="@color/app_bg_item"
     android:gravity="center"
     android:orientation="horizontal"
     android:paddingStart="@dimen/vm_dimen_8"

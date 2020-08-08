@@ -4,13 +4,132 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
-
     <string name="start">开始</string>
     <string name="stop">停止</string>
     <string name="play">播放</string>
     <string name="pause">暂停</string>
     <string name="encode">编码</string>
     <string name="mp4">保存 MP4</string>
+
+    <!--引导-->
+    <string name="guide_prev">上一步</string>
+    <string name="guide_next">下一步</string>
+    <string name="guide_finish">完成</string>
+    <string name="guide_title_0">各种消息</string>
+    <string name="guide_title_1">外出时间</string>
+    <string name="guide_title_2">休息时间</string>
+    <string name="guide_intro_0">语音，文字，图片，各种消息随心收发</string>
+    <string name="guide_intro_1">外出时间保证直达，不漏过任何消息</string>
+    <string name="guide_intro_2">休息时间，嗨起来吧 ^_^</string>
+
+    <string name="nav_home">首页</string>
+    <string name="nav_explore">发现</string>
+    <string name="nav_msg">消息</string>
+    <string name="nav_mine">我的</string>
+
+    <string name="search">搜索</string>
+    <string name="search_hint">输入搜索关键词</string>
+
+    <!--发现-->
+    <string name="publish_title">发布内容</string>
+
+    <!--我的-->
+    <string name="fans">粉丝</string>
+    <string name="follow">关注</string>
+    <string name="like_me">喜欢我</string>
+
+    <!--设置-->
+    <string name="settings">设置</string>
+    <string name="settings_about">关于</string>
+    <string name="settings_about_content">一个移动 APP 模板项目，可方便快速的搭建一个移动项目</string>
+    <string name="settings_about_copyright">Copyright &#169; 2020 VMLoft.\nAll Right Reserved.</string>
+    <string name="settings_version">检查更新</string>
+    <string name="settings_feedback">问题反馈</string>
+    <string name="settings_feedback_hint">有什么问题可以反馈给我，帮助我改进</string>
+
+    <string name="settings_picture">图片资源</string>
+    <string name="settings_picture_auto">自动加载</string>
+    <string name="settings_picture_save">保存到相册</string>
+    <string name="settings_picture_save_hint">应用内拍照的图片将保存到系统相册</string>
+    <string name="settings_picture_clear">清空缓存</string>
+    <string name="settings_picture_clear_hint">缓存有利于节省流量，清空缓存可释放手机存储空间</string>
+
+    <string name="settings_notify">通知设置</string>
+    <string name="settings_notify_switch">通知开关</string>
+    <string name="settings_notify_switch_msg">接收新消息通知</string>
+    <string name="settings_notify_switch_call">接收音视频邀请通知通知</string>
+    <string name="settings_notify_msg_detail">消息通知展示详情</string>
+    <string name="settings_notify_msg_detail_hint">关闭后，收到新消息通知将不展示具体内容，展示为："你有一条新消息"</string>
+    <string name="settings_notify_sound_vibrator">声音与振动</string>
+    <string name="settings_notify_msg_system">新消息系统通知</string>
+    <string name="settings_notify_msg_system_hint">前往系统设置修改消息声音与震动</string>
+    <string name="notify_content">你有一条新的消息通知</string>
+
+    <string name="settings_debug">调试模式</string>
+    <string name="settings_debug_env">环境</string>
+
+    <string name="settings_dark">深色模式</string>
+    <string name="settings_dark_system">跟随系统</string>
+    <string name="settings_dark_system_hint">开启状态下，会自动跟随系统夜间模式切换应用内主题样式</string>
+    <string name="settings_dark_manual">手动设置</string>
+    <string name="settings_dark_normal">正常模式</string>
+
+    <string name="settings_info">个人信息</string>
+    <string name="settings_info_avatar">头像</string>
+    <string name="settings_info_nickname">昵称</string>
+    <string name="settings_info_email">邮箱</string>
+    <string name="settings_info_phone">手机号</string>
+    <string name="settings_info_gender">性别</string>
+    <string name="settings_info_birthday">生日</string>
+    <string name="settings_info_signature">个性签名</string>
+    <string name="settings_info_address">地址</string>
+
+    <string name="info_gender_man">男</string>
+    <string name="info_gender_woman">女</string>
+    <string name="info_gender_unknow">未知</string>
+
+    <!--注册登录-->
+    <string name="sign_welcome_to_back">嗨，欢迎回来！</string>
+    <string name="sign_welcome_to_join">你好，欢迎加入！</string>
+    <string name="sign_up">注册</string>
+    <string name="sign_in">登录</string>
+    <string name="sign_out">退出登录</string>
+    <string name="sign_to_sign_up">去注册</string>
+    <string name="sign_forget_password">忘记密码</string>
+    <string name="sign_account">账户</string>
+    <string name="sign_account_hint">手机号/邮箱</string>
+    <string name="sign_password">密码</string>
+    <string name="sign_password_hint">输入密码</string>
+    <string name="sign_code">验证码</string>
+    <string name="sign_code_hint">输入验证码</string>
+    <string name="sign_policy_prefix">已阅读并同意</string>
+    <string name="sign_privacy_policy">《隐私协议》</string>
+    <string name="sign_privacy_policy_hint">请阅读并同意《隐私协议》</string>
+
+    <!--拼接资源-->
+    <string name="comment_count">条评论</string>
+    <string name="score">分</string>
+    <string name="album_count">+</string>
+    <string name="publish_time">发布：</string>
+    <string name="category">分类：</string>
+    <string name="tag">标签：</string>
+
+    <!--通用-->
+    <string name="loading">加载中...</string>
+    <string name="wait">请稍等...</string>
+    <!--按钮-->
+    <string name="btn_save">保存</string>
+    <string name="btn_ok">确定</string>
+    <string name="btn_publish">确定</string>
+    <string name="btn_cancel">取消</string>
+    <string name="btn_agree">同意</string>
+    <string name="btn_disagree">不同意</string>
+    <!--输入-->
+    <string name="input_hint">请输入...</string>
+    <string name="input_not_null">输入内容不能为空</string>
+
+    <!--广告资源-->
+    <string name="ads_label">广告</string>
+    <string name="ads_empty">虚位以待</string>
 
 </resources>

@@ -18,9 +18,6 @@
     <color name="vm_caption">@color/vm_gray_87</color>
     <color name="vm_description">@color/vm_gray_54</color>
 
-    <!--图标颜色-->
-    <color name="vm_icon">@color/vm_title</color>
-
     <!--悬浮窗-->
     <color name="vm_bg_float_menu">#ff363636</color>
 
@@ -50,8 +47,8 @@
     <color name="vm_decoration_white">@color/vm_white_12</color>
 
     <!--指示器-->
-    <color name="vm_indicator_normal">#808080</color>
-    <color name="vm_indicator_selected">#007531</color>
+    <color name="vm_indicator_normal">@color/vm_gray_white_54</color>
+    <color name="vm_indicator_selected">@color/vm_green_54</color>
 
     <color name="vm_toast_bg">#007531</color>
     <color name="vm_toast_error_bg">#990000</color>
