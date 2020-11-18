@@ -1,13 +1,10 @@
 package com.vmloft.develop.library.tools.widget
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Handler
 import android.os.Message
 import android.util.AttributeSet
-import android.widget.Button
-import androidx.annotation.AttrRes
-import androidx.annotation.StyleRes
+import androidx.appcompat.widget.AppCompatButton
 import com.vmloft.develop.library.tools.R.styleable
 
 /**
@@ -15,8 +12,8 @@ import com.vmloft.develop.library.tools.R.styleable
  *
  * 定时按钮
  */
-@SuppressLint("AppCompatCustomView")
-class VMTimerBtn @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : Button(context, attrs, defStyleAttr) {
+class VMTimerBtn @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatButton(context, attrs, defStyleAttr) {
+
     private var mHandler: Handler? = null
 
     // 按钮默认文本

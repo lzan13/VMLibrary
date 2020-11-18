@@ -126,7 +126,7 @@
 
     <!--自定义定时按钮-->
     <declare-styleable name="VMTimerBtn">
-        <!--倒计时文案-->
+        <!--倒计时文本 需为可格式化样式 例: 剩余(%d)-->
         <attr name="vm_timer_text" format="string|reference" />
         <!--倒计时时间-->
         <attr name="vm_timer_time" format="integer" />

@@ -4,9 +4,7 @@ import android.view.View
 
 import com.alibaba.android.arouter.facade.annotation.Route
 
-import com.vmloft.develop.library.example.R.color
-import com.vmloft.develop.library.example.R.drawable
-import com.vmloft.develop.library.example.R.layout
+import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.base.BaseActivity
 import com.vmloft.develop.library.tools.widget.record.VMRecordView.RecordListener
 import com.vmloft.develop.library.tools.widget.toast.VMToast
@@ -22,9 +20,7 @@ import kotlinx.android.synthetic.main.activity_view_custom.customTimerBtn
 @Route(path = "/VMLoft/CustomView")
 class CustomViewActivity : BaseActivity() {
 
-    override fun layoutId(): Int {
-        return layout.activity_view_custom
-    }
+    override fun layoutId() = R.layout.activity_view_custom
 
     override fun initUI() {
         super.initUI()
@@ -56,9 +52,9 @@ class CustomViewActivity : BaseActivity() {
 
     fun toast1(view: View) {
         VMToast.make(mActivity, "测试自定义弹出 Toast 提醒功能，这是默认提醒样式！自定义颜色的")
-                .setBGColor(color.app_bg)
-                .setIcon(drawable.emoji_dog)
-                .setMsgColor(color.app_title)
+                .setBGColor(R.color.app_bg)
+                .setIcon(R.drawable.emoji_dog)
+                .setMsgColor(R.color.app_title)
                 .show()
     }
 
