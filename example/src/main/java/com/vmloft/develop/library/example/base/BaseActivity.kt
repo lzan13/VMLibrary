@@ -24,11 +24,11 @@ abstract class BaseActivity : VMBActivity() {
         // 设置状态栏透明主题时，布局整体会上移，所以给头部 View 设置 StatusBar 的高度
         commonTopSpaceView?.layoutParams?.height = VMDimen.statusBarHeight
 
-        commonTopBar?.setCenter(true)
+        commonTopBar?.setCenter(false)
         commonTopBar?.setTitleStyle(R.style.VMText_Title)
         commonTopBar?.setIcon(R.drawable.ic_arrow_back)
         commonTopBar?.setIconColor(VMColor.byRes(R.color.app_title))
-        commonTopBar?.setIconListener(View.OnClickListener { onBackPressed() })
+        commonTopBar?.setIconListener{ onBackPressed() }
     }
 
     /**

@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg"
+    android:orientation="vertical"
+    tools:context=".demo.custom.ButtonThemeActivity">
+
+    <include layout="@layout/widget_common_top_bar" />
+
+    <com.vmloft.develop.library.tools.widget.VMViewGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:padding="@dimen/vm_margin_large">
+
+        <!--悬浮圆角-->
+        <Button
+            style="@style/VMBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:text="悬灰" />
+
+        <Button
+            style="@style/VMBtn.Red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:text="悬红" />
+
+        <Button
+            style="@style/VMBtn.Green"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:text="悬绿" />
+
+        <Button
+            style="@style/VMBtn.Blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:text="悬蓝" />
+
+        <!--悬浮倒角-->
+        <Button
+            style="@style/VMBtn.Fillet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:text="悬倒灰" />
+
+        <Button
+            style="@style/VMBtn.Fillet.Red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:text="悬倒红" />
+
+        <Button
+            style="@style/VMBtn.Fillet.Green"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:text="悬倒绿" />
+
+        <Button
+            style="@style/VMBtn.Fillet.Blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:text="悬倒蓝" />
+
+        <!--扁平圆角-->
+        <Button
+            style="@style/VMBtn.Flat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:text="扁透明" />
+
+        <Button
+            style="@style/VMBtn.Flat.Red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:text="扁红" />
+
+        <Button
+            style="@style/VMBtn.Flat.Green"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:text="扁绿" />
+
+        <Button
+            style="@style/VMBtn.Flat.Blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:text="扁蓝" />
+
+        <!--扁平倒角-->
+        <Button
+            style="@style/VMBtn.Flat.Fillet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:text="扁倒透明" />
+
+        <Button
+            style="@style/VMBtn.Flat.Fillet.Red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:text="扁倒红" />
+
+        <Button
+            style="@style/VMBtn.Flat.Fillet.Green"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:text="扁倒绿" />
+
+        <Button
+            style="@style/VMBtn.Flat.Fillet.Blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:text="扁倒蓝" />
+
+        <!--悬浮圆角禁用-->
+        <Button
+            style="@style/VMBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:enabled="false"
+            android:text="悬禁灰" />
+
+        <Button
+            style="@style/VMBtn.Red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:enabled="false"
+            android:text="悬禁红" />
+
+        <Button
+            style="@style/VMBtn.Green"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:enabled="false"
+            android:text="悬禁绿" />
+
+        <Button
+            style="@style/VMBtn.Blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:enabled="false"
+            android:text="悬禁蓝" />
+
+        <!--悬浮倒角禁用-->
+        <Button
+            style="@style/VMBtn.Fillet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:enabled="false"
+            android:text="悬倒禁灰" />
+
+        <Button
+            style="@style/VMBtn.Fillet.Red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:enabled="false"
+            android:text="悬倒禁红" />
+
+        <Button
+            style="@style/VMBtn.Fillet.Green"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:enabled="false"
+            android:text="悬倒禁绿" />
+
+        <Button
+            style="@style/VMBtn.Fillet.Blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:enabled="false"
+            android:text="悬倒禁蓝" />
+
+        <!--扁平圆角禁用-->
+        <Button
+            style="@style/VMBtn.Flat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:enabled="false"
+            android:text="扁禁透" />
+
+        <Button
+            style="@style/VMBtn.Flat.Red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:enabled="false"
+            android:text="扁禁红" />
+
+        <Button
+            style="@style/VMBtn.Flat.Green"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:enabled="false"
+            android:text="扁禁绿" />
+
+        <Button
+            style="@style/VMBtn.Flat.Blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:enabled="false"
+            android:text="扁禁蓝" />
+
+        <!--扁平倒角禁用-->
+        <Button
+            style="@style/VMBtn.Flat.Fillet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:enabled="false"
+            android:text="扁倒禁透" />
+
+        <Button
+            style="@style/VMBtn.Flat.Fillet.Red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:enabled="false"
+            android:text="扁倒禁红" />
+
+        <Button
+            style="@style/VMBtn.Flat.Fillet.Green"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:enabled="false"
+            android:text="扁倒禁绿" />
+
+        <Button
+            style="@style/VMBtn.Flat.Fillet.Blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:enabled="false"
+            android:text="扁倒禁蓝" />
+    </com.vmloft.develop.library.tools.widget.VMViewGroup>
+</LinearLayout>

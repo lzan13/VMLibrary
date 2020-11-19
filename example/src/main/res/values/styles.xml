@@ -34,9 +34,9 @@
     <!--启动时的主题样式-->
     <style name="AppTheme.Splash">
         <!--半透明状态栏-->
-        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentStatus">true</item>
         <!--充满屏幕-->
-        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowFullscreen">true</item>
         <!--设置状态栏颜色-->
         <item name="android:statusBarColor">@color/app_bg</item>
         <!--防止启动瞬间黑屏或白屏，程序启动时的背景图，可以设置为一张代表性的logo，或者设置app框架类图-->
@@ -70,16 +70,13 @@
     </style>
 
     <!--默认 AppBar 样式-->
-    <style name="AppTheme.AppBarOverlay" parent="VMTheme.AppBarOverlay">
-    </style>
+    <style name="AppTheme.AppBarOverlay" parent="VMTheme.AppBarOverlay"></style>
 
     <!--Toolbar 样式-->
-    <style name="AppTheme.ToolbarOverlay" parent="VMTheme.ToolbarOverlay">
-    </style>
+    <style name="AppTheme.ToolbarOverlay" parent="VMTheme.ToolbarOverlay"></style>
 
     <!--Toolbar 弹出 PopupMenu 样式-->
-    <style name="AppTheme.PopupOverlay" parent="VMTheme.PopupOverlay">
-    </style>
+    <style name="AppTheme.PopupOverlay" parent="VMTheme.PopupOverlay"></style>
 
     <!--文本样式 start-->
     <!--标题样式-欢迎标题-->
@@ -139,7 +136,6 @@
     </style>
 
     <style name="AppText.TopBarEndBtn" parent="@style/VMText.Body1">
-        <item name="android:textSize">@dimen/vm_size_14</item>
         <item name="android:textColor">@color/selector_topbar_end_btn</item>
     </style>
     <!--文本样式 end-->

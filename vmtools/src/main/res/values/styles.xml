@@ -126,6 +126,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/vm_title</item>
+        <item name="android:textSize">@dimen/vm_size_16</item>
     </style>
 
     <!--文字样式 Subhead-->
@@ -202,11 +203,15 @@
         <item name="android:singleLine">false</item>
     </style>
 
-    <!--自定义圆角默认按钮样式-->
+    <!--圆角默认按钮样式-->
     <style name="VMBtn" parent="Widget.AppCompat.Button">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:elevation">@dimen/vm_elevation_no</item>
+        <item name="android:minHeight">@dimen/vm_dimen_36</item>
+        <item name="android:minWidth">@dimen/vm_dimen_64</item>
+        <item name="android:paddingStart">@dimen/vm_padding_large</item>
+        <item name="android:paddingEnd">@dimen/vm_padding_large</item>
+        <item name="android:elevation">@dimen/vm_elevation_low</item>
         <item name="android:stateListAnimator">@animator/vm_click_anim</item>
         <item name="android:background">@drawable/vm_click_rectangle_gray</item>
         <item name="android:colorControlHighlight">@color/vm_btn_ripple</item>
@@ -252,10 +257,15 @@
         <item name="android:textColor">@color/vm_text_light_color</item>
     </style>
 
-    <!--自定义扁平按钮样式-->
+    <!--扁平按钮样式-->
     <style name="VMBtn.Flat" parent="Widget.AppCompat.Button.Borderless">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">@dimen/vm_dimen_36</item>
+        <item name="android:minWidth">@dimen/vm_dimen_64</item>
+        <item name="android:paddingStart">@dimen/vm_padding_large</item>
+        <item name="android:paddingEnd">@dimen/vm_padding_large</item>
+        <item name="android:elevation">@dimen/vm_elevation_no</item>
         <item name="android:background">@color/vm_transparent</item>
         <item name="android:foreground">@drawable/vm_click_rectangle_transparent</item>
         <item name="android:textSize">@dimen/vm_size_btn_normal</item>
@@ -279,12 +289,8 @@
         <item name="android:background">@drawable/vm_click_rectangle_blue</item>
         <item name="android:textColor">@color/vm_text_light_color</item>
     </style>
-    <!--扁平充满按钮-->
-    <style name="VMBtn.Flat.Full">
-        <item name="android:foreground">@drawable/vm_click_full_transparent</item>
-    </style>
 
-    <!--自定义扁平倒角按钮-->
+    <!--扁平倒角按钮-->
     <style name="VMBtn.Flat.Fillet">
         <item name="android:foreground">@drawable/vm_click_fillet_transparent</item>
         <item name="android:textColor">@color/vm_text_dark_color</item>
@@ -303,10 +309,6 @@
     <style name="VMBtn.Flat.Fillet.Blue">
         <item name="android:background">@drawable/vm_click_fillet_blue</item>
         <item name="android:textColor">@color/vm_text_light_color</item>
-    </style>
-    <!--扁平充满倒角按钮-->
-    <style name="VMBtn.Flat.Fillet.Full">
-        <item name="android:foreground">@drawable/vm_click_full_fillet_transparent</item>
     </style>
 
     <!--定义悬浮菜单动画-->

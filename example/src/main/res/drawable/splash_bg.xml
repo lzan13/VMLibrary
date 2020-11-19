@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <!--背景颜色-->
-    <item android:drawable="@color/app_bg" />
-
+    <!-- 整体的背景颜色 -->
     <item>
-        <!--图片-->
+        <color android:color="@color/app_bg" />
+    </item>
+    <!-- 顶部 -->
+    <item>
         <bitmap
-            android:gravity="bottom"
-            android:src="@mipmap/ic_launcher" />
+            android:gravity="center|clip_vertical"
+            android:src="@drawable/img_baymax" />
     </item>
 </layer-list>

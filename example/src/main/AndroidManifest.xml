@@ -130,7 +130,7 @@
             </intent-filter>
         </activity>
         <!--按钮主题样式-->
-        <activity android:name=".demo.style.BtnStyleActivity" />
+        <activity android:name=".demo.custom.ButtonThemeActivity" />
         <!--测试线程-->
         <activity android:name=".demo.thread.ThreadActivity" />
         <!--Web 功能界面-->

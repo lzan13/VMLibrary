@@ -44,13 +44,12 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
      * 初始化
      */
     init {
-        LayoutInflater.from(context)
-            .inflate(layout.vm_widget_top_bar, this)
+        LayoutInflater.from(context).inflate(layout.vm_widget_top_bar, this)
 
         mTitleColor = VMColor.byRes(R.color.vm_title)
         mSubtitleColor = VMColor.byRes(R.color.vm_subhead)
         mEndBtnColor = VMColor.byRes(R.color.vm_text_dark_color)
-        mEndBtnBG = R.drawable.vm_click_rectangle_transparent
+        mEndBtnBG = R.drawable.vm_click_fillet_transparent
 
         // 获取控件的属性值
         handleAttrs(context, attrs)
@@ -342,8 +341,10 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
      * @param resId 背景资源 id
      */
     fun setEndBtnBackground(resId: Int) {
-        mEndBtnBG = resId;
-        vmTopBarEndBtn.setBackgroundResource(resId)
+        mEndBtnBG = resId
+        if (mEndBtnBG != 0) {
+            vmTopBarEndBtn.setBackgroundResource(mEndBtnBG)
+        }
     }
 
     /**

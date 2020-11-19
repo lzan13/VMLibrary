@@ -1,7 +1,7 @@
-package com.vmloft.develop.library.example.demo.style
+package com.vmloft.develop.library.example.demo.custom
 
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.vmloft.develop.library.example.R.layout
+import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.base.BaseActivity
 
 /**
@@ -9,9 +9,9 @@ import com.vmloft.develop.library.example.base.BaseActivity
  * 测试控件样式主题界面
  */
 @Route(path = "/VMLoft/BtnStyle")
-class BtnStyleActivity : BaseActivity() {
+class ButtonThemeActivity : BaseActivity() {
     override fun layoutId(): Int {
-        return layout.activity_theme
+        return R.layout.activity_view_button
     }
 
     override fun initUI() {
