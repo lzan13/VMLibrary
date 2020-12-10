@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/app_bg_item"
-            app:vm_line_decoration="true"
+            app:vm_line_decoration="center"
             app:vm_line_description="前往系统设置修改消息声音与震动"
             app:vm_line_title="新消息系统通知"
             />
@@ -32,7 +32,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/app_bg_item"
-            app:vm_line_decoration="false"
             app:vm_line_description="前往系统设置修改消息声音与震动"
             app:vm_line_title="其他消息系统通知"
             />

@@ -50,6 +50,9 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
     // 分割线
     private var mDecorationView: View
 
+    // 分割线辅助定位
+    private var mDecorationAidedView: View
+
     private var mIconRes = 0
     private var mTitle: String? = null
     private var mTitleColor = 0
@@ -61,9 +64,11 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
     private var mDescriptionColor = 0
 
     // 是否展示分割线
-    private var mDecoration = false
+    private var mDecoration = 0
+
     // 分割线高度
     private var mDecorationHeight = 0
+
     // 分割线高度
     private var mDecorationColor = 0
 
@@ -89,6 +94,7 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         mDescriptionView = findViewById(R.id.vmLineDescriptionTV)
         mBottomContainer = findViewById(R.id.vmLineBottomContainer)
         mDecorationView = findViewById(R.id.vmLineDecoration)
+        mDecorationAidedView = findViewById(R.id.vmLineDecorationAidedView)
 
         // 获取控件的属性值
         handleAttrs(context, attrs)
@@ -114,7 +120,7 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         mRightIconRes = array.getResourceId(styleable.VMLineView_vm_line_right_icon, mRightIconRes)
         mDescription = array.getString(styleable.VMLineView_vm_line_description)
         mDescriptionColor = array.getColor(styleable.VMLineView_vm_line_description_color, mDescriptionColor)
-        mDecoration = array.getBoolean(styleable.VMLineView_vm_line_decoration, mDecoration)
+        mDecoration = array.getInt(styleable.VMLineView_vm_line_decoration, mDecoration)
         mDecorationHeight = array.getDimensionPixelOffset(styleable.VMLineView_vm_line_decoration_height, mDecorationHeight)
         mDecorationColor = array.getColor(styleable.VMLineView_vm_line_decoration_color, mDecorationColor)
         array.recycle()
@@ -167,12 +173,15 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
             mDescriptionView.text = mDescription
         }
 
-        if (mDecoration) {
+        if (mDecoration == 0) {
+            mDecorationView.visibility = View.GONE
+        } else {
             mDecorationView.visibility = View.VISIBLE
             mDecorationView.layoutParams.height = mDecorationHeight
             mDecorationView.setBackgroundColor(mDecorationColor)
-        } else {
-            mDecorationView.visibility = View.GONE
+
+            mDecorationAidedView.visibility = if (mDecoration == 1) View.VISIBLE else View.GONE
+
         }
     }
 

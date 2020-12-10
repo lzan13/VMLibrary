@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:background="@color/app_bg_item"
             app:vm_line_caption_color="@color/app_caption"
-            app:vm_line_decoration="true"
+            app:vm_line_decoration="center"
             app:vm_line_right_icon="@drawable/ic_arrow_next"
             app:vm_line_title="@string/settings_debug_env"
             />

@@ -49,7 +49,14 @@
         <!--底部描述文本颜色-->
         <attr name="vm_line_description_color" format="color|integer" />
         <!--装饰分割线-->
-        <attr name="vm_line_decoration" format="boolean" />
+        <attr name="vm_line_decoration">
+            <!--默认隐藏-->
+            <enum name="hide" value="0" />
+            <!--居中，两头留空-->
+            <enum name="center" value="1" />
+            <!--居右，头部留空-->
+            <enum name="right" value="2" />
+        </attr>
         <!--装饰分割线高度-->
         <attr name="vm_line_decoration_height" format="dimension" />
         <!--装饰分割线颜色-->

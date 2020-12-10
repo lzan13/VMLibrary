@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/vm_dimen_8"
         android:background="@color/app_bg_item"
-        app:vm_line_decoration="true"
+        app:vm_line_decoration="center"
         app:vm_line_right_icon="@drawable/ic_switch_selector"
         app:vm_line_title="@string/settings_notify_switch_msg" />
 

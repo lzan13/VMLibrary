@@ -76,7 +76,7 @@
             <com.vmloft.develop.library.tools.widget.VMLineView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:vm_line_decoration="true"
+                app:vm_line_decoration="center"
                 app:vm_line_decoration_color="@color/vm_red"
                 app:vm_line_decoration_height="@dimen/vm_dimen_6"
                 app:vm_line_right_icon="@drawable/ic_arrow_next"
@@ -86,7 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:vm_line_caption="右侧说明"
-                app:vm_line_decoration="true"
+                app:vm_line_decoration="right"
                 app:vm_line_right_icon="@drawable/ic_arrow_next"
                 app:vm_line_title="测试 Item" />
 
@@ -94,7 +94,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:vm_line_caption="右侧说明"
-                app:vm_line_decoration="true"
                 app:vm_line_description="测试描述文本，这是底部的描述文本"
                 app:vm_line_right_icon="@drawable/ic_arrow_next"
                 app:vm_line_title="测试 Item" />
@@ -103,6 +102,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:vm_line_caption="右侧说明"
+                app:vm_line_decoration="center"
                 app:vm_line_description="测试描述文本，这是底部的描述文本"
                 app:vm_line_title="测试 Item" />
 

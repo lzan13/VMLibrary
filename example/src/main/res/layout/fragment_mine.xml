@@ -147,7 +147,7 @@
         <!--            android:layout_height="wrap_content"-->
         <!--            android:layout_marginTop="@dimen/vm_margin_large"-->
         <!--            android:background="@color/app_bg_item"-->
-        <!--            app:vm_line_decoration="true"-->
+        <!--            app:vm_line_decoration="center"-->
         <!--            app:vm_line_icon="@drawable/ic_like_fill"-->
         <!--            app:vm_line_title="@string/me_like" />-->
 
@@ -167,7 +167,6 @@
             android:layout_marginTop="@dimen/vm_dimen_8"
             android:background="@color/app_bg_item"
             app:vm_line_caption_color="@color/app_caption"
-            app:vm_line_decoration="false"
             app:vm_line_right_icon="@drawable/ic_arrow_next"
             app:vm_line_title="@string/settings" />
     </LinearLayout>

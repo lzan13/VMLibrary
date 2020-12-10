@@ -127,7 +127,7 @@
     <color name="vm_btn_white">@color/vm_white</color>
     <color name="vm_btn_gray">@color/vm_gray_white</color>
     <color name="vm_btn_gray_unable">@color/vm_gray_white_54</color>
-    <color name="vm_btn_ripple">@color/vm_black</color>
+    <color name="vm_btn_ripple">@color/vm_translucent</color>
 
     <!--装饰线-->
     <color name="vm_decoration_gray">@color/vm_black_12</color>
