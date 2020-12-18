@@ -25,7 +25,7 @@
 
     <Button
         android:id="@+id/vmIKnowBtn"
-        style="@style/VMBtn.Flat.Fillet.Green"
+        style="@style/VMBtn.Flat.Fillet.Accent"
         android:layout_width="match_parent"
         android:layout_marginStart="@dimen/vm_dimen_24"
         android:layout_marginTop="@dimen/vm_dimen_16"

@@ -2,10 +2,10 @@
 <resources>
 
     <!--暗色主题-->
-    <color name="vm_theme_primary_dark">@color/vm_black_87</color>
-    <color name="vm_theme_primary">@color/vm_black</color>
-    <color name="vm_theme_accent">@color/vm_green_54</color>
-    <color name="vm_theme_background">#ff363636</color>
+    <color name="vm_primary_dark">@color/vm_black_87</color>
+    <color name="vm_primary">@color/vm_black</color>
+    <color name="vm_accent">@color/vm_green_54</color>
+    <color name="vm_background">#ff363636</color>
     <color name="vm_toolbar_control">#89f8f8f8</color>
 
     <!--文字-->
@@ -21,16 +21,7 @@
     <!--悬浮窗-->
     <color name="vm_bg_float_menu">#ff363636</color>
 
-    <!--按钮-->
-    <color name="vm_btn_text_dark">@color/vm_gray_white_54</color>
-    <color name="vm_btn_text_dark_unusable">@color/vm_gray_white_54</color>
-    <color name="vm_btn_text_light">@color/vm_gray_white</color>
-    <color name="vm_btn_text_light_unusable">@color/vm_gray_white_87</color>
-    <!--输入-->
-    <color name="vm_edit">@color/vm_gray_white_87</color>
-    <color name="vm_edit_hint">@color/vm_gray_white_54</color>
-
-    <!--按钮-->
+    <!--按钮背景-->
     <color name="vm_btn_red">@color/vm_red_54</color>
     <color name="vm_btn_red_unable">@color/vm_red_12</color>
     <color name="vm_btn_green">@color/vm_green_54</color>
@@ -38,13 +29,21 @@
     <color name="vm_btn_blue">@color/vm_blue_54</color>
     <color name="vm_btn_blue_unable">@color/vm_blue_12</color>
     <color name="vm_btn_white">@color/vm_gray_white_87</color>
-    <color name="vm_btn_gray">@color/vm_gray</color>
-    <color name="vm_btn_gray_unable">@color/vm_gray_white_54</color>
-    <color name="vm_btn_ripple">@color/vm_white</color>
+    <color name="vm_btn_default">@color/vm_gray</color>
+    <color name="vm_btn_unable">@color/vm_gray_white_54</color>
+    <color name="vm_btn_ripple">@color/vm_white_54</color>
+    <!--按钮文字-->
+    <color name="vm_btn_text_dark">@color/vm_gray_white_54</color>
+    <color name="vm_btn_text_dark_unusable">@color/vm_gray_54</color>
+    <color name="vm_btn_text_light">@color/vm_gray_white</color>
+    <color name="vm_btn_text_light_unusable">@color/vm_gray_white_54</color>
+
+    <!--输入-->
+    <color name="vm_edit">@color/vm_gray_white_87</color>
+    <color name="vm_edit_hint">@color/vm_gray_white_54</color>
 
     <!--装饰线-->
-    <color name="vm_decoration_gray">@color/vm_gray_12</color>
-    <color name="vm_decoration_white">@color/vm_white_12</color>
+    <color name="vm_decoration">#a8a8a8</color>
 
     <!--指示器-->
     <color name="vm_indicator_normal">@color/vm_gray_white_54</color>

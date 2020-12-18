@@ -49,7 +49,7 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         mTitleColor = VMColor.byRes(R.color.vm_title)
         mSubtitleColor = VMColor.byRes(R.color.vm_subhead)
         mEndBtnColor = VMColor.byRes(R.color.vm_text_dark_color)
-        mEndBtnBG = R.drawable.vm_click_fillet_transparent
+        mEndBtnBG = R.drawable.vm_selector_transparent_fillet
 
         // 获取控件的属性值
         handleAttrs(context, attrs)

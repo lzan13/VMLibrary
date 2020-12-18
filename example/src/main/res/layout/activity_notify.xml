@@ -38,7 +38,7 @@
         <!--检查通知-->
         <Button
             android:id="@+id/notifyCheckBtn"
-            style="@style/VMBtn.Flat.Green"
+            style="@style/VMBtn.Flat.Accent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/vm_dimen_16"
@@ -48,7 +48,7 @@
         <!--发出通知-->
         <Button
             android:id="@+id/notifySendBtn"
-            style="@style/VMBtn.Flat.Green"
+            style="@style/VMBtn.Flat.Accent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/vm_dimen_16"

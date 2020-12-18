@@ -118,7 +118,7 @@ class VMFloatMenu(private val mContext: Context) : PopupWindow(mContext) {
         itemView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16.0f)
         itemView.setPadding(mItemPadding, mItemPadding, mItemPadding * 2, mItemPadding)
         itemView.setTextColor(ContextCompat.getColor(mContext, bean.itemColor))
-        itemView.setBackgroundResource(drawable.vm_click_full_transparent)
+        itemView.setBackgroundResource(drawable.vm_selector_transparent_full)
         mItemContainer.addView(itemView)
         mItemCount++
         setItemClick(itemView)

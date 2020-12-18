@@ -27,7 +27,7 @@
                 <!--倒计时控件-->
                 <com.vmloft.develop.library.tools.widget.VMTimerBtn
                     android:id="@+id/customTimerBtn"
-                    style="@style/VMBtn.Fillet.Green"
+                    style="@style/VMBtn.Fillet.Accent"
                     android:layout_margin="@dimen/vm_margin_normal"
                     android:onClick="startTimer"
                     android:text="开启定时"
@@ -36,21 +36,21 @@
 
                 <Button
                     android:id="@+id/btn_toast_1"
-                    style="@style/VMBtn.Fillet.Green"
+                    style="@style/VMBtn.Fillet.Accent"
                     android:layout_margin="@dimen/vm_margin_normal"
                     android:onClick="toast1"
                     android:text="Toast1" />
 
                 <Button
                     android:id="@+id/btn_toast_2"
-                    style="@style/VMBtn.Fillet.Green"
+                    style="@style/VMBtn.Fillet.Accent"
                     android:layout_margin="@dimen/vm_margin_normal"
                     android:onClick="toast2"
                     android:text="Toast2" />
 
                 <Button
                     android:id="@+id/btn_toast_3"
-                    style="@style/VMBtn.Fillet.Green"
+                    style="@style/VMBtn.Fillet.Accent"
                     android:layout_margin="@dimen/vm_margin_normal"
                     android:onClick="toast3"
                     android:text="Toast3" />

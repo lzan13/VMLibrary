@@ -26,7 +26,7 @@
             <!--启动弹幕-->
             <Button
                 android:id="@+id/barrageStartBtn"
-                style="@style/VMBtn.Flat.Fillet.Green"
+                style="@style/VMBtn.Flat.Fillet.Accent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/vm_margin_normal"
@@ -34,7 +34,7 @@
             <!--继续弹幕-->
             <Button
                 android:id="@+id/barrageResumeBtn"
-                style="@style/VMBtn.Flat.Fillet.Green"
+                style="@style/VMBtn.Flat.Fillet.Accent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/vm_margin_normal"
@@ -50,7 +50,7 @@
             <!--停止弹幕-->
             <Button
                 android:id="@+id/barrageStopBtn"
-                style="@style/VMBtn.Flat.Fillet.Red"
+                style="@style/VMBtn.Flat.Fillet.Accent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/vm_margin_normal"
@@ -58,7 +58,7 @@
             <!--发出弹幕-->
             <Button
                 android:id="@+id/barrageSendBtn"
-                style="@style/VMBtn.Flat.Fillet.Green"
+                style="@style/VMBtn.Flat.Fillet.Accent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/vm_margin_normal"

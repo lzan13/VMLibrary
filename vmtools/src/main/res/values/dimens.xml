@@ -67,7 +67,7 @@
     <dimen name="vm_btn_height_normal">40dp</dimen>
     <dimen name="vm_btn_height_large">48dp</dimen>
     <dimen name="vm_btn_fillet_radius">36dp</dimen>
-    <dimen name="vm_btn_rectangle_radius">3dp</dimen>
+    <dimen name="vm_btn_rectangle_radius">4dp</dimen>
 
 
     <!--定义一些通用尺寸-->

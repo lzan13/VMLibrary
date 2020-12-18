@@ -83,7 +83,7 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         mDescriptionColor = VMColor.byRes(R.color.vm_description)
 
         mDecorationHeight = VMDimen.getDimenPixel(R.dimen.vm_dimen_0_1)
-        mDecorationColor = VMColor.byRes(R.color.vm_decoration_gray)
+        mDecorationColor = VMColor.byRes(R.color.vm_decoration)
 
         mIconView = findViewById(R.id.vmLineIconIV)
         mTitleView = findViewById(R.id.vmLineTitleTV)

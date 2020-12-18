@@ -10,10 +10,10 @@
         <!--各控件激活时的颜色，一般是 CheckBox、EditText、Switch、Spinner、RadioButton 等控件激活的颜色-->
         <item name="colorAccent">@color/app_accent</item>
 
-        <!--半透明状态栏-->
-        <item name="android:windowTranslucentStatus">true</item>
-        <!--设置状态栏颜色-->
-        <item name="android:statusBarColor">@color/app_primary_dark</item>
+<!--        &lt;!&ndash;半透明状态栏&ndash;&gt;-->
+<!--        <item name="android:windowTranslucentStatus">true</item>-->
+<!--        &lt;!&ndash;设置状态栏颜色&ndash;&gt;-->
+<!--        <item name="android:statusBarColor">@color/app_primary_dark</item>-->
 
         <!--设置是否允许使用转场动画-->
         <item name="android:windowContentTransitions">true</item>
@@ -28,7 +28,6 @@
         <!--<item name="android:windowReenterTransition">@null</item>-->
         <!--<item name="android:windowReturnTransition">@transition/transition_return</item>-->
 
-        <item name="buttonStyle">@style/VMBtn.Green</item>
     </style>
 
     <!--启动时的主题样式-->
@@ -48,7 +47,7 @@
         <!--防止启动瞬间黑屏或白屏，程序启动时的背景图，可以设置为一张代表性的logo，或者设置app框架类图-->
         <item name="android:windowBackground">@drawable/img_splash_statusbar_toolbar</item>
         <!--颜色背景-->
-        <item name="android:colorBackground">@color/vm_theme_background</item>
+        <item name="android:colorBackground">@color/vm_background</item>
     </style>
 
     <!--Display主题-->

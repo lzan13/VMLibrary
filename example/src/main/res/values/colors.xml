@@ -40,7 +40,7 @@
 
 
     <!--按钮颜色-->
-    <color name="app_btn_unenable">@color/vm_gray_54</color>
+    <color name="app_btn_unable">@color/vm_gray_54</color>
     <color name="app_btn_enable">@color/app_main</color>
 
     <!--图标颜色-->

@@ -45,7 +45,7 @@ class HomeFragment : BaseFragment() {
         setTopTitle(R.string.nav_home)
         setTopSubtitle("这个是我的工具类库入口")
         commonTopBar.setCenter(false)
-        commonTopBar.setEndBtnEnable(false)
+        commonTopBar.setEndBtnEnable(true)
         commonTopBar.setEndBtnTextStyle(R.style.AppText_TopBarEndBtn)
 //        commonTopBar.setEndBtnBackground(R.drawable.vm_click_rectangle_transparent)
         commonTopBar.setEndBtnListener("测试(1/9)") {

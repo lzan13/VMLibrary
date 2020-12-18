@@ -14,19 +14,19 @@
     <Button
         android:id="@+id/startScreenShortBtn"
         android:text="Start Screen Short"
-        style="@style/VMBtn.Fillet.Green"
+        style="@style/VMBtn.Fillet.Accent"
         />
 
     <Button
         android:id="@+id/startScreenRecordBtn"
         android:text="Start Screen Record"
-        style="@style/VMBtn.Fillet.Green"
+        style="@style/VMBtn.Fillet.Accent"
         />
 
     <Button
         android:id="@+id/stopBtn"
         android:text="Stop"
-        style="@style/VMBtn.Fillet.Green"
+        style="@style/VMBtn.Fillet.Accent"
         />
 
     <TextView

@@ -23,13 +23,13 @@
 
             <Button
                 android:text="Call js"
-                style="@style/VMBtn.Green"
+                style="@style/VMBtn.Accent"
                 android:onClick="callJS"
                 />
 
             <Button
                 android:text="Call js params"
-                style="@style/VMBtn.Green"
+                style="@style/VMBtn.Accent"
                 android:onClick="callJSArgs"
                 />
         </com.vmloft.develop.library.tools.widget.VMViewGroup>
