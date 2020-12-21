@@ -5,7 +5,7 @@
     <color name="app_primary">#ff222222</color>
     <color name="app_primary_dark">#ff222222</color>
     <!--强调色-->
-    <color name="app_accent">@color/vm_accent</color>
+    <color name="app_accent">#C17300</color>
     <!--主色-->
     <color name="app_main">@color/app_accent</color>
 

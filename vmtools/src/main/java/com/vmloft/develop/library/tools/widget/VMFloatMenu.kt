@@ -1,22 +1,17 @@
 package com.vmloft.develop.library.tools.widget
 
 import android.content.Context
-import android.util.TypedValue
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.MeasureSpec
 import android.view.ViewGroup.LayoutParams
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.vmloft.develop.library.tools.R
-
-import com.vmloft.develop.library.tools.R.color
-import com.vmloft.develop.library.tools.R.drawable
-import com.vmloft.develop.library.tools.R.layout
-import com.vmloft.develop.library.tools.R.style
 import com.vmloft.develop.library.tools.utils.VMDimen
 import com.vmloft.develop.library.tools.utils.VMTheme
 
@@ -26,7 +21,6 @@ import com.vmloft.develop.library.tools.utils.VMTheme
  * 自定义实现悬浮菜单，可以跟随按下位置他拿出，同时适配屏幕大小
  */
 class VMFloatMenu(private val mContext: Context) : PopupWindow(mContext) {
-    //    private var mContentView: View? = null
     private var mItemContainer: LinearLayout
     private var showAtVertical = 0
     private var showAtOrientation = 0
@@ -40,19 +34,28 @@ class VMFloatMenu(private val mContext: Context) : PopupWindow(mContext) {
      * 初始化
      */
     init {
-        contentView = LayoutInflater.from(mContext).inflate(layout.vm_widget_float_menu, null)
+        contentView = LayoutInflater.from(mContext).inflate(R.layout.vm_widget_float_menu, null)
 
         mItemContainer = contentView.findViewById(R.id.vmFloatMenuContainer)
 
-        mItemPadding = VMDimen.dp2px(16)
+        mItemPadding = VMDimen.dp2px(12)
         width = LayoutParams.WRAP_CONTENT
         height = LayoutParams.WRAP_CONTENT
         isFocusable = true
         isOutsideTouchable = true
         inputMethodMode = INPUT_METHOD_NOT_NEEDED
-        val drawable = ContextCompat.getDrawable(mContext, color.vm_transparent)
+        val drawable = ContextCompat.getDrawable(mContext, R.color.vm_transparent)
         setBackgroundDrawable(drawable)
         VMTheme.changeShadow(mItemContainer)
+    }
+
+    /**
+     * 设置菜单背景资源
+     */
+    fun setMenuBackground(resId: Int) {
+        if (resId != 0) {
+            mItemContainer.setBackgroundResource(resId)
+        }
     }
 
     /**
@@ -112,16 +115,26 @@ class VMFloatMenu(private val mContext: Context) : PopupWindow(mContext) {
      * 添加菜单项
      */
     fun addItem(bean: ItemBean) {
-        val itemView = TextView(mContext)
-        itemView.id = bean.itemId
-        itemView.text = bean.itemTitle
-        itemView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16.0f)
-        itemView.setPadding(mItemPadding, mItemPadding, mItemPadding * 2, mItemPadding)
-        itemView.setTextColor(ContextCompat.getColor(mContext, bean.itemColor))
-        itemView.setBackgroundResource(drawable.vm_selector_transparent_full)
-        mItemContainer.addView(itemView)
+        val view = LayoutInflater.from(mContext).inflate(R.layout.vm_widget_float_menu_item, null)
+        val iconIV = view.findViewById<ImageView>(R.id.vmItemIconIV)
+        val titleTV = view.findViewById<TextView>(R.id.vmItemTitleTV)
+
+        view.id = bean.itemId
+        view.setBackgroundResource(R.drawable.vm_selector_transparent_full)
+
+        if (bean.itemIcon != 0) {
+            iconIV.visibility = View.VISIBLE
+            iconIV.setImageResource(bean.itemIcon)
+        } else {
+            iconIV.visibility = View.GONE
+        }
+
+        titleTV.text = bean.itemTitle
+        titleTV.setTextColor(ContextCompat.getColor(mContext, bean.itemColor))
+
+        mItemContainer.addView(view)
         mItemCount++
-        setItemClick(itemView)
+        setItemClick(view)
     }
 
     /**
@@ -129,16 +142,16 @@ class VMFloatMenu(private val mContext: Context) : PopupWindow(mContext) {
      */
     private fun setMenuAnim() {
         if (showAtOrientation == SHOW_ON_RIGHT && showAtVertical == SHOW_ON_UP) {
-            animationStyle = style.VMFloatMenuLB
+            animationStyle = R.style.VMFloatMenuLB
         }
         if (showAtOrientation == SHOW_ON_RIGHT && showAtVertical == SHOW_ON_DOWN) {
-            animationStyle = style.VMFloatMenuLT
+            animationStyle = R.style.VMFloatMenuLT
         }
         if (showAtOrientation == SHOW_ON_LEFT && showAtVertical == SHOW_ON_UP) {
-            animationStyle = style.VMFloatMenuRB
+            animationStyle = R.style.VMFloatMenuRB
         }
         if (showAtOrientation == SHOW_ON_LEFT && showAtVertical == SHOW_ON_DOWN) {
-            animationStyle = style.VMFloatMenuRT
+            animationStyle = R.style.VMFloatMenuRT
         }
     }
 
@@ -157,22 +170,35 @@ class VMFloatMenu(private val mContext: Context) : PopupWindow(mContext) {
     /**
      * 菜单项的数据 Bean 类
      */
-    class ItemBean {
-        var itemId: Int
-        var itemTitle: String
-        var itemColor: Int
-
-        constructor(id: Int, title: String) {
-            itemId = id
-            itemTitle = title
-            itemColor = color.vm_menu
-        }
-
-        constructor(id: Int, title: String, color: Int) {
-            itemId = id
-            itemTitle = title
-            itemColor = color
-        }
+    class ItemBean(
+            val itemId: Int,
+            val itemTitle: String,
+            val itemColor: Int = R.color.vm_menu,
+            val itemIcon: Int = 0,
+    ) {
+//        var itemId: Int
+//        var itemIcon: Int
+//        var itemTitle: String
+//        var itemColor: Int
+//
+//        constructor(id: Int, title: String) {
+//            itemId = id
+//            itemTitle = title
+//            itemColor = color.vm_menu
+//        }
+//
+//        constructor(id: Int, title: String, color: Int) {
+//            itemId = id
+//            itemTitle = title
+//            itemColor = color
+//        }
+//
+//        constructor(id: Int, icon: Int, title: String, color: Int) {
+//            itemId = id
+//            itemIcon = icon
+//            itemTitle = title
+//            itemColor = color
+//        }
     }
 
     /**

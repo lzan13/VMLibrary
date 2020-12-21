@@ -60,7 +60,7 @@ class VMTimerBtn @JvmOverloads constructor(context: Context, attrs: AttributeSet
     private fun countDown() {
         if (mTimerTime > 0) {
             text = String.format(mTimerText!!, mTimerTime)
-            mHandler!!.sendEmptyMessageDelayed(0, 1000)
+            mHandler?.sendEmptyMessageDelayed(0, 1000)
             mTimerTime--
         } else {
             isEnabled = true

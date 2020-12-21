@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:minWidth="@dimen/vm_dimen_128"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/vm_dimen_16"
+    android:paddingTop="@dimen/vm_dimen_12"
+    android:paddingEnd="@dimen/vm_dimen_16"
+    android:paddingBottom="@dimen/vm_dimen_12">
+
+    <ImageView
+        android:id="@+id/vmItemIconIV"
+        android:layout_width="@dimen/vm_dimen_20"
+        android:layout_height="@dimen/vm_dimen_20"
+        android:layout_marginEnd="@dimen/vm_dimen_8"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/vmItemTitleTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="悬浮菜单项" />
+</LinearLayout>

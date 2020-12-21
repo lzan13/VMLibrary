@@ -28,8 +28,6 @@ class IndicatorViewActivity : BaseActivity() {
         fragmentList.add(IndicatorViewFragment.newInstance("第 1 页"))
         fragmentList.add(IndicatorViewFragment.newInstance("第 2 页"))
         fragmentList.add(IndicatorViewFragment.newInstance("第 3 页"))
-        fragmentList.add(IndicatorViewFragment.newInstance("第 4 页"))
-        fragmentList.add(IndicatorViewFragment.newInstance("第 5 页"))
 
         mAdapter = VMFragmentPagerAdapter(supportFragmentManager, fragmentList)
 

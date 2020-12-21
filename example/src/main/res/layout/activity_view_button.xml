@@ -26,11 +26,27 @@
             android:text="悬默认" />
 
         <Button
+            style="@style/VMBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:enabled="false"
+            android:text="悬默认 🈲" />
+
+        <Button
             style="@style/VMBtn.Accent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/vm_margin_small"
             android:text="悬强调" />
+
+        <Button
+            style="@style/VMBtn.Accent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:enabled="false"
+            android:text="悬强调 🈲" />
 
         <!--悬浮倒角-->
         <Button
@@ -41,11 +57,28 @@
             android:text="悬倒默认" />
 
         <Button
+            style="@style/VMBtn.Fillet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:enabled="false"
+            android:text="悬倒默认 🈲" />
+
+        <Button
             style="@style/VMBtn.Fillet.Accent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/vm_margin_small"
             android:text="悬倒强调" />
+
+        <Button
+            style="@style/VMBtn.Fillet.Accent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:enabled="false"
+            android:text="悬倒强调 🈲" />
+
 
         <!--扁平圆角-->
         <Button
@@ -56,11 +89,27 @@
             android:text="扁透明" />
 
         <Button
+            style="@style/VMBtn.Flat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:enabled="false"
+            android:text="扁透明 🈲" />
+
+        <Button
             style="@style/VMBtn.Flat.Accent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/vm_margin_small"
             android:text="扁强调" />
+
+        <Button
+            style="@style/VMBtn.Flat.Accent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:enabled="false"
+            android:text="扁强调 🈲" />
 
         <!--扁平倒角-->
         <Button
@@ -71,81 +120,89 @@
             android:text="扁倒透明" />
 
         <Button
+            style="@style/VMBtn.Flat.Fillet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:enabled="false"
+            android:text="扁倒透明 🈲" />
+
+        <Button
             style="@style/VMBtn.Flat.Fillet.Accent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/vm_margin_small"
             android:text="扁倒强调" />
 
-        <!---->
-        <!---->
-
-        <!--悬浮圆角禁用-->
-        <Button
-            style="@style/VMBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/vm_margin_small"
-            android:enabled="false"
-            android:text="悬禁默认" />
-
-        <Button
-            style="@style/VMBtn.Accent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/vm_margin_small"
-            android:enabled="false"
-            android:text="悬禁强调" />
-
-        <!--悬浮倒角禁用-->
-        <Button
-            style="@style/VMBtn.Fillet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/vm_margin_small"
-            android:enabled="false"
-            android:text="悬倒禁默认" />
-
-        <Button
-            style="@style/VMBtn.Fillet.Accent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/vm_margin_small"
-            android:enabled="false"
-            android:text="悬倒禁强调" />
-
-        <!--扁平圆角禁用-->
-        <Button
-            style="@style/VMBtn.Flat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/vm_margin_small"
-            android:enabled="false"
-            android:text="扁禁透明" />
-
-        <Button
-            style="@style/VMBtn.Flat.Accent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/vm_margin_small"
-            android:enabled="false"
-            android:text="扁禁强调" />
-
-        <!--扁平倒角禁用-->
-        <Button
-            style="@style/VMBtn.Flat.Fillet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/vm_margin_small"
-            android:enabled="false"
-            android:text="扁倒禁透明" />
-
         <Button
             style="@style/VMBtn.Flat.Fillet.Accent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/vm_margin_small"
             android:enabled="false"
-            android:text="扁倒禁强调" />
+            android:text="扁倒强调 🈲" />
+
+        <!--边框按钮-->
+        <Button
+            style="@style/VMBtn.Flat.Border"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:text="边框默认" />
+
+        <Button
+            style="@style/VMBtn.Flat.Border"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:enabled="false"
+            android:text="边框默认 🈲" />
+
+        <Button
+            style="@style/VMBtn.Flat.Border.Accent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:text="边框强调" />
+
+        <Button
+            style="@style/VMBtn.Flat.Border.Accent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:enabled="false"
+            android:text="边框强调 🈲" />
+
+        <!--边框倒角按钮-->
+        <Button
+            style="@style/VMBtn.Flat.Fillet.Border"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:text="边框倒角" />
+
+        <Button
+            style="@style/VMBtn.Flat.Fillet.Border"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:enabled="false"
+            android:text="边框倒角 🈲" />
+
+        <Button
+            style="@style/VMBtn.Flat.Fillet.Border.Accent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:text="边框倒角强调" />
+
+        <Button
+            style="@style/VMBtn.Flat.Fillet.Border.Accent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_margin_small"
+            android:enabled="false"
+            android:text="边框倒角强调 🈲" />
+
     </com.vmloft.develop.library.tools.widget.VMViewGroup>
 </LinearLayout>

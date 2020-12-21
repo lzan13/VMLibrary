@@ -51,7 +51,7 @@ class VMIndicatorView @JvmOverloads constructor(context: Context, attrs: Attribu
     private var mIndicatorLayoutGravity: Gravity = CENTER
 
     // 指示器模式
-    private var mIndicatorMode: Mode = SOLO
+    private var mIndicatorMode: Mode = INSIDE
 
     // 可以动的指示器对象
     private lateinit var moveHolder: VMIndicatorHolder

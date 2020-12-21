@@ -41,7 +41,7 @@
                     android:id="@+id/mineGenderIV"
                     android:layout_width="@dimen/vm_dimen_16"
                     android:layout_height="@dimen/vm_dimen_16"
-                    android:background="@drawable/shape_bg_fillet_white"
+                    android:background="@drawable/shape_fillet_bg_white"
                     android:padding="@dimen/vm_dimen_2"
                     android:src="@drawable/ic_gender_man"
                     app:layout_constraintBottom_toBottomOf="@+id/mineAvatarIV"

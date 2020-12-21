@@ -31,7 +31,7 @@
             android:background="@color/app_bg"
             app:vm_indicator_gravity="center"
             app:vm_indicator_margin="@dimen/vm_dimen_8"
-            app:vm_indicator_mode="outside"
+            app:vm_indicator_mode="inside"
             app:vm_indicator_normal="@color/app_indicator_normal"
             app:vm_indicator_radius="@dimen/vm_dimen_4"
             app:vm_indicator_selected="@color/app_indicator_select"

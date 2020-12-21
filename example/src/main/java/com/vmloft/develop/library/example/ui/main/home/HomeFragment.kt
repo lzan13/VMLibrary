@@ -47,7 +47,7 @@ class HomeFragment : BaseFragment() {
         commonTopBar.setCenter(false)
         commonTopBar.setEndBtnEnable(true)
         commonTopBar.setEndBtnTextStyle(R.style.AppText_TopBarEndBtn)
-//        commonTopBar.setEndBtnBackground(R.drawable.vm_click_rectangle_transparent)
+//        commonTopBar.setEndBtnBackground(R.drawable.vm_selector_accent_fillet)
         commonTopBar.setEndBtnListener("测试(1/9)") {
             VMToast.make(activity, "测试自定义 VMTopBar 右侧按钮样式").show()
             VMLog.json("{'app':'VMLibrary', 'version':'1.0.0', 'tag':['tools','kotlin','android']}")

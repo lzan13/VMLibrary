@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/shape_bg_fillet_white"
+    android:background="@drawable/shape_fillet_bg_white"
     android:backgroundTint="@color/app_bg_item"
     android:gravity="center"
     android:orientation="horizontal"
