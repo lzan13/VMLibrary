@@ -1,9 +1,10 @@
-package com.vmloft.develop.library.example.demo.notify
+package com.vmloft.develop.library.example.ui.demo.notify
 
 import com.alibaba.android.arouter.facade.annotation.Route
 
 import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.base.BaseActivity
+import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.template.notify.NotifyManager
 import com.vmloft.develop.library.tools.widget.toast.VMToast
 
@@ -14,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_notify.*
  * Created by lzan13 on 2020/5/18.
  * 描述：测试通知提醒界面
  */
-@Route(path = "/VMLoft/Notify")
+@Route(path = AppRouter.appNotifyTest)
 class NotifyActivity : BaseActivity() {
 
     private var count: Int = 0

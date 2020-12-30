@@ -1,32 +1,37 @@
 package  com.vmloft.develop.library.example.router
 
 import com.alibaba.android.arouter.launcher.ARouter
-//import com.vmloft.develop.library.example.ui.display.DisplayMultiActivity
-//import com.vmloft.develop.library.example.ui.display.DisplaySingleActivity
-//import com.vmloft.develop.library.example.ui.feedback.FeedbackActivity
-//import com.vmloft.develop.library.example.ui.guide.GuideActivity
-//import com.vmloft.develop.library.example.ui.main.MainActivity
-//import com.vmloft.develop.library.example.ui.main.explore.PublishActivity
-//import com.vmloft.develop.library.example.ui.settings.*
-//import com.vmloft.develop.library.example.ui.settings.info.EditAddressActivity
-//import com.vmloft.develop.library.example.ui.settings.info.EditNicknameActivity
-//import com.vmloft.develop.library.example.ui.settings.info.EditSignatureActivity
-//import com.vmloft.develop.library.example.ui.settings.info.InfoSettingsActivity
-//import com.vmloft.develop.library.example.ui.sign.SignInActivity
-//import com.vmloft.develop.library.example.ui.sign.SignUpActivity
-//import com.vmloft.develop.library.example.ui.web.WebActivity
 
 /**
  * Create by lzan13 on 2020-02-24 21:57
  * 描述：针对路由注解统一收口
  */
 object AppRouter {
+    const val appBarrage = "/VMLoft/Barrage"
+    const val appCustomView = "/VMLoft/CustomView"
+    const val appFloatMenu = "/VMLoft/FloatMenu"
+    const val appIndicator = "/VMLoft/Indicator"
+    const val appLoading = "/VMLoft/Loading"
+    const val appLottieAnim = "/VMLoft/LottieAnim"
+    const val appMediaPlay = "/VMLoft/MediaPlay"
+    const val appScheme = "/VMLoft/Scheme"
+    const val appStyle = "/VMLoft/Style"
+    const val appThread = "/VMLoft/Thread"
+    const val appWebTest = "/VMLoft/Web"
+
+    const val appImagePicker = "/VMLoft/ImagePicker"
+
+    const val appSinglePermission = "/VMLoft/SinglePermission"
+    const val appMultiPermission = "/VMLoft/MultiPermission"
+
+
+    const val appNotifyTest = "/VMLoft/Notify"
 
     /**
      * 通用跳转
      * @param path 路径
      */
-    fun go(path: String){
+    fun go(path: String) {
         ARouter.getInstance().build(path).navigation()
     }
 
@@ -42,27 +47,6 @@ object AppRouter {
      */
     fun goGuide() {
         ARouter.getInstance().build("/VMLoft/Guide").navigation()
-    }
-
-    /**
-     * 登录[SignInActivity]
-     */
-    fun goSignIn() {
-        ARouter.getInstance().build("/VMLoft/SignIn").navigation()
-    }
-
-    /**
-     * 注册[SignUpActivity]
-     */
-    fun goSignUp() {
-        ARouter.getInstance().build("/VMLoft/SignUp").navigation()
-    }
-
-    /**
-     * 发布[PublishActivity]
-     */
-    fun goPublishPost() {
-        ARouter.getInstance().build("/VMLoft/PublishPost").navigation()
     }
 
     /**
@@ -154,9 +138,9 @@ object AppRouter {
      */
     fun goDisplayMulti(index: String, list: List<String>) {
         ARouter.getInstance().build("/VMLoft/DisplayMulti")
-            .withString("index", index)
-            .withObject("pictureList", list)
-            .navigation()
+                .withString("index", index)
+                .withObject("pictureList", list)
+                .navigation()
     }
 
     /**
@@ -164,8 +148,8 @@ object AppRouter {
      */
     fun goDisplaySingle(url: String) {
         ARouter.getInstance().build("/VMLoft/DisplaySingle")
-            .withString("url", url)
-            .navigation()
+                .withString("url", url)
+                .navigation()
     }
 
 }

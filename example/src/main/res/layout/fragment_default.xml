@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".demo.custom.IndicatorViewFragment">
+    tools:context=".ui.demo.custom.IndicatorViewFragment">
 
     <TextView
         android:id="@+id/titleTV"

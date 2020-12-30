@@ -22,21 +22,22 @@ import java.util.*
  */
 class HomeFragment : BaseFragment() {
 
-    // 定义动态添加的控件 Id
-    private val barrage = "barrage"
-    private val customView = "customView"
-    private val floatMenu = "floatMenu"
-    private val indicator = "indicator"
-    private val loading = "loading"
-    private val lottieAnim = "lottieAnim"
-    private val mediaPlay = "mediaPlay"
-    private val scheme = "scheme"
-    private val style = "style"
-    private val thread = "thread"
-    private val web = "web"
-
-    private val singlePermission = "singlePermission"
-    private val multiPermission = "multiPermission"
+//    // 定义动态添加的控件 Id
+//    private val barrage = "barrage"
+//    private val customView = "customView"
+//    private val floatMenu = "floatMenu"
+//    private val indicator = "indicator"
+//    private val loading = "loading"
+//    private val lottieAnim = "lottieAnim"
+//    private val mediaPlay = "mediaPlay"
+//    private val scheme = "scheme"
+//    private val style = "style"
+//    private val thread = "thread"
+//    private val web = "web"
+//    private val imagePicker = AppRouter.appImagePicker
+//
+//    private val singlePermission = "singlePermission"
+//    private val multiPermission = "multiPermission"
 
     override fun layoutId() = R.layout.fragment_home
 
@@ -47,37 +48,38 @@ class HomeFragment : BaseFragment() {
         commonTopBar.setCenter(false)
         commonTopBar.setEndBtnEnable(true)
         commonTopBar.setEndBtnTextStyle(R.style.AppText_TopBarEndBtn)
-//        commonTopBar.setEndBtnBackground(R.drawable.vm_selector_accent_fillet)
         commonTopBar.setEndBtnListener("测试(1/9)") {
             VMToast.make(activity, "测试自定义 VMTopBar 右侧按钮样式").show()
             VMLog.json("{'app':'VMLibrary', 'version':'1.0.0', 'tag':['tools','kotlin','android']}")
         }
 
-        addBtn("弹幕", barrage.hashCode())
-        addBtn("自定义控件", customView.hashCode())
-        addBtn("悬浮菜单", floatMenu.hashCode())
-        addBtn("指示器", indicator.hashCode())
-        addBtn("Loading", loading.hashCode())
-        addBtn("Lottie 动画", lottieAnim.hashCode())
-        addBtn("声音播放", mediaPlay.hashCode())
-        addBtn("Scheme", scheme.hashCode())
-        addBtn("按钮", style.hashCode())
-        addBtn("线程测试", thread.hashCode())
-        addBtn("Web 功能", web.hashCode())
+        addBtn("弹幕", AppRouter.appBarrage)
+        addBtn("自定义控件", AppRouter.appCustomView)
+        addBtn("悬浮菜单", AppRouter.appFloatMenu)
+        addBtn("指示器", AppRouter.appIndicator)
+        addBtn("Loading", AppRouter.appLoading)
+        addBtn("Lottie 动画", AppRouter.appLottieAnim)
+        addBtn("声音播放", AppRouter.appMediaPlay)
+        addBtn("Scheme", AppRouter.appScheme)
+        addBtn("按钮", AppRouter.appStyle)
+        addBtn("线程测试", AppRouter.appThread)
+        addBtn("Web 功能", AppRouter.appWebTest)
+        addBtn("图片选择", AppRouter.appImagePicker)
 
-        addBtn("单权限申请", singlePermission.hashCode())
-        addBtn("多权限申请", multiPermission.hashCode())
+        addBtn("单权限申请", AppRouter.appSinglePermission)
+        addBtn("多权限申请", AppRouter.appMultiPermission)
 
     }
 
     /**
      * 添加一个按钮
      */
-    private fun addBtn(title: String, id: Int) {
+    private fun addBtn(title: String, tag: String) {
         val inflater = LayoutInflater.from(activity)
         val btn = inflater.inflate(R.layout.item_button, null, false) as Button
         btn.text = title
-        btn.id = id
+        btn.id = tag.hashCode()
+        btn.tag = tag
         btn.setOnClickListener(viewListener)
         viewGroup.addView(btn)
     }
@@ -86,22 +88,23 @@ class HomeFragment : BaseFragment() {
     }
 
     private val viewListener = View.OnClickListener { v: View ->
-        when (v.id) {
-            barrage.hashCode() -> AppRouter.go("/VMLoft/Barrage")
-            customView.hashCode() -> AppRouter.go("/VMLoft/CustomView")
-            floatMenu.hashCode() -> AppRouter.go("/VMLoft/FloatMenu")
-            indicator.hashCode() -> AppRouter.go("/VMLoft/Indicator")
-            loading.hashCode() -> AppRouter.go("/VMLoft/Loading")
-            lottieAnim.hashCode() -> AppRouter.go("/VMLoft/LottieAnim")
-            mediaPlay.hashCode() -> AppRouter.go("/VMLoft/MediaPlay")
-            scheme.hashCode() -> AppRouter.go("/VMLoft/Scheme")
-            style.hashCode() -> AppRouter.go("/VMLoft/BtnStyle")
-            thread.hashCode() -> AppRouter.go("/VMLoft/Thread")
-            web.hashCode() -> AppRouter.go("/VMLoft/Web")
+        AppRouter.go(v.tag as String)
+//        when (v.id) {
+//            barrage.hashCode() -> AppRouter.go("/VMLoft/Barrage")
+//            customView.hashCode() -> AppRouter.go("/VMLoft/CustomView")
+//            floatMenu.hashCode() -> AppRouter.go("/VMLoft/FloatMenu")
+//            indicator.hashCode() -> AppRouter.go("/VMLoft/Indicator")
+//            loading.hashCode() -> AppRouter.go("/VMLoft/Loading")
+//            lottieAnim.hashCode() -> AppRouter.go("/VMLoft/LottieAnim")
+//            mediaPlay.hashCode() -> AppRouter.go("/VMLoft/MediaPlay")
+//            scheme.hashCode() -> AppRouter.go("/VMLoft/Scheme")
+//            style.hashCode() -> AppRouter.go("/VMLoft/BtnStyle")
+//            thread.hashCode() -> AppRouter.go("/VMLoft/Thread")
+//            AppRouter.appImagePicker.hashCode() -> AppRouter.go(AppRouter.appImagePicker)
 
-            singlePermission.hashCode() -> checkOnePermissions()
-            multiPermission.hashCode() -> checkPermissions()
-        }
+//            singlePermission.hashCode() -> checkOnePermissions()
+//            multiPermission.hashCode() -> checkPermissions()
+//        }
     }
 
     /**

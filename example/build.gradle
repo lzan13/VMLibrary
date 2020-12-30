@@ -62,6 +62,9 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
 
+    // 图片选择器 https://github.com/yangpeixing/YImagePicker
+    implementation 'com.ypx.yimagepicker:androidx:3.1.4'
+
     // 动画库 https://github.com/LottieFiles/lottie-android
     implementation 'com.airbnb.android:lottie:3.4.4'
 

@@ -1,6 +1,5 @@
 package com.vmloft.develop.library.tools.utils
 
-import android.annotation.TargetApi
 import android.content.ContentUris
 import android.content.Context
 import android.database.Cursor
@@ -17,8 +16,8 @@ import android.provider.MediaStore.Images.Media
 import android.provider.MediaStore.Video
 import com.vmloft.develop.library.tools.VMTools.context
 import com.vmloft.develop.library.tools.utils.VMDate.filenameDateTime
-import com.vmloft.develop.library.tools.utils.logger.VMLog.e
-import com.vmloft.develop.library.tools.utils.logger.VMLog.i
+import com.vmloft.develop.library.tools.utils.logger.VMLog
+
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
@@ -151,7 +150,7 @@ object VMFile {
             output.close()
             return true
         } catch (e: IOException) {
-            e("压缩文件失败 " + e.message)
+            VMLog.e("压缩文件失败 " + e.message)
         }
         return false
     }
@@ -165,20 +164,20 @@ object VMFile {
      */
     fun copyFile(srcPath: String?, destPath: String?): File? {
         if (VMStr.isEmpty(srcPath)) {
-            e("源文件不存在，无法完成复制")
+            VMLog.e("源文件不存在，无法完成复制")
             return null
         }
         val srcFile = File(srcPath)
         if (!srcFile.exists()) {
-            e("源文件不存在，无法完成复制")
+            VMLog.e("源文件不存在，无法完成复制")
             return null
         }
         if (VMStr.isEmpty(destPath)) {
-            e("目标路径不能为 null")
+            VMLog.e("目标路径不能为 null")
             return null
         }
         val destFile = File(destPath)
-        i(destFile.parent)
+        VMLog.i(destFile.parent)
         if (!isDirExists(destFile.parent)) {
             createDirectory(destFile.parent)
         }
@@ -194,9 +193,9 @@ object VMFile {
             outputStream.close()
             return destFile
         } catch (e: FileNotFoundException) {
-            e("拷贝文件出错：$e")
+            VMLog.e("拷贝文件出错：$e")
         } catch (e: IOException) {
-            e("拷贝文件出错：$e")
+            VMLog.e("拷贝文件出错：$e")
         }
         return null
     }
@@ -434,7 +433,7 @@ object VMFile {
      *
      * @return 返回得到的路径
      */
-     val cacheFromSDCard: String
+    val cacheFromSDCard: String
         get() = context.externalCacheDir!!.path + "/"
 
     /**
@@ -450,8 +449,11 @@ object VMFile {
      *
      * @return 返回得到的路径
      */
-    val filesFromSDCard: String
-        get() = context.getExternalFilesDir("")!!.absolutePath + "/"
+//    val filesFromSDCard: String
+//        get() = context.getExternalFilesDir("")!!.absolutePath + "/"
+    fun filesFromSDCard(path: String = ""): String {
+        return context.getExternalFilesDir(path)!!.absolutePath + "/"
+    }
 
     /**
      * 获取 /sdcard/Android/obb/packagename 目录

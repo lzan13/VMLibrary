@@ -9,6 +9,9 @@ import com.vmloft.develop.library.tools.utils.VMSystem
  * 描述：SharedPreference 管理
  */
 class SPManager {
+    // debug 开关
+    private val debugKey = "debugKey"
+
     // 本地版本
     private val localVersionKey = "localVersionKey"
     // 隐私协议状态
@@ -38,6 +41,15 @@ class SPManager {
             SPManager()
         }
     }
+
+    /**
+     * Debug 状态
+     */
+    fun setDebug(debug: Boolean) {
+        VMSPUtil.getEntry().putAsync(debugKey, debug)
+    }
+
+    fun isDebug(): Boolean = VMSPUtil.getEntry().get(debugKey, com.vmloft.develop.library.tools.BuildConfig.DEBUG) as Boolean
 
     /**
      * 保存当前运行版本号
@@ -133,13 +145,13 @@ class SPManager {
     }
 
     /**
-     * 图片资源开关
+     * 资源开关
      */
     fun setAutoLoad(auto: Boolean) {
         VMSPUtil.getEntry().putAsync(pictureAutoLoadKey, auto)
     }
 
-    fun getAutoLoad(): Boolean {
+    fun isAutoLoad(): Boolean {
         return VMSPUtil.getEntry().get(pictureAutoLoadKey, true) as Boolean
     }
 
@@ -147,7 +159,7 @@ class SPManager {
         VMSPUtil.getEntry().putAsync(pictureSaveDICMKey, auto)
     }
 
-    fun getSaveDICM(): Boolean {
+    fun isSaveDICM(): Boolean {
         return VMSPUtil.getEntry().get(pictureSaveDICMKey, true) as Boolean
     }
 

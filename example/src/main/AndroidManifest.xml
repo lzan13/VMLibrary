@@ -61,7 +61,7 @@
             android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme"
             />
-        <!--图片资源设置页面-->
+        <!--资源设置页面-->
         <activity
             android:name=".ui.settings.PictureSettingsActivity"
             android:screenOrientation="fullSensor"
@@ -95,28 +95,28 @@
             />
 
         <!--自定义弹幕-->
-        <activity android:name=".demo.custom.BarrageViewActivity" />
+        <activity android:name=".ui.demo.custom.BarrageViewActivity" />
         <!--自定义控件-->
         <activity
-            android:name=".demo.custom.CustomViewActivity"
+            android:name=".ui.demo.custom.CustomViewActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <!--自定义Loading-->
         <activity
-            android:name=".demo.custom.LoadingViewActivity"
+            android:name=".ui.demo.custom.LoadingViewActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <!--弹出PopupWindow窗口-->
-        <activity android:name=".demo.dialog.FloatMenuActivity" />
+        <activity android:name=".ui.demo.dialog.FloatMenuActivity" />
         <!--指示器界面-->
-        <activity android:name=".demo.custom.IndicatorViewActivity" />
+        <activity android:name=".ui.demo.custom.IndicatorViewActivity" />
         <!--Lottie 动画-->
-        <activity android:name=".demo.anim.LottieAnimActivity" />
+        <activity android:name=".ui.demo.anim.LottieAnimActivity" />
         <!--播放音频-->
-        <activity android:name=".demo.media.MediaPlayActivity" />
+        <activity android:name=".ui.demo.media.MediaPlayActivity" />
         <!--通知提醒-->
-        <activity android:name=".demo.notify.NotifyActivity" />
+        <activity android:name=".ui.demo.notify.NotifyActivity" />
         <!--通过 url 打开页面 vmlibrary://demo/with?id=1001-->
-        <activity android:name=".demo.scheme.SchemeActivity">
+        <activity android:name=".ui.demo.scheme.SchemeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -130,11 +130,13 @@
             </intent-filter>
         </activity>
         <!--按钮主题样式-->
-        <activity android:name=".demo.custom.ButtonThemeActivity" />
+        <activity android:name=".ui.demo.custom.ButtonThemeActivity" />
         <!--测试线程-->
-        <activity android:name=".demo.thread.ThreadActivity" />
+        <activity android:name=".ui.demo.thread.ThreadActivity" />
         <!--Web 功能界面-->
-        <activity android:name=".demo.web.WebActivity" />
+        <activity android:name=".ui.demo.web.WebTestActivity" />
+        <!--图片选择功能界面-->
+        <activity android:name=".ui.demo.image.ImagePickerActivity" />
 
 
     </application>

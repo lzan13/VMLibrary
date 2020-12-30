@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.example.demo.thread
+package com.vmloft.develop.library.example.ui.demo.thread
 
 import android.os.Handler
 import android.os.Message
@@ -7,12 +7,13 @@ import com.alibaba.android.arouter.facade.annotation.Route
 
 import com.vmloft.develop.library.example.R.layout
 import com.vmloft.develop.library.example.base.BaseActivity
+import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.tools.utils.logger.VMLog
 
 /**
  * Create by lzan13 on 2019-11-15 13:15
  */
-@Route(path = "/VMLoft/Thread")
+@Route(path = AppRouter.appThread)
 class ThreadActivity : BaseActivity() {
     override fun layoutId(): Int = layout.activity_thread
 

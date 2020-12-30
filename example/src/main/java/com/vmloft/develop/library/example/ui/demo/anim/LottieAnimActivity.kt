@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.example.demo.anim
+package com.vmloft.develop.library.example.ui.demo.anim
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,6 +10,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 
 import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.base.BaseActivity
+import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.tools.utils.VMDimen
 
 import kotlinx.android.synthetic.main.activity_anim_lottie.*
@@ -18,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_anim_lottie.*
  * Created by lzan13 on 2017/4/7.
  * 描述：测试 Lottie 动画
  */
-@Route(path = "/VMLoft/LottieAnim")
+@Route(path = AppRouter.appLottieAnim)
 class LottieAnimActivity : BaseActivity() {
 
     private val lottieAnimList: MutableList<String> = mutableListOf()

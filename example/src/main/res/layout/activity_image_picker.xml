@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/widget_common_top_bar" />
+
+    <com.vmloft.develop.library.tools.widget.VMViewGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/imagePickerSingle"
+            style="@style/VMBtn.Flat.Accent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_dimen_16"
+            android:text="单选" />
+
+        <Button
+            android:id="@+id/imagePickerCrop"
+            style="@style/VMBtn.Flat.Accent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_dimen_16"
+            android:text="单选裁剪" />
+
+        <Button
+            android:id="@+id/imagePickerMultiple"
+            style="@style/VMBtn.Flat.Accent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_dimen_16"
+            android:text="多选" />
+
+        <Button
+            android:id="@+id/imagePickerCamera"
+            style="@style/VMBtn.Flat.Accent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_dimen_16"
+            android:text="拍照" />
+
+        <Button
+            android:id="@+id/imagePickerVideo"
+            style="@style/VMBtn.Flat.Accent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_dimen_16"
+            android:text="拍视频" />
+
+        <ImageView
+            android:id="@+id/imagePickerIV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.vmloft.develop.library.tools.widget.VMViewGroup>
+</LinearLayout>

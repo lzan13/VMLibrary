@@ -1,16 +1,17 @@
-package com.vmloft.develop.library.example.demo.custom
+package com.vmloft.develop.library.example.ui.demo.custom
 
 
 import com.alibaba.android.arouter.facade.annotation.Route
 
 import com.vmloft.develop.library.example.R.layout
 import com.vmloft.develop.library.example.base.BaseActivity
+import com.vmloft.develop.library.example.router.AppRouter
 
 /**
  * Created by lzan13 on 2017/4/1.
  * 描述：测试 Loading 控件
  */
-@Route(path = "/VMLoft/Loading")
+@Route(path = AppRouter.appLoading)
 class LoadingViewActivity : BaseActivity() {
 
     override fun layoutId(): Int = layout.activity_view_loading

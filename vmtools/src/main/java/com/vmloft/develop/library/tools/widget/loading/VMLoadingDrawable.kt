@@ -1,14 +1,11 @@
 package com.vmloft.develop.library.tools.widget.loading
 
-import android.content.Context
+
 import android.graphics.Canvas
 import android.graphics.ColorFilter
 import android.graphics.PixelFormat
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
-import android.util.AttributeSet
-import android.view.View
-import androidx.constraintlayout.solver.widgets.WidgetContainer.getBounds
 
 
 /**

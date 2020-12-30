@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.example.demo.media
+package com.vmloft.develop.library.example.ui.demo.media
 
 import android.media.MediaPlayer
 import android.media.audiofx.Visualizer
@@ -7,6 +7,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 
 import com.vmloft.develop.library.example.R.layout
 import com.vmloft.develop.library.example.base.BaseActivity
+import com.vmloft.develop.library.example.router.AppRouter
 
 import java.io.IOException
 
@@ -14,7 +15,7 @@ import java.io.IOException
  * Created by lzan13 on 2017/6/14.
  * 测试系统播放音频相关界面
  */
-@Route(path = "/VMLoft/MediaPlay")
+@Route(path = AppRouter.appMediaPlay)
 class MediaPlayActivity : BaseActivity() {
     private val mediaStatusNormal = 0
     private val mediaStatusPausing = 1

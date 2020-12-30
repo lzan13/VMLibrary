@@ -1,5 +1,6 @@
 package com.vmloft.develop.library.tools.utils
 
+import android.annotation.SuppressLint
 import android.app.ActivityManager
 import android.app.ActivityManager.RunningAppProcessInfo
 import android.content.ClipData
@@ -11,6 +12,7 @@ import android.os.Build.VERSION_CODES
 import android.os.Handler
 import android.os.Looper
 import android.os.Process
+import android.provider.Settings
 import com.vmloft.develop.library.tools.VMTools.context
 import com.vmloft.develop.library.tools.utils.logger.VMLog.e
 import java.util.concurrent.Executors
@@ -25,6 +27,7 @@ object VMSystem {
 
     // 线程池
     private val mExecutorPool = Executors.newCachedThreadPool()
+
     /**
      * 在 UI 线程中延迟执行
      */
@@ -38,12 +41,14 @@ object VMSystem {
     fun runTask(runnable: Runnable?) {
         mExecutorPool.execute(runnable)
     }
+
     /**
      * 复制到剪贴板
      */
     fun copyToClipboard(content: String?): Boolean {
         return copyToClipboard(context, content)
     }
+
     /**
      * 复制到剪贴板
      */
@@ -146,6 +151,14 @@ object VMSystem {
             e.printStackTrace()
         }
         return name
+    }
+
+    /**
+     * 获取设备 Id，用户临时用户确认身份，或者限制但设备注册单用户
+     */
+    @SuppressLint("HardwareIds")
+    fun deviceId(): String {
+        return Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
     }
 
     /**

@@ -133,8 +133,8 @@ object VMStr {
         if (str == null || "" == str) {
             return true
         }
-        for (i in 0 until str.length) {
-            val c = str[i]
+        for (element in str) {
+            val c = element
             if (c != ' ' && c != '\t' && c != '\r' && c != '\n') {
                 return false
             }

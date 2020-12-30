@@ -26,13 +26,13 @@ class PictureSettingsActivity : BaseActivity() {
         setTopTitle(R.string.settings_debug)
 
         pictureAutoLoadLV.setOnClickListener {
-            SPManager.instance.setAutoLoad(!SPManager.instance.getAutoLoad())
-            pictureAutoLoadLV.isActivated = SPManager.instance.getAutoLoad()
+            SPManager.instance.setAutoLoad(!SPManager.instance.isAutoLoad())
+            pictureAutoLoadLV.isActivated = SPManager.instance.isAutoLoad()
         }
 
         pictureSaveDICMLV.setOnClickListener {
-            SPManager.instance.setSaveDICM(!SPManager.instance.getSaveDICM())
-            pictureSaveDICMLV.isActivated = SPManager.instance.getSaveDICM()
+            SPManager.instance.setSaveDICM(!SPManager.instance.isSaveDICM())
+            pictureSaveDICMLV.isActivated = SPManager.instance.isSaveDICM()
         }
         pictureClearCacheLV.setOnClickListener{
             VMFile.deleteFolder(cachePath, false)
@@ -43,8 +43,8 @@ class PictureSettingsActivity : BaseActivity() {
     }
 
     override fun initData() {
-        pictureAutoLoadLV.isActivated = SPManager.instance.getAutoLoad()
-        pictureSaveDICMLV.isActivated = SPManager.instance.getSaveDICM()
+        pictureAutoLoadLV.isActivated = SPManager.instance.isAutoLoad()
+        pictureSaveDICMLV.isActivated = SPManager.instance.isSaveDICM()
 
         bindCache()
     }

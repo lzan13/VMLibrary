@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.example.demo.dialog
+package com.vmloft.develop.library.example.ui.demo.dialog
 
 import android.view.MotionEvent
 import android.view.View
@@ -6,6 +6,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.vmloft.develop.library.example.R
 
 import com.vmloft.develop.library.example.base.BaseActivity
+import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.tools.utils.logger.VMLog
 import com.vmloft.develop.library.tools.widget.VMFloatMenu
 import com.vmloft.develop.library.tools.widget.VMFloatMenu.IItemClickListener
@@ -18,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_float_menu.*
  *
  * 测试悬浮菜单
  */
-@Route(path = "/VMLoft/FloatMenu")
+@Route(path = AppRouter.appFloatMenu)
 class FloatMenuActivity : BaseActivity() {
 
     private var touchX = 0

@@ -66,9 +66,7 @@ class VMTimerBtn @JvmOverloads constructor(context: Context, attrs: AttributeSet
             isEnabled = true
             text = mBtnText
             mTimerTime = mMaxTime
-            if (listener != null) {
-                listener!!.onTimeOut()
-            }
+            listener?.onTimeOut()
         }
     }
 

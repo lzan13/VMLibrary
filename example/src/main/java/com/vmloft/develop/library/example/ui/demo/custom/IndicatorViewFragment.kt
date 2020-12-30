@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.example.demo.custom
+package com.vmloft.develop.library.example.ui.demo.custom
 
 import android.os.Bundle
 import com.vmloft.develop.library.example.R.layout
