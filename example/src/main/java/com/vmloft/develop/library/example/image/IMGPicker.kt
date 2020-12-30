@@ -67,6 +67,8 @@ class IMGPicker : IPickerPresenter {
                 titleBar.setBackIconID(R.drawable.ic_arrow_back)
                 titleBar.setBackgroundColor(VMColor.byRes(R.color.app_bg))
                 titleBar.setTitleTextColor(VMColor.byRes(R.color.app_title))
+                titleBar.setCompleteBackground(null, null)
+                titleBar.setCompleteTextColor(VMColor.byRes(R.color.app_accent), VMColor.byRes(R.color.app_desc))
                 return titleBar
             }
 
@@ -134,7 +136,10 @@ class IMGPicker : IPickerPresenter {
             return null
         }
         val dialog = AppCompatDialog(activity)
-        dialog.setContentView(VMLoadingView(activity))
+        val loadView = VMLoadingView(activity)
+        loadView.setColorFilter(VMColor.byRes(R.color.app_accent))
+        dialog.setContentView(loadView)
+        dialog.show()
         return dialog
     }
 
@@ -167,14 +172,14 @@ class IMGPicker : IPickerPresenter {
      * @return 是否拦截
      */
     override fun interceptItemClick(
-        activity: Activity?,
-        imageItem: ImageItem,
-        selectImageList: ArrayList<ImageItem>,
-        allSetImageList: ArrayList<ImageItem>,
-        selectConfig: BaseSelectConfig,
-        adapter: PickerItemAdapter,
-        isClickCheckBox: Boolean,
-        reloadExecutor: IReloadExecutor?
+            activity: Activity?,
+            imageItem: ImageItem,
+            selectImageList: ArrayList<ImageItem>,
+            allSetImageList: ArrayList<ImageItem>,
+            selectConfig: BaseSelectConfig,
+            adapter: PickerItemAdapter,
+            isClickCheckBox: Boolean,
+            reloadExecutor: IReloadExecutor?
     ): Boolean {
         return false
     }
@@ -203,11 +208,15 @@ class IMGPicker : IPickerPresenter {
      */
     override fun displayImage(view: View, item: ImageItem, size: Int, isThumbnail: Boolean) {
         var res = if (item.uri != null) item.uri else item.path
-        if (isThumbnail) {
-            IMGLoader.loadThumbnail(view as ImageView, res)
+        if (isThumbnail && size > 0) {
+            IMGLoader.loadThumbnail(view as ImageView, res, size = size)
         } else {
             IMGLoader.loadCover(view as ImageView, res)
         }
+//        Glide.with(view.getContext()).load(object).apply(new RequestOptions ()
+//              .format(isThumbnail ? DecodeFormat . PREFER_RGB_565 : DecodeFormat . PREFER_ARGB_8888))
+//              .override(isThumbnail ? size : Target . SIZE_ORIGINAL)
+//              .into((ImageView) view);
     }
 
     /**
@@ -218,9 +227,9 @@ class IMGPicker : IPickerPresenter {
      * @return true:则拦截选择器完成回调， false，执行默认的选择器回调
      */
     override fun interceptPickerCompleteClick(
-        activity: Activity?,
-        selectedList: ArrayList<ImageItem>,
-        selectConfig: BaseSelectConfig
+            activity: Activity?,
+            selectedList: ArrayList<ImageItem>,
+            selectConfig: BaseSelectConfig
     ): Boolean {
         return false
     }

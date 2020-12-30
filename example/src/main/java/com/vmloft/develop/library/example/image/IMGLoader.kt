@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.bumptech.glide.RequestBuilder
+import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.LazyHeaders
@@ -35,11 +36,11 @@ object IMGLoader {
      * @param avatar 图片地址
      */
     fun loadAvatar(
-        iv: ImageView,
-        avatar: Any?,
-        isCircle: Boolean = false,
-        isRadius: Boolean = false,
-        radiusSize: Int = 4
+            iv: ImageView,
+            avatar: Any?,
+            isCircle: Boolean = false,
+            isRadius: Boolean = false,
+            radiusSize: Int = 4
     ) {
         val options = Options(avatar, R.drawable.img_default_avatar, isCircle, isRadius, radiusSize)
         load(options, iv)
@@ -69,13 +70,13 @@ object IMGLoader {
      * @param isBlur 是否模糊
      */
     fun loadThumbnail(
-        iv: ImageView,
-        path: Any?,
-        isRadius: Boolean = true,
-        radiusSize: Int = 4,
-        isBlur: Boolean = false
+            iv: ImageView,
+            path: Any?,
+            isRadius: Boolean = true,
+            radiusSize: Int = 4,
+            size: Int = 256
     ) {
-        val options = Options(path, isRadius = isRadius, radiusSize = radiusSize, isBlur = isBlur)
+        val options = Options(path, isRadius = isRadius, radiusSize = radiusSize, isThumbnail = true, thumbnailSize = size)
         load(options, iv)
     }
 
@@ -144,22 +145,27 @@ object IMGLoader {
         if (options.isBlur) {
             requestOptions.transform(BlurTransformation())
         }
+        if (options.isThumbnail) {
+            requestOptions.format(DecodeFormat.PREFER_RGB_565).override(options.thumbnailSize)
+        }
 
         val wOptions = wrapOptions(options)
         if (options.referer.isNotEmpty()) {
             val glideUrl = GlideUrl(wOptions.res as String, headers(options.referer))
 
             GlideApp.with(imageView.context)
-                .load(glideUrl)
-                .apply(requestOptions)
-                .thumbnail(placeholder(imageView.context, options))
-                .into(imageView)
+                    .load(glideUrl)
+                    .placeholder(placeholder(imageView.context, options).fallbackDrawable)
+//                    .thumbnail(placeholder(imageView.context, options))
+                    .apply(requestOptions)
+                    .into(imageView)
         } else {
             GlideApp.with(imageView.context)
-                .load(wOptions.res)
-                .apply(requestOptions)
-                .thumbnail(placeholder(imageView.context, options))
-                .into(imageView)
+                    .load(wOptions.res)
+                    .placeholder(placeholder(imageView.context, options).fallbackDrawable)
+//                    .thumbnail(placeholder(imageView.context, options))
+                    .apply(requestOptions)
+                    .into(imageView)
         }
     }
 
@@ -189,10 +195,10 @@ object IMGLoader {
      */
     private fun headers(referer: String): LazyHeaders {
         return LazyHeaders.Builder()
-            .addHeader("accept-encoding", "gzip, deflate, br")
-            .addHeader("accept-language", "zh-CN,zh;q=0.9")
-            .addHeader("referer", referer)
-            .build()
+                .addHeader("accept-encoding", "gzip, deflate, br")
+                .addHeader("accept-language", "zh-CN,zh;q=0.9")
+                .addHeader("referer", referer)
+                .build()
     }
 
     /**
@@ -209,23 +215,26 @@ object IMGLoader {
      * 加载图片配置
      */
     data class Options(
-        // 图片资源，可以为 Uri/String/resId
-        var res: Any?,
-        // 默认资源
-        var defaultResId: Int = R.drawable.img_default,
-        // 是否圆形
-        var isCircle: Boolean = false,
-        // 圆角
-        var isRadius: Boolean = false,
-        var radiusSize: Int = 4,
-        var radiusTL: Int = 4,
-        var radiusTR: Int = 4,
-        var radiusBL: Int = 4,
-        var radiusBR: Int = 4,
-        // 是否模糊
-        var isBlur: Boolean = false,
+            // 图片资源，可以为 Uri/String/resId
+            var res: Any?,
+            // 默认资源
+            var defaultResId: Int = R.drawable.img_default,
+            // 是否圆形
+            var isCircle: Boolean = false,
+            // 圆角
+            var isRadius: Boolean = false,
+            var radiusSize: Int = 4,
+            var radiusTL: Int = 4,
+            var radiusTR: Int = 4,
+            var radiusBL: Int = 4,
+            var radiusBR: Int = 4,
+            // 是否模糊
+            var isBlur: Boolean = false,
+            var isThumbnail: Boolean = false,
+            var thumbnailSize: Int = 256,
 
-        // 参考参数，防盗链使用
-        var referer: String = ""
+            // 参考参数，防盗链使用
+            var referer: String = ""
     )
+
 }
