@@ -54,6 +54,7 @@ class ImagePickerActivity : BaseActivity() {
     private fun singleCrop() {
         IMGChoose.singleCrop(this) {
             VMLog.d("裁剪结果 $it")
+            val path = VMBitmap.compressTempImage(it, 512)
             IMGLoader.loadCover(imagePickerIV, it)
         }
     }

@@ -228,7 +228,7 @@ object VMBitmap {
         options.inJustDecodeBounds = true
 
         var bitmap: Bitmap?
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P && path is Uri) {
             var pfd: ParcelFileDescriptor? = VMTools.context.contentResolver.openFileDescriptor(path as Uri, "r");
             if (pfd?.fileDescriptor != null) {
                 BitmapFactory.decodeFileDescriptor(pfd.fileDescriptor, null, options)
@@ -249,7 +249,7 @@ object VMBitmap {
         // 重新读入图片，注意此时已经把 options.inJustDecodeBounds 设回 false，这里才会真正加载图片内容
         options.inJustDecodeBounds = false
 
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P && path is Uri) {
             var parcelFileDescriptor: ParcelFileDescriptor? = VMTools.context.contentResolver.openFileDescriptor(path as Uri, "r");
             var fileDescriptor: FileDescriptor?
             if (parcelFileDescriptor?.fileDescriptor != null) {
