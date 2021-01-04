@@ -20,6 +20,7 @@ import com.vmloft.develop.library.tools.VMTools
 import com.vmloft.develop.library.tools.utils.VMFile
 import com.vmloft.develop.library.tools.utils.VMFile.cacheFromSDCard
 import com.vmloft.develop.library.tools.utils.VMFile.createDirectory
+import com.vmloft.develop.library.tools.utils.VMFile.createFile
 import com.vmloft.develop.library.tools.utils.VMFile.getPath
 import com.vmloft.develop.library.tools.utils.logger.VMLog
 import java.io.*
@@ -366,9 +367,10 @@ object VMBitmap {
      * 保存 Bitmap 到指定路径
      *
      * @param bitmap 需要保存的图片数据
-     * @param path   保存路径
+     * @param dir   保存文件夹
      */
-    fun saveBitmapToPictures(bitmap: Bitmap, path: String, name: String, format: CompressFormat = JPEG): Uri? {
+    fun saveBitmapToPictures(bitmap: Bitmap, dir: String, name: String, format: CompressFormat = JPEG): Uri? {
+        var uri: Uri? = null
         val values = ContentValues()
         // 需要指定文件信息时，非必须
         values.put(MediaStore.Images.Media.TITLE, name)
@@ -376,25 +378,17 @@ object VMBitmap {
         values.put(MediaStore.Images.Media.DISPLAY_NAME, name)
         values.put(MediaStore.Images.Media.MIME_TYPE, "image/${format.name.decapitalize()}")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            values.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + path)
+            values.put(MediaStore.Images.Media.RELATIVE_PATH, "${Environment.DIRECTORY_PICTURES}/$dir")
         } else {
-            values.put(MediaStore.MediaColumns.DATA, "${VMFile.pictures}/${path}${name}")
+            val path = "${VMFile.pictures}$dir$name"
+            createFile(path)
+            values.put(MediaStore.Images.Media.DATA, path)
         }
+        uri = VMTools.context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
 
-        val uri = VMTools.context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-        if (uri != null) {
-            var outputStream: OutputStream? = null
-            try {
-                outputStream = VMTools.context.contentResolver.openOutputStream(uri)
-                bitmap.compress(format, 100, outputStream)
-            } catch (e: FileNotFoundException) {
-                e.printStackTrace()
-            } finally {
-                outputStream?.close()
-            }
-        }
+        val result = saveBitmapToFiles(bitmap, uri)
 
-        return uri
+        return if (result) uri else null
     }
 
     /**
@@ -404,14 +398,18 @@ object VMBitmap {
      * @param path   保存路径
      * @param format 格式类型
      */
-    fun saveBitmapToFiles(bitmap: Bitmap?, path: String, format: CompressFormat = JPEG): Boolean {
-        VMLog.d("saveBitmapToSDCard -start-")
-        bitmap ?: return false
+    fun saveBitmapToFiles(bitmap: Bitmap?, target: Any?, format: CompressFormat = JPEG): Boolean {
+        VMLog.d("saveBitmapToSDCard -start- $target")
+        if (bitmap == null || target == null) return false
         var result: Boolean
         var outputStream: OutputStream? = null
         try {
-            outputStream = FileOutputStream(path)
-            bitmap.compress(format, 100, outputStream)
+            if (target is String) {
+                outputStream = FileOutputStream(target)
+            } else if (target is Uri) {
+                outputStream = VMTools.context.contentResolver.openOutputStream(target)
+            }
+            bitmap.compress(format, 90, outputStream)
             result = true
         } catch (e: FileNotFoundException) {
             e.printStackTrace()
@@ -419,7 +417,7 @@ object VMBitmap {
         } finally {
             outputStream?.close()
         }
-        VMLog.d("saveBitmapToSDCard -end-")
+        VMLog.d("saveBitmapToSDCard -end- $target")
         return result
     }
 }

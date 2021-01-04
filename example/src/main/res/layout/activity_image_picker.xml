@@ -14,7 +14,7 @@
         android:layout_height="match_parent">
 
         <Button
-            android:id="@+id/imagePickerSingle"
+            android:id="@+id/pickerSingleBtn"
             style="@style/VMBtn.Flat.Accent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
             android:text="单选" />
 
         <Button
-            android:id="@+id/imagePickerCrop"
+            android:id="@+id/pickerCropBtn"
             style="@style/VMBtn.Flat.Accent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
             android:text="多选" />
 
         <Button
-            android:id="@+id/imagePickerCamera"
+            android:id="@+id/pickerCameraBtn"
             style="@style/VMBtn.Flat.Accent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,7 +46,14 @@
             android:text="拍照" />
 
         <Button
-            android:id="@+id/imagePickerVideo"
+            android:id="@+id/pickerVideoBtn"
+            style="@style/VMBtn.Flat.Accent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_dimen_16"
+            android:text="拍视频" />
+        <Button
+            android:id="@+id/saveBtn"
             style="@style/VMBtn.Flat.Accent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -57,5 +64,6 @@
             android:id="@+id/imagePickerIV"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
     </com.vmloft.develop.library.tools.widget.VMViewGroup>
 </LinearLayout>

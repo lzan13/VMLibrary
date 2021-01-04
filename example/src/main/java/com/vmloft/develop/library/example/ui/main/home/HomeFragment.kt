@@ -88,23 +88,12 @@ class HomeFragment : BaseFragment() {
     }
 
     private val viewListener = View.OnClickListener { v: View ->
-        AppRouter.go(v.tag as String)
-//        when (v.id) {
-//            barrage.hashCode() -> AppRouter.go("/VMLoft/Barrage")
-//            customView.hashCode() -> AppRouter.go("/VMLoft/CustomView")
-//            floatMenu.hashCode() -> AppRouter.go("/VMLoft/FloatMenu")
-//            indicator.hashCode() -> AppRouter.go("/VMLoft/Indicator")
-//            loading.hashCode() -> AppRouter.go("/VMLoft/Loading")
-//            lottieAnim.hashCode() -> AppRouter.go("/VMLoft/LottieAnim")
-//            mediaPlay.hashCode() -> AppRouter.go("/VMLoft/MediaPlay")
-//            scheme.hashCode() -> AppRouter.go("/VMLoft/Scheme")
-//            style.hashCode() -> AppRouter.go("/VMLoft/BtnStyle")
-//            thread.hashCode() -> AppRouter.go("/VMLoft/Thread")
-//            AppRouter.appImagePicker.hashCode() -> AppRouter.go(AppRouter.appImagePicker)
 
-//            singlePermission.hashCode() -> checkOnePermissions()
-//            multiPermission.hashCode() -> checkPermissions()
-//        }
+        when (v.id) {
+            AppRouter.appSinglePermission.hashCode() -> checkOnePermissions()
+            AppRouter.appMultiPermission.hashCode() -> checkPermissions()
+            else -> AppRouter.go(v.tag as String)
+        }
     }
 
     /**

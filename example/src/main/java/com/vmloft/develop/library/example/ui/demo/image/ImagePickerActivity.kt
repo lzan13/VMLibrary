@@ -4,16 +4,14 @@ import com.alibaba.android.arouter.facade.annotation.Route
 
 import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.base.BaseActivity
+import com.vmloft.develop.library.example.common.Constants
 import com.vmloft.develop.library.example.image.IMGChoose
 import com.vmloft.develop.library.example.image.IMGLoader
 import com.vmloft.develop.library.example.router.AppRouter
-import com.vmloft.develop.library.template.notify.NotifyManager
+import com.vmloft.develop.library.example.utils.toast
 import com.vmloft.develop.library.tools.utils.bitmap.VMBitmap
 import com.vmloft.develop.library.tools.utils.logger.VMLog
-import com.vmloft.develop.library.tools.widget.toast.VMToast
 import kotlinx.android.synthetic.main.activity_image_picker.*
-
-import kotlinx.android.synthetic.main.activity_notify.*
 
 
 /**
@@ -31,11 +29,12 @@ class ImagePickerActivity : BaseActivity() {
         super.initUI()
         setTopTitle("图片选择器")
 
-        imagePickerSingle.setOnClickListener { single() }
-        imagePickerCrop.setOnClickListener { singleCrop() }
+        pickerSingleBtn.setOnClickListener { single() }
+        pickerCropBtn.setOnClickListener { singleCrop() }
         imagePickerMultiple.setOnClickListener { multiPicture() }
-        imagePickerCamera.setOnClickListener { talkPicture() }
-        imagePickerVideo.setOnClickListener { talkVideo() }
+        pickerCameraBtn.setOnClickListener { talkPicture() }
+        pickerVideoBtn.setOnClickListener { talkVideo() }
+        saveBtn.setOnClickListener { save() }
     }
 
     override fun initData() {
@@ -76,6 +75,14 @@ class ImagePickerActivity : BaseActivity() {
         IMGChoose.takePicture(this) {
             VMLog.d("拍摄结果 $it")
             IMGLoader.loadCover(imagePickerIV, it)
+        }
+    }
+
+    private fun save() {
+        val bitmap = VMBitmap.loadCacheBitmapFromView(imagePickerIV)
+        bitmap?.let {
+            val result = VMBitmap.saveBitmapToPictures(it, Constants.projectDir, "test.jpg")
+            toast(if (result != null) "保存成功" else "保存失败")
         }
     }
 }
