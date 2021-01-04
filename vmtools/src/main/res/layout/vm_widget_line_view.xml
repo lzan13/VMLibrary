@@ -64,13 +64,14 @@
     <TextView
         android:id="@+id/vmLineCaptionTV"
         style="@style/VMText.Caption"
+        android:layout_width="@dimen/vm_dimen_0"
         android:layout_marginEnd="@dimen/vm_dimen_8"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/vmLineRightIconIV"
         app:layout_constraintEnd_toStartOf="@+id/vmLineRightIconIV"
         app:layout_constraintStart_toEndOf="@+id/vmLineCaptionIconIV"
         app:layout_constraintTop_toTopOf="@+id/vmLineRightIconIV"
-        tools:text="15617021612" />
+        tools:text="1561702161215617021612156170216121561702161215617021612" />
 
     <!--右侧图标-->
     <ImageView
