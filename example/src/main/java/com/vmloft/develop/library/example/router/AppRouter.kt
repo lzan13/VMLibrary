@@ -27,6 +27,8 @@ object AppRouter {
 
     const val appNotifyTest = "/VMLoft/Notify"
 
+    const val appInfo = "/VMLoft/Info"
+
     /**
      * 通用跳转
      * @param path 路径

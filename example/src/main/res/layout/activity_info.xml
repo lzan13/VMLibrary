@@ -5,13 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:background="@color/app_bg"
-    tools:context=".ui.main.mine.MineFragment">
+    tools:context=".ui.info.InfoActivity">
 
-    <com.vmloft.develop.library.example.widget.BehaviorLinearLayout
+    <com.vmloft.develop.library.example.widget.BehaviorFrameLayout
         android:id="@+id/mineBehaviorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         app:needDragOver="true"
         app:stickSectionHeight="@dimen/vm_dimen_96">
         <!--我的标签头部个人信息部分-->
@@ -28,19 +27,11 @@
                 android:src="@drawable/img_baymax"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/shape_info_top_mask"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <ImageView
                 android:id="@+id/mineAvatarIV"
-                android:layout_width="@dimen/vm_avatar_large"
-                android:layout_height="@dimen/vm_avatar_large"
-                android:layout_marginStart="@dimen/vm_dimen_16"
-                android:layout_marginTop="@dimen/vm_dimen_56"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_width="@dimen/vm_avatar_normal"
+                android:layout_height="@dimen/vm_avatar_normal"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
@@ -56,13 +47,12 @@
             <TextView
                 android:id="@+id/mineNameTV"
                 style="@style/AppText.Title"
-                android:layout_marginStart="@dimen/vm_dimen_16"
+                android:layout_width="@dimen/vm_dimen_0"
                 android:layout_marginEnd="@dimen/vm_margin_normal"
-                android:ellipsize="end"
                 android:maxLines="1"
-                android:textColor="@color/app_title_display"
                 app:layout_constraintBottom_toTopOf="@+id/mineSignatureTV"
-                app:layout_constraintStart_toEndOf="@+id/mineAvatarIV"
+                app:layout_constraintEnd_toStartOf="@+id/mineAvatarIV"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/mineAvatarIV"
                 tools:text="@string/app_name" />
 
@@ -73,9 +63,9 @@
                 android:layout_marginEnd="@dimen/vm_margin_normal"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:textColor="@color/app_title_display"
                 app:layout_constraintBottom_toBottomOf="@+id/mineAvatarIV"
-                app:layout_constraintStart_toStartOf="@+id/mineNameTV"
+                app:layout_constraintEnd_toStartOf="@+id/mineAvatarIV"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/mineNameTV"
                 tools:text="@string/app_name" />
 
@@ -87,12 +77,14 @@
                 android:background="#6300ff00"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:tabTextColor="#000000" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </com.vmloft.develop.library.example.widget.BehaviorLinearLayout>
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/vm_dimen_256" />
+    </com.vmloft.develop.library.example.widget.BehaviorFrameLayout>
+
+    <include layout="@layout/widget_common_top_bar" />
 </RelativeLayout>

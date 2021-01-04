@@ -1,49 +1,49 @@
-package com.vmloft.develop.library.example.ui.main.mine
-
+package com.vmloft.develop.library.example.ui.info
 
 import androidx.fragment.app.Fragment
+import com.alibaba.android.arouter.facade.annotation.Route
+
 import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.example.base.BaseFragment
+import com.vmloft.develop.library.example.base.BaseActivity
 import com.vmloft.develop.library.example.router.AppRouter
+import com.vmloft.develop.library.example.ui.main.mine.TabFragment
+import com.vmloft.develop.library.example.ui.main.mine.TabFragmentPagerAdapter
 import com.vmloft.develop.library.example.utils.toast
-import com.vmloft.develop.library.example.widget.BehaviorLinearLayout
+import com.vmloft.develop.library.example.widget.BehaviorFrameLayout
 import com.vmloft.develop.library.tools.utils.VMDimen
-import kotlinx.android.synthetic.main.fragment_mine.*
+
+import kotlinx.android.synthetic.main.activity_info.*
 
 
 /**
- * Create by lzan13 on 2020/05/02 11:54
- * 描述：我的
+ * Create by lzan13 on 2020/06/07 21:06
+ * 描述：设置
  */
-class MineFragment : BaseFragment() {
+@Route(path = AppRouter.appInfo)
+class InfoActivity : BaseActivity() {
 
-    override fun layoutId() = R.layout.fragment_mine
+    override fun layoutId(): Int = R.layout.activity_info
 
     override fun initUI() {
         super.initUI()
+        setTopTitle(R.string.settings)
 
-        mineInfoCL.setOnClickListener { AppRouter.go(AppRouter.appInfo) }
         initBehavior()
-
     }
 
     override fun initData() {
-
     }
 
-    private fun initBehavior() {
-        mineBehaviorLayout.setHeaderScrollListener(object : BehaviorLinearLayout.HeaderScrollListener {
-            override fun onScroll(dy: Int) {}
-            override fun onHeaderTotalHide() {
-//                toast("header hide")
-            }
 
-            override fun onHeaderTotalShow() {
-//                toast("header show")
+    private fun initBehavior() {
+
+        mineBehaviorLayout.setHeaderScrollListener(object : BehaviorFrameLayout.SimpleHeaderScrollListener() {
+            override fun onScroll(dy: Int, fraction: Float) {
+                mineCoverIV.translationY = dy / 2f
             }
         })
-        mineBehaviorLayout.setHeaderBackground(mineCoverIV)
         mineBehaviorLayout.setMaxHeaderHeight(VMDimen.dp2px(360))
+
         mineAvatarIV.setOnClickListener { toast("点击头像") }
         mineNameTV.setOnClickListener { toast("点击名字") }
 
@@ -54,7 +54,7 @@ class MineFragment : BaseFragment() {
             tabLayout.addTab(tabLayout.newTab())
         }
         tabLayout.setupWithViewPager(viewPager, false)
-        viewPager.adapter = TabFragmentPagerAdapter(childFragmentManager, fragments)
+        viewPager.adapter = TabFragmentPagerAdapter(supportFragmentManager, fragments)
         for (i in titles.indices) {
             tabLayout.getTabAt(i)?.text = titles[i]
         }
