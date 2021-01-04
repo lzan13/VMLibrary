@@ -7,176 +7,183 @@
     tools:background="@color/app_bg"
     tools:context=".ui.main.mine.MineFragment">
 
-    <ScrollView
+    <!--    <com.vmloft.develop.library.example.widget.BehaviorFrameLayout-->
+    <!--        android:id="@+id/mineBehaviorLayout"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        app:needDragOver="true"-->
+    <!--        app:stickSectionHeight="50dp"-->
+    <!--        tools:context=".ui.main.mine.MineFragment">-->
+    <com.vmloft.develop.library.example.widget.BehaviorLinearLayout
+        android:id="@+id/mineBehaviorLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:needDragOver="true"
+        app:stickSectionHeight="50dp">
+        <!--我的标签头部个人信息部分-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mineInfoCL"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="@dimen/vm_dimen_256">
 
-            <!--我的标签头部个人信息部分-->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/mineInfoCL"
+            <ImageView
+                android:id="@+id/mineCoverIV"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="@dimen/vm_dimen_192"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_baymax"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/mineCoverIV"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/vm_dimen_192"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/img_baymax"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/mineAvatarIV"
+                android:layout_width="@dimen/vm_avatar_normal"
+                android:layout_height="@dimen/vm_avatar_normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/mineAvatarIV"
-                    android:layout_width="@dimen/vm_avatar_normal"
-                    android:layout_height="@dimen/vm_avatar_normal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/mineGenderIV"
+                android:layout_width="@dimen/vm_dimen_16"
+                android:layout_height="@dimen/vm_dimen_16"
+                android:background="@drawable/shape_fillet_bg_white"
+                android:padding="@dimen/vm_dimen_2"
+                android:src="@drawable/ic_gender_man"
+                app:layout_constraintBottom_toBottomOf="@+id/mineAvatarIV"
+                app:layout_constraintEnd_toEndOf="@+id/mineAvatarIV" />
 
-                <ImageView
-                    android:id="@+id/mineGenderIV"
-                    android:layout_width="@dimen/vm_dimen_16"
-                    android:layout_height="@dimen/vm_dimen_16"
-                    android:background="@drawable/shape_fillet_bg_white"
-                    android:padding="@dimen/vm_dimen_2"
-                    android:src="@drawable/ic_gender_man"
-                    app:layout_constraintBottom_toBottomOf="@+id/mineAvatarIV"
-                    app:layout_constraintEnd_toEndOf="@+id/mineAvatarIV" />
+            <TextView
+                android:id="@+id/mineNameTV"
+                style="@style/AppText.Title"
+                android:layout_width="@dimen/vm_dimen_0"
+                android:layout_marginEnd="@dimen/vm_margin_normal"
+                android:maxLines="1"
+                app:layout_constraintBottom_toTopOf="@+id/mineSignatureTV"
+                app:layout_constraintEnd_toStartOf="@+id/mineAvatarIV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/mineAvatarIV"
+                tools:text="@string/app_name" />
 
-                <TextView
-                    android:id="@+id/mineNameTV"
-                    style="@style/AppText.Title"
-                    android:layout_width="@dimen/vm_dimen_0"
-                    android:layout_marginEnd="@dimen/vm_margin_normal"
-                    android:maxLines="1"
-                    app:layout_constraintBottom_toTopOf="@+id/mineSignatureTV"
-                    app:layout_constraintEnd_toStartOf="@+id/mineAvatarIV"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/mineAvatarIV"
-                    tools:text="@string/app_name" />
+            <TextView
+                android:id="@+id/mineSignatureTV"
+                style="@style/AppText.Body"
+                android:layout_width="@dimen/vm_dimen_0"
+                android:layout_marginEnd="@dimen/vm_margin_normal"
+                android:ellipsize="end"
+                android:maxLines="2"
+                app:layout_constraintBottom_toBottomOf="@+id/mineAvatarIV"
+                app:layout_constraintEnd_toStartOf="@+id/mineAvatarIV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mineNameTV"
+                tools:text="@string/app_name" />
 
-                <TextView
-                    android:id="@+id/mineSignatureTV"
-                    style="@style/AppText.Body"
-                    android:layout_width="@dimen/vm_dimen_0"
-                    android:layout_marginEnd="@dimen/vm_margin_normal"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    app:layout_constraintBottom_toBottomOf="@+id/mineAvatarIV"
-                    app:layout_constraintEnd_toStartOf="@+id/mineAvatarIV"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/mineNameTV"
-                    tools:text="@string/app_name" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <!--关系部分-->
-            <LinearLayout
-                android:id="@+id/mineRelationLL"
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/vm_dimen_8"
-                android:background="@color/app_bg_item"
-                android:orientation="horizontal"
-                android:padding="@dimen/vm_dimen_8">
-                <!--粉丝-->
-                <LinearLayout
-                    android:id="@+id/mineFansLL"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="@dimen/vm_margin_normal">
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:background="#6300ff00"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:tabTextColor="#000000" />
 
-                    <TextView
-                        android:id="@+id/mineFansTV"
-                        style="@style/AppText.Title"
-                        android:textStyle="bold"
-                        tools:text="521314" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <!--关系部分-->
+        <!--        <LinearLayout-->
+        <!--            android:id="@+id/mineRelationLL"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="@dimen/vm_dimen_8"-->
+        <!--            android:background="@color/app_bg_item"-->
+        <!--            android:orientation="horizontal"-->
+        <!--            android:padding="@dimen/vm_dimen_8">-->
+        <!--            &lt;!&ndash;粉丝&ndash;&gt;-->
+        <!--            <LinearLayout-->
+        <!--                android:id="@+id/mineFansLL"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:clickable="true"-->
+        <!--                android:gravity="center"-->
+        <!--                android:orientation="vertical"-->
+        <!--                android:padding="@dimen/vm_margin_normal">-->
 
-                    <TextView
-                        style="@style/AppText.Body"
-                        android:layout_marginTop="@dimen/vm_margin_normal"
-                        android:text="@string/fans" />
-                </LinearLayout>
-                <!--关注-->
-                <LinearLayout
-                    android:id="@+id/mineFollowLL"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="@dimen/vm_margin_normal">
+        <!--                <TextView-->
+        <!--                    android:id="@+id/mineFansTV"-->
+        <!--                    style="@style/AppText.Title"-->
+        <!--                    android:textStyle="bold"-->
+        <!--                    tools:text="521314" />-->
 
-                    <TextView
-                        android:id="@+id/mineFollowTV"
-                        style="@style/AppText.Title"
-                        tools:text="5" />
+        <!--                <TextView-->
+        <!--                    style="@style/AppText.Body"-->
+        <!--                    android:layout_marginTop="@dimen/vm_margin_normal"-->
+        <!--                    android:text="@string/fans" />-->
+        <!--            </LinearLayout>-->
+        <!--            &lt;!&ndash;关注&ndash;&gt;-->
+        <!--            <LinearLayout-->
+        <!--                android:id="@+id/mineFollowLL"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:clickable="true"-->
+        <!--                android:gravity="center"-->
+        <!--                android:orientation="vertical"-->
+        <!--                android:padding="@dimen/vm_margin_normal">-->
 
-                    <TextView
-                        style="@style/AppText.Body"
-                        android:layout_marginTop="@dimen/vm_margin_normal"
-                        android:text="@string/follow" />
-                </LinearLayout>
-                <!--喜欢我-->
-                <LinearLayout
-                    android:id="@+id/mineLikeMeLL"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="@dimen/vm_margin_normal">
+        <!--                <TextView-->
+        <!--                    android:id="@+id/mineFollowTV"-->
+        <!--                    style="@style/AppText.Title"-->
+        <!--                    tools:text="5" />-->
 
-                    <TextView
-                        android:id="@+id/mineLikeMeTV"
-                        style="@style/AppText.Title"
-                        tools:text="12" />
+        <!--                <TextView-->
+        <!--                    style="@style/AppText.Body"-->
+        <!--                    android:layout_marginTop="@dimen/vm_margin_normal"-->
+        <!--                    android:text="@string/follow" />-->
+        <!--            </LinearLayout>-->
+        <!--            &lt;!&ndash;喜欢我&ndash;&gt;-->
+        <!--            <LinearLayout-->
+        <!--                android:id="@+id/mineLikeMeLL"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:clickable="true"-->
+        <!--                android:gravity="center"-->
+        <!--                android:orientation="vertical"-->
+        <!--                android:padding="@dimen/vm_margin_normal">-->
 
-                    <TextView
-                        style="@style/AppText.Body"
-                        android:layout_marginTop="@dimen/vm_margin_normal"
-                        android:text="@string/like_me" />
-                </LinearLayout>
+        <!--                <TextView-->
+        <!--                    android:id="@+id/mineLikeMeTV"-->
+        <!--                    style="@style/AppText.Title"-->
+        <!--                    tools:text="12" />-->
 
-            </LinearLayout>
+        <!--                <TextView-->
+        <!--                    style="@style/AppText.Body"-->
+        <!--                    android:layout_marginTop="@dimen/vm_margin_normal"-->
+        <!--                    android:text="@string/like_me" />-->
+        <!--            </LinearLayout>-->
 
-            <!--选项-->
-            <!--        <com.vmloft.develop.library.tools.widget.VMLineView-->
-            <!--            android:id="@+id/mineLikeLV"-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:layout_marginTop="@dimen/vm_margin_large"-->
-            <!--            android:background="@color/app_bg_item"-->
-            <!--            app:vm_line_decoration="center"-->
-            <!--            app:vm_line_icon="@drawable/ic_like_fill"-->
-            <!--            app:vm_line_title="@string/me_like" />-->
+        <!--        </LinearLayout>-->
+        <!--        选项-->
+        <!--                <com.vmloft.develop.library.tools.widget.VMLineView-->
+        <!--                    android:id="@+id/mineLikeLV"-->
+        <!--                    android:layout_width="match_parent"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:layout_marginTop="@dimen/vm_margin_large"-->
+        <!--                    android:background="@color/app_bg_item"-->
+        <!--                    app:vm_line_decoration="center"-->
+        <!--                    app:vm_line_icon="@drawable/ic_like_fill"-->
+        <!--                    app:vm_line_title="@string/me_like" />-->
 
-            <!--        <com.vmloft.develop.library.tools.widget.VMLineView-->
-            <!--            android:id="@+id/mineCollectLV"-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:background="@color/app_bg_item"-->
-            <!--            app:vm_line_icon="@drawable/ic_collect"-->
-            <!--            app:vm_line_title="@string/me_collect" />-->
+        <!--                <com.vmloft.develop.library.tools.widget.VMLineView-->
+        <!--                    android:id="@+id/mineCollectLV"-->
+        <!--                    android:layout_width="match_parent"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:background="@color/app_bg_item"-->
+        <!--                    app:vm_line_icon="@drawable/ic_collect"-->
+        <!--                    app:vm_line_title="@string/me_collect" />-->
 
-            <!--设置-->
-            <com.vmloft.develop.library.tools.widget.VMLineView
-                android:id="@+id/mineSettingsLV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/vm_dimen_8"
-                android:background="@color/app_bg_item"
-                app:vm_line_caption_color="@color/app_caption"
-                app:vm_line_right_icon="@drawable/ic_arrow_next"
-                app:vm_line_title="@string/settings" />
-        </LinearLayout>
-    </ScrollView>
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.vmloft.develop.library.example.widget.BehaviorLinearLayout>
 </RelativeLayout>

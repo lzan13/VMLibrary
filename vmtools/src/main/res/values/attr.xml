@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--自定义 VMBehaviorLayout 属性-->
+    <declare-styleable name="VMBehaviorLayout">
+        <attr name="needDragOver" format="boolean"/>
+        <attr name="stickSectionHeight" format="dimension"/>
+    </declare-styleable>
+
     <!--自定义 VMDotLineView 属性-->
     <declare-styleable name="VMDotLineView">
         <!--点的颜色-->
