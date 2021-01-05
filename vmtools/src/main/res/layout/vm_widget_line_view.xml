@@ -25,55 +25,58 @@
     <TextView
         android:id="@+id/vmLineTitleTV"
         style="@style/VMText.Title"
-        android:layout_width="@dimen/vm_dimen_0"
+        android:layout_width="wrap_content"
         android:layout_marginStart="@dimen/vm_margin_large"
         android:layout_marginTop="@dimen/vm_margin_large"
         android:layout_marginEnd="@dimen/vm_margin_small"
         android:textSize="@dimen/vm_size_14"
         app:layout_constraintBottom_toTopOf="@+id/vmLineDescriptionTV"
-        app:layout_constraintEnd_toStartOf="@+id/vmLineRightContainer"
+        app:layout_constraintEnd_toStartOf="@+id/vmLineRightContainerLL"
         app:layout_constraintStart_toEndOf="@+id/vmLineIconIV"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_goneMarginBottom="@dimen/vm_margin_large"
         tools:text="设置" />
 
-    <!--自定义容器-->
     <LinearLayout
-        android:id="@+id/vmLineRightContainer"
-        android:layout_width="wrap_content"
+        android:id="@+id/vmLineRightContainerLL"
+        android:layout_width="@dimen/vm_dimen_0"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/vm_dimen_8"
+        android:gravity="center|end"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="@+id/vmLineTitleTV"
-        app:layout_constraintEnd_toStartOf="@+id/vmLineCaptionIconIV"
-        app:layout_constraintStart_toEndOf="@+id/vmLineTitleTV"
-        app:layout_constraintTop_toTopOf="@+id/vmLineTitleTV" />
-
-    <!--描述文本图标-->
-    <ImageView
-        android:id="@+id/vmLineCaptionIconIV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/vm_margin_normal"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/vmLineCaptionTV"
-        app:layout_constraintEnd_toStartOf="@+id/vmLineCaptionTV"
-        app:layout_constraintStart_toEndOf="@+id/vmLineRightContainer"
-        app:layout_constraintTop_toTopOf="@+id/vmLineCaptionTV" />
-
-    <!--右侧说明文本-->
-    <TextView
-        android:id="@+id/vmLineCaptionTV"
-        style="@style/VMText.Caption"
-        android:layout_width="@dimen/vm_dimen_0"
-        android:layout_marginEnd="@dimen/vm_dimen_8"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/vmLineRightIconIV"
         app:layout_constraintEnd_toStartOf="@+id/vmLineRightIconIV"
-        app:layout_constraintStart_toEndOf="@+id/vmLineCaptionIconIV"
-        app:layout_constraintTop_toTopOf="@+id/vmLineRightIconIV"
-        tools:text="1561702161215617021612156170216121561702161215617021612" />
+        app:layout_constraintStart_toEndOf="@+id/vmLineTitleTV"
+        app:layout_constraintTop_toTopOf="@+id/vmLineTitleTV">
 
+        <!--自定义容器-->
+        <LinearLayout
+            android:id="@+id/vmLineRightContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/vm_margin_normal"
+            android:orientation="horizontal" />
+
+        <!--描述文本图标-->
+        <ImageView
+            android:id="@+id/vmLineCaptionIconIV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/vm_margin_normal"
+            android:src="@drawable/vm_selector_accent_fillet"
+            android:visibility="visible" />
+
+        <!--右侧说明文本-->
+        <TextView
+            android:id="@+id/vmLineCaptionTV"
+            style="@style/VMText.Caption"
+            android:layout_width="wrap_content"
+            android:layout_marginEnd="@dimen/vm_margin_normal"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:visibility="visible"
+            tools:text="15617021612156170216" />
+
+    </LinearLayout>
     <!--右侧图标-->
     <ImageView
         android:id="@+id/vmLineRightIconIV"
@@ -83,7 +86,7 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/vmLineTitleTV"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/vmLineCaptionTV"
+        app:layout_constraintStart_toEndOf="@+id/vmLineRightContainerLL"
         app:layout_constraintTop_toTopOf="@+id/vmLineTitleTV" />
 
     <!--底部描述-->

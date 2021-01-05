@@ -85,15 +85,16 @@
             <com.vmloft.develop.library.tools.widget.VMLineView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:vm_line_caption="右侧说明"
+                app:vm_line_caption="右侧说明右侧说明右侧说明右侧说明右侧说明右侧说明右侧说明右"
                 app:vm_line_decoration="right"
                 app:vm_line_right_icon="@drawable/ic_arrow_next"
-                app:vm_line_title="测试 Item" />
+                app:vm_line_title="测试 ItemItemItemItemItem" />
 
             <com.vmloft.develop.library.tools.widget.VMLineView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:vm_line_caption="右侧说明"
+                app:vm_line_decoration="center"
+                app:vm_line_caption="右侧说明右侧说明右侧说明右侧说明右侧说明右侧说明右侧说明右侧说明右侧说明右侧说明右侧说明右侧说明右侧说明右侧说明右侧说明右侧说明右侧说明右侧说明"
                 app:vm_line_description="测试描述文本，这是底部的描述文本"
                 app:vm_line_right_icon="@drawable/ic_arrow_next"
                 app:vm_line_title="测试 Item" />
@@ -101,10 +102,10 @@
             <com.vmloft.develop.library.tools.widget.VMLineView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:vm_line_caption="右侧说明"
+                app:vm_line_caption="右侧说明右侧说明右侧说明右侧说明右"
                 app:vm_line_decoration="center"
                 app:vm_line_description="测试描述文本，这是底部的描述文本"
-                app:vm_line_title="测试 Item" />
+                app:vm_line_title="测试测试测试" />
 
             <com.vmloft.develop.library.tools.widget.VMRatioLayout
                 android:id="@+id/customRatioLayout"
