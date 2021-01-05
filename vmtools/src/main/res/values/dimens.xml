@@ -39,10 +39,8 @@
     <dimen name="vm_avatar_normal">56dp</dimen>
     <dimen name="vm_avatar_large">72dp</dimen>
 
-    <!--圆形背景半径定义-->
-    <dimen name="vm_round_radius_small">36dp</dimen>
-    <dimen name="vm_round_radius_normal">56dp</dimen>
-    <dimen name="vm_round_radius_large">72dp</dimen>
+    <!--卡片圆角尺寸-->
+    <dimen name="vm_common_radius">8dp</dimen>
 
     <!--控件 Z 轴高度-->
     <dimen name="vm_elevation_no">0dp</dimen>

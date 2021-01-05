@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
     android:minHeight="@dimen/vm_dimen_48"
     tools:context=".widget.VMTopBar">
     <!--左侧按钮-->
@@ -104,11 +105,7 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/vm_btn_height_small"
         android:layout_marginEnd="@dimen/vm_dimen_8"
-        android:gravity="center"
-        android:paddingStart="@dimen/vm_dimen_16"
-        android:paddingEnd="@dimen/vm_dimen_16"
-        android:textColor="@color/vm_text_dark_color"
-        android:textSize="@dimen/vm_size_14"
+        style="@style/VMBtn.Flat.Fillet.Accent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/vmTopBarEndIcon"
         app:layout_constraintTop_toTopOf="parent"

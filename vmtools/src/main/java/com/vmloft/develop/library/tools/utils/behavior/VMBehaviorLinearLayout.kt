@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.example.widget
+package com.vmloft.develop.library.tools.utils.behavior
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -16,16 +16,17 @@ import android.widget.LinearLayout
 import androidx.core.view.NestedScrollingParent2
 import androidx.core.view.NestedScrollingParentHelper
 import androidx.core.view.ViewCompat
-import com.vmloft.develop.library.example.R
+import com.vmloft.develop.library.tools.R
 
 
 /**
+ * Create by lzan13 2021/01/05
  * 自定义联动 Layout
  */
-class BehaviorLinearLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : LinearLayout(context, attrs, defStyle), NestedScrollingParent2 {
-    private val TAG = "Adjustable"
+class VMBehaviorLinearLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : LinearLayout(context, attrs, defStyle), NestedScrollingParent2 {
+
     private var mHeaderView: View? = null
-    private var  mScrollingParentHelper: NestedScrollingParentHelper
+    private var mScrollingParentHelper: NestedScrollingParentHelper
     private var mNeedHackDispatchTouch = false
     private var mTouchDownOnHeader = false
     private var mRevertAnimation: ValueAnimator? = null
@@ -40,8 +41,8 @@ class BehaviorLinearLayout @JvmOverloads constructor(context: Context, attrs: At
 
     init {
         val a = context.obtainStyledAttributes(attrs, R.styleable.VMBehaviorLayout, 0, 0)
-        mNeedDragOver = a.getBoolean(R.styleable.VMBehaviorLayout_needDragOver, false)
-        mStickHeaderHeight = a.getDimensionPixelSize(R.styleable.VMBehaviorLayout_stickSectionHeight, 0)
+        mNeedDragOver = a.getBoolean(R.styleable.VMBehaviorLayout_vm_drag_over, false)
+        mStickHeaderHeight = a.getDimensionPixelSize(R.styleable.VMBehaviorLayout_vm_stick_section_height, 0)
         a.recycle()
         val gestureDetector = GestureDetector(getContext(), object : SimpleOnGestureListener() {
             override fun onDown(e: MotionEvent): Boolean {
@@ -51,8 +52,8 @@ class BehaviorLinearLayout @JvmOverloads constructor(context: Context, attrs: At
             override fun onScroll(e1: MotionEvent, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean {
                 if (mTouchDownOnHeader) {
                     mNeedHackDispatchTouch = true
-                    this@BehaviorLinearLayout.dispatchTouchEvent(e1)
-                    this@BehaviorLinearLayout.dispatchTouchEvent(e2)
+                    this@VMBehaviorLinearLayout.dispatchTouchEvent(e1)
+                    this@VMBehaviorLinearLayout.dispatchTouchEvent(e2)
                 }
                 return mTouchDownOnHeader
             }
@@ -67,12 +68,18 @@ class BehaviorLinearLayout @JvmOverloads constructor(context: Context, attrs: At
 
     fun setHeaderBackground(image: View) {
         mHeadBackgroundView = image
-        (mHeaderView as ViewGroup).clipChildren = image == null
-        clipChildren = image == null
+        (mHeaderView as ViewGroup).clipChildren = false
+        clipChildren = false
+//        (mHeaderView as ViewGroup).clipChildren = image == null
+//        clipChildren = image == null
     }
 
     fun setHeaderScrollListener(headerScrollListener: HeaderScrollListener) {
         mHeaderScrollListener = headerScrollListener
+    }
+
+    fun setStickHeaderHeight(height: Int) {
+        mStickHeaderHeight = height
     }
 
     fun setMaxHeaderHeight(maxHeaderHeight: Int) {
@@ -119,10 +126,6 @@ class BehaviorLinearLayout @JvmOverloads constructor(context: Context, attrs: At
             pointerCoords[i]!!.y = pointerCoords[i]!!.y + mMinHeaderHeight
         }
         return MotionEvent.obtain(event.downTime, event.eventTime, event.action, event.pointerCount, pointerProperties, pointerCoords, event.metaState, event.buttonState, event.xPrecision, event.yPrecision, event.deviceId, event.edgeFlags, event.source, event.flags)
-    }
-
-    private fun getMaxNeedHideHeight(): Int {
-        return mMinHeaderHeight - mStickHeaderHeight
     }
 
     override fun onFinishInflate() {
@@ -198,7 +201,7 @@ class BehaviorLinearLayout @JvmOverloads constructor(context: Context, attrs: At
     }
 
     override fun getNestedScrollAxes(): Int {
-        return getScrollingParentHelper().nestedScrollAxes
+        return mScrollingParentHelper.nestedScrollAxes
     }
 
     override fun onStartNestedScroll(child: View, target: View, nestedScrollAxes: Int, type: Int): Boolean {
@@ -206,11 +209,11 @@ class BehaviorLinearLayout @JvmOverloads constructor(context: Context, attrs: At
     }
 
     override fun onNestedScrollAccepted(child: View, target: View, nestedScrollAxes: Int, type: Int) {
-        getScrollingParentHelper().onNestedScrollAccepted(child, target, nestedScrollAxes, type)
+        mScrollingParentHelper.onNestedScrollAccepted(child, target, nestedScrollAxes, type)
     }
 
     override fun onStopNestedScroll(target: View, type: Int) {
-        getScrollingParentHelper().onStopNestedScroll(target, type)
+        mScrollingParentHelper.onStopNestedScroll(target, type)
     }
 
     override fun onNestedScroll(target: View, dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int, dyUnconsumed: Int, type: Int) {}
@@ -252,12 +255,10 @@ class BehaviorLinearLayout @JvmOverloads constructor(context: Context, attrs: At
         for (i in 0 until childCount) {
             getChildAt(i).translationY = targetTransY
         }
-        if (mHeadBackgroundView != null) {
-            val originHeight = mHeadBackgroundView?.measuredHeight ?: 1
-            val scale = (originHeight + targetTransY) * 1f / originHeight
-            mHeadBackgroundView?.scaleX = scale
-            mHeadBackgroundView?.scaleY = scale
-        }
+        val originHeight = mHeadBackgroundView?.measuredHeight ?: 1
+        val scale = (originHeight + targetTransY) * 1f / originHeight
+        mHeadBackgroundView?.scaleX = scale
+        mHeadBackgroundView?.scaleY = scale
     }
 
     private fun scrollByOffsetTop(dy: Int) {
@@ -274,14 +275,12 @@ class BehaviorLinearLayout @JvmOverloads constructor(context: Context, attrs: At
         newTop = oldTop - dy
         if (mHeaderScrollListener != null) {
             if (oldTop < 0 && newTop >= 0) {
-                mHeaderScrollListener!!.onHeaderTotalShow()
+                mHeaderScrollListener?.onHeaderTotalShow()
             } else if (newTop == -maxNeedHideHeight) {
-                mHeaderScrollListener!!.onHeaderTotalHide()
+                mHeaderScrollListener?.onHeaderTotalHide()
             }
-            mHeaderScrollListener!!.onScroll(-newTop)
-            if (mHeadBackgroundView != null) {
-                mHeadBackgroundView?.translationY = -newTop / 2f
-            }
+            mHeaderScrollListener?.onScroll(-newTop, -newTop * 1f / maxNeedHideHeight)
+            mHeadBackgroundView?.translationY = -newTop / 3f
         }
         mOldTop = newTop
         offsetTopAndBottom(-dy)
@@ -291,25 +290,22 @@ class BehaviorLinearLayout @JvmOverloads constructor(context: Context, attrs: At
         super.onScrollChanged(l, t, oldl, oldt)
     }
 
+    private fun getMaxNeedHideHeight(): Int {
+        return mMinHeaderHeight - mStickHeaderHeight
+    }
+
     private fun getMaxDragOverHeight(): Int {
         return mMaxHeaderHeight - mMinHeaderHeight
     }
 
-    private fun getScrollingParentHelper(): NestedScrollingParentHelper {
-        if (mScrollingParentHelper == null) {
-            mScrollingParentHelper = NestedScrollingParentHelper(this)
-        }
-        return mScrollingParentHelper
-    }
-
     open interface HeaderScrollListener {
-        fun onScroll(dy: Int)
+        fun onScroll(dy: Int, percent: Float)
         fun onHeaderTotalHide()
         fun onHeaderTotalShow()
     }
 
     open class SimpleHeaderScrollListener : HeaderScrollListener {
-        override fun onScroll(dy: Int) {}
+        override fun onScroll(dy: Int, percent: Float) {}
         override fun onHeaderTotalHide() {}
         override fun onHeaderTotalShow() {}
     }

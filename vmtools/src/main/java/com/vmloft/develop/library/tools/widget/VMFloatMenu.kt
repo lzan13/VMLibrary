@@ -46,7 +46,7 @@ class VMFloatMenu(private val mContext: Context) : PopupWindow(mContext) {
         inputMethodMode = INPUT_METHOD_NOT_NEEDED
         val drawable = ContextCompat.getDrawable(mContext, R.color.vm_transparent)
         setBackgroundDrawable(drawable)
-        VMTheme.changeShadow(mItemContainer)
+        VMTheme.changeShadow(mItemContainer, 0.2f)
     }
 
     /**
@@ -61,10 +61,11 @@ class VMFloatMenu(private val mContext: Context) : PopupWindow(mContext) {
     /**
      * 显示悬浮菜单在指定位置，显示之前需要根据菜单的高度进行重新计算菜单位置
      */
-    fun showAtLocation(view: View?, positionX: Int, positionY: Int) {
+    fun showAtLocation(view: View, positionX: Int, positionY: Int) {
         if (mItemCount == 0) {
             return
         }
+        val offset = VMDimen.dp2px(16)
         val screenW = VMDimen.screenWidth
         val screenH = VMDimen.screenHeight
         // 计算悬浮菜单显示区域
@@ -76,18 +77,20 @@ class VMFloatMenu(private val mContext: Context) : PopupWindow(mContext) {
         var y = positionY
         if (screenH - positionY < windowsHeight) {
             // 向上弹出
-            y = positionY - windowsHeight
+            y = positionY - windowsHeight + offset
             showAtVertical = SHOW_ON_UP
         } else {
             //向下弹出
+            y = positionY - offset
             showAtVertical = SHOW_ON_DOWN
         }
-        if (screenW - positionX < windowsWidth || positionX > screenW / 5 * 3) {
+        if (positionX > windowsWidth || positionX > screenW / 5 * 2) {
             // 左弹出
-            x = positionX - windowsWidth
+            x = positionX - windowsWidth + offset
             showAtOrientation = SHOW_ON_LEFT
         } else {
             // 右弹出
+            x = positionX - offset
             showAtOrientation = SHOW_ON_RIGHT
         }
         setMenuAnim()

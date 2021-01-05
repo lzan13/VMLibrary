@@ -2,8 +2,8 @@
 <resources>
     <!--自定义 VMBehaviorLayout 属性-->
     <declare-styleable name="VMBehaviorLayout">
-        <attr name="needDragOver" format="boolean"/>
-        <attr name="stickSectionHeight" format="dimension"/>
+        <attr name="vm_drag_over" format="boolean"/>
+        <attr name="vm_stick_section_height" format="dimension"/>
     </declare-styleable>
 
     <!--自定义 VMDotLineView 属性-->

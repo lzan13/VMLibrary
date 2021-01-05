@@ -7,32 +7,39 @@
     tools:background="@color/app_bg"
     tools:context=".ui.main.mine.MineFragment">
 
-    <com.vmloft.develop.library.example.widget.BehaviorLinearLayout
+    <com.vmloft.develop.library.tools.utils.behavior.VMBehaviorLinearLayout
         android:id="@+id/mineBehaviorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:needDragOver="true"
-        app:stickSectionHeight="@dimen/vm_dimen_96">
+        app:vm_drag_over="true"
+        app:vm_stick_section_height="@dimen/vm_dimen_96">
         <!--我的标签头部个人信息部分-->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/mineInfoCL"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/vm_dimen_256">
+            android:layout_height="@dimen/vm_dimen_256"
+            android:clipChildren="false">
 
             <ImageView
                 android:id="@+id/mineCoverIV"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="@dimen/vm_dimen_0"
+                android:layout_height="@dimen/vm_dimen_0"
                 android:scaleType="centerCrop"
                 android:src="@drawable/img_baymax"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="@dimen/vm_dimen_0"
+                android:layout_height="@dimen/vm_dimen_0"
                 android:background="@drawable/shape_info_top_mask"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toBottomOf="@+id/mineCoverIV"
+                app:layout_constraintEnd_toEndOf="@+id/mineCoverIV"
+                app:layout_constraintStart_toStartOf="@+id/mineCoverIV"
+                app:layout_constraintTop_toTopOf="@+id/mineCoverIV" />
 
             <ImageView
                 android:id="@+id/mineAvatarIV"
@@ -64,7 +71,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/mineSignatureTV"
                 app:layout_constraintStart_toEndOf="@+id/mineAvatarIV"
                 app:layout_constraintTop_toTopOf="@+id/mineAvatarIV"
-                tools:text="@string/app_name" />
+                tools:text="名字十二个字名字十二个字" />
 
             <TextView
                 android:id="@+id/mineSignatureTV"
@@ -77,7 +84,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/mineAvatarIV"
                 app:layout_constraintStart_toStartOf="@+id/mineNameTV"
                 app:layout_constraintTop_toBottomOf="@+id/mineNameTV"
-                tools:text="@string/app_name" />
+                tools:text="无个性不签名，慢慢来吧！" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
@@ -87,12 +94,13 @@
                 android:background="#6300ff00"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:tabTextColor="#000000" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </com.vmloft.develop.library.example.widget.BehaviorLinearLayout>
+            android:layout_height="match_parent" />
+    </com.vmloft.develop.library.tools.utils.behavior.VMBehaviorLinearLayout>
+
+    <include layout="@layout/widget_common_top_bar" />
 </RelativeLayout>

@@ -139,7 +139,7 @@
         <activity android:name=".ui.demo.image.ImagePickerActivity" />
 
         <!--个人信息界面-->
-        <activity android:name=".ui.info.InfoActivity" />
+        <activity android:name=".ui.info.InfoBehaviorActivity" />
 
 
     </application>

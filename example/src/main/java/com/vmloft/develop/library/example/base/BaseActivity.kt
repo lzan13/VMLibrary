@@ -28,7 +28,7 @@ abstract class BaseActivity : VMBActivity() {
         commonTopBar?.setTitleStyle(R.style.VMText_Title)
         commonTopBar?.setIcon(R.drawable.ic_arrow_back)
         commonTopBar?.setIconColor(VMColor.byRes(R.color.app_title))
-        commonTopBar?.setIconListener{ onBackPressed() }
+        commonTopBar?.setIconListener { onBackPressed() }
     }
 
     /**
@@ -36,6 +36,13 @@ abstract class BaseActivity : VMBActivity() {
      */
     protected fun setTopIcon(resId: Int) {
         commonTopBar?.setIcon(resId)
+    }
+
+    /**
+     * 设置图标颜色
+     */
+    protected fun setTopIconColor(resId: Int) {
+        commonTopBar?.setIconColor(resId)
     }
 
     /**
@@ -53,10 +60,24 @@ abstract class BaseActivity : VMBActivity() {
     }
 
     /**
+     * 设置标题颜色
+     */
+    protected fun setTopTitleColor(resId: Int) {
+        commonTopBar?.setTitleColor(resId)
+    }
+
+    /**
      * 设置子标题
      */
     protected fun setTopSubtitle(title: String?) {
         commonTopBar?.setSubtitle(title)
+    }
+
+    /**
+     * 设置背景色
+     */
+    protected fun setTopBG(resId: Int) {
+        commonTopLL.setBackgroundResource(resId)
     }
 
 }

@@ -1,14 +1,18 @@
 package com.vmloft.develop.library.example.ui.main.mine
 
 
+import android.graphics.Color
 import androidx.fragment.app.Fragment
 import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.base.BaseFragment
 import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.example.utils.toast
-import com.vmloft.develop.library.example.widget.BehaviorLinearLayout
+import com.vmloft.develop.library.tools.utils.behavior.VMBehaviorLinearLayout
 import com.vmloft.develop.library.tools.utils.VMDimen
+import com.vmloft.develop.library.tools.utils.VMTheme
+
 import kotlinx.android.synthetic.main.fragment_mine.*
+import kotlinx.android.synthetic.main.widget_common_top_bar.*
 
 
 /**
@@ -17,12 +21,16 @@ import kotlinx.android.synthetic.main.fragment_mine.*
  */
 class MineFragment : BaseFragment() {
 
+    private var drawOver = false
     override fun layoutId() = R.layout.fragment_mine
 
     override fun initUI() {
         super.initUI()
+        VMTheme.setDarkStatusBar(activity!!, false)
 
-        mineInfoCL.setOnClickListener { AppRouter.go(AppRouter.appInfo) }
+        mineInfoCL.setOnClickListener {
+            AppRouter.go(AppRouter.appInfoBehavior)
+        }
         initBehavior()
 
     }
@@ -32,19 +40,26 @@ class MineFragment : BaseFragment() {
     }
 
     private fun initBehavior() {
-        mineBehaviorLayout.setHeaderScrollListener(object : BehaviorLinearLayout.HeaderScrollListener {
-            override fun onScroll(dy: Int) {}
-            override fun onHeaderTotalHide() {
-//                toast("header hide")
-            }
+        mineBehaviorLayout.setStickHeaderHeight(VMDimen.dp2px(96) + VMDimen.statusBarHeight)
+        mineBehaviorLayout.setHeaderScrollListener(object : VMBehaviorLinearLayout.SimpleHeaderScrollListener() {
+            override fun onScroll(dy: Int, percent: Float) {
+                setTopTitle(if (percent > 0.6) "个人信息" else "")
 
-            override fun onHeaderTotalShow() {
-//                toast("header show")
+                commonTopLL.setBackgroundColor(Color.argb((percent * 255).toInt(), 42, 42, 42))
             }
         })
         mineBehaviorLayout.setHeaderBackground(mineCoverIV)
         mineBehaviorLayout.setMaxHeaderHeight(VMDimen.dp2px(360))
-        mineAvatarIV.setOnClickListener { toast("点击头像") }
+
+        mineAvatarIV.setOnClickListener {
+            if (drawOver) {
+                drawOver = false
+                mineBehaviorLayout.setNeedDragOver(drawOver)
+            } else {
+                drawOver = true
+                mineBehaviorLayout.setNeedDragOver(drawOver)
+            }
+        }
         mineNameTV.setOnClickListener { toast("点击名字") }
 
         val titles = arrayOf("最新", "热门", "我的")
@@ -57,6 +72,17 @@ class MineFragment : BaseFragment() {
         viewPager.adapter = TabFragmentPagerAdapter(childFragmentManager, fragments)
         for (i in titles.indices) {
             tabLayout.getTabAt(i)?.text = titles[i]
+        }
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        activity?.let { activity ->
+            if (hidden) {
+                VMTheme.setDarkStatusBar(activity, true)
+            } else {
+                VMTheme.setDarkStatusBar(activity, false)
+            }
         }
     }
 }

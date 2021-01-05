@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.example.widget
+package com.vmloft.develop.library.tools.utils.behavior
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
@@ -15,22 +15,23 @@ import android.widget.FrameLayout
 import androidx.core.view.NestedScrollingParent2
 import androidx.core.view.NestedScrollingParentHelper
 import androidx.core.view.ViewCompat
-import com.vmloft.develop.library.example.R
-
+import com.vmloft.develop.library.tools.R
 
 /**
+ * Create by lzan13 2021/01/05
  * 自定义联动 Layout
  */
-class BehaviorFrameLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : FrameLayout(context, attrs, defStyle), NestedScrollingParent2 {
+class VMBehaviorFrameLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : FrameLayout(context, attrs, defStyle), NestedScrollingParent2 {
     private var mHeaderView: View? = null
-    private lateinit var mScrollingParentHelper: NestedScrollingParentHelper
+    private var mScrollingParentHelper: NestedScrollingParentHelper
     private var mNeedHackDispatchTouch = false
     private var mTouchDownOnHeader = false
     private var mRevertAnimation: ValueAnimator? = null
     private var mMinHeaderHeight = 0
     private var mOldTop = 0
-    var canScrollUp = true // recyclerView现在loadMore需要特别处理
 
+    // recyclerView 现在 loadMore 需要特别处理
+    var canScrollUp = true
 
     private var mHeaderScrollListener: HeaderScrollListener? = null
     private var mNeedDragOver = false
@@ -40,8 +41,8 @@ class BehaviorFrameLayout @JvmOverloads constructor(context: Context, attrs: Att
 
     init {
         val a = context.obtainStyledAttributes(attrs, R.styleable.VMBehaviorLayout, 0, 0)
-        mNeedDragOver = a.getBoolean(R.styleable.VMBehaviorLayout_needDragOver, false)
-        mStickHeaderHeight = a.getDimensionPixelSize(R.styleable.VMBehaviorLayout_stickSectionHeight, 0)
+        mNeedDragOver = a.getBoolean(R.styleable.VMBehaviorLayout_vm_drag_over, false)
+        mStickHeaderHeight = a.getDimensionPixelSize(R.styleable.VMBehaviorLayout_vm_stick_section_height, 0)
         a.recycle()
         val gestureDetector = GestureDetector(getContext(), object : SimpleOnGestureListener() {
             override fun onDown(e: MotionEvent): Boolean {
@@ -51,8 +52,8 @@ class BehaviorFrameLayout @JvmOverloads constructor(context: Context, attrs: Att
             override fun onScroll(e1: MotionEvent, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean {
                 if (mTouchDownOnHeader) {
                     mNeedHackDispatchTouch = true
-                    this@BehaviorFrameLayout.dispatchTouchEvent(e1)
-                    this@BehaviorFrameLayout.dispatchTouchEvent(e2)
+                    this@VMBehaviorFrameLayout.dispatchTouchEvent(e1)
+                    this@VMBehaviorFrameLayout.dispatchTouchEvent(e2)
                 }
                 return mTouchDownOnHeader
             }
@@ -142,10 +143,6 @@ class BehaviorFrameLayout @JvmOverloads constructor(context: Context, attrs: Att
         mHeaderView!!.layoutParams.height = maxHeaderHeight
         (mHeaderView!!.layoutParams as MarginLayoutParams).topMargin = mMinHeaderHeight - maxHeaderHeight
         setHeaderViewPaddingTop(getMaxDragOverHeight())
-    }
-
-    private fun getMaxNeedHideHeight(): Int {
-        return mMinHeaderHeight - mStickHeaderHeight
     }
 
     override fun onFinishInflate() {
@@ -297,12 +294,16 @@ class BehaviorFrameLayout @JvmOverloads constructor(context: Context, attrs: Att
         mHeaderView!!.setPadding(mHeaderView!!.paddingLeft, top, mHeaderView!!.paddingRight, mHeaderView!!.paddingBottom)
     }
 
+    private fun getMaxNeedHideHeight(): Int {
+        return mMinHeaderHeight - mStickHeaderHeight
+    }
+
     private fun getMaxDragOverHeight(): Int {
         return mMaxHeaderHeight - mMinHeaderHeight
     }
 
     open interface HeaderScrollListener {
-        fun onScroll(dy: Int, fraction: Float)
+        fun onScroll(dy: Int, percent: Float)
         fun onHeaderTotalHide()
         fun onHeaderTotalShow()
     }

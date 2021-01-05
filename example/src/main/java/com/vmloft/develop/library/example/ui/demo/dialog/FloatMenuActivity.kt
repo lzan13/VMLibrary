@@ -90,7 +90,6 @@ class FloatMenuActivity : BaseActivity() {
         floatMenu.addItem(ItemBean(6, "菜单"))
         floatMenu.addItem(ItemBean(7, "悬浮菜单"))
         floatMenu.addItem(ItemBean(8, "浮菜单"))
-        floatMenu.setMenuBackground(R.drawable.shape_card_bg_white)
         floatMenu.showAtLocation(view, touchX, touchY)
     }
 }
