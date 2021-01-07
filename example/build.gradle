@@ -5,6 +5,7 @@ apply plugin: 'kotlin-kapt'
 
 // 获取配置信息
 def configs = rootProject.ext.configs
+def signings = rootProject.ext.signings
 
 android {
     compileSdkVersion configs.compileSdkVersion
@@ -16,10 +17,62 @@ android {
         versionCode configs.versionCode
         versionName configs.versionName
     }
-    buildTypes {
+
+    // 签名信息
+    signingConfigs {
+        // 签名信息，因为签名文件是保密信息，放在一个配置文件中进行读取，这个文件不会再版本库里存在
         release {
+            keyAlias = signings.keyAlias
+            keyPassword = signings.keyPassword
+            storeFile = file(signings.storeFile)
+            storePassword = signings.storePassword
+        }
+    }
+
+    // 编译配置
+    buildTypes {
+        debug {
+            // 是否开启压缩
+            zipAlignEnabled false
+            // 是否开启混淆
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // Debug 打包签名信息，这里和 release 配置相同方便三方登录与分享调试
+            signingConfig signingConfigs.release
+        }
+        release {
+            // 是否开启压缩
+            zipAlignEnabled true
+            // 是否开启混淆
+            minifyEnabled true
+            // 打包时删除无用资源 依赖于混淆，必须和 minifyEnabled 一起使用
+            shrinkResources true
+            // 设置正式打包的签名
+            signingConfig signingConfigs.release
+            // 混淆文件
+            // proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles 'proguard-rules.pro'
+
+            // 修改生成的 apk 名字，格式为:项目-版本-时间-渠道名.apk
+            android.applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "${rootProject.name}V${defaultConfig.versionName}.${getTime()}." + variant.productFlavors[0].name + '.apk'
+                }
+            }
+        }
+    }
+
+    // 多渠道打包配置
+    flavorDimensions "default"
+    productFlavors {
+        Develop {
+            dimension = "default"
+            manifestPlaceholders = [
+                    ADMOB_APP_ID: configs.admobAppId,
+                    BUGLY_APP_ID: configs.buglyAppId,
+                    UMENG_APP_ID: configs.umengAppId,
+                    APP_CHANNEL : "Develop",
+                    APP_VERSION : configs.versionName
+            ]
         }
     }
 
@@ -78,4 +131,9 @@ dependencies {
     // 引入自己封装的库
     //    implementation project(':vmpicker')
     implementation project(':vmtools')
+}
+
+// 获取当前系统时间
+def getTime() {
+    return new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone("UTC"))
 }
