@@ -59,7 +59,7 @@ class HomeFragment : BaseFragment() {
         addBtn("指示器", AppRouter.appIndicator)
         addBtn("Loading", AppRouter.appLoading)
         addBtn("Lottie 动画", AppRouter.appLottieAnim)
-        addBtn("声音播放", AppRouter.appMediaPlay)
+        addBtn("媒体播放", AppRouter.appMediaPlay)
         addBtn("Scheme", AppRouter.appScheme)
         addBtn("按钮", AppRouter.appStyle)
         addBtn("线程测试", AppRouter.appThread)

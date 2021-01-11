@@ -16,6 +16,12 @@ android {
         targetSdkVersion configs.targetSdkVersion
         versionCode configs.versionCode
         versionName configs.versionName
+
+        // 简单粗暴解决多个库出现 UnsatisfiedLinkError 文件错误问题
+        ndk {
+            // "x86", "armeabi-v7a", "arm64-v8a"
+            abiFilters "armeabi-v7a"
+        }
     }
 
     // 签名信息
@@ -123,6 +129,14 @@ dependencies {
 
     // 强大 WebView 库 https://github.com/Justson/AgentWeb
     implementation 'com.just.agentweb:agentweb:4.1.3'
+
+    // 视频播放库 https://github.com/CarGuo/GSYVideoPlayer
+//    implementation 'com.shuyu:GSYVideoPlayer:8.0.0'
+    implementation 'com.shuyu:gsyVideoPlayer-java:8.0.0'
+    //是否需要ExoPlayer模式
+    //api 'com.shuyu:GSYVideoPlayer-exo2:8.0.0'
+    //根据你的需求ijk模式的so
+    implementation 'com.shuyu:gsyVideoPlayer-armv7a:8.0.0'
 
     // 阿里巴巴 ARouter 库 https://github.com/alibaba/ARouter
     implementation 'com.alibaba:arouter-api:1.5.0'

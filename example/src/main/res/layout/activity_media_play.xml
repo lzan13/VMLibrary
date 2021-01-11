@@ -1,34 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_bg"
     android:orientation="vertical"
-    tools:context=".ui.demo.media.MediaPlayActivity"
-    >
+    tools:context=".ui.demo.media.MediaPlayActivity">
+
+
+    <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+        android:id="@+id/videoPlayer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
     <include layout="@layout/widget_common_top_bar" />
 
-    <com.vmloft.develop.library.tools.widget.VMViewGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-        <Button
-            android:id="@+id/playBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="startPlayVoice"
-            android:text="播放音频"
-            />
-        <Button
-            android:id="@+id/stopBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="stopPlayVoice"
-            android:text="停止播放"
-            />
-    </com.vmloft.develop.library.tools.widget.VMViewGroup>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
