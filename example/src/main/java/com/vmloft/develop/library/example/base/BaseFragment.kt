@@ -1,7 +1,11 @@
 package com.vmloft.develop.library.example.base
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.tools.base.VMBFragment
 import com.vmloft.develop.library.tools.utils.VMDimen
 
 import kotlinx.android.synthetic.main.widget_common_top_bar.*
@@ -10,11 +14,41 @@ import kotlinx.android.synthetic.main.widget_common_top_bar.*
  * Created by lzan13 on 2020/02/15 11:16
  * 描述：Fragment 基类
  */
-abstract class BaseFragment : VMBFragment() {
+abstract class BaseFragment : Fragment() {
+    protected var isLoaded: Boolean = false
 
-    override fun initUI() {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(layoutId(), container, false)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        initUI()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!isLoaded) {
+            isLoaded = true
+            initData()
+        }
+    }
+    /**
+     * 布局资源 id
+     */
+    abstract fun layoutId(): Int
+
+    /**
+     * 初始化 UI
+     */
+    open fun initUI() {
         setupTobBar()
     }
+
+    /**
+     * 初始化数据
+     */
+    abstract fun initData()
 
     /**
      * 装载 TopBar
@@ -23,8 +57,15 @@ abstract class BaseFragment : VMBFragment() {
         // 设置状态栏透明主题时，布局整体会上移，所以给头部 View 设置 StatusBar 的高度
         commonTopSpaceView?.layoutParams?.height = VMDimen.statusBarHeight
 
-        commonTopBar?.setCenter(false)
-        commonTopBar?.setTitleStyle(R.style.VMText_Title)
+        commonTopBar?.setCenter(true)
+        commonTopBar?.setTitleStyle(R.style.AppText_Title)
+    }
+
+    /**
+     * 设置顶部标题背景色
+     */
+    protected fun setTopBGColor(color: Int) {
+        commonTopLL?.setBackgroundColor(color)
     }
 
     /**
@@ -49,9 +90,17 @@ abstract class BaseFragment : VMBFragment() {
     }
 
     /**
+     * 设置标题颜色
+     */
+    protected fun setTopTitleColor(resId: Int) {
+        commonTopBar?.setTitleColor(resId)
+    }
+
+    /**
      * 设置子标题
      */
     protected fun setTopSubtitle(title: String?) {
         commonTopBar?.setSubtitle(title)
     }
+
 }

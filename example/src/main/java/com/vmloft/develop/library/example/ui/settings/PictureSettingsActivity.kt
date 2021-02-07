@@ -5,7 +5,7 @@ import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.base.BaseActivity
 import com.vmloft.develop.library.example.common.Constants
 import com.vmloft.develop.library.example.common.SPManager
-import com.vmloft.develop.library.example.utils.toast
+import com.vmloft.develop.library.example.utils.showBar
 import com.vmloft.develop.library.tools.utils.VMFile
 import kotlinx.android.synthetic.main.activity_settings_picture.*
 import java.io.File
@@ -36,7 +36,7 @@ class PictureSettingsActivity : BaseActivity() {
         }
         pictureClearCacheLV.setOnClickListener{
             VMFile.deleteFolder(cachePath, false)
-            toast("缓存清空完成")
+            showBar("缓存清空完成")
             bindCache()
         }
 

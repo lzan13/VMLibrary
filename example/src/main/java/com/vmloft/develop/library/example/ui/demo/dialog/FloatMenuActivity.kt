@@ -7,11 +7,11 @@ import com.vmloft.develop.library.example.R
 
 import com.vmloft.develop.library.example.base.BaseActivity
 import com.vmloft.develop.library.example.router.AppRouter
+import com.vmloft.develop.library.example.utils.showBar
 import com.vmloft.develop.library.tools.utils.logger.VMLog
 import com.vmloft.develop.library.tools.widget.VMFloatMenu
 import com.vmloft.develop.library.tools.widget.VMFloatMenu.IItemClickListener
 import com.vmloft.develop.library.tools.widget.VMFloatMenu.ItemBean
-import com.vmloft.develop.library.tools.widget.toast.VMToast
 import kotlinx.android.synthetic.main.activity_float_menu.*
 
 /**
@@ -40,7 +40,7 @@ class FloatMenuActivity : BaseActivity() {
         floatMenu.setItemClickListener(object : IItemClickListener() {
             override fun onItemClick(id: Int) {
                 VMLog.d("点击了悬浮菜单 $id")
-                VMToast.make(mActivity, "点击了悬浮菜单 $id").done()
+                showBar("点击了悬浮菜单 $id")
             }
         })
 

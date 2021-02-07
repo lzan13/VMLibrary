@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.base.BaseFragment
 import com.vmloft.develop.library.example.router.AppRouter
-import com.vmloft.develop.library.example.utils.toast
+import com.vmloft.develop.library.example.utils.showBar
 import com.vmloft.develop.library.tools.utils.behavior.VMBehaviorLinearLayout
 import com.vmloft.develop.library.tools.utils.VMDimen
 import com.vmloft.develop.library.tools.utils.VMTheme
@@ -60,7 +60,7 @@ class MineFragment : BaseFragment() {
                 mineBehaviorLayout.setNeedDragOver(drawOver)
             }
         }
-        mineNameTV.setOnClickListener { toast("点击名字") }
+        mineNameTV.setOnClickListener { showBar("点击名字") }
 
         val titles = arrayOf("最新", "热门", "我的")
         val fragments: ArrayList<Fragment> = ArrayList()

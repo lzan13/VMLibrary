@@ -4,16 +4,18 @@ import android.Manifest
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+
 import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.base.BaseFragment
 import com.vmloft.develop.library.example.router.AppRouter
+import com.vmloft.develop.library.example.utils.showBar
+import com.vmloft.develop.library.example.utils.errorBar
 import com.vmloft.develop.library.tools.permission.VMPermission
 import com.vmloft.develop.library.tools.permission.VMPermissionBean
 import com.vmloft.develop.library.tools.utils.logger.VMLog
-import com.vmloft.develop.library.tools.widget.toast.VMToast
+
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.widget_common_top_bar.*
-import java.util.*
 
 
 /**
@@ -21,23 +23,6 @@ import java.util.*
  * 描述：首页
  */
 class HomeFragment : BaseFragment() {
-
-//    // 定义动态添加的控件 Id
-//    private val barrage = "barrage"
-//    private val customView = "customView"
-//    private val floatMenu = "floatMenu"
-//    private val indicator = "indicator"
-//    private val loading = "loading"
-//    private val lottieAnim = "lottieAnim"
-//    private val mediaPlay = "mediaPlay"
-//    private val scheme = "scheme"
-//    private val style = "style"
-//    private val thread = "thread"
-//    private val web = "web"
-//    private val imagePicker = AppRouter.appImagePicker
-//
-//    private val singlePermission = "singlePermission"
-//    private val multiPermission = "multiPermission"
 
     override fun layoutId() = R.layout.fragment_home
 
@@ -49,7 +34,7 @@ class HomeFragment : BaseFragment() {
         commonTopBar.setEndBtnEnable(true)
         commonTopBar.setEndBtnTextStyle(R.style.AppText_TopBarEndBtn)
         commonTopBar.setEndBtnListener("测试(1/9)") {
-            VMToast.make(activity, "测试自定义 VMTopBar 右侧按钮样式").show()
+            showBar("测试自定义 VMTopBar 右侧按钮样式")
             VMLog.json("{'app':'VMLibrary', 'version':'1.0.0', 'tag':['tools','kotlin','android']}")
         }
 
@@ -108,12 +93,11 @@ class HomeFragment : BaseFragment() {
                 .setPermission(bean)
                 .requestPermission(object : VMPermission.PCallback {
                     override fun onReject() {
-                        VMToast.make(activity, "权限申请被拒绝").error()
+                        errorBar("权限申请被拒绝")
                     }
 
                     override fun onComplete() {
-                        VMToast.make(activity, "权限申请完成")
-                                .done()
+                        showBar("权限申请完成")
                     }
                 })
     }
@@ -133,13 +117,11 @@ class HomeFragment : BaseFragment() {
                 .setPermissionList(permissions)
                 .requestPermission(object : VMPermission.PCallback {
                     override fun onReject() {
-                        VMToast.make(activity, "权限申请被拒绝")
-                                .error()
+                        errorBar("权限申请被拒绝")
                     }
 
                     override fun onComplete() {
-                        VMToast.make(activity, "权限申请完成")
-                                .done()
+                        showBar("权限申请完成")
                     }
                 })
     }

@@ -39,10 +39,10 @@
     <color name="vm_decoration">#61e8e8e8</color>
 
     <!--指示器-->
-    <color name="vm_indicator_normal">#a8a8a8</color>
-    <color name="vm_indicator_selected">#009933</color>
+    <color name="vm_indicator_normal">@color/vm_white_87</color>
+    <color name="vm_indicator_selected">@color/vm_accent</color>
 
-    <color name="vm_toast_bg">#009933</color>
-    <color name="vm_toast_error_bg">#990000</color>
-    <color name="vm_toast_content">@color/vm_gray_white_87</color>
+    <color name="vm_toast_bg">#ff363636</color>
+    <color name="vm_toast_error_bg">@color/vm_red_dark</color>
+    <color name="vm_toast_color">@color/vm_white</color>
 </resources>

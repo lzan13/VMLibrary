@@ -1,21 +1,51 @@
 package com.vmloft.develop.library.example.base
 
+import android.app.Activity
+import android.content.pm.ActivityInfo
+import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 
 import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.tools.base.VMBActivity
-import com.vmloft.develop.library.tools.utils.VMColor
 import com.vmloft.develop.library.tools.utils.VMDimen
 import com.vmloft.develop.library.tools.utils.VMTheme
 
 import kotlinx.android.synthetic.main.widget_common_top_bar.*
 
-abstract class BaseActivity : VMBActivity() {
+abstract class BaseActivity : AppCompatActivity() {
 
-    override fun initUI() {
-        VMTheme.setDarkStatusBar(this, true)
+    protected lateinit var mActivity: Activity
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        mActivity = this
+
+        setContentView(layoutId())
+
+        initUI()
+
+        initData()
+    }
+
+    /**
+     * 布局资源 id
+     */
+    abstract fun layoutId(): Int
+
+    /**
+     * 初始化 UI
+     */
+    open fun initUI() {
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        VMTheme.setDarkStatusBar(mActivity, true)
         setupTobBar()
     }
+
+    /**
+     * 初始化数据
+     */
+    abstract fun initData()
 
     /**
      * 装载 TopBar
@@ -24,11 +54,18 @@ abstract class BaseActivity : VMBActivity() {
         // 设置状态栏透明主题时，布局整体会上移，所以给头部 View 设置 StatusBar 的高度
         commonTopSpaceView?.layoutParams?.height = VMDimen.statusBarHeight
 
-        commonTopBar?.setCenter(false)
-        commonTopBar?.setTitleStyle(R.style.VMText_Title)
+        commonTopBar?.setCenter(true)
+        commonTopBar?.setTitleStyle(R.style.AppText_Title)
         commonTopBar?.setIcon(R.drawable.ic_arrow_back)
-        commonTopBar?.setIconColor(VMColor.byRes(R.color.app_title))
         commonTopBar?.setIconListener { onBackPressed() }
+        commonTopBar?.setEndBtnTextStyle(R.style.AppText_TopBarEndBtn)
+    }
+
+    /**
+     * 设置顶部标题背景色
+     */
+    protected fun setTopBGColor(color: Int) {
+        commonTopLL?.setBackgroundColor(color)
     }
 
     /**
@@ -36,13 +73,6 @@ abstract class BaseActivity : VMBActivity() {
      */
     protected fun setTopIcon(resId: Int) {
         commonTopBar?.setIcon(resId)
-    }
-
-    /**
-     * 设置图标颜色
-     */
-    protected fun setTopIconColor(resId: Int) {
-        commonTopBar?.setIconColor(resId)
     }
 
     /**
@@ -74,10 +104,24 @@ abstract class BaseActivity : VMBActivity() {
     }
 
     /**
-     * 设置背景色
+     * 设置 TopBar 右侧按钮
      */
-    protected fun setTopBG(resId: Int) {
-        commonTopLL.setBackgroundResource(resId)
+    protected fun setTopEndBtnEnable(enable: Boolean) {
+        commonTopBar?.setEndBtnEnable(enable)
+    }
+
+    /**
+     * 设置 TopBar 右侧按钮
+     */
+    protected fun setTopEndBtn(str: String?) {
+        commonTopBar?.setEndBtn(str)
+    }
+
+    /**
+     * 设置 TopBar 右侧按钮监听
+     */
+    protected fun setTopEndBtnListener(str: String? = null, listener: View.OnClickListener) {
+        commonTopBar?.setEndBtnListener(str, listener)
     }
 
 }

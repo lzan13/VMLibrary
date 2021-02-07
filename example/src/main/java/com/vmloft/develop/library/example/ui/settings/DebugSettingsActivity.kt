@@ -4,7 +4,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.base.BaseActivity
 import com.vmloft.develop.library.example.common.SPManager
-import com.vmloft.develop.library.example.utils.toast
+import com.vmloft.develop.library.example.utils.showBar
 import kotlinx.android.synthetic.main.activity_settings_debug.*
 
 /**
@@ -23,7 +23,7 @@ class DebugSettingsActivity : BaseActivity() {
         debugEnvLV.setOnClickListener {
             SPManager.instance.setDebugStatus(!SPManager.instance.getDebugStatus())
             debugEnvLV.setCaption(if (SPManager.instance.getDebugStatus()) "Debug" else "Release")
-            toast("切换环境成功，重启生效")
+            showBar("切换环境成功，重启生效")
         }
 
     }

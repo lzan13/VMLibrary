@@ -5,8 +5,9 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.base.BaseActivity
 import com.vmloft.develop.library.example.router.AppRouter
+import com.vmloft.develop.library.example.utils.showBar
+import com.vmloft.develop.library.example.utils.errorBar
 import com.vmloft.develop.library.template.notify.NotifyManager
-import com.vmloft.develop.library.tools.widget.toast.VMToast
 
 import kotlinx.android.synthetic.main.activity_notify.*
 
@@ -32,9 +33,9 @@ class NotifyActivity : BaseActivity() {
         notifyOtherLV.setOnClickListener { NotifyManager.openNotifySetting() }
         notifyCheckBtn.setOnClickListener {
             if (NotifyManager.checkNotifySetting()) {
-                VMToast.make(mActivity, "通知已打开").done()
+                showBar("通知已打开")
             } else {
-                VMToast.make(mActivity, "通知未打开").error()
+                errorBar("通知未打开")
 
             }
         }

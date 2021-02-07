@@ -6,7 +6,7 @@ import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.base.BaseActivity
 import com.vmloft.develop.library.example.common.Constants
 import com.vmloft.develop.library.example.router.AppRouter
-import com.vmloft.develop.library.example.utils.toast
+import com.vmloft.develop.library.example.utils.showBar
 import com.vmloft.develop.library.tools.utils.VMSystem
 
 import kotlinx.android.synthetic.main.activity_settings_about.*
@@ -30,7 +30,7 @@ class AboutSettingsActivity : BaseActivity() {
 
         aboutIconIV.setOnClickListener { goDebug() }
         // 检查更新
-        aboutCheckVersionLV.setOnClickListener { toast("已经是最新版本") }
+        aboutCheckVersionLV.setOnClickListener { showBar("已经是最新版本") }
 
         aboutFeedbackLV.setOnClickListener { AppRouter.goFeedback() }
 

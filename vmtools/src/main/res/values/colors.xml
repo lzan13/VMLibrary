@@ -13,25 +13,25 @@
     <color name="vm_white_12">#1effffff</color>
 
     <!--黑色 适合标题颜色-->
-    <color name="vm_black">#2a2a2a</color>
-    <color name="vm_black_87">#dd2a2a2a</color>
-    <color name="vm_black_54">#892a2a2a</color>
-    <color name="vm_black_38">#612a2a2a</color>
-    <color name="vm_black_12">#1e2a2a2a</color>
+    <color name="vm_black">#ff222222</color>
+    <color name="vm_black_87">#dd222222</color>
+    <color name="vm_black_54">#89222222</color>
+    <color name="vm_black_38">#61222222</color>
+    <color name="vm_black_12">#1e222222</color>
 
     <!--灰黑色 适合子标题-->
-    <color name="vm_gray_black">#ff6a6a6a</color>
-    <color name="vm_gray_black_87">#df6a6a6a</color>
-    <color name="vm_gray_black_54">#8f6a6a6a</color>
-    <color name="vm_gray_black_38">#6f6a6a6a</color>
-    <color name="vm_gray_black_12">#1f6a6a6a</color>
+    <color name="vm_gray_black">#ff666666</color>
+    <color name="vm_gray_black_87">#df666666</color>
+    <color name="vm_gray_black_54">#8f666666</color>
+    <color name="vm_gray_black_38">#6f666666</color>
+    <color name="vm_gray_black_12">#1f666666</color>
 
     <!--灰色 适合右侧说明文本-->
-    <color name="vm_gray">#ff9a9a9a</color>
-    <color name="vm_gray_87">#dd9a9a9a</color>
-    <color name="vm_gray_54">#899a9a9a</color>
-    <color name="vm_gray_38">#619a9a9a</color>
-    <color name="vm_gray_12">#1e9a9a9a</color>
+    <color name="vm_gray">#ff999999</color>
+    <color name="vm_gray_87">#dd999999</color>
+    <color name="vm_gray_54">#89999999</color>
+    <color name="vm_gray_38">#61999999</color>
+    <color name="vm_gray_12">#1e999999</color>
 
     <!--灰白色 适合提醒描述问题-->
     <color name="vm_gray_white">#ffcacaca</color>
@@ -41,18 +41,18 @@
     <color name="vm_gray_white_12">#1ecacaca</color>
 
     <!--红色-->
-    <color name="vm_red">#ffF44336</color>
-    <color name="vm_red_87">#ddF44336</color>
-    <color name="vm_red_54">#89F44336</color>
-    <color name="vm_red_38">#61F44336</color>
-    <color name="vm_red_12">#1eF44336</color>
+    <color name="vm_red">#fffc2c47</color>
+    <color name="vm_red_87">#ddfc2c47</color>
+    <color name="vm_red_54">#89fc2c47</color>
+    <color name="vm_red_38">#61fc2c47</color>
+    <color name="vm_red_12">#1efc2c47</color>
 
     <!--深红色-->
-    <color name="vm_red_dark">#ffD50000</color>
-    <color name="vm_red_dark_87">#ddD50000</color>
-    <color name="vm_red_dark_54">#89D50000</color>
-    <color name="vm_red_dark_38">#61D50000</color>
-    <color name="vm_red_dark_12">#1eD50000</color>
+    <color name="vm_red_dark">#ffd92e29</color>
+    <color name="vm_red_dark_87">#ddd92e29</color>
+    <color name="vm_red_dark_54">#89d92e29</color>
+    <color name="vm_red_dark_38">#61d92e29</color>
+    <color name="vm_red_dark_12">#1ed92e29</color>
 
     <!--蓝色-->
     <color name="vm_blue">#ff2196F3</color>
@@ -123,8 +123,8 @@
     <color name="vm_indicator_normal">@color/vm_gray_white</color>
     <color name="vm_indicator_selected">@color/vm_accent</color>
 
-    <color name="vm_toast_bg">@color/vm_green</color>
-    <color name="vm_toast_error_bg">@color/vm_red_dark</color>
-    <color name="vm_toast_content">@color/vm_white_87</color>
+    <color name="vm_toast_bg">#ff363636</color>
+    <color name="vm_toast_error_bg">@color/vm_red</color>
+    <color name="vm_toast_color">@color/vm_white</color>
 
 </resources>

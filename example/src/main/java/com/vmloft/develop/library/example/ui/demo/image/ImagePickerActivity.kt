@@ -8,7 +8,7 @@ import com.vmloft.develop.library.example.common.Constants
 import com.vmloft.develop.library.example.image.IMGChoose
 import com.vmloft.develop.library.example.image.IMGLoader
 import com.vmloft.develop.library.example.router.AppRouter
-import com.vmloft.develop.library.example.utils.toast
+import com.vmloft.develop.library.example.utils.showBar
 import com.vmloft.develop.library.tools.utils.bitmap.VMBitmap
 import com.vmloft.develop.library.tools.utils.logger.VMLog
 import kotlinx.android.synthetic.main.activity_image_picker.*
@@ -82,7 +82,7 @@ class ImagePickerActivity : BaseActivity() {
         val bitmap = VMBitmap.loadCacheBitmapFromView(imagePickerIV)
         bitmap?.let {
             val result = VMBitmap.saveBitmapToPictures(it, Constants.projectDir, "test.jpg")
-            toast(if (result != null) "保存成功" else "保存失败")
+            showBar(if (result != null) "保存成功" else "保存失败")
         }
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/vm_toast_layout"
+    android:id="@+id/vmContainerLL"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/vm_toast_bg"
@@ -9,6 +9,7 @@
     >
 
     <View
+        android:id="@+id/vmSpaceView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/vm_dimen_24"
         />
@@ -24,14 +25,14 @@
         >
 
         <ImageView
-            android:id="@+id/vmToastIconIV"
+            android:id="@+id/vmIconIV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
             />
 
         <TextView
-            android:id="@+id/vmToastMsgTV"
+            android:id="@+id/vmMsgTV"
             style="@style/VMText.Body2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,7 +40,7 @@
             android:layout_marginTop="@dimen/vm_dimen_8"
             android:layout_marginEnd="@dimen/vm_dimen_8"
             android:layout_marginBottom="@dimen/vm_dimen_8"
-            android:textColor="@color/vm_toast_content"
+            android:textColor="@color/vm_toast_color"
             tools:text="@string/vm_name"
             />
     </LinearLayout>

@@ -185,7 +185,7 @@ class VMPermissionActivity : AppCompatActivity() {
     private fun requestPermissionAgain(item: VMPermissionBean?) {
         val alertTitle = String.format(getString(string.vm_permission_again_title), item!!.name)
         val msg = String.format(getString(string.vm_permission_again_reason), item.name, item.reason)
-        showAlertDialog(alertTitle, msg, getString(string.vm_btn_cancel), getString(string.vm_btn_ok), OnClickListener { dialog: DialogInterface, _: Int ->
+        showAlertDialog(alertTitle, msg, getString(string.vm_btn_cancel), getString(string.vm_btn_confirm), OnClickListener { dialog: DialogInterface, _: Int ->
             dialog.dismiss()
             requestPermission(arrayOf(item.permission), REQUEST_PERMISSION_AGAIN)
         })

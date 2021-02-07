@@ -7,6 +7,8 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.base.BaseActivity
 import com.vmloft.develop.library.example.router.AppRouter
+import com.vmloft.develop.library.example.utils.showBar
+import com.vmloft.develop.library.example.utils.errorBar
 import com.vmloft.develop.library.tools.widget.record.VMRecordView.RecordListener
 import com.vmloft.develop.library.tools.widget.toast.VMToast
 
@@ -28,19 +30,19 @@ class CustomViewActivity : BaseActivity() {
         setTopTitle("自定义控件演示")
         customRecordView.setRecordListener(object : RecordListener() {
             override fun onStart() {
-                VMToast.make(mActivity, "录音开始").done()
+                showBar("录音开始")
             }
 
             override fun onCancel() {
-                VMToast.make(mActivity, "录音取消").error()
+                errorBar("录音取消")
             }
 
             override fun onError(code: Int, desc: String?) {
-                VMToast.make(mActivity, "录音失败 %d %s", code, desc).error()
+                errorBar("录音失败 $code $desc")
             }
 
             override fun onComplete(path: String?, time: Long) {
-                VMToast.make(mActivity, "录音完成 %s %d", path, time).done()
+                showBar("录音完成 $path $time")
             }
         })
     }
@@ -52,19 +54,20 @@ class CustomViewActivity : BaseActivity() {
     }
 
     fun toast1(view: View) {
-        VMToast.make(mActivity, "测试自定义弹出 Toast 提醒功能，这是默认提醒样式！自定义颜色的")
-                .setBGColor(R.color.app_bg)
-                .setIcon(R.drawable.emoji_dog)
-                .setMsgColor(R.color.app_title)
-                .show()
+        VMToast.showBar(mActivity,
+                "测试自定义弹出 Toast 提醒功能，这是默认提醒样式！自定义颜色的",
+                VMToast.durationLong,
+                R.drawable.emoji_dog,
+                R.color.app_bg,
+                R.color.app_title)
     }
 
     fun toast2(view: View) {
-        VMToast.make(mActivity, "测试自定义表情雨控件").done()
+        showBar("测试自定义提醒功能")
     }
 
     fun toast3(view: View) {
-        VMToast.make(mActivity, "测试自定义弹出 Toast 提醒功能，这是错误提醒默认样式！红色的").error()
+        errorBar("测试自定义提醒功能，这是错误提醒默认样式！红色的")
     }
 
     fun setRatioLayout(view: View) {

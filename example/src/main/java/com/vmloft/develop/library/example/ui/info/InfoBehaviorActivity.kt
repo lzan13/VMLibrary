@@ -1,7 +1,6 @@
 package com.vmloft.develop.library.example.ui.info
 
 import android.graphics.Color
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.facade.annotation.Route
 
@@ -32,7 +31,6 @@ class InfoBehaviorActivity : BaseActivity() {
         VMTheme.setDarkStatusBar(this, false)
 
         setTopTitleColor(R.color.app_title_display)
-        setTopIconColor(R.color.app_title_display)
 
         initBehavior()
     }
