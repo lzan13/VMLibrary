@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.tools.widget.toast
+package com.vmloft.develop.library.tools.widget.tips
 
 import android.animation.Animator
 import android.animation.Animator.AnimatorListener
@@ -25,7 +25,7 @@ import com.vmloft.develop.library.tools.utils.VMDimen
  *
  * 描述：自定义顶部提示 view
  */
-class VMToastView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RelativeLayout(context, attrs, defStyleAttr) {
+class VMTipsBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RelativeLayout(context, attrs, defStyleAttr) {
     // 顶部空间控件
     private var mSpaceView: View? = null
 
@@ -66,6 +66,13 @@ class VMToastView @JvmOverloads constructor(context: Context, attrs: AttributeSe
     }
 
     /**
+     * 设置是否隐藏顶部空间
+     */
+    fun setHideTop(hideTop: Boolean) {
+        mSpaceView?.visibility = if (hideTop) View.GONE else View.VISIBLE
+    }
+
+    /**
      * 显示提醒
      *
      * @param msg 显示内容
@@ -82,8 +89,8 @@ class VMToastView @JvmOverloads constructor(context: Context, attrs: AttributeSe
         }
         mIconView?.visibility = if (iconId == 0) View.GONE else View.VISIBLE
 
-        mBGView?.setBackgroundResource(if (bgId != 0) bgId else R.color.vm_toast_color)
-        mMsgView?.setTextColor(VMColor.byRes(if (colorId != 0) colorId else R.color.vm_toast_color))
+        mBGView?.setBackgroundResource(if (bgId != 0) bgId else R.color.vm_toast_dark_color)
+        mMsgView?.setTextColor(VMColor.byRes(if (colorId != 0) colorId else R.color.vm_toast_dark_color))
 
         mHandler.removeMessages(removeHint)
         if (mHeight == 0f) {
@@ -115,7 +122,7 @@ class VMToastView @JvmOverloads constructor(context: Context, attrs: AttributeSe
             override fun onAnimationStart(animation: Animator) {}
             override fun onAnimationEnd(animation: Animator) {
                 isShow = false
-                viewGroup.removeView(this@VMToastView)
+                viewGroup.removeView(this@VMTipsBar)
             }
 
             override fun onAnimationCancel(animation: Animator) {}

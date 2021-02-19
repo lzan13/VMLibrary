@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.tools.widget.toast
+package com.vmloft.develop.library.tools.widget.tips
 
 import android.app.Activity
 import android.content.Context
@@ -13,14 +13,14 @@ import com.vmloft.develop.library.tools.R.id
  *
  * 自定义封装提示类
  */
-object VMToast {
+object VMTips {
 
     // 显示时长
     const val durationLong = 5000L
     const val durationShort = 2500L
 
     /**
-     * 根据字符串弹出提醒
+     * 自定义弹出提示条
      *
      * @param activity 需要展示提醒界面的 Activity 对象
      * @param msg      要展示的提醒内容
@@ -29,24 +29,32 @@ object VMToast {
      * @param bgId 显示背景资源 Id
      * @param colorId 显示文本颜色 Id
      */
-    fun showBar(activity: Activity, msg: String, duration: Long = durationShort, iconId: Int = 0, bgId: Int = color.vm_toast_bg, colorId: Int = color.vm_toast_color) {
+    fun showBar(activity: Activity, msg: String, duration: Long = durationShort, iconId: Int = 0, bgId: Int = color.vm_toast_light_bg, colorId: Int = color.vm_toast_light_color, hideTop: Boolean = false) {
         val barLayout = activity.findViewById<View>(id.vmContainerLL)
-        var barView: VMToastView
+        var barView: VMTipsBar
         if (barLayout == null) {
-            barView = VMToastView(activity)
+            barView = VMTipsBar(activity)
             val lp = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
             activity.addContentView(barView, lp)
         } else {
-            barView = barLayout.parent as VMToastView
+            barView = barLayout.parent as VMTipsBar
         }
+        barView.setHideTop(hideTop)
         barView.show(msg, duration, iconId, bgId, colorId)
     }
 
     /**
-     * 自定义错误操作的提示
+     * 自定义暗色提示条
      */
-    fun errorBar(activity: Activity, msg: String, duration: Long = durationShort) {
-        showBar(activity, msg, duration, bgId = color.vm_toast_error_bg)
+    fun darkBar(activity: Activity, msg: String, duration: Long = durationShort, hideTop: Boolean = false) {
+        showBar(activity, msg, duration, bgId = color.vm_toast_bg, colorId = color.vm_toast_dark_color, hideTop = hideTop)
+    }
+
+    /**
+     * 自定义错误提示条
+     */
+    fun errorBar(activity: Activity, msg: String, duration: Long = durationShort, hideTop: Boolean = false) {
+        showBar(activity, msg, duration, bgId = color.vm_toast_error_bg, colorId = color.vm_toast_dark_color, hideTop = hideTop)
     }
 
     /**

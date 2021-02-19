@@ -7,9 +7,13 @@
         </shape>
     </item>
     <item>
-        <shape android:shape="rectangle">
-            <corners android:radius="@dimen/vm_btn_rectangle_radius" />
-            <stroke android:width="@dimen/vm_dimen_1" android:color="?android:attr/colorAccent" />
-        </shape>
+        <ripple android:color="?attr/colorControlHighlight">
+            <item>
+                <shape android:shape="rectangle">
+                    <corners android:radius="@dimen/vm_btn_rectangle_radius" />
+                    <stroke android:width="@dimen/vm_dimen_1" android:color="?android:attr/colorAccent" />
+                </shape>
+            </item>
+        </ripple>
     </item>
 </selector>

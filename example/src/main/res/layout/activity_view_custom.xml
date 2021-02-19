@@ -30,30 +30,37 @@
                     style="@style/VMBtn.Fillet.Accent"
                     android:layout_margin="@dimen/vm_margin_normal"
                     android:onClick="startTimer"
-                    android:text="开启定时"
+                    android:text="定时"
                     app:vm_timer_text="%ds 后结束"
                     app:vm_timer_time="10" />
 
                 <Button
-                    android:id="@+id/btn_toast_1"
                     style="@style/VMBtn.Fillet.Accent"
                     android:layout_margin="@dimen/vm_margin_normal"
-                    android:onClick="toast1"
-                    android:text="Toast1" />
+                    android:onClick="tips1"
+                    android:text="Tips1" />
 
                 <Button
-                    android:id="@+id/btn_toast_2"
                     style="@style/VMBtn.Fillet.Accent"
                     android:layout_margin="@dimen/vm_margin_normal"
-                    android:onClick="toast2"
-                    android:text="Toast2" />
+                    android:onClick="tips2"
+                    android:text="Tips2" />
 
                 <Button
-                    android:id="@+id/btn_toast_3"
                     style="@style/VMBtn.Fillet.Accent"
                     android:layout_margin="@dimen/vm_margin_normal"
-                    android:onClick="toast3"
-                    android:text="Toast3" />
+                    android:onClick="tips3"
+                    android:text="Tips3" />
+                <Button
+                    style="@style/VMBtn.Fillet.Accent"
+                    android:layout_margin="@dimen/vm_margin_normal"
+                    android:onClick="tips4"
+                    android:text="Tips4" />
+                <Button
+                    style="@style/VMBtn.Fillet.Accent"
+                    android:layout_margin="@dimen/vm_margin_normal"
+                    android:onClick="tips5"
+                    android:text="Tips5" />
             </com.vmloft.develop.library.tools.widget.VMViewGroup>
 
             <RelativeLayout
@@ -81,14 +88,6 @@
                 app:vm_line_decoration_height="@dimen/vm_dimen_6"
                 app:vm_line_right_icon="@drawable/ic_arrow_next"
                 app:vm_line_title="测试 Item" />
-
-            <com.vmloft.develop.library.tools.widget.VMLineView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:vm_line_caption="右侧说明右侧说明右侧说明右侧说明右侧说明右侧说明右侧说明右"
-                app:vm_line_decoration="right"
-                app:vm_line_right_icon="@drawable/ic_arrow_next"
-                app:vm_line_title="测试 ItemItemItemItemItem" />
 
             <com.vmloft.develop.library.tools.widget.VMLineView
                 android:layout_width="match_parent"

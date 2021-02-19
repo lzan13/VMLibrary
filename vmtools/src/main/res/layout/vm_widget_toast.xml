@@ -40,7 +40,7 @@
             android:layout_marginTop="@dimen/vm_dimen_8"
             android:layout_marginEnd="@dimen/vm_dimen_8"
             android:layout_marginBottom="@dimen/vm_dimen_8"
-            android:textColor="@color/vm_toast_color"
+            android:textColor="@color/vm_toast_dark_color"
             tools:text="@string/vm_name"
             />
     </LinearLayout>

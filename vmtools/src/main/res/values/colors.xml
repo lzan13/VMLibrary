@@ -124,7 +124,9 @@
     <color name="vm_indicator_selected">@color/vm_accent</color>
 
     <color name="vm_toast_bg">#ff363636</color>
+    <color name="vm_toast_light_bg">@color/vm_white</color>
     <color name="vm_toast_error_bg">@color/vm_red</color>
-    <color name="vm_toast_color">@color/vm_white</color>
+    <color name="vm_toast_dark_color">@color/vm_white</color>
+    <color name="vm_toast_light_color">@color/vm_black</color>
 
 </resources>

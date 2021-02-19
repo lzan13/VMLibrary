@@ -36,7 +36,7 @@ class FloatMenuActivity : BaseActivity() {
         super.initUI()
         setTopTitle("自定义悬浮菜单")
 
-        floatMenu = VMFloatMenu(mActivity!!)
+        floatMenu = VMFloatMenu(mActivity)
         floatMenu.setItemClickListener(object : IItemClickListener() {
             override fun onItemClick(id: Int) {
                 VMLog.d("点击了悬浮菜单 $id")

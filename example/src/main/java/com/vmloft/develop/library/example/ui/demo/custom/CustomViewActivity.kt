@@ -7,10 +7,13 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.base.BaseActivity
 import com.vmloft.develop.library.example.router.AppRouter
+import com.vmloft.develop.library.example.utils.darkBar
 import com.vmloft.develop.library.example.utils.showBar
 import com.vmloft.develop.library.example.utils.errorBar
+import com.vmloft.develop.library.example.utils.show
 import com.vmloft.develop.library.tools.widget.record.VMRecordView.RecordListener
-import com.vmloft.develop.library.tools.widget.toast.VMToast
+import com.vmloft.develop.library.tools.widget.tips.VMTips
+import com.vmloft.develop.library.tools.widget.tips.VMTips.show
 
 import kotlinx.android.synthetic.main.activity_view_custom.customRatioLayout
 import kotlinx.android.synthetic.main.activity_view_custom.customRecordView
@@ -53,21 +56,24 @@ class CustomViewActivity : BaseActivity() {
         customTimerBtn.startTimer()
     }
 
-    fun toast1(view: View) {
-        VMToast.showBar(mActivity,
-                "测试自定义弹出 Toast 提醒功能，这是默认提醒样式！自定义颜色的",
-                VMToast.durationLong,
-                R.drawable.emoji_dog,
-                R.color.app_bg,
-                R.color.app_title)
+    fun tips1(view: View) {
+        VMTips.showBar(mActivity, "测试自定义图标提示条", VMTips.durationLong, R.drawable.emoji_dog)
     }
 
-    fun toast2(view: View) {
-        showBar("测试自定义提醒功能")
+    fun tips2(view: View) {
+        showBar("测试自定义默认提示条")
     }
 
-    fun toast3(view: View) {
-        errorBar("测试自定义提醒功能，这是错误提醒默认样式！红色的")
+    fun tips3(view: View) {
+        darkBar("测试自定义暗色提示条")
+    }
+
+    fun tips4(view: View) {
+        errorBar("测试自定义错误提示条，这是错误提醒默认样式！红色的")
+    }
+
+    fun tips5(view: View) {
+        this.show("测试系统提示")
     }
 
     fun setRatioLayout(view: View) {

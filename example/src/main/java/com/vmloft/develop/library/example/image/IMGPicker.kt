@@ -11,6 +11,7 @@ import com.vmloft.develop.library.example.utils.errorBar
 import com.vmloft.develop.library.tools.utils.VMColor
 import com.vmloft.develop.library.tools.utils.VMDimen
 import com.vmloft.develop.library.tools.widget.loading.VMLoadingView
+import com.vmloft.develop.library.tools.widget.tips.VMTips
 import com.ypx.imagepicker.adapter.PickerItemAdapter
 import com.ypx.imagepicker.bean.ImageItem
 import com.ypx.imagepicker.bean.selectconfig.BaseSelectConfig
@@ -108,7 +109,10 @@ class IMGPicker : IPickerPresenter {
      * @param msg     提示文本
      */
     override fun tip(context: Context?, msg: String) {
-        (context as Activity)?.errorBar(msg)
+//        (context as Activity)?.errorBar(msg)
+        context?.let {
+            VMTips.errorBar(it as Activity, msg, hideTop = true)
+        }
     }
 
     /**
