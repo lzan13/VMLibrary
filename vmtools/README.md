@@ -1,7 +1,6 @@
 VMTools
 =======
-
-[![](https://img.shields.io/badge/version-v1.3.5-green.svg)](https://gitee.com/lzan13/VMLibrary/releases/1.3.5)
+[![](https://jitpack.io/v/com.gitee.lzan13/VMLibrary.svg)](https://jitpack.io/#com.gitee.lzan13/VMLibrary)
 [![](https://img.shields.io/badge/blog-%E7%A9%BF%E8%A3%A4%E8%A1%A9%E9%97%AF%E5%A4%A9%E4%B8%8B-blue.svg)](https://blog.melove.net)
 [![](https://img.shields.io/badge/github-lzan13-blue.svg)](https://github.com/lzan13)
 [![](https://img.shields.io/badge/gitee-lzan13-red.svg)](https://gitee.com/lzan13)
