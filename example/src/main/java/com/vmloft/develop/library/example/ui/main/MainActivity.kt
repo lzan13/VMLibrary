@@ -1,18 +1,17 @@
 package com.vmloft.develop.library.example.ui.main
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.example.base.BaseActivity
+import com.vmloft.develop.library.common.base.BaseActivity
+import com.vmloft.develop.library.example.notify.NotifyManager
 import com.vmloft.develop.library.example.ui.main.explore.ExploreFragment
 import com.vmloft.develop.library.example.ui.main.home.HomeFragment
 import com.vmloft.develop.library.example.ui.main.mine.MineFragment
 import com.vmloft.develop.library.example.ui.main.msg.MsgFragment
-import com.vmloft.develop.library.template.notify.NotifyManager
 
 import kotlinx.android.synthetic.main.activity_main.*
 

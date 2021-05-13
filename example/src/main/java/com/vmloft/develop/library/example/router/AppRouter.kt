@@ -24,10 +24,19 @@ object AppRouter {
     const val appSinglePermission = "/VMLoft/SinglePermission"
     const val appMultiPermission = "/VMLoft/MultiPermission"
 
-
     const val appNotifyTest = "/VMLoft/Notify"
 
-    const val appInfoBehavior = "/VMLoft/InfoBehavior"
+
+    // 设置
+    const val appSettings = "/App/Settings"
+    const val appSettingsDark = "/App/SettingsDark"
+    const val appSettingsMedia = "/App/SettingsMedia"
+    const val appSettingsNotify = "/App/SettingsNotify"
+    const val appSettingsAbout = "/App/SettingsAbout"
+    const val appFeedback = "/App/Feedback"
+
+    const val appUserInfo = "/App/appUserInfo"
+
 
     /**
      * 通用跳转

@@ -5,13 +5,12 @@ import android.widget.TextView
 import com.alibaba.android.arouter.facade.annotation.Route
 
 import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.example.base.BaseActivity
+import com.vmloft.develop.library.common.base.BaseActivity
 import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.tools.widget.barrage.VMBarrageView
 import com.vmloft.develop.library.tools.widget.barrage.VMViewCreator
-import kotlinx.android.synthetic.main.activity_view_barrage.*
 
-//import kotlinx.android.synthetic.main.activity_view_barrage.*
+import kotlinx.android.synthetic.main.activity_demo_view_barrage.*
 
 
 /**
@@ -24,7 +23,7 @@ class BarrageViewActivity : BaseActivity() {
     private val mDataList: MutableList<BarrageBean> = mutableListOf()
 
     override fun layoutId(): Int {
-        return R.layout.activity_view_barrage
+        return R.layout.activity_demo_view_barrage
     }
 
     override fun initUI() {

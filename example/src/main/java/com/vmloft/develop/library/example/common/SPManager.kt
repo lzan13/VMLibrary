@@ -1,6 +1,5 @@
 package com.vmloft.develop.library.example.common
 
-import com.vmloft.develop.library.example.BuildConfig
 import com.vmloft.develop.library.tools.utils.VMSPUtil
 import com.vmloft.develop.library.tools.utils.VMSystem
 
@@ -9,16 +8,16 @@ import com.vmloft.develop.library.tools.utils.VMSystem
  * 描述：SharedPreference 管理
  */
 class SPManager {
-    // debug 开关
-    private val debugKey = "debugKey"
+    /**
+     * 记录设置项
+     */
+    private val settingsEntry = "settings"
 
     // 本地版本
     private val localVersionKey = "localVersionKey"
+
     // 隐私协议状态
     private val policyStatusKey = "policyStatusKey"
-
-    // debug 开关状态
-    private val debugStatusKey = "debugStatusKey"
 
     // 通知开关
     private val notifyMsgSwitchKey = "notifyMsgSwitchKey"
@@ -28,41 +27,68 @@ class SPManager {
     private val darkModeSystemSwitchKey = "darkModeSystemSwitchKey"
     private val darkModeManualKey = "darkModeManualKey"
 
-    // 图片资源设置 key
-    private val pictureAutoLoadKey = "pictureAutoLoadKey"
-    private val pictureSaveDICMKey = "pictureSaveDICMKey"
-
-    // 记录账户信息
+    /**
+     * 记录登录信息
+     */
+    private val signEntry = "sign"
+    private val tokenKey = "tokenKey"
     private val currUserKey = "currUserKey"
     private val prevUserKey = "prevUserKey"
+
+    /**
+     * 记录时间
+     */
+    private val timeEntry = "time"
+    private val categoryTimeKey = "categoryTimeKey"
+    private val professionTimeKey = "categoryTimeKey"
 
     companion object {
         val instance: SPManager by lazy {
             SPManager()
         }
     }
-
     /**
-     * Debug 状态
+     * -------------------------------------------------------------------------------
+     * 通用的几个方法
      */
-    fun setDebug(debug: Boolean) {
-        VMSPUtil.getEntry().putAsync(debugKey, debug)
+    /**
+     * 通用获取数据
+     */
+    fun get(entry: String, key: String, default: Any): Any? {
+        return VMSPUtil.getEntry(entry).get(key, default)
     }
 
-    fun isDebug(): Boolean = VMSPUtil.getEntry().get(debugKey, com.vmloft.develop.library.tools.BuildConfig.DEBUG) as Boolean
+    /**
+     * 通用设置数据
+     */
+    fun put(entry: String, key: String, value: String) {
+        VMSPUtil.getEntry(entry).put(key, value)
+    }
+
+    /**
+     * 通用设置数据，异步
+     */
+    fun putAsync(entry: String, key: String, value: Any) {
+        VMSPUtil.getEntry(entry).putAsync(key, value)
+    }
+
+    /**
+     * -------------------------------------------------------------------------------
+     * 记录设置项
+     */
 
     /**
      * 保存当前运行版本号
      */
     fun setLocalVersion(version: Long) {
-        VMSPUtil.getEntry().putAsync(localVersionKey, version)
+        putAsync(settingsEntry, localVersionKey, version)
     }
 
     /**
      * 获取当前运行的版本号
      */
     fun getLocalVersion(): Long {
-        return VMSPUtil.getEntry().get(localVersionKey, 0L) as Long
+        return get(settingsEntry, localVersionKey, 0L) as Long
     }
 
     /**
@@ -88,92 +114,59 @@ class SPManager {
      * 设置隐私协议状态
      */
     fun setPolicyStatus() {
-        VMSPUtil.getEntry().putAsync(policyStatusKey, true)
+        putAsync(settingsEntry, policyStatusKey, true)
     }
 
-    fun getPolicyStatus(): Boolean {
-        return VMSPUtil.getEntry().get(policyStatusKey, false) as Boolean
-    }
-
-    /**
-     * Debug 状态
-     */
-    fun setDebugStatus(debug: Boolean) {
-        VMSPUtil.getEntry().putAsync(debugStatusKey, debug)
-    }
-
-    fun getDebugStatus(): Boolean {
-        return VMSPUtil.getEntry().get(debugStatusKey, BuildConfig.DEBUG) as Boolean
-    }
+    fun isPolicyStatus(): Boolean = get(settingsEntry, policyStatusKey, false) as Boolean
 
     /**
      * 通知开关
      */
     fun setNotifyMsgSwitch(status: Boolean) {
-        VMSPUtil.getEntry().putAsync(notifyMsgSwitchKey, status)
+        putAsync(settingsEntry, notifyMsgSwitchKey, status)
     }
 
-    fun getNotifyMsgSwitch(): Boolean {
-        return VMSPUtil.getEntry().get(notifyMsgSwitchKey, true) as Boolean
-    }
+    fun isNotifyMsgSwitch(): Boolean = get(settingsEntry, notifyMsgSwitchKey, true) as Boolean
 
     fun setNotifyMsgDetailSwitch(status: Boolean) {
-        VMSPUtil.getEntry().putAsync(notifyMsgDetailSwitchKey, status)
+        putAsync(settingsEntry, notifyMsgDetailSwitchKey, status)
     }
 
-    fun getNotifyMsgDetailSwitch(): Boolean {
-        return VMSPUtil.getEntry().get(notifyMsgDetailSwitchKey, true) as Boolean
-    }
+    fun isNotifyMsgDetailSwitch(): Boolean =
+            get(settingsEntry, notifyMsgDetailSwitchKey, true) as Boolean
 
     /**
      * 深色模式
      */
     fun setDarkModeSystemSwitch(status: Boolean) {
-        VMSPUtil.getEntry().putAsync(darkModeSystemSwitchKey, status)
+        putAsync(settingsEntry, darkModeSystemSwitchKey, status)
     }
 
-    fun getDarkModeSystemSwitch(): Boolean {
-        return VMSPUtil.getEntry().get(darkModeSystemSwitchKey, true) as Boolean
-    }
+    fun isDarkModeSystemSwitch(): Boolean =
+            get(settingsEntry, darkModeSystemSwitchKey, true) as Boolean
 
     fun setDarkModeManual(mode: Int) {
-        VMSPUtil.getEntry().putAsync(darkModeManualKey, mode)
+        putAsync(settingsEntry, darkModeManualKey, mode)
     }
 
     fun getDarkModeManual(): Int {
-        return VMSPUtil.getEntry().get(darkModeManualKey, -1) as Int
+        return get(settingsEntry, darkModeManualKey, -1) as Int
     }
 
     /**
-     * 资源开关
+     * -------------------------------------------------------------------------------
+     * 记录登录信息
      */
-    fun setAutoLoad(auto: Boolean) {
-        VMSPUtil.getEntry().putAsync(pictureAutoLoadKey, auto)
-    }
-
-    fun isAutoLoad(): Boolean {
-        return VMSPUtil.getEntry().get(pictureAutoLoadKey, true) as Boolean
-    }
-
-    fun setSaveDICM(auto: Boolean) {
-        VMSPUtil.getEntry().putAsync(pictureSaveDICMKey, auto)
-    }
-
-    fun isSaveDICM(): Boolean {
-        return VMSPUtil.getEntry().get(pictureSaveDICMKey, true) as Boolean
-    }
 
     /**
-     * 上一个账户登录记录
-     *
-     * @return 如果为空，说明没有登录记录
+     * token 需要实时更新
      */
-    fun getPrevUser(): String {
-        return VMSPUtil.getEntry().get(prevUserKey, "") as String
+    fun getToken(): String {
+        return get(signEntry, tokenKey, "") as String
     }
 
-    fun putPrevUser(userJson: String) {
-        VMSPUtil.getEntry().putAsync(prevUserKey, userJson)
+    fun putToken(token: String) {
+        put(signEntry, tokenKey, token)
     }
 
     /**
@@ -182,10 +175,57 @@ class SPManager {
      * @return 如果为空，说明没有登录记录
      */
     fun getCurrUser(): String {
-        return VMSPUtil.getEntry().get(currUserKey, "") as String
+        return get(signEntry, currUserKey, "") as String
     }
 
     fun putCurrUser(userJson: String) {
-        VMSPUtil.getEntry().putAsync(currUserKey, userJson)
+        put(signEntry, currUserKey, userJson)
     }
+
+    /**
+     * 上一个账户登录记录
+     *
+     * @return 如果为空，说明没有登录记录
+     */
+    fun getPrevUser(): String {
+        return get(signEntry, prevUserKey, "") as String
+    }
+
+    fun putPrevUser(userJson: String) {
+        putAsync(signEntry, prevUserKey, userJson)
+    }
+
+    /**
+     * -------------------------------------------------------------------------------
+     * 记录时间信息
+     */
+
+    /**
+     * 获取最近一次分类获取缓存时间
+     */
+    fun getCategoryTime(): Long {
+        return get(timeEntry, categoryTimeKey, 0L) as Long
+    }
+
+    /**
+     * 设置最近一次分类获取缓存时间
+     */
+    fun setCategoryTime(time: Long) {
+        putAsync(timeEntry, categoryTimeKey, time)
+    }
+
+    /**
+     * 获取最近一次职业获取缓存时间
+     */
+    fun getProfessionTime(): Long {
+        return get(timeEntry, professionTimeKey, 0L) as Long
+    }
+
+    /**
+     * 设置最近一次职业获取缓存时间
+     */
+    fun setProfessionTime(time: Long) {
+        putAsync(timeEntry, professionTimeKey, time)
+    }
+
 }

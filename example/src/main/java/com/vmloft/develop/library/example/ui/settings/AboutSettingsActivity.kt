@@ -2,11 +2,12 @@ package com.vmloft.develop.library.example.ui.settings
 
 import com.alibaba.android.arouter.facade.annotation.Route
 
+import com.vmloft.develop.library.common.base.BaseActivity
+import com.vmloft.develop.library.common.common.CConstants
+import com.vmloft.develop.library.common.router.CRouter
+import com.vmloft.develop.library.common.utils.showBar
 import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.example.base.BaseActivity
-import com.vmloft.develop.library.example.common.Constants
 import com.vmloft.develop.library.example.router.AppRouter
-import com.vmloft.develop.library.example.utils.showBar
 import com.vmloft.develop.library.tools.utils.VMSystem
 
 import kotlinx.android.synthetic.main.activity_settings_about.*
@@ -15,11 +16,11 @@ import kotlinx.android.synthetic.main.activity_settings_about.*
  * Create by lzan13 on 2020/05/02 22:56
  * 描述：关于
  */
-@Route(path = "/VMLoft/SettingsAbout")
+@Route(path = AppRouter.appSettingsAbout)
 class AboutSettingsActivity : BaseActivity() {
 
-    private val maxCount = 7
-    private val maxInterval = Constants.timeSecond
+    private val maxCount = 5
+    private val maxInterval = CConstants.timeSecond
     private var mCount: Int = 0
     private var mTime: Long = 0L
 
@@ -29,12 +30,12 @@ class AboutSettingsActivity : BaseActivity() {
         super.initUI()
 
         aboutIconIV.setOnClickListener { goDebug() }
+        aboutFeedbackLV.setOnClickListener { CRouter.go(AppRouter.appFeedback) }
         // 检查更新
-        aboutCheckVersionLV.setOnClickListener { showBar("已经是最新版本") }
+        aboutCheckVersionLV.setOnClickListener { showBar(R.string.version_check_toast) }
 
-        aboutFeedbackLV.setOnClickListener { AppRouter.goFeedback() }
 
-        aboutPrivacyPolicyTV.setOnClickListener { AppRouter.goWeb(Constants.policyUrl) }
+        aboutPrivacyPolicyTV.setOnClickListener { CRouter.goWeb(CConstants.privatePolicyUrl) }
     }
 
     override fun initData() {
@@ -52,7 +53,7 @@ class AboutSettingsActivity : BaseActivity() {
         if (mCount < maxCount) {
             mCount++
         } else {
-            AppRouter.goSettingsDebug()
+            CRouter.goDebug()
         }
         mTime = System.currentTimeMillis()
     }

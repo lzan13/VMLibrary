@@ -38,35 +38,45 @@
     <string name="follow">关注</string>
     <string name="like_me">喜欢我</string>
 
+
     <!--设置-->
     <string name="settings">设置</string>
+
     <string name="settings_about">关于</string>
-    <string name="settings_about_content">一个移动 APP 模板项目，可方便快速的搭建一个移动项目</string>
-    <string name="settings_about_copyright">Copyright &#169; 2020 VMLoft.\nAll Right Reserved.</string>
-    <string name="settings_version">检查更新</string>
+    <string name="about_content">一个移动 APP 模板项目，可方便快速的搭建一个移动项目</string>
+    <string name="about_copyright">Copyright &#169; 2020 VMLoft.\nAll Right Reserved.</string>
+
     <string name="settings_feedback">问题反馈</string>
     <string name="settings_feedback_hint">有什么问题可以反馈给我，帮助我改进</string>
+    <string name="feedback_contact">联系方式</string>
+    <string name="feedback_contact_hint">联系方式方便我们解决问题通知到您</string>
+    <string name="feedback_content">反馈内容</string>
+    <string name="feedback_content_hint">辛苦描述您遇到的问题</string>
+    <string name="feedback_screenshot">反馈截图</string>
 
-    <string name="settings_picture">图片资源</string>
-    <string name="settings_picture_auto">自动加载</string>
-    <string name="settings_picture_save">保存到相册</string>
-    <string name="settings_picture_save_hint">应用内拍照的图片将保存到系统相册</string>
-    <string name="settings_picture_clear">清空缓存</string>
-    <string name="settings_picture_clear_hint">缓存有利于节省流量，清空缓存可释放手机存储空间</string>
+
+    <string name="version_check">检查更新</string>
+    <string name="version_check_toast">已经是最新版本</string>
+
+    <!--媒体相关设置-->
+    <string name="settings_media">图片资源</string>
+    <string name="media_auto">自动加载</string>
+    <string name="media_save">保存到相册</string>
+    <string name="media_save_hint">应用内拍照的图片将保存到系统相册</string>
+    <string name="media_clear">清空缓存</string>
+    <string name="media_clear_hint">缓存有利于节省流量，清空缓存可释放手机存储空间</string>
+    <string name="media_clear_toast">缓存清空完成</string>
 
     <string name="settings_notify">通知设置</string>
-    <string name="settings_notify_switch">通知开关</string>
-    <string name="settings_notify_switch_msg">接收新消息通知</string>
-    <string name="settings_notify_switch_call">接收音视频邀请通知通知</string>
-    <string name="settings_notify_msg_detail">消息通知展示详情</string>
-    <string name="settings_notify_msg_detail_hint">关闭后，收到新消息通知将不展示具体内容，展示为："你有一条新消息"</string>
-    <string name="settings_notify_sound_vibrator">声音与振动</string>
-    <string name="settings_notify_msg_system">新消息系统通知</string>
-    <string name="settings_notify_msg_system_hint">前往系统设置修改消息声音与震动</string>
-    <string name="notify_content">你有一条新的消息通知</string>
-
-    <string name="settings_debug">调试模式</string>
-    <string name="settings_debug_env">环境</string>
+    <string name="notify_switch">通知开关</string>
+    <string name="notify_switch_msg">接收新消息通知</string>
+    <string name="notify_switch_call">接收音视频邀请通知通知</string>
+    <string name="notify_msg_detail">消息通知展示详情</string>
+    <string name="notify_msg_detail_hint">关闭后，收到新消息通知将不展示具体内容，展示为："你有一条新消息"</string>
+    <string name="notify_sound_vibrator">声音与振动</string>
+    <string name="notify_msg_system">新消息系统通知</string>
+    <string name="notify_msg_system_hint">前往系统设置修改消息声音与震动</string>
+    <string name="notify_msg_hint">你有一条新的消息通知</string>
 
     <string name="settings_dark">深色模式</string>
     <string name="settings_dark_system">跟随系统</string>
@@ -74,19 +84,42 @@
     <string name="settings_dark_manual">手动设置</string>
     <string name="settings_dark_normal">正常模式</string>
 
+    <!--个人信息-->
     <string name="settings_info">个人信息</string>
-    <string name="settings_info_avatar">头像</string>
-    <string name="settings_info_nickname">昵称</string>
-    <string name="settings_info_email">邮箱</string>
-    <string name="settings_info_phone">手机号</string>
-    <string name="settings_info_gender">性别</string>
-    <string name="settings_info_birthday">生日</string>
-    <string name="settings_info_signature">个性签名</string>
-    <string name="settings_info_address">地址</string>
+    <string name="info_edit">编辑资料</string>
+    <string name="info_cover">封面图</string>
+    <string name="info_avatar">头像</string>
+    <string name="info_username">用户名</string>
+    <string name="info_username_hint">用户名必须唯一，且只能设置一次，4-16个字符，不能包含除 a-z A-Z 0-9 _ . 外的其它字符</string>
+    <string name="info_nickname">昵称</string>
+    <string name="info_nickname_default">小透明</string>
+    <string name="info_nickname_hint">4-24字符，不包含特殊字符</string>
+    <string name="info_email">邮箱</string>
+    <string name="info_email_null">未绑定</string>
+    <string name="info_phone">手机号</string>
+    <string name="info_phone_null">未绑定</string>
+    <string name="info_auth">认证</string>
+    <string name="info_auth_no">未认证</string>
+    <string name="info_auth_yes">已认证</string>
+    <string name="info_gender">性别</string>
+    <string name="info_birthday">生日</string>
+    <string name="info_signature">个性签名</string>
+    <string name="info_signature_default">无个性不签名</string>
+    <string name="info_address">地址</string>
+    <string name="info_address_default">四海为家</string>
+    <string name="info_profession">职业</string>
+    <string name="info_not_set">未设置</string>
 
     <string name="info_gender_man">男</string>
     <string name="info_gender_woman">女</string>
-    <string name="info_gender_unknow">未知</string>
+    <string name="info_gender_unknow">保密</string>
+
+    <string name="personal_auth">个人认证</string>
+    <string name="auth_real_name">真实姓名</string>
+    <string name="auth_real_name_error">真实姓名格式错误</string>
+    <string name="auth_id_card_number">身份证号</string>
+    <string name="auth_id_card_number_error">身份证号格式校验错误，请检查</string>
+    <string name="auth_hint">个人实名认证仅用作系统验证，不会泄露给任何其他人</string>
 
     <!--注册登录-->
     <string name="sign_welcome_to_back">嗨，欢迎回来！</string>
@@ -94,6 +127,7 @@
     <string name="sign_up">注册</string>
     <string name="sign_in">登录</string>
     <string name="sign_out">退出登录</string>
+    <string name="sign_out_hint">确定要退出登录吗？</string>
     <string name="sign_to_sign_up">去注册</string>
     <string name="sign_forget_password">忘记密码</string>
     <string name="sign_account">账户</string>
@@ -117,6 +151,7 @@
     <!--通用-->
     <string name="loading">加载中...</string>
     <string name="wait">请稍等...</string>
+
     <!--按钮-->
     <string name="btn_save">保存</string>
     <string name="btn_ok">确定</string>
@@ -124,6 +159,7 @@
     <string name="btn_cancel">取消</string>
     <string name="btn_agree">同意</string>
     <string name="btn_disagree">不同意</string>
+
     <!--输入-->
     <string name="input_hint">请输入...</string>
     <string name="input_not_null">输入内容不能为空</string>

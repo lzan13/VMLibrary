@@ -10,50 +10,43 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.example.base.BaseFragment
+import com.vmloft.develop.library.common.base.BaseFragment
 import com.vmloft.develop.library.tools.utils.logger.VMLog
 
-import kotlinx.android.synthetic.main.fragment_tab.*
+import kotlinx.android.synthetic.main.fragment_demo_tab.*
 
 
 class TabFragment : BaseFragment() {
 
-    override fun layoutId() = R.layout.fragment_tab
+    private lateinit var tabName: String
+
+    override fun layoutId() = R.layout.fragment_demo_tab
 
     override fun initData() {
-        val data = listOf<String>(
-                "0",
-                "1",
-                "2",
-                "3",
-                "4",
-                "5",
-                "6",
-                "7",
-                "8",
-                "9",
-                "0",
-                "1",
-                "2",
-                "3",
-                "4",
-                "5",
-                "6",
-                "7",
-                "8",
-                "9",
-                "0",
-                "1",
-                "2",
-                "3",
-                "4",
-                "5",
-                "6",
-                "7",
-                "8",
-                "9")
+        tabName = arguments!!.getString(tabNameKey) ?: ""
+
+        val list = mutableListOf<String>()
+        for (index in 1..100) {
+            list.add("$tabName-$index")
+        }
+
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = TestRecycleViewAdapter(context!!, data)
+        recyclerView.adapter = TestRecycleViewAdapter(context!!, list)
+    }
+
+    companion object {
+        private val tabNameKey = "tabNameKey"
+
+        /**
+         * Fragment 的工厂方法，方便创建并设置参数
+         */
+        fun newInstance(arg1: String): TabFragment {
+            val fragment = TabFragment()
+            val args = Bundle()
+            args.putString(tabNameKey, arg1)
+            fragment.arguments = args
+            return fragment
+        }
     }
 
     class TestRecycleViewAdapter(context: Context, list: List<String>) : RecyclerView.Adapter<TestRecycleViewAdapter.ViewHolder>() {

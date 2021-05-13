@@ -1,6 +1,8 @@
 package com.vmloft.develop.library.example.image
 
 import android.app.Activity
+import com.vmloft.develop.library.common.common.CConstants
+import com.vmloft.develop.library.common.common.CSPManager
 import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.common.Constants
 import com.vmloft.develop.library.example.common.SPManager
@@ -32,7 +34,7 @@ object IMGChoose {
         // 照片文件名
         val name = "IMG_" + VMDate.sdfFilenameDateTime
         // 照片是否保存到系统相册文件
-        val isCopyInDCIM = SPManager.instance.isSaveDICM()
+        val isCopyInDCIM = CSPManager.instance.isSaveDICM()
         ImagePicker.takePhoto(activity, name, isCopyInDCIM) {
             // 拍照结果回调，主线程
             callback.invoke(it[0].uri)
@@ -46,9 +48,9 @@ object IMGChoose {
         // 照片文件名
         val name = "IMG_" + VMDate.sdfFilenameDateTime
         // 可录制的最大时常，单位毫秒ms
-        val maxDuration = Constants.timeMinute
+        val maxDuration = CConstants.timeMinute
         // 照片是否保存到系统相册文件
-        val isCopyInDCIM = SPManager.instance.isSaveDICM()
+        val isCopyInDCIM = CSPManager.instance.isSaveDICM()
         ImagePicker.takeVideo(activity, name, maxDuration, isCopyInDCIM) {
             // 拍摄结果回调，主线程
             callback.invoke(it[0].uri)

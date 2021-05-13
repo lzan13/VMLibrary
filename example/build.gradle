@@ -7,6 +7,9 @@ apply plugin: 'kotlin-kapt'
 def configs = rootProject.ext.configs
 def signings = rootProject.ext.signings
 
+ext {
+    isDebug = true
+}
 android {
     compileSdkVersion configs.compileSdkVersion
 
@@ -38,6 +41,8 @@ android {
     // 编译配置
     buildTypes {
         debug {
+            // 添加参数表示 debug 环境，这里使用测试环境
+            isDebug = true
             // 是否开启压缩
             zipAlignEnabled false
             // 是否开启混淆
@@ -46,6 +51,8 @@ android {
             signingConfig signingConfigs.release
         }
         release {
+            // 添加参数表示 debug 环境，这里使用测试环境
+            isDebug = false
             // 是否开启压缩
             zipAlignEnabled true
             // 是否开启混淆
@@ -55,8 +62,8 @@ android {
             // 设置正式打包的签名
             signingConfig signingConfigs.release
             // 混淆文件
-            // proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            proguardFiles 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            consumerProguardFiles 'consumer-rules.pro'
 
             // 修改生成的 apk 名字，格式为:项目-版本-时间-渠道名.apk
             android.applicationVariants.all { variant ->
@@ -77,74 +84,54 @@ android {
                     BUGLY_APP_ID: configs.buglyAppId,
                     UMENG_APP_ID: configs.umengAppId,
                     APP_CHANNEL : "Develop",
+                    APP_DEBUG   : isDebug,
                     APP_VERSION : configs.versionName
             ]
         }
     }
 
-    lintOptions {
-        abortOnError false
-    }
-
-    // 设置使用 Java 1.8
+    // 使用 Java 8 编译
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    // 开启数据绑定
+//    dataBinding {
+//        enabled true
+//    }
+    buildFeatures {
+        dataBinding {
+            enabled true
+        }
+    }
+    // 编译忽略错误配置
+    lintOptions {
+        abortOnError false
     }
     // kotlin 配置
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
     }
     // 阿里巴巴 ARouter Kotlin 下的配置
-    kapt{
+    kapt {
         arguments {
+            // 阿里巴巴 ARouter Kotlin 下的配置
             arg("AROUTER_MODULE_NAME", project.getName())
+            // Room 配置
+            arg("room.schemaLocation", "$projectDir/schemas".toString())
         }
     }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.annotation:annotation:1.1.0'
-    kapt 'androidx.annotation:annotation:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'com.google.android.material:material:1.3.0'
+    kapt "androidx.room:room-compiler:2.3.0"
 
-    // Gson 解析 JSON https://github.com/google/gson
-    implementation 'com.google.code.gson:gson:2.8.6'
-
-    // Glide 图片加载库 https://github.com/bumptech/glide
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
-    kapt 'com.github.bumptech.glide:compiler:4.11.0'
-
-    // 图片选择器 https://github.com/yangpeixing/YImagePicker
-    implementation 'com.ypx.yimagepicker:androidx:3.1.4'
-
-    // 动画库 https://github.com/LottieFiles/lottie-android
-    implementation 'com.airbnb.android:lottie:3.4.4'
-
-    // 强大 WebView 库 https://github.com/Justson/AgentWeb
-    implementation 'com.just.agentweb:agentweb:4.1.3'
-
-    // 视频播放库 https://github.com/CarGuo/GSYVideoPlayer
-//    implementation 'com.shuyu:GSYVideoPlayer:8.0.0'
-    implementation 'com.shuyu:gsyVideoPlayer-java:8.0.0'
-    //是否需要ExoPlayer模式
-    //api 'com.shuyu:GSYVideoPlayer-exo2:8.0.0'
-    //根据你的需求ijk模式的so
-    implementation 'com.shuyu:gsyVideoPlayer-armv7a:8.0.0'
-
-    // 阿里巴巴 ARouter 库 https://github.com/alibaba/ARouter
-    implementation 'com.alibaba:arouter-api:1.5.0'
     kapt 'com.alibaba:arouter-compiler:1.2.2'
 
-    // 引入自己封装的库
-    //    implementation project(':vmpicker')
-    implementation project(':vmtools')
+    // 引入统一管理库
+    implementation project(':vmcommon')
 }
 
 // 获取当前系统时间

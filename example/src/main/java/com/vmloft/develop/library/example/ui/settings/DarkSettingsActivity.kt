@@ -2,20 +2,18 @@ package com.vmloft.develop.library.example.ui.settings
 
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
-
 import com.alibaba.android.arouter.facade.annotation.Route
-
+import com.vmloft.develop.library.common.base.BaseActivity
 import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.example.base.BaseActivity
 import com.vmloft.develop.library.example.common.SPManager
-
+import com.vmloft.develop.library.example.router.AppRouter
 import kotlinx.android.synthetic.main.activity_settings_dark.*
 
 /**
  * Create by lzan13 on 2020/05/02 22:56
  * 描述：主题设置
  */
-@Route(path = "/VMLoft/SettingsDark")
+@Route(path = AppRouter.appSettingsDark)
 class DarkSettingsActivity : BaseActivity() {
 
     override fun layoutId(): Int = R.layout.activity_settings_dark
@@ -26,7 +24,7 @@ class DarkSettingsActivity : BaseActivity() {
 
         darkSystemSwitchLV.setOnClickListener {
             darkSystemSwitchLV.isActivated = !darkSystemSwitchLV.isActivated
-            darkManualLL.visibility = if (SPManager.instance.getDarkModeSystemSwitch()) View.VISIBLE else View.GONE
+            darkManualLL.visibility = if (SPManager.instance.isDarkModeSystemSwitch()) View.VISIBLE else View.GONE
 
             SPManager.instance.setDarkModeSystemSwitch(darkSystemSwitchLV.isActivated)
         }
@@ -45,9 +43,9 @@ class DarkSettingsActivity : BaseActivity() {
 
     override fun initData() {
         // 获取开关状态
-        darkSystemSwitchLV.isActivated = SPManager.instance.getDarkModeSystemSwitch()
+        darkSystemSwitchLV.isActivated = SPManager.instance.isDarkModeSystemSwitch()
 
-        darkManualLL.visibility = if (SPManager.instance.getDarkModeSystemSwitch()) View.GONE else View.VISIBLE
+        darkManualLL.visibility = if (SPManager.instance.isDarkModeSystemSwitch()) View.GONE else View.VISIBLE
 
         darkManualNormalLV.isActivated = SPManager.instance.getDarkModeManual() == AppCompatDelegate.MODE_NIGHT_NO
         darkManualDarkLV.isActivated = SPManager.instance.getDarkModeManual() == AppCompatDelegate.MODE_NIGHT_YES

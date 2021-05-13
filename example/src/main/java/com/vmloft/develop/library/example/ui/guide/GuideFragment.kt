@@ -2,7 +2,7 @@ package com.vmloft.develop.library.example.ui.guide
 
 import android.os.Bundle
 import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.example.base.BaseFragment
+import com.vmloft.develop.library.common.base.BaseFragment
 
 import com.vmloft.develop.library.tools.utils.VMTheme
 import kotlinx.android.synthetic.main.fragment_guide.*

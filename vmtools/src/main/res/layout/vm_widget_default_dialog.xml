@@ -11,15 +11,17 @@
         android:id="@+id/vmDialogTitleTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/vm_dimen_16"
+        android:layout_marginTop="@dimen/vm_dimen_24"
         android:gravity="center"
         android:paddingStart="@dimen/vm_dimen_24"
         android:paddingEnd="@dimen/vm_dimen_24"
         android:textColor="@color/vm_title"
         android:textSize="@dimen/vm_size_18"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="弹框标题" />
+        tools:text="弹框标题"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/vmDialogContentTV"
@@ -30,9 +32,11 @@
         android:paddingStart="@dimen/vm_dimen_24"
         android:paddingEnd="@dimen/vm_dimen_24"
         android:textColor="@color/vm_title"
-        android:textSize="@dimen/vm_size_14"
+        android:textSize="@dimen/vm_size_16"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/vmDialogTitleTV"
-        tools:text="弹框内容弹框内容弹框内容弹框内容" />
+        tools:text="弹框内容弹框内容弹框内容弹框内容"
+        tools:visibility="visible" />
 
     <LinearLayout
         android:id="@+id/vmDialogContainerLL"
@@ -41,9 +45,11 @@
         android:layout_marginStart="@dimen/vm_dimen_24"
         android:layout_marginTop="@dimen/vm_dimen_16"
         android:layout_marginEnd="@dimen/vm_dimen_24"
-        android:orientation="vertical"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@+id/vmDialogContentTV"/>
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/vmDialogContentTV"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/vmDialogPositiveTV"

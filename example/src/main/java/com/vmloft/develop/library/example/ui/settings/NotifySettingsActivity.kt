@@ -1,36 +1,35 @@
 package com.vmloft.develop.library.example.ui.settings
 
 import android.view.View
+
 import com.alibaba.android.arouter.facade.annotation.Route
 
+import com.vmloft.develop.library.common.base.BaseActivity
+import com.vmloft.develop.library.common.common.CConstants
 import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.example.base.BaseActivity
-import com.vmloft.develop.library.example.common.Constants
 import com.vmloft.develop.library.example.common.SPManager
-import com.vmloft.develop.library.template.notify.NotifyManager
+import com.vmloft.develop.library.example.notify.NotifyManager
+import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.tools.utils.VMFile
 
 import kotlinx.android.synthetic.main.activity_settings_notify.*
-import kotlinx.android.synthetic.main.widget_common_top_bar.*
+
 
 /**
  * Create by lzan13 on 2020/06/07 21:06
  * 描述：设置
  */
-@Route(path = "/VMLoft/SettingsNotify")
+@Route(path = AppRouter.appSettingsNotify)
 class NotifySettingsActivity : BaseActivity() {
     // 缓存地址
-    private val cachePath = "${VMFile.cacheFromSDCard}${Constants.cacheImageDir}"
+    private val cachePath = "${VMFile.cacheFromSDCard}${CConstants.cacheImageDir}"
+
 
     override fun layoutId(): Int = R.layout.activity_settings_notify
 
     override fun initUI() {
         super.initUI()
         setTopTitle(R.string.settings_notify)
-
-        commonTopBar.setOnClickListener {
-            NotifyManager.sendNotify("这是测试通知栏提醒的内容", "这是测试通知标题")
-        }
 
         // 通知开关
         notifyMsgLV.setOnClickListener {
@@ -50,8 +49,8 @@ class NotifySettingsActivity : BaseActivity() {
     }
 
     override fun initData() {
-        notifyMsgLV.isActivated = SPManager.instance.getNotifyMsgSwitch()
-        notifyMsgDetailLV.isActivated = SPManager.instance.getNotifyMsgDetailSwitch()
+        notifyMsgLV.isActivated = SPManager.instance.isNotifyMsgSwitch()
+        notifyMsgDetailLV.isActivated = SPManager.instance.isNotifyMsgDetailSwitch()
         notifyMsgSystemLL.visibility = if (notifyMsgLV.isActivated) View.VISIBLE else View.GONE
     }
 

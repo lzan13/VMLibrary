@@ -7,7 +7,7 @@ import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.alibaba.android.arouter.facade.annotation.Route
 
 import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.example.base.BaseActivity
+import com.vmloft.develop.library.common.base.BaseActivity
 import com.vmloft.develop.library.example.common.SPManager
 import com.vmloft.develop.library.example.router.AppRouter
 

@@ -2,7 +2,7 @@ package com.vmloft.develop.library.example.ui.demo.scheme
 
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.vmloft.develop.library.example.R.layout
-import com.vmloft.develop.library.example.base.BaseActivity
+import com.vmloft.develop.library.common.base.BaseActivity
 import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.tools.utils.logger.VMLog
 
@@ -13,7 +13,7 @@ import com.vmloft.develop.library.tools.utils.logger.VMLog
 @Route(path = AppRouter.appScheme)
 class SchemeActivity : BaseActivity() {
 
-    override fun layoutId(): Int = layout.activity_scheme
+    override fun layoutId(): Int = layout.activity_demo_scheme
     override fun initUI() {
         super.initUI()
         setTopTitle("Url 跳转")

@@ -15,6 +15,23 @@ import com.vmloft.develop.library.tools.utils.VMStr
  * 描述：自定义通用对话框基类
  */
 abstract class VMBaseDialog : Dialog {
+    // 子类可以覆盖以下属性
+    // 点击积极按钮时检查是否关闭，主要是在一些对话框判断数据时使用，默认为 true
+    open var positiveDismissSwitch: Boolean = true
+
+    // 触摸空白处以及返回是否关闭 默认 true
+    open var touchDismissSwitch: Boolean = true
+        set(value) {
+            field = value
+            setCanceledOnTouchOutside(value)
+        }
+
+    // 触摸点击返回是否关闭 默认 true
+    open var backDismissSwitch: Boolean = true
+        set(value) {
+            field = value
+            setCancelable(value)
+        }
 
     private var positiveListener: View.OnClickListener? = null
     private var confirmListener: View.OnClickListener? = null
@@ -31,32 +48,16 @@ abstract class VMBaseDialog : Dialog {
             positiveListener?.onClick(v)
         }
         getPositiveTV()?.setOnClickListener { v ->
-            if (positiveDismiss()) {
+            if (positiveDismissSwitch) {
                 dismiss()
             }
             confirmListener?.onClick(v)
         }
-    }
 
-    /**
-     * 点击积极按钮时检查是否关闭，主要是在一些对话框判断数据时使用，默认为 true
-     */
-    open fun positiveDismiss(): Boolean {
-        return true
-    }
-
-    /**
-     * 触摸空白处以及返回是否关闭 默认 true
-     */
-    open fun touchDismiss(): Boolean {
-        return true
-    }
-
-    /**
-     * 触摸点击返回是否关闭 默认 true
-     */
-    open fun backDismiss(): Boolean {
-        return true
+        // 设置触摸空白处取消对话框
+        setCanceledOnTouchOutside(touchDismissSwitch)
+        // 设置点击返回取消对话框
+        setCancelable(backDismissSwitch)
     }
 
     abstract fun layoutId(): Int
@@ -115,7 +116,7 @@ abstract class VMBaseDialog : Dialog {
      */
     fun setView(view: View?) {
         getContainerLL()?.addView(view)
-        getContentTV()?.visibility = if (view == null) View.GONE else View.VISIBLE
+        getContainerLL()?.visibility = if (view == null) View.GONE else View.VISIBLE
     }
 
     /**

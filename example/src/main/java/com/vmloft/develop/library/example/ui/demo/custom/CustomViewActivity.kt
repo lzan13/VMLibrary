@@ -5,7 +5,7 @@ import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 
 import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.example.base.BaseActivity
+import com.vmloft.develop.library.common.base.BaseActivity
 import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.example.utils.darkBar
 import com.vmloft.develop.library.example.utils.showBar
@@ -13,11 +13,9 @@ import com.vmloft.develop.library.example.utils.errorBar
 import com.vmloft.develop.library.example.utils.show
 import com.vmloft.develop.library.tools.widget.record.VMRecordView.RecordListener
 import com.vmloft.develop.library.tools.widget.tips.VMTips
-import com.vmloft.develop.library.tools.widget.tips.VMTips.show
 
-import kotlinx.android.synthetic.main.activity_view_custom.customRatioLayout
-import kotlinx.android.synthetic.main.activity_view_custom.customRecordView
-import kotlinx.android.synthetic.main.activity_view_custom.customTimerBtn
+import kotlinx.android.synthetic.main.activity_demo_view_custom.*
+
 
 /**
  * Created by lzan13 on 2017/4/1.
@@ -26,7 +24,7 @@ import kotlinx.android.synthetic.main.activity_view_custom.customTimerBtn
 @Route(path = AppRouter.appCustomView)
 class CustomViewActivity : BaseActivity() {
 
-    override fun layoutId() = R.layout.activity_view_custom
+    override fun layoutId() = R.layout.activity_demo_view_custom
 
     override fun initUI() {
         super.initUI()

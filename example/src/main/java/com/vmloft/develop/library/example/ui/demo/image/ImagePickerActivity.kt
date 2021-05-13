@@ -3,7 +3,7 @@ package com.vmloft.develop.library.example.ui.demo.image
 import com.alibaba.android.arouter.facade.annotation.Route
 
 import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.example.base.BaseActivity
+import com.vmloft.develop.library.common.base.BaseActivity
 import com.vmloft.develop.library.example.common.Constants
 import com.vmloft.develop.library.example.image.IMGChoose
 import com.vmloft.develop.library.example.image.IMGLoader
@@ -11,7 +11,8 @@ import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.example.utils.showBar
 import com.vmloft.develop.library.tools.utils.bitmap.VMBitmap
 import com.vmloft.develop.library.tools.utils.logger.VMLog
-import kotlinx.android.synthetic.main.activity_image_picker.*
+
+import kotlinx.android.synthetic.main.activity_demo_image_picker.*
 
 
 /**
@@ -22,7 +23,7 @@ import kotlinx.android.synthetic.main.activity_image_picker.*
 class ImagePickerActivity : BaseActivity() {
 
     override fun layoutId(): Int {
-        return R.layout.activity_image_picker
+        return R.layout.activity_demo_image_picker
     }
 
     override fun initUI() {

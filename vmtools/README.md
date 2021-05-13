@@ -1,7 +1,7 @@
 VMTools
 =======
 
-[![](https://img.shields.io/badge/version-v1.3.4-green.svg)]()
+[![](https://img.shields.io/badge/version-v1.3.5-green.svg)](https://gitee.com/lzan13/VMLibrary/releases/1.3.5)
 [![](https://img.shields.io/badge/blog-%E7%A9%BF%E8%A3%A4%E8%A1%A9%E9%97%AF%E5%A4%A9%E4%B8%8B-blue.svg)](https://blog.melove.net)
 [![](https://img.shields.io/badge/github-lzan13-blue.svg)](https://github.com/lzan13)
 [![](https://img.shields.io/badge/gitee-lzan13-red.svg)](https://gitee.com/lzan13)
@@ -27,13 +27,13 @@ allprojects {
 // 项目 module build.gradle
 dependencies {
     ...
-    implementation 'com.gitee.lzan13:vmtools:1.3.4'
+    implementation 'com.gitee.lzan13:vmtools:1.3.5'
 }
 ```
 
 **初始化**
 
-在 Application 进行初始化，如果直接继承自 VMApp，可以忽略这一步
+在 Application 进行初始化
 ```java
 public void onCreate(){
     ...

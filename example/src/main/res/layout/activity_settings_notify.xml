@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/vm_dimen_8"
         android:paddingStart="@dimen/vm_padding_large"
-        android:text="@string/settings_notify_switch" />
+        android:text="@string/notify_switch" />
 
     <!--新消息通知开关-->
     <com.vmloft.develop.library.tools.widget.VMLineView
@@ -26,8 +26,9 @@
         android:layout_marginTop="@dimen/vm_dimen_8"
         android:background="@color/app_bg_item"
         app:vm_line_decoration="center"
+        app:vm_line_decoration_color="@color/app_decoration"
         app:vm_line_right_icon="@drawable/ic_switch_selector"
-        app:vm_line_title="@string/settings_notify_switch_msg" />
+        app:vm_line_title="@string/notify_switch_msg" />
 
     <!--通知显示详情开关-->
     <com.vmloft.develop.library.tools.widget.VMLineView
@@ -35,9 +36,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/app_bg_item"
-        app:vm_line_description="@string/settings_notify_msg_detail_hint"
+        app:vm_line_description="@string/notify_msg_detail_hint"
         app:vm_line_right_icon="@drawable/ic_switch_selector"
-        app:vm_line_title="@string/settings_notify_msg_detail" />
+        app:vm_line_title="@string/notify_msg_detail" />
 
     <LinearLayout
         android:id="@+id/notifyMsgSystemLL"
@@ -51,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/vm_padding_large"
-            android:text="@string/settings_notify_sound_vibrator" />
+            android:text="@string/notify_sound_vibrator" />
 
         <!--跳转系统通知设置界面-->
         <com.vmloft.develop.library.tools.widget.VMLineView
@@ -60,8 +61,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/vm_dimen_8"
             android:background="@color/app_bg_item"
-            app:vm_line_description="@string/settings_notify_msg_system_hint"
+            app:vm_line_description="@string/notify_msg_system_hint"
             app:vm_line_right_icon="@drawable/ic_arrow_next"
-            app:vm_line_title="@string/settings_notify_msg_system" />
+            app:vm_line_title="@string/notify_msg_system" />
     </LinearLayout>
 </LinearLayout>

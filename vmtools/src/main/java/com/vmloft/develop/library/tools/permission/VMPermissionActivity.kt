@@ -50,6 +50,19 @@ class VMPermissionActivity : AppCompatActivity() {
     private var mDialog: VMDefaultDialog? = null
     private var mAppName: String? = null
     private var mCallback: PCallback? = null
+
+
+    companion object {
+        // 权限申请
+        private const val REQUEST_PERMISSION = 100
+
+        // 被拒绝后再次申请
+        private const val REQUEST_PERMISSION_AGAIN = 101
+
+        // 调起设置界面设置权限
+        private const val REQUEST_SETTING = 200
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         init()
@@ -141,6 +154,8 @@ class VMPermissionActivity : AppCompatActivity() {
         }
         mDialog = VMDefaultDialog(this)
         mDialog?.let { dialog ->
+            dialog.touchDismissSwitch = false
+            dialog.backDismissSwitch = false
             dialog.setTitle(mTitle)
             dialog.setContent(mMessage!!)
             val viewGroup = LinearLayout(this)
@@ -299,17 +314,6 @@ class VMPermissionActivity : AppCompatActivity() {
             dialog.dismiss()
             mDialog = null
         }
-    }
-
-    companion object {
-        // 权限申请
-        private const val REQUEST_PERMISSION = 100
-
-        // 被拒绝后再次申请
-        private const val REQUEST_PERMISSION_AGAIN = 101
-
-        // 调起设置界面设置权限
-        private const val REQUEST_SETTING = 200
     }
 
 }

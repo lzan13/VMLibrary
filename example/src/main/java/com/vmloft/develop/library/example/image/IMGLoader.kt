@@ -3,6 +3,7 @@ package com.vmloft.develop.library.example.image
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
+
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.MultiTransformation
@@ -11,8 +12,10 @@ import com.bumptech.glide.load.model.LazyHeaders
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+
+import com.vmloft.develop.library.common.common.CConstants
+import com.vmloft.develop.library.common.image.GlideApp
 import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.example.common.Constants
 import com.vmloft.develop.library.tools.utils.VMDimen
 
 
@@ -206,7 +209,7 @@ object IMGLoader {
      */
     private fun wrapOptions(options: Options): Options {
         if (options.res is String && (options.res as String).indexOf("/uploads/") == 0) {
-            options.res = Constants.mediaHost() + options.res
+            options.res = CConstants.mediaHost() + options.res
         }
         return options
     }

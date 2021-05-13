@@ -1,9 +1,11 @@
 package com.vmloft.develop.library.example.ui.demo.custom
 
 import android.os.Bundle
+
 import com.vmloft.develop.library.example.R.layout
-import com.vmloft.develop.library.example.base.BaseFragment
-import kotlinx.android.synthetic.main.fragment_default.titleTV
+import com.vmloft.develop.library.common.base.BaseFragment
+
+import kotlinx.android.synthetic.main.fragment_demo_default.*
 
 /**
  * Create by lzan13 on 2019/04/09
@@ -13,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_default.titleTV
 class IndicatorViewFragment : BaseFragment() {
     private var mContent: String? = null
     override fun layoutId(): Int {
-        return layout.fragment_default
+        return layout.fragment_demo_default
     }
 
     override fun initUI() {}

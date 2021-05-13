@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.template.notify
+package com.vmloft.develop.library.example.notify
 
 import android.app.NotificationChannel
 import android.app.NotificationChannelGroup
@@ -58,7 +58,7 @@ object NotifyManager {
      * 发送通知
      */
     fun sendNotify(content: String, title: String) {
-        if (!SPManager.instance.getNotifyMsgSwitch()) {
+        if (!SPManager.instance.isNotifyMsgSwitch()) {
             return
         }
         val builder: NotificationCompat.Builder = getBuilder(notifyMsgChannelId)
@@ -70,12 +70,12 @@ object NotifyManager {
         // 通知内容
 
         // 开始在状态栏上显示的提示文案
-        if (SPManager.instance.getNotifyMsgDetailSwitch()) {
+        if (SPManager.instance.isNotifyMsgDetailSwitch()) {
             builder.setTicker(content)
             builder.setContentText(content)
         } else {
-            builder.setTicker(VMStr.byRes(R.string.notify_content))
-            builder.setContentText(VMStr.byRes(R.string.notify_content))
+            builder.setTicker(VMStr.byRes(R.string.notify_msg_hint))
+            builder.setContentText(VMStr.byRes(R.string.notify_msg_hint))
         }
 
         // TODO 视具体业务打开对应界面
@@ -179,9 +179,10 @@ object NotifyManager {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // 创建通知分组
             val group = NotificationChannelGroup(groupId, name)
-            // 设置分组描述
-//            group.description = desc
-
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                // 设置分组描述
+                group.description = desc
+            }
             val groups = ArrayList<NotificationChannelGroup>()
             groups.add(group)
 

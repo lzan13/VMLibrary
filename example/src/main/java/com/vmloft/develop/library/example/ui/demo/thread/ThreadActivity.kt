@@ -6,7 +6,7 @@ import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 
 import com.vmloft.develop.library.example.R.layout
-import com.vmloft.develop.library.example.base.BaseActivity
+import com.vmloft.develop.library.common.base.BaseActivity
 import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.tools.utils.logger.VMLog
 
@@ -15,7 +15,7 @@ import com.vmloft.develop.library.tools.utils.logger.VMLog
  */
 @Route(path = AppRouter.appThread)
 class ThreadActivity : BaseActivity() {
-    override fun layoutId(): Int = layout.activity_thread
+    override fun layoutId(): Int = layout.activity_demo_thread
 
     override fun initUI() {
         super.initUI()

@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.Button
 
 import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.example.base.BaseFragment
+import com.vmloft.develop.library.common.base.BaseFragment
 import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.example.utils.showBar
 import com.vmloft.develop.library.example.utils.errorBar
@@ -15,7 +15,6 @@ import com.vmloft.develop.library.tools.permission.VMPermissionBean
 import com.vmloft.develop.library.tools.utils.logger.VMLog
 
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.widget_common_top_bar.*
 
 
 /**
@@ -30,13 +29,6 @@ class HomeFragment : BaseFragment() {
         super.initUI()
         setTopTitle(R.string.nav_home)
         setTopSubtitle("这个是我的工具类库入口")
-        commonTopBar.setCenter(false)
-        commonTopBar.setEndBtnEnable(true)
-        commonTopBar.setEndBtnTextStyle(R.style.AppText_TopBarEndBtn)
-        commonTopBar.setEndBtnListener("测试(1/9)") {
-            showBar("测试自定义 VMTopBar 右侧按钮样式")
-            VMLog.json("{'app':'VMLibrary', 'version':'1.0.0', 'tag':['tools','kotlin','android']}")
-        }
 
         addBtn("弹幕", AppRouter.appBarrage)
         addBtn("自定义控件", AppRouter.appCustomView)
