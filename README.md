@@ -1,10 +1,11 @@
 VMLibrary
 =========
-[![](https://img.shields.io/badge/author-lzan13-green.svg)](https://github.com/lzan13)
-[![](https://img.shields.io/badge/weibo-@lzan13-red.svg)](http://weibo.com/lzan13)
-[![](https://img.shields.io/badge/blog-%E7%A9%BF%E8%A3%A4%E8%A1%A9%E9%97%AF%E5%A4%A9%E4%B8%8B-blue.svg)](http://blog.melove.net)
+[![](https://img.shields.io/badge/version-v1.3.4-green.svg)](https://github.com/lzan13)
+[![](https://img.shields.io/badge/blog-%E7%A9%BF%E8%A3%A4%E8%A1%A9%E9%97%AF%E5%A4%A9%E4%B8%8B-blue.svg)](https://blog.melove.net)
+[![](https://img.shields.io/badge/github-lzan13-blue.svg)](https://github.com/lzan13)
+[![](https://img.shields.io/badge/gitee-lzan13-red.svg)](https://gitee.com/lzan13)
 
-封装自己开发中常用的一些工具类以及自定义控件等，这个项目包含了多个`module`，现在已经将 `vmtools`发布到`JCenter`仓库，
+封装自己开发中常用的一些工具类以及自定义控件等，这个项目包含了多个`module`，现在已经将 `vmtools`发布到`JitPack`，
 有需要的同学可以通过远程引用的方式使用
 
 
@@ -21,7 +22,7 @@ VMLibrary
 
 ### #LICENSE
 ```
-Copyright 2018 lzan13
+Copyright 2021 lzan13
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

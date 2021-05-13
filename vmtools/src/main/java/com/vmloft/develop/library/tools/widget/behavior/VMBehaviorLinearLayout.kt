@@ -1,8 +1,8 @@
-package com.vmloft.develop.library.tools.utils.behavior
+package com.vmloft.develop.library.tools.widget.behavior
 
-import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Context
+import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.GestureDetector.SimpleOnGestureListener
@@ -10,18 +10,21 @@ import android.view.MotionEvent
 import android.view.MotionEvent.PointerCoords
 import android.view.MotionEvent.PointerProperties
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
-import android.widget.FrameLayout
+import android.widget.LinearLayout
 import androidx.core.view.NestedScrollingParent2
 import androidx.core.view.NestedScrollingParentHelper
 import androidx.core.view.ViewCompat
 import com.vmloft.develop.library.tools.R
 
+
 /**
  * Create by lzan13 2021/01/05
  * 自定义联动 Layout
  */
-class VMBehaviorFrameLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : FrameLayout(context, attrs, defStyle), NestedScrollingParent2 {
+class VMBehaviorLinearLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : LinearLayout(context, attrs, defStyle), NestedScrollingParent2 {
+
     private var mHeaderView: View? = null
     private var mScrollingParentHelper: NestedScrollingParentHelper
     private var mNeedHackDispatchTouch = false
@@ -30,14 +33,11 @@ class VMBehaviorFrameLayout @JvmOverloads constructor(context: Context, attrs: A
     private var mMinHeaderHeight = 0
     private var mOldTop = 0
 
-    // recyclerView 现在 loadMore 需要特别处理
-    var canScrollUp = true
-
     private var mHeaderScrollListener: HeaderScrollListener? = null
     private var mNeedDragOver = false
+    private var mHeadBackgroundView: View? = null
     private var mStickHeaderHeight = 0
     private var mMaxHeaderHeight = 0
-    private var mOnHeaderClickListener: OnClickListener? = null
 
     init {
         val a = context.obtainStyledAttributes(attrs, R.styleable.VMBehaviorLayout, 0, 0)
@@ -52,31 +52,26 @@ class VMBehaviorFrameLayout @JvmOverloads constructor(context: Context, attrs: A
             override fun onScroll(e1: MotionEvent, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean {
                 if (mTouchDownOnHeader) {
                     mNeedHackDispatchTouch = true
-                    this@VMBehaviorFrameLayout.dispatchTouchEvent(e1)
-                    this@VMBehaviorFrameLayout.dispatchTouchEvent(e2)
+                    this@VMBehaviorLinearLayout.dispatchTouchEvent(e1)
+                    this@VMBehaviorLinearLayout.dispatchTouchEvent(e2)
                 }
                 return mTouchDownOnHeader
             }
-
-            override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-                if (mOnHeaderClickListener != null) {
-                    mOnHeaderClickListener?.onClick(mHeaderView)
-                    return true
-                }
-                return super.onSingleTapConfirmed(e)
-            }
         })
-        mScrollingParentHelper = NestedScrollingParentHelper(this)
-
         setOnTouchListener { v, event -> gestureDetector.onTouchEvent(event) }
-    }
-
-    fun reset() {
-        scrollByOffsetTop(top)
+        mScrollingParentHelper = NestedScrollingParentHelper(this)
     }
 
     fun setNeedDragOver(needDragOver: Boolean) {
         mNeedDragOver = needDragOver
+    }
+
+    fun setHeaderBackground(image: View) {
+        mHeadBackgroundView = image
+        (mHeaderView as ViewGroup).clipChildren = false
+        clipChildren = false
+//        (mHeaderView as ViewGroup).clipChildren = image == null
+//        clipChildren = image == null
     }
 
     fun setHeaderScrollListener(headerScrollListener: HeaderScrollListener) {
@@ -89,23 +84,16 @@ class VMBehaviorFrameLayout @JvmOverloads constructor(context: Context, attrs: A
 
     fun setMaxHeaderHeight(maxHeaderHeight: Int) {
         mMaxHeaderHeight = maxHeaderHeight
-        if (mMinHeaderHeight != 0) {
-            onMaxHeaderHeightChange(maxHeaderHeight)
-        }
-    }
-
-    fun setOnHeaderClickListener(onHeaderClickListener: OnClickListener) {
-        mOnHeaderClickListener = onHeaderClickListener
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
         val action = ev.actionMasked
         if (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP) {
             mNeedHackDispatchTouch = false
-            if (mNeedDragOver && scrollY < 0) {
+            if (mNeedDragOver && getContentTransY() > 0) {
                 if (mRevertAnimation == null || !mRevertAnimation!!.isRunning) {
                     mRevertAnimation = getRevertAnimation()
-                    mRevertAnimation?.start()
+                    mRevertAnimation!!.start()
                 }
                 return true
             }
@@ -117,9 +105,10 @@ class VMBehaviorFrameLayout @JvmOverloads constructor(context: Context, attrs: A
         } else super.dispatchTouchEvent(ev)
     }
 
-    private fun getRevertAnimation(): ObjectAnimator {
-        val animator: ObjectAnimator = ObjectAnimator.ofInt(this, "scrollY", scrollY, 0)
+    private fun getRevertAnimation(): ValueAnimator {
+        val animator = ValueAnimator.ofFloat(getContentTransY(), 0f)
         animator.duration = 300
+        animator.addUpdateListener { animation -> doOverScroll(animation.animatedValue as Float) }
         animator.interpolator = DecelerateInterpolator()
         return animator
     }
@@ -139,12 +128,6 @@ class VMBehaviorFrameLayout @JvmOverloads constructor(context: Context, attrs: A
         return MotionEvent.obtain(event.downTime, event.eventTime, event.action, event.pointerCount, pointerProperties, pointerCoords, event.metaState, event.buttonState, event.xPrecision, event.yPrecision, event.deviceId, event.edgeFlags, event.source, event.flags)
     }
 
-    private fun onMaxHeaderHeightChange(maxHeaderHeight: Int) {
-        mHeaderView!!.layoutParams.height = maxHeaderHeight
-        (mHeaderView!!.layoutParams as MarginLayoutParams).topMargin = mMinHeaderHeight - maxHeaderHeight
-        setHeaderViewPaddingTop(getMaxDragOverHeight())
-    }
-
     override fun onFinishInflate() {
         super.onFinishInflate()
         mHeaderView = getChildAt(0)
@@ -157,13 +140,18 @@ class VMBehaviorFrameLayout @JvmOverloads constructor(context: Context, attrs: A
         }
     }
 
+    override fun invalidate() {
+        super.invalidate()
+    }
+
+    override fun dispatchDraw(canvas: Canvas?) {
+        super.dispatchDraw(canvas)
+    }
+
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         if (mMinHeaderHeight == 0) {
             mHeaderView!!.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED))
             mMinHeaderHeight = mHeaderView!!.layoutParams.height
-            if (mMaxHeaderHeight != 0 && mNeedDragOver) {
-                onMaxHeaderHeightChange(mMaxHeaderHeight)
-            }
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec + getMaxNeedHideHeight())
     }
@@ -181,7 +169,9 @@ class VMBehaviorFrameLayout @JvmOverloads constructor(context: Context, attrs: A
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        mRevertAnimation?.cancel()
+        if (mRevertAnimation != null) {
+            mRevertAnimation!!.cancel()
+        }
     }
 
     override fun onStartNestedScroll(child: View, target: View, axes: Int): Boolean {
@@ -224,7 +214,6 @@ class VMBehaviorFrameLayout @JvmOverloads constructor(context: Context, attrs: A
 
     override fun onStopNestedScroll(target: View, type: Int) {
         mScrollingParentHelper.onStopNestedScroll(target, type)
-        canScrollUp = true
     }
 
     override fun onNestedScroll(target: View, dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int, dyUnconsumed: Int, type: Int) {}
@@ -233,30 +222,43 @@ class VMBehaviorFrameLayout @JvmOverloads constructor(context: Context, attrs: A
         if (dy > 0) {
             if (top > -getMaxNeedHideHeight()) {
                 consumed[1] = dy
-                if (scrollY < 0) {
-                    scrollBy(0, dy)
+                if (getContentTransY() > 0) {
+                    doOverScroll(getContentTransY() - dy)
                 } else {
                     scrollByOffsetTop(dy)
                 }
             }
-            if (!canScrollUp || !target.canScrollVertically(1)) {
-                canScrollUp = false
-                consumed[1] = dy
-            }
         } else {
-            canScrollUp = true
             val canScrollDown = target.canScrollVertically(-1)
             if (!canScrollDown) {
                 consumed[1] = dy
                 if (top < 0) {
                     scrollByOffsetTop(dy)
                 } else if (mNeedDragOver && type == ViewCompat.TYPE_TOUCH) {
-                    if (scrollY > -getMaxDragOverHeight()) {
-                        scrollBy(0, dy)
+                    if (getContentTransY() < getMaxDragOverHeight()) {
+                        doOverScroll(getContentTransY() - dy)
                     }
                 }
             }
         }
+    }
+
+    private fun getContentTransY(): Float {
+        return mHeaderView!!.translationY
+    }
+
+    private fun doOverScroll(targetTransY: Float) {
+        var targetTransY = targetTransY
+        if (targetTransY < 0) {
+            targetTransY = 0f
+        }
+        for (i in 0 until childCount) {
+            getChildAt(i).translationY = targetTransY
+        }
+        val originHeight = mHeadBackgroundView?.measuredHeight ?: 1
+        val scale = (originHeight + targetTransY) * 1f / originHeight
+        mHeadBackgroundView?.scaleX = scale
+        mHeadBackgroundView?.scaleY = scale
     }
 
     private fun scrollByOffsetTop(dy: Int) {
@@ -273,11 +275,12 @@ class VMBehaviorFrameLayout @JvmOverloads constructor(context: Context, attrs: A
         newTop = oldTop - dy
         if (mHeaderScrollListener != null) {
             if (oldTop < 0 && newTop >= 0) {
-                mHeaderScrollListener!!.onHeaderTotalShow()
+                mHeaderScrollListener?.onHeaderTotalShow()
             } else if (newTop == -maxNeedHideHeight) {
-                mHeaderScrollListener!!.onHeaderTotalHide()
+                mHeaderScrollListener?.onHeaderTotalHide()
             }
-            mHeaderScrollListener!!.onScroll(-newTop, -newTop * 1f / maxNeedHideHeight)
+            mHeaderScrollListener?.onScroll(-newTop, -newTop * 1f / maxNeedHideHeight)
+            mHeadBackgroundView?.translationY = -newTop / 3f
         }
         mOldTop = newTop
         offsetTopAndBottom(-dy)
@@ -285,13 +288,6 @@ class VMBehaviorFrameLayout @JvmOverloads constructor(context: Context, attrs: A
 
     override fun onScrollChanged(l: Int, t: Int, oldl: Int, oldt: Int) {
         super.onScrollChanged(l, t, oldl, oldt)
-        if (t <= 0) {
-            setHeaderViewPaddingTop(getMaxDragOverHeight() + t)
-        }
-    }
-
-    private fun setHeaderViewPaddingTop(top: Int) {
-        mHeaderView!!.setPadding(mHeaderView!!.paddingLeft, top, mHeaderView!!.paddingRight, mHeaderView!!.paddingBottom)
     }
 
     private fun getMaxNeedHideHeight(): Int {
@@ -309,7 +305,7 @@ class VMBehaviorFrameLayout @JvmOverloads constructor(context: Context, attrs: A
     }
 
     open class SimpleHeaderScrollListener : HeaderScrollListener {
-        override fun onScroll(dy: Int, fraction: Float) {}
+        override fun onScroll(dy: Int, percent: Float) {}
         override fun onHeaderTotalHide() {}
         override fun onHeaderTotalShow() {}
     }

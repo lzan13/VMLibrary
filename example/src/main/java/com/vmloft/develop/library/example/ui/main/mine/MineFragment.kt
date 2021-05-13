@@ -7,7 +7,7 @@ import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.base.BaseFragment
 import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.example.utils.showBar
-import com.vmloft.develop.library.tools.utils.behavior.VMBehaviorLinearLayout
+import com.vmloft.develop.library.tools.widget.behavior.VMBehaviorLinearLayout
 import com.vmloft.develop.library.tools.utils.VMDimen
 import com.vmloft.develop.library.tools.utils.VMTheme
 

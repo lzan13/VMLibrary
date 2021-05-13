@@ -5,8 +5,8 @@ ext {
         applicationId: "com.vmloft.develop.library.example",
         minSdkVersion: 21,
         targetSdkVersion: 29,
-        versionCode: 133,
-        versionName: "1.3.3",
+        versionCode: 134,
+        versionName: "1.3.4",
 
         admobAppId       : "Admob AppId",
         buglyAppId       : "Bugly AppId",

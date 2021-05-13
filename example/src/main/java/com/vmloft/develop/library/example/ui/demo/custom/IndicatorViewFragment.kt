@@ -2,7 +2,7 @@ package com.vmloft.develop.library.example.ui.demo.custom
 
 import android.os.Bundle
 import com.vmloft.develop.library.example.R.layout
-import com.vmloft.develop.library.tools.base.VMBFragment
+import com.vmloft.develop.library.example.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_default.titleTV
 
 /**
@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.fragment_default.titleTV
  *
  * 通用界面 Fragment 实现容器
  */
-class IndicatorViewFragment : VMBFragment() {
+class IndicatorViewFragment : BaseFragment() {
     private var mContent: String? = null
     override fun layoutId(): Int {
         return layout.fragment_default

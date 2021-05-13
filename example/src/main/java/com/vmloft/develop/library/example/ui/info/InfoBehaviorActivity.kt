@@ -9,7 +9,7 @@ import com.vmloft.develop.library.example.base.BaseActivity
 import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.example.ui.main.mine.TabFragment
 import com.vmloft.develop.library.example.ui.main.mine.TabFragmentPagerAdapter
-import com.vmloft.develop.library.tools.utils.behavior.VMBehaviorFrameLayout
+import com.vmloft.develop.library.tools.widget.behavior.VMBehaviorFrameLayout
 import com.vmloft.develop.library.tools.utils.VMDimen
 import com.vmloft.develop.library.tools.utils.VMTheme
 

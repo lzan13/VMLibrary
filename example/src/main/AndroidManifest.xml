@@ -47,52 +47,44 @@
         <activity
             android:name=".ui.settings.SettingsActivity"
             android:screenOrientation="fullSensor"
-            android:theme="@style/AppTheme"
-            />
+            android:theme="@style/AppTheme" />
         <!--通知设置页面-->
         <activity
             android:name=".ui.settings.NotifySettingsActivity"
             android:screenOrientation="fullSensor"
-            android:theme="@style/AppTheme"
-            />
+            android:theme="@style/AppTheme" />
         <!--暗色主题设置页面-->
         <activity
             android:name=".ui.settings.DarkSettingsActivity"
             android:screenOrientation="fullSensor"
-            android:theme="@style/AppTheme"
-            />
+            android:theme="@style/AppTheme" />
         <!--资源设置页面-->
         <activity
             android:name=".ui.settings.PictureSettingsActivity"
             android:screenOrientation="fullSensor"
-            android:theme="@style/AppTheme"
-            />
+            android:theme="@style/AppTheme" />
         <!--调试设置页面-->
         <activity
             android:name=".ui.settings.DebugSettingsActivity"
             android:screenOrientation="fullSensor"
-            android:theme="@style/AppTheme"
-            />
+            android:theme="@style/AppTheme" />
         <!--关于页面-->
         <activity
             android:name=".ui.settings.AboutSettingsActivity"
             android:screenOrientation="fullSensor"
-            android:theme="@style/AppTheme"
-            />
+            android:theme="@style/AppTheme" />
         <!--问题反馈页面-->
         <activity
             android:name=".ui.feedback.FeedbackActivity"
             android:screenOrientation="fullSensor"
-            android:theme="@style/AppTheme"
-            />
+            android:theme="@style/AppTheme" />
 
         <!--通用界面-->
         <!--Web页面-->
         <activity
             android:name=".ui.web.WebActivity"
             android:screenOrientation="fullSensor"
-            android:theme="@style/AppTheme"
-            />
+            android:theme="@style/AppTheme" />
 
         <!--自定义弹幕-->
         <activity android:name=".ui.demo.custom.BarrageViewActivity" />
@@ -141,6 +133,11 @@
         <!--个人信息界面-->
         <activity android:name=".ui.info.InfoBehaviorActivity" />
 
+        <!--重新定义权限请求主题-->
+        <activity
+            android:name="com.vmloft.develop.library.tools.permission.VMPermissionActivity"
+            android:theme="@style/AppTheme.Permission"
+            tools:replace="theme" />
 
     </application>
 </manifest>

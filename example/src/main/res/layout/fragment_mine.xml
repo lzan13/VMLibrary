@@ -7,7 +7,7 @@
     tools:background="@color/app_bg"
     tools:context=".ui.main.mine.MineFragment">
 
-    <com.vmloft.develop.library.tools.utils.behavior.VMBehaviorLinearLayout
+    <com.vmloft.develop.library.tools.widget.behavior.VMBehaviorLinearLayout
         android:id="@+id/mineBehaviorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -100,7 +100,7 @@
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </com.vmloft.develop.library.tools.utils.behavior.VMBehaviorLinearLayout>
+    </com.vmloft.develop.library.tools.widget.behavior.VMBehaviorLinearLayout>
 
     <include layout="@layout/widget_common_top_bar" />
 </RelativeLayout>

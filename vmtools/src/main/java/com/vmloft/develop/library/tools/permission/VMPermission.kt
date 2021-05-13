@@ -16,20 +16,32 @@ import java.util.ArrayList
  *
  * 处理权限请求操作类
  */
-class VMPermission
-/**
- * 私有构造方法
- */
-private constructor() {
+class VMPermission {
     /**
-     * 获取回调
+     * 私有构造方法
      */
+    private constructor() {}
+
     // 授权处理回调
     var permissionCallback: PCallback? = null
     private var mEnableDialog = false
     private var mTitle: String? = null
     private var mMessage: String? = null
     private val mPermissions: MutableList<VMPermissionBean>? = ArrayList()
+
+    companion object {
+        // 上下文对象
+        private var mContext: Context? = null
+
+        /**
+         * 获取单例类的实例
+         */
+        @JvmStatic
+        fun getInstance(context: Context?): VMPermission {
+            mContext = context
+            return InnerHolder.INSTANCE
+        }
+    }
 
     /**
      * 内部类实现单例
@@ -184,7 +196,7 @@ private constructor() {
      */
     fun requestStorage(callback: PCallback?) {
         val bean = VMPermissionBean(
-            permission.WRITE_EXTERNAL_STORAGE, "读写手机存储", "访问设备图片等文件需要 “访问手机存储” " + "权限，请授权此权限"
+                permission.WRITE_EXTERNAL_STORAGE, "读写手机存储", "访问设备图片等文件需要 “访问手机存储” " + "权限，请授权此权限"
         )
         setPermission(bean)
         requestPermission(callback)
@@ -236,19 +248,5 @@ private constructor() {
          * 权限申请完成回调
          */
         fun onComplete()
-    }
-
-    companion object {
-        // 上下文对象
-        private var mContext: Context? = null
-
-        /**
-         * 获取单例类的实例
-         */
-        @JvmStatic
-        fun getInstance(context: Context?): VMPermission {
-            mContext = context
-            return InnerHolder.INSTANCE
-        }
     }
 }
