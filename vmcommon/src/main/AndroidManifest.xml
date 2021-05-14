@@ -29,6 +29,12 @@
             android:theme="@style/AppTheme"
             />
 
+        <!--重新定义权限请求主题-->
+        <activity
+            android:name="com.vmloft.develop.library.tools.permission.VMPermissionActivity"
+            android:theme="@style/AppTheme.Permission"
+            tools:replace="theme" />
+
         <!-- Bugly 配置 -->
         <!-- 配置APP ID -->
         <meta-data
