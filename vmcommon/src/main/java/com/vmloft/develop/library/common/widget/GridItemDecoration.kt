@@ -9,25 +9,24 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
  * Create by lzan13 2020/12/11
  * 自定义 RecyclerView 分隔线
  */
-class StaggeredItemDecoration(val space: Int, val column: Int = 2, val startCount: Int = 0) : RecyclerView.ItemDecoration() {
+class GridItemDecoration(private val space: Int, private val column: Int = 2) : RecyclerView.ItemDecoration() {
 
     /**
      * 自定义实现边距
      */
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         super.getItemOffsets(outRect, view, parent, state)
-        if (startCount == 0) {
-            setSpace(view, outRect)
+        outRect.top = space
+        if (parent.getChildLayoutPosition(view) % column == 0) {
+            outRect.left = space * 2
+            outRect.right = space / 2
         } else {
-            val position = parent.getChildLayoutPosition(view)
-            if (position >= startCount) {
-                setSpace(view, outRect)
-            }
+            outRect.left = space / 2
+            outRect.right = space * 2
         }
     }
 
     private fun setSpace(view: View, outRect: Rect) {
-        // 瀑布流专属分割线
         val params = view.layoutParams as StaggeredGridLayoutManager.LayoutParams
         outRect.top = space
         /**

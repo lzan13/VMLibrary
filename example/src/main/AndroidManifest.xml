@@ -131,12 +131,5 @@
 <!--        &lt;!&ndash;个人信息个人认证&ndash;&gt;-->
 <!--        <activity android:name="com.vmloft.develop.library.example.ui.main.mine.info.PersonalAuthActivity" />-->
 
-
-        <!--重新定义权限请求主题-->
-        <activity
-            android:name="com.vmloft.develop.library.tools.permission.VMPermissionActivity"
-            android:theme="@style/AppTheme.Permission"
-            tools:replace="theme" />
-
     </application>
 </manifest>
