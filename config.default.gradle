@@ -1,0 +1,34 @@
+ext {
+    // 默认配置
+    configs = [
+            applicationId   : "com.vmloft.develop.app.match",
+            minSdkVersion   : 21,
+            targetSdkVersion: 29,
+            versionCode     : 1,
+            versionName     : "1.0.0",
+
+            admobAppId      : "Admob AppId",
+            buglyAppId      : "Bugly AppId",
+            mobAppId        : "Mob AppId",
+            mobAppSecret    : "Mob AppSecret",
+            umengAppId      : "UMeng AppId",
+
+            // Debug 服务器环境配置
+            baseDebugUrl    : "",
+            uploadDebugUrl  : "",
+            // 线上服务器地址，这里暂时和 debug 一样
+            baseReleaseUrl  : "",
+            uploadReleaseUrl: "",
+    ]
+
+    // 签名文件由 AndroidStudio 生成，然后使用 keytool 命令转换格式
+    // keytool -importkeystore -srckeystore ~/Develop/Workspace/Android/VMLibrary/vmloft.example.jks -destkeystore ~/Develop/Workspace/Android/VMLibrary/vmloft.example.keystore -deststoretype pkcs12
+    // 签名配置，记得将签名文件复制到项目中
+    signings = [
+            keyAlias     : "签名别名",
+            keyPassword  : "签名密码",
+            storeFile    : "签名文件路径",
+            storePassword: "签名文件密码",
+    ]
+}
+
