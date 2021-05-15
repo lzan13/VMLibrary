@@ -1,5 +1,7 @@
 package com.vmloft.develop.library.common.common
 
+import com.vmloft.develop.library.common.BuildConfig
+
 /**
  * Create by lzan13 on 2020/8/12 22:03
  * 描述：基本常量
@@ -9,8 +11,8 @@ object CConstants {
     const val cacheImageDir = "images"
 
 //    private const val baseTestUrl = "http://192.168.1.13:5926/"
-    private const val baseTestUrl = "http://172.16.185.114:5926/"
-    private const val baseReleaseUrl = "https://template.melove.net/"
+//    private const val baseTestUrl = "http://172.16.185.114:5926/"
+//    private const val baseReleaseUrl = "https://template.melove.net/"
 
     // 用户协议地址
     const val userAgreementUrl = "https://melove.net/privacy/policy-template.html"
@@ -33,9 +35,9 @@ object CConstants {
      */
     fun baseHost(): String {
         return if (CSPManager.instance.isDebug()) {
-            baseTestUrl
+            BuildConfig.baseDebugUrl
         } else {
-            baseReleaseUrl
+            BuildConfig.baseReleaseUrl
         }
     }
 

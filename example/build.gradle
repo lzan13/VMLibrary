@@ -43,9 +43,6 @@ android {
         debug {
             // 添加参数表示 debug 环境，这里使用测试环境
             isDebug = true
-            buildConfigField("boolean", "isDebug", "false")
-            buildConfigField("String", "baseUrl", configs.baseReleaseUrl)
-            buildConfigField("String", "uploadUrl", configs.uploadReleaseUrl)
             // 是否开启压缩
             zipAlignEnabled false
             // 是否开启混淆
@@ -56,9 +53,6 @@ android {
         release {
             // 添加参数表示 debug 环境，这里使用测试环境
             isDebug = false
-            buildConfigField("boolean", "isDebug", "false")
-            buildConfigField("String", "baseUrl", configs.baseReleaseUrl)
-            buildConfigField("String", "uploadUrl", configs.uploadReleaseUrl)
             // 是否开启压缩
             zipAlignEnabled true
             // 是否开启混淆

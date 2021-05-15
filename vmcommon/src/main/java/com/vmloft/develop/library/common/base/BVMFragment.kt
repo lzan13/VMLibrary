@@ -73,21 +73,25 @@ abstract class BVMFragment<VM : BViewModel> : Fragment() {
     abstract fun initData()
 
     /**
-     * UI 状态变化回调
+     * 模型变化回调
      */
-    abstract fun onUIStatus(uiModel: BViewModel.UIModel)
+    abstract fun onModelRefresh(uiModel: BViewModel.UIModel)
+
+    open fun onModelError(uiModel: BViewModel.UIModel){
+        uiModel.error?.let { message -> errorBar(message) }
+    }
 
     /**
      * 开始观察 View 生命周期
      */
     private fun startObserve() {
-        mViewModel.uiState.observe(activity!!, {
+        mViewModel.uiState.observe(this, {
             if (it.isSuccess) {
-                onUIStatus(it)
+                onModelRefresh(it)
             }
             it.toast?.let { message -> showBar(message) }
 
-            it.error?.let { message -> errorBar(message) }
+            onModelError(it)
         })
     }
 

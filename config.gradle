@@ -18,8 +18,8 @@ ext {
             baseDebugUrl     : "",
             uploadDebugUrl   : "",
             // 线上服务器地址，这里暂时和 debug 一样
-            baseReleaseUrl   : "",
-            uploadReleaseUrl : "",
+            baseReleaseUrl   : "\"\"",
+            uploadReleaseUrl : "\"\"",
     ]
 
     // 签名文件由 AndroidStudio 生成，然后使用 keytool 命令转换格式
