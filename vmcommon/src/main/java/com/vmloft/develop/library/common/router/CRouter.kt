@@ -40,9 +40,8 @@ object CRouter {
      */
     fun goMain(type: String = "0") {
         ARouter.getInstance().build(appMain)
-            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
             .withString("type", type)
+            .withFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             .navigation()
     }
 
@@ -78,5 +77,4 @@ object CRouter {
             .withString("url", url)
             .navigation()
     }
-
 }

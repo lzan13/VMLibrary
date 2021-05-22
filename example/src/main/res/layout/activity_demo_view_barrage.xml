@@ -18,6 +18,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
+        <View
+            android:id="@+id/animView"
+            android:layout_width="@dimen/vm_dimen_36"
+            android:layout_height="@dimen/vm_dimen_36"
+            android:layout_centerInParent="true"
+            android:background="@drawable/shape_circle_common_bg"
+            android:backgroundTint="@color/app_main" />
+
         <com.vmloft.develop.library.tools.widget.VMViewGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,7 +38,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/vm_margin_normal"
-                android:text="启动弹幕" />
+                android:text="启动" />
+            <!--暂停弹幕-->
+            <Button
+                android:id="@+id/barragePauseBtn"
+                style="@style/VMBtn.Flat.Fillet.Accent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/vm_margin_normal"
+                android:text="暂停" />
             <!--继续弹幕-->
             <Button
                 android:id="@+id/barrageResumeBtn"
@@ -38,15 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/vm_margin_normal"
-                android:text="继续弹幕" />
-            <!--暂停弹幕-->
-            <Button
-                android:id="@+id/barragePauseBtn"
-                style="@style/VMBtn.Flat.Fillet"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/vm_margin_normal"
-                android:text="暂停弹幕" />
+                android:text="继续" />
             <!--停止弹幕-->
             <Button
                 android:id="@+id/barrageStopBtn"
@@ -54,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/vm_margin_normal"
-                android:text="停止弹幕" />
+                android:text="停止" />
             <!--发出弹幕-->
             <Button
                 android:id="@+id/barrageSendBtn"
@@ -62,7 +70,49 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/vm_margin_normal"
-                android:text="发送弹幕" />
+                android:text="新增" />
+            <!--发出弹幕-->
+            <Button
+                android:id="@+id/barrageResetBtn"
+                style="@style/VMBtn.Flat.Fillet.Accent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/vm_margin_normal"
+                android:text="重置" />
+
+            <!--开始动画-->
+            <Button
+                android:id="@+id/animStartBtn"
+                style="@style/VMBtn.Flat.Fillet.Accent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/vm_margin_normal"
+                android:text="开始" />
+            <!--开始动画-->
+            <Button
+                android:id="@+id/animPauseBtn"
+                style="@style/VMBtn.Flat.Fillet.Accent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/vm_margin_normal"
+                android:text="暂停" />
+            <!--开始动画-->
+            <Button
+                android:id="@+id/animResumeBtn"
+                style="@style/VMBtn.Flat.Fillet.Accent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/vm_margin_normal"
+                android:text="继续" />
+            <!--开始动画-->
+            <Button
+                android:id="@+id/animStopBtn"
+                style="@style/VMBtn.Flat.Fillet.Accent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/vm_margin_normal"
+                android:text="停止" />
+
         </com.vmloft.develop.library.tools.widget.VMViewGroup>
     </RelativeLayout>
 </LinearLayout>

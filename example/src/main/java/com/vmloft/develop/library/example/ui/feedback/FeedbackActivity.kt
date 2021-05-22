@@ -5,14 +5,14 @@ import com.alibaba.android.arouter.facade.annotation.Route
 
 import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.common.base.BaseActivity
-
+import com.vmloft.develop.library.example.router.AppRouter
 
 
 /**
  * Create by lzan13 on 2020/6/17 17:10
  * 描述：问题反馈
  */
-@Route(path = "/VMLoft/Feedback")
+@Route(path = AppRouter.appFeedback)
 class FeedbackActivity : BaseActivity() {
 
     @Autowired

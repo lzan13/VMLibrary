@@ -8,6 +8,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 
 import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.common.base.BaseActivity
+import com.vmloft.develop.library.common.router.CRouter
 import com.vmloft.develop.library.example.common.SPManager
 import com.vmloft.develop.library.example.router.AppRouter
 
@@ -20,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_guide.*
  * Create by lzan13 on 2020/05/02 15:56
  * 描述：引导界面
  */
-@Route(path = "/VMLoft/Guide")
+@Route(path = AppRouter.appGuide)
 class GuideActivity : BaseActivity() {
 
     private var mCurrentIndex = 0
@@ -43,7 +44,7 @@ class GuideActivity : BaseActivity() {
         }
         guideFinishBtn.setOnClickListener {
             SPManager.instance.setGuideHide()
-            AppRouter.goMain()
+            CRouter.goMain()
             finish()
         }
     }

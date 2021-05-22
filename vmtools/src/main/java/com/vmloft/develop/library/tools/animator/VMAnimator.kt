@@ -266,6 +266,20 @@ object VMAnimator {
         }
 
         /**
+         * 暂停动画
+         */
+        fun resume() {
+            animatorSet.resume()
+        }
+
+        /**
+         * 暂停动画
+         */
+        fun pause() {
+            animatorSet.pause()
+        }
+
+        /**
          * 取消动画
          */
         fun cancel() {
@@ -284,7 +298,7 @@ object VMAnimator {
         /**
          * 移除动画监听
          */
-        fun removeListner(listener: AnimatorListener?) {
+        fun removeListener(listener: AnimatorListener?) {
             animatorSet.removeListener(listener)
         }
 
@@ -339,5 +353,6 @@ object VMAnimator {
         // 动画开始延迟
         var delay: Int = 0,
         // 动画执行值
-        var values: FloatArray)
+        var values: FloatArray
+    )
 }

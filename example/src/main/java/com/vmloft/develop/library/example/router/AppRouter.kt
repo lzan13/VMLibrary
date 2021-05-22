@@ -1,6 +1,8 @@
 package  com.vmloft.develop.library.example.router
 
+import android.content.Intent
 import com.alibaba.android.arouter.launcher.ARouter
+import com.vmloft.develop.library.common.router.CRouter
 
 /**
  * Create by lzan13 on 2020-02-24 21:57
@@ -27,6 +29,9 @@ object AppRouter {
     const val appNotifyTest = "/VMLoft/Notify"
 
 
+    const val appMain = "/App/Main"
+    const val appGuide = "/App/Guide"
+
     // 设置
     const val appSettings = "/App/Settings"
     const val appSettingsDark = "/App/SettingsDark"
@@ -48,119 +53,15 @@ object AppRouter {
 
     /**
      * 主界面[MainActivity]
+     * @param type 跳转类型 0-普通 1-清空登录信息
      */
-    fun goMain() {
-        ARouter.getInstance().build("/VMLoft/Main").navigation()
+    fun goMain(type: String = "0") {
+        ARouter.getInstance().build(CRouter.appMain)
+            .withString("type", type)
+            .withFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            .navigation()
     }
 
-    /**
-     * 引导[GuideActivity]
-     */
-    fun goGuide() {
-        ARouter.getInstance().build("/VMLoft/Guide").navigation()
-    }
 
-    /**
-     * 设置[SettingsActivity]
-     */
-    fun goSettings() {
-        ARouter.getInstance().build("/VMLoft/Settings").navigation()
-    }
-
-    /**
-     * 个人信息设置[InfoSettingsActivity]
-     */
-    fun goSettingsInfo() {
-        ARouter.getInstance().build("/VMLoft/SettingsInfo").navigation()
-    }
-
-    /**
-     * 个人信息昵称设置[EditNicknameActivity]
-     */
-    fun goEditNickname(nickname: String?) {
-        ARouter.getInstance().build("/VMLoft/EditNickname").withString("nickname", nickname).navigation()
-    }
-
-    /**
-     * 个人信息签名设置[EditSignatureActivity]
-     */
-    fun goEditSignature(signature: String?) {
-        ARouter.getInstance().build("/VMLoft/EditSignature").withString("signature", signature).navigation()
-    }
-
-    /**
-     * 个人信息地址设置[EditAddressActivity]
-     */
-    fun goEditAddress(address: String?) {
-        ARouter.getInstance().build("/VMLoft/EditAddress").withString("address", address).navigation()
-    }
-
-    /**
-     * 通知[NotifySettingsActivity]
-     */
-    fun goSettingsNotify() {
-        ARouter.getInstance().build("/VMLoft/SettingsNotify").navigation()
-    }
-
-    /**
-     * 深色模式[DarkSettingsActivity]
-     */
-    fun goSettingsDark() {
-        ARouter.getInstance().build("/VMLoft/SettingsDark").navigation()
-    }
-
-    /**
-     * 深色模式[PictureSettingsActivity]
-     */
-    fun goSettingsPicture() {
-        ARouter.getInstance().build("/VMLoft/SettingsPicture").navigation()
-    }
-
-    /**
-     * 关于[AboutSettingsActivity]
-     */
-    fun goSettingsAbout() {
-        ARouter.getInstance().build("/VMLoft/SettingsAbout").navigation()
-    }
-
-    /**
-     * 调试[DebugSettingsActivity]
-     */
-    fun goSettingsDebug() {
-        ARouter.getInstance().build("/VMLoft/SettingsDebug").navigation()
-    }
-
-    /**
-     * 问题反馈[FeedbackActivity]
-     */
-    fun goFeedback() {
-        ARouter.getInstance().build("/VMLoft/Feedback").navigation()
-    }
-
-    /**
-     * 打开 Web 页面[WebActivity]
-     */
-    fun goWeb(url: String) {
-        ARouter.getInstance().build("/VMLoft/Web").withString("url", url).navigation()
-    }
-
-    /**
-     * 展示多图[DisplayMultiActivity]
-     */
-    fun goDisplayMulti(index: String, list: List<String>) {
-        ARouter.getInstance().build("/VMLoft/DisplayMulti")
-                .withString("index", index)
-                .withObject("pictureList", list)
-                .navigation()
-    }
-
-    /**
-     * 展示单图[DisplaySingleActivity]
-     */
-    fun goDisplaySingle(url: String) {
-        ARouter.getInstance().build("/VMLoft/DisplaySingle")
-                .withString("url", url)
-                .navigation()
-    }
 
 }

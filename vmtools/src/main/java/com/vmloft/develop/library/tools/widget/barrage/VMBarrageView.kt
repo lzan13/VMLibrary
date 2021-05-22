@@ -19,7 +19,8 @@ import java.util.concurrent.LinkedBlockingQueue
  * Create by lzan13 on 2020/6/3 17:14
  * 描述：弹幕控件
  */
-class VMBarrageView<T> @JvmOverloads constructor(context: Context?, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RelativeLayout(context, attrs, defStyleAttr) {
+class VMBarrageView<T> @JvmOverloads constructor(context: Context?, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+    RelativeLayout(context, attrs, defStyleAttr) {
     // 默认最大展示 100 个
     private val defaultMaxSize: Int = 100
 
@@ -96,6 +97,25 @@ class VMBarrageView<T> @JvmOverloads constructor(context: Context?, attrs: Attri
     /**
      * 添加一个新的弹幕数据
      */
+    fun resetBarrageList(list: List<T>) {
+        if (isActive) {
+            mDataQueue.clear()
+            mDataQueue.addAll(list)
+        }
+    }
+
+    /**
+     * 添加一个新的弹幕数据
+     */
+    fun addBarrageList(list: List<T>) {
+        if (isActive) {
+            mDataQueue.addAll(list)
+        }
+    }
+
+    /**
+     * 添加一个新的弹幕数据
+     */
     fun addBarrage(bean: T) {
         if (isActive) {
             mDataQueue.add(bean)
@@ -155,7 +175,7 @@ class VMBarrageView<T> @JvmOverloads constructor(context: Context?, attrs: Attri
      * 开启循环
      */
     private fun startLoop() {
-        VMSystem.runTask(Runnable {
+        VMSystem.runTask {
             while (isActive && !isPause) {
                 val bean: T = mDataQueue.take()
                 var view: View? = mViewQueue.poll()
@@ -177,7 +197,7 @@ class VMBarrageView<T> @JvmOverloads constructor(context: Context?, attrs: Attri
                     barrageAnim(view!!, bean)
                 })
             }
-        })
+        }
     }
 
     /**
@@ -227,14 +247,13 @@ class VMBarrageView<T> @JvmOverloads constructor(context: Context?, attrs: Attri
      * 创建弹幕
      */
     private fun createView(): View {
-        return LayoutInflater.from(context)
-            .inflate(mCreator.layoutId(), null)
+        return LayoutInflater.from(context).inflate(mCreator.layoutId(), null)
     }
 
     override fun onVisibilityChanged(changedView: View, visibility: Int) {
         super.onVisibilityChanged(changedView, visibility)
         VMLog.d("onVisibilityChanged $visibility")
-        if (visibility === 0) {
+        if (visibility == 0) {
             // View 可见 继续
             resume()
         } else {

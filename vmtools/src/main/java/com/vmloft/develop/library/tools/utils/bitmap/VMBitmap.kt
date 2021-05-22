@@ -114,7 +114,7 @@ object VMBitmap {
      */
     fun getZoomScale(actualWidth: Int, actualHeight: Int, dimension: Int): Int {
         var scale = 1
-        if (actualWidth > actualHeight && actualWidth > dimension) {
+        if (actualWidth >= actualHeight && actualWidth > dimension) {
             // 如果宽度大的话根据宽度固定大小缩放
             scale = (actualWidth / dimension)
         } else if (actualWidth < actualHeight && actualHeight > dimension) {
@@ -251,7 +251,8 @@ object VMBitmap {
         options.inJustDecodeBounds = false
 
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P && path is Uri) {
-            var parcelFileDescriptor: ParcelFileDescriptor? = VMTools.context.contentResolver.openFileDescriptor(path as Uri, "r");
+            var parcelFileDescriptor: ParcelFileDescriptor? =
+                VMTools.context.contentResolver.openFileDescriptor(path as Uri, "r");
             var fileDescriptor: FileDescriptor?
             if (parcelFileDescriptor?.fileDescriptor != null) {
                 fileDescriptor = parcelFileDescriptor.fileDescriptor

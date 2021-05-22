@@ -7,6 +7,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.common.base.BaseActivity
 import com.vmloft.develop.library.example.router.AppRouter
+import com.vmloft.develop.library.tools.animator.VMAnimator
 import com.vmloft.develop.library.tools.widget.barrage.VMBarrageView
 import com.vmloft.develop.library.tools.widget.barrage.VMViewCreator
 
@@ -19,6 +20,7 @@ import kotlinx.android.synthetic.main.activity_demo_view_barrage.*
  */
 @Route(path = AppRouter.appBarrage)
 class BarrageViewActivity : BaseActivity() {
+    private var mAnimatorWrap: VMAnimator.AnimatorSetWrap? = null
 
     private val mDataList: MutableList<BarrageBean> = mutableListOf()
 
@@ -32,9 +34,9 @@ class BarrageViewActivity : BaseActivity() {
         val barrageView = findViewById<VMBarrageView<BarrageBean>>(R.id.barrageView)
         barrageStartBtn.setOnClickListener {
             barrageView.setCreator(ViewCreator())
-                    .setMaxSize(50)
-                    .create(mDataList)
-                    .start()
+                .setMaxSize(50)
+                .create(mDataList)
+                .start()
         }
 
         barrageResumeBtn.setOnClickListener {
@@ -46,10 +48,28 @@ class BarrageViewActivity : BaseActivity() {
         barrageStopBtn.setOnClickListener {
             barrageView.stop()
         }
-
         barrageSendBtn.setOnClickListener {
-            barrageView.addBarrage(BarrageBean("测试弹幕 ~ ~ "))
+            barrageView.addBarrage(BarrageBean("测试手动新增弹幕 ~ ~ "))
         }
+        barrageResetBtn.setOnClickListener {
+            mDataList.clear()
+            mDataList.add(BarrageBean("测试重置弹幕 0"))
+            mDataList.add(BarrageBean("测试重置弹幕测试弹幕 1"))
+            mDataList.add(BarrageBean("测试重置弹幕 2"))
+            mDataList.add(BarrageBean("测试重置弹幕 3"))
+            mDataList.add(BarrageBean("测试重置弹幕测试弹幕 4"))
+            mDataList.add(BarrageBean("测试重置弹幕 5"))
+            mDataList.add(BarrageBean("测试重置弹幕 6"))
+            mDataList.add(BarrageBean("测试重置弹幕测试弹幕测试弹幕 7"))
+            mDataList.add(BarrageBean("测试重置弹幕 8"))
+            mDataList.add(BarrageBean("测试重置弹幕测试弹幕测试弹幕测试弹幕 9"))
+            barrageView.resetBarrageList(mDataList)
+        }
+
+        animStartBtn.setOnClickListener { startAnim() }
+        animPauseBtn.setOnClickListener { pauseAnim() }
+        animResumeBtn.setOnClickListener { resumeAnim() }
+        animStopBtn.setOnClickListener { stopAnim() }
 
     }
 
@@ -65,10 +85,44 @@ class BarrageViewActivity : BaseActivity() {
         mDataList.add(BarrageBean("测试弹幕 8"))
         mDataList.add(BarrageBean("测试弹幕测试弹幕测试弹幕测试弹幕 9"))
 
-
     }
 
+    /**
+     * 开始动画
+     */
+    private fun startAnim() {
+        mAnimatorWrap = VMAnimator.createAnimator()
+            .play(VMAnimator.createOptions(animView, VMAnimator.SCALEX, 2500, VMAnimator.INFINITE, 0f, 20f))
+            .with(VMAnimator.createOptions(animView, VMAnimator.SCALEY, 2500, VMAnimator.INFINITE, 0f, 20f))
+            .with(VMAnimator.createOptions(animView, VMAnimator.ALPHA, 2500, VMAnimator.INFINITE, 1.0f, 0.0f))
+        mAnimatorWrap?.startDelay(100)
+    }
 
+    /**
+     * 暂停动画
+     */
+    private fun pauseAnim() {
+        mAnimatorWrap?.pause()
+    }
+
+    /**
+     * 继续动画
+     */
+    private fun resumeAnim() {
+        mAnimatorWrap?.resume()
+    }
+
+    /**
+     * 停止动画
+     */
+    private fun stopAnim() {
+        mAnimatorWrap?.cancel()
+        mAnimatorWrap = null
+    }
+
+    /**
+     * 弹幕创造者
+     */
     class ViewCreator : VMViewCreator<BarrageBean> {
         override fun layoutId(): Int = R.layout.item_barrage_view
 
