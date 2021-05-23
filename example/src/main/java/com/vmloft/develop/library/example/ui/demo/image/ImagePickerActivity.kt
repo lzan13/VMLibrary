@@ -73,9 +73,9 @@ class ImagePickerActivity : BaseActivity() {
     }
 
     private fun talkVideo() {
-        IMGChoose.takePicture(this) {
+        IMGChoose.takeVideo(this) {
             VMLog.d("拍摄结果 $it")
-            IMGLoader.loadCover(imagePickerIV, it)
+//            IMGLoader.loadCover(imagePickerIV, it)
         }
     }
 

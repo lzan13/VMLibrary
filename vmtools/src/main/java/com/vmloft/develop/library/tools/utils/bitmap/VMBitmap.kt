@@ -18,10 +18,6 @@ import android.util.Base64
 import android.view.View
 import com.vmloft.develop.library.tools.VMTools
 import com.vmloft.develop.library.tools.utils.VMFile
-import com.vmloft.develop.library.tools.utils.VMFile.cacheFromSDCard
-import com.vmloft.develop.library.tools.utils.VMFile.createDirectory
-import com.vmloft.develop.library.tools.utils.VMFile.createFile
-import com.vmloft.develop.library.tools.utils.VMFile.getPath
 import com.vmloft.develop.library.tools.utils.logger.VMLog
 import java.io.*
 
@@ -209,8 +205,8 @@ object VMBitmap {
         // 生成临时文件名
         val tempName = generateTempName(path)
         // 临时存放路径
-        val tempPath = cacheFromSDCard + "temp"
-        createDirectory(tempPath)
+        val tempPath = VMFile.cacheFromSDCard + "temp"
+        VMFile.createDirectory(tempPath)
         saveBitmapToFiles(bitmap, "$tempPath/$tempName")
         return "$tempPath/$tempName"
     }
@@ -237,6 +233,8 @@ object VMBitmap {
             } else {
                 return null
             }
+        } else if (path is Uri) {
+            BitmapFactory.decodeFile(VMFile.getPath(path), options)
         } else {
             BitmapFactory.decodeFile(path as String, options)
         }
@@ -260,6 +258,8 @@ object VMBitmap {
             } else {
                 return null
             }
+        } else if (path is Uri) {
+            bitmap = BitmapFactory.decodeFile(VMFile.getPath(path), options)
         } else {
             bitmap = BitmapFactory.decodeFile(path as String, options)
         }
@@ -342,7 +342,7 @@ object VMBitmap {
         if (path is String) {
             return System.currentTimeMillis().toString() + getExtensionName(path)
         } else if (path is Uri) {
-            val tempPath = getPath(path)
+            val tempPath = VMFile.getPath(path)
             return System.currentTimeMillis().toString() + getExtensionName(tempPath)
         } else {
             return System.currentTimeMillis().toString() + ".jpeg"
@@ -382,7 +382,7 @@ object VMBitmap {
             values.put(MediaStore.Images.Media.RELATIVE_PATH, "${Environment.DIRECTORY_PICTURES}/$dir")
         } else {
             val path = "${VMFile.pictures}$dir$name"
-            createFile(path)
+            VMFile.createFile(path)
             values.put(MediaStore.Images.Media.DATA, path)
         }
         uri = VMTools.context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
