@@ -1,6 +1,5 @@
 package com.vmloft.develop.library.common.ui.display
 
-import android.view.View
 
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -44,12 +43,12 @@ class DisplaySingleActivity : BVMActivity<DisplayViewModel>() {
     override fun initData() {
         ARouter.getInstance().inject(this)
 
-        IMGLoader.loadCover(displaySingleIV, url)
+        IMGLoader.loadCover(displayIV, url)
 
 //        ADSManager.instance.loadBannerADS(ADSManager.adsBannerId, adsContainer)
     }
 
-    override fun onModelRefresh(uiModel: BViewModel.UIModel) {
+    override fun onModelRefresh(model: BViewModel.UIModel) {
 
     }
 

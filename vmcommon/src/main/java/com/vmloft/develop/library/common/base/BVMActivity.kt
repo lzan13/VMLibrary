@@ -1,6 +1,7 @@
 package com.vmloft.develop.library.common.base
 
 import android.app.Activity
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -8,9 +9,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 
 import com.vmloft.develop.library.common.R
+import com.vmloft.develop.library.common.utils.CUtils
 import com.vmloft.develop.library.common.utils.showBar
 import com.vmloft.develop.library.common.utils.errorBar
 import com.vmloft.develop.library.common.widget.CommonDialog
+import com.vmloft.develop.library.tools.utils.VMColor
 
 import com.vmloft.develop.library.tools.utils.VMDimen
 import com.vmloft.develop.library.tools.utils.VMTheme
@@ -67,7 +70,8 @@ abstract class BVMActivity<VM : BViewModel> : AppCompatActivity() {
      * 初始化 UI
      */
     open fun initUI() {
-        VMTheme.setDarkStatusBar(mActivity, true)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        CUtils.setDarkMode(mActivity, true)
         setupTobBar()
     }
 
@@ -79,10 +83,10 @@ abstract class BVMActivity<VM : BViewModel> : AppCompatActivity() {
     /**
      * 模型变化回调
      */
-    abstract fun onModelRefresh(uiModel: BViewModel.UIModel)
+    abstract fun onModelRefresh(model: BViewModel.UIModel)
 
-    open fun onModelError(uiModel: BViewModel.UIModel){
-        uiModel.error?.let { message -> errorBar(message) }
+    open fun onModelError(model: BViewModel.UIModel) {
+        model.error?.let { message -> errorBar(message) }
     }
 
     /**
@@ -99,9 +103,7 @@ abstract class BVMActivity<VM : BViewModel> : AppCompatActivity() {
         })
     }
 
-    open fun hideTopSpace() :Boolean{
-        return false
-    }
+    open fun hideTopSpace() = false
 
     /**
      * 装载 TopBar
@@ -151,6 +153,7 @@ abstract class BVMActivity<VM : BViewModel> : AppCompatActivity() {
      * 设置标题颜色
      */
     protected fun setTopTitleColor(resId: Int) {
+        commonTopBar?.setIconColor(VMColor.byRes(resId))
         commonTopBar?.setTitleColor(resId)
     }
 
@@ -180,6 +183,14 @@ abstract class BVMActivity<VM : BViewModel> : AppCompatActivity() {
      */
     protected fun setTopEndBtnListener(str: String? = null, listener: View.OnClickListener) {
         commonTopBar?.setEndBtnListener(str, listener)
+    }
+
+    /**
+     * 设置 TopBar 右侧图标按钮及监听
+     */
+    protected fun setTopEndIcon(resId: Int, listener: View.OnClickListener) {
+        commonTopBar?.setEndIcon(resId)
+        commonTopBar?.setEndIconListener(listener)
     }
 
     override fun onDestroy() {

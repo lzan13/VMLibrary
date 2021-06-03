@@ -13,7 +13,7 @@ import java.security.MessageDigest
  */
 class BlurTransformation : BitmapTransformation() {
     override fun transform(pool: BitmapPool, toTransform: Bitmap, outWidth: Int, outHeight: Int): Bitmap {
-        val blurBitmap = stackBlurBitmap(toTransform, 10, 8, false)
+        val blurBitmap = stackBlurBitmap(toTransform, 15, 10, false)
         return blurBitmap!!
     }
 

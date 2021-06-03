@@ -15,8 +15,6 @@ android {
         versionCode configs.versionCode
         versionName configs.versionName
 
-        consumerProguardFiles 'consumer-rules.pro'
-
         // 通过配置文件设置请求 API 地址
         buildConfigField("String", "baseDebugUrl", configs.baseDebugUrl)
         buildConfigField("String", "baseReleaseUrl", configs.baseReleaseUrl)
@@ -24,8 +22,9 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
-            consumerProguardFiles 'consumer-rules.pro'
+            // 混淆文件
+            consumerProguardFiles 'proguard-rules.pro'
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     // 使用 Java 8 编译
@@ -65,9 +64,9 @@ dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
 
     // AndroidX 扩展库
-    api 'androidx.appcompat:appcompat:1.2.0'
+    api 'androidx.appcompat:appcompat:1.3.0'
     api 'androidx.constraintlayout:constraintlayout:2.0.4'
-    api 'androidx.core:core-ktx:1.3.2'
+    api 'androidx.core:core-ktx:1.5.0'
     api 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
     api 'com.google.android.material:material:1.3.0'
     // databinding 数据绑定库
@@ -169,6 +168,6 @@ if (debugTools) {
 } else {
     dependencies {
         // 自定义工具库 https://gitee.com/lzan13/VMLibrary
-        api 'com.gitee.lzan13:VMLibrary:1.3.5'
+        api 'com.gitee.lzan13:VMLibrary:1.3.7'
     }
 }

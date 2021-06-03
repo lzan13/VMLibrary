@@ -45,7 +45,7 @@ class SettingsActivity : BaseActivity() {
             dialog.setTitle(VMStr.byRes(R.string.sign_out_hint))
             dialog.setPositive(listener = {
                 // 清空登录信息统一交给 Main 界面处理
-                CRouter.goMain("1")
+                CRouter.goMain(1)
             })
             dialog.show()
         }

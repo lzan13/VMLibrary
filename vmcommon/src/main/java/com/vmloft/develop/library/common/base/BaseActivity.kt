@@ -19,9 +19,9 @@ import kotlinx.android.synthetic.main.widget_common_top_bar.*
  */
 abstract class BaseActivity : AppCompatActivity() {
 
-    protected lateinit var mActivity: Activity
-
     protected var mDialog: CommonDialog? = null
+
+    protected lateinit var mActivity: Activity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,14 +54,18 @@ abstract class BaseActivity : AppCompatActivity() {
      */
     abstract fun initData()
 
+    open fun hideTopSpace() = false
+
     /**
      * 装载 TopBar
      */
     private fun setupTobBar() {
-        // 设置状态栏透明主题时，布局整体会上移，所以给头部 View 设置 StatusBar 的高度
-        commonTopSpace?.layoutParams?.height = VMDimen.statusBarHeight
+        if (!hideTopSpace()) {
+            // 设置状态栏透明主题时，布局整体会上移，所以给头部 View 设置 StatusBar 的高度
+            commonTopSpace?.layoutParams?.height = VMDimen.statusBarHeight
+        }
 
-//        commonTopBar?.setCenter(true)
+        commonTopBar?.setCenter(true)
         commonTopBar?.setTitleStyle(R.style.AppText_Title)
         commonTopBar?.setIcon(R.drawable.ic_arrow_back)
         commonTopBar?.setIconListener { onBackPressed() }
@@ -94,6 +98,12 @@ abstract class BaseActivity : AppCompatActivity() {
      */
     protected fun setTopTitle(title: String) {
         commonTopBar?.setTitle(title)
+    }
+    /**
+     * 设置二级标题
+     */
+    protected fun setTopSubTitle(title: String) {
+        commonTopBar?.setSubtitle(title)
     }
 
     /**
@@ -129,6 +139,14 @@ abstract class BaseActivity : AppCompatActivity() {
      */
     protected fun setTopEndBtnListener(str: String? = null, listener: View.OnClickListener) {
         commonTopBar?.setEndBtnListener(str, listener)
+    }
+
+    /**
+     * 设置 TopBar 右侧图标按钮及监听
+     */
+    protected fun setTopEndIcon(resId: Int, listener: View.OnClickListener) {
+        commonTopBar?.setEndIcon(resId)
+        commonTopBar?.setEndIconListener(listener)
     }
 
     override fun onDestroy() {

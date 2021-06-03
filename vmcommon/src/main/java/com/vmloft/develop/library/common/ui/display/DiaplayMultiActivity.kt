@@ -63,7 +63,7 @@ class DisplayMultiActivity : BVMActivity<DisplayViewModel>() {
 //        ADSManager.instance.loadBannerADS(ADSManager.adsBannerId, adsContainer)
     }
 
-    override fun onModelRefresh(uiModel: BViewModel.UIModel) {
+    override fun onModelRefresh(model: BViewModel.UIModel) {
     }
 
     /**

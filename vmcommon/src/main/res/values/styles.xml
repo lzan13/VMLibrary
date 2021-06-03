@@ -73,11 +73,14 @@
     </style>
 
     <!--内容样式-->
-    <style name="AppText.Body" parent="@style/VMText.Body1"></style>
+    <style name="AppText.Body" parent="@style/VMText.Body1">
+        <item name="android:textColor">@color/app_body</item>
+    </style>
 
     <!--更多样式-->
     <style name="AppText.More" parent="@style/VMText.Caption">
         <item name="android:textColor">@color/app_more</item>
+        <item name="android:textSize">@dimen/vm_size_12</item>
     </style>
 
     <!--Tips样式-->
@@ -134,13 +137,16 @@
         <item name="android:background">@drawable/shape_input_bg</item>
         <item name="android:textColor">@color/app_input</item>
         <item name="android:textColorHint">@color/app_input_hint</item>
-        <item name="android:padding">@dimen/vm_padding_large</item>
+        <item name="android:paddingStart">@dimen/vm_padding_large</item>
+        <item name="android:paddingEnd">@dimen/vm_dimen_12</item>
+        <item name="android:paddingTop">@dimen/vm_dimen_12</item>
+        <item name="android:paddingBottom">@dimen/vm_padding_large</item>
         <item name="android:textStyle">normal</item>
     </style>
 
     <style name="AppEdit.MultiLine" parent="@style/VMEdit.MultiLine">
         <item name="android:background">@drawable/shape_input_bg</item>
-        <item name="android:lines">5</item>
+        <item name="android:lines">3</item>
         <item name="android:textColor">@color/app_input</item>
         <item name="android:textColorHint">@color/app_input_hint</item>
         <item name="android:textStyle">normal</item>
@@ -161,6 +167,7 @@
         <item name="android:layout_marginEnd">@dimen/vm_dimen_48</item>
         <item name="android:textStyle">bold</item>
     </style>
+
     <style name="AppBtn.Sign.Border" parent="@style/VMBtn.Flat.Fillet.Border.Accent">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/vm_dimen_48</item>

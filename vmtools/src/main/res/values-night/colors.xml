@@ -28,8 +28,8 @@
     <!--按钮文字-->
     <color name="vm_btn_text_dark">@color/vm_gray_white_87</color>
     <color name="vm_btn_text_dark_unusable">@color/vm_gray_38</color>
-    <color name="vm_btn_text_light">@color/vm_gray_white</color>
-    <color name="vm_btn_text_light_unusable">@color/vm_gray_54</color>
+    <color name="vm_btn_text_light">@color/vm_white_87</color>
+    <color name="vm_btn_text_light_unusable">@color/vm_white_54</color>
 
     <!--输入-->
     <color name="vm_edit">@color/vm_gray_white_87</color>

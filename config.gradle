@@ -23,7 +23,7 @@ ext {
 
     // 签名文件由 AndroidStudio 生成，然后使用 keytool 命令转换格式
     // keytool -importkeystore -srckeystore ./vmloft.debug.jks -destkeystore ./vmloft.debug.keystore -deststoretype pkcs12
-    // 签名配置，记得将签名文件复制到项目中
+    // 签名配置，这里是默认添加的 debug 签名，方便打包测试，发布时需生成自己的签名文件，记得将签名文件复制到项目中
     signings = [
             keyAlias     : "vmloft",
             keyPassword  : "123456",

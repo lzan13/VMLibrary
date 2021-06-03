@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.vmloft.develop.library.common.R
 import com.vmloft.develop.library.common.utils.errorBar
 import com.vmloft.develop.library.common.utils.showBar
+import com.vmloft.develop.library.common.widget.CommonDialog
 import com.vmloft.develop.library.tools.utils.VMDimen
 
 import kotlinx.android.synthetic.main.widget_common_top_bar.*
@@ -20,6 +21,8 @@ import kotlinx.android.synthetic.main.widget_common_top_bar.*
  * 描述：Fragment MVVM 框架基类
  */
 abstract class BVMFragment<VM : BViewModel> : Fragment() {
+
+    protected var mDialog: CommonDialog? = null
 
     protected lateinit var mBinding: ViewDataBinding
     protected lateinit var mViewModel: VM
@@ -75,10 +78,10 @@ abstract class BVMFragment<VM : BViewModel> : Fragment() {
     /**
      * 模型变化回调
      */
-    abstract fun onModelRefresh(uiModel: BViewModel.UIModel)
+    abstract fun onModelRefresh(model: BViewModel.UIModel)
 
-    open fun onModelError(uiModel: BViewModel.UIModel){
-        uiModel.error?.let { message -> errorBar(message) }
+    open fun onModelError(model: BViewModel.UIModel) {
+        model.error?.let { message -> errorBar(message) }
     }
 
     /**
@@ -146,5 +149,12 @@ abstract class BVMFragment<VM : BViewModel> : Fragment() {
      */
     protected fun setTopSubtitle(title: String?) {
         commonTopBar?.setSubtitle(title)
+    }
+
+    /**
+     * 设置子标题
+     */
+    protected fun setTopEndView(view: View?) {
+        commonTopBar?.addEndView(view)
     }
 }

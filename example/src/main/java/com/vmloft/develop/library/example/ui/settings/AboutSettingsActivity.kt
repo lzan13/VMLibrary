@@ -7,6 +7,7 @@ import com.vmloft.develop.library.common.common.CConstants
 import com.vmloft.develop.library.common.router.CRouter
 import com.vmloft.develop.library.common.utils.showBar
 import com.vmloft.develop.library.example.R
+import com.vmloft.develop.library.example.common.Constants
 import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.tools.utils.VMSystem
 
@@ -35,7 +36,7 @@ class AboutSettingsActivity : BaseActivity() {
         aboutCheckVersionLV.setOnClickListener { showBar(R.string.version_check_toast) }
 
 
-        aboutPrivacyPolicyTV.setOnClickListener { CRouter.goWeb(CConstants.privatePolicyUrl) }
+        aboutPrivacyPolicyTV.setOnClickListener { CRouter.goWeb(Constants.privatePolicyUrl) }
     }
 
     override fun initData() {

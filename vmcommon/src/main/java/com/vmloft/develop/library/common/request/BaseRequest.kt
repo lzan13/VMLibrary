@@ -37,12 +37,12 @@ abstract class BaseRequest {
         }
 
 
-    fun <S> getService(serviceClass: Class<S>, baseUrl: String): S {
+    fun <S> getAPI(apiClass: Class<S>, baseUrl: String): S {
         return Retrofit.Builder()
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(baseUrl)
-            .build().create(serviceClass)
+            .build().create(apiClass)
     }
 
     abstract fun handleBuilder(builder: OkHttpClient.Builder)

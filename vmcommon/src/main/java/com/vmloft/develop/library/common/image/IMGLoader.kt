@@ -3,6 +3,8 @@ package com.vmloft.develop.library.common.image
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
+import android.net.Uri
+import android.os.Build
 import android.widget.ImageView
 
 import com.bumptech.glide.RequestBuilder
@@ -22,8 +24,10 @@ import com.vmloft.develop.library.common.R
 import com.vmloft.develop.library.common.common.CConstants
 import com.vmloft.develop.library.common.common.CError
 import com.vmloft.develop.library.common.request.RResult
+import com.vmloft.develop.library.common.utils.CUtils
 import com.vmloft.develop.library.tools.utils.VMDate
 import com.vmloft.develop.library.tools.utils.VMDimen
+import com.vmloft.develop.library.tools.utils.VMFile
 import com.vmloft.develop.library.tools.utils.VMStr
 import com.vmloft.develop.library.tools.utils.bitmap.VMBitmap
 import com.vmloft.develop.library.tools.utils.logger.VMLog
@@ -75,24 +79,31 @@ object IMGLoader {
                 return true
             }
 
-            override fun onResourceReady(resource: File?, model: Any?, target: Target<File>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+            override fun onResourceReady(
+                resource: File?,
+                model: Any?,
+                target: Target<File>?,
+                dataSource: DataSource?,
+                isFirstResource: Boolean,
+            ): Boolean {
                 val fis = FileInputStream(resource)
                 val bmp = BitmapFactory.decodeStream(fis)
                 val filename = VMDate.filenameDateTime()
                 var result = VMBitmap.saveBitmapToPictures(bmp, CConstants.projectDir, filename)
-                val path = "/SDCard/Pictures/${CConstants.projectDir}/${filename}.jpg"
+                val path = "${VMFile.pictures}${CConstants.projectDir}${filename}.jpg"
                 if (result != null) {
-                    val tips = "${VMStr.byRes(R.string.picture_save_toast_succeed)} ${path}"
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                        // 保存完成通知相册刷新
+                        CUtils.notifyAlbum(context, path)
+                    }
+                    val tips = "${VMStr.byRes(R.string.picture_save_toast_succeed)} $path"
+
                     VMLog.d(tips)
                     rResult = RResult.Success(tips)
                 } else {
                     val tips = "${VMStr.byRes(R.string.picture_save_toast_failed)} ${path}"
                     rResult = RResult.Error(CError.ordinary, tips)
                 }
-//                    if (result) {
-//                        // 保存完成通知相册刷新
-//                        CUtils.notifyAlbum(context, path)
-//                    }
                 // 解除锁
                 countDownLatch.countDown()
                 return true
@@ -133,13 +144,14 @@ object IMGLoader {
         iv: ImageView,
         cover: Any?,
         isRadius: Boolean = false,
-        radiusSize: Int = 4,
+        radiusSize: Int = 8,
         radiusTL: Int = 0,
         radiusTR: Int = 0,
         radiusBL: Int = 0,
         radiusBR: Int = 0,
         isBlur: Boolean = false,
-        defaultResId: Int = R.drawable.img_default
+        thumbnailUrl: String = "",
+        defaultResId: Int = R.drawable.img_default,
     ) {
         val options = Options(
             cover,
@@ -150,7 +162,8 @@ object IMGLoader {
             radiusTR = radiusTR,
             radiusBL = radiusBL,
             radiusBR = radiusBR,
-            isBlur = isBlur
+            isBlur = isBlur,
+            thumbnailUrl = thumbnailUrl
         )
         load(options, iv)
     }
@@ -169,7 +182,7 @@ object IMGLoader {
         path: Any?,
         isRadius: Boolean = true,
         radiusSize: Int = 4,
-        size: Int = 256
+        size: Int = 256,
     ) {
         val options = Options(path, isRadius = isRadius, radiusSize = radiusSize, isThumbnail = true, thumbnailSize = size)
         load(options, iv)
@@ -202,10 +215,12 @@ object IMGLoader {
                 .apply(requestOptions)
                 .into(imageView)
         } else {
+            val thumbnail = thumbnail(imageView.context, wOptions)
             if (options.isCircle || options.isRadius) {
                 val placeholder = placeholder(imageView.context, wOptions)
                 GlideApp.with(imageView.context)
                     .load(wOptions.res)
+                    .thumbnail(thumbnail)
                     .thumbnail(placeholder)
                     .apply(requestOptions)
                     .into(imageView)
@@ -213,6 +228,7 @@ object IMGLoader {
                 GlideApp.with(imageView.context)
                     .load(wOptions.res)
                     .apply(requestOptions)
+                    .thumbnail(thumbnail)
                     .placeholder(wOptions.defaultResId)
                     .into(imageView)
             }
@@ -224,7 +240,6 @@ object IMGLoader {
      *
      * @param context 上下文对象
      * @param options 加载配置
-     * @param resId   默认资源图
      * @return
      */
     private fun placeholder(context: Context, options: Options): RequestBuilder<Drawable> {
@@ -238,6 +253,26 @@ object IMGLoader {
             requestOptions.transform(BlurTransformation())
         }
         return GlideApp.with(context).load(options.defaultResId).apply(requestOptions)
+    }
+
+    /**
+     * 处理缩略图
+     *
+     * @param context 上下文对象
+     * @param options 加载配置
+     * @return
+     */
+    private fun thumbnail(context: Context, options: Options): RequestBuilder<Drawable> {
+        val requestOptions = RequestOptions()
+        if (options.isCircle) {
+            requestOptions.circleCrop()
+        } else if (options.isRadius) {
+            requestOptions.transform(MultiTransformation(CenterCrop(), RoundedCorners(VMDimen.dp2px(options.radiusSize))))
+        }
+        if (options.isBlur) {
+            requestOptions.transform(BlurTransformation())
+        }
+        return GlideApp.with(context).load(options.thumbnailUrl).apply(requestOptions)
     }
 
     /**
@@ -255,8 +290,14 @@ object IMGLoader {
      * 包装下图片加载属性
      */
     private fun wrapOptions(options: Options): Options {
-        if (options.res is String && (options.res as String).indexOf("/uploads/") == 0) {
-            options.res = CConstants.mediaHost() + options.res
+        if (options.res is String) {
+            if ((options.res as String).indexOf("/uploads/") == 0) {
+                options.res = CConstants.mediaHost() + options.res
+            } else if ((options.res as String).indexOf("file:///") == 0 || (options.res as String).indexOf("content:///") == 0) {
+                options.res = Uri.parse(options.res as String)
+            }else if ((options.res as String).indexOf("/storage") == 0) {
+                options.res = Uri.parse(options.res as String)
+            }
         }
         return options
     }
@@ -291,11 +332,13 @@ object IMGLoader {
         var radiusBR: Int = 0,
         // 是否模糊
         var isBlur: Boolean = false,
+        // 缩略图
+        var thumbnailUrl: String = "",
         var isThumbnail: Boolean = false,
         var thumbnailSize: Int = 256,
 
         // 参考参数，防盗链使用
-        var referer: String = ""
+        var referer: String = "",
     )
 
 }

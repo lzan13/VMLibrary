@@ -50,8 +50,8 @@ open class BViewModel : ViewModel() {
         toast: String? = null,
         type: String = "default"
     ) {
-        val uiModel = UIModel(isLoading, isSuccess, data, code, error, toast, type)
-        _uiState.value = uiModel
+        val model = UIModel(isLoading, isSuccess, data, code, error, toast, type)
+        _uiState.value = model
     }
 
     data class UIModel(

@@ -2,6 +2,8 @@ package com.vmloft.develop.library.common.base
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.MotionEvent
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -14,26 +16,35 @@ import com.drakeet.multitype.ItemViewDelegate
  * 描述：MultiType 适配器 Item 的代理基类类
  */
 abstract class BItemDelegate<T, VDB : ViewDataBinding> : ItemViewDelegate<T, BItemDelegate.BItemHolder<VDB>> {
-    lateinit var mContext: Context
+    protected lateinit var mContext: Context
 
     // 将事件回调给 View 层监听接口
-    var mItemListener: BItemListener<T>? = null
-    var mItemPListener: BItemPListener<T>? = null
+    protected var mItemListener: BItemListener<T>? = null
+    protected var mItemLongListener: BItemLongListener<T>? = null
+    protected lateinit var mEvent: MotionEvent
+
 
     constructor() : super()
 
-    constructor(listener: BItemListener<T>) : super() {
-        mItemListener = listener
-    }
+//    constructor(longListener: BItemLongListener<T>) : super() {
+//        mItemLongListener = longListener
+//    }
 
-    constructor(listener: BItemPListener<T>) : super() {
-        mItemPListener = listener
+    constructor(listener: BItemListener<T>? = null, longListener: BItemLongListener<T>? = null) : super() {
+        mItemListener = listener
+        mItemLongListener = longListener
     }
 
     override fun onBindViewHolder(holder: BItemHolder<VDB>, item: T) {
         holder.itemView.setOnClickListener {
-            mItemListener?.onClick(item)
-            mItemPListener?.onClick(item, getPosition(holder))
+            mItemListener?.onClick(it, item, getPosition(holder))
+        }
+        holder.itemView.setOnTouchListener { v, event ->
+            mEvent = event
+            false
+        }
+        holder.itemView.setOnLongClickListener {
+            mItemLongListener?.onLongClick(it, mEvent, item, getPosition(holder)) ?: false
         }
         onBindView(holder, item)
     }
@@ -69,10 +80,11 @@ abstract class BItemDelegate<T, VDB : ViewDataBinding> : ItemViewDelegate<T, BIt
      * 回调给 View 层监听接口
      */
     interface BItemListener<T> {
-        fun onClick(data: T)
+        fun onClick(v: View, data: T, position: Int)
     }
 
-    interface BItemPListener<T> {
-        fun onClick(data: T, position: Int)
+    interface BItemLongListener<T> {
+        fun onLongClick(v: View, event: MotionEvent, data: T, position: Int): Boolean
     }
+
 }

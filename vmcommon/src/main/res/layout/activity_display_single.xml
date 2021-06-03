@@ -17,7 +17,7 @@
         tools:context="com.vmloft.develop.library.common.ui.display.DisplaySingleActivity">
 
         <com.github.chrisbanes.photoview.PhotoView
-            android:id="@+id/displaySingleIV"
+            android:id="@+id/displayIV"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitCenter" />

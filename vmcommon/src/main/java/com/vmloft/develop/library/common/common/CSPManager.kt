@@ -22,6 +22,10 @@ class CSPManager {
     private val mediaAutoLoadKey = "mediaAutoLoadKey"
     private val mediaSaveDICMKey = "mediaSaveDICMKey"
 
+    // 通知开关
+    private val notifyMsgSwitchKey = "notifyMsgSwitchKey"
+    private val notifyMsgDetailSwitchKey = "notifyMsgDetailSwitchKey"
+
 
     companion object {
         val instance: CSPManager by lazy {
@@ -63,4 +67,45 @@ class CSPManager {
 
     fun isSaveDICM(): Boolean = VMSPUtil.getEntry(settingsEntry).get(mediaSaveDICMKey, true) as Boolean
 
+    /**
+     * 通知开关
+     */
+    fun setNotifyMsgSwitch(status: Boolean) {
+        putAsync(settingsEntry, notifyMsgSwitchKey, status)
+    }
+
+    fun isNotifyMsgSwitch(): Boolean = get(settingsEntry, notifyMsgSwitchKey, true) as Boolean
+
+    fun setNotifyMsgDetailSwitch(status: Boolean) {
+        putAsync(settingsEntry, notifyMsgDetailSwitchKey, status)
+    }
+
+    fun isNotifyMsgDetailSwitch(): Boolean =
+        get(settingsEntry, notifyMsgDetailSwitchKey, true) as Boolean
+
+
+    /**
+     * -------------------------------------------------------------------------------
+     * 通用的几个方法
+     */
+    /**
+     * 通用获取数据
+     */
+    fun get(entry: String, key: String, default: Any): Any? {
+        return VMSPUtil.getEntry(entry).get(key, default)
+    }
+
+    /**
+     * 通用设置数据
+     */
+    fun put(entry: String, key: String, value: String) {
+        VMSPUtil.getEntry(entry).put(key, value)
+    }
+
+    /**
+     * 通用设置数据，异步
+     */
+    fun putAsync(entry: String, key: String, value: Any) {
+        VMSPUtil.getEntry(entry).putAsync(key, value)
+    }
 }

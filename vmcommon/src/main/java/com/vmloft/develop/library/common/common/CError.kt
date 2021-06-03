@@ -7,6 +7,7 @@ package com.vmloft.develop.library.common.common
 object CError {
     // 未知错误
     const val unknown = -1
+
     // 一般错误，不重要的，
     const val ordinary = -1000
 }

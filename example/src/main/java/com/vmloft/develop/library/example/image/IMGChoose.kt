@@ -5,8 +5,6 @@ import com.vmloft.develop.library.common.common.CConstants
 import com.vmloft.develop.library.common.common.CSPManager
 import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.common.Constants
-import com.vmloft.develop.library.example.common.SPManager
-import com.vmloft.develop.library.example.image.style.WeChatPresenter
 import com.vmloft.develop.library.tools.utils.VMColor
 import com.vmloft.develop.library.tools.utils.VMDate
 import com.vmloft.develop.library.tools.utils.VMDimen

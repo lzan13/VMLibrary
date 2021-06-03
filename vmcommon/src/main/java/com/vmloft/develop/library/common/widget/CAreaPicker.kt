@@ -17,9 +17,7 @@ import java.io.ObjectInputStream
  * Create by lzan13 2020/12/12
  * 地区选择器
  */
-class CAreaPicker @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : LinearLayout(context, attrs, defStyleAttr) {
+class CAreaPicker @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : LinearLayout(context, attrs, defStyleAttr) {
 
     private var mProvinceList: MutableList<Province> = mutableListOf()
     private var mCityList: MutableList<City> = mutableListOf()

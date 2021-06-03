@@ -1,13 +1,6 @@
 package com.vmloft.develop.library.common.utils
 
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import com.vmloft.develop.library.tools.utils.VMDate
-import com.vmloft.develop.library.tools.utils.VMTheme
-import java.io.File
-import java.util.*
 
 /**
  * Create by lzan13 on 2020-02-15 19:29
@@ -15,10 +8,30 @@ import java.util.*
  */
 object FormatUtils {
     /**
-     * 设置状态栏黑色模式
+     * 格式化时间
      */
     @JvmStatic
-    fun relativeTime(date: String): String {
-        return VMDate.getRelativeTime(VMDate.milliFormUTC(date)) ?: date
+    fun relativeTime(time: Long): String {
+        return VMDate.getRelativeTime(time) ?: ""
+    }
+
+    /**
+     * 格式化时间
+     */
+    @JvmStatic
+    fun relativeTime(time: String): String {
+        return VMDate.getRelativeTime(VMDate.milliFormUTC(time)) ?: ""
+    }
+
+    /**
+     * 格式化未读数
+     */
+    @JvmStatic
+    fun wrapUnread(unread: Int): String {
+        return when {
+            unread == 0 -> ""
+            unread > 99 -> "+" + 99
+            else -> "" + unread
+        }
     }
 }

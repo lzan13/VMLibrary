@@ -36,7 +36,7 @@ open abstract class BaseRepository {
             if (response.code != 0) {
                 if (response.code === 401) {
                     // 401 错误表示未认证，或者 token 过期，需要重新登录
-                    CRouter.goMain("1")
+                    CRouter.goMain(1)
                 }
                 errorBlock?.let { it() }
                 RResult.Error(response.code, response.msg)

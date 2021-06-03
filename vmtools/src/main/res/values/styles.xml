@@ -135,6 +135,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/vm_subhead</item>
+        <item name="android:textSize">@dimen/vm_size_14</item>
     </style>
 
     <!--文字样式 Body1-->
@@ -142,6 +143,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/vm_body</item>
+        <item name="android:textSize">@dimen/vm_size_12</item>
     </style>
 
     <!--文字样式 Body2 有加粗效果-->
@@ -149,6 +151,8 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/vm_body</item>
+        <item name="android:textSize">@dimen/vm_size_12</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <!--文字样式 Caption-->

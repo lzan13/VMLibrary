@@ -66,16 +66,8 @@
 -keep public class * extends android.content.ContentProvider
 -keep public class * extends android.app.backup.BackupAgentHelper
 -keep public class * extends android.preference.Preference
+-keep public class * extends android.view.View
 
-### support
--dontwarn android.support.**
--keep class android.support.v4.app.** { *; }
--keep interface android.support.v4.app.** { *;}
--keep public class * extends android.support.v7.**
--keep public class * extends android.support.annotation.**
--keep public class * extends android.support.v4.view.ActionProvider {
-    public <init>(android.content.Context);
-}
 
 ###  保留本地native方法不被混淆
 -keepclasseswithmembernames class * {
@@ -272,28 +264,12 @@
 -keepattributes *Annotation*
 -keep class cn.addapp.pickers.entity.** { *;}
 
+### 地址日期选择器
+-keep class com.aigestudio.wheelpicker.** { *;}
+
 
 ### AgentWeb 库混淆配置
 -keep class com.just.agentweb.** {
     *;
 }
 -dontwarn com.just.agentweb.**
-
-
-### GSYVideoPlayer 视频播放库混淆
--keep class com.shuyu.gsyvideoplayer.video.** { *; }
--dontwarn com.shuyu.gsyvideoplayer.video.**
--keep class com.shuyu.gsyvideoplayer.video.base.** { *; }
--dontwarn com.shuyu.gsyvideoplayer.video.base.**
--keep class com.shuyu.gsyvideoplayer.utils.** { *; }
--dontwarn com.shuyu.gsyvideoplayer.utils.**
--keep class tv.danmaku.ijk.** { *; }
--dontwarn tv.danmaku.ijk.**
-
--keep public class * extends android.view.View{
-    *** get*();
-    void set*(***);
-    public <init>(android.content.Context);
-    public <init>(android.content.Context, android.util.AttributeSet);
-    public <init>(android.content.Context, android.util.AttributeSet, int);
-}

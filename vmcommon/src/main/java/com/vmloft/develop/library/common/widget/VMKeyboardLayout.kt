@@ -19,11 +19,7 @@ import com.vmloft.develop.library.tools.utils.VMDimen
  *
  * 监听键盘变化控件
  */
-class VMKeyboardLayout @JvmOverloads constructor(
-    context: Context?,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
-) : RelativeLayout(context, attrs, defStyleAttr) {
+class VMKeyboardLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RelativeLayout(context, attrs, defStyleAttr) {
     // 键盘监听
     private var mListener: KeyboardListener? = null
 

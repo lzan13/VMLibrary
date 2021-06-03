@@ -61,7 +61,7 @@ abstract class BaseFragment : Fragment() {
         // 设置状态栏透明主题时，布局整体会上移，所以给头部 View 设置 StatusBar 的高度
         commonTopSpace?.layoutParams?.height = VMDimen.statusBarHeight
 
-//        commonTopBar?.setCenter(true)
+        commonTopBar?.setCenter(true)
         commonTopBar?.setTitleStyle(R.style.AppText_Title)
     }
 

@@ -3,10 +3,18 @@ package com.vmloft.develop.library.common.utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.res.AssetFileDescriptor
 import android.net.Uri
+import android.os.Build
+import android.os.ParcelFileDescriptor
+
 import com.vmloft.develop.library.tools.utils.VMTheme
+
 import java.io.File
+import java.io.FileNotFoundException
+import java.net.URI
 import java.util.*
+
 
 /**
  * Create by lzan13 on 2020-02-15 19:29
@@ -49,9 +57,21 @@ object CUtils {
     }
 
     /**
-     * 发送广播
+     * 判断文件是否存在，Android Q 以上需要特殊处理
      */
-    fun sendBroadcast(context: Context, intent: Intent) {
-        context.sendBroadcast(intent)
+    fun isFileExists(context: Context, uri: Uri): Boolean {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q || uri.toString().indexOf("content://") != -1) {
+            try {
+                var pfd: ParcelFileDescriptor? = context.contentResolver.openFileDescriptor(uri, "r")
+                pfd?.close()
+            } catch (e: FileNotFoundException) {
+                return false
+            }
+            return true
+        } else {
+            val file = File(URI.create(uri.toString()))
+            return file.exists()
+        }
     }
+
 }

@@ -38,9 +38,9 @@ object CRouter {
      * 主界面[MainActivity]
      * @param type 跳转类型 0-普通 1-清空登录信息
      */
-    fun goMain(type: String = "0") {
+    fun goMain(type: Int = 0) {
         ARouter.getInstance().build(appMain)
-            .withString("type", type)
+            .withInt("type", type)
             .withFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             .navigation()
     }
@@ -77,4 +77,5 @@ object CRouter {
             .withString("url", url)
             .navigation()
     }
+
 }
