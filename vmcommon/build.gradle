@@ -34,9 +34,6 @@ android {
     }
 
     // 开启数据绑定
-//    dataBinding {
-//        enabled true
-//    }
     buildFeatures {
         dataBinding {
             enabled true
@@ -64,6 +61,7 @@ dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
 
     // AndroidX 扩展库
+    api 'androidx.activity:activity-ktx:1.2.3'
     api 'androidx.appcompat:appcompat:1.3.0'
     api 'androidx.constraintlayout:constraintlayout:2.0.4'
     api 'androidx.core:core-ktx:1.5.0'
@@ -140,6 +138,8 @@ dependencies {
 
     // 滚动选择器库 https://github.com/AigeStudio/WheelPicker
     api 'cn.aigestudio.wheelpicker:WheelPicker:1.1.3'
+    // 二维码扫描库 https://github.com/bingoogolapple/BGAQRCode-Android
+    api 'com.github.bingoogolapple.BGAQRCode-Android:zxing:1.3.8'
 
     // 下拉刷新库 https://github.com/scwang90/SmartRefreshLayout
     api 'com.scwang.smart:refresh-layout-kernel:2.0.3'
@@ -168,6 +168,6 @@ if (debugTools) {
 } else {
     dependencies {
         // 自定义工具库 https://gitee.com/lzan13/VMLibrary
-        api 'com.gitee.lzan13:VMLibrary:1.3.7'
+        api 'com.gitee.lzan13:VMLibrary:1.3.9'
     }
 }

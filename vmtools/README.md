@@ -26,16 +26,15 @@ allprojects {
 // 项目 module build.gradle
 dependencies {
     ...
-    implementation 'com.gitee.lzan13:vmtools:1.3.5'
+    implementation 'com.gitee.lzan13:VMLibrary:1.3.9'
 }
 ```
 
 **初始化**
 
 在 Application 进行初始化
-```java
-public void onCreate(){
-    ...
+```kotlin
+fun onCreate(){
     VMTools.init(context)
 }
 ```
@@ -43,12 +42,13 @@ public void onCreate(){
 **愉快的调用**
 
 库中的工具类都是静态方法，可以直接调用:
-```java
+```kotlin
 // dp 尺寸转 px
-int width = VMDimen.dp2px(4);
+val width = VMDimen.dp2px(4)
 // 判断一个字符串是否是邮箱格式
-booelan isEmail = VMReg.isEmail(email);
-// ...等等，具体可以看下边的说明，自己去发掘吧
+val isEmail = VMReg.isEmail(email)
+// ...
+// 等等，具体可以看下边的说明，自己去发掘吧
 ```
 
 ### #具体接口

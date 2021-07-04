@@ -101,7 +101,7 @@ private constructor() {
         if (VMStr.isEmpty(path)) {
             // 这里默认保存在 /sdcard/android/data/packagename/files/下
             //File file = VMFile.createFile(VMFile.getFilesFromSDCard(), "VMVoice_", ".amr");
-            recordFile = VMFile.filesFromSDCard("voice") + "VMVoice_" + VMDate.filenameDateTime() + ".amr"
+            recordFile = VMFile.filesPath("voice") + "VMVoice_" + VMDate.filenameDateTime() + ".amr"
         } else {
             //File file = VMFile.createFile(path, "VMVoice_", ".amr");
             recordFile = path

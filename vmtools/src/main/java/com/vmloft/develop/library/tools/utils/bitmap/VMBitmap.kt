@@ -205,7 +205,7 @@ object VMBitmap {
         // 生成临时文件名
         val tempName = generateTempName(path)
         // 临时存放路径
-        val tempPath = VMFile.cacheFromSDCard + "temp"
+        val tempPath = VMFile.cachePath + "temp"
         VMFile.createDirectory(tempPath)
         saveBitmapToFiles(bitmap, "$tempPath/$tempName")
         return "$tempPath/$tempName"
@@ -379,9 +379,9 @@ object VMBitmap {
         values.put(MediaStore.Images.Media.DISPLAY_NAME, name)
         values.put(MediaStore.Images.Media.MIME_TYPE, "image/${format.name.decapitalize()}")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            values.put(MediaStore.Images.Media.RELATIVE_PATH, "${Environment.DIRECTORY_PICTURES}/$dir")
+            values.put(MediaStore.Images.Media.RELATIVE_PATH, "${Environment.DIRECTORY_PICTURES}${File.separator}$dir")
         } else {
-            val path = "${VMFile.pictures}$dir$name"
+            val path = "${VMFile.pictures}$dir${File.separator}$name"
             VMFile.createFile(path)
             values.put(MediaStore.Images.Media.DATA, path)
         }

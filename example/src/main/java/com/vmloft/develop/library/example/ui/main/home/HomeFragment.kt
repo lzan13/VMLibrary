@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
  * 描述：首页
  */
 class HomeFragment : BaseFragment() {
+    override var centerTitle: Boolean = false
 
     override fun layoutId() = R.layout.fragment_home
 

@@ -339,8 +339,8 @@ object VMFile {
      */
     fun parseFilename(path: String?): String? {
         var result: String? = null
-        if (path != null && path.length > 0) {
-            val index = path.lastIndexOf("/")
+        if (path != null && path.isNotEmpty()) {
+            val index = path.lastIndexOf(File.separator)
             val fileName = path.substring(index + 1)
             result = fileName.substring(0, fileName.lastIndexOf("."))
         }
@@ -354,10 +354,9 @@ object VMFile {
      */
     fun parseSuffix(path: String?): String? {
         var result: String? = null
-        if (path != null && path.length > 0) {
-            val index = path.lastIndexOf("/")
-            val filename: String
-            filename = if (index == -1) {
+        if (path != null && path.isNotEmpty()) {
+            val index = path.lastIndexOf(File.separator)
+            val filename: String = if (index == -1) {
                 path
             } else {
                 path.substring(index + 1)
@@ -366,93 +365,29 @@ object VMFile {
         }
         return result
     }
+
     /**
+     * --------------------------------------------------------------------------
      * 获取Android系统的一些默认路径
-     * 不常用：
-     * Environment.getDataDirectory().getPath()             : /data
-     * Environment.getDownloadCacheDirectory().getPath()    : /cache
-     * Environment.getRootDirectory().getPath()             : /system
-     *
-     * 常用：
-     * Environment.getExternalStorageDirectory().getPath()  : /mnt/sdcard (storage/emulated/0)
-     * Context.getCacheDir().getPath()                      : /data/data/packagename/cache
-     * Context.getExternalCacheDir().getPath()              : /mnt/sdcard/Android/data/packagename/cache
-     * Context.getFilesDir().getPath()                      : /data/data/packagename/files
-     * Context.getObbDir().getPath()                        : /mnt/sdcard/Android/obb/packagename
-     * Context.getPackageName()                             : packagename
-     * Context.getPackageCodePath()                         : /data/app/packagename-1.apk
-     * Context.getPackageResourcePath()                     : /data/app/packagename-1.apk
      */
-    /**
-     * Root 目录，一般不常用
-     *
-     * String rootCache = Environment.getDownloadCacheDirectory().getPath();
-     * String rootData = Environment.getDataDirectory().getPath();
-     * String rootSystem = Environment.getRootDirectory().getPath();
-     *
-     * SDCard 目录
-     * Environment.getExternalStorageDirectory().getPath();
-     * 当前 app 在 root 下的缓存目录
-     * VMTools.getAppContext().getCacheDir().getPath();
-     * 当前 app 在 SDCard 下的缓存目录
-     * VMTools.getAppContext().getExternalCacheDir().getPath();
-     * 当前 app 在 root 下的 files 目录
-     * VMTools.getAppContext().getFilesDir().getPath();
-     * VMTools.getAppContext().getFilesDir().getPath();
-     * 当前 app 在 SDCard 下的 obb 目录，一般是apk包过大要分出资源包，游戏用的比较多
-     * VMTools.getAppContext().getObbDir().getPath();
-     * 获取当前 app 包名
-     * VMTools.getAppContext().getPackageName();
-     * 获取当前 app 代码路径
-     * VMTools.getAppContext().getPackageCodePath();
-     * 获取当前 app 资源路径
-     * VMTools.getAppContext().getPackageResourcePath();
-     *
-     * 获取常用目录的方法，参数是需要获取的目录类型，可以是download，camera
-     * Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-     * return null;
-     */
-    /**
-     * 获取 /sdcard (/storage/emulated/0) 目录
-     *
-     * @return 返回得到的路径
-     */
-    val SDCard: String
-        get() = Environment.getExternalStorageDirectory().path + "/"
 
     /**
-     * 获取 /data/data/packagename/cache 目录
-     *
-     * @return 返回得到的路径
+     * 获取缓存目录路径
+     * 优先获取外部 sdcard 存储路径：/sdcard/Android/data/packagename/cache 目录
+     * sdcard 不可用获取系统内部路径：/data/data/packagename/cache 目录
+     * @return 返回得到的路径 已包含路径分隔符
      */
-    val cacheFromData: String
-        get() = context.cacheDir.path + "/"
+    val cachePath: String
+        get() = (context.externalCacheDir?.absolutePath ?: context.cacheDir.absolutePath) + File.separator
 
     /**
-     * 获取 /sdcard/Android/data/packagename/cache 目录
-     *
-     * @return 返回得到的路径
+     * 获取项目文件目录路径
+     * 优先获取外部 sdcard 存储路径：/sdcard/Android/data/packagename/files 目录
+     * sdcard 不可用获取系统内部路径：/data/data/packagename/files 目录
+     * @return 返回得到的路径 已包含路径分隔符
      */
-    val cacheFromSDCard: String
-        get() = context.externalCacheDir!!.path + "/"
-
-    /**
-     * 获取/data/data/packagename/files 目录
-     *
-     * @return 返回得到的路径
-     */
-    val filesFromData: String
-        get() = context.filesDir.path + "/"
-
-    /**
-     * 获取 /sdcard/Android/data/packagename/files 目录
-     *
-     * @return 返回得到的路径
-     */
-//    val filesFromSDCard: String
-//        get() = context.getExternalFilesDir("")!!.absolutePath + "/"
-    fun filesFromSDCard(path: String = ""): String {
-        return context.getExternalFilesDir(path)!!.absolutePath + "/"
+    fun filesPath(path: String = ""): String {
+        return (context.getExternalFilesDir(path)?.absolutePath ?: context.filesDir.absolutePath) + File.separator
     }
 
     /**
@@ -460,24 +395,20 @@ object VMFile {
      *
      * @return 返回得到的路径
      */
-    val BBB: String
-        get() = context.obbDir.absolutePath + "/"
+    val OBB: String
+        get() = context.obbDir.absolutePath + File.separator
 
     /**
      * 获取设备默认的相册目录
-     *
-     * @return 返回得到的路径
      */
     val DCIM: String
-        get() = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath + "/"
+        get() = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)?.absolutePath + File.separator
 
     /**
      * 获取设备默认的下载目录
-     *
-     * @return 返回得到的路径
      */
     val download: String
-        get() = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath + "/"
+        get() = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)?.absolutePath + File.separator
 
     /**
      * 获取设备默认的音乐目录
@@ -485,21 +416,19 @@ object VMFile {
      * @return 返回得到的路径
      */
     val music: String
-        get() = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).absolutePath + "/"
+        get() = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)?.absolutePath + File.separator
 
     /**
      * 获取设备默认的电影目录
-     *
-     * @return 返回得到的路径
      */
     val movies: String
-        get() = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES).absolutePath + "/"
+        get() = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES)?.absolutePath + File.separator
 
     /**
      * 获取设备默认的图片目录
      */
     val pictures: String
-        get() = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).absolutePath + "/"
+        get() = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)?.absolutePath + File.separator
 
     /**
      * 获取 packagename 目录
@@ -544,7 +473,7 @@ object VMFile {
                 val split = docId.split(":").toTypedArray()
                 val type = split[0]
                 if ("primary".equals(type, ignoreCase = true)) {
-                    return Environment.getExternalStorageDirectory().toString() + "/" + split[1]
+                    return Environment.getExternalStorageDirectory().toString() + File.separator + split[1]
                 }
 
                 // TODO handle non-primary volumes

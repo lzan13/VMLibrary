@@ -121,16 +121,16 @@
             android:name="com.vmloft.develop.library.example.ui.sign.SignUpActivity"
             android:windowSoftInputMode="adjustNothing|stateVisible" />
 
-<!--        &lt;!&ndash;个人信息&ndash;&gt;-->
-<!--        <activity android:name="com.vmloft.develop.library.example.ui.main.mine.info.PersonalInfoActivity" />-->
-<!--        &lt;!&ndash;个人信息用户名设置&ndash;&gt;-->
-<!--        <activity android:name="com.vmloft.develop.library.example.ui.main.mine.info.EditUsernameActivity" />-->
-<!--        &lt;!&ndash;个人信息昵称设置&ndash;&gt;-->
-<!--        <activity android:name="com.vmloft.develop.library.example.ui.main.mine.info.EditNicknameActivity" />-->
-<!--        &lt;!&ndash;个人信息签名设置&ndash;&gt;-->
-<!--        <activity android:name="com.vmloft.develop.library.example.ui.main.mine.info.EditSignatureActivity" />-->
-<!--        &lt;!&ndash;个人信息个人认证&ndash;&gt;-->
-<!--        <activity android:name="com.vmloft.develop.library.example.ui.main.mine.info.PersonalAuthActivity" />-->
+        <!--        &lt;!&ndash;个人信息&ndash;&gt;-->
+        <!--        <activity android:name="com.vmloft.develop.library.example.ui.main.mine.info.PersonalInfoActivity" />-->
+        <!--        &lt;!&ndash;个人信息用户名设置&ndash;&gt;-->
+        <!--        <activity android:name="com.vmloft.develop.library.example.ui.main.mine.info.EditUsernameActivity" />-->
+        <!--        &lt;!&ndash;个人信息昵称设置&ndash;&gt;-->
+        <!--        <activity android:name="com.vmloft.develop.library.example.ui.main.mine.info.EditNicknameActivity" />-->
+        <!--        &lt;!&ndash;个人信息签名设置&ndash;&gt;-->
+        <!--        <activity android:name="com.vmloft.develop.library.example.ui.main.mine.info.EditSignatureActivity" />-->
+        <!--        &lt;!&ndash;个人信息个人认证&ndash;&gt;-->
+        <!--        <activity android:name="com.vmloft.develop.library.example.ui.main.mine.info.PersonalAuthActivity" />-->
 
     </application>
 </manifest>

@@ -7,6 +7,7 @@ import android.content.res.AssetFileDescriptor
 import android.net.Uri
 import android.os.Build
 import android.os.ParcelFileDescriptor
+import android.util.Base64
 
 import com.vmloft.develop.library.tools.utils.VMTheme
 
@@ -72,6 +73,20 @@ object CUtils {
             val file = File(URI.create(uri.toString()))
             return file.exists()
         }
+    }
+
+    /**
+     * 编码
+     */
+    fun base64Encode(str: String): String {
+        return Base64.encodeToString(str.toByteArray(), Base64.DEFAULT)
+    }
+
+    /**
+     * 解码
+     */
+    fun base64Decode(str: String): String {
+        return String(Base64.decode(str, Base64.DEFAULT))
     }
 
 }

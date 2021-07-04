@@ -68,6 +68,12 @@ object VMAnimator {
     fun createOptions(target: Any, anim: String, duration: Long, repeat: Int, vararg values: Float): Options {
         return Options(target, anim, mInterpolator, duration, repeat, RESTART, 0, values)
     }
+    /**
+     * 创建动画属性，
+     */
+    fun createOptions(target: Any, anim: String, duration: Long, repeat: Int, repeatMode:Int, vararg values: Float): Options {
+        return Options(target, anim, mInterpolator, duration, repeat, repeatMode, 0, values)
+    }
 
     /**
      * 属性动画组合包装类，对应的是 AnimatorSet 类

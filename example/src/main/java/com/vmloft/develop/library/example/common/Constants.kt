@@ -13,7 +13,7 @@ object Constants {
     const val privatePolicyUrl = "https://melove.net/privacy/policy-template.html"
 
     // 应用在 SDCard 创建区别其他项目目录，一般以项目名命名
-    const val projectDir = "VMLibrary/"
+    const val projectDir = "VMLibrary"
 
     // 缓存图片目录
     const val cacheImageDir = "images"
