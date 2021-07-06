@@ -9,6 +9,7 @@ import android.animation.TimeInterpolator
 import android.annotation.SuppressLint
 import android.view.View
 import android.view.animation.LinearInterpolator
+import com.vmloft.develop.library.tools.utils.logger.VMLog
 import java.util.ArrayList
 
 /**
@@ -17,62 +18,22 @@ import java.util.ArrayList
  * 自定义属性动画工具，方便简单实现动画
  */
 object VMAnimator {
-    // 重复模式
-    const val RESTART = 1
-    const val REVERSE = 2
-
-    // 无限重复
-    const val INFINITE = -1
 
     // 动画类型
-    const val ALPHA = "Alpha"
-    const val TRANSX = "TranslationX"
-    const val TRANSY = "TranslationY"
-    const val SCALEX = "ScaleX"
-    const val SCALEY = "ScaleY"
-    const val ROTATION = "Rotation"
-    const val ROTATIONX = "RotationX"
-    const val ROTATIONY = "RotationY"
-
-    // 默认执行时间
-    const val mDuration: Long = 1000
-
-    // 创建默认的插值器 LinearInterpolator 前后减速，中间加速
-    val mInterpolator: TimeInterpolator = LinearInterpolator()
+    const val alpha = "Alpha"
+    const val transX = "TranslationX"
+    const val transY = "TranslationY"
+    const val scaleX = "ScaleX"
+    const val scaleY = "ScaleY"
+    const val rotation = "Rotation"
+    const val rotationX = "RotationX"
+    const val rotationY = "RotationY"
 
     /**
      * 创建动画管理者
      */
-    @JvmStatic
     fun createAnimator(): AnimatorSetWrap {
         return AnimatorSetWrap()
-    }
-
-    /**
-     * 创建动画属性，
-     */
-    fun createOptions(target: Any, anim: String, vararg values: Float): Options {
-        return createOptions(target, anim, mDuration, *values)
-    }
-
-    /**
-     * 创建动画属性，
-     */
-    fun createOptions(target: Any, anim: String, duration: Long, vararg values: Float): Options {
-        return createOptions(target, anim, duration, 0, *values)
-    }
-
-    /**
-     * 创建动画属性，
-     */
-    fun createOptions(target: Any, anim: String, duration: Long, repeat: Int, vararg values: Float): Options {
-        return Options(target, anim, mInterpolator, duration, repeat, RESTART, 0, values)
-    }
-    /**
-     * 创建动画属性，
-     */
-    fun createOptions(target: Any, anim: String, duration: Long, repeat: Int, repeatMode:Int, vararg values: Float): Options {
-        return Options(target, anim, mInterpolator, duration, repeat, repeatMode, 0, values)
     }
 
     /**
@@ -83,7 +44,7 @@ object VMAnimator {
      * 我们注意到他是先执行的 after，然后是 play 和 with 同时执行，最后执行的 before
      * 所以大家记住这个顺序，无论怎么写，都是这个执行顺序。
      */
-    class AnimatorSetWrap() {
+    class AnimatorSetWrap {
         /**
          * 获取AnimatorSet的实例
          */
@@ -107,7 +68,7 @@ object VMAnimator {
          *
          * @param options 动画参数
          */
-        fun then(options: Options): AnimatorSetWrap {
+        fun then(options: AnimOptions): AnimatorSetWrap {
             val animator = animator(options)
             mAnimatorList.add(animator)
             return this
@@ -118,9 +79,10 @@ object VMAnimator {
          *
          * @param options 动画参数
          */
-        fun play(options: Options): AnimatorSetWrap {
+        fun play(options: AnimOptions): AnimatorSetWrap {
             if (isPlaying) {
-                throw RuntimeException("AnimatorSetWrap.play()方法只能调用一次")
+                VMLog.d("AnimatorSetWrap.play()方法只能调用一次")
+                return this
             }
             val animator = animator(options)
             mAnimatorList.clear()
@@ -133,7 +95,7 @@ object VMAnimator {
          *
          * @param options 动画参数
          */
-        fun before(options: Options): AnimatorSetWrap {
+        fun before(options: AnimOptions): AnimatorSetWrap {
             val animator = animator(options)
             mAnimatorBuilder = mAnimatorBuilder!!.before(animator)
             return this
@@ -144,7 +106,7 @@ object VMAnimator {
          *
          * @param options 动画参数
          */
-        fun with(options: Options): AnimatorSetWrap {
+        fun with(options: AnimOptions): AnimatorSetWrap {
             val animator = animator(options)
             mAnimatorBuilder = mAnimatorBuilder!!.with(animator)
             return this
@@ -155,7 +117,7 @@ object VMAnimator {
          *
          * @param options 动画参数
          */
-        fun after(options: Options): AnimatorSetWrap {
+        fun after(options: AnimOptions): AnimatorSetWrap {
             val animator = animator(options)
             mAnimatorBuilder = mAnimatorBuilder!!.after(animator)
             return this
@@ -167,11 +129,8 @@ object VMAnimator {
          * @param options 动画参数
          * @return
          */
-        @SuppressLint("ObjectAnimatorBinding")
-        private fun animator(options: Options): ObjectAnimator {
-            if (options.target == null) {
-                throw RuntimeException("执行动画的目标不能为空")
-            }
+        @SuppressLint("ObjectAnimatorBinding", "WrongConstant")
+        private fun animator(options: AnimOptions): ObjectAnimator {
             isPlaying = true
             val animator = ObjectAnimator.ofFloat(options.target, options.anim, *options.values)
             animator.interpolator = options.interpolator
@@ -201,54 +160,27 @@ object VMAnimator {
         }
 
         /**
-         * 指定动画时长播放动画，如果动画列表不为空，则执行逐一播放动画
-         *
-         * @param duration 动画时长
-         */
-        fun start(duration: Long) {
-            readyAnim(false)
-            animatorSet.duration = duration
-            animatorSet.start()
-        }
-
-        /**
-         * 开始执行动画，同时指定是否按照顺序执行
-         */
-        fun start(together: Boolean) {
-            readyAnim(together)
-            animatorSet.start()
-        }
-
-        /**
-         * 在一定时长内运行完该组合动画
-         *
-         * @param duration 动画时长
-         */
-        fun start(together: Boolean, duration: Long) {
-            readyAnim(together)
-            animatorSet.duration = duration
-            animatorSet.start()
-        }
-
-        /**
-         * 延迟一定时长播放动画，如果动画列表不为空，则执行逐一播放动画
-         *
+         * 开始动画，该动画操作主要用作执行 AnimatorSet 的组合动画，如果动画列表不为空，则执行逐一播放动画
+         * @param together 是否同时执行动画，默认 false
+         * @param duration 统一设置动画时长，默认不设置
          * @param delay 延迟时长
+         * @param
          */
-        fun startDelay(delay: Long) {
-            readyAnim(false)
-            animatorSet.startDelay = delay
-            animatorSet.start()
-        }
-
-        /**
-         * 延迟一定时长播放动画
-         *
-         * @param delay 延迟时长
-         */
-        fun startDelay(together: Boolean, delay: Long) {
+        fun start(
+            together: Boolean = false,
+            duration: Long = 0,
+            delay: Long = 0,
+        ) {
             readyAnim(together)
-            animatorSet.startDelay = delay
+
+            if (duration > 0) {
+                animatorSet.duration = duration
+            }
+
+            if (delay > 0) {
+                animatorSet.startDelay = delay
+            }
+
             animatorSet.start()
         }
 
@@ -343,22 +275,22 @@ object VMAnimator {
     /**
      * 动画执行参数
      */
-    data class Options(
+    data class AnimOptions(
         // 动画执行的目标
-        var target: Any? = null,
-        // 动画类型
-        var anim: String = ALPHA,
-        // 动画插值器
-        var interpolator: TimeInterpolator?,
-        // 动画时长
-        var duration: Long = 0,
-        // 动画重复次数
-        var repeat: Int = 0,
-        // 重复模式
-        var repeatMode: Int = 0,
-        // 动画开始延迟
-        var delay: Int = 0,
+        var target: Any,
         // 动画执行值
-        var values: FloatArray
+        var values: FloatArray,
+        // 动画类型
+        var anim: String = alpha,
+        // 动画时长，默认 1000ms
+        var duration: Long = 1000,
+        // 动画开始延迟，默认不延迟
+        var delay: Int = 0,
+        // 动画插值器，默认的插值器 LinearInterpolator 前后减速，中间加速
+        val interpolator: TimeInterpolator = LinearInterpolator(),
+        // 动画重复次数，-1-无限重复 0-不重复 n-重复N次
+        var repeat: Int = -1,
+        // 重复模式，1-重新开始 2-反向开始
+        var repeatMode: Int = 2,
     )
 }

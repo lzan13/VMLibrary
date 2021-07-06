@@ -3,8 +3,6 @@ package com.vmloft.develop.library.tools.utils.bitmap
 import android.content.ContentValues
 import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
-import android.graphics.Bitmap.CompressFormat.JPEG
-import android.graphics.Bitmap.CompressFormat.PNG
 import android.graphics.BitmapFactory
 import android.graphics.BitmapFactory.Options
 import android.graphics.Matrix
@@ -16,6 +14,7 @@ import android.os.ParcelFileDescriptor
 import android.provider.MediaStore
 import android.util.Base64
 import android.view.View
+
 import com.vmloft.develop.library.tools.VMTools
 import com.vmloft.develop.library.tools.utils.VMFile
 import com.vmloft.develop.library.tools.utils.logger.VMLog
@@ -37,7 +36,7 @@ object VMBitmap {
     fun bitmap2Str(bitmap: Bitmap): String? {
         var result: String? = null
         val baos = ByteArrayOutputStream()
-        bitmap.compress(PNG, 100, baos)
+        bitmap.compress(CompressFormat.PNG, 100, baos)
         val b = baos.toByteArray()
         result = Base64.encodeToString(b, Base64.DEFAULT)
         return result
@@ -197,17 +196,27 @@ object VMBitmap {
      */
     fun compressTempImage(path: Any?, dimension: Int = 2048, size: Int = 512): String? {
         VMLog.d("compressTempImage start")
-        val srcBitmap = compressByDimension(path, dimension) ?: return null
 
-        // 进一步进行质量压缩
-        val bitmap = compressByQuality(compressBitmapByMatrix(srcBitmap, dimension), size)
-        VMLog.d("compressTempImage end")
         // 生成临时文件名
         val tempName = generateTempName(path)
         // 临时存放路径
         val tempPath = VMFile.cachePath + "temp"
         VMFile.createDirectory(tempPath)
-        saveBitmapToFiles(bitmap, "$tempPath/$tempName")
+
+        val srcBitmap = compressByDimension(path, dimension) ?: return null
+
+        val format = when {
+            getExtensionName(tempName).toLowerCase() == ".png" -> CompressFormat.PNG
+            getExtensionName(tempName).toLowerCase() == ".webp" -> CompressFormat.WEBP
+            else -> CompressFormat.JPEG
+        }
+        // 进一步进行质量压缩
+        val bitmap = compressByQuality(compressBitmapByMatrix(srcBitmap, dimension), size, format)
+        VMLog.d("compressTempImage end")
+
+        // 保存图片到文件
+        saveBitmapToFiles(bitmap, "$tempPath/$tempName", format)
+
         return "$tempPath/$tempName"
     }
 
@@ -226,7 +235,7 @@ object VMBitmap {
 
         var bitmap: Bitmap?
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P && path is Uri) {
-            var pfd: ParcelFileDescriptor? = VMTools.context.contentResolver.openFileDescriptor(path as Uri, "r");
+            var pfd: ParcelFileDescriptor? = VMTools.context.contentResolver.openFileDescriptor(path, "r");
             if (pfd?.fileDescriptor != null) {
                 BitmapFactory.decodeFileDescriptor(pfd.fileDescriptor, null, options)
                 pfd.close()
@@ -273,19 +282,19 @@ object VMBitmap {
      * @param size   指定大小
      * @return 压缩后的图片
      */
-    fun compressByQuality(bitmap: Bitmap, size: Int = 512): Bitmap? {
+    fun compressByQuality(bitmap: Bitmap, size: Int = 512, format: CompressFormat = CompressFormat.JPEG): Bitmap? {
         val baos = ByteArrayOutputStream()
         var quality = 90
         //质量压缩方法，100表示不压缩，把压缩后的数据存放到baos中
-        bitmap.compress(JPEG, quality, baos)
+        bitmap.compress(format, quality, baos)
         //循环判断如果压缩后图片是否大于100kb,大于继续压缩
-        while (quality > 20 && baos.toByteArray().size / 1024 > size) {
+        while (quality > 50 && baos.toByteArray().size / 1024 > size) {
             // 每次都减少20
-            quality -= 20
+            quality -= 5
             // 重置baos即清空baos
             baos.reset()
             // 这里压缩options%，把压缩后的数据存放到baos中
-            bitmap.compress(JPEG, quality, baos)
+            bitmap.compress(format, quality, baos)
         }
         // 把压缩后的数据存放到ByteArrayInputStream中
         val isBm = ByteArrayInputStream(baos.toByteArray())
@@ -338,14 +347,14 @@ object VMBitmap {
      *
      * @param path 文件原始路径
      */
-    private fun generateTempName(path: Any?): String {
-        if (path is String) {
-            return System.currentTimeMillis().toString() + getExtensionName(path)
-        } else if (path is Uri) {
-            val tempPath = VMFile.getPath(path)
-            return System.currentTimeMillis().toString() + getExtensionName(tempPath)
-        } else {
-            return System.currentTimeMillis().toString() + ".jpeg"
+    public fun generateTempName(path: Any?): String {
+        return when (path) {
+            is String -> System.currentTimeMillis().toString() + getExtensionName(path)
+            is Uri -> {
+                val tempPath = VMFile.getPath(path)
+                System.currentTimeMillis().toString() + getExtensionName(tempPath)
+            }
+            else -> System.currentTimeMillis().toString() + ".jpeg"
         }
     }
 
@@ -370,7 +379,12 @@ object VMBitmap {
      * @param bitmap 需要保存的图片数据
      * @param dir   保存文件夹
      */
-    fun saveBitmapToPictures(bitmap: Bitmap, dir: String, name: String, format: CompressFormat = JPEG): Uri? {
+    fun saveBitmapToPictures(bitmap: Bitmap, dir: String, name: String): Uri? {
+        val format = when {
+            getExtensionName(name).toLowerCase() == ".png" -> CompressFormat.PNG
+            getExtensionName(name).toLowerCase() == ".webp" -> CompressFormat.WEBP
+            else -> CompressFormat.JPEG
+        }
         var uri: Uri? = null
         val values = ContentValues()
         // 需要指定文件信息时，非必须
@@ -387,7 +401,7 @@ object VMBitmap {
         }
         uri = VMTools.context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
 
-        val result = saveBitmapToFiles(bitmap, uri)
+        val result = saveBitmapToFiles(bitmap, uri, format)
 
         return if (result) uri else null
     }
@@ -399,7 +413,7 @@ object VMBitmap {
      * @param path   保存路径
      * @param format 格式类型
      */
-    fun saveBitmapToFiles(bitmap: Bitmap?, target: Any?, format: CompressFormat = JPEG): Boolean {
+    fun saveBitmapToFiles(bitmap: Bitmap?, target: Any?, format: CompressFormat): Boolean {
         VMLog.d("saveBitmapToSDCard -start- $target")
         if (bitmap == null || target == null) return false
         var result: Boolean

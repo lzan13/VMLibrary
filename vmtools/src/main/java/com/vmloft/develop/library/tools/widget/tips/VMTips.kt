@@ -16,8 +16,8 @@ import com.vmloft.develop.library.tools.R.id
 object VMTips {
 
     // 显示时长
-    const val durationLong = 5000L
-    const val durationShort = 2500L
+    const val durationLong = 3000L
+    const val durationShort = 1500L
 
     /**
      * 自定义弹出提示条

@@ -15,8 +15,6 @@ import android.widget.TextView
 import com.vmloft.develop.library.tools.R
 import com.vmloft.develop.library.tools.R.layout
 import com.vmloft.develop.library.tools.animator.VMAnimator
-import com.vmloft.develop.library.tools.animator.VMAnimator.createAnimator
-import com.vmloft.develop.library.tools.animator.VMAnimator.createOptions
 import com.vmloft.develop.library.tools.utils.VMColor
 import com.vmloft.develop.library.tools.utils.VMDimen
 
@@ -96,8 +94,8 @@ class VMTipsBar @JvmOverloads constructor(context: Context, attrs: AttributeSet?
         if (mHeight == 0f) {
             mHeight = (VMDimen.dp2px(48) + VMDimen.statusBarHeight).toFloat()
         }
-        val options = createOptions(this, VMAnimator.TRANSY, -mHeight, 0.0f)
-        createAnimator().play(options).addListener(object : AnimatorListener {
+        val options = VMAnimator.AnimOptions(this, floatArrayOf(-mHeight, 0.0f), VMAnimator.transY, animDuration.toLong(), repeat = 0)
+        VMAnimator.createAnimator().play(options).addListener(object : AnimatorListener {
             override fun onAnimationStart(animation: Animator) {
                 isShow = true
             }
@@ -109,7 +107,7 @@ class VMTipsBar @JvmOverloads constructor(context: Context, attrs: AttributeSet?
 
             override fun onAnimationCancel(animation: Animator) {}
             override fun onAnimationRepeat(animation: Animator) {}
-        }).start(animDuration.toLong())
+        }).start()
     }
 
     /**
@@ -117,8 +115,8 @@ class VMTipsBar @JvmOverloads constructor(context: Context, attrs: AttributeSet?
      */
     private fun remove() {
         val viewGroup = this.parent as ViewGroup
-        val options = createOptions(this, VMAnimator.TRANSY, 0.0f, -mHeight)
-        createAnimator().play(options).addListener(object : AnimatorListener {
+        val options = VMAnimator.AnimOptions(this, floatArrayOf(0.0f, -mHeight), VMAnimator.transY, animDuration.toLong(), repeat = 0)
+        VMAnimator.createAnimator().play(options).addListener(object : AnimatorListener {
             override fun onAnimationStart(animation: Animator) {}
             override fun onAnimationEnd(animation: Animator) {
                 isShow = false
@@ -127,7 +125,7 @@ class VMTipsBar @JvmOverloads constructor(context: Context, attrs: AttributeSet?
 
             override fun onAnimationCancel(animation: Animator) {}
             override fun onAnimationRepeat(animation: Animator) {}
-        }).start(animDuration.toLong())
+        }).start()
     }
 
     /**

@@ -91,11 +91,11 @@ class BarrageViewActivity : BaseActivity() {
      * 开始动画
      */
     private fun startAnim() {
-        mAnimatorWrap = VMAnimator.createAnimator()
-            .play(VMAnimator.createOptions(animView, VMAnimator.SCALEX, 2500, VMAnimator.INFINITE, 0f, 20f))
-            .with(VMAnimator.createOptions(animView, VMAnimator.SCALEY, 2500, VMAnimator.INFINITE, 0f, 20f))
-            .with(VMAnimator.createOptions(animView, VMAnimator.ALPHA, 2500, VMAnimator.INFINITE, 1.0f, 0.0f))
-        mAnimatorWrap?.startDelay(100)
+        val scaleXOptions = VMAnimator.AnimOptions(animView, floatArrayOf(0f, 20f), VMAnimator.scaleX, 2500, repeatMode = 1)
+        val scaleYOptions = VMAnimator.AnimOptions(animView, floatArrayOf(0f, 20f), VMAnimator.scaleY, 2500, repeatMode = 1)
+        val alphaOptions = VMAnimator.AnimOptions(animView, floatArrayOf(1.0f, 0.0f), VMAnimator.alpha, 2500, repeatMode = 1)
+        mAnimatorWrap = VMAnimator.createAnimator().play(scaleXOptions).with(scaleYOptions).with(alphaOptions)
+        mAnimatorWrap?.start(delay = 100)
     }
 
     /**
