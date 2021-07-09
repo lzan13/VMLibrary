@@ -33,8 +33,8 @@ object VMBitmap {
      * @param bitmap 需要转为Base64 字符串的Bitmap对象
      * @return 返回转换后的字符串
      */
-    fun bitmap2Str(bitmap: Bitmap): String? {
-        var result: String? = null
+    fun bitmapToBase64(bitmap: Bitmap): String {
+        var result: String
         val baos = ByteArrayOutputStream()
         bitmap.compress(CompressFormat.PNG, 100, baos)
         val b = baos.toByteArray()
@@ -48,8 +48,8 @@ object VMBitmap {
      * @param imageData 需要转为Bitmap的 Base64 字符串
      * @return 转为Bitmap的对象
      */
-    fun str2Bitmap(imageData: String?): Bitmap? {
-        var bitmap: Bitmap? = null
+    fun base64ToBitmap(imageData: String): Bitmap {
+        var bitmap: Bitmap
         val decode = Base64.decode(imageData, Base64.DEFAULT)
         bitmap = BitmapFactory.decodeByteArray(decode, 0, decode.size)
         return bitmap
@@ -128,17 +128,17 @@ object VMBitmap {
      * @param filepath 图片文件的路径
      * @return 返回图片的宽高是拼接的字符串
      */
-    fun getImageSize(filepath: String?): String {
+    fun getImageSize(filepath: String?): IntArray {
         val options = Options()
         // 开始读入图片，此时把options.inJustDecodeBounds 设为true了
         // 这个参数的意义是仅仅解析边缘区域，从而可以得到图片的一些信息，比如大小，而不会整个解析图片，防止OOM
         options.inJustDecodeBounds = true
 
-        // 此时bitmap还是为空的
-        val bitmap = BitmapFactory.decodeFile(filepath, options)
+        // 将图片信息读取到 options
+        BitmapFactory.decodeFile(filepath, options)
         val actualWidth = options.outWidth
         val actualHeight = options.outHeight
-        return "$actualWidth.$actualHeight"
+        return intArrayOf(actualWidth, actualHeight)
     }
 
     /**

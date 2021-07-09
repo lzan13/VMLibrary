@@ -75,18 +75,4 @@ object CUtils {
         }
     }
 
-    /**
-     * 编码
-     */
-    fun base64Encode(str: String): String {
-        return Base64.encodeToString(str.toByteArray(), Base64.DEFAULT)
-    }
-
-    /**
-     * 解码
-     */
-    fun base64Decode(str: String): String {
-        return String(Base64.decode(str, Base64.DEFAULT))
-    }
-
 }

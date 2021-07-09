@@ -352,18 +352,50 @@ object VMFile {
      *
      * @param path 可以是路径，可以是文件名
      */
-    fun parseSuffix(path: String?): String? {
-        var result: String? = null
-        if (path != null && path.isNotEmpty()) {
+    fun parseSuffix(path: String?): String {
+        if (path.isNullOrEmpty()) return ""
+        var result = ""
+        if (path.isNotEmpty()) {
             val index = path.lastIndexOf(File.separator)
             val filename: String = if (index == -1) {
-                path
+                ""
             } else {
                 path.substring(index + 1)
             }
             result = filename.substring(filename.lastIndexOf("."))
         }
         return result
+    }
+
+
+    /**
+     * 获取文件 mineType
+     */
+    fun getMimeType(path: String): String {
+        val type = parseSuffix(path)
+        return if (type == ".gif") {
+            "image/gif"
+        } else if (type == ".jpg" || type == ".jpeg") {
+            "image/jpeg"
+        } else if (type == ".mp3") {
+            "audio/mpeg"
+        } else if (type == ".mp4") {
+            "video/mp4"
+        } else if (type == ".mpeg") {
+            "video/mpeg"
+        } else if (type == ".png") {
+            "image/png"
+        } else if (type == ".wav") {
+            "audio/x-wav"
+        } else if (type == ".weba") {
+            "audio/webm"
+        } else if (type == ".webm") {
+            "video/webm"
+        } else if (type == ".webp") {
+            "image/webp"
+        } else {
+            "*/*"
+        }
     }
 
     /**
