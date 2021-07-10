@@ -8,7 +8,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.common.base.BaseActivity
-import com.vmloft.develop.library.example.notify.NotifyManager
+import com.vmloft.develop.library.common.notify.NotifyManager
 import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.example.ui.main.explore.ExploreFragment
 import com.vmloft.develop.library.example.ui.main.home.HomeFragment

@@ -25,8 +25,8 @@ allprojects {
 
 // 项目 module build.gradle
 dependencies {
-    ...
-    implementation 'com.gitee.lzan13:VMLibrary:1.3.9'
+    // 依赖最新版本 lastView 看最上边标签显示版本
+    implementation 'com.gitee.lzan13:VMLibrary:lastVersion'
 }
 ```
 

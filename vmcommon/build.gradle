@@ -69,9 +69,9 @@ dependencies {
     api 'androidx.activity:activity-ktx:1.2.3'
     api 'androidx.appcompat:appcompat:1.3.0'
     api 'androidx.constraintlayout:constraintlayout:2.0.4'
-    api 'androidx.core:core-ktx:1.5.0'
+    api 'androidx.core:core-ktx:1.6.0'
     api 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
-    api 'com.google.android.material:material:1.3.0'
+    api 'com.google.android.material:material:1.4.0'
     // databinding 数据绑定库
     kapt 'com.android.databinding:compiler:3.1.4'
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
@@ -173,6 +173,6 @@ if (debugTools) {
 } else {
     dependencies {
         // 自定义工具库 https://gitee.com/lzan13/VMLibrary
-        api 'com.gitee.lzan13:VMLibrary:1.4.1'
+        api 'com.gitee.lzan13:VMLibrary:1.4.2'
     }
 }

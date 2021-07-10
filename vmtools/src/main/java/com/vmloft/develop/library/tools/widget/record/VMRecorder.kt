@@ -98,13 +98,13 @@ private constructor() {
 
         // 设置录制状态
         isRecording = true
-        if (VMStr.isEmpty(path)) {
+        recordFile = if (path.isNullOrEmpty()) {
             // 这里默认保存在 /sdcard/android/data/packagename/files/下
             //File file = VMFile.createFile(VMFile.getFilesFromSDCard(), "VMVoice_", ".amr");
-            recordFile = VMFile.filesPath("voice") + "VMVoice_" + VMDate.filenameDateTime() + ".amr"
+            VMFile.filesPath("voice") + "VMVoice_" + VMDate.filenameDateTime() + ".amr"
         } else {
             //File file = VMFile.createFile(path, "VMVoice_", ".amr");
-            recordFile = path
+            path
         }
 
         // 释放之后重新初始化

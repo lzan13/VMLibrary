@@ -103,10 +103,10 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
         mInnerSize = array.getDimensionPixelOffset(styleable.VMRecordView_vm_inner_size, mInnerSize)
         mDescNormal = array.getString(styleable.VMRecordView_vm_touch_normal_desc)
         mDescCancel = array.getString(styleable.VMRecordView_vm_touch_cancel_desc)
-        if (VMStr.isEmpty(mDescNormal)) {
+        if (mDescNormal.isNullOrEmpty()) {
             mDescNormal = "触摸录音"
         }
-        if (VMStr.isEmpty(mDescCancel)) {
+        if (mDescCancel.isNullOrEmpty()) {
             mDescCancel = "松开取消"
         }
         mDescColor = array.getColor(styleable.VMRecordView_vm_desc_color, mDescColor)

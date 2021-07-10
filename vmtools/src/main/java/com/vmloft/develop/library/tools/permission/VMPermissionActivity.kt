@@ -146,10 +146,10 @@ class VMPermissionActivity : AppCompatActivity() {
      * 弹出授权窗口
      */
     private fun showPermissionDialog() {
-        if (VMStr.isEmpty(mTitle)) {
+        if (mTitle.isNullOrEmpty()) {
             mTitle = VMStr.byRes(R.string.vm_permission_title)
         }
-        if (VMStr.isEmpty(mMessage)) {
+        if (mMessage.isNullOrEmpty()) {
             mMessage = VMStr.byResArgs(R.string.vm_permission_reason, mAppName)
         }
         mDialog = VMDefaultDialog(this)

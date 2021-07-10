@@ -46,7 +46,7 @@ object VMFile {
      * @param path 目录路径
      */
     fun isDirExists(path: String?): Boolean {
-        if (VMStr.isEmpty(path)) {
+        if (path.isNullOrEmpty()) {
             return false
         }
         val dir = File(path)
@@ -59,7 +59,7 @@ object VMFile {
      * @param path 文件路径
      */
     fun isFileExists(path: String?): Boolean {
-        if (VMStr.isEmpty(path)) {
+        if (path.isNullOrEmpty()) {
             return false
         }
         val file = File(path)
@@ -70,7 +70,7 @@ object VMFile {
      * 创建目录，多层目录会递归创建
      */
     fun createDirectory(path: String?): Boolean {
-        if (VMStr.isEmpty(path)) {
+        if (path.isNullOrEmpty()) {
             return false
         }
         val dir = File(path)
@@ -84,7 +84,7 @@ object VMFile {
      */
     fun createFile(filepath: String?): File? {
         val isSuccess: Boolean
-        if (VMStr.isEmpty(filepath)) {
+        if (filepath.isNullOrEmpty()) {
             return null
         }
         val file = File(filepath)
@@ -126,7 +126,7 @@ object VMFile {
      * @return 压缩结果
      */
     fun zipFile(srcPath: String?, destPath: String?): Boolean {
-        if (VMStr.isEmpty(srcPath) || VMStr.isEmpty(destPath)) {
+        if (srcPath.isNullOrEmpty() || destPath.isNullOrEmpty()) {
             return false
         }
         try {
@@ -163,7 +163,7 @@ object VMFile {
      * @return 返回复制结果
      */
     fun copyFile(srcPath: String?, destPath: String?): File? {
-        if (VMStr.isEmpty(srcPath)) {
+        if (srcPath.isNullOrEmpty()) {
             VMLog.e("源文件不存在，无法完成复制")
             return null
         }
@@ -172,7 +172,7 @@ object VMFile {
             VMLog.e("源文件不存在，无法完成复制")
             return null
         }
-        if (VMStr.isEmpty(destPath)) {
+        if (destPath.isNullOrEmpty()) {
             VMLog.e("目标路径不能为 null")
             return null
         }
@@ -201,26 +201,13 @@ object VMFile {
     }
 
     /**
-     * 读取文件到 Bitmap
-     */
-    fun fileToBitmap(filepath: String?): Bitmap? {
-        if (VMStr.isEmpty(filepath)) {
-            return null
-        }
-        val file = File(filepath)
-        return if (file.exists()) {
-            BitmapFactory.decodeFile(filepath)
-        } else null
-    }
-
-    /**
      * 读取文件到drawable
      *
      * @param filepath 文件路径
      * @return 返回Drawable资源
      */
     fun fileToDrawable(filepath: String?): Drawable? {
-        if (VMStr.isEmpty(filepath)) {
+        if (filepath.isNullOrEmpty()) {
             return null
         }
         val file = File(filepath)
@@ -282,7 +269,7 @@ object VMFile {
      * 删除文件
      */
     fun deleteFile(filepath: String?): Boolean {
-        if (VMStr.isEmpty(filepath)) {
+        if (filepath.isNullOrEmpty()) {
             return false
         }
         val file = File(filepath)
@@ -311,7 +298,7 @@ object VMFile {
      * @param deleteThis 删除自己
      */
     fun deleteFolder(path: String?, deleteThis: Boolean) {
-        if (VMStr.isEmpty(path)) {
+        if (path.isNullOrEmpty()) {
             return
         }
         val fileSrc = File(path)
@@ -337,14 +324,17 @@ object VMFile {
     /**
      * 根据文件路径解析文件名，不包含扩展类型
      */
-    fun parseFilename(path: String?): String? {
-        var result: String? = null
-        if (path != null && path.isNotEmpty()) {
-            val index = path.lastIndexOf(File.separator)
-            val fileName = path.substring(index + 1)
-            result = fileName.substring(0, fileName.lastIndexOf("."))
+    fun parseFilename(path: String?): String {
+        if (path.isNullOrEmpty()) {
+            return ""
         }
-        return result
+        val index = path.lastIndexOf(File.separator)
+        val fileName = if (index == -1) {
+            path
+        } else {
+            path.substring(index + 1)
+        }
+        return fileName.substring(0, fileName.lastIndexOf("."))
     }
 
     /**
@@ -358,7 +348,7 @@ object VMFile {
         if (path.isNotEmpty()) {
             val index = path.lastIndexOf(File.separator)
             val filename: String = if (index == -1) {
-                ""
+                path
             } else {
                 path.substring(index + 1)
             }

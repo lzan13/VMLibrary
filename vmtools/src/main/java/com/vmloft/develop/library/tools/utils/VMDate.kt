@@ -95,7 +95,7 @@ object VMDate {
      * @param dateStr 需要转换的日期
      */
     fun milliFormUTC(dateStr: String?): Long {
-        return if (VMStr.isEmpty(dateStr)) {
+        return if (dateStr.isNullOrEmpty()) {
             0L
         } else try {
             sdfUTC.timeZone = TimeZone.getTimeZone("UTC")

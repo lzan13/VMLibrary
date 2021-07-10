@@ -2,10 +2,11 @@ package com.vmloft.develop.library.tools.utils
 
 import android.content.Context
 import android.util.Base64
+
 import com.vmloft.develop.library.tools.VMTools.context
+
 import java.nio.charset.Charset
 import java.security.MessageDigest
-import kotlin.experimental.and
 
 /**
  * Created by lzan13 on 2017/1/29.
@@ -152,18 +153,18 @@ object VMStr {
     /**
      * 计算 SHA1
      */
-    fun toSha1(content: String): String {
+    fun toSHA1(content: String): String {
         val sha256 = MessageDigest.getInstance("SHA-1");
-        sha256.update(content.toByte())
+        sha256.update(content.toByteArray(Charset.forName("UTF-8")))
         return byteToHex(sha256.digest())
     }
 
     /**
      * 计算 SHA256
      */
-    fun toSha256(content: String): String {
+    fun toSHA256(content: String): String {
         val sha256 = MessageDigest.getInstance("SHA-256");
-        sha256.update(content.toByte())
+        sha256.update(content.toByteArray(Charset.forName("UTF-8")))
         return byteToHex(sha256.digest())
     }
 
@@ -171,7 +172,7 @@ object VMStr {
      * 编码
      */
     fun base64Encode(str: String): String {
-        return Base64.encodeToString(str.toByteArray(), Base64.DEFAULT)
+        return Base64.encodeToString(str.toByteArray(Charset.forName("UTF-8")), Base64.DEFAULT)
     }
 
     /**
@@ -188,30 +189,12 @@ object VMStr {
         val builder = StringBuilder()
         var temp: String
         for (b in bytes) {
-            temp = Integer.toHexString((b and 0xFF.toByte()).toInt())
-            //得到一位的进行补0操作
+            temp = Integer.toHexString((b.toInt() and 0xFF))
+            // 不足两位，进行补 0 操作
             if (temp.length == 1) builder.append(0)
             builder.append(temp)
         }
         return builder.toString()
-    }
-
-
-    /**
-     * 检测字符串是否为空白字符串
-     */
-    @Deprecated("kotlin 已经有比较好的方法，这里废弃掉")
-    fun isEmpty(str: CharSequence?): Boolean {
-        if (str == null || "" == str) {
-            return true
-        }
-        for (element in str) {
-            val c = element
-            if (c != ' ' && c != '\t' && c != '\r' && c != '\n') {
-                return false
-            }
-        }
-        return true
     }
 
 }

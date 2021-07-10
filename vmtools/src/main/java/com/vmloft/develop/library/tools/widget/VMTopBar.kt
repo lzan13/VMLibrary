@@ -61,7 +61,7 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
             vmTopBarIconBtn.setImageResource(mIcon)
         }
 
-        if (!VMStr.isEmpty(mEndBtnText)) {
+        if (!mEndBtnText.isNullOrEmpty()) {
             vmTopBarEndBtn.visibility = View.VISIBLE
             vmTopBarEndBtn.text = mEndBtnText
         } else {
@@ -228,7 +228,7 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
             vmTopBarTitleTV.setTextColor(mTitleColor)
         }
 
-        if (!VMStr.isEmpty(mTitle)) {
+        if (!mTitle.isNullOrEmpty()) {
             if (isCenter) {
                 vmTopBarTitleTV.visibility = View.GONE
 
@@ -256,7 +256,7 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
             vmTopBarSubtitleTV.setTextColor(mSubtitleColor)
         }
 
-        if (!VMStr.isEmpty(mSubtitle)) {
+        if (!mSubtitle.isNullOrEmpty()) {
             if (isCenter) {
                 vmTopBarSubtitleTV.visibility = View.GONE
 
@@ -327,7 +327,7 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
      */
     fun setEndBtn(text: String?) {
         mEndBtnText = text
-        if (VMStr.isEmpty(mEndBtnText)) {
+        if (mEndBtnText.isNullOrEmpty()) {
             vmTopBarEndBtn.visibility = View.GONE
         } else {
             vmTopBarEndBtn.visibility = View.VISIBLE

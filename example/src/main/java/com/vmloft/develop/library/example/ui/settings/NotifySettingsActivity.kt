@@ -6,9 +6,9 @@ import com.alibaba.android.arouter.facade.annotation.Route
 
 import com.vmloft.develop.library.common.base.BaseActivity
 import com.vmloft.develop.library.common.common.CConstants
+import com.vmloft.develop.library.common.notify.NotifyManager
 import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.common.SPManager
-import com.vmloft.develop.library.example.notify.NotifyManager
 import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.tools.utils.VMFile
 

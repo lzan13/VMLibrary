@@ -16,6 +16,24 @@ VMLibrary
 
 >PS:由于国内访问过慢，仓库代码放在`gitee`上 [VMLibrary](https://gitee.com/lzan13/VMLibrary)
 
+### #引用
+现已将库发布到 JitPack.io，需要使用的同学可以直接通过远程方式引用
+```
+// 项目根目录 build.gradle
+allprojects {
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
+	}
+}
+...
+// 项目 module build.gradle
+dependencies {
+    // 依赖最新版本 lastView 看最上边标签显示版本
+    implementation 'com.gitee.lzan13:VMLibrary:lastVersion'
+}
+```
+
 ### #详细
 - [example](./example) 示例`Module`主要都是一些自己测试代码
 - [vmtools](./vmtools) 自己封装的工具类库，包含常用工具类以及一些自定义控件等

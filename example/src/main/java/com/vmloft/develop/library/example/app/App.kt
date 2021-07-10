@@ -9,18 +9,16 @@ import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.header.ClassicsHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.vmloft.develop.library.common.event.LDEventBus
+import com.vmloft.develop.library.common.notify.NotifyManager
 
 import com.vmloft.develop.library.example.BuildConfig
 import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.common.Constants
 import com.vmloft.develop.library.example.common.SPManager
-import com.vmloft.develop.library.example.notify.NotifyManager
 import com.vmloft.develop.library.tools.VMTools
 import com.vmloft.develop.library.tools.utils.VMFile
 import com.vmloft.develop.library.tools.utils.VMTheme
 import com.vmloft.develop.library.tools.utils.logger.VMLog
-import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.startKoin
 
 import kotlin.properties.Delegates
 

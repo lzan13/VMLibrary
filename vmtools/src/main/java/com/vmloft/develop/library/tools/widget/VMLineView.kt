@@ -136,7 +136,7 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
             mIconView.visibility = View.VISIBLE
             mIconView.setImageResource(mIconRes)
         }
-        if (!VMStr.isEmpty(mTitle)) {
+        if (!mTitle.isNullOrEmpty()) {
             mTitleView.text = mTitle
         }
         if (mTitleColor != 0) {
@@ -148,7 +148,7 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
             mCaptionIconView.visibility = View.VISIBLE
             mCaptionIconView.setImageResource(mCaptionIconRes)
         }
-        if (VMStr.isEmpty(mCaption)) {
+        if (mCaption.isNullOrEmpty()) {
             mCaptionView.visibility = View.GONE
         } else {
             mCaptionView.visibility = View.VISIBLE
@@ -166,7 +166,7 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
             mRightIconView.visibility = View.VISIBLE
             mRightIconView.setImageResource(mRightIconRes)
         }
-        if (VMStr.isEmpty(mDescription)) {
+        if (mDescription.isNullOrEmpty()) {
             mDescriptionView.visibility = View.GONE
         } else {
             mDescriptionView.visibility = View.VISIBLE
@@ -257,7 +257,7 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
      */
     fun setCaption(caption: String?) {
         mCaption = caption
-        if (VMStr.isEmpty(mCaption)) {
+        if (mCaption.isNullOrEmpty()) {
             mCaptionView.visibility = View.GONE
             return
         }
@@ -302,7 +302,7 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
      */
     fun setDescription(description: String?) {
         mDescription = description
-        if (VMStr.isEmpty(mDescription)) {
+        if (mDescription.isNullOrEmpty()) {
             mDescriptionView.visibility = View.GONE
             return
         }
