@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.example.ui.main.mine
+package com.vmloft.develop.library.example.common
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -9,7 +9,7 @@ import java.util.*
 /**
  * Created by liyongan on 19/3/5.
  */
-class TabFragmentPagerAdapter(fm: FragmentManager, fragments: ArrayList<Fragment>) : FragmentPagerAdapter(fm) {
+class FragmentPagerAdapter(fm: FragmentManager, fragments: ArrayList<Fragment>) : FragmentPagerAdapter(fm) {
     private val fragments: ArrayList<Fragment> = fragments
 
     override fun getCount(): Int {

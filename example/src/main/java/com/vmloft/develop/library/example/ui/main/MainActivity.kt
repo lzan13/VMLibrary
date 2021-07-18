@@ -39,8 +39,6 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null) {
-            // 默认为0
-            currentTab = 0
             fragmentList.clear()
             initFragmentList()
         } else {
@@ -59,7 +57,7 @@ class MainActivity : BaseActivity() {
             }
             currentFragment = fragmentList[currentTab]
         }
-        switchFragment(0)
+        switchFragment(currentTab)
     }
 
     override fun layoutId(): Int {
@@ -92,18 +90,10 @@ class MainActivity : BaseActivity() {
      */
     private val onNavigationItemSelected = BottomNavigationView.OnNavigationItemSelectedListener {
         when (it.itemId) {
-            R.id.nav_home -> {
-                switchFragment(0)
-            }
-            R.id.nav_explore -> {
-                switchFragment(1)
-            }
-            R.id.nav_msg -> {
-                switchFragment(2)
-            }
-            R.id.nav_mine -> {
-                switchFragment(3)
-            }
+            R.id.nav_home -> switchFragment(0)
+            R.id.nav_explore -> switchFragment(1)
+            R.id.nav_msg -> switchFragment(2)
+            R.id.nav_mine -> switchFragment(3)
         }
         true
     }

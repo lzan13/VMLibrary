@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/widget_common_top_bar" />
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.vmloft.develop.library.tools.widget.behavior.VMHeaderLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:vm_extend_height="30%">
+
+            <LinearLayout
+                android:id="@+id/imWorkTableTopLL"
+                android:layout_width="match_parent"
+                android:layout_height="84dp"
+                android:layout_gravity="bottom"
+                android:orientation="vertical"
+                app:vm_transformation="scroll">
+
+                <LinearLayout
+                    android:id="@+id/imWorkTableTabLL"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <RelativeLayout
+                        android:id="@+id/imWorkTableTabRL0"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="昨日"
+                            android:textColor="@color/selector_bottom_nav"
+                            android:textSize="14dp" />
+
+                        <View
+                            android:layout_width="28dp"
+                            android:layout_height="2dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/shape_tab_indicator" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/imWorkTableTabRL1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="7日"
+                            android:textColor="@color/selector_bottom_nav"
+                            android:textSize="14dp" />
+
+                        <View
+                            android:layout_width="28dp"
+                            android:layout_height="2dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/shape_tab_indicator" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/imWorkTableTabRL2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="30日"
+                            android:textColor="@color/selector_bottom_nav"
+                            android:textSize="14dp" />
+
+                        <View
+                            android:layout_width="28dp"
+                            android:layout_height="2dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/shape_tab_indicator" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/imWorkTableTabRL3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="自然月"
+                            android:textColor="@color/selector_bottom_nav"
+                            android:textSize="14dp" />
+
+                        <View
+                            android:layout_width="28dp"
+                            android:layout_height="2dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/shape_tab_indicator" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/imWorkTableTabRL4"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="自定义"
+                            android:textColor="@color/selector_bottom_nav"
+                            android:textSize="14dp" />
+
+                        <View
+                            android:layout_width="28dp"
+                            android:layout_height="2dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/shape_tab_indicator" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <!--日期 tips-->
+                <TextView
+                    android:id="@+id/imWorkTableTimeTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="16dp"
+                    android:paddingTop="16dp"
+                    android:text="数据统计日期: 2021.3.23"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imWorkTableTabLL" />
+            </LinearLayout>
+        </com.vmloft.develop.library.tools.widget.behavior.VMHeaderLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/vm_scrolling_view_behavior">
+
+            <!--            <com.scwang.smart.refresh.layout.SmartRefreshLayout-->
+            <!--                android:id="@+id/refreshLayout"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="match_parent"-->
+            <!--                app:layout_behavior="@string/vm_scrolling_view_behavior"-->
+            <!--                app:srlEnableLoadMore="true"-->
+            <!--                app:srlEnableRefresh="false">-->
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+                android:scrollbars="none" />
+            <!--            </com.scwang.smart.refresh.layout.SmartRefreshLayout>-->
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/topRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/vm_dimen_48"
+                android:overScrollMode="never"
+                android:scrollbars="none"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/recyclerView"
+                tools:visibility="visible" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/leftRecyclerView"
+                android:layout_width="@dimen/vm_dimen_96"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never"
+                android:scrollbars="none"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/recyclerView"
+                tools:visibility="visible" />
+
+            <View
+                android:id="@+id/leftRecyclerViewShadow"
+                android:layout_width="8dp"
+                android:layout_height="@dimen/vm_dimen_0"
+                android:background="@color/vm_black_12"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/leftRecyclerView"
+                app:layout_constraintStart_toEndOf="@+id/leftRecyclerView"
+                app:layout_constraintTop_toTopOf="@+id/recyclerView"
+                tools:visibility="visible" />
+
+            <TextView
+                android:layout_width="@dimen/vm_dimen_96"
+                android:layout_height="@dimen/vm_dimen_48"
+                android:background="@color/app_table_single_row_bg"
+                android:gravity="center|left"
+                android:paddingStart="16dp"
+                android:text="客服名称"
+                android:textColor="#404040"
+                android:textSize="14dp"
+                app:layout_constraintStart_toStartOf="@+id/recyclerView"
+                app:layout_constraintTop_toTopOf="@+id/recyclerView" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>

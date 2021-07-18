@@ -63,7 +63,11 @@ class BarrageViewActivity : BaseActivity() {
             mDataList.add(BarrageBean("测试重置弹幕测试弹幕测试弹幕 7"))
             mDataList.add(BarrageBean("测试重置弹幕 8"))
             mDataList.add(BarrageBean("测试重置弹幕测试弹幕测试弹幕测试弹幕 9"))
-            barrageView.resetBarrageList(mDataList)
+            barrageView.stop()
+            barrageView.setCreator(ViewCreator())
+                .setMaxSize(50)
+                .create(mDataList)
+                .start()
         }
 
         animStartBtn.setOnClickListener { startAnim() }

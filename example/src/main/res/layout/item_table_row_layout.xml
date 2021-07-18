@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/vm_dimen_48"
+    android:background="@drawable/selector_table_row_bg"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tableRowNameTV"
+        android:layout_width="96dp"
+        android:layout_height="match_parent"
+        android:gravity="center|left"
+        android:paddingStart="@dimen/vm_dimen_16"
+        android:textColor="#000000"
+        tools:text="客服名称" />
+
+    <TextView
+        android:id="@+id/tableRowDateTV"
+        android:layout_width="90dp"
+        android:layout_height="match_parent"
+        android:gravity="center|left"
+        android:padding="@dimen/vm_dimen_10"
+        android:textColor="#000000"
+        tools:text="日期" />
+
+    <TextView
+        android:id="@+id/tableRowFirstOnlineTimeTV"
+        android:layout_width="120dp"
+        android:layout_height="match_parent"
+        android:gravity="center|left"
+        android:padding="@dimen/vm_dimen_10"
+        android:textColor="#000000"
+        tools:text="最早上线时间" />
+
+    <TextView
+        android:id="@+id/tableRowLastOnlineTimeTV"
+        android:layout_width="120dp"
+        android:layout_height="match_parent"
+        android:gravity="center|left"
+        android:padding="@dimen/vm_dimen_10"
+        android:textColor="#000000"
+        tools:text="最晚离线时间" />
+
+    <TextView
+        android:id="@+id/tableRowOnlineDurationTV"
+        android:layout_width="92dp"
+        android:layout_height="match_parent"
+        android:gravity="center|left"
+        android:padding="@dimen/vm_dimen_10"
+        android:textColor="#000000"
+        tools:text="在线时长" />
+
+    <TextView
+        android:id="@+id/tableRowBusyDurationTV"
+        android:layout_width="92dp"
+        android:layout_height="match_parent"
+        android:gravity="center|left"
+        android:padding="@dimen/vm_dimen_10"
+        android:textColor="#000000"
+        tools:text="忙碌时长" />
+
+    <TextView
+        android:id="@+id/tableRowOfflineDurationTV"
+        android:layout_width="98dp"
+        android:layout_height="match_parent"
+        android:gravity="center|left"
+        android:padding="@dimen/vm_dimen_10"
+        android:textColor="#000000"
+        tools:text="离线时长" />
+</LinearLayout>

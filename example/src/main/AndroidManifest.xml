@@ -88,6 +88,12 @@
         <activity android:name=".ui.demo.web.WebTestActivity" />
         <!--图片选择功能界面-->
         <activity android:name=".ui.demo.image.ImagePickerActivity" />
+        <!--自定义 LayoutManager界面-->
+        <activity android:name=".ui.demo.layout.CustomLayoutManagerActivity" />
+        <!--自定义表格-->
+        <activity android:name=".ui.demo.layout.CustomTableActivity" />
+        <!--自定义表格-->
+        <activity android:name=".ui.demo.table.CustomTableActivity" />
         <!--demo界面 结束-->
 
 
@@ -108,17 +114,20 @@
         <!--引导-->
         <activity android:name="com.vmloft.develop.library.example.ui.guide.GuideActivity" />
 
-        <!--登录引导-->
+        <!--        &lt;!&ndash;登录引导&ndash;&gt;-->
+        <!--        <activity-->
+        <!--            android:name="com.vmloft.develop.library.example.ui.sign.SignActivity"-->
+        <!--            android:windowSoftInputMode="adjustNothing|stateVisible" />-->
+        <!--        &lt;!&ndash;登录&ndash;&gt;-->
+        <!--        <activity-->
+        <!--            android:name="com.vmloft.develop.library.example.ui.sign.SignInActivity"-->
+        <!--            android:windowSoftInputMode="adjustNothing|stateVisible" />-->
+        <!--        &lt;!&ndash;注册&ndash;&gt;-->
+        <!--        <activity-->
+        <!--            android:name="com.vmloft.develop.library.example.ui.sign.SignUpActivity"-->
+        <!--            android:windowSoftInputMode="adjustNothing|stateVisible" />-->
         <activity
-            android:name="com.vmloft.develop.library.example.ui.sign.SignActivity"
-            android:windowSoftInputMode="adjustNothing|stateVisible" />
-        <!--登录-->
-        <activity
-            android:name="com.vmloft.develop.library.example.ui.sign.SignInActivity"
-            android:windowSoftInputMode="adjustNothing|stateVisible" />
-        <!--注册-->
-        <activity
-            android:name="com.vmloft.develop.library.example.ui.sign.SignUpActivity"
+            android:name="com.vmloft.develop.library.example.ui.user.UserInfoActivity"
             android:windowSoftInputMode="adjustNothing|stateVisible" />
 
         <!--        &lt;!&ndash;个人信息&ndash;&gt;-->

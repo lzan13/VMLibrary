@@ -20,6 +20,7 @@ object AppRouter {
     const val appStyle = "/VMLoft/Style"
     const val appThread = "/VMLoft/Thread"
     const val appWebTest = "/VMLoft/Web"
+    const val appCustomTable = "/VMLoft/CustomTable"
 
     const val appImagePicker = "/VMLoft/ImagePicker"
 

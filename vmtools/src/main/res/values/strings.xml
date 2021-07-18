@@ -32,4 +32,7 @@
 
     <string name="vm_edit_limit_account">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@._-</string>
 
+    <!--自定义 Behavior-->
+    <string name="vm_scrolling_view_behavior">com.vmloft.develop.library.tools.widget.behavior.VMScrollingViewBehavior</string>
+
 </resources>

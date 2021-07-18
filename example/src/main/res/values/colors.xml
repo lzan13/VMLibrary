@@ -70,6 +70,9 @@
     <color name="app_title_display">@color/vm_white_87</color>
 
 
+    <color name="app_table_single_row_bg">@color/vm_white</color>
+    <color name="app_table_double_row_bg">@color/vm_gray_white</color>
+
     <!--阴影-->
     <color name="app_shade_start">@color/vm_transparent</color>
     <color name="app_shade_end">@color/vm_translucent</color>

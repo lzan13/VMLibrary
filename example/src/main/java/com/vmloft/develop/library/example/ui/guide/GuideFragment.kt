@@ -39,9 +39,9 @@ class GuideFragment : BaseFragment() {
         super.initUI()
 
         VMTheme.changeShadow(guideCardLL)
-        guideCoverIV.setImageResource(arguments!!.getInt(argImgId))
-        guideTitleTV.setText(arguments!!.getInt(argTitleId))
-        guideBodyTV.setText(arguments!!.getInt(argBodyId))
+        guideCoverIV.setImageResource(requireArguments().getInt(argImgId))
+        guideTitleTV.setText(requireArguments().getInt(argTitleId))
+        guideBodyTV.setText(requireArguments().getInt(argBodyId))
     }
 
     override fun initData() {

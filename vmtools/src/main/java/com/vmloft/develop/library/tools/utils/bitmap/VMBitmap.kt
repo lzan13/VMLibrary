@@ -74,7 +74,10 @@ object VMBitmap {
      * @return 返回经过压缩处理的图片
      */
     fun loadBitmapByFile(path: Any?, dimension: Int = 2048): Bitmap? {
-        val bitmap = compressByDimension(path, dimension) ?: return null
+        var bitmap = compressByDimension(path, dimension) ?: return null
+        // 获取旋转角度，旋转图片
+        val degree = getBitmapDegree(path)
+        bitmap = rotateBitmap(bitmap, degree)
         return compressBitmapByMatrix(bitmap, dimension)
     }
 
@@ -147,14 +150,27 @@ object VMBitmap {
      * @param path 图片绝对路径
      * @return 图片的旋转角度
      */
-    fun getBitmapDegree(path: String?): Int {
+    fun getBitmapDegree(path: Any?): Int {
         var degree = 0
+        var exifInterface: ExifInterface
         try {
-            // 从指定路径下读取图片，并获取其EXIF信息
-            val exifInterface = ExifInterface(path)
+            exifInterface = if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P && path is Uri) {
+                var inputStream = VMTools.context.contentResolver.openInputStream(path);
+                if (inputStream != null) {
+                    ExifInterface(inputStream)
+                } else {
+                    return degree
+                }
+            } else if (path is Uri) {
+                // 从指定路径下读取图片，并获取其EXIF信息
+                ExifInterface(VMFile.getPath(path))
+            } else if (path is String) {
+                ExifInterface(path)
+            } else {
+                return degree
+            }
             // 获取图片的旋转信息
-            val orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
-            when (orientation) {
+            when (exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)) {
                 ExifInterface.ORIENTATION_ROTATE_90 -> degree = 90
                 ExifInterface.ORIENTATION_ROTATE_180 -> degree = 180
                 ExifInterface.ORIENTATION_ROTATE_270 -> degree = 270
@@ -211,9 +227,14 @@ object VMBitmap {
             else -> CompressFormat.JPEG
         }
         // 进一步进行质量压缩
-        val bitmap = compressByQuality(compressBitmapByMatrix(srcBitmap, dimension), size, format)
+        var bitmap = compressByQuality(compressBitmapByMatrix(srcBitmap, dimension), size, format)
         VMLog.d("compressTempImage end")
 
+        bitmap?.let {
+            // 获取旋转角度，旋转图片
+            val degree = getBitmapDegree(path)
+            bitmap = rotateBitmap(it, degree)
+        }
         // 保存图片到文件
         saveBitmapToFiles(bitmap, "$tempPath/$tempName", format)
 

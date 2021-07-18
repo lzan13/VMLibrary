@@ -97,16 +97,6 @@ class VMBarrageView<T> @JvmOverloads constructor(context: Context?, attrs: Attri
     /**
      * 添加一个新的弹幕数据
      */
-    fun resetBarrageList(list: List<T>) {
-        if (isActive) {
-            mDataQueue.clear()
-            mDataQueue.addAll(list)
-        }
-    }
-
-    /**
-     * 添加一个新的弹幕数据
-     */
     fun addBarrageList(list: List<T>) {
         if (isActive) {
             mDataQueue.addAll(list)
