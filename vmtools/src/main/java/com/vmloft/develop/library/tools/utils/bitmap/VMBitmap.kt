@@ -189,6 +189,7 @@ object VMBitmap {
      * @return 旋转后的图片
      */
     fun rotateBitmap(bitmap: Bitmap, degree: Int): Bitmap {
+        if (degree == 0) return bitmap
         // 根据旋转角度，生成旋转矩阵
         val matrix = Matrix()
         matrix.postRotate(degree.toFloat())

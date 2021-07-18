@@ -135,6 +135,14 @@ class VMHeaderLayout @JvmOverloads constructor(
         }
     }
 
+    fun updateLayout() {
+        hasLayouted = false
+        requestLayout()
+        post {
+            hasLayouted = true
+        }
+    }
+
     fun offsetChild(child: View, dy: Int) {
         (child.layoutParams as LayoutParams).apply {
             if (stickyUntilExit) {

@@ -40,7 +40,6 @@ class MineFragment : BaseFragment() {
         setTopTitleColor(R.color.app_title_display)
         setTopTitle("小透明")
 
-//            mineCoverIV.setOnClickListener { CRouter.goDisplaySingle(mUser.cover) }
 //            mineAvatarIV.setOnClickListener { CRouter.goDisplaySingle(mUser.avatar) }
 //            mineFansLL.setOnClickListener { }
 //            mineFollowLL.setOnClickListener { }
@@ -110,6 +109,8 @@ class MineFragment : BaseFragment() {
      * 绑定用户数据
      */
     private fun bindInfo() {
+        mineNameTV.text = "测试昵称"
+
 //            val cover: String = mUser.cover
 //            IMGLoader.loadCover(mineCoverIV, cover)
 //
