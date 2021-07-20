@@ -140,6 +140,17 @@
     <string name="sign_privacy_policy">《隐私协议》</string>
     <string name="sign_privacy_policy_hint">请阅读并同意《隐私协议》</string>
 
+    <string name="user_agreement">《用户协议》</string>
+    <string name="privacy_policy">《隐私政策》</string>
+    <string name="agreement_policy_prefix">进入表示你已阅读并同意</string>
+    <string name="agreement_policy_hint">请阅读并同意《用户协议》与《隐私政策》</string>
+    <string name="agreement_policy_dialog_title">用户协议与隐私政策</string>
+    <string name="agreement_policy_dialog_content">欢迎使用忘忧\n
+        1.为了向您提供功能服务，我们会根据您使用服务的具体需要，收集必要的信息；\n
+        2.未经您授权，我们不会与第三方共享或对外提供您的信息；\n
+        3.您可以访问、更正、删除您的个人信息，我们也将提供注销和更正方式。\n
+        请您阅读完整版《用户协议》和《隐私政策》，点击「同意」即表示您已阅读并同意全部条款。</string>
+
     <!--拼接资源-->
     <string name="comment_count">条评论</string>
     <string name="score">分</string>

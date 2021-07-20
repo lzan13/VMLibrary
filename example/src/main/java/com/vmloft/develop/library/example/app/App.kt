@@ -75,10 +75,10 @@ class App : Application() {
         VMLog.init(level, "vm_template")
 
         // 设置暗色主题模式
-        if (SPManager.instance.isDarkModeSystemSwitch()) {
+        if (SPManager.isDarkModeSystemSwitch()) {
             VMTheme.setDarkTheme(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         } else {
-            VMTheme.setDarkTheme(SPManager.instance.getDarkModeManual())
+            VMTheme.setDarkTheme(SPManager.getDarkModeManual())
         }
 
         val path = "${VMFile.pictures}${Constants.projectDir}"

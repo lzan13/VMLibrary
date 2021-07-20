@@ -36,7 +36,7 @@ class AboutSettingsActivity : BaseActivity() {
         aboutCheckVersionLV.setOnClickListener { showBar(R.string.version_check_toast) }
 
 
-        aboutPrivacyPolicyTV.setOnClickListener { CRouter.goWeb(Constants.privatePolicyUrl) }
+        aboutPrivacyPolicyTV.setOnClickListener {  }
     }
 
     override fun initData() {

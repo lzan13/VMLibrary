@@ -11,8 +11,8 @@ import android.provider.Settings
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-
 import com.vmloft.develop.library.common.R
+
 import com.vmloft.develop.library.common.common.CSPManager
 import com.vmloft.develop.library.tools.utils.VMStr
 import com.vmloft.develop.library.tools.utils.logger.VMLog
@@ -58,7 +58,7 @@ object NotifyManager {
      * 发送通知
      */
     fun sendNotify(content: String, title: String) {
-        if (!CSPManager.instance.isNotifyMsgSwitch()) {
+        if (!CSPManager.isNotifyMsgSwitch()) {
             return
         }
         val builder: NotificationCompat.Builder = getBuilder(notifyMsgChannelId)
@@ -70,7 +70,7 @@ object NotifyManager {
 
         // 通知内容
         // 开始在状态栏上显示的提示文案
-        if (CSPManager.instance.isNotifyMsgDetailSwitch()) {
+        if (CSPManager.isNotifyMsgDetailSwitch()) {
             builder.setTicker(content)
             builder.setContentText(content)
         } else {

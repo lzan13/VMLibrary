@@ -43,7 +43,7 @@ class GuideActivity : BaseActivity() {
             guideViewPager.setCurrentItem(mCurrentIndex, true)
         }
         guideFinishBtn.setOnClickListener {
-            SPManager.instance.setGuideHide()
+            SPManager.setGuideHide()
             CRouter.goMain()
             finish()
         }

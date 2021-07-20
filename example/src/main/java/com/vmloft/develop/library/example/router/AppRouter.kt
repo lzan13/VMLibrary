@@ -40,6 +40,7 @@ object AppRouter {
     const val appSettingsNotify = "/App/SettingsNotify"
     const val appSettingsAbout = "/App/SettingsAbout"
     const val appFeedback = "/App/Feedback"
+    const val appSettingsAgreementPolicy = "/App/SettingsAgreementPolicy"
 
     const val appUserInfo = "/App/appUserInfo"
 

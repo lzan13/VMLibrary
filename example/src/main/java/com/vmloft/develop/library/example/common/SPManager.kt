@@ -7,7 +7,7 @@ import com.vmloft.develop.library.tools.utils.VMSystem
  * Create by lzan13 on 2020/4/25 19:48
  * 描述：SharedPreference 管理
  */
-class SPManager {
+object SPManager {
     /**
      * 记录设置项
      */
@@ -17,7 +17,7 @@ class SPManager {
     private val localVersionKey = "localVersionKey"
 
     // 隐私协议状态
-    private val policyStatusKey = "policyStatusKey"
+    private val agreementPolicyKey = "policyStatusKey"
 
     // 通知开关
     private val notifyMsgSwitchKey = "notifyMsgSwitchKey"
@@ -42,11 +42,6 @@ class SPManager {
     private val categoryTimeKey = "categoryTimeKey"
     private val professionTimeKey = "categoryTimeKey"
 
-    companion object {
-        val instance: SPManager by lazy {
-            SPManager()
-        }
-    }
     /**
      * -------------------------------------------------------------------------------
      * 通用的几个方法
@@ -91,6 +86,7 @@ class SPManager {
         return get(settingsEntry, localVersionKey, 0L) as Long
     }
 
+
     /**
      * 判断启动时是否需要展示引导界面，这里根据本地记录的 appVersion 以及运行 APP 获取到的 appVersion 对比
      */
@@ -106,18 +102,16 @@ class SPManager {
      * 隐藏引导界面
      */
     fun setGuideHide() {
-        // 保存新的版本号
         setLocalVersion(VMSystem.versionCode)
     }
 
     /**
-     * 设置隐私协议状态
+     * 协议与政策状态
      */
-    fun setPolicyStatus() {
-        putAsync(settingsEntry, policyStatusKey, true)
+    fun isAgreementPolicy(): Boolean = get(settingsEntry, agreementPolicyKey, false) as Boolean
+    fun setAgreementPolicy() {
+        putAsync(settingsEntry, agreementPolicyKey, true)
     }
-
-    fun isPolicyStatus(): Boolean = get(settingsEntry, policyStatusKey, false) as Boolean
 
     /**
      * 通知开关

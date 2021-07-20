@@ -6,12 +6,10 @@ import com.vmloft.develop.library.common.R
 import com.vmloft.develop.library.common.base.BaseActivity
 import com.vmloft.develop.library.common.common.CSPManager
 import com.vmloft.develop.library.common.router.CRouter
-import com.vmloft.develop.library.common.utils.showBar
 import com.vmloft.develop.library.common.widget.CommonDialog
 import com.vmloft.develop.library.tools.utils.VMStr
 
 import kotlinx.android.synthetic.main.activity_debug.*
-import kotlin.system.exitProcess
 
 /**
  * Create by lzan13 on 2020/05/02 22:56
@@ -33,7 +31,7 @@ class DebugActivity : BaseActivity() {
     }
 
     override fun initData() {
-        debugEnvLV.setCaption(VMStr.byRes(if (CSPManager.instance.isDebug()) R.string.debug_env_debug else R.string.debug_env_release))
+        debugEnvLV.setCaption(VMStr.byRes(if (CSPManager.isDebug()) R.string.debug_env_debug else R.string.debug_env_release))
     }
 
     private fun showRebootDialog() {
@@ -43,8 +41,8 @@ class DebugActivity : BaseActivity() {
             dialog.touchDismissSwitch = false
             dialog.setContent(R.string.debug_status_change_hint)
             dialog.setPositive(listener = {
-                CSPManager.instance.setDebug(!CSPManager.instance.isDebug())
-                debugEnvLV.setCaption(VMStr.byRes(if (CSPManager.instance.isDebug()) R.string.debug_env_debug else R.string.debug_env_release))
+                CSPManager.setDebug(!CSPManager.isDebug())
+                debugEnvLV.setCaption(VMStr.byRes(if (CSPManager.isDebug()) R.string.debug_env_debug else R.string.debug_env_release))
                 CRouter.goMain(1)
 
             })

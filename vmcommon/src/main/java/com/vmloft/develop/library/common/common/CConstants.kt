@@ -11,7 +11,7 @@ object CConstants {
     const val cacheImageDir = "images"
 
     // 应用在 SDCard 创建区别其他项目目录，一般以项目名命名
-    const val projectDir = "VMMatch/"
+    const val projectDir = "VMMatch"
 
     // 分页默认数据
     const val defaultPage = 0
@@ -26,10 +26,24 @@ object CConstants {
 
 
     /**
+     * 获取 UCloud 公钥
+     */
+    fun ucloudPublicKey(): String {
+        return BuildConfig.ucloudPublicKey
+    }
+
+    /**
+     * 获取 UCloud 存储桶
+     */
+    fun ucloudBucket(): String {
+        return BuildConfig.ucloudBucket
+    }
+
+    /**
      * 获取接口 host 地址，根据 debug 状态返回不同地址
      */
     fun baseHost(): String {
-        return if (CSPManager.instance.isDebug()) {
+        return if (CSPManager.isDebug()) {
             BuildConfig.baseDebugUrl
         } else {
             BuildConfig.baseReleaseUrl
@@ -40,6 +54,6 @@ object CConstants {
      * 获取媒体资源 host 地址
      */
     fun mediaHost(): String {
-        return baseHost() + "public"
+        return BuildConfig.mediaUrl
     }
 }

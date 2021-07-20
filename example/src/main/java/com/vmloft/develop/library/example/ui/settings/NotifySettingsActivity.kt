@@ -35,12 +35,12 @@ class NotifySettingsActivity : BaseActivity() {
         notifyMsgLV.setOnClickListener {
             notifyMsgLV.isActivated = !notifyMsgLV.isActivated
             notifyMsgSystemLL.visibility = if (notifyMsgLV.isActivated) View.VISIBLE else View.GONE
-            SPManager.instance.setNotifyMsgSwitch(notifyMsgLV.isActivated)
+            SPManager.setNotifyMsgSwitch(notifyMsgLV.isActivated)
         }
         notifyMsgDetailLV.setOnClickListener {
             notifyMsgDetailLV.isActivated = !notifyMsgDetailLV.isActivated
             notifyMsgSystemLL.visibility = if (notifyMsgLV.isActivated) View.VISIBLE else View.GONE
-            SPManager.instance.setNotifyMsgDetailSwitch(notifyMsgDetailLV.isActivated)
+            SPManager.setNotifyMsgDetailSwitch(notifyMsgDetailLV.isActivated)
         }
 
         // 打开设置
@@ -49,8 +49,8 @@ class NotifySettingsActivity : BaseActivity() {
     }
 
     override fun initData() {
-        notifyMsgLV.isActivated = SPManager.instance.isNotifyMsgSwitch()
-        notifyMsgDetailLV.isActivated = SPManager.instance.isNotifyMsgDetailSwitch()
+        notifyMsgLV.isActivated = SPManager.isNotifyMsgSwitch()
+        notifyMsgDetailLV.isActivated = SPManager.isNotifyMsgDetailSwitch()
         notifyMsgSystemLL.visibility = if (notifyMsgLV.isActivated) View.VISIBLE else View.GONE
     }
 
