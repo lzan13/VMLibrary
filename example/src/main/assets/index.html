@@ -8,6 +8,7 @@
         #javacalljs1,javacalljs2,content{
             color: red;
         }
+
     </style>
     <script src="./marked.js"></script>
     <script type="text/javascript">
@@ -17,7 +18,7 @@
         }
 
         function javaCallJsArgs(args) {
-            document.getElementById("javacalljs2").innerHTML += "java call js args </br>";
+            document.getElementById("javacalljs2").innerHTML += args +"</br>";
             mdToHtml(args);
         }
         /**
@@ -43,20 +44,21 @@
             });
             document.getElementById("content").innerHTML = marked(args);
         }
+
     </script>
 </head>
 
 <body>
-    这是NieJian写的Java调用Js的验证页面！
-    <br />
-    <br /> 点击按钮：“java调用js无参方法”。会出现以下内容：
-    <br />
-    <div id="javacalljs1"></div>
-    <br />
-    <br /> 点击按钮：“java调用js有参方法”。会出现以下内容：
-    <br />
-    <div id="javacalljs2"></div>
-    <div id="content"></div>
+这是NieJian写的Java调用Js的验证页面！
+<br/>
+<br/> 点击按钮：“java调用js无参方法”。会出现以下内容：
+<br/>
+<div id="javacalljs1"></div>
+<br/>
+<br/> 点击按钮：“java调用js有参方法”。会出现以下内容：
+<br/>
+<div id="javacalljs2"></div>
+<div id="content"></div>
 
 </body>
 

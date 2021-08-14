@@ -49,7 +49,7 @@ object SPManager {
     /**
      * 通用获取数据
      */
-    fun get(entry: String, key: String, default: Any): Any? {
+    fun get(entry: String, key: String, default: Any): Any {
         return VMSPUtil.getEntry(entry).get(key, default)
     }
 

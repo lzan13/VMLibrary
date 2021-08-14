@@ -2,12 +2,11 @@ package com.vmloft.develop.library.tools.utils
 
 import android.content.Context
 import android.net.ConnectivityManager
-import android.net.NetworkInfo.State.CONNECTED
-import android.net.NetworkInfo.State.CONNECTING
+import android.net.NetworkInfo.State
 import android.net.wifi.WifiManager
 import com.vmloft.develop.library.tools.VMTools
 import com.vmloft.develop.library.tools.VMTools.context
-import java.util.Locale
+import java.util.*
 
 /**
  * Created by lzan13 on 2016/12/7.
@@ -23,9 +22,7 @@ object VMNetwork {
         //得到网络连接信息
         var manager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         //去进行判断网络是否连接
-        if (manager!!.activeNetworkInfo != null) {
-            flag = manager!!.activeNetworkInfo.isAvailable
-        }
+        manager.activeNetworkInfo?.let { flag = it.isAvailable }
         return flag
     }
 
@@ -35,9 +32,10 @@ object VMNetwork {
      */
     val isGPRSNetwork: Boolean
         get() {
+            var gprs = State.DISCONNECTED
             var manager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val gprs = manager!!.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).state
-            return gprs == CONNECTED || gprs == CONNECTING
+            manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)?.let { gprs = it.state }
+            return gprs == State.CONNECTED || gprs == State.CONNECTING
         }
 
     /**
@@ -47,8 +45,9 @@ object VMNetwork {
     val isWIFINetwork: Boolean
         get() {
             var manager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val wifi = manager!!.getNetworkInfo(ConnectivityManager.TYPE_WIFI).state
-            return wifi == CONNECTED || wifi == CONNECTING
+            var wifi = State.DISCONNECTING
+            manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)?.let { wifi = it.state }
+            return wifi == State.CONNECTED || wifi == State.CONNECTING
         }
 
     /**

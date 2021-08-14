@@ -1,12 +1,13 @@
 ext {
     // 配置
     configs = [
-            compileSdkVersion: 29,
+            compileSdkVersion: 30,
+            buildToolsVersion: "30.0.3",
             applicationId    : "com.vmloft.develop.library.example",
             minSdkVersion    : 21,
-            targetSdkVersion : 29,
-            versionCode      : 144,
-            versionName      : "1.4.4",
+            targetSdkVersion : 30,
+            versionCode      : 145,
+            versionName      : "1.4.5",
 
             // 友盟 AppId
             umengAppKey      : "UMeng AppKey",

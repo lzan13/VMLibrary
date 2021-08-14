@@ -19,4 +19,7 @@ data class VMPermissionBean(
     // 权限理由
     var reason: String? = null,
     // 资源 id
-    var resId: Int = 0) : Parcelable
+    var resId: Int = 0,
+) : Parcelable {
+
+}

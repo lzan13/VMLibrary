@@ -1,6 +1,9 @@
 package com.vmloft.develop.library.example.ui.main.home
 
 import android.Manifest
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
@@ -10,9 +13,9 @@ import com.vmloft.develop.library.common.base.BaseFragment
 import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.example.utils.showBar
 import com.vmloft.develop.library.example.utils.errorBar
+import com.vmloft.develop.library.tools.VMTools
 import com.vmloft.develop.library.tools.permission.VMPermission
 import com.vmloft.develop.library.tools.permission.VMPermissionBean
-import com.vmloft.develop.library.tools.utils.logger.VMLog
 
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -44,9 +47,11 @@ class HomeFragment : BaseFragment() {
         addBtn("Web 功能", AppRouter.appWebTest)
         addBtn("图片选择", AppRouter.appImagePicker)
         addBtn("表格", AppRouter.appCustomTable)
+        addBtn("辅助功能", AppRouter.appAccessibility)
 
         addBtn("单权限申请", AppRouter.appSinglePermission)
         addBtn("多权限申请", AppRouter.appMultiPermission)
+        addBtn("打开微信", AppRouter.appOpenWeChat)
 
     }
 
@@ -71,6 +76,7 @@ class HomeFragment : BaseFragment() {
         when (v.id) {
             AppRouter.appSinglePermission.hashCode() -> checkOnePermissions()
             AppRouter.appMultiPermission.hashCode() -> checkPermissions()
+            AppRouter.appOpenWeChat.hashCode() -> openWeChat()
             else -> AppRouter.go(v.tag as String)
         }
     }
@@ -118,5 +124,13 @@ class HomeFragment : BaseFragment() {
                     showBar("权限申请完成")
                 }
             })
+    }
+
+    private fun openWeChat(){
+        val uri = Uri.parse("weixin://dl/business/?t=K79JD9PqEgt")
+        val intent = Intent(Intent.ACTION_VIEW, uri)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        VMTools.context.startActivity(intent)
+
     }
 }

@@ -4,6 +4,6 @@
     android:viewportWidth="1024"
     android:viewportHeight="1024">
     <path
-        android:fillColor="@color/app_icon"
+        android:fillColor="@color/app_icon_light"
         android:pathData="M165.12,240.47C165.12,124.91 291.18,53.55 390.24,113.01l451.59,270.96c96.24,57.73 96.24,197.23 0,254.91L390.24,909.85C291.14,969.32 165.12,897.96 165.12,782.4V240.47z" />
 </vector>

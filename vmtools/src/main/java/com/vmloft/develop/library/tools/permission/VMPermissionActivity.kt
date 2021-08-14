@@ -79,7 +79,8 @@ class VMPermissionActivity : AppCompatActivity() {
         mTitle = intent.getStringExtra(VMConstant.vmPermissionTitleKey)
         mMessage = intent.getStringExtra(VMConstant.vmPermissionMsgKey)
         mPermissions.clear()
-        mPermissions.addAll(intent.getParcelableArrayListExtra(VMConstant.vmPermissionListKey))
+        val list = intent.getParcelableArrayListExtra<VMPermissionBean>(VMConstant.vmPermissionListKey) ?: arrayListOf()
+        mPermissions.addAll(list)
         mPermissionsCopy = mPermissions
         if (mPermissions.isEmpty()) {
             finish()

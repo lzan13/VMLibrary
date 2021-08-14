@@ -17,7 +17,7 @@
     <color name="app_bg">#fff8f8f8</color>
     <color name="app_bg_nav">#fff8f8f8</color>
     <color name="app_bg_display">#ff000000</color>
-    <color name="app_bg_input">#ffffffff</color>
+    <color name="app_bg_input">#fff6f7f8</color>
     <color name="app_bg_icon">@color/vm_white</color>
     <color name="app_bg_item">@color/vm_white</color>
     <color name="app_bg_mask">@color/vm_black_38</color>

@@ -1,13 +1,18 @@
 package com.vmloft.develop.library.example.ui.settings
 
+import android.content.Intent
+import android.os.Build
+import android.provider.Settings
 import com.alibaba.android.arouter.facade.annotation.Route
 
 import com.vmloft.develop.library.common.base.BaseActivity
+import com.vmloft.develop.library.common.notify.NotifyManager
 import com.vmloft.develop.library.common.router.CRouter
 import com.vmloft.develop.library.common.widget.CommonDialog
 import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.tools.utils.VMStr
+import com.vmloft.develop.library.tools.utils.logger.VMLog
 
 import kotlinx.android.synthetic.main.activity_settings.*
 
@@ -25,6 +30,8 @@ class SettingsActivity : BaseActivity() {
         super.initUI()
         setTopTitle(R.string.settings)
 
+        settingsAccessibilityLV.setOnClickListener { openAccessibilitySetting() }
+
         settingsDarkLV.setOnClickListener { CRouter.go(AppRouter.appSettingsDark) }
         settingsNotifyLV.setOnClickListener { CRouter.go(AppRouter.appSettingsNotify) }
         settingsPictureLV.setOnClickListener { CRouter.go(AppRouter.appSettingsMedia) }
@@ -34,6 +41,24 @@ class SettingsActivity : BaseActivity() {
     }
 
     override fun initData() {
+    }
+
+    /**
+     * 打开辅助设置
+     */
+    private fun openAccessibilitySetting() {
+//        CRouter.go(AppRouter.appAccessibility)
+        val intent = Intent()
+        try {
+            intent.action = Settings.ACTION_ACCESSIBILITY_SETTINGS
+        } catch (e: Exception) {
+            VMLog.e(e.message ?: "打开设置出错")
+            // 其他低版本或者异常情况，走该节点。进入APP设置界面
+            intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+            intent.putExtra("package", packageName)
+        }
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
     }
 
     /**

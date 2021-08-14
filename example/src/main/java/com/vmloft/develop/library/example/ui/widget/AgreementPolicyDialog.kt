@@ -6,6 +6,7 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
+import android.text.method.ScrollingMovementMethod
 import android.text.style.ForegroundColorSpan
 import android.text.style.URLSpan
 import android.view.View
@@ -15,6 +16,7 @@ import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.common.widget.CommonDialog
 import com.vmloft.develop.library.tools.utils.VMColor
 import com.vmloft.develop.library.tools.utils.VMStr
+import com.vmloft.develop.library.tools.utils.logger.VMLog
 
 import kotlinx.android.synthetic.main.widget_agreement_policy_dialog.*
 
@@ -53,9 +55,10 @@ class AgreementPolicyDialog(context: Context) : CommonDialog(context) {
 //        sp.setSpan(StyleSpan(android.graphics.Typeface.BOLD_ITALIC), 19, 21, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
         //设置下划线
 //        sp.setSpan(UnderlineSpan(), 22, 25, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        dialogContentTV.highlightColor = VMColor.byRes(R.color.vm_transparent)
+
         dialogContentTV.text = sp
         dialogContentTV.movementMethod = LinkMovementMethod.getInstance()
-
     }
 
     override fun layoutId() = R.layout.widget_agreement_policy_dialog
@@ -73,11 +76,13 @@ class AgreementPolicyDialog(context: Context) : CommonDialog(context) {
 //            ds.color = Color.RED
             //这里可以去除点击文本的默认的下划线
             ds.isUnderlineText = false
+            ds.bgColor = VMColor.byRes(R.color.vm_transparent)
         }
 
         override fun onClick(widget: View) {
-            //去除点击后字体出现的背景色
-            (widget as? TextView)?.highlightColor = VMColor.byRes(R.color.vm_transparent)
+            VMLog.d("点击 span")
+            // 去除点击后字体出现的背景色
+//            (widget as? TextView)?.highlightColor = VMColor.byRes(R.color.vm_transparent)
 //            AppRouter.goAgreementPolicy(type)
         }
     }

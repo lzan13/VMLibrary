@@ -1,5 +1,6 @@
 package com.vmloft.develop.library.common.notify
 
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationChannelGroup
 import android.app.NotificationManager
@@ -21,6 +22,7 @@ import com.vmloft.develop.library.tools.utils.logger.VMLog
  * Create by lzan13 on 2020/6/22 10:20
  * 描述：通知管理类
  */
+@SuppressLint("StaticFieldLeak")
 object NotifyManager {
 
     // 系统通知管理类

@@ -90,7 +90,7 @@ abstract class VMBaseDialog : Dialog {
     /**
      * 设置标题
      */
-    fun setTitle(title: String?) {
+    open fun setTitle(title: String?) {
         getTitleTV()?.text = title
         getTitleTV()?.visibility = if (title.isNullOrEmpty()) View.GONE else View.VISIBLE
     }
@@ -98,7 +98,7 @@ abstract class VMBaseDialog : Dialog {
     /**
      * 设置内容
      */
-    fun setContent(resId: Int) {
+    open fun setContent(resId: Int) {
         getContentTV()?.setText(resId)
         getContentTV()?.visibility = if (resId == 0) View.GONE else View.VISIBLE
     }
@@ -106,7 +106,7 @@ abstract class VMBaseDialog : Dialog {
     /**
      * 设置内容
      */
-    fun setContent(content: String) {
+    open fun setContent(content: String) {
         getContentTV()?.text = content
         getContentTV()?.visibility = if (content.isNullOrEmpty()) View.GONE else View.VISIBLE
     }
@@ -114,7 +114,7 @@ abstract class VMBaseDialog : Dialog {
     /**
      * 设置内容
      */
-    fun setView(view: View?) {
+    open fun setView(view: View?) {
         getContainerLL()?.addView(view)
         getContainerLL()?.visibility = if (view == null) View.GONE else View.VISIBLE
     }

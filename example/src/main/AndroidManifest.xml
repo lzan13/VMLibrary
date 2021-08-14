@@ -19,7 +19,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!-- 允许程序在手机屏幕关闭后后台运行 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <!--弹出框-->
+    <!--悬浮窗-->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
@@ -48,6 +48,20 @@
             android:windowSoftInputMode="adjustNothing|stateAlwaysHidden" />
 
         <!--demo界面 开始-->
+        <!--辅助功能-->
+        <activity android:name=".ui.demo.accessibility.TBLiveMsgActivity" />
+        <service
+            android:name=".ui.demo.accessibility.TBLiveMsgService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/tb_live_msg_auto_service" />
+        </service>
         <!--自定义弹幕-->
         <activity android:name=".ui.demo.custom.BarrageViewActivity" />
         <!--自定义控件-->
@@ -88,12 +102,8 @@
         <activity android:name=".ui.demo.web.WebTestActivity" />
         <!--图片选择功能界面-->
         <activity android:name=".ui.demo.image.ImagePickerActivity" />
-        <!--自定义 LayoutManager界面-->
-        <activity android:name=".ui.demo.layout.CustomLayoutManagerActivity" />
         <!--自定义表格-->
         <activity android:name=".ui.demo.layout.CustomTableActivity" />
-        <!--自定义表格-->
-        <activity android:name=".ui.demo.table.CustomTableActivity" />
         <!--demo界面 结束-->
 
 

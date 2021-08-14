@@ -6,14 +6,19 @@ import android.app.ActivityManager.RunningAppProcessInfo
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager.NameNotFoundException
+import android.net.Uri
+import android.os.Build
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Handler
 import android.os.Looper
 import android.os.Process
 import android.provider.Settings
+import android.view.accessibility.AccessibilityManager
 import com.vmloft.develop.library.tools.VMTools.context
+import com.vmloft.develop.library.tools.utils.logger.VMLog
 import com.vmloft.develop.library.tools.utils.logger.VMLog.e
 import java.util.concurrent.Executors
 
@@ -31,14 +36,14 @@ object VMSystem {
     /**
      * 在 UI 线程中延迟执行
      */
-    fun runInUIThread(runnable: Runnable?, delay: Long = 0) {
+    fun runInUIThread(runnable: Runnable, delay: Long = 0) {
         handler.postDelayed(runnable, delay)
     }
 
     /**
      * 异步任务
      */
-    fun runTask(runnable: Runnable?) {
+    fun runTask(runnable: Runnable) {
         mExecutorPool.execute(runnable)
     }
 
@@ -193,6 +198,48 @@ object VMSystem {
         }
         // 没有匹配的项，返回为null
         return processName
+    }
+
+    /**
+     * 检查悬浮窗设置
+     */
+    fun checkAlertSetting(context: Context, openSettings: Boolean = false): Boolean {
+        if (VERSION.SDK_INT < VERSION_CODES.M) {
+            return true
+        }
+        if (Settings.canDrawOverlays(context)) {
+            return true
+        }
+        if (openSettings) {
+            val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + context.packageName))
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context.startActivity(intent)
+        }
+        return false
+    }
+
+    /**
+     * 检查无障碍辅助设置
+     */
+    fun checkAccessibilitySetting(context: Context, openSettings: Boolean = false): Boolean {
+        val am = context.getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
+        if (am.isEnabled) {
+            return true
+        }
+        if (openSettings) {
+            val intent = Intent()
+            try {
+                intent.action = Settings.ACTION_ACCESSIBILITY_SETTINGS
+            } catch (e: Exception) {
+                VMLog.e(e.message ?: "打开设置出错")
+                // 其他低版本或者异常情况，走该节点。进入APP设置界面
+                intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                intent.putExtra("package", context.packageName)
+            }
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context.startActivity(intent)
+        }
+        return false
     }
 
 }

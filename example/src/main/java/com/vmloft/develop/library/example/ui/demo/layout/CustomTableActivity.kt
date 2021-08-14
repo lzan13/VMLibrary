@@ -53,7 +53,7 @@ class CustomTableActivity : BaseActivity() {
         }
 
         // 填充数据
-        for (i in 1..10) {
+        for (i in 1..100) {
             bean = CustomTableBean("子账户$i", "2021-7-$i", "11:11:$i", "23:11:$i", "08:23:$i", "09:32:$i", "12:33:$i")
             dataList.add(bean)
         }

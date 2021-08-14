@@ -13,27 +13,65 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/vm_dimen_16"
-        android:text="@string/agreement_policy_dialog_title"
+        android:text="@string/tb_live_msg_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/dialogContentTV"
+        android:id="@+id/dialogContentLabelTV"
+        style="@style/AppText.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/vm_dimen_16"
+        android:text="内容:"
+        app:layout_constraintBottom_toBottomOf="@+id/dialogContentET"
+        app:layout_constraintEnd_toStartOf="@+id/dialogContentET"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/dialogContentET" />
+
+    <EditText
+        android:id="@+id/dialogContentET"
+        style="@style/AppEdit.Single"
         android:layout_width="@dimen/vm_dimen_0"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/vm_dimen_16"
-        android:fadeScrollbars="true"
-        android:maxHeight="@dimen/vm_dimen_256"
+        android:hint="@string/input_hint"
         android:overScrollMode="always"
-        android:scrollbarThumbVertical="@null"
-        android:scrollbars="vertical"
+        android:text="我来了😁~"
         android:textColor="@color/app_title"
         android:textSize="@dimen/vm_size_14"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dialogContentLabelTV"
+        app:layout_constraintTop_toBottomOf="@+id/dialogTitleTV" />
+
+    <TextView
+        android:id="@+id/dialogTimeLabelTV"
+        style="@style/AppText.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/vm_dimen_16"
+        android:text="间隔:"
+        app:layout_constraintBottom_toBottomOf="@+id/dialogTimeET"
+        app:layout_constraintEnd_toStartOf="@+id/dialogTimeET"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dialogTitleTV"
-        tools:text="@string/agreement_policy_dialog_content" />
+        app:layout_constraintTop_toTopOf="@+id/dialogTimeET" />
+
+    <EditText
+        android:id="@+id/dialogTimeET"
+        style="@style/AppEdit.Single"
+        android:layout_width="@dimen/vm_dimen_0"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/vm_dimen_16"
+        android:hint="@string/input_hint"
+        android:inputType="number"
+        android:overScrollMode="always"
+        android:text="3000"
+        android:textColor="@color/app_title"
+        android:textSize="@dimen/vm_size_14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dialogTimeLabelTV"
+        app:layout_constraintTop_toBottomOf="@+id/dialogContentET" />
 
     <TextView
         android:id="@+id/dialogNegativeTV"
@@ -42,9 +80,8 @@
         android:layout_height="@dimen/vm_dimen_40"
         android:layout_marginStart="@dimen/vm_dimen_24"
         android:layout_marginEnd="@dimen/vm_dimen_8"
-        android:text="不同意"
+        android:text="@string/btn_cancel"
         android:textSize="@dimen/vm_size_15"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/dialogPositiveTV"
         app:layout_constraintEnd_toStartOf="@+id/dialogPositiveTV"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,11 +98,11 @@
         android:layout_marginEnd="@dimen/vm_dimen_24"
         android:layout_marginBottom="@dimen/vm_dimen_20"
         android:elevation="@dimen/vm_dimen_8"
-        android:text="同意"
+        android:text="@string/btn_save"
         android:textSize="@dimen/vm_size_15"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/dialogNegativeTV"
-        app:layout_constraintTop_toBottomOf="@+id/dialogContentTV"
+        app:layout_constraintTop_toBottomOf="@+id/dialogTimeET"
         app:layout_goneMarginStart="@dimen/vm_dimen_24" />
 </androidx.constraintlayout.widget.ConstraintLayout>

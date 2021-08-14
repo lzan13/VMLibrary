@@ -23,7 +23,7 @@ object VMSPUtil {
         /**
          * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
          */
-        fun put(key: String?, obj: Any) {
+        fun put(key: String, obj: Any) {
             val editor = sp.edit()
             when (obj) {
                 is String -> editor.putString(key, obj)
@@ -39,7 +39,7 @@ object VMSPUtil {
         /**
          * 异步保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
          */
-        fun putAsync(key: String?, obj: Any) {
+        fun putAsync(key: String, obj: Any) {
             val editor = sp.edit()
             when (obj) {
                 is String -> editor.putString(key, obj)
@@ -55,21 +55,21 @@ object VMSPUtil {
         /**
          * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
          */
-        fun get(key: String?, defaultObject: Any?): Any? {
+        fun get(key: String, defaultObject: Any): Any {
             return when (defaultObject) {
-                is String -> sp.getString(key, defaultObject as String?)
-                is Int -> sp.getInt(key, (defaultObject as Int?)!!)
-                is Boolean -> sp.getBoolean(key, (defaultObject as Boolean?)!!)
-                is Float -> sp.getFloat(key, (defaultObject as Float?)!!)
-                is Long -> sp.getLong(key, (defaultObject as Long?)!!)
-                else -> null
+                is String -> sp.getString(key, defaultObject) ?: ""
+                is Int -> sp.getInt(key, defaultObject)
+                is Boolean -> sp.getBoolean(key, defaultObject )
+                is Float -> sp.getFloat(key, defaultObject )
+                is Long -> sp.getLong(key, defaultObject )
+                else -> ""
             }
         }
 
         /**
          * 移除某个key值已经对应的值
          */
-        fun remove(key: String?) {
+        fun remove(key: String) {
             val editor = sp.edit()
             editor.remove(key)
             editor.commit()
@@ -78,7 +78,7 @@ object VMSPUtil {
         /**
          * 异步移除某个key值已经对应的值
          */
-        fun removeAsync(key: String?) {
+        fun removeAsync(key: String) {
             val editor = sp.edit()
             editor.remove(key)
             editor.apply()
@@ -105,7 +105,7 @@ object VMSPUtil {
         /**
          * 查询某个key是否已经存在
          */
-        fun contains(key: String?): Boolean {
+        fun contains(key: String): Boolean {
             return sp.contains(key)
         }
 

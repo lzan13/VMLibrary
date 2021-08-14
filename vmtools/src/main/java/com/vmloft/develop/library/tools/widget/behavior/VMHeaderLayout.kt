@@ -458,14 +458,13 @@ class VMHeaderLayout @JvmOverloads constructor(
 
     class LayoutParams : FrameLayout.LayoutParams {
 
-        private val transformationNothing = 0x00
-        private val transformationScroll = 0x01
-        private val transformationAlpha = 0x02
-        private val transformationAlphaContrary = 0x04
-        private val transformationExtendScale = 0x08
+        private val transformationAlpha = 0x01
+        private val transformationAlphaContrary = 0x02
+        private val transformationExtendScale = 0x04
+        private val transformationScroll = 0x08
         private val transformationCommonToolbar = 0x10
 
-        private var transformationFlags = transformationNothing
+        private var transformationFlags = transformationAlpha
         private var customTransformation: String? = null
 
         var transformations: MutableList<Transformation<View>>? = null
@@ -484,7 +483,7 @@ class VMHeaderLayout @JvmOverloads constructor(
 
         constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
             val a = context.obtainStyledAttributes(attrs, R.styleable.VMHeaderLayout)
-            transformationFlags = a.getInt(R.styleable.VMHeaderLayout_vm_transformation, 0x00)
+            transformationFlags = a.getInt(R.styleable.VMHeaderLayout_vm_transformation, transformationFlags)
             stickyUntilExit = a.getBoolean(R.styleable.VMHeaderLayout_vm_sticky_until_exit, false)
             customTransformation = a.getString(R.styleable.VMHeaderLayout_vm_custom_transformation)
             parseTransformationBehaviors(transformationFlags, customTransformation)
@@ -496,18 +495,15 @@ class VMHeaderLayout @JvmOverloads constructor(
          * 在behavior分发时会遍历[transformations]进行分发
          */
         private fun parseTransformationBehaviors(transformationFlags: Int, customTransformation: String?) {
-            if (transformationFlags and transformationNothing != 0) {
-                return
-            }
             transformations = mutableListOf<Transformation<View>>().apply {
                 if (transformationFlags and transformationAlpha != 0) {
                     add(AlphaTransformation())
                 }
-                if (transformationFlags and transformationExtendScale != 0) {
-                    add(ExtendScaleTransformation())
-                }
                 if (transformationFlags and transformationAlphaContrary != 0) {
                     add(AlphaContraryTransformation())
+                }
+                if (transformationFlags and transformationExtendScale != 0) {
+                    add(ExtendScaleTransformation())
                 }
                 if (transformationFlags and transformationScroll != 0) {
                     add(ScrollTransformation())

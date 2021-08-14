@@ -182,7 +182,7 @@ class VMBarrageView<T> @JvmOverloads constructor(context: Context?, attrs: Attri
                     Thread.sleep(randomTime - intervalTime)
                 }
                 mLastTime = System.currentTimeMillis()
-                VMSystem.runInUIThread(Runnable {
+                VMSystem.runInUIThread({
                     mActiveSize++
                     barrageAnim(view!!, bean)
                 })

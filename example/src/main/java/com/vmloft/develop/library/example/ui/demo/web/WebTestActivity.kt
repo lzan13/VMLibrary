@@ -21,7 +21,8 @@ import kotlinx.android.synthetic.main.activity_demo_web_page.*
  */
 @Route(path = AppRouter.appWebTest)
 class WebTestActivity : BaseActivity() {
-    private var webView: WebView? = null
+    lateinit var webView: WebView
+
     override fun layoutId(): Int {
         return layout.activity_demo_web_page
     }
@@ -31,13 +32,13 @@ class WebTestActivity : BaseActivity() {
         setTopTitle("加载 Web 页面")
 
         webView = WebView(mActivity)
-        webView?.settings?.javaScriptEnabled = true
-        webView?.isVerticalScrollBarEnabled = false
-        webView?.isHorizontalScrollBarEnabled = false
-        webView?.webViewClient = viewClient
-        webView?.webChromeClient = chromeClient
+        webView.settings.javaScriptEnabled = true
+        webView.isVerticalScrollBarEnabled = false
+        webView.isHorizontalScrollBarEnabled = false
+        webView.webViewClient = viewClient
+        webView.webChromeClient = chromeClient
         webContainerLL.addView(webView, LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
-        webView?.loadUrl("file:///android_asset/index.html")
+        webView.loadUrl("file:///android_asset/index.html")
     }
 
     override fun initData() {}
@@ -50,7 +51,7 @@ class WebTestActivity : BaseActivity() {
     fun callJS(view: View) {
         var method = "javaCallJs"
         val callJavascript = "javascript:$method()"
-        webView?.loadUrl(callJavascript)
+        webView.loadUrl(callJavascript)
     }
 
     /**
@@ -58,9 +59,9 @@ class WebTestActivity : BaseActivity() {
      */
     fun callJSArgs(view: View) {
         var method = "javaCallJsArgs"
-        var params = "Hi Title 2\n======\n\n 你好啊2"
+        var params = "我是参数 Hi Title 2\n======\n\n 你好啊2"
         val callJavascript = "javascript:$method('$params')"
-        webView?.loadUrl(callJavascript)
+        webView.loadUrl(callJavascript)
     }
 
     private val viewClient: WebViewClient = object : WebViewClient() {

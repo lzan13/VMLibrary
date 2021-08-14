@@ -78,6 +78,7 @@
     <string name="notify_msg_system_hint">前往系统设置修改消息声音与震动</string>
     <string name="notify_msg_hint">你有一条新的消息通知</string>
 
+    <string name="settings_accessibility">辅助功能</string>
     <string name="settings_dark">深色模式</string>
     <string name="settings_dark_system">跟随系统</string>
     <string name="settings_dark_system_hint">开启状态下，会自动跟随系统夜间模式切换应用内主题样式</string>
@@ -179,4 +180,7 @@
     <string name="ads_label">广告</string>
     <string name="ads_empty">虚位以待</string>
 
+    <string name="tb_live_msg_title">输入消息配置</string>
+    <string name="accessibility_permission_hint">辅助操作需要悬浮窗全新啊，当前未获取悬浮窗权限，请打开悬浮窗权限再使用</string>
+    <string name="accessibility_service_hint">此功能主要是用于辅助你实现一些重复繁琐的操作，让你解放双手，从而节省你的时间！\n\n 提示：开启此功能时会收到系统提醒，这是系统对使用此功能应用的例行弹窗提示！\n\n请放心，我们不会收集你的任何信息，请放心使用</string>
 </resources>

@@ -9,6 +9,8 @@ import com.vmloft.develop.library.common.router.CRouter
  * 描述：针对路由注解统一收口
  */
 object AppRouter {
+    // 界面 Demo
+    const val appAccessibility = "/VMLoft/Accessibility"
     const val appBarrage = "/VMLoft/Barrage"
     const val appCustomView = "/VMLoft/CustomView"
     const val appFloatMenu = "/VMLoft/FloatMenu"
@@ -26,6 +28,7 @@ object AppRouter {
 
     const val appSinglePermission = "/VMLoft/SinglePermission"
     const val appMultiPermission = "/VMLoft/MultiPermission"
+    const val appOpenWeChat = "/VMLoft/OpenWeChat"
 
     const val appNotifyTest = "/VMLoft/Notify"
 

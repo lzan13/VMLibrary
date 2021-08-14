@@ -163,7 +163,8 @@ object VMBitmap {
                 }
             } else if (path is Uri) {
                 // 从指定路径下读取图片，并获取其EXIF信息
-                ExifInterface(VMFile.getPath(path))
+                val pathStr = VMFile.getPath(path) ?: ""
+                ExifInterface(pathStr)
             } else if (path is String) {
                 ExifInterface(path)
             } else {
