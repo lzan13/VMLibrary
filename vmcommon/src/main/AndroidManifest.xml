@@ -34,7 +34,7 @@
         <activity
             android:name="com.vmloft.develop.library.tools.permission.VMPermissionActivity"
             android:theme="@style/AppTheme.Permission"
-            tools:replace="theme" />
+            tools:replace="android:theme" />
 
         <!--友盟统计-->
         <meta-data

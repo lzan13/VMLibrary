@@ -74,7 +74,7 @@ object TBLiveMsgManager {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
         } else {
-            layoutParams.type = WindowManager.LayoutParams.TYPE_PHONE
+            layoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT
         }
 
         // 设置窗口标志类型，其中 FLAG_NOT_FOCUSABLE 是放置当前悬浮窗拦截点击事件，造成桌面控件不可操作
