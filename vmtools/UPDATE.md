@@ -4,6 +4,7 @@
 ### 2021/08/14 V1.4.8
 - VMHeaderLayout 问题修复
 - 修改发布配置以及 Gradle 插件添加方式
+- 修改 jitpack 打包时 java jdk 版本指定为 java 11
 
 ### 2021/07/20 V1.4.7
 - 配置 mavenCenteral 代理地址
