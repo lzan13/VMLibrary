@@ -5,10 +5,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.children
-
 import com.vmloft.develop.library.tools.widget.behavior.VMHeaderLayout
 
-class CommonToolbarTransformation : TransformationAdapter<View>() {
+class CommonToolbarTransformation: TransformationAdapter<View>() {
 
     private var titleTextView: TextView? = null
 

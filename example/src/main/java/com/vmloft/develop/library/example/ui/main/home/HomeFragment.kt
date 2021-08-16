@@ -127,7 +127,23 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun openWeChat(){
-        val uri = Uri.parse("weixin://dl/business/?t=K79JD9PqEgt")
+        /**
+         * {
+         *      "wxCode":"http://zyphoto.itluntan.cn/202108091681857",
+         *      "zfbCode":"http://zyphoto.itluntan.cn/20210809161957",
+         *      "zfbScheme":"alipayqr://platformapi/startapp?saId=10000007&qrcode=https%3A%2F%2Fqr.alipay.com%2Ftsx14575pzorxigphwtdj84",
+         *      "afbPayUrl":"https://admin.zha nzhangfu.com/common/zfbuserid?zfbuserid=2088602250620913&price=1.00"
+         * }
+         *  微信扫一扫
+         *  weixin://scanqrcode
+         *  （跳转微信扫一扫）
+
+         *  支付宝扫一扫
+         *  alipays://platformapi/startapp?saId=10000007
+         *  （跳转支付宝扫一扫）
+         */
+//        val uri = Uri.parse("weixin://dl/business/?t=K79JD9PqEgt")
+        val uri = Uri.parse("alipays://platformapi/startapp?saId=20000056")
         val intent = Intent(Intent.ACTION_VIEW, uri)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         VMTools.context.startActivity(intent)

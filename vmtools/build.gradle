@@ -1,9 +1,10 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'com.github.dcendents.android-maven'
-group='com.gitee.lzan13'
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+    id 'maven-publish'
+}
 
 // 获取配置信息
 def configs = rootProject.ext.configs
@@ -15,8 +16,6 @@ android {
     defaultConfig {
         minSdkVersion configs.minSdkVersion
         targetSdkVersion configs.targetSdkVersion
-        versionCode configs.versionCode
-        versionName configs.versionName
     }
     buildTypes {
         release {
@@ -40,14 +39,30 @@ android {
     kapt {
         correctErrorTypes = true
     }
+
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
     implementation 'com.google.android.material:material:1.4.0'
 
+}
+
+/**
+ * 发布配置
+ */
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.gitee.lzan13'
+                artifactId = 'vmtools'
+                version = configs.versionName
+            }
+        }
+    }
 }

@@ -1,7 +1,6 @@
 package com.vmloft.develop.library.tools.widget.behavior.transformation
 
 import android.view.View
-
 import com.vmloft.develop.library.tools.widget.behavior.VMHeaderLayout
 
 interface Transformation<in V : View> {

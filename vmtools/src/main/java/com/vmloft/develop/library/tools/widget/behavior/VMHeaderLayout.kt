@@ -38,13 +38,11 @@ class VMHeaderLayout @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0,
 ) : FrameLayout(context, attrs, defStyleAttr), CoordinatorLayout.AttachedBehavior {
 
-    private val defaultExtendHeight = 200
-
     var maxHeight = 0
 
     var minHeight = 0
 
-    var extendHeight = defaultExtendHeight
+    var extendHeight = 320
 
     var extendHeightFraction = 0.0f
 
@@ -135,14 +133,6 @@ class VMHeaderLayout @JvmOverloads constructor(
         }
     }
 
-    fun updateLayout() {
-        hasLayouted = false
-        requestLayout()
-        post {
-            hasLayouted = true
-        }
-    }
-
     fun offsetChild(child: View, dy: Int) {
         (child.layoutParams as LayoutParams).apply {
             if (stickyUntilExit) {
@@ -201,9 +191,6 @@ class VMHeaderLayout @JvmOverloads constructor(
         }
     }
 
-    /**
-     * 头部控件 behavior
-     */
     open class HeaderLayoutBehavior(
         context: Context? = null,
         attrs: AttributeSet? = null,
@@ -251,7 +238,7 @@ class VMHeaderLayout @JvmOverloads constructor(
 
         override fun onLayoutChild(parent: CoordinatorLayout, child: VMHeaderLayout, layoutDirection: Int): Boolean {
             return if (child.hasLayouted) {
-                // 第一次布局加载完成之后，因requestLayout造成的再次layout应是上一次的位置，
+                //第一次布局加载完成之后，因requestLayout造成的再次layout应是上一次的位置，
                 // 需要保持滑动后的原样
                 child.layout(child.left, child.top, child.right, child.bottom)
                 true
@@ -458,13 +445,14 @@ class VMHeaderLayout @JvmOverloads constructor(
 
     class LayoutParams : FrameLayout.LayoutParams {
 
-        private val transformationAlpha = 0x01
-        private val transformationAlphaContrary = 0x02
-        private val transformationExtendScale = 0x04
-        private val transformationScroll = 0x08
+        private val transformationNothing = 0x00
+        private val transformationScroll = 0x01
+        private val transformationAlpha = 0x02
+        private val transformationAlphaContrary = 0x04
+        private val transformationExtendScale = 0x08
         private val transformationCommonToolbar = 0x10
 
-        private var transformationFlags = transformationAlpha
+        private var transformationFlags = transformationNothing
         private var customTransformation: String? = null
 
         var transformations: MutableList<Transformation<View>>? = null
@@ -482,10 +470,10 @@ class VMHeaderLayout @JvmOverloads constructor(
         constructor(source: FrameLayout.LayoutParams) : super(source)
 
         constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
-            val a = context.obtainStyledAttributes(attrs, R.styleable.VMHeaderLayout)
-            transformationFlags = a.getInt(R.styleable.VMHeaderLayout_vm_transformation, transformationFlags)
-            stickyUntilExit = a.getBoolean(R.styleable.VMHeaderLayout_vm_sticky_until_exit, false)
-            customTransformation = a.getString(R.styleable.VMHeaderLayout_vm_custom_transformation)
+            val a = context.obtainStyledAttributes(attrs, R.styleable.VMHeaderLayoutLP)
+            transformationFlags = a.getInt(R.styleable.VMHeaderLayoutLP_vm_transformation, 0x00)
+            stickyUntilExit = a.getBoolean(R.styleable.VMHeaderLayoutLP_vm_sticky_until_exit, false)
+            customTransformation = a.getString(R.styleable.VMHeaderLayoutLP_vm_custom_transformation)
             parseTransformationBehaviors(transformationFlags, customTransformation)
             a.recycle()
         }
@@ -495,15 +483,18 @@ class VMHeaderLayout @JvmOverloads constructor(
          * 在behavior分发时会遍历[transformations]进行分发
          */
         private fun parseTransformationBehaviors(transformationFlags: Int, customTransformation: String?) {
+            if (transformationFlags and transformationNothing != 0) {
+                return
+            }
             transformations = mutableListOf<Transformation<View>>().apply {
                 if (transformationFlags and transformationAlpha != 0) {
                     add(AlphaTransformation())
                 }
-                if (transformationFlags and transformationAlphaContrary != 0) {
-                    add(AlphaContraryTransformation())
-                }
                 if (transformationFlags and transformationExtendScale != 0) {
                     add(ExtendScaleTransformation())
+                }
+                if (transformationFlags and transformationAlphaContrary != 0) {
+                    add(AlphaContraryTransformation())
                 }
                 if (transformationFlags and transformationScroll != 0) {
                     add(ScrollTransformation())
@@ -525,7 +516,6 @@ class VMHeaderLayout @JvmOverloads constructor(
             val clazz = Class.forName(customTransformation)
             return clazz.getDeclaredConstructor().newInstance() as Transformation<View>
         }
-
     }
 
 }

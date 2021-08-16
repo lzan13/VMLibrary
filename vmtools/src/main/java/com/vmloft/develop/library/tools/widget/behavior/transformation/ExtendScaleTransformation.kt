@@ -1,10 +1,9 @@
 package com.vmloft.develop.library.tools.widget.behavior.transformation
 
 import android.view.View
-
 import com.vmloft.develop.library.tools.widget.behavior.VMHeaderLayout
 
-class ExtendScaleTransformation : TransformationAdapter<View>() {
+class ExtendScaleTransformation: TransformationAdapter<View>() {
 
     override fun onStateMaxHeight(child: View, parent: VMHeaderLayout, unConsumedDy: Int) {
         child.scaleX = 1.0f
