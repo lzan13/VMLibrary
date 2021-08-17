@@ -179,6 +179,6 @@ if (debugTools) {
 } else {
     dependencies {
         // 自定义工具库 https://gitee.com/lzan13/VMLibrary
-        api 'com.gitee.lzan13:VMLibrary:1.4.8'
+        api 'com.gitee.lzan13:VMLibrary:1.4.7'
     }
 }
