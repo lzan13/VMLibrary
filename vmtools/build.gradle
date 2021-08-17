@@ -35,6 +35,7 @@ android {
     // kotlin 配置
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11
+        useIR = true
     }
     kapt {
         correctErrorTypes = true

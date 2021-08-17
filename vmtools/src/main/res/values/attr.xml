@@ -2,18 +2,20 @@
 <resources>
 
     <declare-styleable name="VMHeaderLayout">
+        <!--自定义过渡效果-->
+        <attr name="vm_custom_transformation" format="string" />
+        <!--扩展高度-->
         <attr name="vm_extend_height" format="fraction|dimension|float" />
-    </declare-styleable>
-    <declare-styleable name="VMHeaderLayoutLP">
+        <!--粘性的-->
+        <attr name="vm_sticky_until_exit" format="boolean" />
+        <!--过渡方式-->
         <attr name="vm_transformation">
-            <flag name="scroll" value="0x01" />
-            <flag name="alpha" value="0x02" />
-            <flag name="alpha_contrary" value="0x04" />
-            <flag name="extend_scale" value="0x08" />
+            <flag name="alpha" value="0x01" />
+            <flag name="alpha_contrary" value="0x02" />
+            <flag name="extend_scale" value="0x04" />
+            <flag name="scroll" value="0x08" />
             <flag name="common_toolbar" value="0x10" />
         </attr>
-        <attr name="vm_custom_transformation" format="string" />
-        <attr name="vm_sticky_until_exit" format="boolean" />
     </declare-styleable>
 
     <!--自定义 VMDotLineView 属性-->

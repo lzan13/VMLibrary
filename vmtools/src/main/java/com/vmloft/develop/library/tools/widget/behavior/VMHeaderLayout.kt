@@ -446,10 +446,10 @@ class VMHeaderLayout @JvmOverloads constructor(
     class LayoutParams : FrameLayout.LayoutParams {
 
         private val transformationNothing = 0x00
-        private val transformationScroll = 0x01
-        private val transformationAlpha = 0x02
-        private val transformationAlphaContrary = 0x04
-        private val transformationExtendScale = 0x08
+        private val transformationAlpha = 0x01
+        private val transformationAlphaContrary = 0x02
+        private val transformationExtendScale = 0x04
+        private val transformationScroll = 0x08
         private val transformationCommonToolbar = 0x10
 
         private var transformationFlags = transformationNothing
@@ -470,10 +470,10 @@ class VMHeaderLayout @JvmOverloads constructor(
         constructor(source: FrameLayout.LayoutParams) : super(source)
 
         constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
-            val a = context.obtainStyledAttributes(attrs, R.styleable.VMHeaderLayoutLP)
-            transformationFlags = a.getInt(R.styleable.VMHeaderLayoutLP_vm_transformation, 0x00)
-            stickyUntilExit = a.getBoolean(R.styleable.VMHeaderLayoutLP_vm_sticky_until_exit, false)
-            customTransformation = a.getString(R.styleable.VMHeaderLayoutLP_vm_custom_transformation)
+            val a = context.obtainStyledAttributes(attrs, R.styleable.VMHeaderLayout)
+            transformationFlags = a.getInt(R.styleable.VMHeaderLayout_vm_transformation, 0x00)
+            stickyUntilExit = a.getBoolean(R.styleable.VMHeaderLayout_vm_sticky_until_exit, false)
+            customTransformation = a.getString(R.styleable.VMHeaderLayout_vm_custom_transformation)
             parseTransformationBehaviors(transformationFlags, customTransformation)
             a.recycle()
         }
@@ -490,11 +490,11 @@ class VMHeaderLayout @JvmOverloads constructor(
                 if (transformationFlags and transformationAlpha != 0) {
                     add(AlphaTransformation())
                 }
-                if (transformationFlags and transformationExtendScale != 0) {
-                    add(ExtendScaleTransformation())
-                }
                 if (transformationFlags and transformationAlphaContrary != 0) {
                     add(AlphaContraryTransformation())
+                }
+                if (transformationFlags and transformationExtendScale != 0) {
+                    add(ExtendScaleTransformation())
                 }
                 if (transformationFlags and transformationScroll != 0) {
                     add(ScrollTransformation())
