@@ -143,7 +143,7 @@ class HomeFragment : BaseFragment() {
          *  （跳转支付宝扫一扫）
          */
 //        val uri = Uri.parse("weixin://dl/business/?t=K79JD9PqEgt")
-        val uri = Uri.parse("alipays://platformapi/startapp?saId=20000056")
+        val uri = Uri.parse("alipayqr://platformapi/startapp?saId=10000007&qrcode=https%3a%2f%2fqr.alipay.com%2ftsx140593gavtpepmajwj09")
         val intent = Intent(Intent.ACTION_VIEW, uri)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         VMTools.context.startActivity(intent)
