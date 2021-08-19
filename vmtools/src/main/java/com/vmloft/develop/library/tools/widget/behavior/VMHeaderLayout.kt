@@ -71,6 +71,17 @@ class VMHeaderLayout @JvmOverloads constructor(
         }
     }
 
+    /**
+     * 更新布局
+     */
+    fun updateLayout() {
+        hasLayouted = false
+        requestLayout()
+        post {
+            hasLayouted = true
+        }
+    }
+
     private fun getDisplayMetrics(context: Context): DisplayMetrics {
         val displayMetrics = DisplayMetrics()
         (context.getSystemService(Service.WINDOW_SERVICE) as WindowManager).defaultDisplay.getMetrics(displayMetrics)
