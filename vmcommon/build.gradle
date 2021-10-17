@@ -16,9 +16,6 @@ android {
         minSdkVersion configs.minSdkVersion
         targetSdkVersion configs.targetSdkVersion
 
-        // 通过配置文件设置 UCloud 秘钥
-        buildConfigField("String", "ucloudPublicKey", configs.ucloudPublicKey)
-        buildConfigField("String", "ucloudBucket", configs.ucloudBucket)
         // 通过配置文件设置请求 API 地址
         buildConfigField("String", "baseDebugUrl", configs.baseDebugUrl)
         buildConfigField("String", "baseReleaseUrl", configs.baseReleaseUrl)

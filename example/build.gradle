@@ -77,8 +77,6 @@ android {
             manifestPlaceholders = [
                     appChannel   : "Develop",
                     umengAppKey  : configs.umengAppKey,
-
-                    easemobAppKey: configs.easemobAppKey
             ]
         }
     }
