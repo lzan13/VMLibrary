@@ -8,7 +8,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.LinearInterpolator
-import androidx.annotation.AttrRes
+
 import com.vmloft.develop.library.tools.R.color
 import com.vmloft.develop.library.tools.R.styleable
 import com.vmloft.develop.library.tools.permission.VMPermission.Companion.getInstance

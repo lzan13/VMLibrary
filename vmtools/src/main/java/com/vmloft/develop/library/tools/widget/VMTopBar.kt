@@ -7,7 +7,10 @@ import android.os.Build.VERSION_CODES
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import android.widget.TextView
 
 import com.vmloft.develop.library.tools.R
 import com.vmloft.develop.library.tools.R.layout
@@ -15,14 +18,24 @@ import com.vmloft.develop.library.tools.R.styleable
 import com.vmloft.develop.library.tools.utils.VMColor
 import com.vmloft.develop.library.tools.utils.VMStr
 
-import kotlinx.android.synthetic.main.vm_widget_top_bar.view.*
-
 /**
  * Create by lzan13 on 2019/5/19 12:36
  *
  * 自定义 VMTopBar 控件
  */
 class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RelativeLayout(context, attrs, defStyleAttr) {
+
+    private lateinit var vmTopBarIconBtn: ImageView
+    private lateinit var vmTopBarEndBtn: TextView
+    private lateinit var vmTopBarEndIV: ImageView
+
+    private lateinit var vmTopBarTitleTV: TextView
+    private lateinit var vmTopBarCenterTitleTV: TextView
+    private lateinit var vmTopBarSubtitleTV: TextView
+    private lateinit var vmTopBarCenterSubtitleTV: TextView
+
+    private lateinit var vmTopBarEndContainer: LinearLayout
+
     // 设置数据
     private var mIcon = 0
 
@@ -45,6 +58,17 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
      */
     init {
         LayoutInflater.from(context).inflate(layout.vm_widget_top_bar, this)
+
+        vmTopBarIconBtn = findViewById(R.id.vmTopBarIconBtn)
+        vmTopBarEndBtn = findViewById(R.id.vmTopBarEndBtn)
+        vmTopBarEndIV = findViewById(R.id.vmTopBarEndIV)
+
+        vmTopBarTitleTV = findViewById(R.id.vmTopBarTitleTV)
+        vmTopBarCenterTitleTV = findViewById(R.id.vmTopBarCenterTitleTV)
+        vmTopBarSubtitleTV = findViewById(R.id.vmTopBarSubtitleTV)
+        vmTopBarCenterSubtitleTV = findViewById(R.id.vmTopBarCenterSubtitleTV)
+
+        vmTopBarEndContainer = findViewById(R.id.vmTopBarEndContainer)
 
         mTitleColor = VMColor.byRes(R.color.vm_title)
         mSubtitleColor = VMColor.byRes(R.color.vm_subhead)
@@ -75,10 +99,10 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         }
 
         if (mEndIcon == 0) {
-            vmTopBarEndIcon.visibility = View.GONE
+            vmTopBarEndIV.visibility = View.GONE
         } else {
-            vmTopBarEndIcon.visibility = View.VISIBLE
-            vmTopBarEndIcon.setImageResource(mEndIcon)
+            vmTopBarEndIV.visibility = View.VISIBLE
+            vmTopBarEndIV.setImageResource(mEndIcon)
         }
 
         bindTitle()
@@ -136,7 +160,7 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
     fun setIconColor(color: Int) {
         // 对图标着色
         vmTopBarIconBtn.imageTintList = ColorStateList.valueOf(color)
-        vmTopBarEndIcon.imageTintList = ColorStateList.valueOf(color)
+        vmTopBarEndIV.imageTintList = ColorStateList.valueOf(color)
     }
 
     /**
@@ -294,10 +318,10 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
     fun setEndIcon(resId: Int) {
         mEndIcon = resId
         if (mEndIcon == 0) {
-            vmTopBarEndIcon.visibility = View.GONE
+            vmTopBarEndIV.visibility = View.GONE
         } else {
-            vmTopBarEndIcon.visibility = View.VISIBLE
-            vmTopBarEndIcon.setImageResource(mEndIcon)
+            vmTopBarEndIV.visibility = View.VISIBLE
+            vmTopBarEndIV.setImageResource(mEndIcon)
         }
     }
 
@@ -312,7 +336,7 @@ class VMTopBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
      * 设置右侧图标点击监听
      */
     fun setEndIconListener(listener: OnClickListener?) {
-        vmTopBarEndIcon.setOnClickListener(listener)
+        vmTopBarEndIV.setOnClickListener(listener)
     }
 
     /**

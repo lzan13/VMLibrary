@@ -6,7 +6,6 @@ import android.widget.TextView
 
 import com.vmloft.develop.library.tools.R
 import com.vmloft.develop.library.tools.base.VMBaseDialog
-import kotlinx.android.synthetic.main.vm_widget_default_dialog.*
 
 /**
  * Create by lzan13 on 2021/5/13 11:41
@@ -16,14 +15,14 @@ open class VMDefaultDialog(context: Context) : VMBaseDialog(context) {
 
     override fun layoutId() = R.layout.vm_widget_default_dialog
 
-    override fun getTitleTV(): TextView?  = vmDialogTitleTV
+    override fun getTitleTV(): TextView? = findViewById(R.id.vmDialogTitleTV)
 
-    override fun getContentTV(): TextView? = vmDialogContentTV
+    override fun getContentTV(): TextView? = findViewById(R.id.vmDialogContentTV)
 
-    override fun getContainerLL(): LinearLayout? = vmDialogContainerLL
+    override fun getContainerLL(): LinearLayout? = findViewById(R.id.vmDialogContainerLL)
 
-    override fun getNegativeTV(): TextView? = vmDialogPositiveTV
+    override fun getNegativeTV(): TextView? = findViewById(R.id.vmDialogPositiveTV)
 
-    override fun getPositiveTV(): TextView? = vmDialogConfirmTV
+    override fun getPositiveTV(): TextView? = findViewById(R.id.vmDialogConfirmTV)
 
 }

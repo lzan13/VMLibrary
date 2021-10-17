@@ -10,9 +10,9 @@ import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
 import android.util.AttributeSet
 import android.view.View
-import androidx.annotation.AttrRes
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
+
 import com.vmloft.develop.library.tools.R.color
 import com.vmloft.develop.library.tools.R.styleable
 import com.vmloft.develop.library.tools.utils.VMColor
@@ -22,7 +22,6 @@ import com.vmloft.develop.library.tools.widget.indicator.VMIndicatorView.Gravity
 import com.vmloft.develop.library.tools.widget.indicator.VMIndicatorView.Mode.INSIDE
 import com.vmloft.develop.library.tools.widget.indicator.VMIndicatorView.Mode.OUTSIDE
 import com.vmloft.develop.library.tools.widget.indicator.VMIndicatorView.Mode.SOLO
-import java.util.ArrayList
 
 /**
  * Created by lzan13 on 2019/04/10

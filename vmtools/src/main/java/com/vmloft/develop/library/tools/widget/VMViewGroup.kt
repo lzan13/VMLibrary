@@ -3,9 +3,7 @@ package com.vmloft.develop.library.tools.widget
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
-import androidx.annotation.AttrRes
 
 /**
  * Created by lzan13 on 2017/3/25

@@ -6,7 +6,6 @@ import android.graphics.Rect
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.LinearInterpolator
-
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.*
 

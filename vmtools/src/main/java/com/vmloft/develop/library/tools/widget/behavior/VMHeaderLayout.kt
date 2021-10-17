@@ -19,8 +19,8 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout.DefaultBehavior
 import androidx.core.animation.doOnEnd
 import androidx.core.view.ViewCompat
 import androidx.core.view.children
-import com.vmloft.develop.library.tools.R
 
+import com.vmloft.develop.library.tools.R
 import com.vmloft.develop.library.tools.widget.behavior.VMHeaderLayout.ScrollState
 import com.vmloft.develop.library.tools.widget.behavior.transformation.*
 

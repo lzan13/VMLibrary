@@ -95,7 +95,7 @@
         android:orientation="horizontal"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/vmTopBarEndIcon"
+        app:layout_constraintEnd_toStartOf="@+id/vmTopBarEndIV"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_goneMarginEnd="@dimen/vm_margin_normal" />
 
@@ -107,13 +107,13 @@
         android:layout_marginEnd="@dimen/vm_dimen_8"
         style="@style/VMBtn.Flat.Fillet.Accent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/vmTopBarEndIcon"
+        app:layout_constraintEnd_toStartOf="@+id/vmTopBarEndIV"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="确认" />
 
     <!--右侧图标按钮-->
     <ImageButton
-        android:id="@+id/vmTopBarEndIcon"
+        android:id="@+id/vmTopBarEndIV"
         android:layout_width="@dimen/vm_dimen_48"
         android:layout_height="@dimen/vm_dimen_48"
         android:background="@drawable/vm_selector_transparent_full"

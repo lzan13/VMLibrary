@@ -7,6 +7,7 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Animation
 import android.view.animation.DecelerateInterpolator
 import androidx.annotation.FloatRange
+
 import com.vmloft.develop.library.tools.utils.VMDimen
 
 

@@ -12,13 +12,12 @@ import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams
 import android.view.animation.Interpolator
 import android.widget.LinearLayout
-import androidx.annotation.AttrRes
-import androidx.annotation.StyleRes
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+
 import com.vmloft.develop.library.tools.R.styleable
+
 import java.util.ArrayList
 
 /**

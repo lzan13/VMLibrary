@@ -4,7 +4,6 @@ import android.animation.ValueAnimator
 import android.graphics.*
 import androidx.annotation.FloatRange
 
-
 /**
  * Create by lzan13 on 2020/6/30 13:45
  * 描述：嵌套的圆形加载动画

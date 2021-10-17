@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+
 import com.vmloft.develop.library.tools.R
 import com.vmloft.develop.library.tools.R.layout
 import com.vmloft.develop.library.tools.animator.VMAnimator

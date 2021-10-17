@@ -4,8 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.RelativeLayout
-import androidx.annotation.AttrRes
-import androidx.annotation.StyleRes
+
 import com.vmloft.develop.library.tools.R.styleable
 
 /**

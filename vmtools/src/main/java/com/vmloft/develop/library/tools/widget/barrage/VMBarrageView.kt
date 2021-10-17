@@ -7,12 +7,13 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import android.widget.RelativeLayout
+
 import com.vmloft.develop.library.tools.utils.VMDimen
 import com.vmloft.develop.library.tools.utils.VMSystem
 import com.vmloft.develop.library.tools.utils.logger.VMLog
+
 import java.util.concurrent.LinkedBlockingQueue
 
 /**

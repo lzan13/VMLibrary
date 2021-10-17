@@ -8,7 +8,6 @@ import android.view.View
 import androidx.appcompat.widget.AppCompatImageView
 
 import com.vmloft.develop.library.tools.R
-import com.vmloft.develop.library.tools.utils.logger.VMLog
 
 
 /**
