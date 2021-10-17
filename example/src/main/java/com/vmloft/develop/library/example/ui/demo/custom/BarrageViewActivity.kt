@@ -3,15 +3,15 @@ package com.vmloft.develop.library.example.ui.demo.custom
 import android.view.View
 import android.widget.TextView
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.vmloft.develop.library.common.base.BActivity
 
 import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.common.base.BaseActivity
+import com.vmloft.develop.library.example.databinding.ActivityDemoViewBarrageBinding
 import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.tools.animator.VMAnimator
 import com.vmloft.develop.library.tools.widget.barrage.VMBarrageView
 import com.vmloft.develop.library.tools.widget.barrage.VMViewCreator
 
-import kotlinx.android.synthetic.main.activity_demo_view_barrage.*
 
 
 /**
@@ -19,39 +19,37 @@ import kotlinx.android.synthetic.main.activity_demo_view_barrage.*
  * 描述：测试通知提醒界面
  */
 @Route(path = AppRouter.appBarrage)
-class BarrageViewActivity : BaseActivity() {
+class BarrageViewActivity : BActivity<ActivityDemoViewBarrageBinding>() {
     private var mAnimatorWrap: VMAnimator.AnimatorSetWrap? = null
 
     private val mDataList: MutableList<BarrageBean> = mutableListOf()
 
-    override fun layoutId(): Int {
-        return R.layout.activity_demo_view_barrage
-    }
+    override fun initVB() = ActivityDemoViewBarrageBinding.inflate(layoutInflater)
 
     override fun initUI() {
         super.initUI()
         setTopTitle("自定义弹幕")
         val barrageView = findViewById<VMBarrageView<BarrageBean>>(R.id.barrageView)
-        barrageStartBtn.setOnClickListener {
+        mBinding.barrageStartBtn.setOnClickListener {
             barrageView.setCreator(ViewCreator())
                 .setMaxSize(50)
                 .create(mDataList)
                 .start()
         }
 
-        barrageResumeBtn.setOnClickListener {
+        mBinding.barrageResumeBtn.setOnClickListener {
             barrageView.resume()
         }
-        barragePauseBtn.setOnClickListener {
+        mBinding.barragePauseBtn.setOnClickListener {
             barrageView.pause()
         }
-        barrageStopBtn.setOnClickListener {
+        mBinding.barrageStopBtn.setOnClickListener {
             barrageView.stop()
         }
-        barrageSendBtn.setOnClickListener {
+        mBinding.barrageSendBtn.setOnClickListener {
             barrageView.addBarrage(BarrageBean("测试手动新增弹幕 ~ ~ "))
         }
-        barrageResetBtn.setOnClickListener {
+        mBinding.barrageResetBtn.setOnClickListener {
             mDataList.clear()
             mDataList.add(BarrageBean("测试重置弹幕 0"))
             mDataList.add(BarrageBean("测试重置弹幕测试弹幕 1"))
@@ -70,10 +68,10 @@ class BarrageViewActivity : BaseActivity() {
                 .start()
         }
 
-        animStartBtn.setOnClickListener { startAnim() }
-        animPauseBtn.setOnClickListener { pauseAnim() }
-        animResumeBtn.setOnClickListener { resumeAnim() }
-        animStopBtn.setOnClickListener { stopAnim() }
+        mBinding.animStartBtn.setOnClickListener { startAnim() }
+        mBinding.animPauseBtn.setOnClickListener { pauseAnim() }
+        mBinding.animResumeBtn.setOnClickListener { resumeAnim() }
+        mBinding.animStopBtn.setOnClickListener { stopAnim() }
 
     }
 
@@ -95,9 +93,9 @@ class BarrageViewActivity : BaseActivity() {
      * 开始动画
      */
     private fun startAnim() {
-        val scaleXOptions = VMAnimator.AnimOptions(animView, floatArrayOf(0f, 20f), VMAnimator.scaleX, 2500, repeatMode = 1)
-        val scaleYOptions = VMAnimator.AnimOptions(animView, floatArrayOf(0f, 20f), VMAnimator.scaleY, 2500, repeatMode = 1)
-        val alphaOptions = VMAnimator.AnimOptions(animView, floatArrayOf(1.0f, 0.0f), VMAnimator.alpha, 2500, repeatMode = 1)
+        val scaleXOptions = VMAnimator.AnimOptions(mBinding.animView, floatArrayOf(0f, 20f), VMAnimator.scaleX, 2500, repeatMode = 1)
+        val scaleYOptions = VMAnimator.AnimOptions(mBinding.animView, floatArrayOf(0f, 20f), VMAnimator.scaleY, 2500, repeatMode = 1)
+        val alphaOptions = VMAnimator.AnimOptions(mBinding.animView, floatArrayOf(1.0f, 0.0f), VMAnimator.alpha, 2500, repeatMode = 1)
         mAnimatorWrap = VMAnimator.createAnimator().play(scaleXOptions).with(scaleYOptions).with(alphaOptions)
         mAnimatorWrap?.start(delay = 100)
     }
@@ -138,7 +136,7 @@ class BarrageViewActivity : BaseActivity() {
     }
 
     override fun onDestroy() {
-        barrageView.stop()
+        mBinding.barrageView.stop()
         super.onDestroy()
     }
 }

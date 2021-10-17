@@ -48,7 +48,8 @@
         app:layout_constraintEnd_toEndOf="@+id/vmTopBarTitleTV"
         app:layout_constraintStart_toStartOf="@+id/vmTopBarTitleTV"
         app:layout_constraintTop_toBottomOf="@+id/vmTopBarTitleTV"
-        tools:text="子标题" />
+        tools:text="子标题"
+        tools:visibility="visible" />
     <!--标题-->
     <TextView
         android:id="@+id/vmTopBarCenterTitleTV"
@@ -102,10 +103,10 @@
     <!--右侧的按钮-->
     <TextView
         android:id="@+id/vmTopBarEndBtn"
+        style="@style/VMBtn.Flat.Fillet.Accent"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/vm_btn_height_small"
         android:layout_marginEnd="@dimen/vm_dimen_8"
-        style="@style/VMBtn.Flat.Fillet.Accent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/vmTopBarEndIV"
         app:layout_constraintTop_toTopOf="parent"

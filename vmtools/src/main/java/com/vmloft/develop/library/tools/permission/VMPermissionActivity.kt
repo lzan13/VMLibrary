@@ -6,8 +6,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
+import android.view.ViewGroup
 import android.widget.LinearLayout
-
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -166,7 +166,8 @@ class VMPermissionActivity : AppCompatActivity() {
                 val itemView = VMLineView(this)
                 itemView.setIconRes(bean.resId)
                 itemView.setTitle(bean.name)
-                viewGroup.addView(itemView)
+                val lp = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                viewGroup.addView(itemView, lp)
             }
             dialog.setView(viewGroup)
             dialog.setNegative("")

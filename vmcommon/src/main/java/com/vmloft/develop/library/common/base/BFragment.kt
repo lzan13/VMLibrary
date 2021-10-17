@@ -5,32 +5,50 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.viewbinding.ViewBinding
 
 import com.vmloft.develop.library.common.R
 import com.vmloft.develop.library.common.report.ReportManager
+import com.vmloft.develop.library.common.utils.CUtils
 import com.vmloft.develop.library.common.widget.CommonDialog
 import com.vmloft.develop.library.tools.utils.VMDimen
-
-import kotlinx.android.synthetic.main.widget_common_top_bar.*
+import com.vmloft.develop.library.tools.widget.VMTopBar
 
 
 /**
  * Created by lzan13 on 2020/02/15 11:16
  * 描述：Fragment 基类
  */
-abstract class BaseFragment : Fragment() {
+abstract class BFragment<VB : ViewBinding> : Fragment() {
+
+    // 公共控件
+    protected var commonTopLL: View? = null
+    protected var commonTopSpace: View? = null
+    protected var commonTopBar: VMTopBar? = null
+
     protected var mDialog: CommonDialog? = null
+
     protected var isLoaded: Boolean = false
 
-    // 是否居中显示标题
-    open var centerTitle: Boolean = false
+    // 是否隐藏顶部控件
+    open var isHideTopSpace: Boolean = false
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(layoutId(), container, false)
+    // 是否居中显示标题
+    open var isCenterTitle: Boolean = false
+
+    // 是否设置黑色状态栏
+    open var isDarkStatusBar: Boolean = true
+
+    private lateinit var _binding: VB
+    protected val mBinding get() = _binding
+
+    override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View? {
+        _binding = initVB(inflater, parent)
+        return mBinding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initUI()
     }
 
@@ -53,14 +71,15 @@ abstract class BaseFragment : Fragment() {
         if (hidden) {
             ReportManager.reportPageEnd(this.javaClass.simpleName)
         } else {
+            CUtils.setDarkMode(requireActivity(), isDarkStatusBar)
             ReportManager.reportPageStart(this.javaClass.simpleName)
         }
     }
 
     /**
-     * 布局资源 id
+     * 初始化 ViewBinding
      */
-    abstract fun layoutId(): Int
+    abstract fun initVB(inflater: LayoutInflater, parent: ViewGroup?): VB
 
     /**
      * 初始化 UI
@@ -78,10 +97,17 @@ abstract class BaseFragment : Fragment() {
      * 装载 TopBar
      */
     private fun setupTobBar() {
-        // 设置状态栏透明主题时，布局整体会上移，所以给头部 View 设置 StatusBar 的高度
-        commonTopSpace?.layoutParams?.height = VMDimen.statusBarHeight
+        CUtils.setDarkMode(requireActivity(), isDarkStatusBar)
 
-        commonTopBar?.setCenter(centerTitle)
+        commonTopLL = mBinding.root.findViewById(R.id.commonTopLL)
+        commonTopBar = mBinding.root.findViewById(R.id.commonTopBar)
+        commonTopSpace = mBinding.root.findViewById(R.id.commonTopSpace)
+        if (!isHideTopSpace) {
+            // 设置状态栏透明主题时，布局整体会上移，所以给头部 View 设置 StatusBar 的高度
+            commonTopSpace?.layoutParams?.height = VMDimen.statusBarHeight
+        }
+
+        commonTopBar?.setCenter(isCenterTitle)
         commonTopBar?.setTitleStyle(R.style.AppText_Title)
     }
 

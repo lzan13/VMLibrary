@@ -2,7 +2,7 @@ package com.vmloft.develop.library.tools.permission
 
 import android.annotation.SuppressLint
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 /**
  * Create by lzan13 on 2019/04/26

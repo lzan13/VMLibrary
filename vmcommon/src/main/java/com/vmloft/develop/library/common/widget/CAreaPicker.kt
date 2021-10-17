@@ -4,12 +4,12 @@ import android.content.Context
 import android.content.res.AssetManager
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.widget.ImageView
 import android.widget.LinearLayout
+import com.aigestudio.wheelpicker.WheelPicker
 import com.aigestudio.wheelpicker.model.City
 import com.aigestudio.wheelpicker.model.Province
 import com.vmloft.develop.library.common.R
-
-import kotlinx.android.synthetic.main.widget_common_picker_area.view.*
 
 import java.io.ObjectInputStream
 
@@ -19,11 +19,20 @@ import java.io.ObjectInputStream
  */
 class CAreaPicker @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : LinearLayout(context, attrs, defStyleAttr) {
 
+    private var commonPickerProvince: WheelPicker // 省
+    private var commonPickerCity: WheelPicker // 省
+    private var commonPickerArea: WheelPicker // 省
+
     private var mProvinceList: MutableList<Province> = mutableListOf()
     private var mCityList: MutableList<City> = mutableListOf()
 
     init {
         LayoutInflater.from(context).inflate(R.layout.widget_common_picker_area, this)
+
+        commonPickerProvince = findViewById(R.id.commonPickerProvince)
+        commonPickerCity = findViewById(R.id.commonPickerCity)
+        commonPickerArea = findViewById(R.id.commonPickerArea)
+
         loadDataFromAssets(context.assets)
         initPicker()
     }

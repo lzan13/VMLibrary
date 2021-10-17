@@ -2,13 +2,11 @@ package com.vmloft.develop.library.example.ui.demo.custom
 
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.vmloft.develop.library.common.base.BActivity
 
-import com.vmloft.develop.library.example.R.layout
-import com.vmloft.develop.library.common.base.BaseActivity
+import com.vmloft.develop.library.example.databinding.ActivityDemoViewIndicatorBinding
 import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.tools.adapter.VMFragmentPagerAdapter
-
-import kotlinx.android.synthetic.main.activity_demo_view_indicator.*
 
 import java.util.ArrayList
 
@@ -18,10 +16,11 @@ import java.util.ArrayList
  * 自定义指示器验证示例
  */
 @Route(path = AppRouter.appIndicator)
-class IndicatorViewActivity : BaseActivity() {
+class IndicatorViewActivity : BActivity<ActivityDemoViewIndicatorBinding>() {
     private var fragmentList: MutableList<Fragment> = mutableListOf()
     private var mAdapter: VMFragmentPagerAdapter? = null
-    override fun layoutId(): Int = layout.activity_demo_view_indicator
+
+    override fun initVB() = ActivityDemoViewIndicatorBinding.inflate(layoutInflater)
 
     override fun initUI() {
         super.initUI()
@@ -34,10 +33,10 @@ class IndicatorViewActivity : BaseActivity() {
 
         mAdapter = VMFragmentPagerAdapter(supportFragmentManager, fragmentList)
 
-        viewPager.offscreenPageLimit = 3
-        viewPager.adapter = mAdapter
+        mBinding.viewPager.offscreenPageLimit = 3
+        mBinding.viewPager.adapter = mAdapter
 
-        indicatorView.setViewPager(viewPager)
+        mBinding.indicatorView.setViewPager(mBinding.viewPager)
     }
 
     override fun initData() {}

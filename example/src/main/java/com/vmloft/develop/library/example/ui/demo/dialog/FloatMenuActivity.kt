@@ -4,16 +4,16 @@ import android.view.MotionEvent
 import android.view.View
 
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.vmloft.develop.library.common.base.BActivity
+import com.vmloft.develop.library.common.utils.showBar
 
 import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.common.base.BaseActivity
+import com.vmloft.develop.library.example.databinding.ActivityDemoFloatMenuBinding
 import com.vmloft.develop.library.example.router.AppRouter
-import com.vmloft.develop.library.example.utils.showBar
 import com.vmloft.develop.library.tools.utils.logger.VMLog
 import com.vmloft.develop.library.tools.widget.VMFloatMenu
 import com.vmloft.develop.library.tools.widget.VMFloatMenu.IItemClickListener
 import com.vmloft.develop.library.tools.widget.VMFloatMenu.ItemBean
-import kotlinx.android.synthetic.main.activity_demo_float_menu.*
 
 /**
  * Created by lzan13 on 2017/6/20.
@@ -21,16 +21,14 @@ import kotlinx.android.synthetic.main.activity_demo_float_menu.*
  * 测试悬浮菜单
  */
 @Route(path = AppRouter.appFloatMenu)
-class FloatMenuActivity : BaseActivity() {
+class FloatMenuActivity : BActivity<ActivityDemoFloatMenuBinding>() {
 
     private var touchX = 0
     private var touchY = 0
     private lateinit var floatMenu: VMFloatMenu
 
     @Override
-    override fun layoutId(): Int {
-        return R.layout.activity_demo_float_menu
-    }
+    override fun initVB() = ActivityDemoFloatMenuBinding.inflate(layoutInflater)
 
     @Override
     override fun initUI() {
@@ -45,19 +43,19 @@ class FloatMenuActivity : BaseActivity() {
             }
         })
 
-        leftTopBtn.setOnTouchListener { view, event -> onTouch(view, event) }
-        leftBottomBtn.setOnTouchListener { view, event -> onTouch(view, event) }
-        centerUpBtn.setOnTouchListener { view, event -> onTouch(view, event) }
-        centerDownBtn.setOnTouchListener { view, event -> onTouch(view, event) }
-        rightTopBtn.setOnTouchListener { view, event -> onTouch(view, event) }
-        rightBottomBtn.setOnTouchListener { view, event -> onTouch(view, event) }
+        mBinding.leftTopBtn.setOnTouchListener { view, event -> onTouch(view, event) }
+        mBinding.leftBottomBtn.setOnTouchListener { view, event -> onTouch(view, event) }
+        mBinding.centerUpBtn.setOnTouchListener { view, event -> onTouch(view, event) }
+        mBinding.centerDownBtn.setOnTouchListener { view, event -> onTouch(view, event) }
+        mBinding.rightTopBtn.setOnTouchListener { view, event -> onTouch(view, event) }
+        mBinding.rightBottomBtn.setOnTouchListener { view, event -> onTouch(view, event) }
 
-        leftTopBtn.setOnClickListener { view -> onClick(view) }
-        leftBottomBtn.setOnClickListener { view -> onClick(view) }
-        centerUpBtn.setOnClickListener { view -> onClick(view) }
-        centerDownBtn.setOnClickListener { view -> onClick(view) }
-        rightTopBtn.setOnClickListener { view -> onClick(view) }
-        rightBottomBtn.setOnClickListener { view -> onClick(view) }
+        mBinding.leftTopBtn.setOnClickListener { view -> onClick(view) }
+        mBinding.leftBottomBtn.setOnClickListener { view -> onClick(view) }
+        mBinding.centerUpBtn.setOnClickListener { view -> onClick(view) }
+        mBinding.centerDownBtn.setOnClickListener { view -> onClick(view) }
+        mBinding.rightTopBtn.setOnClickListener { view -> onClick(view) }
+        mBinding.rightBottomBtn.setOnClickListener { view -> onClick(view) }
     }
 
     @Override

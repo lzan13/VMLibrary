@@ -1,8 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 }
 
 // 获取配置信息
@@ -86,14 +86,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
-    // 开启数据绑定
-//    dataBinding {
-//        enabled true
-//    }
+
+    // 开启 ViewBinding
     buildFeatures {
-        dataBinding {
-            enabled true
-        }
+        viewBinding true
     }
     // 编译忽略错误配置
     lintOptions {

@@ -17,12 +17,10 @@ object AppRouter {
     const val appIndicator = "/VMLoft/Indicator"
     const val appLoading = "/VMLoft/Loading"
     const val appLottieAnim = "/VMLoft/LottieAnim"
-    const val appMediaPlay = "/VMLoft/MediaPlay"
     const val appScheme = "/VMLoft/Scheme"
     const val appStyle = "/VMLoft/Style"
     const val appThread = "/VMLoft/Thread"
     const val appWebTest = "/VMLoft/Web"
-    const val appCustomTable = "/VMLoft/CustomTable"
 
     const val appImagePicker = "/VMLoft/ImagePicker"
 

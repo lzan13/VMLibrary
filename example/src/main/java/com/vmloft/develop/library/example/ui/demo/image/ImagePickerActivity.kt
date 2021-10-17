@@ -1,10 +1,10 @@
 package com.vmloft.develop.library.example.ui.demo.image
 
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.vmloft.develop.library.common.base.BActivity
 
-import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.common.base.BaseActivity
 import com.vmloft.develop.library.example.common.Constants
+import com.vmloft.develop.library.example.databinding.ActivityDemoImagePickerBinding
 import com.vmloft.develop.library.example.image.IMGChoose
 import com.vmloft.develop.library.example.image.IMGLoader
 import com.vmloft.develop.library.example.router.AppRouter
@@ -12,30 +12,26 @@ import com.vmloft.develop.library.example.utils.showBar
 import com.vmloft.develop.library.tools.utils.bitmap.VMBitmap
 import com.vmloft.develop.library.tools.utils.logger.VMLog
 
-import kotlinx.android.synthetic.main.activity_demo_image_picker.*
-
 
 /**
  * Created by lzan13 on 2020/5/18.
  * 描述：测试图片选择界面
  */
 @Route(path = AppRouter.appImagePicker)
-class ImagePickerActivity : BaseActivity() {
+class ImagePickerActivity : BActivity<ActivityDemoImagePickerBinding>() {
 
-    override fun layoutId(): Int {
-        return R.layout.activity_demo_image_picker
-    }
+    override fun initVB() = ActivityDemoImagePickerBinding.inflate(layoutInflater)
 
     override fun initUI() {
         super.initUI()
         setTopTitle("图片选择器")
 
-        pickerSingleBtn.setOnClickListener { single() }
-        pickerCropBtn.setOnClickListener { singleCrop() }
-        imagePickerMultiple.setOnClickListener { multiPicture() }
-        pickerCameraBtn.setOnClickListener { talkPicture() }
-        pickerVideoBtn.setOnClickListener { talkVideo() }
-        saveBtn.setOnClickListener { save() }
+        mBinding.pickerSingleBtn.setOnClickListener { single() }
+        mBinding.pickerCropBtn.setOnClickListener { singleCrop() }
+        mBinding.imagePickerMultiple.setOnClickListener { multiPicture() }
+        mBinding.pickerCameraBtn.setOnClickListener { talkPicture() }
+        mBinding.pickerVideoBtn.setOnClickListener { talkVideo() }
+        mBinding.saveBtn.setOnClickListener { save() }
     }
 
     override fun initData() {
@@ -47,7 +43,7 @@ class ImagePickerActivity : BaseActivity() {
         IMGChoose.singlePicture(this) {
             VMLog.d("单选结果 $it")
             val path = VMBitmap.compressTempImage(it, 1920)
-            IMGLoader.loadCover(imagePickerIV, path)
+            IMGLoader.loadCover(mBinding.imagePickerIV, path)
         }
     }
 
@@ -55,7 +51,7 @@ class ImagePickerActivity : BaseActivity() {
         IMGChoose.singleCrop(this) {
             VMLog.d("裁剪结果 $it")
             val path = VMBitmap.compressTempImage(it, 512)
-            IMGLoader.loadCover(imagePickerIV, it)
+            IMGLoader.loadCover(mBinding.imagePickerIV, it)
         }
     }
 
@@ -68,7 +64,7 @@ class ImagePickerActivity : BaseActivity() {
     private fun talkPicture() {
         IMGChoose.takePicture(this) {
             VMLog.d("拍照结果 $it")
-            IMGLoader.loadCover(imagePickerIV, it)
+            IMGLoader.loadCover(mBinding.imagePickerIV, it)
         }
     }
 
@@ -80,7 +76,7 @@ class ImagePickerActivity : BaseActivity() {
     }
 
     private fun save() {
-        val bitmap = VMBitmap.loadCacheBitmapFromView(imagePickerIV)
+        val bitmap = VMBitmap.loadCacheBitmapFromView(mBinding.imagePickerIV)
         bitmap?.let {
             val result = VMBitmap.saveBitmapToPictures(it, Constants.projectDir, "test.jpg")
             showBar(if (result != null) "保存成功" else "保存失败")

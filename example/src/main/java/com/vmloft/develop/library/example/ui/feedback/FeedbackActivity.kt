@@ -2,9 +2,10 @@ package com.vmloft.develop.library.example.ui.feedback
 
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.vmloft.develop.library.common.base.BActivity
 
 import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.common.base.BaseActivity
+import com.vmloft.develop.library.example.databinding.ActivityFeedbackBinding
 import com.vmloft.develop.library.example.router.AppRouter
 
 
@@ -13,13 +14,13 @@ import com.vmloft.develop.library.example.router.AppRouter
  * 描述：问题反馈
  */
 @Route(path = AppRouter.appFeedback)
-class FeedbackActivity : BaseActivity() {
+class FeedbackActivity : BActivity<ActivityFeedbackBinding>() {
 
     @Autowired
     lateinit var url: String
 
 
-    override fun layoutId(): Int = R.layout.activity_feedback
+    override fun initVB() = ActivityFeedbackBinding.inflate(layoutInflater)
 
     override fun initUI() {
         super.initUI()

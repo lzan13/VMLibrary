@@ -1,15 +1,17 @@
 package com.vmloft.develop.library.example.ui.main.home
 
 import android.Manifest
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import android.content.ComponentName
+import android.view.ViewGroup
 
+import com.vmloft.develop.library.common.base.BFragment
 import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.common.base.BaseFragment
+import com.vmloft.develop.library.example.databinding.FragmentHomeBinding
 import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.example.utils.showBar
 import com.vmloft.develop.library.example.utils.errorBar
@@ -17,18 +19,14 @@ import com.vmloft.develop.library.tools.VMTools
 import com.vmloft.develop.library.tools.permission.VMPermission
 import com.vmloft.develop.library.tools.permission.VMPermissionBean
 
-import kotlinx.android.synthetic.main.fragment_home.*
-import android.content.ComponentName
-
 
 /**
  * Create by lzan13 on 2020/05/02 11:54
  * 描述：首页
  */
-class HomeFragment : BaseFragment() {
-    override var centerTitle: Boolean = false
+class HomeFragment : BFragment<FragmentHomeBinding>() {
 
-    override fun layoutId() = R.layout.fragment_home
+    override fun initVB(inflater: LayoutInflater, parent: ViewGroup?) = FragmentHomeBinding.inflate(inflater, parent, false)
 
     override fun initUI() {
         super.initUI()
@@ -41,13 +39,8 @@ class HomeFragment : BaseFragment() {
         addBtn("指示器", AppRouter.appIndicator)
         addBtn("Loading", AppRouter.appLoading)
         addBtn("Lottie 动画", AppRouter.appLottieAnim)
-        addBtn("媒体播放", AppRouter.appMediaPlay)
-        addBtn("Scheme", AppRouter.appScheme)
         addBtn("按钮", AppRouter.appStyle)
-        addBtn("线程测试", AppRouter.appThread)
-        addBtn("Web 功能", AppRouter.appWebTest)
         addBtn("图片选择", AppRouter.appImagePicker)
-        addBtn("表格", AppRouter.appCustomTable)
         addBtn("辅助功能", AppRouter.appAccessibility)
 
         addBtn("单权限申请", AppRouter.appSinglePermission)
@@ -66,7 +59,7 @@ class HomeFragment : BaseFragment() {
         btn.id = tag.hashCode()
         btn.tag = tag
         btn.setOnClickListener(viewListener)
-        viewGroup.addView(btn)
+        mBinding.viewGroup.addView(btn)
     }
 
     override fun initData() {

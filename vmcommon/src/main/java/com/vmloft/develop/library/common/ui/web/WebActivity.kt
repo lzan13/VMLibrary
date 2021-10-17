@@ -9,11 +9,11 @@ import com.alibaba.android.arouter.launcher.ARouter
 
 import com.just.agentweb.AgentWeb
 import com.just.agentweb.WebChromeClient
-import com.vmloft.develop.library.common.R
 
-import com.vmloft.develop.library.common.base.BaseActivity
+import com.vmloft.develop.library.common.R
+import com.vmloft.develop.library.common.base.BActivity
+import com.vmloft.develop.library.common.databinding.ActivityWebBinding
 import com.vmloft.develop.library.common.router.CRouter
-import kotlinx.android.synthetic.main.activity_web.*
 
 
 /**
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_web.*
  * 描述：Web 界面
  */
 @Route(path = CRouter.commonWeb)
-class WebActivity : BaseActivity() {
+class WebActivity : BActivity<ActivityWebBinding>() {
 
     @Autowired
     lateinit var url: String
@@ -33,13 +33,13 @@ class WebActivity : BaseActivity() {
         setTopTitle(R.string.vm_loading)
     }
 
-    override fun layoutId(): Int = R.layout.activity_web
+    override fun initVB() = ActivityWebBinding.inflate(layoutInflater)
 
     override fun initData() {
         ARouter.getInstance().inject(this)
 
         mAgentWeb = AgentWeb.with(this)
-            .setAgentWebParent(webContainer, LinearLayout.LayoutParams(-1, -1))
+            .setAgentWebParent(mBinding.webContainer, LinearLayout.LayoutParams(-1, -1))
             .useDefaultIndicator()
             .setWebChromeClient(chromeClient)
             .createAgentWeb()

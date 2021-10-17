@@ -8,15 +8,16 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.vmloft.develop.library.common.base.BFragment
 
-import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.common.base.BaseFragment
+import com.vmloft.develop.library.example.databinding.FragmentDemoTabBinding
 import com.vmloft.develop.library.tools.utils.logger.VMLog
 
-import kotlinx.android.synthetic.main.fragment_demo_tab.*
 
-
-class CommonFragment : BaseFragment() {
+/**
+ * demo 通用 Fragment 界面
+ */
+class CommonFragment : BFragment<FragmentDemoTabBinding>() {
 
     private lateinit var tabName: String
 
@@ -36,24 +37,24 @@ class CommonFragment : BaseFragment() {
     }
 
 
-    override fun layoutId() = R.layout.fragment_demo_tab
+    override fun initVB(inflater: LayoutInflater, parent: ViewGroup?) = FragmentDemoTabBinding.inflate(inflater, parent, false)
 
     override fun initData() {
-        tabName = arguments!!.getString(fragmentTitleKey) ?: ""
+        tabName = requireArguments().getString(fragmentTitleKey) ?: ""
 
         val list = mutableListOf<String>()
         for (index in 1..100) {
             list.add("$tabName-$index")
         }
 
-        smartRefreshLayout.setOnRefreshListener {
+        mBinding.smartRefreshLayout.setOnRefreshListener {
             VMLog.d("触发刷新")
         }
-        smartRefreshLayout.setOnLoadMoreListener {
+        mBinding.smartRefreshLayout.setOnLoadMoreListener {
             VMLog.d("触发加载更多")
         }
-        tableRowRV.layoutManager = LinearLayoutManager(context)
-        tableRowRV.adapter = TestRecycleViewAdapter(context!!, list)
+        mBinding.tableRowRV.layoutManager = LinearLayoutManager(context)
+        mBinding.tableRowRV.adapter = TestRecycleViewAdapter(requireContext(), list)
     }
 
     class TestRecycleViewAdapter(context: Context, list: List<String>) : RecyclerView.Adapter<TestRecycleViewAdapter.ViewHolder>() {
@@ -78,4 +79,5 @@ class CommonFragment : BaseFragment() {
         }
 
     }
+
 }

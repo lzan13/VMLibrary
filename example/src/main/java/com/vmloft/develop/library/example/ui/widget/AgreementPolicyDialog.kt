@@ -6,7 +6,6 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
-import android.text.method.ScrollingMovementMethod
 import android.text.style.ForegroundColorSpan
 import android.text.style.URLSpan
 import android.view.View
@@ -18,9 +17,6 @@ import com.vmloft.develop.library.tools.utils.VMColor
 import com.vmloft.develop.library.tools.utils.VMStr
 import com.vmloft.develop.library.tools.utils.logger.VMLog
 
-import kotlinx.android.synthetic.main.widget_agreement_policy_dialog.*
-
-
 /**
  * Create by lzan13 on 2021/07/10 21:41
  * 描述：用户政策与隐私协议对话框
@@ -28,6 +24,8 @@ import kotlinx.android.synthetic.main.widget_agreement_policy_dialog.*
 class AgreementPolicyDialog(context: Context) : CommonDialog(context) {
 
     init {
+        val dialogContentTV = this.findViewById<TextView>(R.id.dialogContentTV)
+
         val agreementContent = VMStr.byRes(R.string.agreement_policy_dialog_content)
         val userAgreement = VMStr.byRes(R.string.user_agreement)
         val privacyPolicy = VMStr.byRes(R.string.privacy_policy)
@@ -63,10 +61,9 @@ class AgreementPolicyDialog(context: Context) : CommonDialog(context) {
 
     override fun layoutId() = R.layout.widget_agreement_policy_dialog
 
+    override fun getNegativeTV(): TextView? = findViewById(R.id.dialogNegativeTV)
 
-    override fun getNegativeTV(): TextView? = dialogNegativeTV
-
-    override fun getPositiveTV(): TextView? = dialogPositiveTV
+    override fun getPositiveTV(): TextView? = findViewById(R.id.dialogPositiveTV)
 
 
     class CustomURLSpan(val type: String) : URLSpan(type) {

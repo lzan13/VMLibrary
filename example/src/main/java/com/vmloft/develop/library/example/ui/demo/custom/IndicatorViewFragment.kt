@@ -1,28 +1,28 @@
 package com.vmloft.develop.library.example.ui.demo.custom
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import com.vmloft.develop.library.common.base.BFragment
 
 import com.vmloft.develop.library.example.R.layout
-import com.vmloft.develop.library.common.base.BaseFragment
+import com.vmloft.develop.library.example.databinding.FragmentDemoDefaultBinding
 
-import kotlinx.android.synthetic.main.fragment_demo_default.*
 
 /**
  * Create by lzan13 on 2019/04/09
  *
  * 通用界面 Fragment 实现容器
  */
-class IndicatorViewFragment : BaseFragment() {
+class IndicatorViewFragment : BFragment<FragmentDemoDefaultBinding>() {
     private var mContent: String? = null
-    override fun layoutId(): Int {
-        return layout.fragment_demo_default
-    }
+    override fun initVB(inflater: LayoutInflater, parent: ViewGroup?) = FragmentDemoDefaultBinding.inflate(inflater, parent, false)
 
     override fun initUI() {}
 
     override fun initData() {
-        mContent = arguments!!.getString(ARG_CONTENT_ID)
-        titleTV.text = mContent
+        mContent = requireArguments().getString(ARG_CONTENT_ID)
+        mBinding.titleTV.text = mContent
     }
 
     companion object {

@@ -5,23 +5,23 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.vmloft.develop.library.common.base.BActivity
 
 import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.common.base.BaseActivity
 import com.vmloft.develop.library.common.notify.NotifyManager
+import com.vmloft.develop.library.example.databinding.ActivityMainBinding
 import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.example.ui.main.explore.ExploreFragment
 import com.vmloft.develop.library.example.ui.main.home.HomeFragment
 import com.vmloft.develop.library.example.ui.main.mine.MineFragment
 import com.vmloft.develop.library.example.ui.main.msg.MsgFragment
 
-import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * Create by lzan13 on 2018/4/13
  */
 @Route(path = AppRouter.appMain)
-class MainActivity : BaseActivity() {
+class MainActivity : BActivity<ActivityMainBinding>() {
 
     private val currentTabKey = "currentTabKey"
     private val fragmentKeys = arrayListOf("homeKey", "exploreKey", "msgKey", "mineKey")
@@ -60,13 +60,11 @@ class MainActivity : BaseActivity() {
         switchFragment(currentTab)
     }
 
-    override fun layoutId(): Int {
-        setTheme(R.style.AppTheme)
-        return R.layout.activity_main
-    }
+    override fun initVB() = ActivityMainBinding.inflate(layoutInflater)
 
     override fun initUI() {
         super.initUI()
+        setTheme(R.style.AppTheme)
 
         initBottomNav()
     }
@@ -82,7 +80,7 @@ class MainActivity : BaseActivity() {
     private fun initBottomNav() {
         // TODO 如果导航是多色图标，需要取消 BottomNavigationView 的着色效果，自己去设置 selector
         // mainNav.itemIconTintList = null
-        mainNav.setOnNavigationItemSelectedListener(onNavigationItemSelected)
+        mBinding.mainNav.setOnNavigationItemSelectedListener(onNavigationItemSelected)
     }
 
     /**

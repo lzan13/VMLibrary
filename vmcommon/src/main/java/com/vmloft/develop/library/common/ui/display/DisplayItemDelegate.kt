@@ -1,6 +1,7 @@
 package com.vmloft.develop.library.common.ui.display
 
-import com.vmloft.develop.library.common.R
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import com.vmloft.develop.library.common.base.BItemDelegate
 import com.vmloft.develop.library.common.databinding.DisplayItemDelegateBinding
 
@@ -11,10 +12,8 @@ import com.vmloft.develop.library.common.databinding.DisplayItemDelegateBinding
  */
 class DisplayItemDelegate : BItemDelegate<String, DisplayItemDelegateBinding>() {
 
-    override fun layoutId(): Int = R.layout.display_item_delegate
-
     override fun onBindView(holder: BItemHolder<DisplayItemDelegateBinding>, item: String) {
-        holder.binding.data = item
-        holder.binding.executePendingBindings()
     }
+
+    override fun initVB(inflater: LayoutInflater, parent: ViewGroup) = DisplayItemDelegateBinding.inflate(inflater, parent, false)
 }

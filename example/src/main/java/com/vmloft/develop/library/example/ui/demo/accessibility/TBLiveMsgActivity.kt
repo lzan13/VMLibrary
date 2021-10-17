@@ -3,16 +3,16 @@ package com.vmloft.develop.library.example.ui.demo.accessibility
 import android.os.Build
 
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.vmloft.develop.library.common.base.BActivity
 
-import com.vmloft.develop.library.common.base.BaseActivity
 import com.vmloft.develop.library.common.utils.showBar
 import com.vmloft.develop.library.common.widget.CommonDialog
 import com.vmloft.develop.library.example.R
+import com.vmloft.develop.library.example.databinding.ActivityDemoTbLiveMsgBinding
 import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.tools.utils.VMStr
 import com.vmloft.develop.library.tools.utils.VMSystem
 
-import kotlinx.android.synthetic.main.activity_demo_tb_live_msg.*
 
 
 /**
@@ -20,28 +20,28 @@ import kotlinx.android.synthetic.main.activity_demo_tb_live_msg.*
  * 描述：辅助功能
  */
 @Route(path = AppRouter.appAccessibility)
-class TBLiveMsgActivity : BaseActivity() {
+class TBLiveMsgActivity : BActivity<ActivityDemoTbLiveMsgBinding>() {
 
-    override fun layoutId() = R.layout.activity_demo_tb_live_msg
+    override fun initVB() = ActivityDemoTbLiveMsgBinding.inflate(layoutInflater)
 
     override fun initUI() {
         super.initUI()
         //屏幕横滑手势
-        accessibilityMotionBtn.setOnClickListener {
+        mBinding.accessibilityMotionBtn.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 TBLiveMsgManager.motionAction()
             } else {
                 showBar("7.0及以上才能使用手势")
             }
         }
-        accessibilityClickBtn.setOnClickListener { TBLiveMsgManager.clickAction() }
-        accessibilityLongClickBtn.setOnClickListener { TBLiveMsgManager.longClickAction() }
-        accessibilityBackBtn.setOnClickListener { TBLiveMsgManager.backAction() }
-        accessibilityShowFloatBtn.setOnClickListener { showFloatView() }
-        accessibilityHideFloatBtn.setOnClickListener { hideFloatView() }
+        mBinding.accessibilityClickBtn.setOnClickListener { TBLiveMsgManager.clickAction() }
+        mBinding.accessibilityLongClickBtn.setOnClickListener { TBLiveMsgManager.longClickAction() }
+        mBinding.accessibilityBackBtn.setOnClickListener { TBLiveMsgManager.backAction() }
+        mBinding.accessibilityShowFloatBtn.setOnClickListener { showFloatView() }
+        mBinding.accessibilityHideFloatBtn.setOnClickListener { hideFloatView() }
 
-        accessibilityTestBtn.setOnClickListener { showBar("测试按钮被点击") }
-        accessibilityTestBtn.setOnLongClickListener {
+        mBinding.accessibilityTestBtn.setOnClickListener { showBar("测试按钮被点击") }
+        mBinding.accessibilityTestBtn.setOnLongClickListener {
             showBar("测试按钮被长按")
             false
         }

@@ -7,20 +7,20 @@ import com.alibaba.android.arouter.facade.annotation.Route
 
 import com.google.android.material.tabs.TabLayoutMediator
 
-import com.vmloft.develop.library.common.base.BaseActivity
+import com.vmloft.develop.library.common.base.BActivity
 import com.vmloft.develop.library.common.utils.CUtils
 import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.example.common.CommonFragment
+import com.vmloft.develop.library.example.databinding.ActivityUserInfoBinding
 
-import kotlinx.android.synthetic.main.fragment_mine.*
 
 /**
  * Create by lzan13 on 2021/01/20 22:56
  * 描述：用户信息界面
  */
 @Route(path = AppRouter.appUserInfo)
-class UserInfoActivity : BaseActivity() {
+class UserInfoActivity : BActivity<ActivityUserInfoBinding>() {
 
     private val fragmentList = arrayListOf<Fragment>()
     private lateinit var publishFragment: CommonFragment
@@ -28,7 +28,7 @@ class UserInfoActivity : BaseActivity() {
 
     private val titles = listOf("发布", "喜欢")
 
-    override fun layoutId() = R.layout.activity_user_info
+    override fun initVB() = ActivityUserInfoBinding.inflate(layoutInflater)
 
     override fun initUI() {
         super.initUI()
@@ -60,14 +60,14 @@ class UserInfoActivity : BaseActivity() {
      * 初始化 ViewPager
      */
     private fun initViewPager() {
-        viewPager.offscreenPageLimit = titles.size - 1
-        viewPager.adapter = object : FragmentStateAdapter(this) {
+        mBinding.viewPager.offscreenPageLimit = titles.size - 1
+        mBinding.viewPager.adapter = object : FragmentStateAdapter(this) {
             override fun createFragment(position: Int) = fragmentList[position]
 
             override fun getItemCount() = fragmentList.size
         }
         // 将 TabLayout 与 ViewPager 进行绑定
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+        TabLayoutMediator(mBinding.tabLayout, mBinding.viewPager) { tab, position ->
             tab.text = titles[position]
         }.attach()
     }

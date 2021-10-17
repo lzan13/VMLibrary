@@ -1,8 +1,9 @@
 package com.vmloft.develop.library.example.ui.demo.custom
 
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.common.base.BaseActivity
+import com.vmloft.develop.library.common.base.BActivity
+import com.vmloft.develop.library.example.databinding.ActivityDemoViewButtonBinding
+
 import com.vmloft.develop.library.example.router.AppRouter
 
 /**
@@ -10,10 +11,8 @@ import com.vmloft.develop.library.example.router.AppRouter
  * 测试控件样式主题界面
  */
 @Route(path = AppRouter.appStyle)
-class ButtonThemeActivity : BaseActivity() {
-    override fun layoutId(): Int {
-        return R.layout.activity_demo_view_button
-    }
+class ButtonThemeActivity : BActivity<ActivityDemoViewButtonBinding>() {
+    override fun initVB() = ActivityDemoViewButtonBinding.inflate(layoutInflater)
 
     override fun initUI() {
         super.initUI()

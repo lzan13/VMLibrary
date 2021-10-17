@@ -5,33 +5,49 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.vmloft.develop.library.common.R
+import androidx.viewbinding.ViewBinding
 
+import com.vmloft.develop.library.common.R
 import com.vmloft.develop.library.common.utils.CUtils
 import com.vmloft.develop.library.common.widget.CommonDialog
 import com.vmloft.develop.library.tools.utils.VMDimen
-
-import kotlinx.android.synthetic.main.widget_common_top_bar.*
+import com.vmloft.develop.library.tools.widget.VMTopBar
 
 /**
  * Created by lzan13 on 2020/02/15 11:16
  * 描述：Activity 基类
  */
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BActivity<VB : ViewBinding> : AppCompatActivity() {
 
+    // 公共控件
+    protected var commonTopLL: View? = null
+    protected var commonTopSpace: View? = null
+    protected var commonTopBar: VMTopBar? = null
     protected var mDialog: CommonDialog? = null
 
     protected lateinit var mActivity: Activity
 
+    // 是否隐藏顶部控件
+    open var isHideTopSpace: Boolean = false
+
     // 是否居中显示标题
-    open var centerTitle: Boolean = false
+    open var isCenterTitle: Boolean = false
+
+    // 是否设置黑色状态栏
+    open var isDarkStatusBar: Boolean = true
+
+    private lateinit var _binding: VB
+    protected val mBinding get() = _binding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        mActivity = this
+        _binding = initVB()
 
-        setContentView(layoutId())
+        setContentView(mBinding.root)
+
+        mActivity = this
 
         initUI()
 
@@ -39,16 +55,15 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     /**
-     * 布局资源 id
+     * 初始化 ViewBinding
      */
-    abstract fun layoutId(): Int
+    abstract fun initVB(): VB
 
     /**
      * 初始化 UI
      */
     open fun initUI() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        CUtils.setDarkMode(mActivity, true)
         setupTobBar()
     }
 
@@ -57,18 +72,22 @@ abstract class BaseActivity : AppCompatActivity() {
      */
     abstract fun initData()
 
-    open fun hideTopSpace() = false
 
     /**
      * 装载 TopBar
      */
     private fun setupTobBar() {
-        if (!hideTopSpace()) {
+        CUtils.setDarkMode(mActivity, isDarkStatusBar)
+
+        commonTopLL = mBinding.root.findViewById(R.id.commonTopLL)
+        commonTopBar = mBinding.root.findViewById(R.id.commonTopBar)
+        commonTopSpace = mBinding.root.findViewById(R.id.commonTopSpace)
+        if (!isHideTopSpace) {
             // 设置状态栏透明主题时，布局整体会上移，所以给头部 View 设置 StatusBar 的高度
             commonTopSpace?.layoutParams?.height = VMDimen.statusBarHeight
         }
 
-        commonTopBar?.setCenter(centerTitle)
+        commonTopBar?.setCenter(isCenterTitle)
         commonTopBar?.setTitleStyle(R.style.AppText_Title)
         commonTopBar?.setIcon(R.drawable.ic_arrow_back)
         commonTopBar?.setIconListener { onBackPressed() }
@@ -102,6 +121,7 @@ abstract class BaseActivity : AppCompatActivity() {
     protected fun setTopTitle(title: String) {
         commonTopBar?.setTitle(title)
     }
+
     /**
      * 设置二级标题
      */

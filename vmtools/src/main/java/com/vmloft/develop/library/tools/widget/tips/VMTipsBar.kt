@@ -115,6 +115,8 @@ class VMTipsBar @JvmOverloads constructor(context: Context, attrs: AttributeSet?
      * 移除提醒
      */
     private fun remove() {
+        if (this.parent == null) return
+
         val viewGroup = this.parent as ViewGroup
         val options = VMAnimator.AnimOptions(this, floatArrayOf(0.0f, -mHeight), VMAnimator.transY, animDuration.toLong(), repeat = 0)
         VMAnimator.createAnimator().play(options).addListener(object : AnimatorListener {

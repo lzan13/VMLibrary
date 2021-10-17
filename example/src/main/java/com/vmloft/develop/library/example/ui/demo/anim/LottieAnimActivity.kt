@@ -7,25 +7,23 @@ import androidx.core.view.setMargins
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.vmloft.develop.library.common.base.BActivity
 
 import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.common.base.BaseActivity
+import com.vmloft.develop.library.example.databinding.ActivityDemoAnimLottieBinding
 import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.tools.utils.VMDimen
-
-import kotlinx.android.synthetic.main.activity_demo_anim_lottie.*
-
 
 /**
  * Created by lzan13 on 2017/4/7.
  * 描述：测试 Lottie 动画
  */
 @Route(path = AppRouter.appLottieAnim)
-class LottieAnimActivity : BaseActivity() {
+class LottieAnimActivity : BActivity<ActivityDemoAnimLottieBinding>() {
 
     private val lottieAnimList: MutableList<String> = mutableListOf()
 
-    override fun layoutId(): Int = R.layout.activity_demo_anim_lottie
+    override fun initVB() = ActivityDemoAnimLottieBinding.inflate(layoutInflater)
 
     override fun initUI() {
         super.initUI()
@@ -254,7 +252,7 @@ class LottieAnimActivity : BaseActivity() {
             val margin = VMDimen.dp2px(8)
             val lp: ViewGroup.MarginLayoutParams = ViewGroup.MarginLayoutParams(ViewGroup.MarginLayoutParams.WRAP_CONTENT, ViewGroup.MarginLayoutParams.WRAP_CONTENT)
             lp.setMargins(margin)
-            viewGroup.addView(lottieView, lp)
+            mBinding.viewGroup.addView(lottieView, lp)
         }
     }
 

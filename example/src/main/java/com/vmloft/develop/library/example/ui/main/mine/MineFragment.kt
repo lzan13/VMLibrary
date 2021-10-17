@@ -1,27 +1,28 @@
 package com.vmloft.develop.library.example.ui.main.mine
 
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
 import com.google.android.material.tabs.TabLayoutMediator
+import com.vmloft.develop.library.common.base.BFragment
 
 import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.common.base.BaseFragment
 import com.vmloft.develop.library.common.router.CRouter
 import com.vmloft.develop.library.common.utils.CUtils
 import com.vmloft.develop.library.example.common.CommonFragment
+import com.vmloft.develop.library.example.databinding.FragmentMineBinding
 import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.tools.utils.VMDimen
-
-import kotlinx.android.synthetic.main.fragment_mine.*
 
 
 /**
  * Create by lzan13 on 2020/05/02 11:54
  * 描述：我的
  */
-class MineFragment : BaseFragment() {
+class MineFragment : BFragment<FragmentMineBinding>() {
 
     private val fragmentList = arrayListOf<Fragment>()
     private lateinit var publishFragment: CommonFragment
@@ -30,12 +31,12 @@ class MineFragment : BaseFragment() {
 
     private val titles = listOf("发布", "私密", "喜欢")
 
-    override fun layoutId() = R.layout.fragment_mine
+    override fun initVB(inflater: LayoutInflater, parent: ViewGroup?) = FragmentMineBinding.inflate(inflater, parent, false)
 
     override fun initUI() {
         super.initUI()
         CUtils.setDarkMode(requireActivity(), false)
-        tabTopSpaceView.layoutParams.height = VMDimen.dp2px(48) + VMDimen.statusBarHeight
+        mBinding.tabTopSpaceView.layoutParams.height = VMDimen.dp2px(48) + VMDimen.statusBarHeight
 
         setTopTitleColor(R.color.app_title_display)
         setTopTitle("小透明")
@@ -46,8 +47,8 @@ class MineFragment : BaseFragment() {
 //            mineLikeLL.setOnClickListener { }
 //
 //            mineEditInfoTV.setOnClickListener { CRouter.go(AppRouter.appPersonalInfo) }
-        mineEditInfoTV.setOnClickListener { CRouter.go(AppRouter.appUserInfo) }
-        mineSettingsBtn.setOnClickListener { CRouter.go(AppRouter.appSettings) }
+        mBinding.mineEditInfoTV.setOnClickListener { CRouter.go(AppRouter.appUserInfo) }
+        mBinding.mineSettingsBtn.setOnClickListener { CRouter.go(AppRouter.appSettings) }
 //
 //            LDEventBus.observe(this, Constants.userInfoEvent, User::class.java, {
 //                mUser = it
@@ -81,14 +82,14 @@ class MineFragment : BaseFragment() {
      * 初始化 ViewPager
      */
     private fun initViewPager() {
-        viewPager.offscreenPageLimit = titles.size - 1
-        viewPager.adapter = object : FragmentStateAdapter(this) {
+        mBinding.viewPager.offscreenPageLimit = titles.size - 1
+        mBinding.viewPager.adapter = object : FragmentStateAdapter(this) {
             override fun createFragment(position: Int) = fragmentList[position]
 
             override fun getItemCount() = fragmentList.size
         }
         // 将 TabLayout 与 ViewPager 进行绑定
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+        TabLayoutMediator(mBinding.tabLayout, mBinding.viewPager) { tab, position ->
             tab.text = titles[position]
         }.attach()
     }
@@ -109,7 +110,7 @@ class MineFragment : BaseFragment() {
      * 绑定用户数据
      */
     private fun bindInfo() {
-        mineNameTV.text = "测试昵称"
+        mBinding.mineNameTV.text = "测试昵称"
 
 //            val cover: String = mUser.cover
 //            IMGLoader.loadCover(mineCoverIV, cover)

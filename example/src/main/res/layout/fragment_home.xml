@@ -19,7 +19,7 @@
             android:id="@+id/viewGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/vm_padding_normal"
-            android:clipChildren="false"/>
+            android:clipChildren="false"
+            android:padding="@dimen/vm_padding_normal" />
     </LinearLayout>
 </LinearLayout>
