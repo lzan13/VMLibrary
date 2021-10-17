@@ -48,37 +48,59 @@
 
     <!--自定义单行控件-->
     <declare-styleable name="VMLineView">
+        <!--内容边距，主要是标题与左边图标，以及描述文本与右边图标距离-->
+        <attr name="vm_line_content_space" format="dimension" />
         <!--图标-->
         <attr name="vm_line_icon" format="reference" />
+        <!--图标大小-->
+        <attr name="vm_line_icon_size" format="dimension" />
         <!--标题-->
         <attr name="vm_line_title" format="string|reference" />
         <!--标题颜色-->
         <attr name="vm_line_title_color" format="color|integer" />
+        <!--标题样式-->
+        <attr name="vm_line_title_style" format="reference" />
+        <!--标题边距-->
+        <attr name="vm_line_title_space" format="reference" />
         <!--说明图标-->
         <attr name="vm_line_caption_icon" format="reference" />
         <!--右侧说明文本-->
         <attr name="vm_line_caption" format="string|reference" />
         <!--右侧说明文本颜色-->
         <attr name="vm_line_caption_color" format="color|integer" />
+        <!--右侧说明文本样式-->
+        <attr name="vm_line_caption_style" format="reference" />
+        <!--右侧描述边距-->
+        <attr name="vm_line_caption_space" format="reference" />
         <!--右侧图标-->
         <attr name="vm_line_right_icon" format="reference" />
+        <!--右侧图标大小-->
+        <attr name="vm_line_right_icon_size" format="dimension" />
         <!--底部描述-->
         <attr name="vm_line_description" format="string|reference" />
         <!--底部描述文本颜色-->
         <attr name="vm_line_description_color" format="color|integer" />
+        <!--底部描述文本样式-->
+        <attr name="vm_line_description_style" format="reference" />
         <!--装饰分割线-->
         <attr name="vm_line_decoration">
             <!--默认隐藏-->
             <enum name="hide" value="0" />
+            <!--充满-->
+            <enum name="full" value="1" />
             <!--居中，两头留空-->
-            <enum name="center" value="1" />
+            <enum name="center" value="2" />
             <!--居右，头部留空-->
-            <enum name="right" value="2" />
+            <enum name="right" value="3" />
         </attr>
-        <!--装饰分割线高度-->
-        <attr name="vm_line_decoration_height" format="dimension" />
         <!--装饰分割线颜色-->
         <attr name="vm_line_decoration_color" format="color|integer" />
+        <!--装饰分割线开始空间-->
+        <attr name="vm_line_decoration_start" format="dimension" />
+        <!--装饰分割线结尾空间-->
+        <attr name="vm_line_decoration_end" format="dimension" />
+        <!--装饰分割线高度-->
+        <attr name="vm_line_decoration_height" format="dimension" />
     </declare-styleable>
     <!--自定义 Loading 控件-->
     <declare-styleable name="VMLoadingView">

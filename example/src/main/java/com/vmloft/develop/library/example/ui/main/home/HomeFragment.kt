@@ -18,6 +18,7 @@ import com.vmloft.develop.library.tools.permission.VMPermission
 import com.vmloft.develop.library.tools.permission.VMPermissionBean
 
 import kotlinx.android.synthetic.main.fragment_home.*
+import android.content.ComponentName
 
 
 /**
@@ -126,7 +127,7 @@ class HomeFragment : BaseFragment() {
             })
     }
 
-    private fun openWeChat(){
+    private fun openAlipay() {
         /**
          * {
          *      "wxCode":"http://zyphoto.itluntan.cn/202108091681857",
@@ -142,11 +143,27 @@ class HomeFragment : BaseFragment() {
          *  alipays://platformapi/startapp?saId=10000007
          *  （跳转支付宝扫一扫）
          */
-//        val uri = Uri.parse("weixin://dl/business/?t=K79JD9PqEgt")
+//        val uri = Uri.parse("weixin://dl/stickers")
         val uri = Uri.parse("alipayqr://platformapi/startapp?saId=10000007&qrcode=https%3a%2f%2fqr.alipay.com%2ftsx140593gavtpepmajwj09")
         val intent = Intent(Intent.ACTION_VIEW, uri)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         VMTools.context.startActivity(intent)
+    }
 
+//    private const val WECHAT_APP_PACKAGE = "com.tencent.mm"
+//    private const val WECHAT_LAUNCHER_UI_CLASS = "com.tencent.mm.ui.LauncherUI"
+//    private const val WECHAT_OPEN_SCANER_NAME = "LauncherUI.From.Scaner.Shortcut"
+
+    private fun openWeChat() {
+        try {
+            val intent = Intent()
+            intent.component = ComponentName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI")
+            intent.putExtra("LauncherUI.From.Scaner.Shortcut", true)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            intent.action = "android.intent.action.VIEW"
+            VMTools.context.startActivity(intent)
+        } catch (e: Exception) {
+
+        }
     }
 }

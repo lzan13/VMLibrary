@@ -109,21 +109,21 @@
     </style>
 
     <!--文字样式 Display1-->
-    <style name="VMText.Display1" parent="Base.TextAppearance.AppCompat.Display1">
+    <style name="VMText.Display1" parent="@android:style/TextAppearance.Material.Display1">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/vm_display_1</item>
     </style>
 
     <!--文字样式 Headline-->
-    <style name="VMText.Headline" parent="Base.TextAppearance.AppCompat.Headline">
+    <style name="VMText.Headline" parent="@android:style/TextAppearance.Material.Headline">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/vm_headline</item>
     </style>
 
     <!--文字样式 Title-->
-    <style name="VMText.Title" parent="Base.TextAppearance.AppCompat.Title">
+    <style name="VMText.Title" parent="@android:style/TextAppearance.Material.Title">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/vm_title</item>
@@ -131,7 +131,7 @@
     </style>
 
     <!--文字样式 Subhead-->
-    <style name="VMText.Subhead" parent="Base.TextAppearance.AppCompat.Subhead">
+    <style name="VMText.Subhead" parent="@android:style/TextAppearance.Material.Subhead">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/vm_subhead</item>
@@ -139,7 +139,7 @@
     </style>
 
     <!--文字样式 Body1-->
-    <style name="VMText.Body1" parent="Base.TextAppearance.AppCompat.Body1">
+    <style name="VMText.Body1" parent="@android:style/TextAppearance.Material.Body1">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/vm_body</item>
@@ -147,7 +147,7 @@
     </style>
 
     <!--文字样式 Body2 有加粗效果-->
-    <style name="VMText.Body2" parent="Base.TextAppearance.AppCompat.Body2">
+    <style name="VMText.Body2" parent="@android:style/TextAppearance.Material.Body2">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/vm_body</item>
@@ -156,7 +156,7 @@
     </style>
 
     <!--文字样式 Caption-->
-    <style name="VMText.Caption" parent="Base.TextAppearance.AppCompat.Caption">
+    <style name="VMText.Caption" parent="@android:style/TextAppearance.Material.Caption">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/vm_caption</item>

@@ -15,7 +15,6 @@ import com.vmloft.develop.library.tools.R.layout
 import com.vmloft.develop.library.tools.R.styleable
 import com.vmloft.develop.library.tools.utils.VMColor
 import com.vmloft.develop.library.tools.utils.VMDimen
-import com.vmloft.develop.library.tools.utils.VMStr
 
 /**
  * Create by lzan13 on 2019/5/12 22:25
@@ -23,54 +22,47 @@ import com.vmloft.develop.library.tools.utils.VMStr
  * 自定义单行控件，主要用于设置选项
  */
 class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RelativeLayout(context, attrs, defStyleAttr) {
-    // 左侧图标
-    private var mIconView: ImageView
 
-    // 标题
-    private var mTitleView: TextView
-
-    // 右侧容器
-    private var mRightContainer: LinearLayout
-
-    // 说明图标
-    private var mCaptionIconView: ImageView
-
-    // 说明文本
-    private var mCaptionView: TextView
-
-    // 右侧图标
-    private var mRightIconView: ImageView
-
-    // 底部描述文本
-    private var mDescriptionView: TextView
-
-    // 底部容器
-    private var mBottomContainer: LinearLayout
-
-    // 分割线
-    private var mDecorationView: View
+    private var mIconView: ImageView // 左侧图标
+    private var mTitleView: TextView // 标题
+    private var mRightContainer: LinearLayout // 右侧容器
+    private var mCaptionIconView: ImageView // 说明图标
+    private var mCaptionView: TextView // 说明文本
+    private var mRightIconView: ImageView // 右侧图标
+    private var mDescriptionView: TextView // 底部描述文本
+    private var mBottomContainer: LinearLayout // 底部容器
+    private var mDecorationView: View // 分割线
 
     // 分割线辅助定位
-    private var mDecorationAidedView: View
+    private var mDecorationAidedStartView: View
+    private var mDecorationAidedEndView: View
 
-    private var mIconRes = 0
+    private var mIconRes = 0 // 图标
+    private var mIconSize = 24 // 图标大小
+
     private var mTitle: String? = null
     private var mTitleColor = 0
+    private var mTitleStyle = 0
+    private var mTitleSpace = 0 // 标题内容边距
+
     private var mCaptionIconRes = 0
     private var mCaption: String? = null
     private var mCaptionColor = 0
-    private var mRightIconRes = 0
+    private var mCaptionStyle = 0
+    private var mCaptionSpace = 0 // 右侧描述内容边距
+
+    private var mRightIconRes = 0 // 右侧图标
+    private var mRightIconSize = 24 // 右侧图标大小
+
     private var mDescription: String? = null
     private var mDescriptionColor = 0
+    private var mDescriptionStyle = 0 // 底部描述样式
 
-    // 是否展示分割线
-    private var mDecoration = 0
-
-    // 分割线高度
-    private var mDecorationHeight = 0
-
-    // 分割线高度
-    private var mDecorationColor = 0
+    private var mDecoration = 0 // 是否展示分割线
+    private var mDecorationHeight = 0 // 分割线高度
+    private var mDecorationColor = 0 // 分割线颜色
+    private var mDecorationAidedStart = 0 // 分割线开始空间
+    private var mDecorationAidedEnd = 0 // 分割线结束空间
 
     /**
      * 初始化
@@ -81,6 +73,15 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         mTitleColor = VMColor.byRes(R.color.vm_title)
         mCaptionColor = VMColor.byRes(R.color.vm_caption)
         mDescriptionColor = VMColor.byRes(R.color.vm_description)
+
+        mTitleSpace = VMDimen.dp2px(16)
+        mCaptionSpace = VMDimen.dp2px(8)
+
+        mIconSize = VMDimen.dp2px(24)
+        mRightIconSize = VMDimen.dp2px(24)
+
+        mDecorationAidedStart = VMDimen.dp2px(16)
+        mDecorationAidedEnd = VMDimen.dp2px(16)
 
         mDecorationHeight = VMDimen.getDimenPixel(R.dimen.vm_dimen_0_1)
         mDecorationColor = VMColor.byRes(R.color.vm_decoration)
@@ -94,7 +95,8 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         mDescriptionView = findViewById(R.id.vmLineDescriptionTV)
         mBottomContainer = findViewById(R.id.vmLineBottomContainer)
         mDecorationView = findViewById(R.id.vmLineDecoration)
-        mDecorationAidedView = findViewById(R.id.vmLineDecorationAidedView)
+        mDecorationAidedStartView = findViewById(R.id.vmLineDecorationAidedStartView)
+        mDecorationAidedEndView = findViewById(R.id.vmLineDecorationAidedEndView)
 
         // 获取控件的属性值
         handleAttrs(context, attrs)
@@ -111,18 +113,33 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
             return
         }
         val array = context.obtainStyledAttributes(attrs, styleable.VMLineView)
+
+
         mIconRes = array.getResourceId(styleable.VMLineView_vm_line_icon, mIconRes)
+        mIconSize = array.getDimensionPixelOffset(styleable.VMLineView_vm_line_icon_size, mIconSize)
         mTitle = array.getString(styleable.VMLineView_vm_line_title)
         mTitleColor = array.getColor(styleable.VMLineView_vm_line_title_color, mTitleColor)
+        mTitleStyle = array.getResourceId(styleable.VMLineView_vm_line_title_style, mTitleStyle)
+        mTitleSpace = array.getDimensionPixelOffset(styleable.VMLineView_vm_line_title_space, mTitleSpace)
+
         mCaptionIconRes = array.getResourceId(styleable.VMLineView_vm_line_caption_icon, mCaptionIconRes)
         mCaption = array.getString(styleable.VMLineView_vm_line_caption)
         mCaptionColor = array.getColor(styleable.VMLineView_vm_line_caption_color, mCaptionColor)
+        mCaptionStyle = array.getResourceId(styleable.VMLineView_vm_line_caption_style, mCaptionStyle)
+        mCaptionSpace = array.getDimensionPixelOffset(styleable.VMLineView_vm_line_caption_space, mCaptionSpace)
+
         mRightIconRes = array.getResourceId(styleable.VMLineView_vm_line_right_icon, mRightIconRes)
+        mRightIconSize = array.getDimensionPixelOffset(styleable.VMLineView_vm_line_right_icon_size, mRightIconSize)
+
         mDescription = array.getString(styleable.VMLineView_vm_line_description)
         mDescriptionColor = array.getColor(styleable.VMLineView_vm_line_description_color, mDescriptionColor)
+        mDescriptionStyle = array.getResourceId(styleable.VMLineView_vm_line_description_style, mDescriptionStyle)
+
         mDecoration = array.getInt(styleable.VMLineView_vm_line_decoration, mDecoration)
-        mDecorationHeight = array.getDimensionPixelOffset(styleable.VMLineView_vm_line_decoration_height, mDecorationHeight)
         mDecorationColor = array.getColor(styleable.VMLineView_vm_line_decoration_color, mDecorationColor)
+        mDecorationAidedStart = array.getDimensionPixelOffset(styleable.VMLineView_vm_line_decoration_start, mDecorationAidedStart)
+        mDecorationAidedEnd = array.getDimensionPixelOffset(styleable.VMLineView_vm_line_decoration_end, mDecorationAidedEnd)
+        mDecorationHeight = array.getDimensionPixelOffset(styleable.VMLineView_vm_line_decoration_height, mDecorationHeight)
         array.recycle()
     }
 
@@ -130,48 +147,24 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
      * 装载控件内容
      */
     private fun setupView() {
-        if (mIconRes == 0) {
-            mIconView.visibility = View.GONE
-        } else {
-            mIconView.visibility = View.VISIBLE
-            mIconView.setImageResource(mIconRes)
-        }
-        if (!mTitle.isNullOrEmpty()) {
-            mTitleView.text = mTitle
-        }
-        if (mTitleColor != 0) {
-            mTitleView.setTextColor(mTitleColor)
-        }
-        if (mCaptionIconRes == 0) {
-            mCaptionIconView.visibility = View.GONE
-        } else {
-            mCaptionIconView.visibility = View.VISIBLE
-            mCaptionIconView.setImageResource(mCaptionIconRes)
-        }
-        if (mCaption.isNullOrEmpty()) {
-            mCaptionView.visibility = View.GONE
-        } else {
-            mCaptionView.visibility = View.VISIBLE
-            mCaptionView.text = mCaption
-        }
-        if (mCaptionColor != 0) {
-            mCaptionView.setTextColor(mCaptionColor)
-        }
-        if (mDescriptionColor != 0) {
-            mDescriptionView.setTextColor(mDescriptionColor)
-        }
-        if (mRightIconRes == 0) {
-            mRightIconView.visibility = View.GONE
-        } else {
-            mRightIconView.visibility = View.VISIBLE
-            mRightIconView.setImageResource(mRightIconRes)
-        }
-        if (mDescription.isNullOrEmpty()) {
-            mDescriptionView.visibility = View.GONE
-        } else {
-            mDescriptionView.visibility = View.VISIBLE
-            mDescriptionView.text = mDescription
-        }
+        setIconRes(mIconRes)
+        setIconSize(mIconSize)
+
+        setTitle(mTitle)
+        setTitleColor(mTitleColor)
+        setTitleStyle(mTitleStyle)
+
+        setCaptionIcon(mCaptionIconRes)
+        setCaption(mCaption)
+        setCaptionColor(mCaptionColor)
+        setCaptionStyle(mCaptionStyle)
+
+        setRightIcon(mRightIconRes)
+        setRightIconSize(mRightIconSize)
+
+        setDescription(mDescription)
+        setDescriptionColor(mDescriptionColor)
+        setDescriptionStyle(mDescriptionStyle)
 
         if (mDecoration == 0) {
             mDecorationView.visibility = View.GONE
@@ -180,8 +173,11 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
             mDecorationView.layoutParams.height = mDecorationHeight
             mDecorationView.setBackgroundColor(mDecorationColor)
 
-            mDecorationAidedView.visibility = if (mDecoration == 1) View.VISIBLE else View.GONE
+            mDecorationAidedStartView.visibility = if (mDecoration == 1) View.GONE else View.VISIBLE
+            mDecorationAidedEndView.visibility = if (mDecoration == 2) View.VISIBLE else View.GONE
 
+            mDecorationAidedStartView.layoutParams.width = mDecorationAidedStart
+            mDecorationAidedEndView.layoutParams.width = mDecorationAidedEnd
         }
     }
 
@@ -194,10 +190,19 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         mIconRes = resId
         if (mIconRes == 0) {
             mIconView.visibility = View.GONE
-            return
+        } else {
+            mIconView.visibility = View.VISIBLE
+            mIconView.setImageResource(mIconRes)
         }
-        mIconView.visibility = View.VISIBLE
-        mIconView.setImageResource(mIconRes)
+    }
+
+    /**
+     * 设置图标大小
+     */
+    fun setIconSize(size: Int) {
+        mIconSize = size
+        mIconView.layoutParams.width = mIconSize
+        mIconView.layoutParams.height = mIconSize
     }
 
     /**
@@ -205,13 +210,15 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
      */
     fun setTitle(title: String?) {
         mTitle = title
-        mTitleView.text = mTitle
+        mTitleView.text = if (mTitle.isNullOrEmpty()) "" else mTitle
+        mTitleView.setPadding(mTitleSpace, 0, mTitleView.paddingEnd, 0)
     }
 
     /**
      * 设置标题颜色
      */
     fun setTitleColor(color: Int) {
+        if (color == 0) return
         mTitleColor = color
         mTitleView.setTextColor(mTitleColor)
     }
@@ -220,10 +227,12 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
      * 设置标题样式
      */
     fun setTitleStyle(resId: Int) {
+        if (mTitleStyle == 0) return
+        mTitleStyle = resId
         if (VERSION.SDK_INT >= VERSION_CODES.M) {
-            mTitleView.setTextAppearance(resId)
+            mTitleView.setTextAppearance(mTitleStyle)
         } else {
-            mTitleView.setTextAppearance(context, resId)
+            mTitleView.setTextAppearance(context, mTitleStyle)
         }
     }
 
@@ -246,10 +255,10 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         mCaptionIconRes = resId
         if (mCaptionIconRes == 0) {
             mCaptionIconView.visibility = View.GONE
-            return
+        } else {
+            mCaptionIconView.visibility = View.VISIBLE
+            mCaptionIconView.setImageResource(mCaptionIconRes)
         }
-        mCaptionIconView.visibility = View.VISIBLE
-        mCaptionIconView.setImageResource(mCaptionIconRes)
     }
 
     /**
@@ -259,16 +268,18 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         mCaption = caption
         if (mCaption.isNullOrEmpty()) {
             mCaptionView.visibility = View.GONE
-            return
+        } else {
+            mCaptionView.visibility = View.VISIBLE
+            mCaptionView.text = mCaption
+            mCaptionView.setPadding(0, 0, mCaptionSpace, 0)
         }
-        mCaptionView.visibility = View.VISIBLE
-        mCaptionView.text = mCaption
     }
 
     /**
      * 设置右侧说明文本颜色
      */
     fun setCaptionColor(color: Int) {
+        if (color == 0) return
         mCaptionColor = color
         mCaptionView.setTextColor(mCaptionColor)
     }
@@ -277,10 +288,12 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
      * 设置右侧说明文本样式
      */
     fun setCaptionStyle(resId: Int) {
+        if (mCaptionStyle == 0) return
+        mCaptionStyle = resId
         if (VERSION.SDK_INT >= VERSION_CODES.M) {
-            mCaptionView.setTextAppearance(resId)
+            mCaptionView.setTextAppearance(mCaptionStyle)
         } else {
-            mCaptionView.setTextAppearance(context, resId)
+            mCaptionView.setTextAppearance(context, mCaptionStyle)
         }
     }
 
@@ -291,10 +304,19 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         mRightIconRes = resId
         if (mRightIconRes == 0) {
             mRightIconView.visibility = View.GONE
-            return
+        } else {
+            mRightIconView.visibility = View.VISIBLE
+            mRightIconView.setImageResource(mRightIconRes)
         }
-        mRightIconView.visibility = View.VISIBLE
-        mRightIconView.setImageResource(mRightIconRes)
+    }
+
+    /**
+     * 设置右侧图标大小
+     */
+    fun setRightIconSize(size: Int) {
+        mRightIconSize = size
+        mRightIconView.layoutParams.width = mRightIconSize
+        mRightIconView.layoutParams.height = mRightIconSize
     }
 
     /**
@@ -304,16 +326,18 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         mDescription = description
         if (mDescription.isNullOrEmpty()) {
             mDescriptionView.visibility = View.GONE
-            return
+        } else {
+            mDescriptionView.visibility = View.VISIBLE
+            mDescriptionView.text = mDescription
+            mDescriptionView.setPadding(mTitleSpace, 0, mDescriptionView.paddingEnd, 0)
         }
-        mDescriptionView.visibility = View.VISIBLE
-        mDescriptionView.text = mDescription
     }
 
     /**
      * 设置右侧说明文本颜色
      */
     fun setDescriptionColor(color: Int) {
+        if (color == 0) return
         mDescriptionColor = color
         mDescriptionView.setTextColor(mDescriptionColor)
     }
@@ -322,10 +346,12 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
      * 设置右侧说明文本样式
      */
     fun setDescriptionStyle(resId: Int) {
+        if (mDescriptionStyle == 0) return
+        mDescriptionStyle = resId
         if (VERSION.SDK_INT >= VERSION_CODES.M) {
-            mDescriptionView.setTextAppearance(resId)
+            mDescriptionView.setTextAppearance(mDescriptionStyle)
         } else {
-            mDescriptionView.setTextAppearance(context, resId)
+            mDescriptionView.setTextAppearance(context, mDescriptionStyle)
         }
     }
 
