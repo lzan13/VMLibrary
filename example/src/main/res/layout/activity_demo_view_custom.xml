@@ -87,7 +87,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/vm_dimen_64"
                 android:background="@color/app_bg"
-                app:vm_line_decoration_start="@dimen/vm_dimen_36"
                 app:vm_line_icon="@drawable/icon_mine_moments"
                 app:vm_line_right_icon="@drawable/ic_arrow_next"
                 app:vm_line_title="测试 Item" />
@@ -108,7 +107,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:vm_line_caption="右侧说明右侧说明"
-                app:vm_line_decoration="full"
                 app:vm_line_description="测试描述文本，这是底部的描述文本，底部描述内容底部描述内容底部描述内容底部描述内容底部描述内容底部描述内容底部描述内容"
                 app:vm_line_icon="@drawable/ic_chat_flash"
                 app:vm_line_title="测试测试测试" />
