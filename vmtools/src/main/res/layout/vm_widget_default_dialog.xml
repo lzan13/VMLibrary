@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/vm_dimen_32"
-    android:background="@drawable/vm_shape_common_card_white">
+    android:background="@drawable/vm_shape_common_dialog_bg">
 
     <TextView
         android:id="@+id/vmDialogTitleTV"

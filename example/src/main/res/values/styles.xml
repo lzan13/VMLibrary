@@ -63,28 +63,28 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@color/app_bg_item</item>
 
-        <!--图标大小-->
-        <item name="vm_line_icon_size">@dimen/vm_dimen_24</item>
-        <!--标题-->
-        <item name="vm_line_title_color">@color/app_title</item>
-        <item name="vm_line_title_style">@style/AppText.LVTitle</item>
-        <item name="vm_line_title_space">@dimen/vm_dimen_8</item>
+<!--        &lt;!&ndash;图标大小&ndash;&gt;-->
+<!--        <item name="vm_line_icon_size">@dimen/vm_dimen_24</item>-->
+<!--        &lt;!&ndash;标题&ndash;&gt;-->
+<!--        <item name="vm_line_title_color">@color/app_title</item>-->
+<!--        <item name="vm_line_title_style">@style/AppText.LVTitle</item>-->
+<!--        <item name="vm_line_title_space">@dimen/vm_dimen_8</item>-->
 
-        <!--右侧描述-->
-        <item name="vm_line_caption_color">@color/app_caption</item>
-        <item name="vm_line_caption_style">@style/AppText.Caption</item>
-        <item name="vm_line_caption_space">@dimen/vm_dimen_8</item>
+<!--        &lt;!&ndash;右侧描述&ndash;&gt;-->
+<!--        <item name="vm_line_caption_color">@color/app_caption</item>-->
+<!--        <item name="vm_line_caption_style">@style/AppText.Caption</item>-->
+<!--        <item name="vm_line_caption_space">@dimen/vm_dimen_8</item>-->
 
-        <!--底部描述-->
-        <item name="vm_line_description_color">@color/app_desc</item>
-        <item name="vm_line_description_style">@style/AppText.Caption</item>
+<!--        &lt;!&ndash;底部描述&ndash;&gt;-->
+<!--        <item name="vm_line_description_color">@color/app_desc</item>-->
+<!--        <item name="vm_line_description_style">@style/AppText.Caption</item>-->
 
-        <!--分割线-->
-        <item name="vm_line_decoration">center</item>
-        <item name="vm_line_decoration_color">@color/app_decoration</item>
-        <item name="vm_line_decoration_height">@dimen/vm_dimen_0_5</item>
-        <item name="vm_line_decoration_start">@dimen/vm_dimen_16</item>
-        <item name="vm_line_decoration_end">@dimen/vm_dimen_16</item>
+<!--        &lt;!&ndash;分割线&ndash;&gt;-->
+<!--        <item name="vm_line_decoration">center</item>-->
+<!--        <item name="vm_line_decoration_color">@color/app_decoration</item>-->
+<!--        <item name="vm_line_decoration_height">@dimen/vm_dimen_0_5</item>-->
+<!--        <item name="vm_line_decoration_start">@dimen/vm_dimen_16</item>-->
+<!--        <item name="vm_line_decoration_end">@dimen/vm_dimen_16</item>-->
     </style>
 
 </resources>

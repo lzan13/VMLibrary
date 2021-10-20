@@ -18,8 +18,9 @@
     <color name="vm_caption">@color/vm_gray_87</color>
     <color name="vm_description">@color/vm_gray_54</color>
 
-    <!--悬浮窗-->
-    <color name="vm_float_menu_bg">#ff363636</color>
+    <!--默认背景-->
+    <color name="vm_bg">@color/vm_black</color>
+    <color name="vm_bg_dialog">#ff363636</color>
 
     <!--按钮背景-->
     <color name="vm_btn_default">@color/vm_gray_54</color>
