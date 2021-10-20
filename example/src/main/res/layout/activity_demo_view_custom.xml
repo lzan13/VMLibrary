@@ -84,11 +84,11 @@
                 app:vm_touch_normal_desc="按下" />
         </RelativeLayout>
 
-<!--        <com.vmloft.develop.library.tools.widget.VMLineView-->
-<!--            style="@style/AppLVStyle"-->
-<!--            app:vm_line_icon="@drawable/icon_mine_moments"-->
-<!--            app:vm_line_right_icon="@drawable/ic_arrow_next"-->
-<!--            app:vm_line_title="测试 Item0" />-->
+        <com.vmloft.develop.library.tools.widget.VMLineView
+            style="@style/AppLVStyle"
+            app:vm_line_icon="@drawable/icon_mine_moments"
+            app:vm_line_right_icon="@drawable/ic_arrow_next"
+            app:vm_line_title="测试 Item0" />
 
         <com.vmloft.develop.library.tools.widget.VMLineView
             style="@style/AppLVStyle"
@@ -113,13 +113,13 @@
             app:vm_line_right_icon="@drawable/ic_arrow_next"
             app:vm_line_title="测试 Item" />
 
-<!--        <com.vmloft.develop.library.tools.widget.VMLineView-->
-<!--            style="@style/AppLVStyle"-->
-<!--            app:vm_line_caption="右侧说明右侧说明"-->
-<!--            app:vm_line_caption_space="@dimen/vm_dimen_16"-->
-<!--            app:vm_line_description="测试描述文本，这是底部的描述文本，底部描述内容底部描述内容底部描述内容底部描述内容底部描述内容底部描述内容底部描述内容"-->
-<!--            app:vm_line_icon="@drawable/ic_chat_flash"-->
-<!--            app:vm_line_title="测试测试测试" />-->
+        <com.vmloft.develop.library.tools.widget.VMLineView
+            style="@style/AppLVStyle"
+            app:vm_line_caption="右侧说明右侧说明"
+            app:vm_line_caption_space="@dimen/vm_dimen_16"
+            app:vm_line_description="测试描述文本，这是底部的描述文本，底部描述内容底部描述内容底部描述内容底部描述内容底部描述内容底部描述内容底部描述内容"
+            app:vm_line_icon="@drawable/ic_chat_flash"
+            app:vm_line_title="测试测试测试" />
 
     </LinearLayout>
 </RelativeLayout>
