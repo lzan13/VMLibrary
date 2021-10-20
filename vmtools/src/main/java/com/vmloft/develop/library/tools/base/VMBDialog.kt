@@ -2,11 +2,13 @@ package com.vmloft.develop.library.tools.base
 
 import android.app.Dialog
 import android.content.Context
+import android.text.SpannableString
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.viewbinding.ViewBinding
 
 import com.vmloft.develop.library.tools.R
 import com.vmloft.develop.library.tools.utils.VMStr
@@ -15,7 +17,8 @@ import com.vmloft.develop.library.tools.utils.VMStr
  * Create by lzan13 on 2020/12/10 21:41
  * 描述：自定义通用对话框基类
  */
-abstract class VMBaseDialog : Dialog {
+abstract class VMBDialog<VB : ViewBinding> : Dialog {
+
     // 子类可以覆盖以下属性
     // 点击积极按钮时检查是否关闭，主要是在一些对话框判断数据时使用，默认为 true
     open var positiveDismissSwitch: Boolean = true
@@ -37,10 +40,14 @@ abstract class VMBaseDialog : Dialog {
     private var positiveListener: View.OnClickListener? = null
     private var confirmListener: View.OnClickListener? = null
 
+    private var _binding: VB
+    protected val mBinding get() = _binding
+
     constructor(context: Context) : this(context, R.style.VMDialog)
 
     constructor(context: Context, themeResId: Int) : super(context, themeResId) {
-        setContentView(layoutId())
+        _binding = initVB()
+        setContentView(_binding.root)
         window?.setGravity(Gravity.CENTER)
         window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 
@@ -61,7 +68,7 @@ abstract class VMBaseDialog : Dialog {
         setCancelable(backDismissSwitch)
     }
 
-    abstract fun layoutId(): Int
+    abstract fun initVB(): VB
 
     abstract fun getNegativeTV(): TextView?
 
@@ -108,6 +115,14 @@ abstract class VMBaseDialog : Dialog {
      * 设置内容
      */
     open fun setContent(content: String) {
+        getContentTV()?.text = content
+        getContentTV()?.visibility = if (content.isNullOrEmpty()) View.GONE else View.VISIBLE
+    }
+
+    /**
+     * 设置内容
+     */
+    open fun setContent(content: CharSequence) {
         getContentTV()?.text = content
         getContentTV()?.visibility = if (content.isNullOrEmpty()) View.GONE else View.VISIBLE
     }

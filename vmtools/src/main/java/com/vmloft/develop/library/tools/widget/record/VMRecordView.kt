@@ -174,8 +174,8 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
      * 绘制触摸区域
      */
     protected fun drawTouch(canvas: Canvas) {
+        // 绘制外圈
         if (isStartRecord && !isCancelRecord) {
-            // 绘制外圈
             mPaint!!.color = mOuterColor
             canvas.drawCircle(mWidth / 2.toFloat(), mHeight / 2.toFloat(), mOuterSize / 2.toFloat(), mPaint!!)
         }
@@ -207,30 +207,23 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
      * 绘制录音时间
      */
     protected fun drawTime(canvas: Canvas) {
-        val timeColor: Int
-        timeColor = if (isCancelRecord) {
-            VMColor.byRes(color.vm_white)
-        } else {
-            mTimeColor
-        }
-        mPaint!!.color = timeColor
+        mPaint!!.color = if (isCancelRecord) VMColor.byRes(color.vm_white) else mTimeColor
         mPaint!!.strokeWidth = 1f
         mPaint!!.textSize = mTimeSize.toFloat()
         val minute = (mRecordTime / 1000 / 60).toInt()
         val seconds = (mRecordTime / 1000 % 60).toInt()
-        val time = VMStr.byArgs("%02d'%02d''", minute, seconds)
-        //        int millisecond = (int) (mRecordTime % 1000 / 100);
-        //        String time = VMStr.byArgs("%02d'%02d''%d'''", minute, seconds, millisecond);
+//        val millisecond = (mRecordTime % 1000 / 100).toInt()
+        val time = VMStr.byArgs("%02d:%02d", minute, seconds)
         val tWidth = VMDimen.getTextWidth(mPaint!!, time)
         val tHeight = VMDimen.getTextHeight(mPaint!!)
-        canvas.drawText(time, mWidth / 2 - tWidth / 2, mHeight / 6 - tHeight, mPaint!!)
+        canvas.drawText(time, mWidth / 2 - tWidth / 3, mHeight / 6 - tHeight, mPaint!!)
     }
 
     /**
      * 外圈动画
      */
     private fun startOuterAnim() {
-        VMSystem.runInUIThread(Runnable {
+        VMSystem.runInUIThread({
             val mAnimator = ValueAnimator.ofInt(mInnerSize, mInnerSize + mDecibel * mHeight / 10, mInnerSize)
             mAnimator.duration = mSampleTime
             mAnimator.repeatCount = 0

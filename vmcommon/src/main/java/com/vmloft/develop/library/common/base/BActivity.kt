@@ -1,6 +1,7 @@
 package com.vmloft.develop.library.common.base
 
 import android.app.Activity
+import android.app.Dialog
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.View
@@ -9,7 +10,6 @@ import androidx.viewbinding.ViewBinding
 
 import com.vmloft.develop.library.common.R
 import com.vmloft.develop.library.common.utils.CUtils
-import com.vmloft.develop.library.common.widget.CommonDialog
 import com.vmloft.develop.library.tools.utils.VMDimen
 import com.vmloft.develop.library.tools.widget.VMTopBar
 
@@ -23,7 +23,7 @@ abstract class BActivity<VB : ViewBinding> : AppCompatActivity() {
     protected var commonTopLL: View? = null
     protected var commonTopSpace: View? = null
     protected var commonTopBar: VMTopBar? = null
-    protected var mDialog: CommonDialog? = null
+    protected var mDialog: Dialog? = null
 
     protected lateinit var mActivity: Activity
 

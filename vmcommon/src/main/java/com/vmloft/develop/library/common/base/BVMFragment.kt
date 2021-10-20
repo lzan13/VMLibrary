@@ -1,5 +1,6 @@
 package com.vmloft.develop.library.common.base
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +14,6 @@ import com.vmloft.develop.library.common.report.ReportManager
 import com.vmloft.develop.library.common.utils.CUtils
 import com.vmloft.develop.library.common.utils.errorBar
 import com.vmloft.develop.library.common.utils.showBar
-import com.vmloft.develop.library.common.widget.CommonDialog
 import com.vmloft.develop.library.tools.utils.VMDimen
 import com.vmloft.develop.library.tools.utils.VMNetwork
 import com.vmloft.develop.library.tools.widget.VMTopBar
@@ -31,7 +31,7 @@ abstract class BVMFragment<VB : ViewBinding, VM : BViewModel> : Fragment() {
     protected var emptyStatusLL: View? = null
     protected var emptyStatusIV: ImageView? = null
 
-    protected var mDialog: CommonDialog? = null
+    protected var mDialog: Dialog? = null
 
     // 是否隐藏顶部控件
     open var isHideTopSpace: Boolean = false

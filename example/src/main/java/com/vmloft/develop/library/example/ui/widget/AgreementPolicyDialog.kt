@@ -24,8 +24,6 @@ import com.vmloft.develop.library.tools.utils.logger.VMLog
 class AgreementPolicyDialog(context: Context) : CommonDialog(context) {
 
     init {
-        val dialogContentTV = this.findViewById<TextView>(R.id.dialogContentTV)
-
         val agreementContent = VMStr.byRes(R.string.agreement_policy_dialog_content)
         val userAgreement = VMStr.byRes(R.string.user_agreement)
         val privacyPolicy = VMStr.byRes(R.string.privacy_policy)
@@ -53,18 +51,11 @@ class AgreementPolicyDialog(context: Context) : CommonDialog(context) {
 //        sp.setSpan(StyleSpan(android.graphics.Typeface.BOLD_ITALIC), 19, 21, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
         //设置下划线
 //        sp.setSpan(UnderlineSpan(), 22, 25, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        dialogContentTV.highlightColor = VMColor.byRes(R.color.vm_transparent)
 
-        dialogContentTV.text = sp
-        dialogContentTV.movementMethod = LinkMovementMethod.getInstance()
+        setContent(sp)
+        getContentTV()?.highlightColor = VMColor.byRes(R.color.vm_transparent)
+        getContentTV()?.movementMethod = LinkMovementMethod.getInstance()
     }
-
-    override fun layoutId() = R.layout.widget_agreement_policy_dialog
-
-    override fun getNegativeTV(): TextView? = findViewById(R.id.dialogNegativeTV)
-
-    override fun getPositiveTV(): TextView? = findViewById(R.id.dialogPositiveTV)
-
 
     class CustomURLSpan(val type: String) : URLSpan(type) {
         override fun updateDrawState(ds: TextPaint) {

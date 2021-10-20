@@ -170,8 +170,8 @@ object TBLiveMsgManager {
 
     private fun showContentETDialog() {
         val dialog = TBLiveMsgETDialog(context)
-        val content = SPManager.get("tbLiveMsg", "content", "1") as String
-        val time = SPManager.get("tbLiveMsg", "time", "1") as String
+        val content = SPManager.get("tbLiveMsg", "content", "我来了😁~") as String
+        val time = SPManager.get("tbLiveMsg", "time", "3000") as String
         dialog.setContent(content)
         dialog.setTime(time)
         dialog.setPositive(listener = {

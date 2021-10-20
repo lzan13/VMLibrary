@@ -6,8 +6,8 @@ ext {
             applicationId    : "com.vmloft.develop.library.example",
             minSdkVersion    : 21,
             targetSdkVersion : 30,
-            versionCode      : 151,
-            versionName      : "1.5.1",
+            versionCode      : 152,
+            versionName      : "1.5.2",
 
             // 友盟 AppId
             umengAppKey      : "UMeng AppKey",

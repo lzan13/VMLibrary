@@ -1,5 +1,6 @@
 package com.vmloft.develop.library.common.base
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,6 @@ import androidx.viewbinding.ViewBinding
 import com.vmloft.develop.library.common.R
 import com.vmloft.develop.library.common.report.ReportManager
 import com.vmloft.develop.library.common.utils.CUtils
-import com.vmloft.develop.library.common.widget.CommonDialog
 import com.vmloft.develop.library.tools.utils.VMDimen
 import com.vmloft.develop.library.tools.widget.VMTopBar
 
@@ -26,7 +26,7 @@ abstract class BFragment<VB : ViewBinding> : Fragment() {
     protected var commonTopSpace: View? = null
     protected var commonTopBar: VMTopBar? = null
 
-    protected var mDialog: CommonDialog? = null
+    protected var mDialog: Dialog? = null
 
     protected var isLoaded: Boolean = false
 

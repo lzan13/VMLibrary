@@ -1,6 +1,10 @@
 更新日志
 =======
 
+### 2021/10/17 V1.5.2
+- 更新 VMLineView 布局
+- 优化自定义对话框 VMBDialog 实现
+
 ### 2021/10/17 V1.5.1
 - 更新 VMLineView 自定义功能更强
 - 迁移 DataBinding 到 ViewBinding

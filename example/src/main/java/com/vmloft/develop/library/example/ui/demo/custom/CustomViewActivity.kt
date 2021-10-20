@@ -4,10 +4,13 @@ import android.view.View
 
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.vmloft.develop.library.common.base.BActivity
+import com.vmloft.develop.library.common.widget.CommonDialog
 
 import com.vmloft.develop.library.example.R
+import com.vmloft.develop.library.example.common.SPManager
 import com.vmloft.develop.library.example.databinding.ActivityDemoViewCustomBinding
 import com.vmloft.develop.library.example.router.AppRouter
+import com.vmloft.develop.library.example.ui.widget.AgreementPolicyDialog
 import com.vmloft.develop.library.example.utils.darkBar
 import com.vmloft.develop.library.example.utils.showBar
 import com.vmloft.develop.library.example.utils.errorBar
@@ -71,8 +74,19 @@ class CustomViewActivity : BActivity<ActivityDemoViewCustomBinding>() {
     fun tips5(view: View) {
         this.show("测试系统提示")
     }
-
-    fun setRatioLayout(view: View) {
-        mBinding.customRatioLayout.setFollowWidth(false)
+    fun showDialog(view: View) {
+        mDialog = CommonDialog(this)
+        (mDialog as CommonDialog).let { dialog ->
+            dialog.setTitle("测试对话框标题")
+            dialog.setContent("测试对话框内容测试对话框内容测试对话框内容测试对话框内容")
+            dialog.setNegative("消极按钮") {
+                this.darkBar("点击了 消极按钮")
+            }
+            dialog.setPositive("积极按钮") {
+                this.showBar("点击了 积极按钮")
+            }
+            dialog.show()
+        }
     }
+
 }

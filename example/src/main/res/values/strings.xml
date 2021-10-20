@@ -146,7 +146,7 @@
     <string name="agreement_policy_prefix">进入表示你已阅读并同意</string>
     <string name="agreement_policy_hint">请阅读并同意《用户协议》与《隐私政策》</string>
     <string name="agreement_policy_dialog_title">用户协议与隐私政策</string>
-    <string name="agreement_policy_dialog_content">欢迎使用忘忧\n
+    <string name="agreement_policy_dialog_content">欢迎使用VMLibrary\n
         1.为了向您提供功能服务，我们会根据您使用服务的具体需要，收集必要的信息；\n
         2.未经您授权，我们不会与第三方共享或对外提供您的信息；\n
         3.您可以访问、更正、删除您的个人信息，我们也将提供注销和更正方式。\n

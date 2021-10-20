@@ -16,8 +16,8 @@ import com.vmloft.develop.library.tools.R
  */
 class VMLoadingView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatImageView(context, attrs, defStyleAttr) {
 
-    private lateinit var mDrawable: VMLoadingDrawable
-    private lateinit var mBuilder: VMLoadingBuilder
+    private var mDrawable: VMLoadingDrawable? = null
+    private var mBuilder: VMLoadingBuilder? = null
 
 
     init {
@@ -39,7 +39,7 @@ class VMLoadingView @JvmOverloads constructor(context: Context, attrs: Attribute
     /**
      * 初始化 Loading 绘制
      */
-    private fun initLoadingDrawable(type: Int, speed:Float) {
+    private fun initLoadingDrawable(type: Int, speed: Float) {
         mBuilder = when (type) {
             0 -> DoubleCircleBuilder()
             1 -> PacmanBuilder()
@@ -48,10 +48,10 @@ class VMLoadingView @JvmOverloads constructor(context: Context, attrs: Attribute
             4 -> TextBuilder()
             else -> DoubleCircleBuilder()
         }
-        mBuilder.setSpeed(speed)
+        mBuilder?.setSpeed(speed)
 
-        mDrawable = VMLoadingDrawable(mBuilder)
-        mDrawable.initParams()
+        mDrawable = VMLoadingDrawable(mBuilder!!)
+        mDrawable?.initParams()
         setImageDrawable(mDrawable)
     }
 
@@ -77,10 +77,10 @@ class VMLoadingView @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
     private fun startAnimation() {
-        mDrawable.start()
+        mDrawable?.start()
     }
 
     private fun stopAnimation() {
-        mDrawable.stop()
+        mDrawable?.stop()
     }
 }

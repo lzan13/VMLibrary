@@ -24,6 +24,11 @@ android {
         }
     }
 
+    // 开启 ViewBinding
+    buildFeatures {
+        viewBinding true
+    }
+
     lintOptions {
         abortOnError false
     }

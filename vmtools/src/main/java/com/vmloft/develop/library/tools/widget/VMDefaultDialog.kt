@@ -1,28 +1,29 @@
 package com.vmloft.develop.library.tools.widget
 
 import android.content.Context
+import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.TextView
 
-import com.vmloft.develop.library.tools.R
-import com.vmloft.develop.library.tools.base.VMBaseDialog
+import com.vmloft.develop.library.tools.base.VMBDialog
+import com.vmloft.develop.library.tools.databinding.VmWidgetDefaultDialogBinding
 
 /**
  * Create by lzan13 on 2021/5/13 11:41
  * 描述：自定义通用对话框
  */
-open class VMDefaultDialog(context: Context) : VMBaseDialog(context) {
+open class VMDefaultDialog(context: Context) : VMBDialog<VmWidgetDefaultDialogBinding>(context) {
 
-    override fun layoutId() = R.layout.vm_widget_default_dialog
+    override fun initVB() = VmWidgetDefaultDialogBinding.inflate(LayoutInflater.from(context))
 
-    override fun getTitleTV(): TextView? = findViewById(R.id.vmDialogTitleTV)
+    override fun getTitleTV(): TextView? = mBinding.vmDialogTitleTV
 
-    override fun getContentTV(): TextView? = findViewById(R.id.vmDialogContentTV)
+    override fun getContentTV(): TextView? = mBinding.vmDialogContentTV
 
-    override fun getContainerLL(): LinearLayout? = findViewById(R.id.vmDialogContainerLL)
+    override fun getContainerLL(): LinearLayout? = mBinding.vmDialogContainerLL
 
-    override fun getNegativeTV(): TextView? = findViewById(R.id.vmDialogPositiveTV)
+    override fun getNegativeTV(): TextView? = mBinding.vmDialogPositiveTV
 
-    override fun getPositiveTV(): TextView? = findViewById(R.id.vmDialogConfirmTV)
+    override fun getPositiveTV(): TextView? = mBinding.vmDialogConfirmTV
 
 }

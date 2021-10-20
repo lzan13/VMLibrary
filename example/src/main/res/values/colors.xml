@@ -84,7 +84,7 @@
 
 
     <!--分割线-->
-    <color name="app_decoration">@color/vm_gray</color>
+    <color name="app_decoration">@color/vm_gray_12</color>
 
     <!--加载文本-->
     <color name="app_loading">@color/vm_black_54</color>
