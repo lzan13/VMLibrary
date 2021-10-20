@@ -16,6 +16,7 @@ import com.vmloft.develop.library.tools.R.layout
 import com.vmloft.develop.library.tools.R.styleable
 import com.vmloft.develop.library.tools.utils.VMColor
 import com.vmloft.develop.library.tools.utils.VMDimen
+import com.vmloft.develop.library.tools.utils.logger.VMLog
 
 /**
  * Create by lzan13 on 2019/5/12 22:25
@@ -24,6 +25,7 @@ import com.vmloft.develop.library.tools.utils.VMDimen
  */
 class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RelativeLayout(context, attrs, defStyleAttr) {
 
+    private var vmLineRootView: View // 根布局
     private var mIconView: ImageView // 左侧图标
     private var mTitleView: TextView // 标题
     private var mRightContainer: LinearLayout // 右侧容器
@@ -87,6 +89,7 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         mDecorationHeight = VMDimen.getDimenPixel(R.dimen.vm_dimen_0_1)
         mDecorationColor = VMColor.byRes(R.color.vm_decoration)
 
+        vmLineRootView = findViewById(R.id.vmLineRootView)
         mIconView = findViewById(R.id.vmLineIconIV)
         mTitleView = findViewById(R.id.vmLineTitleTV)
         mRightContainer = findViewById(R.id.vmLineRightContainer)
@@ -115,7 +118,6 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         }
         val array = context.obtainStyledAttributes(attrs, styleable.VMLineView)
 
-
         mIconRes = array.getResourceId(styleable.VMLineView_vm_line_icon, mIconRes)
         mIconSize = array.getDimensionPixelOffset(styleable.VMLineView_vm_line_icon_size, mIconSize)
         mTitle = array.getString(styleable.VMLineView_vm_line_title)
@@ -142,6 +144,16 @@ class VMLineView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         mDecorationAidedEnd = array.getDimensionPixelOffset(styleable.VMLineView_vm_line_decoration_end, mDecorationAidedEnd)
         mDecorationHeight = array.getDimensionPixelOffset(styleable.VMLineView_vm_line_decoration_height, mDecorationHeight)
         array.recycle()
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        val height = measuredHeight
+        val rootHeight = vmLineRootView.measuredHeight
+        // 根据测量结果，将内部布局高度设置为与外层布局一样
+        if (height > rootHeight) {
+            vmLineRootView.layoutParams.height = height
+        }
     }
 
     /**

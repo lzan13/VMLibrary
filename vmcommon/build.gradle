@@ -153,27 +153,31 @@ dependencies {
     api 'com.scwang.smart:refresh-footer-classics:2.0.3' //经典加载
 
     // 阿里巴巴 ARouter 库 https://github.com/alibaba/ARouter
-    api 'com.alibaba:arouter-api:1.5.1'
-    kapt 'com.alibaba:arouter-compiler:1.2.2'
+    api 'com.alibaba:arouter-api:1.5.2'
+    kapt 'com.alibaba:arouter-compiler:1.5.2'
 
     // Android消息总线，基于LiveData https://github.com/JeremyLiao/LiveEventBus
     api 'io.github.jeremyliao:live-event-bus-x:1.8.0'
 
+    // 自定义工具库 https://gitee.com/lzan13/VMLibrary
+//    api 'com.gitee.lzan13:VMLibrary:1.5.2'
+    // 引入自己封装的工具库源码，便与调试
+    api project(':vmtools')
 }
 
 // 读取本地的 local.properties 获取一些配置信息
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-// 根据本地配置判断是否引用远程依赖
-def debugTools = properties.getProperty("debugTools", "false").toBoolean()
-if (debugTools) {
-    dependencies {
-        // 引入自己封装的工具库源码，便与调试
-        api project(':vmtools')
-    }
-} else {
-    dependencies {
-        // 自定义工具库 https://gitee.com/lzan13/VMLibrary
-        api 'com.gitee.lzan13:VMLibrary:1.4.7'
-    }
-}
+//Properties properties = new Properties()
+//properties.load(project.rootProject.file('local.properties').newDataInputStream())
+//// 根据本地配置判断是否引用远程依赖
+//def debugTools = properties.getProperty("debugTools", "false").toBoolean()
+//if (debugTools) {
+//    dependencies {
+//        // 引入自己封装的工具库源码，便与调试
+//        api project(':vmtools')
+//    }
+//} else {
+//    dependencies {
+//        // 自定义工具库 https://gitee.com/lzan13/VMLibrary
+//        api 'com.gitee.lzan13:VMLibrary:1.4.7'
+//    }
+//}

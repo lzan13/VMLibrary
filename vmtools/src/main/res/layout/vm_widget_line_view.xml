@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/vmLineRootView"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
     android:background="@drawable/vm_selector_transparent_full"
@@ -113,6 +114,7 @@
         android:layout_width="@dimen/vm_dimen_0"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/vm_margin_small"
+        android:layout_marginBottom="@dimen/vm_dimen_16"
         android:orientation="vertical"
         android:paddingStart="@dimen/vm_dimen_16"
         android:paddingEnd="@dimen/vm_dimen_16"
@@ -120,14 +122,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/vmLineTitleTV"
-        app:layout_constraintTop_toBottomOf="@+id/vmLineDescriptionTV"
-        app:layout_goneMarginBottom="@dimen/vm_margin_large" />
+        app:layout_constraintTop_toBottomOf="@+id/vmLineDescriptionTV" />
 
     <!--分割线辅助定位-->
     <View
         android:id="@+id/vmLineDecorationAidedStartView"
         android:layout_width="@dimen/vm_dimen_16"
-        android:layout_height="@dimen/vm_dimen_0_5"
+        android:layout_height="@dimen/vm_dimen_1"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -141,12 +142,13 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/vmLineDecorationAidedEndView"
-        app:layout_constraintStart_toEndOf="@+id/vmLineDecorationAidedStartView" />
+        app:layout_constraintStart_toEndOf="@+id/vmLineDecorationAidedStartView"
+        tools:visibility="visible" />
     <!--分割线辅助定位-->
     <View
         android:id="@+id/vmLineDecorationAidedEndView"
         android:layout_width="@dimen/vm_dimen_16"
-        android:layout_height="@dimen/vm_dimen_0_5"
+        android:layout_height="@dimen/vm_dimen_1"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
