@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_card_common_bg"
+    android:padding="@dimen/vm_dimen_8">
+
+    <ImageView
+        android:id="@+id/tbLiveMsgDragIV"
+        android:layout_width="@dimen/vm_dimen_36"
+        android:layout_height="@dimen/vm_dimen_36"
+        android:padding="@dimen/vm_dimen_4"
+        android:src="@drawable/ic_finger"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/tbLiveMsgStatusIV"
+        android:layout_width="@dimen/vm_dimen_36"
+        android:layout_height="@dimen/vm_dimen_36"
+        android:layout_marginStart="@dimen/vm_dimen_8"
+        android:background="@drawable/vm_selector_accent_fillet"
+        android:padding="@dimen/vm_dimen_10"
+        android:src="@drawable/ic_play"
+        app:layout_constraintStart_toEndOf="@+id/tbLiveMsgDragIV"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tbLiveMsgTimeTV"
+        style="@style/AppText.Tips"
+        android:layout_width="@dimen/vm_dimen_0"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/vm_dimen_8"
+        android:text="@string/input_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tbLiveMsgStatusIV"
+        tools:text="间隔:3000" />
+
+    <TextView
+        android:id="@+id/tbLiveMsgContentTV"
+        style="@style/AppText.Tips"
+        android:layout_width="@dimen/vm_dimen_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vm_dimen_12"
+        android:background="@drawable/shape_input_bg"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:padding="@dimen/vm_dimen_8"
+        android:text="我来了😁~"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tbLiveMsgStatusIV"
+        tools:text="我来了😁~" />
+</androidx.constraintlayout.widget.ConstraintLayout>

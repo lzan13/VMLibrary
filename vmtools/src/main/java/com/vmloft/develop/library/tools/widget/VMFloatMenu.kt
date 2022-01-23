@@ -60,12 +60,28 @@ class VMFloatMenu(private val mContext: Context) : PopupWindow(mContext) {
     }
 
     /**
+     * 设置自定义 View
+     */
+    fun setCustomView(resId: Int) {
+        val view = LayoutInflater.from(mContext).inflate(resId, null)
+        setCustomView(view)
+    }
+
+    /**
+     * 设置自定义 View
+     */
+    fun setCustomView(view: View) {
+        mItemContainer.removeAllViews()
+        mItemContainer.addView(view)
+    }
+
+    /**
      * 显示悬浮菜单在指定位置，显示之前需要根据菜单的高度进行重新计算菜单位置
      */
     fun showAtLocation(view: View, positionX: Int, positionY: Int) {
-        if (mItemCount == 0) {
-            return
-        }
+//        if (mItemCount == 0) {
+//            return
+//        }
         val offset = VMDimen.dp2px(16)
         val screenW = VMDimen.screenWidth
         val screenH = VMDimen.screenHeight
@@ -79,20 +95,20 @@ class VMFloatMenu(private val mContext: Context) : PopupWindow(mContext) {
         if (screenH - positionY < windowsHeight) {
             // 向上弹出
             y = positionY - windowsHeight + offset
-            showAtVertical = SHOW_ON_UP
+            showAtVertical = showUp
         } else {
             //向下弹出
             y = positionY - offset
-            showAtVertical = SHOW_ON_DOWN
+            showAtVertical = showDown
         }
         if (positionX > windowsWidth || positionX > screenW / 5 * 2) {
             // 左弹出
             x = positionX - windowsWidth + offset
-            showAtOrientation = SHOW_ON_LEFT
+            showAtOrientation = showLeft
         } else {
             // 右弹出
             x = positionX - offset
-            showAtOrientation = SHOW_ON_RIGHT
+            showAtOrientation = showRight
         }
         setMenuAnim()
         showAtLocation(view, Gravity.NO_GRAVITY, x, y)
@@ -145,16 +161,16 @@ class VMFloatMenu(private val mContext: Context) : PopupWindow(mContext) {
      * 设置悬浮菜单在触摸位置弹出动画
      */
     private fun setMenuAnim() {
-        if (showAtOrientation == SHOW_ON_RIGHT && showAtVertical == SHOW_ON_UP) {
+        if (showAtOrientation == showRight && showAtVertical == showUp) {
             animationStyle = R.style.VMFloatMenuLB
         }
-        if (showAtOrientation == SHOW_ON_RIGHT && showAtVertical == SHOW_ON_DOWN) {
+        if (showAtOrientation == showRight && showAtVertical == showDown) {
             animationStyle = R.style.VMFloatMenuLT
         }
-        if (showAtOrientation == SHOW_ON_LEFT && showAtVertical == SHOW_ON_UP) {
+        if (showAtOrientation == showLeft && showAtVertical == showUp) {
             animationStyle = R.style.VMFloatMenuRB
         }
-        if (showAtOrientation == SHOW_ON_LEFT && showAtVertical == SHOW_ON_DOWN) {
+        if (showAtOrientation == showLeft && showAtVertical == showDown) {
             animationStyle = R.style.VMFloatMenuRT
         }
     }
@@ -175,35 +191,11 @@ class VMFloatMenu(private val mContext: Context) : PopupWindow(mContext) {
      * 菜单项的数据 Bean 类
      */
     class ItemBean(
-            val itemId: Int,
-            val itemTitle: String,
-            val itemColor: Int = R.color.vm_menu,
-            val itemIcon: Int = 0,
-    ) {
-//        var itemId: Int
-//        var itemIcon: Int
-//        var itemTitle: String
-//        var itemColor: Int
-//
-//        constructor(id: Int, title: String) {
-//            itemId = id
-//            itemTitle = title
-//            itemColor = color.vm_menu
-//        }
-//
-//        constructor(id: Int, title: String, color: Int) {
-//            itemId = id
-//            itemTitle = title
-//            itemColor = color
-//        }
-//
-//        constructor(id: Int, icon: Int, title: String, color: Int) {
-//            itemId = id
-//            itemIcon = icon
-//            itemTitle = title
-//            itemColor = color
-//        }
-    }
+        val itemId: Int,
+        val itemTitle: String,
+        val itemColor: Int = R.color.vm_menu,
+        val itemIcon: Int = 0,
+    ) {}
 
     /**
      * 定义悬浮菜单点击监听接口
@@ -217,10 +209,10 @@ class VMFloatMenu(private val mContext: Context) : PopupWindow(mContext) {
     }
 
     companion object {
-        private const val SHOW_ON_LEFT = 0X11
-        private const val SHOW_ON_RIGHT = 0X12
-        private const val SHOW_ON_UP = 0X13
-        private const val SHOW_ON_DOWN = 0X14
+        private const val showLeft = 0X11
+        private const val showRight = 0X12
+        private const val showUp = 0X13
+        private const val showDown = 0X14
     }
 
 }

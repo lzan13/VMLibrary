@@ -9,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/vm_margin_large"
-        android:background="@drawable/vm_shape_common_dialog_bg"
-        android:elevation="@dimen/vm_elevation_normal"
+        android:background="@drawable/vm_shape_common_card"
+        android:elevation="@dimen/vm_elevation_low"
         android:orientation="vertical"
         android:paddingTop="@dimen/vm_dimen_8"
         android:paddingBottom="@dimen/vm_dimen_8" />

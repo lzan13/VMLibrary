@@ -26,6 +26,7 @@ class FloatMenuActivity : BActivity<ActivityDemoFloatMenuBinding>() {
     private var touchX = 0
     private var touchY = 0
     private lateinit var floatMenu: VMFloatMenu
+    private lateinit var customFloatMenu: VMFloatMenu
 
     @Override
     override fun initVB() = ActivityDemoFloatMenuBinding.inflate(layoutInflater)
@@ -35,17 +36,12 @@ class FloatMenuActivity : BActivity<ActivityDemoFloatMenuBinding>() {
         super.initUI()
         setTopTitle("自定义悬浮菜单")
 
-        floatMenu = VMFloatMenu(mActivity)
-        floatMenu.setItemClickListener(object : IItemClickListener() {
-            override fun onItemClick(id: Int) {
-                VMLog.d("点击了悬浮菜单 $id")
-                showBar("点击了悬浮菜单 $id")
-            }
-        })
+        initFloatMenu()
 
         mBinding.leftTopBtn.setOnTouchListener { view, event -> onTouch(view, event) }
         mBinding.leftBottomBtn.setOnTouchListener { view, event -> onTouch(view, event) }
         mBinding.centerUpBtn.setOnTouchListener { view, event -> onTouch(view, event) }
+        mBinding.centerBtn.setOnTouchListener { view, event -> onTouch(view, event) }
         mBinding.centerDownBtn.setOnTouchListener { view, event -> onTouch(view, event) }
         mBinding.rightTopBtn.setOnTouchListener { view, event -> onTouch(view, event) }
         mBinding.rightBottomBtn.setOnTouchListener { view, event -> onTouch(view, event) }
@@ -53,13 +49,27 @@ class FloatMenuActivity : BActivity<ActivityDemoFloatMenuBinding>() {
         mBinding.leftTopBtn.setOnClickListener { view -> onClick(view) }
         mBinding.leftBottomBtn.setOnClickListener { view -> onClick(view) }
         mBinding.centerUpBtn.setOnClickListener { view -> onClick(view) }
+        mBinding.centerBtn.setOnClickListener { view -> onClick(view) }
         mBinding.centerDownBtn.setOnClickListener { view -> onClick(view) }
         mBinding.rightTopBtn.setOnClickListener { view -> onClick(view) }
         mBinding.rightBottomBtn.setOnClickListener { view -> onClick(view) }
     }
 
+
     @Override
     override fun initData() {
+    }
+
+    private fun initFloatMenu() {
+        customFloatMenu = VMFloatMenu(mActivity)
+
+        floatMenu = VMFloatMenu(mActivity)
+        floatMenu.setItemClickListener(object : IItemClickListener() {
+            override fun onItemClick(id: Int) {
+                VMLog.d("点击了悬浮菜单 $id")
+                showBar("点击了悬浮菜单 $id")
+            }
+        })
     }
 
     private fun onTouch(v: View, event: MotionEvent): Boolean {
@@ -73,6 +83,7 @@ class FloatMenuActivity : BActivity<ActivityDemoFloatMenuBinding>() {
     private fun onClick(view: View) {
         when (view.id) {
             R.id.leftTopBtn, R.id.leftBottomBtn, R.id.centerUpBtn, R.id.centerDownBtn, R.id.rightTopBtn, R.id.rightBottomBtn -> showFloatMenu(view)
+            R.id.centerBtn-> showCustomFloatMenu(view)
         }
     }
 
@@ -90,5 +101,12 @@ class FloatMenuActivity : BActivity<ActivityDemoFloatMenuBinding>() {
         floatMenu.addItem(ItemBean(7, "悬浮菜单"))
         floatMenu.addItem(ItemBean(8, "浮菜单"))
         floatMenu.showAtLocation(view, touchX, touchY)
+    }
+    /**
+     * 测试弹出自定义 PopupWindow 菜单
+     */
+    private fun showCustomFloatMenu(view: View) {
+        customFloatMenu.setCustomView(R.layout.widget_custom_float_menu)
+        customFloatMenu.showAtLocation(view, touchX, touchY)
     }
 }
