@@ -176,6 +176,25 @@
     <string name="input_hint">请输入...</string>
     <string name="input_not_null">输入内容不能为空</string>
 
+
+    <string name="feedback_type_opinion">意见建议</string>
+    <string name="feedback_type_shield">🙈不想看</string>
+    <string name="feedback_type_shield_hint">感谢反馈</string>
+    <string name="feedback_type_shield_post">不看内容</string>
+    <string name="feedback_type_shield_author">不看作者</string>
+    <string name="feedback_type_report">🙅内容不适</string>
+    <string name="feedback_type_report_ads">广告引流</string>
+    <string name="feedback_type_report_sensitivity">政治敏感</string>
+    <string name="feedback_type_report_illegal">违法违规</string>
+    <string name="feedback_type_report_porn_vulgar">色情低俗</string>
+    <string name="feedback_type_report_violence">血腥暴力</string>
+    <string name="feedback_type_report_guide">诱导信息</string>
+    <string name="feedback_type_report_uncivilized">谩骂攻击</string>
+    <string name="feedback_type_report_fraud">涉嫌诈骗</string>
+    <string name="feedback_type_report_uncomfortable">引人不适</string>
+    <string name="feedback_type_report_other">其它</string>
+
+
     <!--广告资源-->
     <string name="ads_label">广告</string>
     <string name="ads_empty">虚位以待</string>

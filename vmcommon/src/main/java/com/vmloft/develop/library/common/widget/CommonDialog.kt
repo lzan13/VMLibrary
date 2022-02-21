@@ -1,6 +1,7 @@
 package com.vmloft.develop.library.common.widget
 
 import android.content.Context
+import android.view.Gravity
 import com.vmloft.develop.library.tools.widget.VMDefaultDialog
 
 /**
@@ -8,6 +9,5 @@ import com.vmloft.develop.library.tools.widget.VMDefaultDialog
  * 描述：自定义通用对话框
  */
 open class CommonDialog(context: Context) : VMDefaultDialog(context) {
-
 
 }

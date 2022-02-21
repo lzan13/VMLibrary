@@ -3,4 +3,4 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:duration="@integer/vm_time_transition"
     android:fromYDelta="0"
-    android:toYDelta="-150%p" />
+    android:toYDelta="-100%p" />

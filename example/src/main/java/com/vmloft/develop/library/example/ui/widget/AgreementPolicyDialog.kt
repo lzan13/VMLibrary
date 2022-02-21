@@ -8,6 +8,7 @@ import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ForegroundColorSpan
 import android.text.style.URLSpan
+import android.view.Gravity
 import android.view.View
 import android.widget.TextView
 

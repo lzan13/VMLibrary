@@ -338,4 +338,15 @@
         <item name="android:windowEnterAnimation">@anim/vm_float_menu_left_bottom_show</item>
         <item name="android:windowExitAnimation">@anim/vm_float_menu_left_bottom_hide</item>
     </style>
+
+    <!--自定义对话框动画-->
+    <style name="VMDialogTop">
+        <item name="android:windowEnterAnimation">@anim/vm_top_in</item>
+        <item name="android:windowExitAnimation">@anim/vm_top_out</item>
+    </style>
+
+    <style name="VMDialogBottom">
+        <item name="android:windowEnterAnimation">@anim/vm_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/vm_bottom_out</item>
+    </style>
 </resources>

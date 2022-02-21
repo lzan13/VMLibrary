@@ -82,6 +82,11 @@
     <color name="app_indicator_normal">@color/vm_white_87</color>
     <color name="app_indicator_select">@color/app_main</color>
 
+    <!--通用 shape 颜色-->
+    <color name="app_common_shape">#ffffffff</color>
+    <color name="app_common_gray_shape">#fffafbfc</color>
+    <color name="app_common_shape_press">#fff6f7f8</color>
+    <color name="app_common_border">#ddf1f2f3</color>
 
     <!--分割线-->
     <color name="app_decoration">@color/vm_gray_12</color>

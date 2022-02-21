@@ -15,9 +15,9 @@ class TBLiveMsgETDialog(context: Context) : VMBDialog<WidgetTbLiveMsgEtDialogBin
 
     override fun initVB() = WidgetTbLiveMsgEtDialogBinding.inflate(LayoutInflater.from(context))
 
-    override fun getNegativeTV(): TextView? = mBinding.dialogNegativeTV
+    override fun getNegativeTV(): TextView = mBinding.dialogNegativeTV
 
-    override fun getPositiveTV(): TextView? = mBinding.dialogPositiveTV
+    override fun getPositiveTV(): TextView = mBinding.dialogPositiveTV
 
     override fun setContent(content: String) {
         mBinding.dialogContentET.setText(content)

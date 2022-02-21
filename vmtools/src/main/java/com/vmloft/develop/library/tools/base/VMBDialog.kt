@@ -47,9 +47,10 @@ abstract class VMBDialog<VB : ViewBinding> : Dialog {
     constructor(context: Context) : this(context, R.style.VMDialog)
 
     constructor(context: Context, themeResId: Int) : super(context, themeResId) {
+
         _binding = initVB()
         setContentView(_binding.root)
-        window?.setGravity(Gravity.CENTER)
+
         window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 
         getNegativeTV()?.setOnClickListener { v ->
@@ -71,9 +72,22 @@ abstract class VMBDialog<VB : ViewBinding> : Dialog {
 
     abstract fun initVB(): VB
 
-    abstract fun getNegativeTV(): TextView?
+    open fun getNegativeTV(): TextView? = null
 
-    abstract fun getPositiveTV(): TextView?
+    open fun getPositiveTV(): TextView? = null
+
+    fun show(gravity: Int, animRes: Int = 0) {
+        window?.setGravity(gravity)
+        if (gravity == Gravity.TOP) {
+            window?.setWindowAnimations(if (animRes != 0) animRes else R.style.VMDialogTop)
+        } else if (gravity == Gravity.BOTTOM) {
+            window?.setWindowAnimations(if (animRes != 0) animRes else R.style.VMDialogBottom)
+        }
+        if (animRes != 0) {
+            window?.setWindowAnimations(animRes)
+        }
+        show()
+    }
 
     /**
      * 获取标题控件

@@ -2,5 +2,5 @@
 <translate
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:duration="@integer/vm_time_transition"
-    android:fromYDelta="-100%p"
-    android:toYDelta="0" />
+    android:fromYDelta="0"
+    android:toYDelta="100%p" />

@@ -57,6 +57,12 @@
         <item name="android:textSize">@dimen/vm_size_16</item>
     </style>
 
+    <style name="AppBtn.Feedback" parent="@style/AppBtn">
+        <item name="android:textSize">@dimen/vm_size_14</item>
+        <item name="android:textColor">@color/app_body</item>
+        <item name="android:background">@drawable/selector_common_border_bg</item>
+    </style>
+
     <!--自定义控件 VMLineView 样式-->
     <style name="AppLVStyle">
         <item name="android:layout_width">match_parent</item>

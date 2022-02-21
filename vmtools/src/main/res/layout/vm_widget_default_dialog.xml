@@ -1,81 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/vm_shape_common_dialog_bg">
+    android:orientation="vertical"
+    android:padding="@dimen/vm_dimen_32">
 
-    <TextView
-        android:id="@+id/vmDialogTitleTV"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/vm_dimen_24"
-        android:gravity="center"
-        android:paddingStart="@dimen/vm_dimen_24"
-        android:paddingEnd="@dimen/vm_dimen_24"
-        android:textColor="@color/vm_title"
-        android:textSize="@dimen/vm_size_18"
-        android:textStyle="bold"
-        android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="弹框标题"
-        tools:visibility="visible" />
+        android:background="@drawable/vm_shape_common_dialog_bg">
 
-    <TextView
-        android:id="@+id/vmDialogContentTV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/vm_dimen_24"
-        android:gravity="center"
-        android:paddingStart="@dimen/vm_dimen_24"
-        android:paddingEnd="@dimen/vm_dimen_24"
-        android:textColor="@color/vm_title"
-        android:textSize="@dimen/vm_size_16"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/vmDialogTitleTV"
-        tools:text="弹框内容弹框内容弹框内容弹框内容"
-        tools:visibility="visible" />
+        <TextView
+            android:id="@+id/vmDialogTitleTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vm_dimen_24"
+            android:gravity="center"
+            android:paddingStart="@dimen/vm_dimen_24"
+            android:paddingEnd="@dimen/vm_dimen_24"
+            android:textColor="@color/vm_title"
+            android:textSize="@dimen/vm_size_18"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="弹框标题"
+            tools:visibility="visible" />
 
-    <LinearLayout
-        android:id="@+id/vmDialogContainerLL"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/vm_dimen_24"
-        android:layout_marginTop="@dimen/vm_dimen_16"
-        android:layout_marginEnd="@dimen/vm_dimen_24"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/vmDialogContentTV"
-        tools:visibility="visible" />
+        <TextView
+            android:id="@+id/vmDialogContentTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vm_dimen_24"
+            android:gravity="center"
+            android:paddingStart="@dimen/vm_dimen_24"
+            android:paddingEnd="@dimen/vm_dimen_24"
+            android:textColor="@color/vm_title"
+            android:textSize="@dimen/vm_size_16"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/vmDialogTitleTV"
+            tools:text="弹框内容弹框内容弹框内容弹框内容"
+            tools:visibility="visible" />
 
-    <TextView
-        android:id="@+id/vmDialogPositiveTV"
-        style="@style/VMBtn.Flat.Fillet.Border.Accent"
-        android:layout_width="@dimen/vm_dimen_0"
-        android:layout_height="@dimen/vm_dimen_40"
-        android:layout_marginStart="@dimen/vm_dimen_24"
-        android:layout_marginEnd="@dimen/vm_dimen_8"
-        android:text="@string/vm_btn_cancel"
-        app:layout_constraintBottom_toBottomOf="@+id/vmDialogConfirmTV"
-        app:layout_constraintEnd_toStartOf="@+id/vmDialogConfirmTV"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/vmDialogConfirmTV" />
+        <LinearLayout
+            android:id="@+id/vmDialogContainerLL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/vm_dimen_24"
+            android:layout_marginTop="@dimen/vm_dimen_16"
+            android:layout_marginEnd="@dimen/vm_dimen_24"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/vmDialogContentTV"
+            tools:visibility="visible" />
 
-    <TextView
-        android:id="@+id/vmDialogConfirmTV"
-        style="@style/VMBtn.Flat.Fillet.Accent"
-        android:layout_width="@dimen/vm_dimen_0"
-        android:layout_height="@dimen/vm_dimen_40"
-        android:layout_marginStart="@dimen/vm_dimen_8"
-        android:layout_marginTop="@dimen/vm_dimen_24"
-        android:layout_marginEnd="@dimen/vm_dimen_24"
-        android:layout_marginBottom="@dimen/vm_dimen_24"
-        android:text="@string/vm_btn_confirm"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/vmDialogPositiveTV"
-        app:layout_constraintTop_toBottomOf="@+id/vmDialogContainerLL"
-        app:layout_goneMarginStart="@dimen/vm_dimen_24" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/vmDialogPositiveTV"
+            style="@style/VMBtn.Flat.Fillet.Border.Accent"
+            android:layout_width="@dimen/vm_dimen_0"
+            android:layout_height="@dimen/vm_dimen_40"
+            android:layout_marginStart="@dimen/vm_dimen_24"
+            android:layout_marginEnd="@dimen/vm_dimen_8"
+            android:text="@string/vm_btn_cancel"
+            app:layout_constraintBottom_toBottomOf="@+id/vmDialogConfirmTV"
+            app:layout_constraintEnd_toStartOf="@+id/vmDialogConfirmTV"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/vmDialogConfirmTV" />
+
+        <TextView
+            android:id="@+id/vmDialogConfirmTV"
+            style="@style/VMBtn.Flat.Fillet.Accent"
+            android:layout_width="@dimen/vm_dimen_0"
+            android:layout_height="@dimen/vm_dimen_40"
+            android:layout_marginStart="@dimen/vm_dimen_8"
+            android:layout_marginTop="@dimen/vm_dimen_24"
+            android:layout_marginEnd="@dimen/vm_dimen_24"
+            android:layout_marginBottom="@dimen/vm_dimen_24"
+            android:text="@string/vm_btn_confirm"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/vmDialogPositiveTV"
+            app:layout_constraintTop_toBottomOf="@+id/vmDialogContainerLL"
+            app:layout_goneMarginStart="@dimen/vm_dimen_24" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
