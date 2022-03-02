@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vm_name">VMTools</string>
+    <string name="vm_loading">Loading...</string>
+
+    <!--权限相关-->
+    <string name="vm_permission_title">Permission</string>
+    <string name="vm_permission_reason">In order to better use「%s」, the following permissions are required</string>
+    <string name="vm_permission_again_title">Apply「%s」</string>
+    <string name="vm_permission_again_reason">You denied the「%s」permission, %s</string>
+    <string name="vm_permission_denied_setting">「%s」can not get the「%s」permission, will not be able to use some of the functions, do you want to set the opening permission?</string>
+
+    <string name="vm_btn_cancel">Cancel</string>
+    <string name="vm_btn_confirm">OK</string>
+    <string name="vm_btn_next">Next</string>
+    <string name="vm_btn_reject">Reject</string>
+    <string name="vm_btn_go_to_setting">Go</string>
+    <string name="vm_i_know">I Known</string>
+
+    <string name="vm_camera">Camera</string>
+    <string name="vm_pick_complete">Complete</string>
+    <string name="vm_pick_complete_select">Complete(%d/%d)</string>
+    <string name="vm_pick_preview">Preview</string>
+    <string name="vm_pick_preview_count">Preview(%d)</string>
+    <string name="vm_pick_origin">Origin</string>
+    <string name="vm_pick_origin_size">Origin($s)</string>
+    <string name="vm_pick_all_picture">All</string>
+    <string name="vm_pick_folder_picture_count">%d</string>
+    <string name="vm_pick_preview_picture_count">%d/%d</string>
+    <string name="vm_pick_select_limit">Choose up to %d sheets</string>
+    <string name="vm_pick_crop_picture">Crop Picture</string>
+    <string name="vm_pick_picture">Choose Picture</string>
+
+    <string name="vm_yesterday">Yesterday</string>
+
+    <string name="vm_edit_limit_account">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@._-</string>
+
+    <!--自定义 Behavior-->
+    <string name="vm_scrolling_view_behavior">com.vmloft.develop.library.tools.widget.behavior.VMScrollingViewBehavior</string>
+
+</resources>

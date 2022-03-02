@@ -1,5 +1,6 @@
 package com.vmloft.develop.library.tools.utils
 
+import com.vmloft.develop.library.tools.R
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -25,16 +26,15 @@ object VMDate {
     /**
      * 定义时间的格式化不同样式
      */
-    var sdfFilenameDateTime = SimpleDateFormat("yyyyMMdd_HHmmssSSS")
-    var sdfFilenameDate = SimpleDateFormat("yyyy-MM-dd")
-    var sdfNormal = SimpleDateFormat("yyyy/MM/dd HH:mm")
-    var sdfUTC = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-    var sdfDateTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS")
-    var sdfNoYear = SimpleDateFormat("MM/dd HH:mm")
-    var sdfOnlyDate = SimpleDateFormat("yyyy/MM/dd")
-    var sdfOnlyDateNoDay = SimpleDateFormat("yyyy月MM日")
-    var sdfOnlyDateNoYear = SimpleDateFormat("MM/dd")
-    var sdfOnlyTime = SimpleDateFormat("HH:mm")
+    val sdfFilenameDateTime = SimpleDateFormat("yyyyMMdd_HHmmssSSS")
+    val sdfNormal = SimpleDateFormat("yyyy/MM/dd HH:mm.ss")
+    val sdfNormalSSS = SimpleDateFormat("yyyy/MM/dd HH:mm.ss.SSS")
+    val sdfUTC = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    val sdfNoYear = SimpleDateFormat("MM/dd HH:mm")
+    val sdfOnlyDate = SimpleDateFormat("yyyy/MM/dd")
+    val sdfOnlyDateNoDay = SimpleDateFormat("yyyy/MM")
+    val sdfOnlyDateNoYear = SimpleDateFormat("MM/dd")
+    val sdfOnlyTime = SimpleDateFormat("HH:mm:ss")
 
     /**
      * 获取当前时间的毫秒值
@@ -66,26 +66,19 @@ object VMDate {
     }
 
     /**
-     * 获取当前事件拼接的字符串，只有日期
-     */
-    fun filenameDate(): String {
-        return sdfFilenameDate.format(Date())
-    }
-
-    /**
      * 将给定的字符串型时间格式化为另一种样式
      *
      * @param srcFormat 原来的时间格式
      * @param desFormat 目标的时间格式
      * @param dateStr 原来的时间
      */
-    fun convertDateTime(srcFormat: String?, desFormat: String?, dateStr: String?): String? {
+    fun convertDateTime(srcFormat: String, desFormat: String, dateStr: String): String {
         return try {
             val date = SimpleDateFormat(srcFormat).parse(dateStr)
             SimpleDateFormat(desFormat).format(date)
         } catch (e: ParseException) {
             e.printStackTrace()
-            null
+            ""
         }
     }
 
@@ -94,7 +87,7 @@ object VMDate {
      *
      * @param dateStr 需要转换的日期
      */
-    fun milliFormUTC(dateStr: String?): Long {
+    fun utc2Long(dateStr: String): Long {
         return if (dateStr.isNullOrEmpty()) {
             0L
         } else try {
@@ -112,7 +105,7 @@ object VMDate {
      *
      * @param time 时间，单位 秒
      */
-    fun toTimeString(time: Long): String {
+    fun milli2Str(time: Long): String {
         val seconds = time % 60
         val minutes = time / 60 % 60
         val hours = time / 3600
@@ -124,7 +117,7 @@ object VMDate {
      *
      * @param time 字符串格式的时间
      */
-    fun fromTimeString(time: String): Long {
+    fun str2Milli(time: String): Long {
         // Handle "00:00:00.000" pattern, drop the milliseconds
         var time = time
         if (time.lastIndexOf(".") != -1) {
@@ -139,64 +132,65 @@ object VMDate {
     }
 
     /**
+     * 时间戳转时间字符串
+     *
+     * @param time 需要格式化的时间毫秒值
+     * @param sdf 格式化样式 默认为普通(yyyy/MM/dd HH:mm:ss)格式
+     */
+    fun long2Str(time: Long, sdf: SimpleDateFormat = sdfNormal): String {
+        val date = Date(time)
+        return sdf.format(date)
+    }
+
+    /**
      * 从 long 整型的时间戳里取出时间
      *
      * @param time 需要格式化的 long 型的时间
      * @return 返回得到的不包含年月日的时间值
      */
-    fun long2Time(time: Long): String {
-        val date = Date(time)
-        return sdfOnlyTime.format(date)
-    }
-
-    /**
-     * 从 long 整型的时间格式化为正常时间
-     *
-     * @param time 需要格式化的时间毫秒值
-     */
-    fun long2Normal(time: Long): String {
-        val date = Date(time)
-        return sdfNormal.format(date)
-    }
+    fun long2Time(time: Long) = long2Str(time, sdfOnlyTime)
 
     /**
      * 从 long 整型的时间格式化为正常时间，不包含年份
      *
      * @param time 需要格式化的时间毫秒值
      */
-    fun long2NormalNoYear(time: Long): String {
-        val date = Date(time)
-        return sdfNoYear.format(date)
-    }
+    fun long2NormalNoYear(time: Long) = long2Str(time, sdfNoYear)
 
     /**
      * 从 long 整型的时间戳里取出日期 不带有时间
      *
      * @param time 需要格式化的时间毫秒值
      */
-    fun long2Date(time: Long): String {
-        val date = Date(time)
-        return sdfOnlyDate.format(date)
-    }
+    fun long2Date(time: Long) = long2Str(time, sdfOnlyDate)
 
     /**
      * 从 long 整型的时间戳里取出日期，这里取的不带有年份
      *
      * @param time 需要格式化的时间毫秒值
      */
-    fun long2DateNoYear(time: Long): String {
-        val date = Date(time)
-        return sdfOnlyDateNoYear.format(date)
-    }
+    fun long2DateNoYear(time: Long) = long2Str(time, sdfOnlyDateNoYear)
 
     /**
      * 从 long 整型的时间戳里取出日期，这里取的不带有日
      *
      * @param time 需要格式化的时间毫秒值
      */
-    fun long2DateNoDay(time: Long): String {
-        val date = Date(time)
-        return sdfOnlyDateNoDay.format(date)
+    fun long2DateNoDay(time: Long) = long2Str(time, sdfOnlyDateNoDay)
+
+    /**
+     * 从 UTC 格式时间转为其他时间格式
+     * @param time 需要格式化的时间 UTC 格式字符串
+     *
+     */
+    fun utc2Str(time: String, sdf: SimpleDateFormat = sdfNormal): String {
+        return try {
+            val date = sdfUTC.parse(time)
+            sdf.format(date)
+        } catch (e: ParseException) {
+            e.printStackTrace()
+            ""
+        }
     }
 
     /**
@@ -205,27 +199,14 @@ object VMDate {
      * @param time 需要判断的时间点的毫秒值
      * @return 返回相对时间
      */
-    fun getRelativeTime(time: Long): String? {
+    fun getRelativeTime(time: Long): String {
         val currentTime = System.currentTimeMillis()
-        val offset = currentTime - time
-        var timeStr: String? = null
-        timeStr = if (isSameDate(currentTime, time)) {
-            // 今天
-            long2Time(time)
-        } else if (isSameDate(currentTime, time + DAY)) {
-            // 昨天
-            return "昨天 " + long2Time(time)
-        } else if (isSameDate(currentTime, time + 2 * DAY)) {
-            // 前天
-            return "前天 " + long2Time(time)
-        } else if (isSameDate(currentTime, time + YEAR)) {
-            // XXXX年XX月XX日
-            long2Normal(time)
-        } else {
-            // XX月XX日
-            long2NormalNoYear(time)
+        return when {
+            isSameDate(currentTime, time) -> long2Time(time)
+            isSameDate(currentTime, time + DAY) -> VMStr.byRes(R.string.vm_yesterday) + " " + long2Time(time)
+            isSameDate(currentTime, time + YEAR) -> long2Str(time)
+            else -> long2NormalNoYear(time)
         }
-        return timeStr
     }
 
     /**

@@ -107,7 +107,7 @@ class HomeFragment : BFragment<FragmentHomeBinding>() {
         VMPermission.getInstance(activity)
             .setEnableDialog(true)
 //                .setTitle("权限申请")
-            .setMessage("为了带跟你更好的使用体验，应用需要以下权限")
+//            .setMessage("为了带跟你更好的使用体验，应用需要以下权限")
             .setPermissionList(permissions)
             .requestPermission(object : VMPermission.PCallback {
                 override fun onReject() {

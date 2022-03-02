@@ -1,13 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="vm_name">VMTools</string>
     <string name="vm_loading">正在加载...</string>
 
     <!--权限相关-->
     <string name="vm_permission_title">权限申请</string>
-    <string name="vm_permission_reason">为了带跟你更好的使用体验『%1$s』需要以下权限</string>
-    <string name="vm_permission_again_title">申请『%1$s』</string>
-    <string name="vm_permission_again_reason">你拒绝了『%1$s』权限，%2$s</string>
-    <string name="vm_permission_denied_setting">"『%1$s』无法获取『%2$s』权限，将不能使用部分功能，是否去设置开启权限？"</string>
+    <string name="vm_permission_reason">为了带跟你更好的使用体验『%s』需要以下权限</string>
+    <string name="vm_permission_again_title">申请『%s』</string>
+    <string name="vm_permission_again_reason">你拒绝了『%s』权限，%s</string>
+    <string name="vm_permission_denied_setting">"『%s』无法获取『%s』权限，将不能使用部分功能，是否去设置开启权限？"</string>
 
     <string name="vm_btn_cancel">取消</string>
     <string name="vm_btn_confirm">确定</string>
@@ -18,17 +19,19 @@
 
     <string name="vm_camera">相机</string>
     <string name="vm_pick_complete">完成</string>
-    <string name="vm_pick_complete_select">完成(%1$d/%2$d)</string>
+    <string name="vm_pick_complete_select">完成(%d/%d)</string>
     <string name="vm_pick_preview">预览</string>
-    <string name="vm_pick_preview_count">预览(%1$d)</string>
+    <string name="vm_pick_preview_count">预览(%d)</string>
     <string name="vm_pick_origin">原图</string>
-    <string name="vm_pick_origin_size">原图(%1$s)</string>
+    <string name="vm_pick_origin_size">原图(%s)</string>
     <string name="vm_pick_all_picture">所有图片</string>
-    <string name="vm_pick_folder_picture_count">共%1$d张</string>
-    <string name="vm_pick_preview_picture_count">%1$d/%2$d</string>
-    <string name="vm_pick_select_limit">最多选择 %1$d 张图片</string>
+    <string name="vm_pick_folder_picture_count">共%d张</string>
+    <string name="vm_pick_preview_picture_count">%d/%d</string>
+    <string name="vm_pick_select_limit">最多选择 %d 张图片</string>
     <string name="vm_pick_crop_picture">图片裁剪</string>
     <string name="vm_pick_picture">图片选择</string>
+    
+    <string name="vm_yesterday">昨天</string>
 
     <string name="vm_edit_limit_account">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@._-</string>
 

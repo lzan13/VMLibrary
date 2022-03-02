@@ -20,7 +20,7 @@ object FormatUtils {
      */
     @JvmStatic
     fun relativeTime(time: String): String {
-        return VMDate.getRelativeTime(VMDate.milliFormUTC(time)) ?: ""
+        return VMDate.getRelativeTime(VMDate.utc2Long(time))
     }
 
     /**
