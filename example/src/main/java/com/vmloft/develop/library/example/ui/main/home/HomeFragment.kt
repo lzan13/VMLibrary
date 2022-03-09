@@ -35,6 +35,7 @@ class HomeFragment : BFragment<FragmentHomeBinding>() {
 
         addBtn("弹幕", AppRouter.appBarrage)
         addBtn("自定义控件", AppRouter.appCustomView)
+        addBtn("绘图", AppRouter.appCustomDrawView)
         addBtn("悬浮菜单", AppRouter.appFloatMenu)
         addBtn("指示器", AppRouter.appIndicator)
         addBtn("Loading", AppRouter.appLoading)

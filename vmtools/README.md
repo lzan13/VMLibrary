@@ -81,6 +81,7 @@ val isEmail = VMReg.isEmail(email)
 - [widget](src/main/java/com/vmloft/develop/library/tools/widget) 自定义控件部分
     - [barrage](src/main/java/com/vmloft/develop/library/tools/widget/barrage) 弹幕控件
     - [behavior](src/main/java/com/vmloft/develop/library/tools/widget/behavior) 自定义伸缩头部
+    - [draw](src/main/java/com/vmloft/develop/library/tools/widget/draw) 自定义绘制View
     - [indicator](src/main/java/com/vmloft/develop/library/tools/widget/indicator) 指示器控件
     - [loading](src/main/java/com/vmloft/develop/library/tools/widget/loading) 加载控件
     - [record](src/main/java/com/vmloft/develop/library/tools/widget/record) 录音控件

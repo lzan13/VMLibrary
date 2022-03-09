@@ -16,7 +16,7 @@ import com.vmloft.develop.library.tools.widget.barrage.VMViewCreator
 
 /**
  * Created by lzan13 on 2020/5/18.
- * 描述：测试通知提醒界面
+ * 描述：测试自定义弹幕控件界面
  */
 @Route(path = AppRouter.appBarrage)
 class BarrageViewActivity : BActivity<ActivityDemoViewBarrageBinding>() {
