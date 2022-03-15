@@ -7,10 +7,9 @@ import cn.bingoogolapple.qrcode.zxing.QRCodeEncoder
 import com.vmloft.develop.library.base.router.CRouter
 
 import com.vmloft.develop.library.base.utils.CUtils
-import com.vmloft.develop.library.base.utils.JsonUtils
+import com.vmloft.develop.library.common.utils.JsonUtils
 import com.vmloft.develop.library.tools.utils.VMDimen
 
-import org.json.JSONObject
 
 /**
  * Create by lzan13 on 2022/3/10
