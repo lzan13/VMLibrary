@@ -67,7 +67,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.lzan13'
                 artifactId = 'vmtools'
-                version = configs.versionName
+                version = "1.0.0"
             }
         }
     }
