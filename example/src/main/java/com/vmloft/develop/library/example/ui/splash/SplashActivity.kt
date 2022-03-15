@@ -1,11 +1,10 @@
 package com.vmloft.develop.library.example.ui.splash
 
-import com.vmloft.develop.library.common.base.BActivity
-import com.vmloft.develop.library.example.R
+import com.vmloft.develop.library.base.BActivity
+import com.vmloft.develop.library.base.router.CRouter
 import com.vmloft.develop.library.example.common.SPManager
 import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.example.ui.widget.AgreementPolicyDialog
-import com.vmloft.develop.library.common.router.CRouter
 import com.vmloft.develop.library.example.databinding.ActivitySplashBinding
 
 /**

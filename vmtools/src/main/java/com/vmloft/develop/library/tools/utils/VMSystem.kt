@@ -16,6 +16,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Process
 import android.provider.Settings
+import android.text.TextUtils
 import android.view.accessibility.AccessibilityManager
 import com.vmloft.develop.library.tools.VMTools.context
 import com.vmloft.develop.library.tools.utils.logger.VMLog
@@ -201,9 +202,9 @@ object VMSystem {
     }
 
     /**
-     * 检查悬浮窗设置
+     * 检查悬浮窗权限
      */
-    fun checkAlertSetting(context: Context, openSettings: Boolean = false): Boolean {
+    fun checkOverlayPermission(context: Context, openSettings: Boolean = false): Boolean {
         if (VERSION.SDK_INT < VERSION_CODES.M) {
             return true
         }
@@ -211,35 +212,54 @@ object VMSystem {
             return true
         }
         if (openSettings) {
-            val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + context.packageName))
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            context.startActivity(intent)
+            openOverlayPermissionSettings(context)
         }
         return false
     }
 
     /**
-     * 检查无障碍辅助设置
+     * 打开悬浮窗权限设置
      */
-    fun checkAccessibilitySetting(context: Context, openSettings: Boolean = false): Boolean {
-        val am = context.getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
-        if (am.isEnabled) {
-            return true
+    fun openOverlayPermissionSettings(context: Context) {
+        val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + context.packageName))
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(intent)
+    }
+
+    /**
+     * 检查无障碍服务状态
+     * @param openSettings 是否直接打开设置界面
+     */
+    fun checkAccessibilityStatus(context: Context, name: String, openSettings: Boolean = false): Boolean {
+        val serviceName = "${context.packageName}/${name}"
+        var status = Settings.Secure.getInt(context.applicationContext.contentResolver, Settings.Secure.ACCESSIBILITY_ENABLED)
+        val splitter = TextUtils.SimpleStringSplitter(':')
+        if (status == 1) {
+            val settingValue = Settings.Secure.getString(context.applicationContext.contentResolver, Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
+            if (!settingValue.isNullOrEmpty()) {
+                splitter.setString(settingValue)
+                while (splitter.hasNext()) {
+                    val accessibilityService = splitter.next()
+                    if (accessibilityService.equals(serviceName)) {
+                        return true
+                    }
+                }
+            }
         }
         if (openSettings) {
-            val intent = Intent()
-            try {
-                intent.action = Settings.ACTION_ACCESSIBILITY_SETTINGS
-            } catch (e: Exception) {
-                VMLog.e(e.message ?: "打开设置出错")
-                // 其他低版本或者异常情况，走该节点。进入APP设置界面
-                intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                intent.putExtra("package", context.packageName)
-            }
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            context.startActivity(intent)
+            openAccessibilitySettings(context)
         }
         return false
     }
+
+    /**
+     * 打开无障碍设置
+     */
+    fun openAccessibilitySettings(context: Context) {
+        val settingIntent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+        settingIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        context.startActivity(settingIntent)
+    }
+
 
 }

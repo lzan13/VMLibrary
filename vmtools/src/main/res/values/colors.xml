@@ -122,7 +122,7 @@
 
     <!--指示器-->
     <color name="vm_indicator_normal">@color/vm_gray_white</color>
-    <color name="vm_indicator_selected">@color/vm_accent</color>
+    <color name="vm_indicator_selected">@color/vm_green</color>
 
     <color name="vm_toast_bg">#ff363636</color>
     <color name="vm_toast_light_bg">@color/vm_white</color>

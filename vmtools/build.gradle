@@ -10,17 +10,17 @@ plugins {
 def configs = rootProject.ext.configs
 
 android {
-    compileSdkVersion configs.compileSdkVersion
-    buildToolsVersion configs.buildToolsVersion
+    compileSdk configs.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion configs.minSdkVersion
-        targetSdkVersion configs.targetSdkVersion
+        minSdk configs.minSdkVersion
+        targetSdk configs.targetSdkVersion
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            consumerProguardFiles 'consumer-rules.pro'
         }
     }
 
@@ -32,7 +32,7 @@ android {
     lintOptions {
         abortOnError false
     }
-    // 设置使用 Java 1.8
+    // 配置 Java 编译版本
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11

@@ -7,7 +7,7 @@ import androidx.core.view.setMargins
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.vmloft.develop.library.common.base.BActivity
+import com.vmloft.develop.library.base.BActivity
 
 import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.databinding.ActivityDemoAnimLottieBinding

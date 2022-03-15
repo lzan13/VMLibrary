@@ -9,11 +9,12 @@ import android.widget.Button
 import android.content.ComponentName
 import android.view.ViewGroup
 
-import com.vmloft.develop.library.common.base.BFragment
+import com.vmloft.develop.library.base.BFragment
+import com.vmloft.develop.library.base.router.CRouter
 import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.databinding.FragmentHomeBinding
 import com.vmloft.develop.library.example.router.AppRouter
-import com.vmloft.develop.library.example.utils.showBar
+import com.vmloft.develop.library.base.utils.showBar
 import com.vmloft.develop.library.example.utils.errorBar
 import com.vmloft.develop.library.tools.VMTools
 import com.vmloft.develop.library.tools.permission.VMPermission
@@ -42,7 +43,6 @@ class HomeFragment : BFragment<FragmentHomeBinding>() {
         addBtn("Lottie 动画", AppRouter.appLottieAnim)
         addBtn("按钮", AppRouter.appStyle)
         addBtn("图片选择", AppRouter.appImagePicker)
-        addBtn("辅助功能", AppRouter.appAccessibility)
 
         addBtn("单权限申请", AppRouter.appSinglePermission)
         addBtn("多权限申请", AppRouter.appMultiPermission)
@@ -72,7 +72,7 @@ class HomeFragment : BFragment<FragmentHomeBinding>() {
             AppRouter.appSinglePermission.hashCode() -> checkOnePermissions()
             AppRouter.appMultiPermission.hashCode() -> checkPermissions()
             AppRouter.appOpenWeChat.hashCode() -> openWeChat()
-            else -> AppRouter.go(v.tag as String)
+            else -> CRouter.go(v.tag as String)
         }
     }
 

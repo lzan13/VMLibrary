@@ -1,34 +1,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.vmloft.develop.library.common" >
+    package="com.vmloft.develop.library.common">
 
     <application>
 
         <!--通用界面-->
         <!--调试设置页面-->
         <activity
-            android:name=".ui.debug.DebugActivity"
+            android:name=".debug.DebugActivity"
             android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme" />
 
-        <!--展示单图页面-->
-        <activity
-            android:name=".ui.display.DisplaySingleActivity"
-            android:screenOrientation="fullSensor"
-            android:theme="@style/AppTheme.Display"
-            />
-        <!--展示多图页面-->
-        <activity
-            android:name=".ui.display.DisplayMultiActivity"
-            android:screenOrientation="fullSensor"
-            android:theme="@style/AppTheme.Display"
-            />
         <!--Web页面-->
         <activity
-            android:name=".ui.web.WebActivity"
+            android:name=".web.WebActivity"
             android:screenOrientation="fullSensor"
-            android:theme="@style/AppTheme"
-            />
+            android:theme="@style/AppTheme" />
 
         <!--重新定义权限请求主题-->
         <activity
@@ -36,31 +23,20 @@
             android:theme="@style/AppTheme.Permission"
             tools:replace="android:theme" />
 
-        <!--友盟统计-->
-        <meta-data
-            android:name="UMENG_APPKEY"
-            android:value="${umengAppKey}" />
-        <meta-data
-            android:name="UMENG_CHANNEL"
-            android:value="${appChannel}" />
-
         <!-- 全面屏适配 -->
         <meta-data
             android:name="android.max_aspect"
-            android:value="2.4"
-            />
+            android:value="2.4" />
 
         <!--7.x文件配置-->
         <provider
-            android:name=".common.CFileProvider"
+            android:name="com.vmloft.develop.library.base.common.CFileProvider"
             android:authorities="${applicationId}.common.fileProvider"
             android:exported="false"
-            android:grantUriPermissions="true"
-            >
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"
-                />
+                android:resource="@xml/file_paths" />
         </provider>
     </application>
 </manifest>

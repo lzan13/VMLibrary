@@ -5,10 +5,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.vmloft.develop.library.common.base.BActivity
+import com.vmloft.develop.library.base.BActivity
 
 import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.common.notify.NotifyManager
+import com.vmloft.develop.library.base.notify.NotifyManager
 import com.vmloft.develop.library.example.databinding.ActivityMainBinding
 import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.example.ui.main.explore.ExploreFragment

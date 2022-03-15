@@ -8,12 +8,10 @@ import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ForegroundColorSpan
 import android.text.style.URLSpan
-import android.view.Gravity
 import android.view.View
-import android.widget.TextView
 
+import com.vmloft.develop.library.base.widget.CommonDialog
 import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.common.widget.CommonDialog
 import com.vmloft.develop.library.tools.utils.VMColor
 import com.vmloft.develop.library.tools.utils.VMStr
 import com.vmloft.develop.library.tools.utils.logger.VMLog

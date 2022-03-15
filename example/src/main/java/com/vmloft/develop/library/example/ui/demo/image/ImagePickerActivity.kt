@@ -1,14 +1,14 @@
 package com.vmloft.develop.library.example.ui.demo.image
 
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.vmloft.develop.library.common.base.BActivity
 
+import com.vmloft.develop.library.base.BActivity
+import com.vmloft.develop.library.base.utils.showBar
 import com.vmloft.develop.library.example.common.Constants
 import com.vmloft.develop.library.example.databinding.ActivityDemoImagePickerBinding
-import com.vmloft.develop.library.example.image.IMGChoose
-import com.vmloft.develop.library.example.image.IMGLoader
 import com.vmloft.develop.library.example.router.AppRouter
-import com.vmloft.develop.library.example.utils.showBar
+import com.vmloft.develop.library.image.IMGChoose
+import com.vmloft.develop.library.image.IMGLoader
 import com.vmloft.develop.library.tools.utils.bitmap.VMBitmap
 import com.vmloft.develop.library.tools.utils.logger.VMLog
 

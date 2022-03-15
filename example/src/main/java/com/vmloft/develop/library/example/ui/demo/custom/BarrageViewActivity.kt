@@ -3,7 +3,7 @@ package com.vmloft.develop.library.example.ui.demo.custom
 import android.view.View
 import android.widget.TextView
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.vmloft.develop.library.common.base.BActivity
+import com.vmloft.develop.library.base.BActivity
 
 import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.databinding.ActivityDemoViewBarrageBinding

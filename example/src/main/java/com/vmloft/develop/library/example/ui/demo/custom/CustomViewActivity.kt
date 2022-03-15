@@ -3,8 +3,8 @@ package com.vmloft.develop.library.example.ui.demo.custom
 import android.view.View
 
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.vmloft.develop.library.common.base.BActivity
-import com.vmloft.develop.library.common.widget.CommonDialog
+import com.vmloft.develop.library.base.BActivity
+import com.vmloft.develop.library.base.widget.CommonDialog
 
 import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.common.SPManager
@@ -12,9 +12,9 @@ import com.vmloft.develop.library.example.databinding.ActivityDemoViewCustomBind
 import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.example.ui.widget.AgreementPolicyDialog
 import com.vmloft.develop.library.example.utils.darkBar
-import com.vmloft.develop.library.example.utils.showBar
+import com.vmloft.develop.library.base.utils.showBar
 import com.vmloft.develop.library.example.utils.errorBar
-import com.vmloft.develop.library.example.utils.show
+import com.vmloft.develop.library.base.utils.show
 import com.vmloft.develop.library.tools.widget.record.VMRecordView.RecordListener
 import com.vmloft.develop.library.tools.widget.tips.VMTips
 

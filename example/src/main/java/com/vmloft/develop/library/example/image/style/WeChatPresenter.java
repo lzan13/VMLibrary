@@ -16,8 +16,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
-import com.vmloft.develop.library.example.R;
-import com.vmloft.develop.library.example.image.IMGLoader;
+
 import com.ypx.imagepicker.adapter.PickerItemAdapter;
 import com.ypx.imagepicker.bean.ImageItem;
 import com.ypx.imagepicker.bean.selectconfig.BaseSelectConfig;

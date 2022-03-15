@@ -7,11 +7,11 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
 import com.google.android.material.tabs.TabLayoutMediator
-import com.vmloft.develop.library.common.base.BFragment
+import com.vmloft.develop.library.base.BFragment
 
 import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.common.router.CRouter
-import com.vmloft.develop.library.common.utils.CUtils
+import com.vmloft.develop.library.base.router.CRouter
+import com.vmloft.develop.library.base.utils.CUtils
 import com.vmloft.develop.library.example.common.CommonFragment
 import com.vmloft.develop.library.example.databinding.FragmentMineBinding
 import com.vmloft.develop.library.example.router.AppRouter

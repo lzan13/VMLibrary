@@ -5,8 +5,8 @@ import android.view.MotionEvent
 import android.view.View
 
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.vmloft.develop.library.common.base.BActivity
-import com.vmloft.develop.library.common.utils.showBar
+import com.vmloft.develop.library.base.BActivity
+import com.vmloft.develop.library.base.utils.showBar
 
 import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.databinding.ActivityDemoFloatMenuBinding
@@ -105,7 +105,7 @@ class FloatMenuActivity : BActivity<ActivityDemoFloatMenuBinding>() {
         floatMenu.addItem(ItemBean(1, "悬浮菜单"))
         floatMenu.addItem(ItemBean(2, "悬浮"))
         floatMenu.addItem(ItemBean(3, "悬浮菜单", R.color.vm_red))
-        floatMenu.addItem(ItemBean(4, "悬浮菜单", R.color.vm_accent, R.drawable.ic_close))
+        floatMenu.addItem(ItemBean(4, "悬浮菜单", R.color.app_accent, R.drawable.ic_close))
         floatMenu.addItem(ItemBean(5, "悬浮菜单"))
         floatMenu.addItem(ItemBean(6, "菜单"))
         floatMenu.addItem(ItemBean(7, "悬浮菜单"))

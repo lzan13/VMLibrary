@@ -2,7 +2,7 @@ package com.vmloft.develop.library.example.ui.demo.custom
 
 
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.vmloft.develop.library.common.base.BActivity
+import com.vmloft.develop.library.base.BActivity
 
 import com.vmloft.develop.library.example.databinding.ActivityDemoViewLoadingBinding
 import com.vmloft.develop.library.example.router.AppRouter

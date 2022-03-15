@@ -4,12 +4,12 @@ import android.content.Context
 import android.content.res.AssetManager
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.widget.ImageView
 import android.widget.LinearLayout
-import com.aigestudio.wheelpicker.WheelPicker
+
 import com.aigestudio.wheelpicker.model.City
 import com.aigestudio.wheelpicker.model.Province
-import com.vmloft.develop.library.common.R
+
+import com.vmloft.develop.library.common.databinding.WidgetCommonPickerAreaBinding
 
 import java.io.ObjectInputStream
 
@@ -18,35 +18,26 @@ import java.io.ObjectInputStream
  * 地区选择器
  */
 class CAreaPicker @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : LinearLayout(context, attrs, defStyleAttr) {
-
-    private var commonPickerProvince: WheelPicker // 省
-    private var commonPickerCity: WheelPicker // 省
-    private var commonPickerArea: WheelPicker // 省
+    val mBinding = WidgetCommonPickerAreaBinding.inflate(LayoutInflater.from(context), this, true)
 
     private var mProvinceList: MutableList<Province> = mutableListOf()
     private var mCityList: MutableList<City> = mutableListOf()
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.widget_common_picker_area, this)
-
-        commonPickerProvince = findViewById(R.id.commonPickerProvince)
-        commonPickerCity = findViewById(R.id.commonPickerCity)
-        commonPickerArea = findViewById(R.id.commonPickerArea)
-
         loadDataFromAssets(context.assets)
         initPicker()
     }
 
     fun getProvince(): String {
-        return mProvinceList[commonPickerProvince.currentItemPosition].getName()
+        return mProvinceList[mBinding.commonPickerProvince.currentItemPosition].getName()
     }
 
     fun getCity(): String {
-        return mCityList[commonPickerCity.currentItemPosition].getName()
+        return mCityList[mBinding.commonPickerCity.currentItemPosition].getName()
     }
 
     fun getArea(): String {
-        return mCityList[commonPickerCity.currentItemPosition].getArea()[commonPickerArea.currentItemPosition]
+        return mCityList[mBinding.commonPickerCity.currentItemPosition].getArea()[mBinding.commonPickerArea.currentItemPosition]
     }
 
     /**
@@ -65,15 +56,15 @@ class CAreaPicker @JvmOverloads constructor(context: Context, attrs: AttributeSe
     }
 
     private fun initPicker() {
-        commonPickerProvince.setOnItemSelectedListener { _, _, position ->
+        mBinding.commonPickerProvince.setOnItemSelectedListener { _, _, position ->
             fillCityAndArea(position)
         }
-        commonPickerCity.setOnItemSelectedListener { _, _, position ->
-            commonPickerArea.data = mCityList[position].area
+        mBinding.commonPickerCity.setOnItemSelectedListener { _, _, position ->
+            mBinding.commonPickerArea.data = mCityList[position].area
         }
 
         val provinceList = mProvinceList.map { it.name }
-        commonPickerProvince.data = provinceList
+        mBinding.commonPickerProvince.data = provinceList
 
         fillCityAndArea(0)
     }
@@ -85,11 +76,11 @@ class CAreaPicker @JvmOverloads constructor(context: Context, attrs: AttributeSe
         mCityList = mProvinceList[position].city
 
         val cityList = mCityList.map { it.name }
-        commonPickerCity.data = cityList
-        commonPickerCity.selectedItemPosition = 0
+        mBinding.commonPickerCity.data = cityList
+        mBinding.commonPickerCity.selectedItemPosition = 0
 
-        commonPickerArea.data = mCityList[0].area
-        commonPickerArea.selectedItemPosition = 0
+        mBinding.commonPickerArea.data = mCityList[0].area
+        mBinding.commonPickerArea.selectedItemPosition = 0
     }
 
 }

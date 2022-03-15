@@ -1,112 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- 应用基础主题 -->
-    <style name="VMTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
-        <!-- 默认主要颜色，一般是 Toolbar 等颜色 -->
-        <item name="colorPrimary">@color/vm_primary</item>
-        <!-- 深一些的主要色，一般是状态栏等颜色 -->
-        <item name="colorPrimaryDark">@color/vm_primary_dark</item>
-        <!--各控件激活时的颜色，一般是 CheckBox、EditText、Switch、Spinner、RadioButton 等控件激活的颜色-->
-        <item name="colorAccent">@color/vm_accent</item>
-
-        <!--界面背景色，为了优化 UI，这里设置为透明-->
-        <item name="android:windowBackground">@color/vm_transparent</item>
-
-        <!--设置主题不需要ActionBar-->
-        <item name="windowActionBar">false</item>
-        <!--设置主题不需要Title-->
-        <item name="windowNoTitle">true</item>
-
-        <!--设置 ActionMode 效果，防止 ActionMode 将Toolbar顶下去-->
-        <item name="windowActionModeOverlay">true</item>
-        <item name="windowActionBarOverlay">true</item>
-
-        <!-- 设置允许修改系统栏的背景色 比如导航栏 状态栏等-->
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <!--半透明状态栏-->
-        <item name="android:windowTranslucentStatus">false</item>
-        <!--设置导航栏半透明效果，TODO 设置导航栏半透明会导致布局下移，需注意-->
-        <item name="android:windowTranslucentNavigation">false</item>
-        <!--设置状态栏颜色-->
-        <!--        <item name="android:statusBarColor">@color/vm_primary_dark</item>-->
-        <!--设置导航栏背景色-->
-        <!--        <item name="android:navigationBarColor">@color/vm_black_38</item>-->
-
-        <!--设置是否允许使用转场动画-->
-        <item name="android:windowContentTransitions">false</item>
-        <!--设置动画效果执行方式，是同步还是顺序执行-->
-        <!--A 退出和 B 进入动画是否同步执行-->
-        <item name="android:windowAllowEnterTransitionOverlap">false</item>
-        <!--B 返回和 A 重新进入是否同步执行-->
-        <item name="android:windowAllowReturnTransitionOverlap">false</item>
-        <!--指定进入和退出的转场动画-->
-        <item name="android:windowEnterTransition">@null</item>
-        <item name="android:windowExitTransition">@null</item>
-        <item name="android:windowReenterTransition">@null</item>
-        <item name="android:windowReturnTransition">@null</item>
-
-    </style>
-
-    <!--透明主题-->
-    <style name="VMTheme.Transparent">
-        <item name="colorPrimary">@color/vm_transparent</item>
-        <item name="colorPrimaryDark">@color/vm_transparent</item>
-        <!-- 设置允许修改系统栏的背景色 比如导航栏 状态栏等-->
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <!--半透明状态栏-->
-        <item name="android:windowTranslucentStatus">true</item>
-        <!--设置导航栏半透明效果，TODO 设置导航栏半透明会导致布局下移，需注意-->
-        <item name="android:windowTranslucentNavigation">true</item>
-    </style>
-    <!--图片选择器主题-->
-    <style name="VMTheme.Picker">
-        <item name="colorPrimary">@color/vm_transparent</item>
-        <item name="colorPrimaryDark">@color/vm_transparent</item>
-        <!-- 设置允许修改系统栏的背景色 比如导航栏 状态栏等-->
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <!--半透明状态栏-->
-        <item name="android:windowTranslucentStatus">false</item>
-        <!--设置导航栏半透明效果，TODO 设置导航栏半透明会导致布局下移，需注意-->
-        <item name="android:windowTranslucentNavigation">true</item>
-        <!--设置状态栏颜色-->
-        <item name="android:statusBarColor">@color/vm_black_12</item>
-    </style>
-
-    <!--授权弹窗主题-->
-    <style name="VMTheme.Permission">
-        <item name="android:windowBackground">@color/vm_transparent</item>
-        <item name="android:windowFrame">@null</item>
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:windowIsTranslucent">false</item>
-        <item name="android:backgroundDimEnabled">false</item>
-        <item name="android:windowContentOverlay">@null</item>
-    </style>
-
-    <!--自定义默认 AppBar 样式，这里为了让文字显示为白色，继承黑色样式的ActionBar 原因是为了让弹出菜单为白色-->
-    <style name="VMTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <!--Appbar 控制器颜色-->
-        <item name="colorControlNormal">@color/vm_toolbar_control</item>
-        <!--Appbar 标题颜色-->
-        <item name="android:textColor">@color/vm_toolbar_control</item>
-        <!--Appbar 标题样式-->
-        <item name="android:textStyle">normal</item>
-    </style>
-
-    <!--自定义 Toolbar 样式，这里为了让文字显示为白色，继承黑色样式的ActionBar 原因是为了让弹出菜单为白色-->
-    <style name="VMTheme.ToolbarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <!--Toolbar 控制器颜色-->
-        <item name="colorControlNormal">@color/vm_toolbar_control</item>
-        <!--Toolbar 上文字颜色-->
-        <item name="android:textColor">@color/vm_toolbar_control</item>
-        <!--Toolbar 文字样式-->
-        <item name="android:textStyle">normal</item>
-    </style>
-
-    <!--自定 Toolbar 弹出 PopupMenu 样式，要想此设置生效，在布局文件必须要自定义命名空间 xmlns：app-->
-    <style name="VMTheme.PopupOverlay" parent="Theme.AppCompat.DayNight.DarkActionBar">
-        <!--弹出菜单的文字颜色和大小-->
-        <item name="android:textColor">@color/vm_title</item>
-    </style>
 
     <!--文字样式 Display1-->
     <style name="VMText.Display1" parent="@android:style/TextAppearance.Material.Display1">
@@ -186,6 +79,10 @@
     <style name="VMEdit" parent="Base.Widget.AppCompat.EditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">@dimen/vm_dimen_12</item>
+        <item name="android:paddingEnd">@dimen/vm_dimen_12</item>
+        <item name="android:paddingTop">@dimen/vm_dimen_8</item>
+        <item name="android:paddingBottom">@dimen/vm_dimen_8</item>
         <item name="android:textColor">@color/vm_edit</item>
         <item name="android:textColorHint">@color/vm_edit_hint</item>
         <item name="android:inputType">text</item>
@@ -198,7 +95,10 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@color/vm_transparent</item>
         <item name="android:gravity">top|left</item>
-        <item name="android:padding">@dimen/vm_padding_large</item>
+        <item name="android:paddingStart">@dimen/vm_dimen_12</item>
+        <item name="android:paddingEnd">@dimen/vm_dimen_12</item>
+        <item name="android:paddingTop">@dimen/vm_dimen_8</item>
+        <item name="android:paddingBottom">@dimen/vm_dimen_8</item>
         <item name="android:scrollbars">vertical</item>
         <item name="android:scrollHorizontally">false</item>
         <item name="android:textColor">@color/vm_edit</item>

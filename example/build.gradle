@@ -116,15 +116,25 @@ dependencies {
 
     kapt "androidx.room:room-compiler:2.3.0"
 
-    /**
-     * ARouter 编译器，这里有个问题，就是当代码中有一些自己没看到的错误的时候，
-     * ARouter 会拦截错误信息，让人以为是 ARouter 的报错，
-     * 但是又找不到错误位置，把这行注释掉，重新编译
-     */
+    // ARouter 编译器，TODO 当代码中有一些自己没看到的错误的时候，ARouter 会拦截错误信息，看不到错误位置，把这行注释掉，重新编译
     kapt 'com.alibaba:arouter-compiler:1.5.2'
 
-    // 引入统一管理库
+    // 依赖 base 库
+    implementation project(':vmbase')
+    // 依赖 common 库
     implementation project(':vmcommon')
+    // 依赖 db 库
+    implementation project(':vmdb')
+    // 依赖 image 库
+    implementation project(':vmimage')
+    // 依赖 qr 库
+//    implementation project(':vmpay')
+    // 依赖 qr 库
+//    implementation project(':vmqr')
+    // 依赖 report 库
+//    implementation project(':vmreport')
+    // 依赖 request 库
+//    implementation project(':vmrequest')
 }
 
 // 获取当前系统时间

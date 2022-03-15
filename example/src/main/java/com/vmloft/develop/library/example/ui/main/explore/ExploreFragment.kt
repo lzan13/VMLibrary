@@ -3,7 +3,7 @@ package com.vmloft.develop.library.example.ui.main.explore
 import android.view.LayoutInflater
 import android.view.ViewGroup
 
-import com.vmloft.develop.library.common.base.BFragment
+import com.vmloft.develop.library.base.BFragment
 import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.databinding.FragmentExploreBinding
 

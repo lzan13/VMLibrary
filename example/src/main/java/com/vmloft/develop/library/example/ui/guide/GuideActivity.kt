@@ -5,10 +5,10 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.vmloft.develop.library.common.base.BActivity
 
+import com.vmloft.develop.library.base.BActivity
+import com.vmloft.develop.library.base.router.CRouter
 import com.vmloft.develop.library.example.R
-import com.vmloft.develop.library.common.router.CRouter
 import com.vmloft.develop.library.example.common.SPManager
 import com.vmloft.develop.library.example.databinding.ActivityGuideBinding
 import com.vmloft.develop.library.example.router.AppRouter

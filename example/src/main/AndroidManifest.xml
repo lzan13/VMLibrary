@@ -48,20 +48,6 @@
             android:windowSoftInputMode="adjustNothing|stateAlwaysHidden" />
 
         <!--demo界面 开始-->
-        <!--辅助功能-->
-        <activity android:name=".ui.demo.accessibility.TBLiveMsgActivity" />
-        <service
-            android:name=".ui.demo.accessibility.TBLiveMsgService"
-            android:enabled="true"
-            android:exported="true"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
-            <intent-filter>
-                <action android:name="android.accessibilityservice.AccessibilityService" />
-            </intent-filter>
-            <meta-data
-                android:name="android.accessibilityservice"
-                android:resource="@xml/tb_live_msg_auto_service" />
-        </service>
         <!--自定义弹幕-->
         <activity android:name=".ui.demo.custom.BarrageViewActivity" />
         <!--自定义控件-->
@@ -80,78 +66,22 @@
         <activity android:name=".ui.demo.custom.IndicatorViewActivity" />
         <!--Lottie 动画-->
         <activity android:name=".ui.demo.anim.LottieAnimActivity" />
-        <!--播放音频-->
-        <activity android:name=".ui.demo.media.MediaPlayActivity" />
-        <!--通过 url 打开页面 vmlibrary://demo/with?id=1001-->
-        <activity android:name=".ui.demo.scheme.SchemeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="demo"
-                    android:pathPrefix="/with"
-                    android:scheme="vmlibrary" />
-            </intent-filter>
-        </activity>
         <!--按钮主题样式-->
         <activity android:name=".ui.demo.custom.ButtonThemeActivity" />
-        <!--测试线程-->
-        <activity android:name=".ui.demo.thread.ThreadActivity" />
-        <!--Web 功能界面-->
-        <activity android:name=".ui.demo.web.WebTestActivity" />
         <!--图片选择功能界面-->
         <activity android:name=".ui.demo.image.ImagePickerActivity" />
-        <!--自定义表格-->
-        <activity android:name=".ui.demo.layout.CustomTableActivity" />
+
         <!--demo界面 结束-->
 
-
-        <!--设置-->
-        <activity android:name="com.vmloft.develop.library.example.ui.settings.SettingsActivity" />
-        <!--暗色主题设置-->
-        <activity android:name="com.vmloft.develop.library.example.ui.settings.DarkSettingsActivity" />
-        <!--资源设置-->
-        <activity android:name="com.vmloft.develop.library.example.ui.settings.MediaSettingsActivity" />
-        <!--通知设置-->
-        <activity android:name="com.vmloft.develop.library.example.ui.settings.NotifySettingsActivity" />
-        <!--关于-->
-        <activity android:name="com.vmloft.develop.library.example.ui.settings.AboutSettingsActivity" />
         <!--问题反馈-->
         <activity android:name="com.vmloft.develop.library.example.ui.feedback.FeedbackActivity" />
-
 
         <!--引导-->
         <activity android:name="com.vmloft.develop.library.example.ui.guide.GuideActivity" />
 
-        <!--        &lt;!&ndash;登录引导&ndash;&gt;-->
-        <!--        <activity-->
-        <!--            android:name="com.vmloft.develop.library.example.ui.sign.SignActivity"-->
-        <!--            android:windowSoftInputMode="adjustNothing|stateVisible" />-->
-        <!--        &lt;!&ndash;登录&ndash;&gt;-->
-        <!--        <activity-->
-        <!--            android:name="com.vmloft.develop.library.example.ui.sign.SignInActivity"-->
-        <!--            android:windowSoftInputMode="adjustNothing|stateVisible" />-->
-        <!--        &lt;!&ndash;注册&ndash;&gt;-->
-        <!--        <activity-->
-        <!--            android:name="com.vmloft.develop.library.example.ui.sign.SignUpActivity"-->
-        <!--            android:windowSoftInputMode="adjustNothing|stateVisible" />-->
         <activity
             android:name="com.vmloft.develop.library.example.ui.user.UserInfoActivity"
             android:windowSoftInputMode="adjustNothing|stateVisible" />
-
-        <!--        &lt;!&ndash;个人信息&ndash;&gt;-->
-        <!--        <activity android:name="com.vmloft.develop.library.example.ui.main.mine.info.PersonalInfoActivity" />-->
-        <!--        &lt;!&ndash;个人信息用户名设置&ndash;&gt;-->
-        <!--        <activity android:name="com.vmloft.develop.library.example.ui.main.mine.info.EditUsernameActivity" />-->
-        <!--        &lt;!&ndash;个人信息昵称设置&ndash;&gt;-->
-        <!--        <activity android:name="com.vmloft.develop.library.example.ui.main.mine.info.EditNicknameActivity" />-->
-        <!--        &lt;!&ndash;个人信息签名设置&ndash;&gt;-->
-        <!--        <activity android:name="com.vmloft.develop.library.example.ui.main.mine.info.EditSignatureActivity" />-->
-        <!--        &lt;!&ndash;个人信息个人认证&ndash;&gt;-->
-        <!--        <activity android:name="com.vmloft.develop.library.example.ui.main.mine.info.PersonalAuthActivity" />-->
 
     </application>
 </manifest>

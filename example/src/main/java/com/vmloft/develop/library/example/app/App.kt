@@ -5,11 +5,11 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 
 import com.alibaba.android.arouter.launcher.ARouter
-import com.scwang.smart.refresh.footer.ClassicsFooter
-import com.scwang.smart.refresh.header.ClassicsHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
-import com.vmloft.develop.library.common.event.LDEventBus
-import com.vmloft.develop.library.common.notify.NotifyManager
+import com.vmloft.develop.library.base.event.LDEventBus
+import com.vmloft.develop.library.base.notify.NotifyManager
+import com.vmloft.develop.library.common.widget.refresh.DoubleCircleFooter
+import com.vmloft.develop.library.common.widget.refresh.DoubleCircleHeader
 
 import com.vmloft.develop.library.example.BuildConfig
 import com.vmloft.develop.library.example.R
@@ -155,13 +155,13 @@ class App : Application() {
         }
         // 设置全局的Header构建器
         SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, _ ->
-            // 指定为经典Header，默认是 贝塞尔雷达Header
-            ClassicsHeader(context)
+            // 设置顶部刷新头
+            DoubleCircleHeader(context)
         }
         //设置全局的Footer构建器
         SmartRefreshLayout.setDefaultRefreshFooterCreator { context, _ ->
-            // 指定为经典Footer，默认是 BallPulseFooter
-            ClassicsFooter(context).setDrawableSize(16f)
+            // 设置底部加载更多，默认是 BallPulseFooter
+            DoubleCircleFooter(context)
         }
     }
 }
