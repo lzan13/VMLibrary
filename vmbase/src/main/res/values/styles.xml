@@ -83,6 +83,7 @@
         <item name="android:background">@drawable/shape_input_bg</item>
         <item name="android:textColor">@color/app_input</item>
         <item name="android:textColorHint">@color/app_input_hint</item>
+        <item name="android:lines">3</item>
         <item name="android:textStyle">normal</item>
     </style>
 
