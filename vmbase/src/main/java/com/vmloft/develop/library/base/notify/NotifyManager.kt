@@ -35,7 +35,8 @@ object NotifyManager {
     // 通知消息通道 Id
     private const val notifyMsgChannelGroupId = "notifyMsgChannelGroupId"
     private const val notifyMsgChannelGroupName = "消息通知"
-    private const val notifyMsgChannelGroupDescription = "收到新消息时通知通道，建议开启"
+    private const val notifyMsgChannelGroupDescription = "收到实时消息相关通知通道组"
+
     private const val notifyMsgChannelId = "notifyMsgChannelId"
     private const val notifyMsgChannelName = "消息通知"
     private const val notifyMsgChannelDescription = "收到新消息时通知通道，建议开启"
@@ -43,6 +44,15 @@ object NotifyManager {
     private const val notifyOtherChannelId = "notifyOtherChannelId"
     private const val notifyOtherChannelName = "其他通知"
     private const val notifyOtherChannelDescription = "收到其他消息时通知通道，可以关闭"
+
+    // 其它通知通道 Id
+    private const val notifyOtherChannelGroupId = "notifyOtherChannelGroupId"
+    private const val notifyOtherChannelGroupName = "其它通知"
+    private const val notifyOtherChannelGroupDescription = "其他类型的通知通道组"
+
+    private const val notifyKeepAliveChannelId = "notifyKeepAliveChannelId"
+    private const val notifyKeepAliveChannelName = "前台服务"
+    private const val notifyKeepAliveChannelDescription = "常驻通知栏的前台服务通知，用于保活"
 
     /**
      * 初始化通知
@@ -91,6 +101,34 @@ object NotifyManager {
     }
 
     /**
+     * 发送通知
+     */
+    fun openKeepAliveNotify(content: String, title: String) {
+        val builder: NotificationCompat.Builder = getBuilder(notifyKeepAliveChannelId)
+
+        // 通知标题
+        if (!title.isNullOrEmpty()) {
+            builder.setContentTitle(title)
+        }
+
+        // 通知内容
+        // 开始在状态栏上显示的提示文案
+        builder.setTicker(content)
+        builder.setContentText(content)
+
+        // TODO 视具体业务打开对应界面
+//        val intent = Intent(mContext, NotifyActivity::class.java)
+//        val pendingIntent = PendingIntent.getBroadcast(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+//        val pendingIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+//         设置通知点击跳转
+//        builder.setContentIntent(pendingIntent)
+
+        val notifyId: Int = notifyKeepAliveChannelId.hashCode()
+
+        mNotificationManager.notify(notifyId, builder.build())
+    }
+
+    /**
      * 检查是否开启了通知
      */
     fun checkNotifySetting(): Boolean {
@@ -103,6 +141,10 @@ object NotifyManager {
             VMLog.d("还没有开启通知权限")
         }
         return isOpened
+    }
+
+    fun getKeepAliveChannelId(): String {
+        return notifyKeepAliveChannelId
     }
 
     /**
@@ -137,6 +179,34 @@ object NotifyManager {
         }
     }
 
+
+    /**
+     * 获取通知对象
+     */
+    fun getBuilder(channelId: String, clickCancel: Boolean = true): NotificationCompat.Builder {
+        val builder: NotificationCompat.Builder = NotificationCompat.Builder(mContext, channelId)
+        // 设置通知时间
+        builder.setWhen(System.currentTimeMillis())
+        // 设置点击自动取消
+        builder.setAutoCancel(clickCancel)
+        // 设置小图标
+        builder.setSmallIcon(mContext.applicationInfo.icon)
+        // 设置大图标
+        val largeIcon = BitmapFactory.decodeResource(mContext.resources, mContext.applicationInfo.icon)
+        builder.setLargeIcon(largeIcon)
+
+        // 支持横幅通知
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+        }
+
+        // 控制相近的通知只响一次声音
+        if (System.currentTimeMillis() - lastNotifyTime < 2 * 1000L) {
+            builder.setDefaults(0)
+        }
+        return builder
+    }
+
     /**
      * 重置通知通道
      */
@@ -158,9 +228,11 @@ object NotifyManager {
             }
             // 先创建分组
             createNotificationChannelGroup(notifyMsgChannelGroupId, notifyMsgChannelGroupName, notifyMsgChannelGroupDescription)
+            createNotificationChannelGroup(notifyOtherChannelGroupId, notifyOtherChannelGroupName, notifyOtherChannelGroupDescription)
             // 然后创建通道
             createNotificationChannel(notifyMsgChannelGroupId, notifyMsgChannelId, notifyMsgChannelName, notifyMsgChannelDescription)
-            createNotificationChannel("", notifyOtherChannelId, notifyOtherChannelName, notifyOtherChannelDescription)
+            createNotificationChannel(notifyMsgChannelGroupId, notifyOtherChannelId, notifyOtherChannelName, notifyOtherChannelDescription)
+            createNotificationChannel(notifyOtherChannelGroupId, notifyKeepAliveChannelId, notifyKeepAliveChannelName, notifyKeepAliveChannelDescription, false)
         }
     }
 
@@ -197,11 +269,11 @@ object NotifyManager {
      * @param desc
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private fun createNotificationChannel(groupId: String, channelId: String, name: String, desc: String) {
+    private fun createNotificationChannel(groupId: String, channelId: String, name: String, desc: String, showBadge: Boolean = true) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(channelId, name, NotificationManager.IMPORTANCE_HIGH)
-            // 是否在长按桌面图标时显示此渠道的通知
-            channel.setShowBadge(true)
+            // 是否在长按桌面图标时显示此渠道的通知，桌面角标也是这个选项
+            channel.setShowBadge(showBadge)
             // 设置是否应在锁定屏幕上显示此频道的通知
             channel.lockscreenVisibility = NotificationCompat.VISIBILITY_PUBLIC
             // 设置绕过免打扰模式
@@ -235,32 +307,5 @@ object NotifyManager {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             mNotificationManager.deleteNotificationChannelGroup(groupId)
         }
-    }
-
-    /**
-     * 获取通知对象
-     */
-    private fun getBuilder(channelId: String): NotificationCompat.Builder {
-        val builder: NotificationCompat.Builder = NotificationCompat.Builder(mContext, channelId)
-        // 设置通知时间
-        builder.setWhen(System.currentTimeMillis())
-        // 设置点击自动取消
-        builder.setAutoCancel(true)
-        // 设置小图标
-        builder.setSmallIcon(mContext.applicationInfo.icon)
-        // 设置大图标
-        val largeIcon = BitmapFactory.decodeResource(mContext.resources, mContext.applicationInfo.icon)
-        builder.setLargeIcon(largeIcon)
-
-        // 支持横幅通知
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-        }
-
-        // 控制相近的通知只响一次声音
-        if (System.currentTimeMillis() - lastNotifyTime < 2 * 1000L) {
-            builder.setDefaults(0)
-        }
-        return builder
     }
 }

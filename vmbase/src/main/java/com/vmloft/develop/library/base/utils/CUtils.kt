@@ -9,6 +9,7 @@ import android.os.ParcelFileDescriptor
 import android.util.Base64
 
 import com.vmloft.develop.library.tools.utils.VMTheme
+import com.vmloft.develop.library.tools.utils.VMUtils
 
 import java.io.File
 import java.io.FileNotFoundException
@@ -32,9 +33,17 @@ object CUtils {
      * 生成 [0, max) 范围内的随机数
      *
      * @param max 最大值（不包含）
+     * @param sign 是否需要正负号 默认 false
      */
-    fun random(max: Int): Int {
-        return random(0, max)
+    fun random(max: Int, sign: Boolean = false): Int {
+        if (sign) {
+            return if (VMUtils.random(2) == 0) {
+                -VMUtils.random(max)
+            } else {
+                VMUtils.random(max)
+            }
+        }
+        return VMUtils.random(max)
     }
 
     /**
@@ -42,10 +51,17 @@ object CUtils {
      *
      * @param min 最小值（包含）
      * @param max 最大值（不包含）
+     * @param sign 是否需要正负号 默认 false
      */
-    fun random(min: Int, max: Int): Int {
-        val random = Random()
-        return min + random.nextInt(max - min)
+    fun random(min: Int, max: Int, sign: Boolean = false): Int {
+        if (sign) {
+            return if (VMUtils.random(2) == 0) {
+                -VMUtils.random(min, max)
+            } else {
+                VMUtils.random(min, max)
+            }
+        }
+        return VMUtils.random(min, max)
     }
 
     /**

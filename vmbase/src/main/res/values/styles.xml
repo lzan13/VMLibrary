@@ -72,10 +72,12 @@
         <item name="android:background">@drawable/shape_input_bg</item>
         <item name="android:textColor">@color/app_input</item>
         <item name="android:textColorHint">@color/app_input_hint</item>
+        <item name="android:paddingTop">@dimen/vm_dimen_10</item>
+        <item name="android:paddingBottom">@dimen/vm_dimen_10</item>
         <item name="android:textStyle">normal</item>
     </style>
 
-    <style name="AppEdit.Single.Border" parent="@style/VMEdit">
+    <style name="AppEdit.Single.Border">
         <item name="android:background">@drawable/shape_input_border_bg</item>
     </style>
 
@@ -83,11 +85,13 @@
         <item name="android:background">@drawable/shape_input_bg</item>
         <item name="android:textColor">@color/app_input</item>
         <item name="android:textColorHint">@color/app_input_hint</item>
+        <item name="android:paddingTop">@dimen/vm_dimen_10</item>
+        <item name="android:paddingBottom">@dimen/vm_dimen_10</item>
         <item name="android:lines">3</item>
         <item name="android:textStyle">normal</item>
     </style>
 
-    <style name="AppEdit.MultiLine.Border" parent="@style/VMEdit">
+    <style name="AppEdit.MultiLine.Border">
         <item name="android:background">@drawable/shape_input_border_bg</item>
     </style>
     <!--输入框样式 end-->
@@ -154,8 +158,15 @@
         <item name="vm_line_decoration_start">@dimen/vm_dimen_16</item>
         <item name="vm_line_decoration_end">@dimen/vm_dimen_16</item>
     </style>
+
     <style name="AppLVStyle.NoDecoration">
         <item name="vm_line_decoration">hide</item>
+    </style>
+    <!--开关样式-->
+    <style name="AppLVStyle.Switch">
+        <!--右侧图标-->
+        <item name="vm_line_right_icon">@drawable/ic_switch_selector</item>
+        <item name="vm_line_right_icon_size">@dimen/vm_dimen_32</item>
     </style>
 
     <style name="AppSpinner">

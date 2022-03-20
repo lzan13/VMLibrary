@@ -10,7 +10,7 @@ object CConstants {
     const val cacheImageDir = "images"
 
     // 应用在 SDCard 创建区别其他项目目录，一般以项目名命名
-    const val projectDir = "VMNepenthe"
+    const val projectName = "VMExample"
 
     // 配置文件更新
     const val clientConfigEvent = "clientConfigEvent"

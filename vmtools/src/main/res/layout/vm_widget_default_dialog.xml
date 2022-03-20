@@ -33,7 +33,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/vm_dimen_24"
-            android:gravity="center"
             android:paddingStart="@dimen/vm_dimen_24"
             android:paddingEnd="@dimen/vm_dimen_24"
             android:textColor="@color/vm_title"
