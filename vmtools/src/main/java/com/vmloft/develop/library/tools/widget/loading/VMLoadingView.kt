@@ -51,7 +51,6 @@ class VMLoadingView @JvmOverloads constructor(context: Context, attrs: Attribute
         mBuilder?.setSpeed(speed)
 
         mDrawable = VMLoadingDrawable(mBuilder!!)
-        mDrawable?.initParams()
         setImageDrawable(mDrawable)
     }
 

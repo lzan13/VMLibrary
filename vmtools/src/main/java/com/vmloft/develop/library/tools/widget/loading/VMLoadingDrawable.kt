@@ -18,10 +18,6 @@ class VMLoadingDrawable constructor(builder: VMLoadingBuilder) : Drawable(), Ani
 
     init {
         mBuilder.setDrawable(this)
-    }
-
-    fun initParams() {
-        mBuilder.init()
         mBuilder.initParams()
     }
 

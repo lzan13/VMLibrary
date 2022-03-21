@@ -20,10 +20,13 @@ abstract class VMLoadingBuilder : ValueAnimator.AnimatorUpdateListener, Animator
 
     // 大小
     var defaultSize = 56
+
     // 延迟
     private val animationStartDelay: Long = 320
+
     // 持续时间
     private val animationDuration: Long = 1200
+
     // 速度
     private var mSpeed = 1.0f
 
@@ -32,17 +35,14 @@ abstract class VMLoadingBuilder : ValueAnimator.AnimatorUpdateListener, Animator
     private var mViewHeight = 0
 
     private lateinit var mDrawable: Drawable
-    private lateinit var mFloatValueAnimator: ValueAnimator
+    private var mFloatValueAnimator: ValueAnimator = ValueAnimator.ofFloat(0.0f, 1.0f)
 
-    fun init() {
+
+    init {
         mMaxSize = VMDimen.dp2px((defaultSize * 0.5f - 12).toInt())
         mViewWidth = VMDimen.dp2px(defaultSize)
         mViewHeight = VMDimen.dp2px(defaultSize)
-        initAnimators()
-    }
 
-    private fun initAnimators() {
-        mFloatValueAnimator = ValueAnimator.ofFloat(0.0f, 1.0f)
         mFloatValueAnimator.repeatCount = Animation.INFINITE
         mFloatValueAnimator.duration = getAnimationDuration()
         mFloatValueAnimator.startDelay = getAnimationStartDelay()

@@ -107,7 +107,7 @@ class DisplayMultiActivity :BVMActivity<ActivityDisplayMultiBinding, DisplayView
         for (picture in pictureList) {
             urlList.add(picture)
 
-            val path = "${VMFile.pictures}${CConstants.projectDir}${picture.substring(picture.lastIndexOf("/"))}"
+            val path = "${VMFile.pictures}${CConstants.projectName}${picture.substring(picture.lastIndexOf("/"))}"
             pathList.add(path)
         }
         mViewModel.savePictureMulti(this, urlList, pathList)

@@ -24,8 +24,8 @@
 
             <!--双循环进度-->
             <com.vmloft.develop.library.tools.widget.loading.VMLoadingView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/vm_dimen_48"
+                android:layout_height="@dimen/vm_dimen_48"
                 android:layout_margin="@dimen/vm_dimen_16"
                 app:vm_loading_color="@color/vm_red"
                 app:vm_loading_speed="0.9"
@@ -34,8 +34,8 @@
 
             <!--吃豆人-->
             <com.vmloft.develop.library.tools.widget.loading.VMLoadingView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/vm_dimen_48"
+                android:layout_height="@dimen/vm_dimen_48"
                 android:layout_margin="@dimen/vm_dimen_16"
                 app:vm_loading_color="@color/vm_red"
                 app:vm_loading_speed="0.9"
@@ -44,8 +44,8 @@
 
             <!--雷蛇-->
             <com.vmloft.develop.library.tools.widget.loading.VMLoadingView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/vm_dimen_48"
+                android:layout_height="@dimen/vm_dimen_48"
                 android:layout_margin="@dimen/vm_dimen_16"
                 app:vm_loading_color="@color/vm_red"
                 app:vm_loading_speed="0.9"
@@ -54,8 +54,8 @@
 
             <!--跳跃的星星-->
             <com.vmloft.develop.library.tools.widget.loading.VMLoadingView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/vm_dimen_48"
+                android:layout_height="@dimen/vm_dimen_48"
                 android:layout_margin="@dimen/vm_dimen_16"
                 app:vm_loading_color="@color/vm_red"
                 app:vm_loading_speed="0.9"
@@ -64,8 +64,8 @@
 
             <!--文字-->
             <com.vmloft.develop.library.tools.widget.loading.VMLoadingView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/vm_dimen_48"
+                android:layout_height="@dimen/vm_dimen_48"
                 android:layout_margin="@dimen/vm_dimen_16"
                 app:vm_loading_color="@color/vm_red"
                 app:vm_loading_speed="0.9"

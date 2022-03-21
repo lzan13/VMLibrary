@@ -83,8 +83,8 @@ object IMGLoader {
                 val fis = FileInputStream(resource)
                 val bmp = BitmapFactory.decodeStream(fis)
                 val filename = VMDate.filenameDateTime()
-                var result = VMBitmap.saveBitmapToPictures(bmp, CConstants.projectDir, filename)
-                val path = "${VMFile.pictures}${CConstants.projectDir}${File.separator}${filename}.jpg"
+                var result = VMBitmap.saveBitmapToPictures(bmp, CConstants.projectName, filename)
+                val path = "${VMFile.pictures}${CConstants.projectName}${File.separator}${filename}.jpg"
                 if (result != null) {
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
                         // 保存完成通知相册刷新

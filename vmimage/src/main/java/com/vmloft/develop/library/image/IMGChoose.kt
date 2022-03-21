@@ -21,7 +21,7 @@ import com.ypx.imagepicker.bean.selectconfig.MultiSelectConfig
  */
 object IMGChoose {
     // 拍照保存图片目录
-    private val picturePath = "${VMFile.pictures}${CConstants.projectDir}"
+    private val picturePath = "${VMFile.pictures}${CConstants.projectName}"
 
     /**
      * 直接拍照
