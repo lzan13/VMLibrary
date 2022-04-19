@@ -32,7 +32,7 @@ class DisplayMultiActivity :BVMActivity<ActivityDisplayMultiBinding, DisplayView
     @Autowired
     lateinit var pictureList: List<String>
 
-    private val mAdapter by lazy { MultiTypeAdapter() }
+    private val mAdapter by lazy(LazyThreadSafetyMode.NONE) { MultiTypeAdapter() }
     private val mItems = ArrayList<Any>()
 
     override fun initVB() = ActivityDisplayMultiBinding.inflate(layoutInflater)

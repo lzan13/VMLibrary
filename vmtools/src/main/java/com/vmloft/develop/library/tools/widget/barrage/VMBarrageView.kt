@@ -47,7 +47,9 @@ class VMBarrageView<T> @JvmOverloads constructor(context: Context?, attrs: Attri
     // View 构建器
     private lateinit var mCreator: VMViewCreator<T>
 
-    // 数据队列
+    // 数据集合与队列
+    private var mDelList: MutableList<T> = mutableListOf()
+    private var mDataList: MutableList<T> = mutableListOf()
     private lateinit var mDataQueue: LinkedBlockingQueue<T>
 
     // View 队列，循环利用
@@ -87,8 +89,9 @@ class VMBarrageView<T> @JvmOverloads constructor(context: Context?, attrs: Attri
         if (isActive) {
             return this
         }
-        mDataQueue = LinkedBlockingQueue(mMaxSize * 5)
-        if (list !== null) {
+        mDataQueue = LinkedBlockingQueue(mMaxSize * 2)
+        list?.let {
+            mDataList.addAll(list)
             mDataQueue.addAll(list)
         }
         mViewQueue = LinkedBlockingQueue(mMaxSize)
@@ -98,18 +101,35 @@ class VMBarrageView<T> @JvmOverloads constructor(context: Context?, attrs: Attri
     /**
      * 添加一个新的弹幕数据
      */
-    fun addBarrageList(list: List<T>) {
+    fun addBarrage(bean: T) {
         if (isActive) {
-            mDataQueue.addAll(list)
+            val index = mDataList.indexOf(bean)
+            if (index != -1) {
+                val delBean = mDataList[index]
+                mDelList.add(delBean)
+                mDataList.removeAt(index)
+            }
+            mDataList.add(bean)
+            mDataQueue.add(bean)
         }
     }
 
     /**
-     * 添加一个新的弹幕数据
+     * 添加一组新的弹幕数据
      */
-    fun addBarrage(bean: T) {
+    fun addBarrageList(list: List<T>) {
         if (isActive) {
-            mDataQueue.add(bean)
+            // 移除重复项
+            for (item in list) {
+                val index = mDataList.indexOf(item)
+                if (index != -1) {
+                    val delBean = mDataList[index]
+                    mDelList.add(delBean)
+                    mDataList.removeAt(index)
+                }
+                mDataList.add(item)
+                mDataQueue.add(item)
+            }
         }
     }
 
@@ -151,6 +171,7 @@ class VMBarrageView<T> @JvmOverloads constructor(context: Context?, attrs: Attri
      * 停止弹幕
      */
     fun stop() {
+        isPause = false
         if (isActive) {
             isActive = false
 
@@ -221,7 +242,11 @@ class VMBarrageView<T> @JvmOverloads constructor(context: Context?, attrs: Attri
                 // 结束之后移除 view 并添加到缓存
                 removeView(view)
                 mViewQueue.put(view)
-                mDataQueue.put(bean)
+                if (mDelList.contains(bean)) {
+                    mDelList.remove(bean)
+                } else {
+                    mDataQueue.put(bean)
+                }
                 mAnimList.remove(animation)
                 mActiveSize--
             }

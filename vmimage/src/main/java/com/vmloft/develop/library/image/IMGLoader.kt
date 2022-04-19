@@ -23,7 +23,7 @@ import com.bumptech.glide.request.target.Target
 import com.vmloft.develop.library.base.common.CConstants
 import com.vmloft.develop.library.base.common.CError
 import com.vmloft.develop.library.base.utils.CUtils
-import com.vmloft.develop.library.request.RConfig
+import com.vmloft.develop.library.request.RConstants
 import com.vmloft.develop.library.request.RResult
 import com.vmloft.develop.library.tools.utils.VMDate
 import com.vmloft.develop.library.tools.utils.VMDimen
@@ -291,7 +291,7 @@ object IMGLoader {
             if ((options.res as String).indexOf("file:///") == 0 || (options.res as String).indexOf("content:///") == 0) {
                 options.res = Uri.parse(options.res as String)
             } else if ((options.res as String).indexOf("/storage") != 0) {
-                options.res = RConfig.mediaHost() + options.res + options.thumbExt
+                options.res = RConstants.mediaHost() + options.res + options.thumbExt
             }
         }
         return options
@@ -303,7 +303,7 @@ object IMGLoader {
     private fun wrapUrl(url: String): String {
         var wrapUrl = url
         if (url.indexOf("http") != 0) {
-            wrapUrl = RConfig.mediaHost() + url
+            wrapUrl = RConstants.mediaHost() + url
         }
         return wrapUrl
     }

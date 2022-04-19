@@ -33,16 +33,19 @@ object ConfigManager {
  *  "homeSecretEntry": false,
  *  "homeWishEntry": false,
  *  "scoreEntry": true,
+ *  "vipEntry": false
  * }
  */
 data class ClientConfig(
     var chatPictureLimit: Int = 5, // 聊天图片锁 限制数
     var chatCallLimit: Int = 10, // 聊天语音通话 锁限制
     var chatCallEntry: Boolean = true, // 聊天通话入口
+
     var homeRoomEntry: Boolean = true, // 聊天房入口
     var homeSecretEntry: Boolean = false, // 秘密入口
     var homeWishEntry: Boolean = false, // 愿望入口
 
     var scoreEntry: Boolean = true, // 积分相关入口
+    var vipEntry: Boolean = false, // VIP充值相关入口
 
 ) {}

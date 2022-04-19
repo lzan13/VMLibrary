@@ -48,18 +48,9 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11
     }
-
-    kapt {
-        arguments {
-            // 阿里巴巴 ARouter Kotlin 下的配置
-            arg("AROUTER_MODULE_NAME", project.getName())
-        }
-    }
 }
 
 dependencies {
-    api fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
-
     // Retrofit https://github.com/square/retrofit
     api 'com.squareup.retrofit2:retrofit:2.9.0'
     api 'com.squareup.retrofit2:converter-gson:2.9.0'

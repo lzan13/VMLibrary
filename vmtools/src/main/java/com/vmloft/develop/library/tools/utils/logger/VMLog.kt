@@ -18,7 +18,7 @@ object VMLog {
     private const val minStackOffset = 3
 
     // 默认日志 Tag
-    private var mTag = "vm_tools"
+    private var mTag = "VMTools"
 
     private var mLevel = Level.DEBUG // 日志的等级，可以进行配置，最好在Application中进行全局的配置
 
@@ -32,7 +32,7 @@ object VMLog {
     }
 
     fun e(msg: String) {
-        if (Level.ERROR <= mLevel) {
+        if (Level.ERROR >= mLevel) {
             if (msg.isNotBlank()) {
                 log(Level.ERROR, msg);
             }
@@ -40,7 +40,7 @@ object VMLog {
     }
 
     fun w(msg: String) {
-        if (Level.WARN <= mLevel) {
+        if (Level.WARN >= mLevel) {
             if (msg.isNotBlank()) {
                 log(Level.WARN, msg);
             }
@@ -48,7 +48,7 @@ object VMLog {
     }
 
     fun i(msg: String) {
-        if (Level.INFO <= mLevel) {
+        if (Level.INFO >= mLevel) {
             if (msg.isNotBlank()) {
                 log(Level.INFO, msg);
             }
@@ -57,7 +57,7 @@ object VMLog {
     }
 
     fun d(msg: String) {
-        if (Level.DEBUG <= mLevel) {
+        if (Level.DEBUG >= mLevel) {
             if (msg.isNotBlank()) {
                 log(Level.DEBUG, msg);
             }
