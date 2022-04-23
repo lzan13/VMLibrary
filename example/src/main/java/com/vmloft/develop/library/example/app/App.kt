@@ -113,7 +113,7 @@ class App : Application() {
      * 初始化通知
      */
     private fun initNotify() {
-        NotifyManager.init(appContext)
+        NotifyManager.init()
     }
 
     /**
