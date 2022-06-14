@@ -13,7 +13,7 @@ object VMReg {
      * 判断是否是邮箱
      * @param email 需要判断的邮箱
      */
-    fun isEmail(email: String?): Boolean {
+    fun isEmail(email: String): Boolean {
         val p = Pattern.compile("^[a-z0-9]+([._\\\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$")
         return p.matcher(email).matches()
     }
@@ -22,7 +22,7 @@ object VMReg {
      * 严格手机号判断
      * @param phoneNumber 要判断的手机号
      */
-    fun isPhoneMobileNumber(phoneNumber: String?): Boolean {
+    fun isPhoneMobileNumber(phoneNumber: String): Boolean {
         val p = Pattern.compile("^[1](([3][0-9])|([4][5-9])|([5][0-3,5-9])|([6][5,6])|([7][0-8])|([8][0-9])|([9][1,8,9]))[0-9]{8}$")
         return p.matcher(phoneNumber).matches()
     }
@@ -31,7 +31,7 @@ object VMReg {
      * 简单手机号判断
      * @param phoneNumber 要判断的手机号
      */
-    fun isSimpleMobileNumber(phoneNumber: String?): Boolean {
+    fun isSimpleMobileNumber(phoneNumber: String): Boolean {
         val p = Pattern.compile("^[1]([3-9])[0-9]{9}$")
         return p.matcher(phoneNumber).matches()
     }
@@ -40,8 +40,8 @@ object VMReg {
      * 判断是否是正常的密码，这里正常是指包含 0-9 a-z A-Z，以及不能含有除了"_"和"."这两个特殊字符以外的任何字符
      * @param password 要判断的密码
      */
-    fun isNormalPassword(password: String?): Boolean {
-        val p = Pattern.compile("^[0-9a-zA-Z_.]{6,16}$")
+    fun isNormalPassword(password: String): Boolean {
+        val p = Pattern.compile("^[0-9a-zA-Z_.]{6,32}$")
         return p.matcher(password).matches()
     }
 
@@ -51,7 +51,7 @@ object VMReg {
      * @param regStr  正则字符串
      * @return
      */
-    fun isCommonReg(content: String?, regStr: String?): Boolean {
+    fun isCommonReg(content: String, regStr: String): Boolean {
         val p = Pattern.compile(regStr)
         return p.matcher(content).matches()
     }
@@ -65,7 +65,7 @@ object VMReg {
      * @param regex   正则表达式
      * @return 返回匹配的集合
      */
-    fun regexContent(content: String, regex: String?): List<String> {
+    fun regexContent(content: String, regex: String): List<String> {
         val pattern = Pattern.compile(regex)
         val result: MutableList<String> = ArrayList()
         val matcher = pattern.matcher(content)

@@ -27,8 +27,8 @@ object VMDate {
      * 定义时间的格式化不同样式
      */
     val sdfFilenameDateTime = SimpleDateFormat("yyyyMMdd_HHmmssSSS")
-    val sdfNormal = SimpleDateFormat("yyyy/MM/dd HH:mm.ss")
-    val sdfNormalSSS = SimpleDateFormat("yyyy/MM/dd HH:mm.ss.SSS")
+    val sdfNormal = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+    val sdfNormalSSS = SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS")
     val sdfUTC = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     val sdfNoYear = SimpleDateFormat("MM/dd HH:mm")
     val sdfOnlyDate = SimpleDateFormat("yyyy/MM/dd")
