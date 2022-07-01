@@ -6,18 +6,17 @@ import kotlinx.parcelize.Parcelize
 
 /**
  * Create by lzan13 on 2019/04/26
- *
- * 权限数据传递实体类
+ * 描述：权限数据传递实体类
  */
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class VMPermissionBean(
     // 权限
-    var permission: String? = null,
+    var permission: String = "",
     // 权限名称
-    var name: String? = null,
+    var name: String = "",
     // 权限理由
-    var reason: String? = null,
+    var reason: String = "",
     // 资源 id
     var resId: Int = 0,
 ) : Parcelable {

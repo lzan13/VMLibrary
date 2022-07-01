@@ -9,7 +9,7 @@ import com.vmloft.develop.library.tools.VMTools
  * Created by Administrator on 2015/5/12.
  * 封装 SharedPreferences 数据操作工具类
  */
-object VMSPUtil {
+object VMSP {
     /**
      * 保存 SharedPreferences 文件前缀
      */

@@ -3,17 +3,16 @@ package com.vmloft.develop.library.tools.utils
 import android.content.ContentUris
 import android.content.Context
 import android.database.Cursor
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.os.Build.VERSION
-import android.os.Build.VERSION_CODES
+import android.os.Build
 import android.os.Environment
+import android.os.ParcelFileDescriptor
 import android.provider.DocumentsContract
 import android.provider.MediaStore.Audio
 import android.provider.MediaStore.Images.Media
 import android.provider.MediaStore.Video
+
 import com.vmloft.develop.library.tools.VMTools.context
 import com.vmloft.develop.library.tools.utils.VMDate.filenameDateTime
 import com.vmloft.develop.library.tools.utils.logger.VMLog
@@ -25,6 +24,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
 import java.math.BigDecimal
+import java.net.URI
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
@@ -58,12 +58,30 @@ object VMFile {
      *
      * @param path 文件路径
      */
-    fun isFileExists(path: String?): Boolean {
-        if (path.isNullOrEmpty()) {
-            return false
+    fun isFileExists(path: Any): Boolean {
+        if (path is String) {
+            val file = File(path)
+            return file.exists()
+        } else if (path is Uri) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q || path.toString().indexOf("content://") != -1) {
+                try {
+                    var pfd: ParcelFileDescriptor? = context.contentResolver.openFileDescriptor(path, "r")
+                    pfd?.close()
+                } catch (e: FileNotFoundException) {
+                    return false
+                }
+                return true
+            } else {
+                val file = File(URI.create(path.toString()))
+                return file.exists()
+            }
         }
-        val file = File(path)
-        return file.exists()
+        return false
+//        if (path.isNullOrEmpty()) {
+//            return false
+//        }
+//        val file = File(path)
+//        return file.exists()
     }
 
     /**
@@ -485,7 +503,7 @@ object VMFile {
      */
     fun getPath(uri: Uri): String? {
         // 判断当前系统 API 4.4（19）及以上
-        val isKitKat = VERSION.SDK_INT >= VERSION_CODES.KITKAT
+        val isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
 
         // DocumentProvider
         if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {

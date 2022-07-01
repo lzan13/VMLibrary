@@ -80,8 +80,8 @@
                 app:vm_inner_color="@color/vm_blue"
                 app:vm_outer_color="@color/vm_blue_38"
                 app:vm_time_color="@color/vm_blue"
-                app:vm_touch_cancel_desc="松开"
-                app:vm_touch_normal_desc="按下" />
+                app:vm_touch_cancel_desc="松开取消"
+                app:vm_touch_normal_desc="按下录制" />
         </RelativeLayout>
 
         <com.vmloft.develop.library.tools.widget.VMLineView

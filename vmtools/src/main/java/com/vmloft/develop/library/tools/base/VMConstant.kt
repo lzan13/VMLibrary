@@ -9,9 +9,9 @@ object VMConstant {
     /**
      * 权限传参的 key
      */
-    const val vmPermissionEnableDialogKey = "vmPermissionEnableDialogKey"
-    const val vmPermissionTitleKey = "vmPermissionTitleKey"
-    const val vmPermissionMsgKey = "vmPermissionMsgKey"
+    const val vmPermissionDialogEnableKey = "vmPermissionEnableDialogKey"
+    const val vmPermissionDialogTitleKey = "vmPermissionTitleKey"
+    const val vmPermissionDialogContentKey = "vmPermissionMsgKey"
     const val vmPermissionListKey = "vmPermissionListKey"
 
 }

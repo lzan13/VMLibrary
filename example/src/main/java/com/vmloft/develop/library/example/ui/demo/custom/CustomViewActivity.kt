@@ -39,11 +39,11 @@ class CustomViewActivity : BActivity<ActivityDemoViewCustomBinding>() {
                 errorBar("录音取消")
             }
 
-            override fun onError(code: Int, desc: String?) {
+            override fun onError(code: Int, desc: String) {
                 errorBar("录音失败 $code $desc")
             }
 
-            override fun onComplete(path: String?, time: Long) {
+            override fun onComplete(path: String, time: Int) {
                 showBar("录音完成 $path $time")
             }
         })

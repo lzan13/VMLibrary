@@ -62,18 +62,4 @@ object VMTheme {
             e.printStackTrace()
         }
     }
-
-    /**
-     * 改变 View 背景阴影透明度
-     */
-    fun changeShadow(view: View, alpha: Float = 0.36f) {
-        view.outlineProvider = object : ViewOutlineProvider() {
-            override fun getOutline(view: View, outline: Outline) {
-                if (view.background != null) {
-                    view.background.getOutline(outline)
-                    outline.alpha = alpha
-                }
-            }
-        }
-    }
 }

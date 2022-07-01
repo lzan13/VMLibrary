@@ -8,13 +8,12 @@ import android.provider.Settings
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
 
 import com.vmloft.develop.library.tools.R
 import com.vmloft.develop.library.tools.base.VMConstant
-import com.vmloft.develop.library.tools.permission.VMPermission.PCallback
 import com.vmloft.develop.library.tools.utils.VMStr
 import com.vmloft.develop.library.tools.utils.VMSystem
 import com.vmloft.develop.library.tools.widget.VMDefaultDialog
@@ -25,43 +24,25 @@ import com.vmloft.develop.library.tools.widget.VMLineView
  *
  * 处理权限请求界面
  */
-class VMPermissionActivity : AppCompatActivity() {
-    /**
-     * 重新申请权限数组的索引
-     */
-    private var mAgainIndex = 0
+class VMPermissionActivity : FragmentActivity() {
 
-    // 是否显示申请权限弹窗
-    private var mEnableDialog = false
+    private val requestPermission = 100 // 权限申请
+    private val requestPermissionAgain = 101 // 被拒绝后再次申请
+    private val requestSetting = 200 // 调起设置界面设置权限
 
-    // 申请权限弹窗标题
-    private var mTitle: String? = null
+    private var mAgainIndex = 0 // 重新申请权限数组的索引
 
-    // 申请权限弹窗描述
-    private var mMessage: String? = null
+    private var dialogEnable = false // 是否显示申请权限弹窗
+    private var dialogTitle: String = "" // 申请权限弹窗标题
+    private var dialogContent: String = "" // 申请权限弹窗描述
+    private var permissionList = mutableListOf<VMPermissionBean>() // 权限列表
+    private var permissionListCopy = mutableListOf<VMPermissionBean>() // 权限列表拷贝
 
-    // 权限列表
-    private var mPermissions: MutableList<VMPermissionBean> = mutableListOf()
-
-    // 权限列表拷贝
-    private var mPermissionsCopy: MutableList<VMPermissionBean> = mutableListOf()
+    private var requestCallback: (Boolean) -> Unit = {}
 
     // 授权提示框
     private var mDialog: VMDefaultDialog? = null
-    private var mAppName: String? = null
-    private var mCallback: PCallback? = null
-
-
-    companion object {
-        // 权限申请
-        private const val REQUEST_PERMISSION = 100
-
-        // 被拒绝后再次申请
-        private const val REQUEST_PERMISSION_AGAIN = 101
-
-        // 调起设置界面设置权限
-        private const val REQUEST_SETTING = 200
-    }
+    private var appName: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,24 +54,27 @@ class VMPermissionActivity : AppCompatActivity() {
      */
     private fun init() {
         // 初始化获取数据
-        mAppName = VMSystem.getAppName(this)
-        mCallback = VMPermission.getInstance(this).permissionCallback
-        mEnableDialog = intent.getBooleanExtra(VMConstant.vmPermissionEnableDialogKey, false)
-        mTitle = intent.getStringExtra(VMConstant.vmPermissionTitleKey)
-        mMessage = intent.getStringExtra(VMConstant.vmPermissionMsgKey)
-        mPermissions.clear()
+        appName = VMSystem.getAppName(this) ?: ""
+
+        requestCallback = VMPermission.getRequestCallback()
+
+        dialogEnable = intent.getBooleanExtra(VMConstant.vmPermissionDialogEnableKey, false)
+        dialogTitle = intent.getStringExtra(VMConstant.vmPermissionDialogTitleKey) ?: ""
+        dialogContent = intent.getStringExtra(VMConstant.vmPermissionDialogContentKey) ?: ""
+
+        permissionList.clear()
         val list = intent.getParcelableArrayListExtra<VMPermissionBean>(VMConstant.vmPermissionListKey) ?: arrayListOf()
-        mPermissions.addAll(list)
-        mPermissionsCopy = mPermissions
-        if (mPermissions.isEmpty()) {
+        permissionList.addAll(list)
+        permissionListCopy = permissionList
+        if (permissionList.isEmpty()) {
             finish()
             return
         }
         // 根据需要弹出说明对话框
-        if (mEnableDialog) {
+        if (dialogEnable) {
             showPermissionDialog()
         } else {
-            requestPermission(permissionArray, REQUEST_PERMISSION)
+            requestPermission(permissionArray, requestPermission)
         }
     }
 
@@ -99,9 +83,9 @@ class VMPermissionActivity : AppCompatActivity() {
      */
     private val permissionArray: Array<String?>
         get() {
-            val permissionArray = arrayOfNulls<String>(mPermissions.size)
-            for (i in mPermissions.indices) {
-                val item = mPermissions[i]
+            val permissionArray = arrayOfNulls<String>(permissionList.size)
+            for (i in permissionList.indices) {
+                val item = permissionList[i]
                 permissionArray[i] = item.permission
             }
             return permissionArray
@@ -111,8 +95,8 @@ class VMPermissionActivity : AppCompatActivity() {
      * 根据权限名获取申请权限的实体类
      */
     private fun getPermissionItem(permission: String): VMPermissionBean? {
-        for (i in mPermissions.indices) {
-            val item = mPermissions[i]
+        for (i in permissionList.indices) {
+            val item = permissionList[i]
             if (item.permission == permission) {
                 return item
             }
@@ -124,16 +108,16 @@ class VMPermissionActivity : AppCompatActivity() {
      * 显示提醒对话框
      *
      * @param title 标题
-     * @param message 内容
+     * @param content 内容
      * @param negative 消极的按钮文本
      * @param positive 积极的按钮文本
      * @param listener 积极事件回调
      */
-    private fun showAlertDialog(title: String, message: String, negative: String, positive: String, listener: View.OnClickListener) {
+    private fun showAlertDialog(title: String, content: String, negative: String, positive: String, listener: View.OnClickListener) {
         mDialog = VMDefaultDialog(this)
         mDialog?.let { dialog ->
             dialog.setTitle(title)
-            dialog.setContent(message)
+            dialog.setContent(content)
             dialog.setNegative(negative) {
                 onPermissionReject()
                 finish()
@@ -147,22 +131,22 @@ class VMPermissionActivity : AppCompatActivity() {
      * 弹出授权窗口
      */
     private fun showPermissionDialog() {
-        if (mTitle.isNullOrEmpty()) {
-            mTitle = VMStr.byRes(R.string.vm_permission_title)
+        if (dialogTitle.isNullOrEmpty()) {
+            dialogTitle = VMStr.byRes(R.string.vm_permission_title)
         }
-        if (mMessage.isNullOrEmpty()) {
-            mMessage = VMStr.byResArgs(R.string.vm_permission_reason, mAppName)
+        if (dialogContent.isNullOrEmpty()) {
+            dialogContent = VMStr.byResArgs(R.string.vm_permission_reason, appName)
         }
         mDialog = VMDefaultDialog(this)
         mDialog?.let { dialog ->
             dialog.touchDismissSwitch = false
             dialog.backDismissSwitch = false
-            dialog.setTitle(mTitle)
-            dialog.setContent(mMessage!!)
+            dialog.setTitle(dialogTitle)
+            dialog.setContent(dialogContent!!)
             val viewGroup = LinearLayout(this)
             viewGroup.orientation = LinearLayout.VERTICAL
 
-            for (bean in mPermissions) {
+            for (bean in permissionList) {
                 val itemView = VMLineView(this)
                 itemView.setIconRes(bean.resId)
                 itemView.setTitle(bean.name)
@@ -173,7 +157,7 @@ class VMPermissionActivity : AppCompatActivity() {
             dialog.setNegative("")
             dialog.setPositive(VMStr.byRes(R.string.vm_i_know)) {
                 // 开始申请权限
-                requestPermission(permissionArray, REQUEST_PERMISSION)
+                requestPermission(permissionArray, requestPermission)
             }
             dialog.show()
         }
@@ -196,9 +180,9 @@ class VMPermissionActivity : AppCompatActivity() {
      */
     private fun requestPermissionAgain(item: VMPermissionBean) {
         val alertTitle = VMStr.byResArgs(R.string.vm_permission_again_title, item.name)
-        val msg = VMStr.byResArgs(R.string.vm_permission_again_reason, item.name, item.reason)
-        showAlertDialog(alertTitle, msg, VMStr.byResArgs(R.string.vm_btn_cancel), VMStr.byResArgs(R.string.vm_btn_confirm)) {
-            requestPermission(arrayOf(item.permission), REQUEST_PERMISSION_AGAIN)
+        val content = VMStr.byResArgs(R.string.vm_permission_again_reason, item.name, item.reason)
+        showAlertDialog(alertTitle, content, VMStr.byResArgs(R.string.vm_btn_cancel), VMStr.byResArgs(R.string.vm_btn_confirm)) {
+            requestPermission(arrayOf(item.permission), requestPermissionAgain)
         }
     }
 
@@ -212,25 +196,25 @@ class VMPermissionActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
-            REQUEST_PERMISSION -> {
+            requestPermission -> {
                 var i = 0
                 while (i < grantResults.size) {
 
                     // 权限允许后，删除需要检查的权限
                     if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                        mPermissions.remove(getPermissionItem(permissions[i]))
+                        permissionList.remove(getPermissionItem(permissions[i]))
                     }
                     i++
                 }
-                if (mPermissions.size > 0) {
+                if (permissionList.size > 0) {
                     //用户拒绝了某个或多个权限，重新申请
-                    requestPermissionAgain(mPermissions[mAgainIndex])
+                    requestPermissionAgain(permissionList[mAgainIndex])
                 } else {
                     onPermissionComplete()
                     finish()
                 }
             }
-            REQUEST_PERMISSION_AGAIN -> {
+            requestPermissionAgain -> {
                 if (permissions.isEmpty() || grantResults.isEmpty()) {
                     onPermissionReject()
                     finish()
@@ -239,18 +223,18 @@ class VMPermissionActivity : AppCompatActivity() {
                 if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
                     // 重新申请后再次拒绝，弹框警告
                     // permissions 可能返回空数组，所以try-catch
-                    val item = mPermissions[0]
+                    val item = permissionList[0]
                     val title = VMStr.byResArgs(R.string.vm_permission_again_title, item.name)
-                    val msg = VMStr.byResArgs(R.string.vm_permission_denied_setting, mAppName, item.name)
-                    showAlertDialog(title, msg, VMStr.byRes(R.string.vm_btn_reject), VMStr.byRes(R.string.vm_btn_go_to_setting)) {
+                    val content = VMStr.byResArgs(R.string.vm_permission_denied_setting, appName, item.name)
+                    showAlertDialog(title, content, VMStr.byRes(R.string.vm_btn_reject), VMStr.byRes(R.string.vm_btn_go_to_setting)) {
                         val packageURI = Uri.parse("package:$packageName")
                         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI)
                         startActivityForResult(intent, requestCode)
                     }
                 } else {
-                    if (mAgainIndex < mPermissions.size - 1) {
+                    if (mAgainIndex < permissionList.size - 1) {
                         // 继续申请下一个被拒绝的权限
-                        requestPermissionAgain(mPermissions[++mAgainIndex])
+                        requestPermissionAgain(permissionList[++mAgainIndex])
                     } else {
                         // 全部允许了
                         onPermissionComplete()
@@ -266,12 +250,12 @@ class VMPermissionActivity : AppCompatActivity() {
      */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_SETTING) {
+        if (requestCode == requestSetting) {
             mDialog?.dismiss()
             checkPermission()
-            if (mPermissions.size > 0) {
+            if (permissionList.size > 0) {
                 mAgainIndex = 0
-                requestPermissionAgain(mPermissions[mAgainIndex])
+                requestPermissionAgain(permissionList[mAgainIndex])
             } else {
                 onPermissionComplete()
                 finish()
@@ -284,8 +268,8 @@ class VMPermissionActivity : AppCompatActivity() {
      * 这里的检查是一个完整的检查，为的是防止用户打开设置后取消了某些已授权的权限
      */
     private fun checkPermission() {
-        mPermissions = mPermissionsCopy
-        val iterator: MutableIterator<VMPermissionBean> = mPermissions.listIterator()
+        permissionList = permissionListCopy
+        val iterator: MutableIterator<VMPermissionBean> = permissionList.listIterator()
         while (iterator.hasNext()) {
             val checkPermission = ContextCompat.checkSelfPermission(this, iterator.next().permission!!)
             if (checkPermission == PackageManager.PERMISSION_GRANTED) {
@@ -298,24 +282,18 @@ class VMPermissionActivity : AppCompatActivity() {
      * 回调权限申请被拒绝
      */
     private fun onPermissionReject() {
-        mCallback?.onReject()
+        requestCallback.invoke(false)
     }
 
     /**
      * 回调权限申请通过
      */
     private fun onPermissionComplete() {
-        mCallback?.onComplete()
+        requestCallback.invoke(true)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mCallback = null
-
-        mDialog?.let { dialog ->
-            dialog.dismiss()
-            mDialog = null
-        }
+        mDialog?.dismiss()
     }
-
 }

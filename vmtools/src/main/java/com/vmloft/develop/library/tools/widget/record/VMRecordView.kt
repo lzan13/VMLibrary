@@ -11,12 +11,14 @@ import android.view.animation.LinearInterpolator
 
 import com.vmloft.develop.library.tools.R.color
 import com.vmloft.develop.library.tools.R.styleable
-import com.vmloft.develop.library.tools.permission.VMPermission.Companion.getInstance
-import com.vmloft.develop.library.tools.permission.VMPermission.PCallback
+import com.vmloft.develop.library.tools.animator.VMAnimator
+import com.vmloft.develop.library.tools.permission.VMPermission
 import com.vmloft.develop.library.tools.utils.VMColor
 import com.vmloft.develop.library.tools.utils.VMDimen
 import com.vmloft.develop.library.tools.utils.VMStr
 import com.vmloft.develop.library.tools.utils.VMSystem
+
+import java.util.*
 
 /**
  * Created by lzan13 on 2019/06/06 14:30
@@ -27,31 +29,28 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
     private var mWidth = 0
     private var mHeight = 0
 
-    // 是否可用
-    protected var isUsable = false
-
-    // 不可用描述
-    private val mUnusableDesc = "录音不可用"
+    protected var isUsable = false // 是否可用
+    private val mUnusableDesc = "录音不可用" // 不可用描述
 
     // 画笔
-    private var mPaint: Paint? = null
+    private var mPaint: Paint
 
     // 控件背景颜色
     private var mCancelColor = VMColor.byRes(color.vm_red_87)
 
     // 外圈的颜色、大小
     private var mOuterColor = VMColor.byRes(color.vm_green_38)
-    private var mOuterSize = VMDimen.dp2px(128)
+    private var mOuterSize = VMDimen.dp2px(96)
 
     // 内圈录音按钮的颜色、大小
     private var mInnerColor = VMColor.byRes(color.vm_green)
     private var mInnerSize = VMDimen.dp2px(96)
 
     // 触摸区域提示文本
-    private var mDescNormal: String? = "触摸录音"
-    private var mDescCancel: String? = "松开取消"
+    private var mDescNormal: String = "触摸录音"
+    private var mDescCancel: String = "松开取消"
     private var mDescColor = VMColor.byRes(color.vm_white)
-    private var mDescSize = VMDimen.dp2px(16)
+    private var mDescSize = VMDimen.dp2px(14)
 
     // 时间字体的大小、颜色
     private var mTimeColor = VMColor.byRes(color.vm_green)
@@ -61,17 +60,12 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
     private var isStartRecord = false
     private var isCancelRecord = false
 
-    // 录制开始时间
-    protected var mStartTime: Long = 0
+    protected var recordStartTime: Long = 0 // 录制开始时间
+    protected var recordTime: Int = 0 // 录制持续时间
 
-    // 录制持续时间
-    protected var mRecordTime: Long = 0
+    protected var recordDecibel = 1 // 分贝
 
-    // 分贝
-    protected var mDecibel = 1
-
-    // 分贝取样时间 毫秒值
-    protected var mSampleTime: Long = 260
+    protected var sampleTime: Long = 500 // 分贝取样时间 毫秒值
 
     /**
      * 初始化控件
@@ -85,7 +79,7 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
         // 获得绘制文本的宽和高
         mPaint = Paint()
         // 设置抗锯齿
-        mPaint?.isAntiAlias = true
+        mPaint.isAntiAlias = true
     }
 
     /**
@@ -101,8 +95,8 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
         mOuterColor = array.getColor(styleable.VMRecordView_vm_outer_color, mOuterColor)
         mInnerColor = array.getColor(styleable.VMRecordView_vm_inner_color, mInnerColor)
         mInnerSize = array.getDimensionPixelOffset(styleable.VMRecordView_vm_inner_size, mInnerSize)
-        mDescNormal = array.getString(styleable.VMRecordView_vm_touch_normal_desc)
-        mDescCancel = array.getString(styleable.VMRecordView_vm_touch_cancel_desc)
+        mDescNormal = array.getString(styleable.VMRecordView_vm_touch_normal_desc) ?: mDescCancel
+        mDescCancel = array.getString(styleable.VMRecordView_vm_touch_cancel_desc) ?: mDescCancel
         if (mDescNormal.isNullOrEmpty()) {
             mDescNormal = "触摸录音"
         }
@@ -150,38 +144,38 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
      */
     private fun drawBackground(canvas: Canvas) {
         if (isCancelRecord) {
-            mPaint!!.color = mCancelColor
+            mPaint.color = mCancelColor
         } else {
-            mPaint!!.color = VMColor.byRes(color.vm_transparent)
+            mPaint.color = VMColor.byRes(color.vm_transparent)
         }
         // 绘制背景
-        canvas.drawRect(0f, 0f, mWidth.toFloat(), mHeight.toFloat(), mPaint!!)
+        canvas.drawRect(0f, 0f, mWidth.toFloat(), mHeight.toFloat(), mPaint)
     }
 
     /**
      * 绘制不可用时的 UI
      */
-    protected fun drawUnusable(canvas: Canvas) {
+    private fun drawUnusable(canvas: Canvas) {
         // 绘制提示文本
-        mPaint!!.color = mCancelColor
-        mPaint!!.textSize = mDescSize.toFloat()
-        val tWidth = VMDimen.getTextWidth(mPaint!!, mUnusableDesc)
-        val tHeight = VMDimen.getTextHeight(mPaint!!)
-        canvas.drawText(mUnusableDesc, mWidth / 2 - tWidth / 2, mHeight / 2 + tHeight / 3, mPaint!!)
+        mPaint.color = mCancelColor
+        mPaint.textSize = mDescSize.toFloat()
+        val tWidth = VMDimen.getTextWidth(mPaint, mUnusableDesc)
+        val tHeight = VMDimen.getTextHeight(mPaint, mUnusableDesc)
+        canvas.drawText(mUnusableDesc, mWidth / 2 - tWidth / 2, mHeight / 2 + tHeight / 3, mPaint)
     }
 
     /**
      * 绘制触摸区域
      */
-    protected fun drawTouch(canvas: Canvas) {
+    private fun drawTouch(canvas: Canvas) {
         // 绘制外圈
         if (isStartRecord && !isCancelRecord) {
-            mPaint!!.color = mOuterColor
-            canvas.drawCircle(mWidth / 2.toFloat(), mHeight / 2.toFloat(), mOuterSize / 2.toFloat(), mPaint!!)
+            mPaint.color = mOuterColor
+            canvas.drawCircle(mWidth / 2.toFloat(), mHeight / 2.toFloat(), mOuterSize / 2.toFloat(), mPaint)
         }
         val innerColor: Int
         val descColor: Int
-        val desc: String?
+        var desc: String
         if (isCancelRecord) {
             innerColor = VMColor.byRes(color.vm_white)
             descColor = mCancelColor
@@ -192,40 +186,42 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
             desc = mDescNormal
         }
         // 绘制触摸区域
-        mPaint!!.color = innerColor
-        canvas.drawCircle(mWidth / 2.toFloat(), mHeight / 2.toFloat(), mInnerSize / 2.toFloat(), mPaint!!)
+        mPaint.color = innerColor
+        canvas.drawCircle(mWidth / 2.toFloat(), mHeight / 2.toFloat(), mInnerSize / 2.toFloat(), mPaint)
 
         // 绘制提示文本
-        mPaint!!.color = descColor
-        mPaint!!.textSize = mDescSize.toFloat()
-        val tWidth = VMDimen.getTextWidth(mPaint!!, desc)
-        val tHeight = VMDimen.getTextHeight(mPaint!!)
-        canvas.drawText(desc!!, mWidth / 2 - tWidth / 2, mHeight / 2 + tHeight / 3, mPaint!!)
+        mPaint.color = descColor
+        mPaint.textSize = mDescSize.toFloat()
+        val tWidth = VMDimen.getTextWidth(mPaint, desc)
+        val tHeight = VMDimen.getTextHeight(mPaint, desc)
+        canvas.drawText(desc, mWidth / 2 - tWidth / 2, mHeight / 2 + tHeight / 3, mPaint)
     }
 
     /**
      * 绘制录音时间
      */
-    protected fun drawTime(canvas: Canvas) {
-        mPaint!!.color = if (isCancelRecord) VMColor.byRes(color.vm_white) else mTimeColor
-        mPaint!!.strokeWidth = 1f
-        mPaint!!.textSize = mTimeSize.toFloat()
-        val minute = (mRecordTime / 1000 / 60).toInt()
-        val seconds = (mRecordTime / 1000 % 60).toInt()
-//        val millisecond = (mRecordTime % 1000 / 100).toInt()
+    private fun drawTime(canvas: Canvas) {
+        mPaint.color = if (isCancelRecord) VMColor.byRes(color.vm_white) else mTimeColor
+        mPaint.strokeWidth = 1f
+        mPaint.textSize = mTimeSize.toFloat()
+        val minute = recordTime / 1000 / 60
+        val seconds = recordTime / 1000 % 60
+//        val millisecond = recordTime % 1000 / 100
         val time = VMStr.byArgs("%02d:%02d", minute, seconds)
-        val tWidth = VMDimen.getTextWidth(mPaint!!, time)
-        val tHeight = VMDimen.getTextHeight(mPaint!!)
-        canvas.drawText(time, mWidth / 2 - tWidth / 3, mHeight / 6 - tHeight, mPaint!!)
+        val tWidth = VMDimen.getTextWidth(mPaint, time)
+        val tHeight = VMDimen.getTextHeight(mPaint, time)
+        canvas.drawText(time, mWidth / 2 - tWidth / 2, mHeight / 6f, mPaint)
     }
+
+    private var mAnimatorWrap: VMAnimator.AnimatorSetWrap? = null
 
     /**
      * 外圈动画
      */
     private fun startOuterAnim() {
         VMSystem.runInUIThread({
-            val mAnimator = ValueAnimator.ofInt(mInnerSize, mInnerSize + mDecibel * mHeight / 10, mInnerSize)
-            mAnimator.duration = mSampleTime
+            val mAnimator = ValueAnimator.ofInt(mInnerSize, (mInnerSize + recordDecibel * 1.1f * mHeight / 10).toInt(), mInnerSize)
+            mAnimator.duration = sampleTime
             mAnimator.repeatCount = 0
             mAnimator.interpolator = LinearInterpolator()
             mAnimator.addUpdateListener { a: ValueAnimator ->
@@ -236,41 +232,40 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
         })
     }
 
+    var timer: Timer? = null
+
     /**
      * 启动录音时间记录
      */
-    protected fun setupRecordTime() {
+    private fun startRecordTimer() {
         // 开始录音，记录开始录制时间
-        mStartTime = System.currentTimeMillis()
-        Thread(Runnable {
-            while (isStartRecord) {
-                mRecordTime = System.currentTimeMillis() - mStartTime
-                mDecibel = VMRecorder.instance.decibel
+        recordStartTime = System.currentTimeMillis()
+        timer = Timer()
+        timer?.purge()
+        val task: TimerTask = object : TimerTask() {
+            override fun run() {
+                recordTime = (System.currentTimeMillis() - recordStartTime).toInt()
+                recordDecibel = VMRecorder.decibel()
                 startOuterAnim()
                 postInvalidate()
-                // 每间隔 100 毫秒更新一次时间
-                try {
-                    Thread.sleep(mSampleTime)
-                } catch (e: InterruptedException) {
-                    e.printStackTrace()
-                }
             }
-        }).start()
+        }
+        timer?.scheduleAtFixedRate(task, 500, 500)
     }
 
     /**
      * 开始录音
      */
-    protected fun startRecord() {
+    fun startRecord() {
         isStartRecord = true
         // 调用录音机开始录制音频
-        val code: Int = VMRecorder.instance.startRecord(null)
-        if (code == VMRecorder.Companion.ERROR_NONE) {
-            setupRecordTime()
+        val code: Int = VMRecorder.startRecord(null)
+        if (code == VMRecorder.errorNone) {
+            startRecordTimer()
             recordStart()
-        } else if (code == VMRecorder.Companion.ERROR_RECORDING) {
+        } else if (code == VMRecorder.errorRecording) {
             // TODO 正在录制中，不做处理
-        } else if (code == VMRecorder.Companion.ERROR_SYSTEM) {
+        } else if (code == VMRecorder.errorSystem) {
             isStartRecord = false
             recordError(code, "录音系统错误")
             reset()
@@ -283,20 +278,21 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
      *
      * @param cancel 是否为取消
      */
-    protected fun stopRecord(cancel: Boolean) {
+    fun stopRecord(cancel: Boolean) {
+        stopTimer()
         if (cancel) {
-            VMRecorder.instance.cancelRecord()
+            VMRecorder.cancelRecord()
             recordCancel()
         } else {
-            val code: Int = VMRecorder.instance.stopRecord()
-            if (code == VMRecorder.Companion.ERROR_FAILED) {
+            val code: Int = VMRecorder.stopRecord()
+            if (code == VMRecorder.errorFailed) {
                 recordError(code, "录音失败")
-            } else if (code == VMRecorder.Companion.ERROR_SYSTEM || mRecordTime < 1000) {
-                if (mRecordTime < 1000) {
+            } else if (code == VMRecorder.errorSystem || recordTime < 1000) {
+                if (recordTime < 1000) {
                     // 录制时间太短
-                    recordError(VMRecorder.Companion.ERROR_SHORT, "录音时间过短")
+                    recordError(VMRecorder.errorShort, "录音时间过短")
                 } else {
-                    recordError(VMRecorder.Companion.ERROR_SHORT, "录音系统出现错误")
+                    recordError(VMRecorder.errorShort, "录音系统出现错误")
                 }
             } else {
                 recordComplete()
@@ -335,18 +331,14 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
      * 录音开始
      */
     private fun recordStart() {
-        if (mRecordListener != null) {
-            mRecordListener!!.onStart()
-        }
+        mRecordListener?.onStart()
     }
 
     /**
      * 录音取消
      */
     private fun recordCancel() {
-        if (mRecordListener != null) {
-            mRecordListener!!.onCancel()
-        }
+        mRecordListener?.onCancel()
     }
 
     /**
@@ -356,29 +348,34 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
      * @param desc
      */
     private fun recordError(code: Int, desc: String) {
-        if (mRecordListener != null) {
-            mRecordListener!!.onError(code, desc)
-        }
+        mRecordListener?.onError(code, desc)
     }
 
     /**
      * 录音完成
      */
     private fun recordComplete() {
-        if (mRecordListener != null) {
-            mRecordListener!!.onComplete(VMRecorder.instance.recordFile, mRecordTime)
-        }
+        mRecordListener?.onComplete(VMRecorder.getRecordFile(), recordTime)
+    }
+
+    /**
+     * 停止计时
+     */
+    fun stopTimer() {
+        timer?.purge()
+        timer?.cancel()
+        timer = null
     }
 
     /**
      * 重置控件
      */
-    protected fun reset() {
+    private fun reset() {
         isStartRecord = false
         isCancelRecord = false
-        mStartTime = 0L
-        mRecordTime = 0L
-        VMRecorder.instance.reset()
+        recordStartTime = 0L
+        recordTime = 0
+        VMRecorder.reset()
     }
 
     /**
@@ -386,21 +383,19 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
      */
     private fun checkPermission() {
         // 检查录音权限
-        if (getInstance(context).checkRecord()) {
+        if (VMPermission.checkRecord()) {
             isUsable = true
         } else {
             isUsable = false
-            getInstance(context).requestRecord(object : PCallback {
-                override fun onReject() {
+            VMPermission.requestRecord(context) {
+                if (it) {
+                    isUsable = true
+                    postInvalidate()
+                } else {
                     isUsable = false
                     postInvalidate()
                 }
-
-                override fun onComplete() {
-                    isUsable = true
-                    postInvalidate()
-                }
-            })
+            }
         }
     }
 
@@ -437,7 +432,7 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
          * @param code 错误码
          * @param desc 错误描述
          */
-        abstract fun onError(code: Int, desc: String?)
+        abstract fun onError(code: Int, desc: String)
 
         /**
          * 录音成功
@@ -445,7 +440,7 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
          * @param path 录音文件的路径
          * @param time 录音时长
          */
-        abstract fun onComplete(path: String?, time: Long)
+        abstract fun onComplete(path: String, time: Int)
     }
 
 }

@@ -10,6 +10,7 @@ import android.content.ComponentName
 import android.view.ViewGroup
 
 import com.vmloft.develop.library.base.BFragment
+import com.vmloft.develop.library.base.common.PermissionManager
 import com.vmloft.develop.library.base.router.CRouter
 import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.databinding.FragmentHomeBinding
@@ -82,44 +83,26 @@ class HomeFragment : BFragment<FragmentHomeBinding>() {
      */
     private fun checkOnePermissions() {
         val bean = VMPermissionBean(Manifest.permission.CAMERA, "访问相机", "扫描二维码需要使用到相机，请允许我们获取拍照权限", R.drawable.ic_camera)
-        VMPermission.getInstance(activity)
-            .setEnableDialog(true)
-//                .setTitle("权限申请")
-//                .setMessage("为了带跟你更好的使用体验，应用需要以下权限")
-            .setPermission(bean)
-            .requestPermission(object : VMPermission.PCallback {
-                override fun onReject() {
-                    errorBar("权限申请被拒绝")
-                }
-
-                override fun onComplete() {
-                    showBar("权限申请完成")
-                }
-            })
+        PermissionManager.requestPermission(requireContext(), bean) {
+            if (it) {
+                showBar("权限申请完成")
+            } else {
+                errorBar("权限申请被拒绝")
+            }
+        }
     }
 
     /**
      * 检查权限
      */
     private fun checkPermissions() {
-        val permissions: MutableList<VMPermissionBean> = ArrayList()
-        permissions.add(VMPermissionBean(Manifest.permission.CAMERA, "访问相机", "拍摄图片需要使用到相机，请允许我们获取访问相机", R.drawable.ic_camera))
-        permissions.add(VMPermissionBean(Manifest.permission.READ_EXTERNAL_STORAGE, "读写存储", "我们需要将文件保存到你的设备，请允许我们获取存储权限", R.drawable.ic_explore))
-        permissions.add(VMPermissionBean(Manifest.permission.RECORD_AUDIO, "访问麦克风", "发送语音消息需要录制声音，请允许我们访问设备麦克风", R.drawable.ic_video))
-        VMPermission.getInstance(activity)
-            .setEnableDialog(true)
-//                .setTitle("权限申请")
-//            .setMessage("为了带跟你更好的使用体验，应用需要以下权限")
-            .setPermissionList(permissions)
-            .requestPermission(object : VMPermission.PCallback {
-                override fun onReject() {
-                    errorBar("权限申请被拒绝")
-                }
-
-                override fun onComplete() {
-                    showBar("权限申请完成")
-                }
-            })
+        PermissionManager.requestPermissions(requireContext()) {
+            if (it) {
+                showBar("权限申请完成")
+            } else {
+                errorBar("权限申请被拒绝")
+            }
+        }
     }
 
     private fun openAlipay() {

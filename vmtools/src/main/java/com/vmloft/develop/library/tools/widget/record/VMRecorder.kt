@@ -6,7 +6,6 @@ import android.media.MediaRecorder.AudioSource
 import android.media.MediaRecorder.OutputFormat
 import com.vmloft.develop.library.tools.utils.VMDate
 import com.vmloft.develop.library.tools.utils.VMFile
-import com.vmloft.develop.library.tools.utils.VMStr
 import com.vmloft.develop.library.tools.utils.logger.VMLog.e
 import java.io.IOException
 
@@ -14,69 +13,71 @@ import java.io.IOException
  * Created by lz on 2016/8/20.
  * 定义的录音功能单例类，主要处理录音的相关操作
  */
-class VMRecorder
-/**
- * 单例类的私有构造方法
- */
-private constructor() {
-    // 媒体录影机，可以录制音频和视频
-    private var mMediaRecorder: MediaRecorder? = null
+object VMRecorder {
+    const val errorNone = 0 // 没有错误
+    const val errorSystem = 1 // 系统错误
+    const val errorFailed = 2 // 录制失败
+    const val errorRecording = 3 // 正在录制
+    const val errorCancel = 4 // 录音取消
+    const val errorShort = 5 // 录音时间过短
 
-    // 音频采样率 单位 Hz
-    protected var mSamplingRate = 8000
+    private var mediaRecorder: MediaRecorder? = null // 媒体录影机，可以录制音频和视频
 
-    // 音频编码比特率
-    protected var mEncodingBitRate = 64
+    private var recordSamplingRate = 8000 // 音频采样率 单位 Hz
+    private var recordEncodingBitRate = 64 // 音频编码比特率
+    private var recordMaxDuration = 60 * 60 * 1000 // 录音最大持续时间 60 分钟
 
-    // 录音最大持续时间 10 分钟
-    protected var mMaxDuration = 10 * 60 * 1000
+    private var recordDecibelBase = 200 // 计算分贝基准值
 
-    // 计算分贝基准值
-    protected var mDecibelBase = 200
+    private var isRecording = false // 是否录制中
+    private var recordFile: String = "" // 录制文件保存路径
 
-    /**
-     * 判断录音机是否正在录制中
-     */
-    // 是否录制中
-    var isRecording = false
+//    companion object {
+//        const val errorNone = 0 // 没有错误
+//        const val errorSystem = 1 // 系统错误
+//        const val errorFailed = 2 // 录制失败
+//        const val errorRecording = 3 // 正在录制
+//        const val errorCancel = 4 // 录音取消
+//        const val errorShort = 5 // 录音时间过短
+//
+//        /**
+//         * 获取单例类的实例
+//         */
+//        val instance: VMRecorder
+//            get() = InnerHolder.INSTANCE
+//    }
 
-    /**
-     * 获取录制的语音文件
-     */
-    // 录制文件保存路径
-    var recordFile: String? = null
-
-    /**
-     * 内部类实现单例模式
-     */
-    object InnerHolder {
-        var INSTANCE = VMRecorder()
-    }
+//    /**
+//     * 内部类实现单例模式
+//     */
+//    object InnerHolder {
+//        var INSTANCE = VMRecorder()
+//    }
 
     /**
      * 初始化录制音频
      */
     private fun initVoiceRecorder() {
         // 实例化媒体录影机
-        mMediaRecorder = MediaRecorder()
+        mediaRecorder = MediaRecorder()
         // 设置音频源为麦克风
-        mMediaRecorder!!.setAudioSource(AudioSource.MIC)
+        mediaRecorder?.setAudioSource(AudioSource.MIC)
         /**
          * 设置音频文件编码格式，这里设置默认
          * https://developer.android.com/reference/android/media/MediaRecorder.AudioEncoder.html
          */
-        mMediaRecorder!!.setOutputFormat(OutputFormat.DEFAULT)
+        mediaRecorder?.setOutputFormat(OutputFormat.DEFAULT)
         /**
          * 设置音频文件输出格式
          * https://developer.android.com/reference/android/media/MediaRecorder.OutputFormat.html
          */
-        mMediaRecorder!!.setAudioEncoder(AudioEncoder.AMR_NB)
+        mediaRecorder?.setAudioEncoder(AudioEncoder.AMR_NB)
         // 设置音频采样率
-        mMediaRecorder!!.setAudioSamplingRate(mSamplingRate)
+        mediaRecorder?.setAudioSamplingRate(recordSamplingRate)
         // 设置音频编码比特率
-        mMediaRecorder!!.setAudioEncodingBitRate(mEncodingBitRate)
+        mediaRecorder?.setAudioEncodingBitRate(recordEncodingBitRate)
         // 设置录音最大持续时间
-        mMediaRecorder!!.setMaxDuration(mMaxDuration)
+        mediaRecorder?.setMaxDuration(recordMaxDuration)
     }
 
     /**
@@ -87,23 +88,21 @@ private constructor() {
     fun startRecord(path: String?): Int {
         // 判断录制系统是否空闲
         if (isRecording) {
-            return ERROR_RECORDING
+            return errorRecording
         }
 
         // 判断媒体录影机是否释放，没有则释放
-        if (mMediaRecorder != null) {
-            mMediaRecorder!!.release()
-            mMediaRecorder = null
+        if (mediaRecorder != null) {
+            mediaRecorder?.release()
+            mediaRecorder = null
         }
 
         // 设置录制状态
         isRecording = true
         recordFile = if (path.isNullOrEmpty()) {
-            // 这里默认保存在 /sdcard/android/data/packagename/files/下
-            //File file = VMFile.createFile(VMFile.getFilesFromSDCard(), "VMVoice_", ".amr");
+            // 这里默认保存在 /sdcard/android/data/packagename/files/voice/下
             VMFile.filesPath("voice") + "VMVoice_" + VMDate.filenameDateTime() + ".amr"
         } else {
-            //File file = VMFile.createFile(path, "VMVoice_", ".amr");
             path
         }
 
@@ -111,18 +110,18 @@ private constructor() {
         initVoiceRecorder()
 
         // 设置录制输出文件
-        mMediaRecorder!!.setOutputFile(recordFile)
+        mediaRecorder?.setOutputFile(recordFile)
         try {
             // 准备录制
-            mMediaRecorder!!.prepare()
+            mediaRecorder?.prepare()
             // 开始录制
-            mMediaRecorder!!.start()
+            mediaRecorder?.start()
         } catch (e: IOException) {
             reset()
             e("录音系统出现错误 " + e.message)
-            return ERROR_SYSTEM
+            return errorSystem
         }
-        return ERROR_NONE
+        return errorNone
     }
 
     /**
@@ -132,28 +131,28 @@ private constructor() {
         // 停止录音，将录音状态设置为false
         isRecording = false
         // 释放媒体录影机
-        if (mMediaRecorder != null) {
+        if (mediaRecorder != null) {
             // 防止录音机 start 后马上调用 stop 出现异常
-            mMediaRecorder!!.setOnErrorListener(null)
+            mediaRecorder?.setOnErrorListener(null)
             try {
                 // 停止录制
-                mMediaRecorder!!.stop()
+                mediaRecorder?.stop()
             } catch (e: IllegalStateException) {
                 e("录音系统出现错误 " + e.message)
                 reset()
-                return ERROR_SYSTEM
+                return errorSystem
             } catch (e: RuntimeException) {
                 e("录音系统出现错误 " + e.message)
                 reset()
-                return ERROR_SYSTEM
+                return errorSystem
             }
         }
         // 根据录制结果判断录音是否成功
         if (!VMFile.isFileExists(recordFile)) {
             e("录音失败没有生成文件")
-            return ERROR_FAILED
+            return errorFailed
         }
-        return ERROR_NONE
+        return errorNone
     }
 
     /**
@@ -163,10 +162,10 @@ private constructor() {
         // 停止录音，将录音状态设置为false
         isRecording = false
         // 释放媒体录影机
-        if (mMediaRecorder != null) {
+        if (mediaRecorder != null) {
             try {
                 // 停止录制
-                mMediaRecorder!!.stop()
+                mediaRecorder?.stop()
             } catch (e: IllegalStateException) {
                 e("录音系统出现错误 " + e.message)
                 reset()
@@ -182,55 +181,46 @@ private constructor() {
     } // 根据麦克风采集到的声音振幅计算声音分贝大小
 
     /**
+     * 获取录制文件路径
+     */
+    fun getRecordFile(): String {
+        return recordFile
+    }
+
+    /**
      * 获取声音分贝信息
      */
-    val decibel: Int
-        get() {
-            var decibel = 1
-            if (mMediaRecorder != null) {
-                var ratio = 0
-                try {
-                    ratio = mMediaRecorder!!.maxAmplitude / mDecibelBase
-                } catch (e: IllegalStateException) {
-                    e.printStackTrace()
-                } catch (e: RuntimeException) {
-                    e.printStackTrace()
-                }
-                if (ratio > 0) {
-                    // 根据麦克风采集到的声音振幅计算声音分贝大小
-                    decibel = (20 * Math.log10(ratio.toDouble())).toInt() / 10
-                }
+    fun decibel(): Int {
+        var decibel = 1
+        if (mediaRecorder != null) {
+            var ratio = 0
+            try {
+                ratio = mediaRecorder?.maxAmplitude ?: recordDecibelBase / recordDecibelBase
+            } catch (e: IllegalStateException) {
+                e.printStackTrace()
+            } catch (e: RuntimeException) {
+                e.printStackTrace()
             }
-            return decibel
+            if (ratio > 0) {
+                // 根据麦克风采集到的声音振幅计算声音分贝大小
+                decibel = (20 * Math.log10(ratio.toDouble())).toInt() / 10
+            }
         }
+        return decibel
+    }
 
     /**
      * 重置录音机
      */
     fun reset() {
         isRecording = false
-        recordFile = null
-        if (mMediaRecorder != null) {
+        recordFile = ""
+        if (mediaRecorder != null) {
             // 重置媒体录影机
-            mMediaRecorder!!.reset()
+            mediaRecorder?.reset()
             // 释放媒体录影机
-            mMediaRecorder!!.release()
-            mMediaRecorder = null
+            mediaRecorder?.release()
+            mediaRecorder = null
         }
-    }
-
-    companion object {
-        const val ERROR_NONE = 0 // 没有错误
-        const val ERROR_SYSTEM = 1 // 系统错误
-        const val ERROR_FAILED = 2 // 录制失败
-        const val ERROR_RECORDING = 3 // 正在录制
-        const val ERROR_CANCEL = 4 // 录音取消
-        const val ERROR_SHORT = 5 // 录音时间过短
-
-        /**
-         * 获取单例类的实例
-         */
-        val instance: VMRecorder
-            get() = InnerHolder.INSTANCE
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.Resources
 import android.graphics.Paint
 import android.graphics.Point
+import android.graphics.Rect
 import android.view.WindowManager
 import com.vmloft.develop.library.tools.VMTools
 import com.vmloft.develop.library.tools.utils.logger.VMLog
@@ -19,16 +20,16 @@ object VMDimen {
     /**
      * 获取屏幕宽高
      */
-     val screenWidth: Int
+    val screenWidth: Int
         get() = screenSize.x
 
-     val screenHeight: Int
+    val screenHeight: Int
         get() = screenSize.y
 
     /**
      * 获取屏幕大小
      */
-     val screenSize: Point
+    val screenSize: Point
         get() = getScreenSize(VMTools.context)
 
     /**
@@ -81,16 +82,12 @@ object VMDimen {
      * @param str   需要计算宽度的字符串
      * @return 返回字符串宽度
      */
-    fun getTextWidth(paint: Paint, str: String?): Float {
+    fun getTextWidth(paint: Paint, str: String): Float {
         var textWidth = 0f
-        if (str != null && str.isNotEmpty()) {
-            // 记录字符串中每个字符宽度的数组
-            val widths = FloatArray(str.length)
-            // 获取字符串中每个字符的宽度到数组
-            paint.getTextWidths(str, widths)
-            for (element in str) {
-                textWidth += Math.ceil(element.toDouble()).toFloat()
-            }
+        val rect = Rect()
+        if (str.isNotEmpty()) {
+            paint.getTextBounds(str, 0, str.length, rect)
+            textWidth = rect.width().toFloat()
         }
         return textWidth
     }
@@ -101,15 +98,20 @@ object VMDimen {
      * @param paint 绘制文字的画笔
      * @return 返回字符串高度
      */
-    fun getTextHeight(paint: Paint): Float {
-        val fm = paint.fontMetrics
-        return Math.ceil(fm.descent - fm.ascent.toDouble()).toFloat()
+    fun getTextHeight(paint: Paint, str: String): Float {
+        var textHeight = 0f
+        val rect = Rect()
+        if (str.isNotEmpty()) {
+            paint.getTextBounds(str, 0, str.length, rect)
+            textHeight = rect.height().toFloat()
+        }
+        return textHeight
     }
 
     /**
      * 获取状态栏高度
      */
-     val statusBarHeight: Int
+    val statusBarHeight: Int
         get() {
             var height = 0
             val res = VMTools.context.resources
@@ -123,7 +125,7 @@ object VMDimen {
     /**
      * 获取导航栏的高度（在 NavigationBar 存在的情况下）
      */
-     val navigationBarHeight: Int
+    val navigationBarHeight: Int
         get() {
             var height = 0
             val res = VMTools.context.resources

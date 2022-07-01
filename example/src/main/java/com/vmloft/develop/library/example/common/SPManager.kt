@@ -1,6 +1,6 @@
 package com.vmloft.develop.library.example.common
 
-import com.vmloft.develop.library.tools.utils.VMSPUtil
+import com.vmloft.develop.library.tools.utils.VMSP
 import com.vmloft.develop.library.tools.utils.VMSystem
 
 /**
@@ -50,21 +50,21 @@ object SPManager {
      * 通用获取数据
      */
     fun get(entry: String, key: String, default: Any): Any {
-        return VMSPUtil.getEntry(entry).get(key, default)
+        return VMSP.getEntry(entry).get(key, default)
     }
 
     /**
      * 通用设置数据
      */
     fun put(entry: String, key: String, value: String) {
-        VMSPUtil.getEntry(entry).put(key, value)
+        VMSP.getEntry(entry).put(key, value)
     }
 
     /**
      * 通用设置数据，异步
      */
     fun putAsync(entry: String, key: String, value: Any) {
-        VMSPUtil.getEntry(entry).putAsync(key, value)
+        VMSP.getEntry(entry).putAsync(key, value)
     }
 
     /**

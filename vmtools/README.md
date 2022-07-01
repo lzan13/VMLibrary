@@ -76,7 +76,8 @@ val isEmail = VMReg.isEmail(email)
     - [VMStr](src/main/java/com/vmloft/develop/library/tools/utils/VMStr.java) 字符串操作
     - [VMStr](src/main/java/com/vmloft/develop/library/tools/utils/VMSystem.java) 系统相关
     - [VMTheme](src/main/java/com/vmloft/develop/library/tools/utils/VMTheme.java) 主题
-    - [VMTheme](src/main/java/com/vmloft/develop/library/tools/utils/VMUtils.java) 工具
+    - [VMUtils](src/main/java/com/vmloft/develop/library/tools/utils/VMUtils.java) 工具
+    - [VMView](src/main/java/com/vmloft/develop/library/tools/utils/VMView.java) 视图相关
 
 - [widget](src/main/java/com/vmloft/develop/library/tools/widget) 自定义控件部分
     - [barrage](src/main/java/com/vmloft/develop/library/tools/widget/barrage) 弹幕控件
@@ -89,6 +90,7 @@ val isEmail = VMReg.isEmail(email)
     - [tips](src/main/java/com/vmloft/develop/library/tools/widget/tips) Tips 提醒
     - [VMExpandableLayout](src/main/java/com/vmloft/develop/library/tools/widget/VMExpandableLayout.java) 可伸缩布局
     - [VMFloatMenu](src/main/java/com/vmloft/develop/library/tools/widget/VMFloatMenu.java) 悬浮菜单
+    - [VMKeyboardController](src/main/java/com/vmloft/develop/library/tools/widget/VMKeyboardController.java) 输入面板控制器
     - [VMLineView](src/main/java/com/vmloft/develop/library/tools/widget/VMLineView.java) 单行选项控件
     - [VMRatioLayout](src/main/java/com/vmloft/develop/library/tools/widget/VMRatioLayout.java) 固定宽高比 Layout
     - [VMTimerBtn](src/main/java/com/vmloft/develop/library/tools/widget/VMTimerBtn.java) 定时按钮
