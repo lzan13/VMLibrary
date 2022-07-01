@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import com.vmloft.develop.library.tools.R
 import com.vmloft.develop.library.tools.utils.VMDimen
 import com.vmloft.develop.library.tools.utils.VMTheme
+import com.vmloft.develop.library.tools.utils.VMView
 
 /**
  * Create by lzan13 on 2019/05/28 19:33
@@ -47,7 +48,7 @@ class VMFloatMenu(private val mContext: Context) : PopupWindow(mContext) {
         inputMethodMode = INPUT_METHOD_NOT_NEEDED
         val drawable = ContextCompat.getDrawable(mContext, R.color.vm_transparent)
         setBackgroundDrawable(drawable)
-        VMTheme.changeShadow(mItemContainer, 0.2f)
+        VMView.changeShadow(mItemContainer, 0.2f)
     }
 
     /**

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import com.vmloft.develop.library.base.BFragment
 import com.vmloft.develop.library.example.databinding.FragmentGuideBinding
 import com.vmloft.develop.library.tools.utils.VMTheme
+import com.vmloft.develop.library.tools.utils.VMView
 
 /**
  * Create by lzan13 on 2020/05/02 11:54
@@ -38,7 +39,7 @@ class GuideFragment : BFragment<FragmentGuideBinding>() {
     override fun initUI() {
         super.initUI()
 
-        VMTheme.changeShadow(mBinding.guideCardLL)
+        VMView.changeShadow(mBinding.guideCardLL)
         mBinding.guideCoverIV.setImageResource(requireArguments().getInt(argImgId))
         mBinding.guideTitleTV.setText(requireArguments().getInt(argTitleId))
         mBinding.guideBodyTV.setText(requireArguments().getInt(argBodyId))

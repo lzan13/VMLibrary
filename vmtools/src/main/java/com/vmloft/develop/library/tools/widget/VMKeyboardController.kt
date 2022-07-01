@@ -5,9 +5,9 @@ import android.view.View
 import android.view.MotionEvent
 import android.widget.EditText
 import android.widget.LinearLayout
+
 import com.vmloft.develop.library.tools.utils.VMDimen
 import com.vmloft.develop.library.tools.utils.VMSP
-
 import com.vmloft.develop.library.tools.utils.VMView
 
 /**
