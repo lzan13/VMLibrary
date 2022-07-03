@@ -96,5 +96,6 @@ val isEmail = VMReg.isEmail(email)
     - [VMTimerBtn](src/main/java/com/vmloft/develop/library/tools/widget/VMTimerBtn.java) 定时按钮
     - [VMTopBar](src/main/java/com/vmloft/develop/library/tools/widget/VMTopBar.java) 顶部 TopBar
     - [VMViewGroup](src/main/java/com/vmloft/develop/library/tools/widget/VMViewGroup.java) 自动换行 ViewGroup
+    - [VMWaveView](src/main/java/com/vmloft/develop/library/tools/widget/VMWaveView.java) 波形图控件
 
 - [VMTools](src/main/java/com/vmloft/develop/library/tools/VMTools.java) 工具初始化类

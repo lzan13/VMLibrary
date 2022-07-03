@@ -163,6 +163,13 @@
         <attr name="vm_time_size" format="dimension" />
     </declare-styleable>
 
+    <!--自定义波形控件-->
+    <declare-styleable name="VMWaveView">
+        <attr name="vm_wave_line_color" format="color|integer" />
+        <attr name="vm_wave_line_width" format="dimension" />
+        <attr name="vm_wave_max_width" format="dimension" />
+    </declare-styleable>
+
     <!--自定义等比例布局-->
     <declare-styleable name="VMRatioLayout">
         <!--宽高比-->

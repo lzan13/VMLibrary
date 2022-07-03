@@ -57,10 +57,12 @@ class CustomViewActivity : BActivity<ActivityDemoViewCustomBinding>() {
 
     fun tips1(view: View) {
         VMTips.showBar(mActivity, "测试自定义图标提示条", VMTips.durationLong, R.drawable.emoji_dog)
+        mBinding.customWaveView.start()
     }
 
     fun tips2(view: View) {
         showBar("测试自定义默认提示条")
+        mBinding.customWaveView.stop()
     }
 
     fun tips3(view: View) {
