@@ -105,10 +105,10 @@ class VMWaveView @JvmOverloads constructor(context: Context, attrs: AttributeSet
     private fun drawWave(canvas: Canvas) {
         lineChange()
         canvas.save()
-        val moveY = height * 3 / 4
+        val moveY = height / 2
         for (i in 0 until paths.size) {
             paths.get(i).reset()
-            paths.get(i).moveTo(width.toFloat(), height * 3 / 4f)
+            paths.get(i).moveTo(width.toFloat(), height / 2f)
         }
         var j = width - 1f
         while (j >= 1) {

@@ -87,7 +87,8 @@
         <com.vmloft.develop.library.tools.widget.VMWaveView
             android:id="@+id/customWaveView"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/vm_dimen_48"
+            android:layout_height="@dimen/vm_dimen_36"
+            android:background="@color/vm_green_38"
             app:vm_wave_line_color="@color/app_main"
             app:vm_wave_line_width="@dimen/vm_dimen_1"
             app:vm_wave_max_width="@dimen/vm_dimen_36" />
