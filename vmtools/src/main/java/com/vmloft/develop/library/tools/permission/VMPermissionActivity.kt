@@ -116,6 +116,8 @@ class VMPermissionActivity : FragmentActivity() {
     private fun showAlertDialog(title: String, content: String, negative: String, positive: String, listener: View.OnClickListener) {
         mDialog = VMDefaultDialog(this)
         mDialog?.let { dialog ->
+            dialog.backDismissSwitch = false
+            dialog.touchDismissSwitch = false
             dialog.setTitle(title)
             dialog.setContent(content)
             dialog.setNegative(negative) {
@@ -142,7 +144,7 @@ class VMPermissionActivity : FragmentActivity() {
             dialog.touchDismissSwitch = false
             dialog.backDismissSwitch = false
             dialog.setTitle(dialogTitle)
-            dialog.setContent(dialogContent!!)
+            dialog.setContent(dialogContent)
             val viewGroup = LinearLayout(this)
             viewGroup.orientation = LinearLayout.VERTICAL
 
@@ -230,6 +232,7 @@ class VMPermissionActivity : FragmentActivity() {
                         val packageURI = Uri.parse("package:$packageName")
                         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI)
                         startActivityForResult(intent, requestCode)
+                        finish()
                     }
                 } else {
                     if (mAgainIndex < permissionList.size - 1) {

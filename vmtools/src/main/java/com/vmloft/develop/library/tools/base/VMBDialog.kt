@@ -20,23 +20,23 @@ import com.vmloft.develop.library.tools.utils.VMStr
  */
 abstract class VMBDialog<VB : ViewBinding> : Dialog {
 
-    // 子类可以覆盖以下属性
-    // 点击积极按钮时检查是否关闭，主要是在一些对话框判断数据时使用，默认为 true
-    open var positiveDismissSwitch: Boolean = true
+    // 点击返回是否关闭 默认 true
+    open var backDismissSwitch: Boolean = true
+        set(value) {
+            field = value
+            setCancelable(value)
+        }
 
-    // 触摸空白处以及返回是否关闭 默认 true
+    // 触摸空白处是否关闭 默认 true
     open var touchDismissSwitch: Boolean = true
         set(value) {
             field = value
             setCanceledOnTouchOutside(value)
         }
 
-    // 触摸点击返回是否关闭 默认 true
-    open var backDismissSwitch: Boolean = true
-        set(value) {
-            field = value
-            setCancelable(value)
-        }
+    // 子类可以覆盖以下属性
+    // 点击积极按钮时检查是否关闭，主要是在一些对话框判断数据时使用，默认为 true
+    open var positiveDismissSwitch: Boolean = true
 
     private var positiveListener: View.OnClickListener? = null
     private var confirmListener: View.OnClickListener? = null
