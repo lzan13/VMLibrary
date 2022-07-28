@@ -268,7 +268,6 @@ class VMBarrageView<T> @JvmOverloads constructor(context: Context?, attrs: Attri
 
     override fun onVisibilityChanged(changedView: View, visibility: Int) {
         super.onVisibilityChanged(changedView, visibility)
-        VMLog.d("onVisibilityChanged $visibility")
         if (visibility == 0) {
             // View 可见 继续
             resume()

@@ -11,7 +11,6 @@ import android.view.animation.LinearInterpolator
 
 import com.vmloft.develop.library.tools.R.color
 import com.vmloft.develop.library.tools.R.styleable
-import com.vmloft.develop.library.tools.animator.VMAnimator
 import com.vmloft.develop.library.tools.permission.VMPermission
 import com.vmloft.develop.library.tools.utils.VMColor
 import com.vmloft.develop.library.tools.utils.VMDimen
@@ -30,7 +29,7 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
     private var mHeight = 0
 
     protected var isUsable = false // 是否可用
-    private val mUnusableDesc = "录音不可用" // 不可用描述
+    private val mUnusableDesc = "授予权限" // 不可用描述
 
     // 画笔
     private var mPaint: Paint
@@ -71,8 +70,6 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
      * 初始化控件
      */
     init {
-        checkPermission()
-
         // 获取控件属性
         handleAttrs(attrs)
 
@@ -156,8 +153,12 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
      * 绘制不可用时的 UI
      */
     private fun drawUnusable(canvas: Canvas) {
+        // 绘制触摸区域
+        mPaint.color = mInnerColor
+        canvas.drawCircle(mWidth / 2.toFloat(), mHeight / 2.toFloat(), mInnerSize / 2.toFloat(), mPaint)
+
         // 绘制提示文本
-        mPaint.color = mCancelColor
+        mPaint.color = mDescColor
         mPaint.textSize = mDescSize.toFloat()
         val tWidth = VMDimen.getTextWidth(mPaint, mUnusableDesc)
         val tHeight = VMDimen.getTextHeight(mPaint, mUnusableDesc)
@@ -212,8 +213,6 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
         val tHeight = VMDimen.getTextHeight(mPaint, time)
         canvas.drawText(time, mWidth / 2 - tWidth / 2, mHeight / 6f, mPaint)
     }
-
-    private var mAnimatorWrap: VMAnimator.AnimatorSetWrap? = null
 
     /**
      * 外圈动画
@@ -396,6 +395,14 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
                     postInvalidate()
                 }
             }
+        }
+    }
+
+    override fun onVisibilityChanged(changedView: View, visibility: Int) {
+        super.onVisibilityChanged(changedView, visibility)
+        if (visibility == 0) {
+            // View 可见 检查下权限
+            isUsable = VMPermission.checkRecord()
         }
     }
 
