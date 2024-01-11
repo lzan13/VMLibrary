@@ -5,13 +5,18 @@ plugins {
     id 'kotlin-parcelize'
 }
 
+// 引入路由公共配置
+apply from: "${rootDir.absolutePath}/arouter.gradle"
+// 引入通用公共配置
+apply from: "${rootDir.absolutePath}/common.gradle"
+
 // 获取配置信息
 def configs = rootProject.ext.configs
 def signings = rootProject.ext.signings
 
 android {
-    compileSdkVersion configs.compileSdkVersion
-    buildToolsVersion configs.buildToolsVersion
+    namespace configs.applicationId
+    compileSdk configs.compileSdkVersion
 
     defaultConfig {
         applicationId configs.applicationId
@@ -21,10 +26,10 @@ android {
         versionName configs.versionName
 
         // 简单粗暴解决多个库出现 UnsatisfiedLinkError 文件错误问题
-        ndk {
-            // "x86", "armeabi-v7a", "arm64-v8a"
-            abiFilters "armeabi-v7a"
-        }
+//        ndk {
+//            // "x86", "armeabi-v7a", "arm64-v8a"
+//            abiFilters "armeabi-v7a"
+//        }
     }
 
     // 签名信息
@@ -41,16 +46,18 @@ android {
     // 编译配置
     buildTypes {
         debug {
-            // 是否开启压缩
-            zipAlignEnabled false
+//            // 是否开启压缩
+//            zipAlign false
             // 是否开启混淆
             minifyEnabled false
+            // 打包时删除无用资源 依赖于混淆，必须和 minifyEnabled 一起使用
+            shrinkResources false
             // Debug 打包签名信息，这里和 release 配置相同方便三方登录与分享调试
             signingConfig signingConfigs.release
         }
         release {
-            // 是否开启压缩
-            zipAlignEnabled true
+//            // 是否开启压缩
+//            zipAlign true
             // 是否开启混淆
             minifyEnabled true
             // 打包时删除无用资源 依赖于混淆，必须和 minifyEnabled 一起使用
@@ -60,55 +67,34 @@ android {
             // 混淆文件
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
-            // 修改生成的 apk 名字，格式为:项目-版本-时间-渠道名.apk
-            android.applicationVariants.all { variant ->
-                variant.outputs.all {
-                    outputFileName = "${rootProject.name}V${defaultConfig.versionName}.${getTime()}." + variant.productFlavors[0].name + '.apk'
-                }
-            }
+//            // 修改生成的 apk 名字，格式为:项目-版本-时间-渠道名.apk
+//            android.applicationVariants.all { variant ->
+//                variant.outputs.all {
+//                    outputFileName = "${rootProject.name}V${defaultConfig.versionName}.${getTime()}." + variant.productFlavors[0].name + '.apk'
+//                }
+//            }
         }
     }
 
-    // 多渠道打包配置
-    flavorDimensions "default"
-    productFlavors {
-        Develop {
-            dimension = "default"
-            manifestPlaceholders = [
-                    appChannel   : "Develop",
-                    umengAppKey  : configs.umengAppKey,
-            ]
-        }
-    }
+//    // 多渠道打包配置
+//    flavorDimensions "default"
+//    productFlavors {
+//        Develop {
+//            dimension = "default"
+//            manifestPlaceholders = [
+//                    appChannel   : "Develop",
+//                    umengAppKey  : configs.umengAppKey,
+//            ]
+//        }
+//    }
 
-    // 使用 Java 8 编译
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
-    }
-
-    // 开启 ViewBinding
-    buildFeatures {
-        viewBinding true
-    }
-    // 编译忽略错误配置
-    lintOptions {
-        abortOnError false
-    }
-    // kotlin 配置
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11
-        useIR = true
-    }
-    // 阿里巴巴 ARouter Kotlin 下的配置
     kapt {
         arguments {
-            // 阿里巴巴 ARouter Kotlin 下的配置
-            arg("AROUTER_MODULE_NAME", project.getName())
             // Room 配置
             arg("room.schemaLocation", "$projectDir/schemas".toString())
         }
     }
+
 }
 
 dependencies {
@@ -116,28 +102,24 @@ dependencies {
 
     kapt "androidx.room:room-compiler:2.3.0"
 
-    // ARouter 编译器，TODO 当代码中有一些自己没看到的错误的时候，ARouter 会拦截错误信息，看不到错误位置，把这行注释掉，重新编译
-    kapt 'com.alibaba:arouter-compiler:1.5.2'
-
     // 依赖 base 库
-    implementation project(':vmbase')
+    implementation project(':base:vmbase')
     // 依赖 common 库
-    implementation project(':vmcommon')
+    implementation project(':base:vmcommon')
     // 依赖 db 库
-    implementation project(':vmdb')
+    implementation project(':core:vmdb')
     // 依赖 image 库
-    implementation project(':vmimage')
+    implementation project(':core:vmimage')
     // 依赖 qr 库
-//    implementation project(':vmpay')
-    // 依赖 qr 库
-//    implementation project(':vmqr')
+//    implementation project(':core:vmqr')
     // 依赖 report 库
-//    implementation project(':vmreport')
+//    implementation project(':core:vmreport')
     // 依赖 request 库
-//    implementation project(':vmrequest')
+//    implementation project(':core:vmrequest')
 }
 
 // 获取当前系统时间
 def getTime() {
     return new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone("UTC"))
 }
+

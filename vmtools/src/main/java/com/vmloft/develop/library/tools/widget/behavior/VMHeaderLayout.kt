@@ -426,6 +426,7 @@ class VMHeaderLayout @JvmOverloads constructor(
             return super.onNestedPreFling(coordinatorLayout, child, target, velocityX, velocityY)
         }
 
+        @Deprecated("Deprecated in Java")
         override fun onNestedScroll(
             coordinatorLayout: CoordinatorLayout,
             child: VMHeaderLayout,

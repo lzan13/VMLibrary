@@ -29,7 +29,6 @@ class VMFloatMenu(private val mContext: Context) : PopupWindow(mContext) {
 
     // 菜单数量
     private var mItemCount = 0
-    private var mItemPadding = 0
     private var listener: IItemClickListener? = null
 
     /**
@@ -40,7 +39,7 @@ class VMFloatMenu(private val mContext: Context) : PopupWindow(mContext) {
 
         mItemContainer = contentView.findViewById(R.id.vmFloatMenuContainer)
 
-        mItemPadding = VMDimen.dp2px(12)
+//        mItemPadding = VMDimen.dp2px(12)
         width = LayoutParams.WRAP_CONTENT
         height = LayoutParams.WRAP_CONTENT
         isFocusable = true

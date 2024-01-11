@@ -1,8 +1,8 @@
 ext {
     // 配置
     configs = [
-            compileSdkVersion: 30,
-            buildToolsVersion: "30.0.3",
+            compileSdkVersion: 34,
+            buildToolsVersion: "34.0.0",
             applicationId    : "com.vmloft.develop.library.example",
             minSdkVersion    : 21,
             targetSdkVersion : 30,

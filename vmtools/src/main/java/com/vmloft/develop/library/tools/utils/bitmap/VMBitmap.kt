@@ -447,7 +447,7 @@ object VMBitmap {
             } else if (target is Uri) {
                 outputStream = VMTools.context.contentResolver.openOutputStream(target)
             }
-            bitmap.compress(format, 90, outputStream)
+            bitmap.compress(format, 90, outputStream!!)
             result = true
         } catch (e: FileNotFoundException) {
             e.printStackTrace()

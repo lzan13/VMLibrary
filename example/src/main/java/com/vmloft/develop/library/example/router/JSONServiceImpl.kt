@@ -15,6 +15,7 @@ import java.lang.reflect.Type
  */
 @Route(path = "/App/JsonServiceImpl")
 class JSONServiceImpl : SerializationService {
+    @Deprecated("Deprecated in Java")
     override fun <T : Any?> json2Object(input: String, clazz: Class<T>): T {
         return JsonUtils.fromJson(input,clazz)!!
     }

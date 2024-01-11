@@ -10,42 +10,13 @@ plugins {
 def configs = rootProject.ext.configs
 
 android {
+    namespace 'com.vmloft.develop.library.tools'
     compileSdk configs.compileSdkVersion
 
     defaultConfig {
         minSdk configs.minSdkVersion
         targetSdk configs.targetSdkVersion
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            consumerProguardFiles 'consumer-rules.pro'
-        }
-    }
-
-    // 开启 ViewBinding
-    buildFeatures {
-        viewBinding true
-    }
-
-    lintOptions {
-        abortOnError false
-    }
-    // 配置 Java 编译版本
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
-    }
-    // kotlin 配置
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11
-        useIR = true
-    }
-    kapt {
-        correctErrorTypes = true
-    }
-
 }
 dependencies {
     implementation 'androidx.core:core-ktx:1.6.0'
@@ -69,3 +40,6 @@ afterEvaluate {
         }
     }
 }
+
+// 引入通用公共配置
+apply from: "${rootDir.absolutePath}/common.gradle"

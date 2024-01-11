@@ -67,22 +67,61 @@
                 android:text="Dialog" />
         </com.vmloft.develop.library.tools.widget.VMViewGroup>
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/vm_dimen_192">
+            android:layout_height="wrap_content"
+            android:background="@color/app_bg">
+
+            <TextView
+                android:id="@+id/testTV"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/vm_dimen_48"
+                android:background="@color/app_accent"
+                android:text="显示内容"
+                android:textAlignment="center"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.vmloft.develop.library.tools.widget.record.VMRecordView
                 android:id="@+id/customRecordView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:vm_cancel_color="@color/vm_deep_orange"
-                app:vm_desc_color="@color/vm_white_87"
-                app:vm_inner_color="@color/vm_blue"
-                app:vm_outer_color="@color/vm_blue_38"
-                app:vm_time_color="@color/vm_blue"
-                app:vm_touch_cancel_desc="松开取消"
-                app:vm_touch_normal_desc="按下录制" />
-        </RelativeLayout>
+                android:layout_height="@dimen/vm_dimen_192"
+                app:layout_constraintTop_toBottomOf="@+id/testTV"
+
+                app:vm_bg_color="#eaeaea"
+
+                app:vm_cancel_color="#f2f2f4"
+                app:vm_cancel_color_activate="#f0578e"
+                app:vm_cancel_icon="@drawable/ic_close_gray"
+                app:vm_cancel_icon_activate="@drawable/ic_close_white"
+                app:vm_cancel_size="@dimen/vm_dimen_56"
+
+                app:vm_desc_cancel="松开 取消"
+                app:vm_desc_color="#44407a"
+                app:vm_desc_font_size="@dimen/vm_size_14"
+                app:vm_desc_normal="按下 说话"
+
+                app:vm_inner_color="#6457f0"
+                app:vm_inner_color_cancel="#c7c6d4"
+                app:vm_inner_icon="@drawable/ic_voice_record_mic_white"
+                app:vm_inner_icon_cancel="@drawable/ic_voice_record_mic_black"
+                app:vm_inner_size="@dimen/vm_dimen_64"
+
+                app:vm_outer_color="#ffffff"
+                app:vm_outer_size="@dimen/vm_dimen_128"
+
+                app:vm_time_color="#44407a"
+                app:vm_time_font_size="@dimen/vm_size_14" />
+
+            <com.vmloft.develop.library.tools.widget.record.VMRecordWaveformView
+                android:id="@+id/customRecordWaveformView"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/vm_dimen_64"
+                android:visibility="visible"
+                app:layout_constraintTop_toTopOf="@+id/testTV"
+                app:vm_end_color="#86fff8"
+                app:vm_start_color="#6457f0"
+                app:vm_waveform_line_width="@dimen/vm_dimen_4" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.vmloft.develop.library.tools.widget.VMWaveView
             android:id="@+id/customWaveView"

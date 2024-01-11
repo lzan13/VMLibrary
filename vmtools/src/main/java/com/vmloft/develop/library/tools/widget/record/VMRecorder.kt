@@ -10,8 +10,8 @@ import com.vmloft.develop.library.tools.utils.logger.VMLog.e
 import java.io.IOException
 
 /**
- * Created by lz on 2016/8/20.
- * 定义的录音功能单例类，主要处理录音的相关操作
+ * Created by lzan13 on 2024/01/10.
+ * 描述：定义的录音功能单例类，主要处理录音的相关操作
  */
 object VMRecorder {
     const val errorNone = 0 // 没有错误
@@ -31,28 +31,6 @@ object VMRecorder {
 
     private var isRecording = false // 是否录制中
     private var recordFile: String = "" // 录制文件保存路径
-
-//    companion object {
-//        const val errorNone = 0 // 没有错误
-//        const val errorSystem = 1 // 系统错误
-//        const val errorFailed = 2 // 录制失败
-//        const val errorRecording = 3 // 正在录制
-//        const val errorCancel = 4 // 录音取消
-//        const val errorShort = 5 // 录音时间过短
-//
-//        /**
-//         * 获取单例类的实例
-//         */
-//        val instance: VMRecorder
-//            get() = InnerHolder.INSTANCE
-//    }
-
-//    /**
-//     * 内部类实现单例模式
-//     */
-//    object InnerHolder {
-//        var INSTANCE = VMRecorder()
-//    }
 
     /**
      * 初始化录制音频
@@ -203,7 +181,7 @@ object VMRecorder {
             }
             if (ratio > 0) {
                 // 根据麦克风采集到的声音振幅计算声音分贝大小
-                decibel = (20 * Math.log10(ratio.toDouble())).toInt() / 10
+                decibel = (20 * Math.log10(ratio.toDouble()) / 5).toInt()
             }
         }
         return decibel

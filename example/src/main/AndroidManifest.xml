@@ -1,6 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.vmloft.develop.library.example">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!--允许应用程序完全使用网络-->
     <uses-permission android:name="android.permission.INTERNET" />

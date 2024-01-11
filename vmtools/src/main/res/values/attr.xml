@@ -143,24 +143,51 @@
 
     <!--自定义音频录制控件-->
     <declare-styleable name="VMRecordView">
-        <!--取消颜色-->
-        <attr name="vm_cancel_color" format="color|integer" />
-        <!--触摸区域外圈颜色-->
-        <attr name="vm_outer_color" format="color|integer" />
-        <!--触摸区域内圈颜色-->
-        <attr name="vm_inner_color" format="color|integer" />
-        <attr name="vm_inner_size" format="dimension" />
+        <!--背景色-->
+        <attr name="vm_bg_color" format="color|reference" />
+
+        <!--取消按钮颜色-->
+        <attr name="vm_cancel_color" format="color|reference" />
+        <!--取消按钮激活态颜色-->
+        <attr name="vm_cancel_color_activate" format="color|reference" />
+        <!--取消图标-->
+        <attr name="vm_cancel_icon" format="reference" />
+        <!--取消激活态图标-->
+        <attr name="vm_cancel_icon_activate" format="reference" />
+        <!--取消按钮大小-->
+        <attr name="vm_cancel_size" format="dimension" />
+
         <!--触摸区域提示文字-->
-        <attr name="vm_touch_normal_desc" format="string|reference" />
-        <attr name="vm_touch_cancel_desc" format="string|reference" />
+        <attr name="vm_desc_normal" format="string|reference" />
+        <attr name="vm_desc_cancel" format="string|reference" />
         <!--触摸提示文本颜色-->
         <attr name="vm_desc_color" format="color|integer" />
         <!--触摸提示文本大小-->
-        <attr name="vm_desc_size" format="dimension" />
+        <attr name="vm_desc_font_size" format="dimension" />
+
+        <!--触摸区域内圈颜色-->
+        <attr name="vm_inner_color" format="color|reference" />
+        <attr name="vm_inner_color_cancel" format="color|reference" />
+        <!--触摸区域内圈图标-->
+        <attr name="vm_inner_icon" format="reference" />
+        <attr name="vm_inner_icon_cancel" format="reference" />
+        <attr name="vm_inner_size" format="dimension" />
+
+        <!--触摸区域外圈颜色及大小-->
+        <attr name="vm_outer_color" format="color|reference" />
+        <attr name="vm_outer_size" format="dimension" />
+
         <!--时间文本颜色-->
         <attr name="vm_time_color" format="color|integer" />
         <!--时间文本大小-->
-        <attr name="vm_time_size" format="dimension" />
+        <attr name="vm_time_font_size" format="dimension" />
+    </declare-styleable>
+
+    <!--自定义录制波形控件-->
+    <declare-styleable name="VMRecordWaveformView">
+        <attr name="vm_start_color" format="color|reference" />
+        <attr name="vm_end_color" format="color|reference" />
+        <attr name="vm_waveform_line_width" format="dimension" />
     </declare-styleable>
 
     <!--自定义波形控件-->

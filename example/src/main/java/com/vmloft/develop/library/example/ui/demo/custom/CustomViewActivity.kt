@@ -33,20 +33,30 @@ class CustomViewActivity : BActivity<ActivityDemoViewCustomBinding>() {
         mBinding.customRecordView.setRecordListener(object : RecordListener() {
             override fun onStart() {
                 showBar("录音开始")
+                mBinding.customRecordWaveformView.visibility = View.VISIBLE
             }
 
             override fun onCancel() {
                 errorBar("录音取消")
+                mBinding.customRecordWaveformView.visibility = View.GONE
             }
 
             override fun onError(code: Int, desc: String) {
                 errorBar("录音失败 $code $desc")
+                mBinding.customRecordWaveformView.visibility = View.GONE
             }
 
             override fun onComplete(path: String, time: Int) {
                 showBar("录音完成 $path $time")
+                mBinding.customRecordWaveformView.visibility = View.GONE
+            }
+
+            override fun onDecibel(decibel: Int) {
+                // TODO 录音声音分贝
+                mBinding.customRecordWaveformView.updateDecibel(decibel)
             }
         })
+
     }
 
     override fun initData() {}
@@ -76,6 +86,7 @@ class CustomViewActivity : BActivity<ActivityDemoViewCustomBinding>() {
     fun tips5(view: View) {
         this.show("测试系统提示")
     }
+
     fun showDialog(view: View) {
         mDialog = CommonDialog(this)
         (mDialog as CommonDialog).let { dialog ->

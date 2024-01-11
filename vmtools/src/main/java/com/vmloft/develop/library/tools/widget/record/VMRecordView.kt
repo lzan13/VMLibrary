@@ -8,56 +8,73 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.LinearInterpolator
+import androidx.core.graphics.drawable.toBitmap
 
-import com.vmloft.develop.library.tools.R.color
+import com.vmloft.develop.library.tools.R
 import com.vmloft.develop.library.tools.R.styleable
 import com.vmloft.develop.library.tools.permission.VMPermission
-import com.vmloft.develop.library.tools.utils.VMColor
 import com.vmloft.develop.library.tools.utils.VMDimen
 import com.vmloft.develop.library.tools.utils.VMStr
 import com.vmloft.develop.library.tools.utils.VMSystem
+import com.vmloft.develop.library.tools.utils.logger.VMLog
 
 import java.util.*
 
 /**
- * Created by lzan13 on 2019/06/06 14:30
- *
- * 自定义录音控件
+ * Created by lzan13 on 2024/01/10
+ * 描述：自定义录音控件
  */
-class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
+class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+    View(context, attrs, defStyleAttr) {
     private var mWidth = 0
     private var mHeight = 0
 
-    protected var isUsable = false // 是否可用
-    private val mUnusableDesc = "授予权限" // 不可用描述
+    // 是否可用
+    private var isUsable = false
+
+    // 不可用描述文案
+    private val mUnusableDesc = "点击授予权限"
+
+    //是否开始录制
+    private var isStart = false
+    private var isReadyCancel = false
 
     // 画笔
     private var mPaint: Paint
 
-    // 控件背景颜色
-    private var mCancelColor = VMColor.byRes(color.vm_red_87)
+    // 背景色
+    private var mBGColor = 0xfafafa
 
-    // 外圈的颜色、大小
-    private var mOuterColor = VMColor.byRes(color.vm_green_38)
-    private var mOuterSize = VMDimen.dp2px(96)
-
-    // 内圈录音按钮的颜色、大小
-    private var mInnerColor = VMColor.byRes(color.vm_green)
-    private var mInnerSize = VMDimen.dp2px(96)
+    // 控件取消相关颜色
+    private var mCancelColor = 0xf2f2f4
+    private var mCancelColorActivate = 0xf0578e
+    private var mCancelIcon = R.drawable.ic_close_gray
+    private var mCancelIconActivate = R.drawable.ic_close_white
+    private var mCancelSize = VMDimen.dp2px(48)
 
     // 触摸区域提示文本
-    private var mDescNormal: String = "触摸录音"
-    private var mDescCancel: String = "松开取消"
-    private var mDescColor = VMColor.byRes(color.vm_white)
-    private var mDescSize = VMDimen.dp2px(14)
+    private var mDescNormal: String = "按下 说话"
+    private var mDescCancel: String = "松开 取消"
+    private var mDescColor = 0x44407a
+    private var mDescFontSize = VMDimen.dp2px(14)
+
+    // 内圈录音按钮的颜色、大小
+    private var mInnerSize = VMDimen.dp2px(60)
+    private var mInnerColor = 0x6457f0
+    private var mInnerColorCancel = 0xc7c6d4
+    private var mInnerIcon = R.drawable.ic_voice_record_mic_white
+    private var mInnerIconCancel = R.drawable.ic_voice_record_mic_black
+
+    // 外圈的颜色、大小
+    private var mOuterColor = 0xffffff
+    private var mOuterSize = VMDimen.dp2px(128)
+    private var mOuterAnimSize = 0
+    private var mOuterAnimAlpha = 128
 
     // 时间字体的大小、颜色
-    private var mTimeColor = VMColor.byRes(color.vm_green)
-    private var mTimeSize = VMDimen.dp2px(14)
+    private var mTimeColor = 0x44407a
+    private var mTimeFontSize = VMDimen.dp2px(14)
 
-    //是否开始录制
-    private var isStartRecord = false
-    private var isCancelRecord = false
 
     protected var recordStartTime: Long = 0 // 录制开始时间
     protected var recordTime: Int = 0 // 录制持续时间
@@ -73,7 +90,7 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
         // 获取控件属性
         handleAttrs(attrs)
 
-        // 获得绘制文本的宽和高
+        // 画笔
         mPaint = Paint()
         // 设置抗锯齿
         mPaint.isAntiAlias = true
@@ -88,12 +105,28 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
             return
         }
         val array = context.obtainStyledAttributes(attrs, styleable.VMRecordView)
+
+        mBGColor = array.getColor(styleable.VMRecordView_vm_bg_color, mBGColor)
+
         mCancelColor = array.getColor(styleable.VMRecordView_vm_cancel_color, mCancelColor)
+        mCancelColorActivate = array.getColor(styleable.VMRecordView_vm_cancel_color_activate, mCancelColorActivate)
+        mCancelIcon = array.getResourceId(styleable.VMRecordView_vm_cancel_icon, mCancelIcon)
+        mCancelIconActivate = array.getResourceId(styleable.VMRecordView_vm_cancel_icon_activate, mCancelIconActivate)
+        mCancelSize = array.getDimensionPixelOffset(styleable.VMRecordView_vm_cancel_size, mCancelSize)
+
         mOuterColor = array.getColor(styleable.VMRecordView_vm_outer_color, mOuterColor)
+        mOuterSize = array.getDimensionPixelOffset(styleable.VMRecordView_vm_outer_size, mOuterSize)
+        mOuterAnimSize = (mOuterSize * 1.5f).toInt()
+
         mInnerColor = array.getColor(styleable.VMRecordView_vm_inner_color, mInnerColor)
+        mInnerColorCancel = array.getColor(styleable.VMRecordView_vm_inner_color_cancel, mInnerColorCancel)
         mInnerSize = array.getDimensionPixelOffset(styleable.VMRecordView_vm_inner_size, mInnerSize)
-        mDescNormal = array.getString(styleable.VMRecordView_vm_touch_normal_desc) ?: mDescCancel
-        mDescCancel = array.getString(styleable.VMRecordView_vm_touch_cancel_desc) ?: mDescCancel
+
+        mInnerIcon = array.getResourceId(styleable.VMRecordView_vm_inner_icon, mCancelIcon)
+        mInnerIconCancel = array.getResourceId(styleable.VMRecordView_vm_inner_icon_cancel, mCancelIconActivate)
+
+        mDescNormal = array.getString(styleable.VMRecordView_vm_desc_normal) ?: mDescCancel
+        mDescCancel = array.getString(styleable.VMRecordView_vm_desc_cancel) ?: mDescCancel
         if (mDescNormal.isNullOrEmpty()) {
             mDescNormal = "触摸录音"
         }
@@ -101,9 +134,9 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
             mDescCancel = "松开取消"
         }
         mDescColor = array.getColor(styleable.VMRecordView_vm_desc_color, mDescColor)
-        mDescSize = array.getDimensionPixelOffset(styleable.VMRecordView_vm_desc_size, mDescSize)
+        mDescFontSize = array.getDimensionPixelOffset(styleable.VMRecordView_vm_desc_font_size, mDescFontSize)
         mTimeColor = array.getColor(styleable.VMRecordView_vm_time_color, mTimeColor)
-        mTimeSize = array.getDimensionPixelOffset(styleable.VMRecordView_vm_time_size, mTimeSize)
+        mTimeFontSize = array.getDimensionPixelOffset(styleable.VMRecordView_vm_time_font_size, mTimeFontSize)
         array.recycle()
     }
 
@@ -123,27 +156,34 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        // 绘制背景
         drawBackground(canvas)
+
         if (!isUsable) {
             drawUnusable(canvas)
             return
+        } else {
+            // 绘制录制按钮动画
+            drawRecordAnim(canvas)
+            // 绘制录制按钮
+            drawRecordBtn(canvas)
+            // 绘制取消按钮
+            drawCancelBtn(canvas)
+            // 绘制文本
+            drawDesc(canvas)
+            // 绘制时间
+            drawTime(canvas)
         }
-
-        // 绘制触摸区域
-        drawTouch(canvas)
-
-        // 绘制时间
-        drawTime(canvas)
     }
 
     /**
      * 绘制背景
      */
     private fun drawBackground(canvas: Canvas) {
-        if (isCancelRecord) {
-            mPaint.color = mCancelColor
+        if (isReadyCancel) {
+            mPaint.color = mBGColor
         } else {
-            mPaint.color = VMColor.byRes(color.vm_transparent)
+            mPaint.color = mBGColor
         }
         // 绘制背景
         canvas.drawRect(0f, 0f, mWidth.toFloat(), mHeight.toFloat(), mPaint)
@@ -155,63 +195,110 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
     private fun drawUnusable(canvas: Canvas) {
         // 绘制触摸区域
         mPaint.color = mInnerColor
-        canvas.drawCircle(mWidth / 2.toFloat(), mHeight / 2.toFloat(), mInnerSize / 2.toFloat(), mPaint)
+        canvas.drawCircle(mWidth / 2.0f, mHeight / 2.0f, mInnerSize / 2.0f, mPaint)
+        val bitmap = context.resources.getDrawable(mInnerIcon).toBitmap()
+        canvas.drawBitmap(bitmap, mWidth / 2.0f - bitmap.width / 2, mHeight / 2.0f - bitmap.height / 2, mPaint)
 
         // 绘制提示文本
         mPaint.color = mDescColor
-        mPaint.textSize = mDescSize.toFloat()
+        mPaint.textSize = mDescFontSize.toFloat()
         val tWidth = VMDimen.getTextWidth(mPaint, mUnusableDesc)
         val tHeight = VMDimen.getTextHeight(mPaint, mUnusableDesc)
         canvas.drawText(mUnusableDesc, mWidth / 2 - tWidth / 2, mHeight / 2 + tHeight / 3, mPaint)
     }
 
     /**
-     * 绘制触摸区域
+     * 绘制录制按钮动画
      */
-    private fun drawTouch(canvas: Canvas) {
+    private fun drawRecordAnim(canvas: Canvas) {
+        if (isReadyCancel) return
         // 绘制外圈
-        if (isStartRecord && !isCancelRecord) {
+        mPaint.color = mOuterColor
+        // 设置透明度，这里透明度要放在设置颜色之后
+        mPaint.alpha = mOuterAnimAlpha
+        canvas.drawCircle(mWidth / 2.0f, mHeight / 2.0f, mOuterAnimSize / 2.0f, mPaint)
+    }
+
+    /**
+     * 绘制录制按钮
+     */
+    private fun drawRecordBtn(canvas: Canvas) {
+        if (!isReadyCancel) {
+            // 绘制外圈
             mPaint.color = mOuterColor
-            canvas.drawCircle(mWidth / 2.toFloat(), mHeight / 2.toFloat(), mOuterSize / 2.toFloat(), mPaint)
+            canvas.drawCircle(mWidth / 2.0f, mHeight / 2.0f, mOuterSize / 2.0f, mPaint)
         }
-        val innerColor: Int
+
+        // 绘制触摸区域
+        mPaint.color = if (isReadyCancel) mInnerColorCancel else mInnerColor
+        canvas.drawCircle(mWidth / 2.0f, mHeight / 2.0f, mInnerSize / 2.0f, mPaint)
+
+        // 绘制麦克风图标
+        val bitmap = context.resources.getDrawable(if (isReadyCancel) mInnerIconCancel else mInnerIcon).toBitmap()
+        canvas.drawBitmap(bitmap, mWidth / 2.0f - bitmap.width / 2, mHeight / 2.0f - bitmap.height / 2, mPaint)
+    }
+
+    /**
+     * 绘制录制按钮
+     */
+    private fun drawCancelBtn(canvas: Canvas) {
+        // 绘制取消按钮背景
+        mPaint.color = if (isReadyCancel) mCancelColorActivate else mCancelColor
+
+        val cancelX = mWidth - VMDimen.dp2px(36) - mCancelSize / 2.0f
+        val cancelY = mHeight / 2.0f
+        canvas.drawCircle(cancelX, cancelY, mCancelSize / 2.0f, mPaint)
+
+        // 绘制麦克风图标
+        val bitmap = context.resources.getDrawable(if (isReadyCancel) mCancelIconActivate else mCancelIcon).toBitmap()
+        val cancelIconX = mWidth - VMDimen.dp2px(36) - mCancelSize / 2 - bitmap.width / 2.0f
+        val cancelIconY = mHeight / 2 - bitmap.height / 2.0f
+        canvas.drawBitmap(bitmap, cancelIconX, cancelIconY, mPaint)
+    }
+
+    /**
+     * 绘制文本
+     */
+    private fun drawDesc(canvas: Canvas) {
+        if (isStart && !isReadyCancel) return
+
         val descColor: Int
         var desc: String
-        if (isCancelRecord) {
-            innerColor = VMColor.byRes(color.vm_white)
-            descColor = mCancelColor
+        if (isReadyCancel) {
+            descColor = mCancelColorActivate
             desc = mDescCancel
         } else {
-            innerColor = mInnerColor
             descColor = mDescColor
             desc = mDescNormal
         }
-        // 绘制触摸区域
-        mPaint.color = innerColor
-        canvas.drawCircle(mWidth / 2.toFloat(), mHeight / 2.toFloat(), mInnerSize / 2.toFloat(), mPaint)
-
         // 绘制提示文本
         mPaint.color = descColor
-        mPaint.textSize = mDescSize.toFloat()
+        mPaint.textSize = mDescFontSize.toFloat()
         val tWidth = VMDimen.getTextWidth(mPaint, desc)
         val tHeight = VMDimen.getTextHeight(mPaint, desc)
-        canvas.drawText(desc, mWidth / 2 - tWidth / 2, mHeight / 2 + tHeight / 3, mPaint)
+        val centerY = mHeight / 2 - mInnerSize / 2 - tHeight * 2
+        canvas.drawText(desc, mWidth / 2 - tWidth / 2, centerY, mPaint)
     }
 
     /**
      * 绘制录音时间
      */
     private fun drawTime(canvas: Canvas) {
-        mPaint.color = if (isCancelRecord) VMColor.byRes(color.vm_white) else mTimeColor
+        // 取消状态不绘制时间
+        if (!isStart || isReadyCancel) return
+        //
+        mPaint.color = mTimeColor
         mPaint.strokeWidth = 1f
-        mPaint.textSize = mTimeSize.toFloat()
+        mPaint.textSize = mTimeFontSize.toFloat()
         val minute = recordTime / 1000 / 60
         val seconds = recordTime / 1000 % 60
 //        val millisecond = recordTime % 1000 / 100
+
         val time = VMStr.byArgs("%02d:%02d", minute, seconds)
         val tWidth = VMDimen.getTextWidth(mPaint, time)
         val tHeight = VMDimen.getTextHeight(mPaint, time)
-        canvas.drawText(time, mWidth / 2 - tWidth / 2, mHeight / 6f, mPaint)
+        val centerX = VMDimen.dp2px(36) + tWidth / 2
+        canvas.drawText(time, centerX, mHeight / 2 + tHeight / 2, mPaint)
     }
 
     /**
@@ -219,16 +306,34 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
      */
     private fun startOuterAnim() {
         VMSystem.runInUIThread({
-            val mAnimator = ValueAnimator.ofInt(mInnerSize, (mInnerSize + recordDecibel * 1.1f * mHeight / 10).toInt(), mInnerSize)
+            val mAnimator = ValueAnimator.ofInt(mOuterSize, mOuterSize * 2)
             mAnimator.duration = sampleTime
             mAnimator.repeatCount = 0
             mAnimator.interpolator = LinearInterpolator()
             mAnimator.addUpdateListener { a: ValueAnimator ->
-                mOuterSize = a.animatedValue as Int
-                invalidate()
+                if (isStart) {
+                    // 动画大小根据回调变化
+                    mOuterAnimSize = a.animatedValue as Int
+                    mOuterAnimAlpha = (mOuterSize * 2 - mOuterAnimSize) * 128 / mOuterSize
+
+//                VMLog.i("alpha $mOuterAnimAlpha")
+                    invalidate()
+                }
             }
             mAnimator.start()
         })
+        // 原来的内圈动画
+//        VMSystem.runInUIThread({
+//            val mAnimator = ValueAnimator.ofInt(mInnerSize, (mInnerSize + recordDecibel * 1.2f * mHeight / 10).toInt(), mInnerSize)
+//            mAnimator.duration = sampleTime
+//            mAnimator.repeatCount = 0
+//            mAnimator.interpolator = LinearInterpolator()
+//            mAnimator.addUpdateListener { a: ValueAnimator ->
+//                mOuterSize = a.animatedValue as Int
+//                invalidate()
+//            }
+//            mAnimator.start()
+//        })
     }
 
     var timer: Timer? = null
@@ -246,17 +351,18 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
                 recordTime = (System.currentTimeMillis() - recordStartTime).toInt()
                 recordDecibel = VMRecorder.decibel()
                 startOuterAnim()
+                mRecordListener?.onDecibel(recordDecibel)
                 postInvalidate()
             }
         }
-        timer?.scheduleAtFixedRate(task, 500, 500)
+        timer?.scheduleAtFixedRate(task, 100, sampleTime)
     }
 
     /**
      * 开始录音
      */
     fun startRecord() {
-        isStartRecord = true
+        isStart = true
         // 调用录音机开始录制音频
         val code: Int = VMRecorder.startRecord(null)
         if (code == VMRecorder.errorNone) {
@@ -265,7 +371,7 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
         } else if (code == VMRecorder.errorRecording) {
             // TODO 正在录制中，不做处理
         } else if (code == VMRecorder.errorSystem) {
-            isStartRecord = false
+            isStart = false
             recordError(code, "录音系统错误")
             reset()
         }
@@ -309,12 +415,23 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
             MotionEvent.ACTION_DOWN -> if (isUsable && x > mWidth / 2 - mInnerSize / 2 && x < mWidth / 2 + mInnerSize / 2 && y > mHeight / 2 - mInnerSize / 2 && y < mHeight / 2 + mInnerSize / 2) {
                 startRecord()
             }
-            MotionEvent.ACTION_MOVE -> if (isUsable && isStartRecord) {
-                isCancelRecord = x < mWidth / 2 - mInnerSize / 2 || x > mWidth / 2 + mInnerSize / 2 || y < mHeight / 2 - mInnerSize / 2 || y > mHeight / 2 + mInnerSize / 2
+
+            MotionEvent.ACTION_MOVE -> if (isUsable && isStart) {
+                val cancelX = mWidth - VMDimen.dp2px(36) - mCancelSize / 2.0f
+                val cancelY = mHeight / 2.0f
+                val cancelLeft = cancelX - mCancelSize / 2
+                val cancelRight = cancelX + mCancelSize / 2
+                val cancelTop = cancelY - mCancelSize / 2
+                val cancelBottom = cancelY + mCancelSize / 2
+                isReadyCancel = x > cancelLeft && x < cancelRight && y > cancelTop && y < cancelBottom
+
+//                VMLog.i("$isReadyCancel ($cancelLeft-$x-$cancelRight) ($cancelTop-$y-$cancelBottom)")
+
                 postInvalidate()
             }
-            MotionEvent.ACTION_UP -> if (isUsable && isStartRecord) {
-                if (isCancelRecord) {
+
+            MotionEvent.ACTION_UP -> if (isUsable && isStart) {
+                if (isReadyCancel) {
                     stopRecord(true)
                 } else {
                     stopRecord(false)
@@ -370,10 +487,15 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
      * 重置控件
      */
     private fun reset() {
-        isStartRecord = false
-        isCancelRecord = false
+        isStart = false
+        isReadyCancel = false
+
+        mOuterAnimSize = (mOuterSize * 1.5).toInt()
+        mOuterAnimAlpha = 128
+
         recordStartTime = 0L
         recordTime = 0
+
         VMRecorder.reset()
     }
 
@@ -448,6 +570,11 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
          * @param time 录音时长
          */
         abstract fun onComplete(path: String, time: Int)
+
+        /**
+         * 录音分贝
+         */
+        abstract fun onDecibel(decibel: Int)
     }
 
 }

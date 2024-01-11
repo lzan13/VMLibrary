@@ -12,5 +12,4 @@
     <color name="app_home_card_wish_end">#FCA487</color>
     <color name="app_home_card_name">@color/vm_white</color>
     <color name="app_home_card_desc">@color/vm_white_87</color>
-
 </resources>
