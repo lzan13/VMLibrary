@@ -14,7 +14,7 @@ VMLibrary
 本来是作为一个自己项目管理第三方依赖用的，后来慢慢地积累了一些常用的工具类以及自定义控件，所以有想法把他放出去，
 可以让其他有需要的同学以及使用，我这边呢会慢慢完善这个库的功能，如果有好想法，好的工具类也可以提到这里来
 
->PS:由于国内访问过慢，仓库代码放在`gitee`上 [VMLibrary](https://gitee.com/lzan13/VMLibrary)
+>PS:由于国内访问过慢，仓库代码在`gitee`上同样有一份 [VMLibrary](https://gitee.com/lzan13/VMLibrary)
 
 ### #引用
 现已将库发布到 JitPack.io，需要使用的同学可以直接通过远程方式引用
