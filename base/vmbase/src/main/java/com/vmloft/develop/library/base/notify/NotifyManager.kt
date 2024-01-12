@@ -19,6 +19,7 @@ import com.vmloft.develop.library.base.R
 import com.vmloft.develop.library.base.common.CSPManager
 import com.vmloft.develop.library.tools.VMTools
 import com.vmloft.develop.library.tools.utils.VMStr
+import com.vmloft.develop.library.tools.utils.VMSystem
 import com.vmloft.develop.library.tools.utils.logger.VMLog
 
 /**
@@ -82,7 +83,7 @@ object NotifyManager {
 
         // 通知标题
         if (title.isNullOrEmpty()) {
-            builder.setContentTitle(VMStr.byRes(R.string.app_name))
+            builder.setContentTitle(VMSystem.appName)
         } else {
             builder.setContentTitle(title)
         }
@@ -121,7 +122,7 @@ object NotifyManager {
 
         // 通知标题
         if (title.isNullOrEmpty()) {
-            builder.setContentTitle(VMStr.byRes(R.string.app_name))
+            builder.setContentTitle(VMSystem.appName)
         } else {
             builder.setContentTitle(title)
         }

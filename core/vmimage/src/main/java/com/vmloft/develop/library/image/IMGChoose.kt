@@ -61,7 +61,7 @@ object IMGChoose {
             .cropSaveInDCIM(false) // true：存储在DCIM下 false：存储在 data/包名/files/imagePicker/ 目录下
             .cropRectMinMargin(VMDimen.dp2px(8)) // 裁剪间距
             .cropStyle(MultiSelectConfig.STYLE_FILL) // 裁剪模式 1-充满/2-留白
-            .cropGapBackgroundColor(VMColor.byRes(R.color.app_bg)) // 裁剪留白背景色
+            .cropGapBackgroundColor(VMColor.byRes(com.vmloft.develop.library.base.R.color.app_bg)) // 裁剪留白背景色
             .filterMimeTypes(MimeType.GIF) // 设置需要过滤掉加载的文件类型
             .mimeTypes(MimeType.ofImage()) // 设置要加载的文件类型，可指定单一类型
             .setSingleCropCutNeedTop(true) // 裁剪框在最上层

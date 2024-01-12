@@ -41,9 +41,9 @@ class DisplayMultiActivity :BVMActivity<ActivityDisplayMultiBinding, DisplayView
 
     override fun initUI() {
         super.initUI()
-        setTopIconColor(VMColor.byRes(R.color.app_title_display))
-        setTopTitleColor(R.color.app_title_display)
-        setTopBGColor(VMColor.byRes(R.color.app_bg_transparent_dark))
+        setTopIconColor(VMColor.byRes(com.vmloft.develop.library.base.R.color.app_title_display))
+        setTopTitleColor(com.vmloft.develop.library.base.R.color.app_title_display)
+        setTopBGColor(VMColor.byRes(com.vmloft.develop.library.base.R.color.app_bg_transparent_dark))
         setTopEndIcon(R.drawable.ic_download_picture) { savePicture() }
 
         initViewPager()

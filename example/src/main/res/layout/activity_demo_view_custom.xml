@@ -87,7 +87,7 @@
                 android:layout_height="@dimen/vm_dimen_192"
                 app:layout_constraintTop_toBottomOf="@+id/testTV"
 
-                app:vm_bg_color="#eaeaea"
+                app:vm_bg_color="#fafafb"
 
                 app:vm_cancel_color="#f2f2f4"
                 app:vm_cancel_color_activate="#f0578e"
@@ -118,9 +118,10 @@
                 android:layout_height="@dimen/vm_dimen_64"
                 android:visibility="visible"
                 app:layout_constraintTop_toTopOf="@+id/testTV"
-                app:vm_end_color="#86fff8"
-                app:vm_start_color="#6457f0"
-                app:vm_waveform_line_width="@dimen/vm_dimen_4" />
+                app:vm_waveform_bg_color="@color/app_bg"
+                app:vm_waveform_end_color="#86fff8"
+                app:vm_waveform_line_width="@dimen/vm_dimen_4"
+                app:vm_waveform_start_color="#6457f0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.vmloft.develop.library.tools.widget.VMWaveView

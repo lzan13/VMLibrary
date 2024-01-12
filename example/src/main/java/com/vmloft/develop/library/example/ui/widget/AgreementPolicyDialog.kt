@@ -36,7 +36,7 @@ class AgreementPolicyDialog(context: Context) : CommonDialog(context) {
         //设置超链接
         sp.setSpan(CustomURLSpan("agreement"), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         //设置高亮样式
-        sp.setSpan(ForegroundColorSpan(VMColor.byRes(R.color.app_accent)), start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+        sp.setSpan(ForegroundColorSpan(VMColor.byRes(com.vmloft.develop.library.base.R.color.app_accent)), start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
         //设置高亮样式二
 
         start = agreementContent.indexOf(privacyPolicy)
@@ -44,7 +44,7 @@ class AgreementPolicyDialog(context: Context) : CommonDialog(context) {
         //设置超链接
         sp.setSpan(CustomURLSpan("policy"), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         //设置高亮样式
-        sp.setSpan(ForegroundColorSpan(VMColor.byRes(R.color.app_accent)), start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+        sp.setSpan(ForegroundColorSpan(VMColor.byRes(com.vmloft.develop.library.base.R.color.app_accent)), start, end, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
 
         //设置斜体
 //        sp.setSpan(StyleSpan(android.graphics.Typeface.BOLD_ITALIC), 19, 21, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
@@ -52,7 +52,7 @@ class AgreementPolicyDialog(context: Context) : CommonDialog(context) {
 //        sp.setSpan(UnderlineSpan(), 22, 25, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         setContent(sp)
-        getContentTV()?.highlightColor = VMColor.byRes(R.color.vm_transparent)
+        getContentTV()?.highlightColor = VMColor.byRes(com.vmloft.develop.library.tools.R.color.vm_transparent)
         getContentTV()?.movementMethod = LinkMovementMethod.getInstance()
     }
 
@@ -63,7 +63,7 @@ class AgreementPolicyDialog(context: Context) : CommonDialog(context) {
 //            ds.color = Color.RED
             //这里可以去除点击文本的默认的下划线
             ds.isUnderlineText = false
-            ds.bgColor = VMColor.byRes(R.color.vm_transparent)
+            ds.bgColor = VMColor.byRes(com.vmloft.develop.library.tools.R.color.vm_transparent)
         }
 
         override fun onClick(widget: View) {

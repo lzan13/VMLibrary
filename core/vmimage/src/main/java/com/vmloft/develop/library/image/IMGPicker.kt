@@ -35,23 +35,23 @@ class IMGPicker : IPickerPresenter {
     override fun getUiConfig(context: Context?): PickerUiConfig {
         val uiConfig = PickerUiConfig()
         //设置主题色
-        uiConfig.themeColor = VMColor.byRes(R.color.app_main)
+        uiConfig.themeColor = VMColor.byRes(com.vmloft.develop.library.base.R.color.app_main)
         //设置是否显示状态栏
         uiConfig.isShowStatusBar = true
         //设置状态栏颜色
-        uiConfig.statusBarColor = VMColor.byRes(R.color.app_bg)
+        uiConfig.statusBarColor = VMColor.byRes(com.vmloft.develop.library.base.R.color.app_bg)
         //设置选择器背景
-        uiConfig.pickerBackgroundColor = VMColor.byRes(R.color.app_bg)
+        uiConfig.pickerBackgroundColor = VMColor.byRes(com.vmloft.develop.library.base.R.color.app_bg)
         //设置单图剪裁背景色
-        uiConfig.singleCropBackgroundColor = VMColor.byRes(R.color.app_bg)
+        uiConfig.singleCropBackgroundColor = VMColor.byRes(com.vmloft.develop.library.base.R.color.app_bg)
         //设置预览页面背景色
-        uiConfig.previewBackgroundColor = VMColor.byRes(R.color.app_bg)
+        uiConfig.previewBackgroundColor = VMColor.byRes(com.vmloft.develop.library.base.R.color.app_bg)
         //设置选择器文件夹打开方向
         uiConfig.folderListOpenDirection = PickerUiConfig.DIRECTION_BOTTOM
         //设置文件夹列表距离顶部/底部边距
         uiConfig.folderListOpenMaxMargin = 0
         //设置小红书剪裁区域的背景色
-        uiConfig.cropViewBackgroundColor = VMColor.byRes(R.color.app_bg)
+        uiConfig.cropViewBackgroundColor = VMColor.byRes(com.vmloft.develop.library.base.R.color.app_bg)
         //设置文件夹列表距离底部/顶部的最大间距。通俗点就是设置文件夹列表的高
         if (context != null) {
             uiConfig.folderListOpenMaxMargin = VMDimen.dp2px(16)
@@ -63,18 +63,18 @@ class IMGPicker : IPickerPresenter {
             override fun getTitleBar(context: Context): PickerControllerView {
                 val titleBar = super.getTitleBar(context) as WXTitleBar
                 titleBar.centerTitle()
-                titleBar.setBackIconID(R.drawable.ic_arrow_back)
-                titleBar.setBackgroundColor(VMColor.byRes(R.color.app_bg))
-                titleBar.setTitleTextColor(VMColor.byRes(R.color.app_title))
+                titleBar.setBackIconID(com.vmloft.develop.library.base.R.drawable.ic_arrow_back)
+                titleBar.setBackgroundColor(VMColor.byRes(com.vmloft.develop.library.base.R.color.app_bg))
+                titleBar.setTitleTextColor(VMColor.byRes(com.vmloft.develop.library.base.R.color.app_title))
                 titleBar.setCompleteBackground(null, null)
-                titleBar.setCompleteTextColor(VMColor.byRes(R.color.app_accent), VMColor.byRes(R.color.app_desc))
+                titleBar.setCompleteTextColor(VMColor.byRes(com.vmloft.develop.library.base.R.color.app_accent), VMColor.byRes(com.vmloft.develop.library.base.R.color.app_desc))
                 return titleBar
             }
 
             // 定制选择器底部栏，返回null即代表没有底部栏，默认实现为 WXBottomBar
             override fun getBottomBar(context: Context): PickerControllerView {
                 val bottomBar = super.getBottomBar(context)
-                bottomBar.setBackgroundColor(VMColor.byRes(R.color.app_bg_display))
+                bottomBar.setBackgroundColor(VMColor.byRes(com.vmloft.develop.library.base.R.color.app_bg_display))
                 return bottomBar
             }
 
@@ -136,7 +136,7 @@ class IMGPicker : IPickerPresenter {
         }
         val dialog = AppCompatDialog(activity)
         val loadView = VMLoadingView(activity)
-        loadView.setColorFilter(VMColor.byRes(R.color.app_accent))
+        loadView.setColorFilter(VMColor.byRes(com.vmloft.develop.library.base.R.color.app_accent))
         dialog.setContentView(loadView)
         dialog.show()
         return dialog

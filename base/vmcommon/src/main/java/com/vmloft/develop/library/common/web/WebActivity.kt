@@ -30,7 +30,7 @@ class WebActivity : BActivity<ActivityWebBinding>() {
 
     override fun initUI() {
         super.initUI()
-        setTopTitle(R.string.vm_loading)
+        setTopTitle(com.vmloft.develop.library.tools.R.string.vm_loading)
 
         initWebView()
     }
@@ -46,12 +46,12 @@ class WebActivity : BActivity<ActivityWebBinding>() {
     private fun initWebView() {
         mAgentWeb = AgentWeb.with(this)
             .setAgentWebParent(mBinding.webContainer, LinearLayout.LayoutParams(-1, -1))
-            .useDefaultIndicator(VMColor.byRes(R.color.app_main), 1)
+            .useDefaultIndicator(VMColor.byRes(com.vmloft.develop.library.base.R.color.app_main), 1)
             .setWebChromeClient(chromeClient)
             .createAgentWeb()
             .ready()
             .go("")
-        mAgentWeb.webCreator.webParentLayout.setBackgroundResource(R.color.app_bg)
+        mAgentWeb.webCreator.webParentLayout.setBackgroundResource(com.vmloft.develop.library.base.R.color.app_bg)
     }
 
     /**

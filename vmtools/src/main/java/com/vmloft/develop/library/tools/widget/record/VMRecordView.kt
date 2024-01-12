@@ -69,7 +69,7 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
     private var mOuterColor = 0xffffff
     private var mOuterSize = VMDimen.dp2px(128)
     private var mOuterAnimSize = 0
-    private var mOuterAnimAlpha = 128
+    private var mOuterAnimAlpha = 100
 
     // 时间字体的大小、颜色
     private var mTimeColor = 0x44407a
@@ -81,7 +81,7 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
 
     protected var recordDecibel = 1 // 分贝
 
-    protected var sampleTime: Long = 500 // 分贝取样时间 毫秒值
+    protected var sampleTime: Long = 1000 // 分贝取样时间 毫秒值
 
     /**
      * 初始化控件
@@ -193,18 +193,15 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
      * 绘制不可用时的 UI
      */
     private fun drawUnusable(canvas: Canvas) {
-        // 绘制触摸区域
-        mPaint.color = mInnerColor
-        canvas.drawCircle(mWidth / 2.0f, mHeight / 2.0f, mInnerSize / 2.0f, mPaint)
-        val bitmap = context.resources.getDrawable(mInnerIcon).toBitmap()
-        canvas.drawBitmap(bitmap, mWidth / 2.0f - bitmap.width / 2, mHeight / 2.0f - bitmap.height / 2, mPaint)
-
+        drawRecordAnim(canvas)
+        drawRecordBtn(canvas)
         // 绘制提示文本
         mPaint.color = mDescColor
         mPaint.textSize = mDescFontSize.toFloat()
         val tWidth = VMDimen.getTextWidth(mPaint, mUnusableDesc)
         val tHeight = VMDimen.getTextHeight(mPaint, mUnusableDesc)
-        canvas.drawText(mUnusableDesc, mWidth / 2 - tWidth / 2, mHeight / 2 + tHeight / 3, mPaint)
+        val centerY = mHeight / 2 - mInnerSize / 2 - tHeight * 2
+        canvas.drawText(mUnusableDesc, mWidth / 2 - tWidth / 2, centerY, mPaint)
     }
 
     /**
@@ -242,6 +239,9 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
      * 绘制录制按钮
      */
     private fun drawCancelBtn(canvas: Canvas) {
+        // 开始后再绘制取消按钮
+        if (!isStart) return
+
         // 绘制取消按钮背景
         mPaint.color = if (isReadyCancel) mCancelColorActivate else mCancelColor
 
@@ -249,7 +249,7 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
         val cancelY = mHeight / 2.0f
         canvas.drawCircle(cancelX, cancelY, mCancelSize / 2.0f, mPaint)
 
-        // 绘制麦克风图标
+        // 绘制取消图标
         val bitmap = context.resources.getDrawable(if (isReadyCancel) mCancelIconActivate else mCancelIcon).toBitmap()
         val cancelIconX = mWidth - VMDimen.dp2px(36) - mCancelSize / 2 - bitmap.width / 2.0f
         val cancelIconY = mHeight / 2 - bitmap.height / 2.0f
@@ -314,7 +314,7 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
                 if (isStart) {
                     // 动画大小根据回调变化
                     mOuterAnimSize = a.animatedValue as Int
-                    mOuterAnimAlpha = (mOuterSize * 2 - mOuterAnimSize) * 128 / mOuterSize
+                    mOuterAnimAlpha = (mOuterSize * 2 - mOuterAnimSize) * 100 / mOuterSize
 
 //                VMLog.i("alpha $mOuterAnimAlpha")
                     invalidate()
@@ -491,7 +491,7 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
         isReadyCancel = false
 
         mOuterAnimSize = (mOuterSize * 1.5).toInt()
-        mOuterAnimAlpha = 128
+        mOuterAnimAlpha = 100
 
         recordStartTime = 0L
         recordTime = 0

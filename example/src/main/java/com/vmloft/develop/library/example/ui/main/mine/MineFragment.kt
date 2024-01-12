@@ -38,7 +38,7 @@ class MineFragment : BFragment<FragmentMineBinding>() {
         CUtils.setDarkMode(requireActivity(), false)
         mBinding.tabTopSpaceView.layoutParams.height = VMDimen.dp2px(48) + VMDimen.statusBarHeight
 
-        setTopTitleColor(R.color.app_title_display)
+        setTopTitleColor(com.vmloft.develop.library.base.R.color.app_title_display)
         setTopTitle("小透明")
 
 //            mineAvatarIV.setOnClickListener { CRouter.goDisplaySingle(mUser.avatar) }

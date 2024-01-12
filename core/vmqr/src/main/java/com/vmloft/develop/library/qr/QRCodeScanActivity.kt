@@ -27,7 +27,7 @@ class QRCodeScanActivity : BActivity<ActivityQrCodeScanBinding>(), QRCodeView.De
         super.initUI()
 
         setTopTitle(R.string.qr_code_scan)
-        setTopIconColor(VMColor.byRes(R.color.app_title_display))
+        setTopIconColor(VMColor.byRes(com.vmloft.develop.library.base.R.color.app_title_display))
 
         initQRCodeScan()
 

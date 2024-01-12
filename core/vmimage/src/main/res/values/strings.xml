@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="picture_save_toast_succeed">图片保存成功</string>
+    <string name="picture_save_toast_failed">图片保存失败</string>
+
+</resources>

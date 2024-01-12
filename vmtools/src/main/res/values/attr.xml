@@ -185,8 +185,9 @@
 
     <!--自定义录制波形控件-->
     <declare-styleable name="VMRecordWaveformView">
-        <attr name="vm_start_color" format="color|reference" />
-        <attr name="vm_end_color" format="color|reference" />
+        <attr name="vm_waveform_bg_color" format="color|reference" />
+        <attr name="vm_waveform_start_color" format="color|reference" />
+        <attr name="vm_waveform_end_color" format="color|reference" />
         <attr name="vm_waveform_line_width" format="dimension" />
     </declare-styleable>
 

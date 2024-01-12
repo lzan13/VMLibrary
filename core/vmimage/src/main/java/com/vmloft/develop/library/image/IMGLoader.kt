@@ -23,6 +23,7 @@ import com.bumptech.glide.request.target.Target
 import com.vmloft.develop.library.base.common.CConstants
 import com.vmloft.develop.library.base.common.CError
 import com.vmloft.develop.library.base.utils.CUtils
+import com.vmloft.develop.library.image.R
 import com.vmloft.develop.library.request.RConstants
 import com.vmloft.develop.library.request.RResult
 import com.vmloft.develop.library.tools.utils.VMDate
@@ -122,7 +123,7 @@ object IMGLoader {
         radiusSize: Int = 4,
         thumbExt: String = "!vt192",
     ) {
-        val options = Options(avatar, R.drawable.img_default_avatar, isCircle, isRadius, radiusSize, thumbExt = thumbExt)
+        val options = Options(avatar, com.vmloft.develop.library.common.R.drawable.img_default_avatar, isCircle, isRadius, radiusSize, thumbExt = thumbExt)
         load(options, iv)
     }
 
@@ -147,7 +148,7 @@ object IMGLoader {
         isBlur: Boolean = false,
         thumbnailUrl: String = "",
         thumbExt: String = "!vt256",
-        defaultResId: Int = R.drawable.img_default,
+        defaultResId: Int = com.vmloft.develop.library.common.R.drawable.img_default,
     ) {
         val options = Options(
             cover,
@@ -315,7 +316,7 @@ object IMGLoader {
         // 图片资源，可以为 Uri/String/resId
         var res: Any?,
         // 默认资源
-        var defaultResId: Int = R.drawable.img_default,
+        var defaultResId: Int = com.vmloft.develop.library.common.R.drawable.img_default,
         // 是否圆形
         var isCircle: Boolean = false,
         // 圆角

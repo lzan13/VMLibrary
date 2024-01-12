@@ -15,7 +15,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
-import com.vmloft.develop.library.example.R;
 import com.ypx.imagepicker.adapter.PickerItemAdapter;
 import com.ypx.imagepicker.bean.ImageItem;
 import com.ypx.imagepicker.bean.selectconfig.BaseSelectConfig;
@@ -74,7 +73,7 @@ public class CustomImgPickerPresenter implements IPickerPresenter {
                 titleBar.centerTitle();
                 titleBar.setShowArrow(true);
                 titleBar.setCanToggleFolderList(true);
-                titleBar.setBackIconID(R.mipmap.picker_icon_close_black);
+                titleBar.setBackIconID(com.ypx.imagepicker.R.mipmap.picker_icon_close_black);
                 return titleBar;
             }
 

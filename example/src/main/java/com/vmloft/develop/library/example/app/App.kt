@@ -129,7 +129,7 @@ class App : Application() {
     private fun initRefresh() {
         // 设置全局默认配置（优先级最低，会被其他设置覆盖）
         SmartRefreshLayout.setDefaultRefreshInitializer { _, layout ->
-            layout.setPrimaryColorsId(R.color.app_primary, R.color.app_accent) // 全局设置主题颜色
+            layout.setPrimaryColorsId(com.vmloft.develop.library.base.R.color.app_primary, com.vmloft.develop.library.base.R.color.app_accent) // 全局设置主题颜色
 
             layout.setDragRate(0.6f) // 显示拖动高度/真实拖动高度（默认0.5，阻尼效果）
 

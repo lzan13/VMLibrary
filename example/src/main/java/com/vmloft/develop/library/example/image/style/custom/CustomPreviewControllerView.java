@@ -176,17 +176,17 @@ public class CustomPreviewControllerView extends PreviewControllerView {
     @Override
     public void singleTap() {
         if (mTitleBar.getVisibility() == View.VISIBLE) {
-            mTitleBar.setAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.picker_top_out));
-            mTvIndex.setAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.picker_top_out));
-            mPreviewRecyclerView.setAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.picker_fade_out));
+            mTitleBar.setAnimation(AnimationUtils.loadAnimation(getContext(), com.ypx.imagepicker.R.anim.picker_top_out));
+            mTvIndex.setAnimation(AnimationUtils.loadAnimation(getContext(), com.ypx.imagepicker.R.anim.picker_top_out));
+            mPreviewRecyclerView.setAnimation(AnimationUtils.loadAnimation(getContext(), com.ypx.imagepicker.R.anim.picker_fade_out));
             mTitleBar.setVisibility(View.GONE);
             mPreviewRecyclerView.setVisibility(View.GONE);
             mPreviewRecyclerView.setVisibility(View.GONE);
             mTvIndex.setVisibility(View.GONE);
         } else {
-            mTitleBar.setAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.picker_top_in));
-            mTvIndex.setAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.picker_top_in));
-            mPreviewRecyclerView.setAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.picker_fade_in));
+            mTitleBar.setAnimation(AnimationUtils.loadAnimation(getContext(), com.ypx.imagepicker.R.anim.picker_top_in));
+            mTvIndex.setAnimation(AnimationUtils.loadAnimation(getContext(), com.ypx.imagepicker.R.anim.picker_top_in));
+            mPreviewRecyclerView.setAnimation(AnimationUtils.loadAnimation(getContext(), com.ypx.imagepicker.R.anim.picker_fade_in));
             mTitleBar.setVisibility(View.VISIBLE);
             mTvIndex.setVisibility(View.VISIBLE);
             mPreviewRecyclerView.setVisibility(View.VISIBLE);

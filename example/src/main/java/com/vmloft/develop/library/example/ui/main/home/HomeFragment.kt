@@ -82,7 +82,7 @@ class HomeFragment : BFragment<FragmentHomeBinding>() {
      * 检查权限
      */
     private fun checkOnePermissions() {
-        val bean = VMPermissionBean(Manifest.permission.CAMERA, "访问相机", "扫描二维码需要使用到相机，请允许我们获取拍照权限", R.drawable.ic_camera)
+        val bean = VMPermissionBean(Manifest.permission.CAMERA, "访问相机", "扫描二维码需要使用到相机，请允许我们获取拍照权限", com.vmloft.develop.library.common.R.drawable.ic_camera)
         PermissionManager.requestPermission(requireContext(), bean) {
             if (it) {
                 showBar("权限申请完成")
