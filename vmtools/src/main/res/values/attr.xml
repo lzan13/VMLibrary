@@ -188,7 +188,8 @@
         <attr name="vm_waveform_bg_color" format="color|reference" />
         <attr name="vm_waveform_start_color" format="color|reference" />
         <attr name="vm_waveform_end_color" format="color|reference" />
-        <attr name="vm_waveform_line_width" format="dimension" />
+        <attr name="vm_waveform_base_width" format="dimension" />
+        <attr name="vm_waveform_base_height" format="dimension" />
     </declare-styleable>
 
     <!--自定义波形控件-->

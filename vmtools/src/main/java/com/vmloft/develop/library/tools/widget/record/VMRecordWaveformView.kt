@@ -44,10 +44,8 @@ class VMRecordWaveformView @JvmOverloads constructor(context: Context, attrs: At
     private var mEndColor = 0xfafafa
 
     // 波形宽度
-    private var mLineWidth = VMDimen.dp2px(10)
-
-    // 波形空间
-    private var spaceWidth = VMDimen.dp2px(30)
+    private var mBaseWidth = VMDimen.dp2px(5)
+    private var mBaseHeight = VMDimen.dp2px(8)
 
     private var recordDecibel = 1 // 分贝
 
@@ -85,7 +83,9 @@ class VMRecordWaveformView @JvmOverloads constructor(context: Context, attrs: At
         mBGColor = array.getColor(R.styleable.VMRecordWaveformView_vm_waveform_bg_color, mBGColor)
         mStartColor = array.getColor(R.styleable.VMRecordWaveformView_vm_waveform_start_color, mStartColor)
         mEndColor = array.getColor(R.styleable.VMRecordWaveformView_vm_waveform_end_color, mEndColor)
-        mLineWidth = array.getDimensionPixelOffset(R.styleable.VMRecordWaveformView_vm_waveform_line_width, mLineWidth)
+
+        mBaseWidth = array.getDimensionPixelOffset(R.styleable.VMRecordWaveformView_vm_waveform_base_width, mBaseWidth)
+        mBaseHeight = array.getDimensionPixelOffset(R.styleable.VMRecordWaveformView_vm_waveform_base_height, mBaseWidth)
         array.recycle()
     }
 
@@ -101,10 +101,10 @@ class VMRecordWaveformView @JvmOverloads constructor(context: Context, attrs: At
         super.onSizeChanged(w, h, oldw, oldh)
         mWidth = w
         mHeight = h
-        val spaceWidth = (mWidth - VMDimen.dp2px(10) * 2 - mLineWidth * 19) / 18
+        val spaceWidth = (mWidth - VMDimen.dp2px(10) * 2 - mBaseWidth * 19) / 18
         for (i in 0..18) {
             val waveformBean = WaveformBean()
-            waveformBean.centerX = VMDimen.dp2px(10) + i * spaceWidth + mLineWidth / 2 + i * mLineWidth
+            waveformBean.centerX = VMDimen.dp2px(10) + i * spaceWidth + mBaseWidth / 2 + i * mBaseWidth
             waveformBean.centerY = mHeight / 2
             if (i == 4 || i == 14) {
             } else if (i == 5 || i == 13) {
@@ -129,9 +129,7 @@ class VMRecordWaveformView @JvmOverloads constructor(context: Context, attrs: At
      * 更新分贝大小
      */
     fun updateDecibel(decibel: Int) {
-//        recordDecibel = decibel
         startLineAnim(decibel)
-//        postInvalidate()
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -142,8 +140,6 @@ class VMRecordWaveformView @JvmOverloads constructor(context: Context, attrs: At
         drawBackground(canvas)
         // 绘制波形线
         drawLine(canvas)
-        // 绘制测试文本
-//        drawTest(canvas)
 
     }
 
@@ -186,7 +182,7 @@ class VMRecordWaveformView @JvmOverloads constructor(context: Context, attrs: At
             val top = waveformBean.centerY - waveformBean.animHeight / 2f
             val bottom = waveformBean.centerY + waveformBean.animHeight / 2f
             val rectF = RectF(left, top, right, bottom)
-            lineCanvas.drawRoundRect(rectF, mLineWidth.toFloat(), mLineWidth.toFloat(), linePaint)
+            lineCanvas.drawRoundRect(rectF, mBaseWidth.toFloat(), mBaseWidth.toFloat(), linePaint)
         }
         canvas.drawBitmap(lineBitmap, 0f, 0f, mPaint)
 
@@ -271,18 +267,6 @@ class VMRecordWaveformView @JvmOverloads constructor(context: Context, attrs: At
                 mAnimator.start()
             }
         })
-        // 原来的内圈动画
-//        VMSystem.runInUIThread({
-//            val mAnimator = ValueAnimator.ofInt(mInnerSize, (mInnerSize + recordDecibel * 1.2f * mHeight / 10).toInt(), mInnerSize)
-//            mAnimator.duration = sampleTime
-//            mAnimator.repeatCount = 0
-//            mAnimator.interpolator = LinearInterpolator()
-//            mAnimator.addUpdateListener { a: ValueAnimator ->
-//                mOuterSize = a.animatedValue as Int
-//                invalidate()
-//            }
-//            mAnimator.start()
-//        })
     }
 }
 
@@ -295,7 +279,7 @@ data class WaveformBean(
     var centerY: Int = 0,
     // 宽高
     var width: Float = VMDimen.dp2px(5).toFloat(),
-    var height: Float = VMDimen.dp2px(10).toFloat(),
+    var height: Float = VMDimen.dp2px(8).toFloat(),
     var animHeight: Float = 0f,
     // 缩放倍数
     var scale: Float = 1f

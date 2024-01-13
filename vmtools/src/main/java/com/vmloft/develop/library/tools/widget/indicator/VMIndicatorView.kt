@@ -12,6 +12,8 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
+import androidx.viewpager2.widget.ViewPager2
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 
 import com.vmloft.develop.library.tools.R.color
 import com.vmloft.develop.library.tools.R.styleable
@@ -28,7 +30,8 @@ import com.vmloft.develop.library.tools.widget.indicator.VMIndicatorView.Mode.SO
  *
  * 自定义指示器控件
  */
-class VMIndicatorView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
+class VMIndicatorView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+    View(context, attrs, defStyleAttr) {
     // 指示器半径
     private var mIndicatorRadius = 0
 
@@ -37,6 +40,7 @@ class VMIndicatorView @JvmOverloads constructor(context: Context, attrs: Attribu
 
     // 指示器正常颜色
     private var mIndicatorNormal = 0
+
     // 指示器选中颜色
     private var mIndicatorSelected = 0
 
@@ -56,6 +60,8 @@ class VMIndicatorView @JvmOverloads constructor(context: Context, attrs: Attribu
     private lateinit var moveHolder: VMIndicatorHolder
     private var mHolders: MutableList<VMIndicatorHolder> = mutableListOf()
     private var mViewPager: ViewPager? = null
+    private var mViewPager2: ViewPager2? = null
+
 
     /**
      * 初始化
@@ -113,40 +119,86 @@ class VMIndicatorView @JvmOverloads constructor(context: Context, attrs: Attribu
     }
 
     /**
-     * 监听 ViewPager 滑动
+     * 注入 ViewPager2
+     *
+     * @param viewPager2
      */
-    private fun initViewPagerListener() {
-        mViewPager!!.addOnPageChangeListener(object : OnPageChangeListener {
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                if (mIndicatorMode != SOLO) {
-                    trigger(position, positionOffset)
-                }
-            }
-
-            override fun onPageSelected(position: Int) {
-                if (mIndicatorMode == SOLO) {
-                    trigger(position, 0f)
-                }
-            }
-
-            override fun onPageScrollStateChanged(state: Int) {}
-        })
+    fun setViewPager(viewPager: ViewPager2?) {
+        mViewPager2 = viewPager
+        createTabItems()
+        createMoveItems()
+        initViewPagerListener()
     }
 
     /**
-     * 创建小圆点个数,依赖于ViewPager
+     * 监听 ViewPager 滑动
+     */
+    private fun initViewPagerListener() {
+        mViewPager?.let {
+            it.addOnPageChangeListener(object : OnPageChangeListener {
+                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                    if (mIndicatorMode != SOLO) {
+                        trigger(position, positionOffset)
+                    }
+                }
+
+                override fun onPageSelected(position: Int) {
+                    if (mIndicatorMode == SOLO) {
+                        trigger(position, 0f)
+                    }
+                }
+
+                override fun onPageScrollStateChanged(state: Int) {}
+            })
+        }
+        mViewPager2?.let {
+            it.registerOnPageChangeCallback(object : OnPageChangeCallback() {
+                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+//                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+                    if (mIndicatorMode != SOLO) {
+                        trigger(position, positionOffset)
+                    }
+                }
+
+                override fun onPageSelected(position: Int) {
+//                super.onPageSelected(position)
+                    if (mIndicatorMode == SOLO) {
+                        trigger(position, 0f)
+                    }
+                }
+
+                override fun onPageScrollStateChanged(state: Int) {
+                    super.onPageScrollStateChanged(state)
+                }
+            })
+        }
+    }
+
+    /**
+     * 创建小圆点个数,依赖于 ViewPager
      */
     private fun createTabItems() {
-        for (i in 0 until mViewPager!!.adapter!!.count) {
-            val circle = OvalShape()
-            val drawable = ShapeDrawable(circle)
-            val holder = VMIndicatorHolder(drawable)
-            val paint = drawable.paint
-            paint.color = mIndicatorNormal
-            paint.isAntiAlias = true
-            holder.paint = paint
-            mHolders.add(holder)
+        mViewPager?.let {
+            for (i in 0 until (it.adapter?.count ?: 0)) {
+                createItem()
+            }
         }
+        mViewPager2?.let {
+            for (i in 0 until (it.adapter?.itemCount ?: 0)) {
+                createItem()
+            }
+        }
+    }
+
+    private fun createItem() {
+        val circle = OvalShape()
+        val drawable = ShapeDrawable(circle)
+        val holder = VMIndicatorHolder(drawable)
+        val paint = drawable.paint
+        paint.color = mIndicatorNormal
+        paint.isAntiAlias = true
+        holder.paint = paint
+        mHolders.add(holder)
     }
 
     /**
@@ -284,13 +336,17 @@ class VMIndicatorView @JvmOverloads constructor(context: Context, attrs: Attribu
      * 对齐方式
      */
     enum class Gravity {
-        LEFT, CENTER, RIGHT
+        LEFT, // 左对齐
+        CENTER, // 居中
+        RIGHT // 右对齐
     }
 
     /**
      * 切换模式
      */
     enum class Mode {
-        INSIDE, OUTSIDE, SOLO
+        INSIDE, // 内部覆盖
+        OUTSIDE, // 外部覆盖
+        SOLO
     }
 }

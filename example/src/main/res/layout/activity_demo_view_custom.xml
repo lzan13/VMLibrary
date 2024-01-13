@@ -120,7 +120,8 @@
                 app:layout_constraintTop_toTopOf="@+id/testTV"
                 app:vm_waveform_bg_color="@color/app_bg"
                 app:vm_waveform_end_color="#86fff8"
-                app:vm_waveform_line_width="@dimen/vm_dimen_4"
+                app:vm_waveform_base_width="@dimen/vm_dimen_4"
+                app:vm_waveform_base_height="@dimen/vm_dimen_8"
                 app:vm_waveform_start_color="#6457f0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

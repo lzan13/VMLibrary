@@ -12,7 +12,7 @@ import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.common.SPManager
 import com.vmloft.develop.library.example.databinding.ActivityGuideBinding
 import com.vmloft.develop.library.example.router.AppRouter
-import com.vmloft.develop.library.tools.adapter.VMFragmentPagerAdapter
+import com.vmloft.develop.library.tools.adapter.VMViewPagerAdapter
 
 
 /**
@@ -24,7 +24,7 @@ class GuideActivity : BActivity<ActivityGuideBinding>() {
 
     private var mCurrentIndex = 0
     private var mFragmentList: MutableList<Fragment> = mutableListOf()
-    private var mAdapter: VMFragmentPagerAdapter? = null
+    private var mAdapter: VMViewPagerAdapter? = null
 
 
     override fun initVB() = ActivityGuideBinding.inflate(layoutInflater)
@@ -51,7 +51,7 @@ class GuideActivity : BActivity<ActivityGuideBinding>() {
         mFragmentList.add(GuideFragment.newInstance(R.drawable.img_baymax, R.string.guide_title_0, R.string.guide_intro_0))
         mFragmentList.add(GuideFragment.newInstance(R.drawable.img_baymax, R.string.guide_title_1, R.string.guide_intro_1))
         mFragmentList.add(GuideFragment.newInstance(R.drawable.img_baymax, R.string.guide_title_2, R.string.guide_intro_2))
-        mAdapter = VMFragmentPagerAdapter(supportFragmentManager, mFragmentList)
+        mAdapter = VMViewPagerAdapter(supportFragmentManager, mFragmentList)
         mBinding.guideViewPager.offscreenPageLimit = mFragmentList.size - 1
         mBinding.guideViewPager.adapter = mAdapter
         mBinding.guideIndicatorView.setViewPager(mBinding.guideViewPager)

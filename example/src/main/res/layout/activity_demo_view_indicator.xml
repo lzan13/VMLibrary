@@ -6,35 +6,96 @@
     android:layout_height="match_parent"
     android:background="@color/app_bg"
     android:orientation="vertical"
-    tools:context=".ui.demo.custom.IndicatorViewActivity"
-    >
+    tools:context=".ui.demo.custom.IndicatorViewActivity">
 
     <include layout="@layout/widget_common_top_bar" />
 
-    <RelativeLayout
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ViewPager 实现 左对齐 inside" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        >
+        android:layout_height="@dimen/vm_dimen_192">
 
         <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewPager"
+            android:id="@+id/viewPager1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="match_parent" />
 
         <com.vmloft.develop.library.tools.widget.indicator.VMIndicatorView
-            android:id="@+id/indicatorView"
+            android:id="@+id/indicatorView1"
             android:layout_width="match_parent"
             android:layout_height="@dimen/vm_dimen_56"
             android:layout_alignParentBottom="true"
             android:background="@color/app_bg"
-            app:vm_indicator_gravity="center"
-            app:vm_indicator_margin="@dimen/vm_dimen_8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:vm_indicator_gravity="left"
+            app:vm_indicator_margin="@dimen/vm_dimen_16"
             app:vm_indicator_mode="inside"
             app:vm_indicator_normal="@color/app_indicator_normal"
             app:vm_indicator_radius="@dimen/vm_dimen_4"
-            app:vm_indicator_selected="@color/app_indicator_select"
-            />
-    </RelativeLayout>
+            app:vm_indicator_selected="@color/app_indicator_select" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vm_dimen_16"
+        android:text="ViewPager2 实现 居中 outside" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/vm_dimen_192">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.vmloft.develop.library.tools.widget.indicator.VMIndicatorView
+            android:id="@+id/indicatorView2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/vm_dimen_56"
+            android:layout_alignParentBottom="true"
+            android:background="@color/app_bg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:vm_indicator_gravity="center"
+            app:vm_indicator_margin="@dimen/vm_dimen_16"
+            app:vm_indicator_mode="outside"
+            app:vm_indicator_normal="@color/app_indicator_normal"
+            app:vm_indicator_radius="@dimen/vm_dimen_4"
+            app:vm_indicator_selected="@color/app_indicator_select" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vm_dimen_16"
+        android:text="ViewPager2 实现 右对齐 solo" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/vm_dimen_192">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.vmloft.develop.library.tools.widget.indicator.VMIndicatorView
+            android:id="@+id/indicatorView3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/vm_dimen_56"
+            android:layout_alignParentBottom="true"
+            android:background="@color/app_bg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:vm_indicator_gravity="right"
+            app:vm_indicator_margin="@dimen/vm_dimen_16"
+            app:vm_indicator_mode="solo"
+            app:vm_indicator_normal="@color/app_indicator_normal"
+            app:vm_indicator_radius="@dimen/vm_dimen_4"
+            app:vm_indicator_selected="@color/app_indicator_select" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

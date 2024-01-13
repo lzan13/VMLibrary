@@ -6,10 +6,9 @@ import androidx.fragment.app.FragmentPagerAdapter
 
 /**
  * Create by lzan13 on 2019/04/09
- *
- * 简单通用 Fragment + ViewPager 适配器
+ * 描述：自定义实现 简单通用 Fragment + ViewPager 适配器，主打一个方便快速使用
  */
-class VMFragmentPagerAdapter(fm: FragmentManager?, private val fragments: List<Fragment>) : FragmentPagerAdapter(fm!!) {
+class VMViewPagerAdapter(fm: FragmentManager, private val fragments: List<Fragment>) : FragmentPagerAdapter(fm) {
     override fun getItem(position: Int): Fragment {
         return fragments[position]
     }
