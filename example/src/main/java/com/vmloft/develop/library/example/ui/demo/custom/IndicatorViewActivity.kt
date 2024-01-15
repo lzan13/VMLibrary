@@ -28,6 +28,7 @@ class IndicatorViewActivity : BActivity<ActivityDemoViewIndicatorBinding>() {
         initViewPager1()
         initViewPager2()
         initViewPager3()
+        initViewPager4()
     }
 
     override fun initData() {}
@@ -69,6 +70,7 @@ class IndicatorViewActivity : BActivity<ActivityDemoViewIndicatorBinding>() {
 
         mBinding.indicatorView2.setViewPager(mBinding.viewPager2)
     }
+
     /**
      * 初始化 ViewPager2
      */
@@ -86,5 +88,16 @@ class IndicatorViewActivity : BActivity<ActivityDemoViewIndicatorBinding>() {
         mBinding.viewPager3.adapter = mAdapter3
 
         mBinding.indicatorView3.setViewPager(mBinding.viewPager3)
+    }
+
+    /**
+     * 初始化自定义个数
+     */
+    private fun initViewPager4() {
+        mBinding.previousTV.setOnClickListener { mBinding.indicatorView4.switchPrevious() }
+        mBinding.positionTV.setOnClickListener { mBinding.indicatorView4.switchPosition(2) }
+        mBinding.nextTV.setOnClickListener { mBinding.indicatorView4.switchNext() }
+
+        mBinding.indicatorView4.setIndicatorCount(5)
     }
 }

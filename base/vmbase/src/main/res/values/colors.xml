@@ -85,7 +85,7 @@
 
 
     <!--指示器-->
-    <color name="app_indicator_normal">@color/vm_white_87</color>
+    <color name="app_indicator_normal">@color/vm_gray_white_54</color>
     <color name="app_indicator_select">@color/app_main</color>
 
 

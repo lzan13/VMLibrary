@@ -51,6 +51,7 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
     private var mCancelIcon = R.drawable.ic_close_gray
     private var mCancelIconActivate = R.drawable.ic_close_white
     private var mCancelSize = VMDimen.dp2px(48)
+    private var mCancelMargin = VMDimen.dp2px(48)
 
     // 触摸区域提示文本
     private var mDescNormal: String = "按下 说话"
@@ -74,6 +75,7 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
     // 时间字体的大小、颜色
     private var mTimeColor = 0x44407a
     private var mTimeFontSize = VMDimen.dp2px(14)
+    private var mTimeMargin = VMDimen.dp2px(48)
 
 
     protected var recordStartTime: Long = 0 // 录制开始时间
@@ -113,6 +115,7 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
         mCancelIcon = array.getResourceId(styleable.VMRecordView_vm_cancel_icon, mCancelIcon)
         mCancelIconActivate = array.getResourceId(styleable.VMRecordView_vm_cancel_icon_activate, mCancelIconActivate)
         mCancelSize = array.getDimensionPixelOffset(styleable.VMRecordView_vm_cancel_size, mCancelSize)
+        mCancelMargin = array.getDimensionPixelOffset(styleable.VMRecordView_vm_cancel_margin, mCancelMargin)
 
         mOuterColor = array.getColor(styleable.VMRecordView_vm_outer_color, mOuterColor)
         mOuterSize = array.getDimensionPixelOffset(styleable.VMRecordView_vm_outer_size, mOuterSize)
@@ -137,6 +140,8 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
         mDescFontSize = array.getDimensionPixelOffset(styleable.VMRecordView_vm_desc_font_size, mDescFontSize)
         mTimeColor = array.getColor(styleable.VMRecordView_vm_time_color, mTimeColor)
         mTimeFontSize = array.getDimensionPixelOffset(styleable.VMRecordView_vm_time_font_size, mTimeFontSize)
+        mTimeMargin = array.getDimensionPixelOffset(styleable.VMRecordView_vm_time_margin, mTimeMargin)
+
         array.recycle()
     }
 
@@ -245,13 +250,13 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
         // 绘制取消按钮背景
         mPaint.color = if (isReadyCancel) mCancelColorActivate else mCancelColor
 
-        val cancelX = mWidth - VMDimen.dp2px(36) - mCancelSize / 2.0f
+        val cancelX = mWidth - mCancelMargin - mCancelSize / 2.0f
         val cancelY = mHeight / 2.0f
         canvas.drawCircle(cancelX, cancelY, mCancelSize / 2.0f, mPaint)
 
         // 绘制取消图标
         val bitmap = context.resources.getDrawable(if (isReadyCancel) mCancelIconActivate else mCancelIcon).toBitmap()
-        val cancelIconX = mWidth - VMDimen.dp2px(36) - mCancelSize / 2 - bitmap.width / 2.0f
+        val cancelIconX = mWidth - mCancelMargin - mCancelSize / 2 - bitmap.width / 2.0f
         val cancelIconY = mHeight / 2 - bitmap.height / 2.0f
         canvas.drawBitmap(bitmap, cancelIconX, cancelIconY, mPaint)
     }
@@ -297,7 +302,7 @@ class VMRecordView @JvmOverloads constructor(context: Context, attrs: AttributeS
         val time = VMStr.byArgs("%02d:%02d", minute, seconds)
         val tWidth = VMDimen.getTextWidth(mPaint, time)
         val tHeight = VMDimen.getTextHeight(mPaint, time)
-        val centerX = VMDimen.dp2px(36) + tWidth / 2
+        val centerX = mTimeMargin + tWidth / 2
         canvas.drawText(time, centerX, mHeight / 2 + tHeight / 2, mPaint)
     }
 

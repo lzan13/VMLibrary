@@ -154,8 +154,9 @@
         <attr name="vm_cancel_icon" format="reference" />
         <!--取消激活态图标-->
         <attr name="vm_cancel_icon_activate" format="reference" />
-        <!--取消按钮大小-->
+        <!--取消按钮大小边距-->
         <attr name="vm_cancel_size" format="dimension" />
+        <attr name="vm_cancel_margin" format="dimension" />
 
         <!--触摸区域提示文字-->
         <attr name="vm_desc_normal" format="string|reference" />
@@ -179,8 +180,9 @@
 
         <!--时间文本颜色-->
         <attr name="vm_time_color" format="color|integer" />
-        <!--时间文本大小-->
+        <!--时间文本大小边距-->
         <attr name="vm_time_font_size" format="dimension" />
+        <attr name="vm_time_margin" format="dimension" />
     </declare-styleable>
 
     <!--自定义录制波形控件-->

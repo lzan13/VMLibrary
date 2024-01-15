@@ -56,6 +56,9 @@ class VMIndicatorView @JvmOverloads constructor(context: Context, attrs: Attribu
     // 指示器模式
     private var mIndicatorMode: Mode = INSIDE
 
+    // 指示器个数
+    private var mIndicatorCount = 0
+
     // 可以动的指示器对象
     private lateinit var moveHolder: VMIndicatorHolder
     private var mHolders: MutableList<VMIndicatorHolder> = mutableListOf()
@@ -107,14 +110,55 @@ class VMIndicatorView @JvmOverloads constructor(context: Context, attrs: Attribu
     }
 
     /**
+     * 切换到上一个
+     */
+    fun switchPrevious() {
+        if (mCurrentPosition > 0) {
+            trigger(mCurrentPosition - 1)
+        }
+    }
+
+    /**
+     * 切换到指定位置
+     */
+    fun switchPosition(position: Int) {
+        trigger(position)
+    }
+
+    /**
+     * 切换到下一个
+     */
+    fun switchNext() {
+        if (mCurrentPosition < mIndicatorCount - 1) {
+            trigger(mCurrentPosition + 1)
+        }
+    }
+
+
+    /**
+     * 手动设置页面个数，这种是用在非 ViewPager 联动情况下
+     * 这个时候 指示器的切换需要手动调用[tigger]
+     */
+    fun setIndicatorCount(count: Int) {
+        mIndicatorCount = if (count <= 0) 1 else count
+
+        createTabItems()
+        createMoveItems()
+    }
+
+    /**
      * 注入ViewPager
      *
      * @param viewPager
      */
     fun setViewPager(viewPager: ViewPager?) {
         mViewPager = viewPager
+
+        mIndicatorCount = mViewPager?.adapter?.count ?: 1
+
         createTabItems()
         createMoveItems()
+
         initViewPagerListener()
     }
 
@@ -123,10 +167,14 @@ class VMIndicatorView @JvmOverloads constructor(context: Context, attrs: Attribu
      *
      * @param viewPager2
      */
-    fun setViewPager(viewPager: ViewPager2?) {
-        mViewPager2 = viewPager
+    fun setViewPager(viewPager2: ViewPager2?) {
+        mViewPager2 = viewPager2
+
+        mIndicatorCount = mViewPager2?.adapter?.itemCount ?: 1
+
         createTabItems()
         createMoveItems()
+
         initViewPagerListener()
     }
 
@@ -144,7 +192,7 @@ class VMIndicatorView @JvmOverloads constructor(context: Context, attrs: Attribu
 
                 override fun onPageSelected(position: Int) {
                     if (mIndicatorMode == SOLO) {
-                        trigger(position, 0f)
+                        trigger(position)
                     }
                 }
 
@@ -163,7 +211,7 @@ class VMIndicatorView @JvmOverloads constructor(context: Context, attrs: Attribu
                 override fun onPageSelected(position: Int) {
 //                super.onPageSelected(position)
                     if (mIndicatorMode == SOLO) {
-                        trigger(position, 0f)
+                        trigger(position)
                     }
                 }
 
@@ -178,15 +226,8 @@ class VMIndicatorView @JvmOverloads constructor(context: Context, attrs: Attribu
      * 创建小圆点个数,依赖于 ViewPager
      */
     private fun createTabItems() {
-        mViewPager?.let {
-            for (i in 0 until (it.adapter?.count ?: 0)) {
-                createItem()
-            }
-        }
-        mViewPager2?.let {
-            for (i in 0 until (it.adapter?.itemCount ?: 0)) {
-                createItem()
-            }
+        for (i in 0 until mIndicatorCount) {
+            createItem()
         }
     }
 
@@ -219,7 +260,7 @@ class VMIndicatorView @JvmOverloads constructor(context: Context, attrs: Attribu
         moveHolder.paint = paint
     }
 
-    private fun trigger(position: Int, positionOffset: Float) {
+    private fun trigger(position: Int, positionOffset: Float = 0f) {
         mCurrentPosition = position
         mCurrentPositionOffset = positionOffset
         requestLayout()
