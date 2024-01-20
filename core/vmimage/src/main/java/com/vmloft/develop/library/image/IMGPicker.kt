@@ -25,7 +25,7 @@ import java.util.*
 
 /**
  * Create by lzan13 on 2020/8/4 18:05
- * 描述：
+ * 描述：自定义图片选择器控制器
  */
 class IMGPicker : IPickerPresenter {
 

@@ -86,7 +86,7 @@ val isEmail = VMReg.isEmail(email)
     - [guide](src/main/java/com/vmloft/develop/library/tools/widget/guide) 自定义遮罩引导
     - [indicator](src/main/java/com/vmloft/develop/library/tools/widget/indicator) 指示器控件
     - [loading](src/main/java/com/vmloft/develop/library/tools/widget/loading) 加载控件
-    - [record](src/main/java/com/vmloft/develop/library/tools/widget/record) 录音控件
+    - [record](src/main/java/com/vmloft/develop/library/tools/widget/voice) 录音控件
     - [tips](src/main/java/com/vmloft/develop/library/tools/widget/tips) Tips 提醒
     - [VMExpandableLayout](src/main/java/com/vmloft/develop/library/tools/widget/VMExpandableLayout.java) 可伸缩布局
     - [VMFloatMenu](src/main/java/com/vmloft/develop/library/tools/widget/VMFloatMenu.java) 悬浮菜单

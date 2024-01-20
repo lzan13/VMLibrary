@@ -10,7 +10,7 @@ import com.vmloft.develop.library.tools.utils.VMColor
 import com.vmloft.develop.library.tools.widget.guide.VMGuideView.GuideListener
 
 /**
- * 此引导组件参考自一下开源项目修改优化而来，感谢作者的无私开源
+ * 此引导组件参考自以下开源项目修改优化而来，感谢作者的无私开源
  * https://github.com/15018777629/guide
  *
  * Create by lzan13 on 2022/4/23

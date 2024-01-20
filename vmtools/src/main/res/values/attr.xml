@@ -18,24 +18,6 @@
         </attr>
     </declare-styleable>
 
-    <!--自定义 VMDotLineView 属性-->
-    <declare-styleable name="VMDotLineView">
-        <!--点的颜色-->
-        <attr name="vm_dot_color" format="color|integer" />
-        <!--点的半径-->
-        <attr name="vm_dot_radius" format="dimension" />
-        <!--点圆弧线宽-->
-        <attr name="vm_dot_width" format="dimension" />
-        <!--是否闭合-->
-        <attr name="vm_is_closure" format="boolean" />
-        <!--线段颜色-->
-        <attr name="vm_line_color" format="color|integer" />
-        <!--线段宽度-->
-        <attr name="vm_line_width" format="dimension" />
-        <!--绘制速度-->
-        <attr name="vm_speed" format="integer" />
-    </declare-styleable>
-
     <!--可膨胀的布局控件-->
     <declare-styleable name="VMExpandableLayout">
         <!--持续时间-->
@@ -141,11 +123,15 @@
         </attr>
     </declare-styleable>
 
-    <!--自定义音频录制控件-->
-    <declare-styleable name="VMRecordView">
+    <!--自定义音频控件属性-->
+    <declare-styleable name="VMVoiceView">
+        <!--通用属性-->
         <!--背景色-->
         <attr name="vm_bg_color" format="color|reference" />
+        <!--采样时间-->
+        <attr name="vm_simple_time" format="integer" />
 
+        <!--录制控件相关属性-->
         <!--取消按钮颜色-->
         <attr name="vm_cancel_color" format="color|reference" />
         <!--取消按钮激活态颜色-->
@@ -157,7 +143,6 @@
         <!--取消按钮大小边距-->
         <attr name="vm_cancel_size" format="dimension" />
         <attr name="vm_cancel_margin" format="dimension" />
-
         <!--触摸区域提示文字-->
         <attr name="vm_desc_normal" format="string|reference" />
         <attr name="vm_desc_cancel" format="string|reference" />
@@ -165,7 +150,6 @@
         <attr name="vm_desc_color" format="color|integer" />
         <!--触摸提示文本大小-->
         <attr name="vm_desc_font_size" format="dimension" />
-
         <!--触摸区域内圈颜色-->
         <attr name="vm_inner_color" format="color|reference" />
         <attr name="vm_inner_color_cancel" format="color|reference" />
@@ -173,32 +157,31 @@
         <attr name="vm_inner_icon" format="reference" />
         <attr name="vm_inner_icon_cancel" format="reference" />
         <attr name="vm_inner_size" format="dimension" />
-
         <!--触摸区域外圈颜色及大小-->
         <attr name="vm_outer_color" format="color|reference" />
         <attr name="vm_outer_size" format="dimension" />
-
         <!--时间文本颜色-->
         <attr name="vm_time_color" format="color|integer" />
         <!--时间文本大小边距-->
         <attr name="vm_time_font_size" format="dimension" />
         <attr name="vm_time_margin" format="dimension" />
-    </declare-styleable>
 
-    <!--自定义录制波形控件-->
-    <declare-styleable name="VMRecordWaveformView">
-        <attr name="vm_waveform_bg_color" format="color|reference" />
-        <attr name="vm_waveform_start_color" format="color|reference" />
-        <attr name="vm_waveform_end_color" format="color|reference" />
-        <attr name="vm_waveform_base_width" format="dimension" />
-        <attr name="vm_waveform_base_height" format="dimension" />
-    </declare-styleable>
+        <!--录制波形动画控件属性-->
+        <!--录制动画控件渐变色-->
+        <attr name="vm_anim_start_color" format="color|reference" />
+        <attr name="vm_anim_end_color" format="color|reference" />
+        <!--录制动画控件基础宽高-->
+        <attr name="vm_anim_base_width" format="dimension" />
+        <attr name="vm_anim_base_height" format="dimension" />
 
-    <!--自定义波形控件-->
-    <declare-styleable name="VMWaveView">
-        <attr name="vm_wave_line_color" format="color|integer" />
-        <attr name="vm_wave_line_width" format="dimension" />
-        <attr name="vm_wave_max_width" format="dimension" />
+        <!--自定义波形进度控件-->
+        <!--波形线颜色-->
+        <attr name="vm_line_bg_color" format="color|integer" />
+        <attr name="vm_line_fg_color" format="color|integer" />
+        <!--波形线宽度-->
+        <attr name="vm_line_width" format="dimension" />
+        <!--波形线间隔-->
+        <attr name="vm_line_space" format="dimension" />
     </declare-styleable>
 
     <!--自定义等比例布局-->

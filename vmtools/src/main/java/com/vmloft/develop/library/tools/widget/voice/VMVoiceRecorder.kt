@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.tools.widget.record
+package com.vmloft.develop.library.tools.widget.voice
 
 import android.media.MediaRecorder
 import android.media.MediaRecorder.AudioEncoder
@@ -13,7 +13,7 @@ import java.io.IOException
  * Created by lzan13 on 2024/01/10.
  * 描述：定义的录音功能单例类，主要处理录音的相关操作
  */
-object VMRecorder {
+object VMVoiceRecorder {
     const val errorNone = 0 // 没有错误
     const val errorSystem = 1 // 系统错误
     const val errorFailed = 2 // 录制失败
@@ -23,14 +23,14 @@ object VMRecorder {
 
     private var mediaRecorder: MediaRecorder? = null // 媒体录影机，可以录制音频和视频
 
-    private var recordSamplingRate = 8000 // 音频采样率 单位 Hz
-    private var recordEncodingBitRate = 64 // 音频编码比特率
-    private var recordMaxDuration = 60 * 60 * 1000 // 录音最大持续时间 60 分钟
+    private var samplingRate = 8000 // 音频采样率 单位 Hz
+    private var encodingBitRate = 64 // 音频编码比特率
+    private var maxDuration = 60 * 60 * 1000 // 录音最大持续时间 60 分钟
 
-    private var recordDecibelBase = 200 // 计算分贝基准值
+    private var decibelBase = 1 // 计算分贝基准值
 
     private var isRecording = false // 是否录制中
-    private var recordFile: String = "" // 录制文件保存路径
+    private var filePath: String = "" // 录制文件保存路径
 
     /**
      * 初始化录制音频
@@ -51,11 +51,11 @@ object VMRecorder {
          */
         mediaRecorder?.setAudioEncoder(AudioEncoder.AMR_NB)
         // 设置音频采样率
-        mediaRecorder?.setAudioSamplingRate(recordSamplingRate)
+        mediaRecorder?.setAudioSamplingRate(samplingRate)
         // 设置音频编码比特率
-        mediaRecorder?.setAudioEncodingBitRate(recordEncodingBitRate)
+        mediaRecorder?.setAudioEncodingBitRate(encodingBitRate)
         // 设置录音最大持续时间
-        mediaRecorder?.setMaxDuration(recordMaxDuration)
+        mediaRecorder?.setMaxDuration(maxDuration)
     }
 
     /**
@@ -77,7 +77,7 @@ object VMRecorder {
 
         // 设置录制状态
         isRecording = true
-        recordFile = if (path.isNullOrEmpty()) {
+        filePath = if (path.isNullOrEmpty()) {
             // 这里默认保存在 /sdcard/android/data/packagename/files/voice/下
             VMFile.filesPath("voice") + "VMVoice_" + VMDate.filenameDateTime() + ".amr"
         } else {
@@ -88,7 +88,7 @@ object VMRecorder {
         initVoiceRecorder()
 
         // 设置录制输出文件
-        mediaRecorder?.setOutputFile(recordFile)
+        mediaRecorder?.setOutputFile(filePath)
         try {
             // 准备录制
             mediaRecorder?.prepare()
@@ -126,7 +126,7 @@ object VMRecorder {
             }
         }
         // 根据录制结果判断录音是否成功
-        if (!VMFile.isFileExists(recordFile)) {
+        if (!VMFile.isFileExists(filePath)) {
             e("录音失败没有生成文件")
             return errorFailed
         }
@@ -153,8 +153,8 @@ object VMRecorder {
             }
         }
         // 取消录音，删除文件
-        if (VMFile.isFileExists(recordFile)) {
-            VMFile.deleteFile(recordFile)
+        if (VMFile.isFileExists(filePath)) {
+            VMFile.deleteFile(filePath)
         }
     } // 根据麦克风采集到的声音振幅计算声音分贝大小
 
@@ -162,7 +162,7 @@ object VMRecorder {
      * 获取录制文件路径
      */
     fun getRecordFile(): String {
-        return recordFile
+        return filePath
     }
 
     /**
@@ -173,7 +173,8 @@ object VMRecorder {
         if (mediaRecorder != null) {
             var ratio = 0
             try {
-                ratio = mediaRecorder?.maxAmplitude ?: recordDecibelBase / recordDecibelBase
+                // mediaRecorder?.maxAmplitude 每次只能调用一次
+                ratio = mediaRecorder?.maxAmplitude ?: decibelBase / decibelBase
             } catch (e: IllegalStateException) {
                 e.printStackTrace()
             } catch (e: RuntimeException) {
@@ -181,7 +182,7 @@ object VMRecorder {
             }
             if (ratio > 0) {
                 // 根据麦克风采集到的声音振幅计算声音分贝大小
-                decibel = (20 * Math.log10(ratio.toDouble()) / 5).toInt()
+                decibel = (20 * Math.log10(ratio.toDouble())).toInt()
             }
         }
         return decibel
@@ -192,7 +193,7 @@ object VMRecorder {
      */
     fun reset() {
         isRecording = false
-        recordFile = ""
+        filePath = ""
         if (mediaRecorder != null) {
             // 重置媒体录影机
             mediaRecorder?.reset()

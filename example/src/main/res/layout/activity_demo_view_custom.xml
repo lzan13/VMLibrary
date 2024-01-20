@@ -81,8 +81,8 @@
                 android:textAlignment="center"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.vmloft.develop.library.tools.widget.record.VMRecordView
-                android:id="@+id/customRecordView"
+            <com.vmloft.develop.library.tools.widget.voice.VMVoiceRecordView
+                android:id="@+id/voiceRecordView"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/vm_dimen_192"
                 app:layout_constraintTop_toBottomOf="@+id/testTV"
@@ -109,30 +109,50 @@
                 app:vm_outer_color="#ffffff"
                 app:vm_outer_size="@dimen/vm_dimen_128"
 
+                app:vm_simple_time="100"
+
                 app:vm_time_color="#44407a"
                 app:vm_time_font_size="@dimen/vm_size_14" />
 
-            <com.vmloft.develop.library.tools.widget.record.VMRecordWaveformView
-                android:id="@+id/customRecordWaveformView"
+            <com.vmloft.develop.library.tools.widget.voice.VMVoiceRecordAnimView
+                android:id="@+id/voiceRecordAnimView"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/vm_dimen_64"
+                android:layout_height="@dimen/vm_dimen_72"
                 android:visibility="visible"
                 app:layout_constraintTop_toTopOf="@+id/testTV"
-                app:vm_waveform_bg_color="@color/app_bg"
-                app:vm_waveform_end_color="#86fff8"
-                app:vm_waveform_base_width="@dimen/vm_dimen_4"
-                app:vm_waveform_base_height="@dimen/vm_dimen_8"
-                app:vm_waveform_start_color="#6457f0" />
+                app:vm_anim_base_height="@dimen/vm_dimen_8"
+                app:vm_anim_base_width="@dimen/vm_dimen_4"
+                app:vm_anim_end_color="#86fff8"
+                app:vm_anim_start_color="#6457f0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.vmloft.develop.library.tools.widget.VMWaveView
-            android:id="@+id/customWaveView"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/vm_dimen_36"
-            android:background="@color/vm_green_38"
-            app:vm_wave_line_color="@color/app_main"
-            app:vm_wave_line_width="@dimen/vm_dimen_1"
-            app:vm_wave_max_width="@dimen/vm_dimen_36" />
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.vmloft.develop.library.tools.widget.voice.VMVoiceWaveformView
+                android:id="@+id/voiceWaveformViewLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/vm_dimen_42"
+                android:background="@color/vm_gray_white"
+                app:vm_line_bg_color="@color/vm_gray"
+                app:vm_line_fg_color="@color/vm_black"
+                app:vm_line_space="@dimen/vm_dimen_1"
+                app:vm_line_width="@dimen/vm_dimen_2" />
+
+<!--            <com.vmloft.develop.library.tools.widget.voice.VMVoiceWaveformView-->
+<!--                android:id="@+id/voiceWaveformViewRight"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="@dimen/vm_dimen_42"-->
+<!--                android:background="@color/vm_green"-->
+<!--                app:vm_line_bg_color="@color/vm_gray"-->
+<!--                app:vm_line_fg_color="@color/vm_white"-->
+<!--                app:vm_line_space="@dimen/vm_dimen_1"-->
+<!--                app:vm_line_width="@dimen/vm_dimen_2" />-->
+
+        </LinearLayout>
 
         <com.vmloft.develop.library.tools.widget.VMLineView
             style="@style/AppLVStyle"
