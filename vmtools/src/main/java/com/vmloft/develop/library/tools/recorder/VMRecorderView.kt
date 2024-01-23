@@ -16,7 +16,6 @@ import com.vmloft.develop.library.tools.permission.VMPermission
 import com.vmloft.develop.library.tools.utils.VMDimen
 import com.vmloft.develop.library.tools.utils.VMStr
 import com.vmloft.develop.library.tools.utils.VMSystem
-import com.vmloft.develop.library.tools.utils.logger.VMLog
 
 import java.util.*
 
@@ -92,7 +91,7 @@ class VMRecorderView @JvmOverloads constructor(context: Context, attrs: Attribut
     private var mRecordActionListener: RecordActionListener? = null
 
     // 录音联动动画控件
-    private var mVoiceAnimView: VMVoiceRecordAnimView? = null
+    private var mVoiceAnimView: VMRecordAnimView? = null
 
     private lateinit var recorderEngine: VMRecorderEngine
 
@@ -543,7 +542,7 @@ class VMRecorderView @JvmOverloads constructor(context: Context, attrs: Attribut
     /**
      * 设置录音联动动画控件
      */
-    fun setRecordAnimView(animView: VMVoiceRecordAnimView?) {
+    fun setRecordAnimView(animView: VMRecordAnimView?) {
         mVoiceAnimView = animView
     }
 

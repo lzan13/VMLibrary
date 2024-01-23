@@ -24,7 +24,7 @@ import com.vmloft.develop.library.tools.utils.VMSystem
  * Created by lzan13 on 2024/01/11
  * 描述：自定义录音波形控件，根据音量变化
  */
-class VMVoiceRecordAnimView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+class VMRecordAnimView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     View(context, attrs, defStyleAttr) {
     private var mWidth = 0
     private var mHeight = 0
