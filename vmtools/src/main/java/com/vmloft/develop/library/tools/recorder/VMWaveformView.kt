@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.tools.widget.voice
+package com.vmloft.develop.library.tools.recorder
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -25,7 +25,7 @@ import com.vmloft.develop.library.tools.utils.logger.VMLog
  * Created by lzan13 on 2024/01/11
  * 描述：自定义声音波形控件，这里根据录音分贝数据显示
  */
-class VMVoiceWaveformView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+class VMWaveformView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     View(context, attrs, defStyleAttr) {
 
     private val statusIdle = 0 // 空闲
@@ -64,7 +64,7 @@ class VMVoiceWaveformView @JvmOverloads constructor(context: Context, attrs: Att
     private var isDrag = false
 
     // 声音数据 Bean
-    private var voiceBean: VMVoiceRecordView.VoiceBean? = null
+    private var voiceBean: VMRecorderView.VoiceBean? = null
 
     /**
      * 手势处理
@@ -146,7 +146,7 @@ class VMVoiceWaveformView @JvmOverloads constructor(context: Context, attrs: Att
     /**
      * 设置声音数据 Bean
      */
-    fun setVoiceBean(bean: VMVoiceRecordView.VoiceBean) {
+    fun setVoiceBean(bean: VMRecorderView.VoiceBean) {
         voiceBean = bean
         if (bean.decibelList.isEmpty()) {
             // TODO 根据声音文件加载声音分贝波形数据
@@ -154,13 +154,9 @@ class VMVoiceWaveformView @JvmOverloads constructor(context: Context, attrs: Att
         }
         mWidth = (voiceBean!!.decibelList.size + 1) * (lineWidth + lineSpace)
         mCurrentProgressWidth = mWidth.toFloat()
-//        setMeasuredDimension(mWidth, mHeight)
-        VMLog.i("VMVoiceWaveformView.setVoiceBean w:$mWidth h:$mHeight")
-
-//        invalidate()
     }
 
-    fun updateVoiceBean(bean: VMVoiceRecordView.VoiceBean) {
+    fun updateVoiceBean(bean: VMRecorderView.VoiceBean) {
         voiceBean = bean
         if (bean.decibelList.isEmpty()) {
             // TODO 根据声音文件加载声音分贝波形数据
@@ -168,7 +164,6 @@ class VMVoiceWaveformView @JvmOverloads constructor(context: Context, attrs: Att
         }
         mWidth = (voiceBean!!.decibelList.size + 1) * (lineWidth + lineSpace)
         setMeasuredDimension(mWidth, mHeight)
-        VMLog.i("VMVoiceWaveformView.setVoiceBean w:$mWidth h:$mHeight")
 
         invalidate()
     }

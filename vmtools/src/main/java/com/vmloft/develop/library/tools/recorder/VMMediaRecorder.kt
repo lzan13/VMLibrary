@@ -1,26 +1,21 @@
-package com.vmloft.develop.library.tools.widget.voice
+package com.vmloft.develop.library.tools.recorder
 
 import android.media.MediaRecorder
 import android.media.MediaRecorder.AudioEncoder
 import android.media.MediaRecorder.AudioSource
 import android.media.MediaRecorder.OutputFormat
+
 import com.vmloft.develop.library.tools.utils.VMDate
 import com.vmloft.develop.library.tools.utils.VMFile
-import com.vmloft.develop.library.tools.utils.logger.VMLog.e
+import com.vmloft.develop.library.tools.utils.logger.VMLog
+
 import java.io.IOException
 
 /**
  * Created by lzan13 on 2024/01/10.
  * 描述：定义的录音功能单例类，主要处理录音的相关操作
  */
-object VMVoiceRecorder {
-    const val errorNone = 0 // 没有错误
-    const val errorSystem = 1 // 系统错误
-    const val errorFailed = 2 // 录制失败
-    const val errorRecording = 3 // 正在录制
-    const val errorCancel = 4 // 录音取消
-    const val errorShort = 5 // 录音时间过短
-
+object VMMediaRecorder : VMRecorderEngine() {
     private var mediaRecorder: MediaRecorder? = null // 媒体录影机，可以录制音频和视频
 
     private var samplingRate = 8000 // 音频采样率 单位 Hz
@@ -35,7 +30,7 @@ object VMVoiceRecorder {
     /**
      * 初始化录制音频
      */
-    private fun initVoiceRecorder() {
+    override fun initVoiceRecorder() {
         // 实例化媒体录影机
         mediaRecorder = MediaRecorder()
         // 设置音频源为麦克风
@@ -63,10 +58,10 @@ object VMVoiceRecorder {
      *
      * @param path 录音文件保存地址，可以为空，默认保存到项目包名 files 下
      */
-    fun startRecord(path: String?): Int {
+    override fun startRecord(path: String?): Int {
         // 判断录制系统是否空闲
         if (isRecording) {
-            return errorRecording
+            return VMRecorderManager.errorRecording
         }
 
         // 判断媒体录影机是否释放，没有则释放
@@ -95,80 +90,57 @@ object VMVoiceRecorder {
             // 开始录制
             mediaRecorder?.start()
         } catch (e: IOException) {
-            reset()
-            e("录音系统出现错误 " + e.message)
-            return errorSystem
+            releaseRecorder()
+            VMLog.e("录音系统出现错误 ${e.message}")
+            return VMRecorderManager.errorSystem
         }
-        return errorNone
+        return VMRecorderManager.errorNone
     }
 
     /**
      * 停止录制
      */
-    fun stopRecord(): Int {
+    override fun stopRecord(): Int {
         // 停止录音，将录音状态设置为false
         isRecording = false
         // 释放媒体录影机
-        if (mediaRecorder != null) {
-            // 防止录音机 start 后马上调用 stop 出现异常
-            mediaRecorder?.setOnErrorListener(null)
-            try {
-                // 停止录制
-                mediaRecorder?.stop()
-            } catch (e: IllegalStateException) {
-                e("录音系统出现错误 " + e.message)
-                reset()
-                return errorSystem
-            } catch (e: RuntimeException) {
-                e("录音系统出现错误 " + e.message)
-                reset()
-                return errorSystem
-            }
+        var result = releaseRecorder()
+        if (result != VMRecorderManager.errorNone) {
+            return result
         }
         // 根据录制结果判断录音是否成功
         if (!VMFile.isFileExists(filePath)) {
-            e("录音失败没有生成文件")
-            return errorFailed
+            VMLog.e("录音失败没有生成文件")
+            result = VMRecorderManager.errorFailed
         }
-        return errorNone
+        return result
     }
 
     /**
      * 取消录音
      */
-    fun cancelRecord() {
+    override fun cancelRecord() {
         // 停止录音，将录音状态设置为false
         isRecording = false
         // 释放媒体录影机
-        if (mediaRecorder != null) {
-            try {
-                // 停止录制
-                mediaRecorder?.stop()
-            } catch (e: IllegalStateException) {
-                e("录音系统出现错误 " + e.message)
-                reset()
-            } catch (e: RuntimeException) {
-                e("录音系统出现错误 " + e.message)
-                reset()
-            }
-        }
+        releaseRecorder()
         // 取消录音，删除文件
         if (VMFile.isFileExists(filePath)) {
             VMFile.deleteFile(filePath)
         }
-    } // 根据麦克风采集到的声音振幅计算声音分贝大小
+    }
 
     /**
      * 获取录制文件路径
      */
-    fun getRecordFile(): String {
+    override fun getRecordFile(): String {
         return filePath
     }
 
     /**
      * 获取声音分贝信息
      */
-    fun decibel(): Int {
+    override fun decibel(): Int {
         var decibel = 1
         if (mediaRecorder != null) {
             var ratio = 0
@@ -176,9 +148,9 @@ object VMVoiceRecorder {
                 // mediaRecorder?.maxAmplitude 每次只能调用一次
                 ratio = mediaRecorder?.maxAmplitude ?: decibelBase / decibelBase
             } catch (e: IllegalStateException) {
-                e.printStackTrace()
+                VMLog.e("decibel error ${e.message}")
             } catch (e: RuntimeException) {
-                e.printStackTrace()
+                VMLog.e("decibel error ${e.message}")
             }
             if (ratio > 0) {
                 // 根据麦克风采集到的声音振幅计算声音分贝大小
@@ -189,17 +161,29 @@ object VMVoiceRecorder {
     }
 
     /**
-     * 重置录音机
+     * 释放录音机
      */
-    fun reset() {
+    override fun releaseRecorder(): Int {
         isRecording = false
-        filePath = ""
+//        filePath = ""
+
         if (mediaRecorder != null) {
-            // 重置媒体录影机
-            mediaRecorder?.reset()
-            // 释放媒体录影机
-            mediaRecorder?.release()
-            mediaRecorder = null
+            // 防止录音机 start 后马上调用 stop 出现异常
+            mediaRecorder?.setOnErrorListener(null)
+            try {
+                // 停止录制
+                mediaRecorder?.stop()
+                mediaRecorder?.reset()
+                mediaRecorder?.release()
+                mediaRecorder = null
+            } catch (e: IllegalStateException) {
+                VMLog.e("录音系统出现错误 ${e.message}")
+                return VMRecorderManager.errorSystem
+            } catch (e: RuntimeException) {
+                VMLog.e("录音系统出现错误 ${e.message}")
+                return VMRecorderManager.errorSystem
+            }
         }
+        return VMRecorderManager.errorNone
     }
 }

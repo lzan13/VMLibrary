@@ -1,2 +1,4 @@
-/build
+build
+src/main/jni/libmp3lame
 libs
+obj

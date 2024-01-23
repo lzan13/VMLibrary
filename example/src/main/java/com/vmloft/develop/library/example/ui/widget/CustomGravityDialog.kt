@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 
 import com.vmloft.develop.library.example.databinding.WidgetCustomGravityDialogBinding
-import com.vmloft.develop.library.tools.base.VMBDialog
+import com.vmloft.develop.library.tools.widget.dialog.VMBDialog
 
 /**
  * Create by lzan13 on 2022/02/21

@@ -2,7 +2,7 @@ package com.vmloft.develop.library.base.widget
 
 import android.content.Context
 
-import com.vmloft.develop.library.tools.widget.VMDefaultDialog
+import com.vmloft.develop.library.tools.widget.dialog.VMDefaultDialog
 
 /**
  * Create by lzan13 on 2020/12/10 21:41

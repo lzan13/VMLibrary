@@ -16,10 +16,10 @@ import com.vmloft.develop.library.example.utils.errorBar
 import com.vmloft.develop.library.base.utils.show
 import com.vmloft.develop.library.tools.utils.VMUtils
 import com.vmloft.develop.library.tools.utils.logger.VMLog
-import com.vmloft.develop.library.tools.widget.voice.VMVoiceRecordView.RecordActionListener
+import com.vmloft.develop.library.tools.recorder.VMRecorderView.RecordActionListener
 import com.vmloft.develop.library.tools.widget.tips.VMTips
-import com.vmloft.develop.library.tools.widget.voice.VMVoiceRecordView
-import com.vmloft.develop.library.tools.widget.voice.VMVoiceWaveformView
+import com.vmloft.develop.library.tools.recorder.VMRecorderView
+import com.vmloft.develop.library.tools.recorder.VMWaveformView
 import java.util.Timer
 import java.util.TimerTask
 
@@ -110,7 +110,7 @@ class CustomViewActivity : BActivity<ActivityDemoViewCustomBinding>() {
 
     private fun initVoiceView() {
         // 测试波形控件
-        val voiceBean = VMVoiceRecordView.VoiceBean()
+        val voiceBean = VMRecorderView.VoiceBean()
         voiceBean.duration = 25402
         voiceBean.decibelList.addAll(
             arrayListOf(
@@ -247,7 +247,7 @@ class CustomViewActivity : BActivity<ActivityDemoViewCustomBinding>() {
         mBinding.voiceWaveformViewLeft.setOnClickListener {
             VMLog.i("voiceWaveformViewLeft.setOnClickListener")
         }
-        mBinding.voiceWaveformViewLeft.setWaveformActionListener(object : VMVoiceWaveformView.WaveformActionListener {
+        mBinding.voiceWaveformViewLeft.setWaveformActionListener(object : VMWaveformView.WaveformActionListener {
             override fun onProgressChange(progress: Float) {
                 VMLog.i("voiceWaveformViewLeft.onProgressChange $progress")
                 mCurrentProgress = progress
@@ -267,7 +267,7 @@ class CustomViewActivity : BActivity<ActivityDemoViewCustomBinding>() {
                 errorBar("录音取消")
             }
 
-            override fun onComplete(bean: VMVoiceRecordView.VoiceBean) {
+            override fun onComplete(bean: VMRecorderView.VoiceBean) {
                 showBar("录音完成 ${bean.duration}-${bean.path}")
                 // 测试控件波形及播放进度效果
                 mBinding.voiceWaveformViewLeft.updateVoiceBean(bean)

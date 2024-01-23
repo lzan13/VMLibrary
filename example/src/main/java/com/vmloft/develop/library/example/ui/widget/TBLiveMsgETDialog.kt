@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.widget.TextView
 
 import com.vmloft.develop.library.example.databinding.WidgetTbLiveMsgEtDialogBinding
-import com.vmloft.develop.library.tools.base.VMBDialog
+import com.vmloft.develop.library.tools.widget.dialog.VMBDialog
 
 /**
  * Create by lzan13 on 2021/07/10 21:41

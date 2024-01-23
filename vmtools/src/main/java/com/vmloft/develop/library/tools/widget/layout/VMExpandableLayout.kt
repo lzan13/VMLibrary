@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.tools.widget
+package com.vmloft.develop.library.tools.widget.layout
 
 import android.animation.Animator
 import android.animation.Animator.AnimatorListener

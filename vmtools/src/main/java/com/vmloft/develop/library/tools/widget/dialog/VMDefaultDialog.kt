@@ -1,11 +1,11 @@
-package com.vmloft.develop.library.tools.widget
+package com.vmloft.develop.library.tools.widget.dialog
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.TextView
 
-import com.vmloft.develop.library.tools.base.VMBDialog
+import com.vmloft.develop.library.tools.widget.dialog.VMBDialog
 import com.vmloft.develop.library.tools.databinding.VmWidgetDefaultDialogBinding
 
 /**

@@ -16,7 +16,7 @@ import com.vmloft.develop.library.tools.R
 import com.vmloft.develop.library.tools.base.VMConstant
 import com.vmloft.develop.library.tools.utils.VMStr
 import com.vmloft.develop.library.tools.utils.VMSystem
-import com.vmloft.develop.library.tools.widget.VMDefaultDialog
+import com.vmloft.develop.library.tools.widget.dialog.VMDefaultDialog
 import com.vmloft.develop.library.tools.widget.VMLineView
 
 /**

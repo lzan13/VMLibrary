@@ -17,6 +17,11 @@ android {
         minSdk configs.minSdkVersion
         targetSdk configs.targetSdkVersion
     }
+
+    sourceSets.main {
+        jni.srcDirs = [] // 设置 jni 源码目录，不设置会自动生成
+        jniLibs.srcDir 'src/main/jniLibs' // 设置 so 库目录
+    }
 }
 dependencies {
     implementation 'androidx.core:core-ktx:1.6.0'

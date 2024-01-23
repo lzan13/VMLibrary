@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.tools.widget.voice
+package com.vmloft.develop.library.tools.recorder
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -18,7 +18,6 @@ import com.vmloft.develop.library.tools.R
 import com.vmloft.develop.library.tools.utils.VMColor
 import com.vmloft.develop.library.tools.utils.VMDimen
 import com.vmloft.develop.library.tools.utils.VMSystem
-import com.vmloft.develop.library.tools.utils.logger.VMLog
 
 
 /**
@@ -247,7 +246,7 @@ class VMVoiceRecordAnimView @JvmOverloads constructor(context: Context, attrs: A
                 // 计算波形振幅最大高度
                 val maxHeight = it.height + if (decibel > 45) (decibel - 45) * it.scale else decibel / 2 * it.scale
                 val mAnimator = ValueAnimator.ofFloat(it.animHeight, maxHeight)
-                mAnimator.duration = VMVoiceManager.sampleTime
+                mAnimator.duration = VMRecorderManager.sampleTime
                 mAnimator.repeatCount = 0
                 mAnimator.interpolator = LinearInterpolator()
                 mAnimator.addUpdateListener { a: ValueAnimator ->

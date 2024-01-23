@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.tools.widget
+package com.vmloft.develop.library.tools.widget.layout
 
 import android.content.Context
 import android.util.AttributeSet

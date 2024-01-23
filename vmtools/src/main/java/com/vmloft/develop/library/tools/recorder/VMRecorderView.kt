@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.tools.widget.voice
+package com.vmloft.develop.library.tools.recorder
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -16,6 +16,7 @@ import com.vmloft.develop.library.tools.permission.VMPermission
 import com.vmloft.develop.library.tools.utils.VMDimen
 import com.vmloft.develop.library.tools.utils.VMStr
 import com.vmloft.develop.library.tools.utils.VMSystem
+import com.vmloft.develop.library.tools.utils.logger.VMLog
 
 import java.util.*
 
@@ -23,7 +24,7 @@ import java.util.*
  * Created by lzan13 on 2024/01/10
  * 描述：自定义录音控件
  */
-class VMVoiceRecordView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+class VMRecorderView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     View(context, attrs, defStyleAttr) {
     private var mWidth = 0
     private var mHeight = 0
@@ -93,13 +94,15 @@ class VMVoiceRecordView @JvmOverloads constructor(context: Context, attrs: Attri
     // 录音联动动画控件
     private var mVoiceAnimView: VMVoiceRecordAnimView? = null
 
+    private lateinit var recorderEngine: VMRecorderEngine
+
     /**
      * 初始化控件
      */
     init {
         // 获取控件属性
         handleAttrs(attrs)
-
+        recorderEngine = VMRecorderManager.getRecorderEngine()
         // 画笔
         mPaint = Paint()
         // 设置抗锯齿
@@ -322,7 +325,7 @@ class VMVoiceRecordView @JvmOverloads constructor(context: Context, attrs: Attri
     private fun startOuterAnim() {
         VMSystem.runInUIThread({
             val mAnimator = ValueAnimator.ofInt(mOuterSize, mOuterSize * 2)
-            mAnimator.duration = VMVoiceManager.sampleTime
+            mAnimator.duration = VMRecorderManager.touchAnimTime
             mAnimator.repeatCount = 0
             mAnimator.interpolator = LinearInterpolator()
             mAnimator.addUpdateListener { a: ValueAnimator ->
@@ -350,7 +353,7 @@ class VMVoiceRecordView @JvmOverloads constructor(context: Context, attrs: Attri
         val task: TimerTask = object : TimerTask() {
             override fun run() {
                 durationTime = (System.currentTimeMillis() - startTime).toInt()
-                voiceDecibel = VMVoiceRecorder.decibel()
+                voiceDecibel = recorderEngine.decibel()
 
                 // 将声音分贝添加到集合，这里防止过大，进行抽样保存
                 if (decibelCount % 2 == 1) {
@@ -363,7 +366,7 @@ class VMVoiceRecordView @JvmOverloads constructor(context: Context, attrs: Attri
                 postInvalidate()
             }
         }
-        timer?.scheduleAtFixedRate(task, 300, VMVoiceManager.sampleTime)
+        timer?.scheduleAtFixedRate(task, 300, VMRecorderManager.sampleTime)
     }
 
     /**
@@ -372,13 +375,13 @@ class VMVoiceRecordView @JvmOverloads constructor(context: Context, attrs: Attri
     fun startRecord() {
         isStart = true
         // 调用录音机开始录制音频
-        val code: Int = VMVoiceRecorder.startRecord(null)
-        if (code == VMVoiceRecorder.errorNone) {
+        val code: Int = recorderEngine.startRecord(null)
+        if (code == VMRecorderManager.errorNone) {
             startRecordTimer()
             onRecordStart()
-        } else if (code == VMVoiceRecorder.errorRecording) {
+        } else if (code == VMRecorderManager.errorRecording) {
             // TODO 正在录制中，不做处理
-        } else if (code == VMVoiceRecorder.errorSystem) {
+        } else if (code == VMRecorderManager.errorSystem) {
             isStart = false
             onRecordError(code, "录音系统错误")
             reset()
@@ -394,18 +397,18 @@ class VMVoiceRecordView @JvmOverloads constructor(context: Context, attrs: Attri
     fun stopRecord(cancel: Boolean) {
         stopTimer()
         if (cancel) {
-            VMVoiceRecorder.cancelRecord()
+            recorderEngine.cancelRecord()
             onRecordCancel()
         } else {
-            val code: Int = VMVoiceRecorder.stopRecord()
-            if (code == VMVoiceRecorder.errorFailed) {
+            val code: Int = recorderEngine.stopRecord()
+            if (code == VMRecorderManager.errorFailed) {
                 onRecordError(code, "录音失败")
-            } else if (code == VMVoiceRecorder.errorSystem || durationTime < 1000) {
+            } else if (code == VMRecorderManager.errorSystem || durationTime < 1000) {
                 if (durationTime < 1000) {
                     // 录制时间太短
-                    onRecordError(VMVoiceRecorder.errorShort, "录音时间过短")
+                    onRecordError(VMRecorderManager.errorShort, "录音时间过短")
                 } else {
-                    onRecordError(VMVoiceRecorder.errorShort, "录音系统出现错误")
+                    onRecordError(VMRecorderManager.errorShort, "录音系统出现错误")
                 }
             } else {
                 onRecordComplete()
@@ -471,8 +474,6 @@ class VMVoiceRecordView @JvmOverloads constructor(context: Context, attrs: Attri
         durationTime = 0
 
         decibelList.clear()
-
-        VMVoiceRecorder.reset()
     }
 
 
@@ -491,7 +492,7 @@ class VMVoiceRecordView @JvmOverloads constructor(context: Context, attrs: Attri
     // 录音完成
     private fun onRecordComplete() {
         mVoiceAnimView?.visibility = GONE
-        val bean = VoiceBean(duration = durationTime, path = VMVoiceRecorder.getRecordFile())
+        val bean = VoiceBean(duration = durationTime, path = recorderEngine.getRecordFile())
         // 这里在录制完成后，需要清空 decibelList
         bean.decibelList.addAll(decibelList)
 
