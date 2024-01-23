@@ -91,7 +91,7 @@ class VMRecorderView @JvmOverloads constructor(context: Context, attrs: Attribut
     private var mRecordActionListener: RecordActionListener? = null
 
     // 录音联动动画控件
-    private var mVoiceAnimView: VMRecordAnimView? = null
+    private var mVoiceAnimView: VMRecorderAnimView? = null
 
     private lateinit var recorderEngine: VMRecorderEngine
 
@@ -542,7 +542,7 @@ class VMRecorderView @JvmOverloads constructor(context: Context, attrs: Attribut
     /**
      * 设置录音联动动画控件
      */
-    fun setRecordAnimView(animView: VMRecordAnimView?) {
+    fun setRecordAnimView(animView: VMRecorderAnimView?) {
         mVoiceAnimView = animView
     }
 
