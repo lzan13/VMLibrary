@@ -1,16 +1,16 @@
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
-    id 'kotlin-parcelize'
-    id 'maven-publish'
+    id "com.android.library"
+    id "kotlin-android"
+    id "kotlin-kapt"
+    id "kotlin-parcelize"
+    id "maven-publish"
 }
 
 // 获取配置信息
 def configs = rootProject.ext.configs
 
 android {
-    namespace 'com.vmloft.develop.library.tools'
+    namespace "com.vmloft.develop.library.tools"
     compileSdk configs.compileSdkVersion
 
     defaultConfig {
@@ -20,14 +20,14 @@ android {
 
     sourceSets.main {
         jni.srcDirs = [] // 设置 jni 源码目录，不设置会自动生成
-        jniLibs.srcDir 'src/main/jniLibs' // 设置 so 库目录
+        jniLibs.srcDir "src/main/jniLibs" // 设置 so 库目录
     }
 }
 dependencies {
-    implementation 'androidx.core:core-ktx:1.6.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
-    implementation 'com.google.android.material:material:1.4.0'
+    implementation "androidx.core:core-ktx:1.6.0"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    implementation "androidx.constraintlayout:constraintlayout:2.1.1"
+    implementation "com.google.android.material:material:1.4.0"
 }
 
 /**
@@ -38,8 +38,8 @@ afterEvaluate {
         publications {
             release(MavenPublication) {
                 from components.release
-                groupId = 'com.github.lzan13'
-                artifactId = 'vmtools'
+                groupId = "com.github.lzan13"
+                artifactId = "vmtools"
                 version = configs.versionName
             }
         }

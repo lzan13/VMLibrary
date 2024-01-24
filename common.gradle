@@ -4,8 +4,8 @@ android{
         release {
             minifyEnabled false
             // 配置 Java 编译版本
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            consumerProguardFiles 'consumer-rules.pro'
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+            consumerProguardFiles "consumer-rules.pro"
         }
     }
 

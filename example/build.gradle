@@ -1,8 +1,8 @@
 plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
-    id 'kotlin-parcelize'
+    id "com.android.application"
+    id "kotlin-android"
+    id "kotlin-kapt"
+    id "kotlin-parcelize"
 }
 
 // 引入路由公共配置
@@ -65,12 +65,12 @@ android {
             // 设置正式打包的签名
             signingConfig signingConfigs.release
             // 混淆文件
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
 
 //            // 修改生成的 apk 名字，格式为:项目-版本-时间-渠道名.apk
 //            android.applicationVariants.all { variant ->
 //                variant.outputs.all {
-//                    outputFileName = "${rootProject.name}V${defaultConfig.versionName}.${getTime()}." + variant.productFlavors[0].name + '.apk'
+//                    outputFileName = "${rootProject.name}V${defaultConfig.versionName}.${getTime()}." + variant.productFlavors[0].name + ".apk"
 //                }
 //            }
         }
@@ -98,24 +98,24 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ["*.jar"], dir: "libs")
 
     kapt "androidx.room:room-compiler:2.3.0"
 
     // 依赖 base 库
-    implementation project(':base:vmbase')
+    implementation project(":base:vmbase")
     // 依赖 common 库
-    implementation project(':base:vmcommon')
+    implementation project(":base:vmcommon")
     // 依赖 db 库
-    implementation project(':core:vmdb')
+    implementation project(":core:vmdb")
     // 依赖 image 库
-    implementation project(':core:vmimage')
+    implementation project(":core:vmimage")
     // 依赖 qr 库
-//    implementation project(':core:vmqr')
+//    implementation project(":core:vmqr")
     // 依赖 report 库
-//    implementation project(':core:vmreport')
+//    implementation project(":core:vmreport")
     // 依赖 request 库
-//    implementation project(':core:vmrequest')
+//    implementation project(":core:vmrequest")
 }
 
 // 获取当前系统时间

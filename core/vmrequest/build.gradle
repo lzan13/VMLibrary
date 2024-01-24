@@ -1,15 +1,15 @@
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
-    id 'kotlin-parcelize'
+    id "com.android.library"
+    id "kotlin-android"
+    id "kotlin-kapt"
+    id "kotlin-parcelize"
 }
 
 // 获取配置信息
 def configs = rootProject.ext.configs
 
 android {
-    namespace 'com.vmloft.develop.library.request'
+    namespace "com.vmloft.develop.library.request"
     compileSdk configs.compileSdkVersion
 
     defaultConfig {
@@ -26,16 +26,16 @@ android {
 
 dependencies {
     // Retrofit https://github.com/square/retrofit
-    api 'com.squareup.retrofit2:retrofit:2.9.0'
-    api 'com.squareup.retrofit2:converter-gson:2.9.0'
-    api 'com.squareup.okhttp3:logging-interceptor:4.3.1'
+    api "com.squareup.retrofit2:retrofit:2.9.0"
+    api "com.squareup.retrofit2:converter-gson:2.9.0"
+    api "com.squareup.okhttp3:logging-interceptor:4.3.1"
     // Gson 解析 JSON https://github.com/google/gson
-    api 'com.google.code.gson:gson:2.8.6'
+    api "com.google.code.gson:gson:2.8.6"
 
     // 依赖 base 库
-    implementation project(':base:vmbase')
+    implementation project(":base:vmbase")
     // 依赖 common 库
-    implementation project(':base:vmcommon')
+    implementation project(":base:vmcommon")
 }
 
 // 引入路由公共配置
