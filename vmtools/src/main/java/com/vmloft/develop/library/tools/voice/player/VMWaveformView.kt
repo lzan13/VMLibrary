@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.tools.recorder
+package com.vmloft.develop.library.tools.voice.player
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -18,7 +18,7 @@ import com.vmloft.develop.library.tools.R
 import com.vmloft.develop.library.tools.utils.VMColor
 import com.vmloft.develop.library.tools.utils.VMDimen
 import com.vmloft.develop.library.tools.utils.VMSystem
-import com.vmloft.develop.library.tools.utils.logger.VMLog
+import com.vmloft.develop.library.tools.voice.recorder.VMRecorderView
 
 
 /**
@@ -27,10 +27,6 @@ import com.vmloft.develop.library.tools.utils.logger.VMLog
  */
 class VMWaveformView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     View(context, attrs, defStyleAttr) {
-
-    private val statusIdle = 0 // 空闲
-    private val statusPlaying = 1 // 播放中
-    private val statusPause = 2 // 暂停中
 
     private var mWidth = 0
     private var mHeight = 0
@@ -48,9 +44,6 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
     private var mCurrentProgress = 0f
     private var mMaxProgress = 100f
 
-    // 进度更新动画持续时间
-    private var mProgressAnimDuration = 1000L
-
     // 当前进度宽度
     private var mCurrentProgressWidth = 0f
 
@@ -58,7 +51,7 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
     private var mWaveformActionListener: WaveformActionListener? = null
 
     // 状态
-    private var status = statusIdle
+    private var status = VMVoicePlayer.statusIdle
 
     // 是否再拖动中
     private var isDrag = false
@@ -69,7 +62,7 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
     /**
      * 手势处理
      */
-    val gestureDetector = GestureDetector(context, object : SimpleOnGestureListener() {
+    private val gestureDetector = GestureDetector(context, object : SimpleOnGestureListener() {
         override fun onDown(e: MotionEvent): Boolean {
             return true
         }
@@ -148,6 +141,9 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
      */
     fun setVoiceBean(bean: VMRecorderView.VoiceBean) {
         voiceBean = bean
+        // 将时间设置为最大进度
+        mMaxProgress = bean.duration.toFloat()
+
         if (bean.decibelList.isEmpty()) {
             // TODO 根据声音文件加载声音分贝波形数据
             loadDecibelList()
@@ -158,11 +154,16 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
 
     fun updateVoiceBean(bean: VMRecorderView.VoiceBean) {
         voiceBean = bean
+        // 将时间设置为最大进度
+        mMaxProgress = bean.duration.toFloat()
+
         if (bean.decibelList.isEmpty()) {
             // TODO 根据声音文件加载声音分贝波形数据
             loadDecibelList()
         }
-        mWidth = (voiceBean!!.decibelList.size + 1) * (lineWidth + lineSpace)
+        mWidth = (bean.decibelList.size + 1) * (lineWidth + lineSpace)
+        mCurrentProgressWidth = mWidth.toFloat()
+
         setMeasuredDimension(mWidth, mHeight)
 
         invalidate()
@@ -173,7 +174,7 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
      * 开始
      */
     fun start() {
-        status = statusPlaying
+        status = VMVoicePlayer.statusPlaying
 
         // 首次开始变化，先将进度宽度置为 0
         if (mCurrentProgress == 0f) {
@@ -186,7 +187,10 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
      * 暂定
      */
     fun pause() {
-        status = statusPause
+        status = VMVoicePlayer.statusPause
+
+        calculateProgressWidth()
+
         invalidate()
     }
 
@@ -194,9 +198,24 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
      * 停止
      */
     fun stop() {
-        status = statusIdle
+        status = VMVoicePlayer.statusIdle
+
         mCurrentProgress = 0f
+        calculateProgressWidth()
+
         invalidate()
+    }
+
+    /**
+     * 计算进度宽度
+     */
+    private fun calculateProgressWidth() {
+        // 计算当前进度对应到宽度
+        mCurrentProgressWidth = if (mCurrentProgress > 0) {
+            mCurrentProgress * mWidth / mMaxProgress
+        } else {
+            mWidth.toFloat()
+        }
     }
 
     /**
@@ -205,8 +224,13 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
     fun updateProgress(progress: Float) {
         if (!isDrag) {
             mCurrentProgress = progress
-            // 开始动画更新进度
-            startProgressAnim(progress)
+            if (mCurrentProgress == 0f) {
+                mCurrentProgressWidth = mWidth.toFloat()
+                postInvalidate()
+            } else {
+                // 开始动画更新进度
+                startProgressAnim(progress)
+            }
         }
     }
 
@@ -215,13 +239,6 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
      */
     fun setMaxProgress(progress: Float) {
         mMaxProgress = progress
-    }
-
-    /**
-     * 设置进度更新持续时间
-     */
-    fun setProgressAnimTime(duration: Long) {
-        mProgressAnimDuration = duration
     }
 
     /**
@@ -343,11 +360,11 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
             // 后续直接使用宽度了，这里直接赋值给当前进度
             mCurrentProgress = progress
             val mAnimator = ValueAnimator.ofFloat(mCurrentProgressWidth, progressWidth)
-            mAnimator.duration = mProgressAnimDuration
+            mAnimator.duration = VMVoicePlayer.progressAnimDuration
             mAnimator.repeatCount = 0
             mAnimator.interpolator = LinearInterpolator()
             mAnimator.addUpdateListener { a: ValueAnimator ->
-                if (status == statusPlaying && !isDrag) {
+                if (status == VMVoicePlayer.statusPlaying && !isDrag) {
                     // 动画大小根据回调变化
                     mCurrentProgressWidth = a.animatedValue as Float
 
@@ -363,6 +380,7 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
         when (action) {
             MotionEvent.ACTION_UP -> {
                 isDrag = false
+                // 拖动结束，回调当前进度
                 mWaveformActionListener?.onProgressChange(mCurrentProgress)
             }
         }

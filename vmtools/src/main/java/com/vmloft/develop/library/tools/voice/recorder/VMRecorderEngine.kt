@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.tools.recorder
+package com.vmloft.develop.library.tools.voice.recorder
 
 /**
  * Created by lzan13 on 2024/01/10.

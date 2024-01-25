@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.tools.recorder
+package com.vmloft.develop.library.tools.voice.recorder
 
 import android.media.MediaRecorder
 import android.media.MediaRecorder.AudioEncoder
@@ -20,7 +20,6 @@ object VMMediaRecorder : VMRecorderEngine() {
 
     private var samplingRate = 8000 // 音频采样率 单位 Hz
     private var encodingBitRate = 64 // 音频编码比特率
-    private var maxDuration = 60 * 60 * 1000 // 录音最大持续时间 60 分钟
 
     private var decibelBase = 1 // 计算分贝基准值
 
@@ -50,7 +49,7 @@ object VMMediaRecorder : VMRecorderEngine() {
         // 设置音频编码比特率
         mediaRecorder?.setAudioEncodingBitRate(encodingBitRate)
         // 设置录音最大持续时间
-        mediaRecorder?.setMaxDuration(maxDuration)
+        mediaRecorder?.setMaxDuration(VMRecorderManager.maxDuration)
     }
 
     /**

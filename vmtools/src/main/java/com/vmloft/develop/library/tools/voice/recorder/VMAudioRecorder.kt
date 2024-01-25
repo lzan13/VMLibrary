@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.tools.recorder
+package com.vmloft.develop.library.tools.voice.recorder
 
 import android.media.AudioFormat
 import android.media.AudioRecord
@@ -8,6 +8,8 @@ import com.vmloft.develop.library.tools.utils.VMDate
 import com.vmloft.develop.library.tools.utils.VMFile
 import com.vmloft.develop.library.tools.utils.VMSystem
 import com.vmloft.develop.library.tools.utils.logger.VMLog
+import com.vmloft.develop.library.tools.voice.encoder.EncodeTask
+import com.vmloft.develop.library.tools.voice.encoder.VMLame
 
 import java.io.File
 import java.io.IOException
@@ -190,7 +192,7 @@ class VMAudioRecorder : VMRecorderEngine() {
         // 平方和除以数据总长度，得到音量大小。
         val mean = v.toDouble() / readSize
         currentDecibel = (12 * Math.log10(mean)).toInt()
-        VMLog.i("decibel $currentDecibel")
+//        VMLog.i("decibel $currentDecibel")
     }
 
     /**

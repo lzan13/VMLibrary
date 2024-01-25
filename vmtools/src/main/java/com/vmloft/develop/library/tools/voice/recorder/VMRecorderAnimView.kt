@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.tools.recorder
+package com.vmloft.develop.library.tools.voice.recorder
 
 import android.animation.ValueAnimator
 import android.content.Context

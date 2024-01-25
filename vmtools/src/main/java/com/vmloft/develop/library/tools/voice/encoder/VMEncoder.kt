@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.tools.recorder
+package com.vmloft.develop.library.tools.voice.encoder
 
 import android.media.AudioRecord
 import android.media.AudioRecord.OnRecordPositionUpdateListener

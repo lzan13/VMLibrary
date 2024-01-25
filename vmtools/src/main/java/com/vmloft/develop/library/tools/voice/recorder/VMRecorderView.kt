@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.tools.recorder
+package com.vmloft.develop.library.tools.voice.recorder
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -353,7 +353,9 @@ class VMRecorderView @JvmOverloads constructor(context: Context, attrs: Attribut
             override fun run() {
                 durationTime = (System.currentTimeMillis() - startTime).toInt()
                 voiceDecibel = recorderEngine.decibel()
-
+                if (durationTime > VMRecorderManager.maxDuration) {
+                    stopRecord(false)
+                }
                 // 将声音分贝添加到集合，这里防止过大，进行抽样保存
                 if (decibelCount % 2 == 1) {
                     decibelList.add(voiceDecibel)
@@ -393,7 +395,7 @@ class VMRecorderView @JvmOverloads constructor(context: Context, attrs: Attribut
      *
      * @param cancel 是否为取消
      */
-    fun stopRecord(cancel: Boolean) {
+    fun stopRecord(cancel: Boolean = false) {
         stopTimer()
         if (cancel) {
             recorderEngine.cancelRecord()

@@ -25,8 +25,8 @@ dependencies {
     api "com.tencent.wcdb:wcdb-android:1.0.8"
     // WCDB room 代替上边 room-runtime https://github.com/Tencent/wcdb
     api "com.tencent.wcdb:room:1.0.8"
-    kapt "androidx.room:room-compiler:2.3.0"
-    api "androidx.room:room-ktx:2.3.0"
+    kapt "androidx.room:room-compiler:2.6.0"
+    api "androidx.room:room-ktx:2.6.0"
 
     // 依赖 base 库
     implementation project(":base:vmbase")

@@ -8,6 +8,7 @@ object AppRouter {
     // 界面 Demo
     const val appBarrage = "/VMLoft/Barrage"
     const val appCustomView = "/VMLoft/CustomView"
+    const val appCustomRecorderView = "/VMLoft/CustomRecorderView"
     const val appCustomDrawView = "/VMLoft/CustomDrawView"
     const val appCustomGuideView = "/VMLoft/CustomGuideView"
     const val appFloatMenu = "/VMLoft/FloatMenu"

@@ -28,7 +28,7 @@ dependencies {
 //    api "com.squareup.retrofit2:converter-gson:2.9.0"
 //    api "com.squareup.okhttp3:logging-interceptor:4.3.1"
     // Gson 解析 JSON https://github.com/google/gson
-    implementation "com.google.code.gson:gson:2.8.6"
+    implementation "com.google.code.gson:gson:2.10"
 
     // 强大 WebView 库 https://github.com/J ustson/AgentWeb
     api "com.github.Justson.AgentWeb:agentweb-core:v4.1.9-androidx"

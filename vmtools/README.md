@@ -74,16 +74,16 @@ val isEmail = VMReg.isEmail(email)
 
 - [permission](src/main/java/com/vmloft/develop/library/tools/permission) 6.X以上权限申请工具
 
-- [recorder](src/main/java/com/vmloft/develop/library/tools/recorder) 录音机控件
-  - [VMAudioRecorder](src/main/java/com/vmloft/develop/library/tools/recorder/VMAudioRecorder) AudioRecord 实现 借助 lame 实现录制 mp3 文件
-  - [VMEncoder](src/main/java/com/vmloft/develop/library/tools/recorder/VMEncoder)  借助 lame 进行 pcm 到 mp3 转换
-  - [VMLame](src/main/java/com/vmloft/develop/library/tools/recorder/VMLame) VMLame 调用 lame 接口的本地方法类
-  - [VMMediaRecorder](src/main/java/com/vmloft/develop/library/tools/recorder/VMMediaRecorder) MediaRecorder 实现 录制 amr 文件
-  - [VMRecorderAnimView](src/main/java/com/vmloft/develop/library/tools/recorder/VMRecorderAnimView) 录音控件动画类
-  - [VMRecorderEngine](src/main/java/com/vmloft/develop/library/tools/recorder/VMRecorderEngine) 录音引擎接口 VMAudioRecorder 和 VMMediaRecorder 都实现此接口
-  - [VMRecorderManager](src/main/java/com/vmloft/develop/library/tools/recorder/VMRecorderManager) 录音管理类
-  - [VMRecorderView](src/main/java/com/vmloft/develop/library/tools/recorder/VMRecorderView) 录音触摸类
-  - [VMWaveformView](src/main/java/com/vmloft/develop/library/tools/recorder/VMWaveformView) 录音播放波形，一般用来im消息展示
+- [recorder](src/main/java/com/vmloft/develop/library/tools/voice) 录音机控件
+  - [VMAudioRecorder](src/main/java/com/vmloft/develop/library/tools/voice/VMAudioRecorder) AudioRecord 实现 借助 lame 实现录制 mp3 文件
+  - [VMEncoder](src/main/java/com/vmloft/develop/library/tools/voice/VMEncoder)  借助 lame 进行 pcm 到 mp3 转换
+  - [VMLame](src/main/java/com/vmloft/develop/library/tools/voice/VMLame) VMLame 调用 lame 接口的本地方法类
+  - [VMMediaRecorder](src/main/java/com/vmloft/develop/library/tools/voice/VMMediaRecorder) MediaRecorder 实现 录制 amr 文件
+  - [VMRecorderAnimView](src/main/java/com/vmloft/develop/library/tools/voice/VMRecorderAnimView) 录音控件动画类
+  - [VMRecorderEngine](src/main/java/com/vmloft/develop/library/tools/voice/VMRecorderEngine) 录音引擎接口 VMAudioRecorder 和 VMMediaRecorder 都实现此接口
+  - [VMRecorderManager](src/main/java/com/vmloft/develop/library/tools/voice/VMRecorderManager) 录音管理类
+  - [VMRecorderView](src/main/java/com/vmloft/develop/library/tools/voice/VMRecorderView) 录音触摸类
+  - [VMWaveformView](src/main/java/com/vmloft/develop/library/tools/voice/VMWaveformView) 录音播放波形，一般用来im消息展示
 
 - [service](src/main/java/com/vmloft/develop/library/tools/service) 服务封装
   - [VMATypeFind](src/main/java/com/vmloft/develop/library/tools/service/VMATypeFind) 节点查找抽象类

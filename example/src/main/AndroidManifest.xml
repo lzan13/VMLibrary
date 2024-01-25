@@ -53,6 +53,10 @@
         <activity
             android:name=".ui.demo.custom.CustomViewActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" />
+        <!--自定义控件-->
+        <activity
+            android:name=".ui.demo.custom.RecorderViewActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <!--自定义遮罩引导-->
         <activity android:name=".ui.demo.custom.GuideViewActivity" />
         <!--自定义绘图控件-->
