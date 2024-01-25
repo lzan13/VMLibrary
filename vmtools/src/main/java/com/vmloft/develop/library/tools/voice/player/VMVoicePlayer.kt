@@ -40,7 +40,7 @@ object VMVoicePlayer {
     private var currentProgress: Float = 0f
 
     // 进度动画时间
-    private var progressAnimDuration = 100L
+    var progressAnimDuration = 100L
 
     // 播放动作监听接口
     private var onPlayActionListener: IOnPlayActionListener? = null
