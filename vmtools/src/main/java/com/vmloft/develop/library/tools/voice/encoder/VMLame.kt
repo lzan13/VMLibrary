@@ -2,7 +2,7 @@ package com.vmloft.develop.library.tools.voice.encoder
 
 /**
  * Created by lzan13 on 2024/1/22 16:42
- * 描述：Lame jni 接口类
+ * 描述：Lame jni 接口类，TODO 此文件和 jni头文件 及生成的 so息息相关，不能随意挪动
  */
 object VMLame {
     init {

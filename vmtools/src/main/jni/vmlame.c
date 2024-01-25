@@ -5,7 +5,7 @@
 
 static lame_global_flags *lame = NULL;
 
-JNIEXPORT void JNICALL Java_com_vmloft_develop_library_tools_recorder_VMLame_init(JNIEnv *env, jclass cls, jint inSampleRate, jint inChannel, jint outSampleRate, jint outBitRate, jint quality) {
+JNIEXPORT void JNICALL Java_com_vmloft_develop_library_tools_voice_encoder_VMLame_init(JNIEnv *env, jclass cls, jint inSampleRate, jint inChannel, jint outSampleRate, jint outBitRate, jint quality) {
     if (lame != NULL) {
         lame_close(lame);
         lame = NULL;
@@ -19,7 +19,7 @@ JNIEXPORT void JNICALL Java_com_vmloft_develop_library_tools_recorder_VMLame_ini
     lame_init_params(lame);
 }
 
-JNIEXPORT jint JNICALL Java_com_vmloft_develop_library_tools_recorder_VMLame_encode(JNIEnv *env, jclass cls, jshortArray buffer_l, jshortArray buffer_r,jint samples, jbyteArray mp3buf) {
+JNIEXPORT jint JNICALL Java_com_vmloft_develop_library_tools_voice_encoder_VMLame_encode(JNIEnv *env, jclass cls, jshortArray buffer_l, jshortArray buffer_r,jint samples, jbyteArray mp3buf) {
     jshort* j_buffer_l = (*env)->GetShortArrayElements(env, buffer_l, NULL);
 
     jshort* j_buffer_r = (*env)->GetShortArrayElements(env, buffer_r, NULL);
@@ -36,7 +36,7 @@ JNIEXPORT jint JNICALL Java_com_vmloft_develop_library_tools_recorder_VMLame_enc
     return result;
 }
 
-JNIEXPORT jint JNICALL Java_com_vmloft_develop_library_tools_recorder_VMLame_flush(JNIEnv *env, jclass cls, jbyteArray mp3buf) {
+JNIEXPORT jint JNICALL Java_com_vmloft_develop_library_tools_voice_encoder_VMLame_flush(JNIEnv *env, jclass cls, jbyteArray mp3buf) {
     const jsize mp3buf_size = (*env)->GetArrayLength(env, mp3buf);
     jbyte* j_mp3buf = (*env)->GetByteArrayElements(env, mp3buf, NULL);
 
@@ -47,7 +47,7 @@ JNIEXPORT jint JNICALL Java_com_vmloft_develop_library_tools_recorder_VMLame_flu
     return result;
 }
 
-JNIEXPORT void JNICALL Java_com_vmloft_develop_library_tools_recorder_VMLame_close(JNIEnv *env, jclass cls) {
+JNIEXPORT void JNICALL Java_com_vmloft_develop_library_tools_voice_encoder_VMLame_close(JNIEnv *env, jclass cls) {
     lame_close(lame);
     lame = NULL;
 }

@@ -30,8 +30,12 @@ object VMVoicePlayer {
     private var exoPlayer: ExoPlayer? = null
 
     // 当前播放文件地址
-    private var currentUrl: String = ""
-    private var currentStatus: Int = statusIdle
+    var currentUrl: String = ""
+        get() = field
+        private set
+    var currentStatus: Int = statusIdle
+        get() = field
+        private set
 
     // 是否需要拖动进度
     private var isSeek = false
