@@ -100,9 +100,10 @@ android {
 dependencies {
     implementation fileTree(include: ["*.jar"], dir: "libs")
 
-    kapt "androidx.room:room-compiler:2.6.0"
+    // Google 媒体播放器，官方推荐代替 MediaPlayer https://github.com/google/media
+    implementation("androidx.media3:media3-exoplayer:1.2.0")
 
-    implementation project(":vmtools")
+    kapt "androidx.room:room-compiler:2.6.0"
 
     // 依赖 base 库
     implementation project(":base:vmbase")
