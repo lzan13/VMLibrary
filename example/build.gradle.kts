@@ -4,7 +4,7 @@ plugins {
     id("org.jetbrains.kotlin.kapt")
     id("org.jetbrains.kotlin.plugin.parcelize")
     // 自定义打包插件，用来统一管理配置和依赖
-    id("vmbuild")
+    id("com.vmloft.develop.plugin.config.application")
 }
 
 android {
@@ -23,12 +23,12 @@ android {
     // 签名信息
     signingConfigs {
         // 签名信息，因为签名文件是保密信息，放在一个配置文件中进行读取，这个文件不会再版本库里存在
-        create("release") {
-            keyAlias = VMSignings.keyAlias
-            keyPassword = VMSignings.keyPassword
-            storeFile = file(VMSignings.storeFile)
-            storePassword = VMSignings.storePassword
-        }
+//        create("release") {
+//            keyAlias = VMSignings.keyAlias
+//            keyPassword = VMSignings.keyPassword
+//            storeFile = file(VMSignings.storeFile)
+//            storePassword = VMSignings.storePassword
+//        }
     }
 
     // 编译配置
@@ -39,7 +39,7 @@ android {
             // 打包时删除无用资源 依赖于混淆，必须和 minifyEnabled 一起使用
             isShrinkResources = false
             // Debug 打包签名信息，这里和 release 配置相同方便三方登录与分享调试
-            signingConfig = signingConfigs.getByName("release")
+//            signingConfig = signingConfigs.getByName("release")
         }
         getByName("release") {
             // 是否开启混淆
@@ -47,7 +47,7 @@ android {
             // 打包时删除无用资源 依赖于混淆，必须和 minifyEnabled 一起使用
             isShrinkResources = true
             // 设置正式打包的签名
-            signingConfig = signingConfigs.getByName("release")
+//            signingConfig = signingConfigs.getByName("release")
             // 混淆文件
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 
@@ -69,7 +69,7 @@ dependencies {
 //    implementation (group="",name="libraryname",ext = "aar")
 
     // Google 媒体播放器，官方推荐代替 MediaPlayer https://github.com/google/media
-    implementation(VMDependencies.media3)
+//    implementation(VMDependencies.media3)
 
     // 依赖 base 库
     implementation(project(":base:vmbase"))
@@ -91,7 +91,7 @@ dependencies {
 //}
 
 
-// 引入路由公共配置
-apply { from("${rootDir.path}/arouter.gradle") }
-// 引入通用公共配置
-apply { from("${rootDir.path}/common.gradle") }
+//// 引入路由公共配置
+//apply { from("${rootDir.path}/arouter.gradle") }
+//// 引入通用公共配置
+//apply { from("${rootDir.path}/common.gradle") }

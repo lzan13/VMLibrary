@@ -4,7 +4,7 @@ plugins {
     id("org.jetbrains.kotlin.kapt")
     id("org.jetbrains.kotlin.plugin.parcelize")
     // 自定义打包插件，用来统一管理配置和依赖
-    id("vmbuild")
+    id("com.vmloft.develop.plugin.config.library")
 }
 
 android {
@@ -26,9 +26,9 @@ dependencies {
     // Retrofit https://github.com/square/retrofit
     api("com.squareup.retrofit2:retrofit:2.9.0")
     api("com.squareup.retrofit2:converter-gson:2.9.0")
-    api("com.squareup.okhttp3:logging-interceptor:4.3.1")
+    api("com.squareup.okhttp3:logging-interceptor:4.9.2")
     // Gson 解析 JSON https://github.com/google/gson
-    api("com.google.code.gson:gson:2.8.6")
+    api("com.google.code.gson:gson:2.10")
 
     // 依赖 base 库
     implementation(project(":base:vmbase"))
@@ -36,7 +36,7 @@ dependencies {
     implementation(project(":base:vmcommon"))
 }
 
-// 引入路由公共配置
-apply { from("${rootDir.absolutePath}/arouter.gradle") }
-// 引入通用公共配置
-apply { from("${rootDir.absolutePath}/common.gradle") }
+//// 引入路由公共配置
+//apply { from("${rootDir.absolutePath}/arouter.gradle") }
+//// 引入通用公共配置
+//apply { from("${rootDir.absolutePath}/common.gradle") }

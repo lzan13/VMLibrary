@@ -1,3 +1,5 @@
+import com.vmloft.develop.plugin.config.VMDependencies
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -5,7 +7,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.parcelize")
     id("maven-publish")
     // 自定义打包插件，用来统一管理配置和依赖
-    id("vmbuild")
+    id("com.vmloft.develop.plugin.config.library")
 }
 
 android {
@@ -55,4 +57,4 @@ dependencies {
 //}
 
 // 引入通用公共配置
-apply { from("${rootDir.absolutePath}/common.gradle") }
+//apply { from("${rootDir.absolutePath}/common.gradle") }

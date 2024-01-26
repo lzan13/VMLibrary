@@ -4,7 +4,7 @@ plugins {
     id("org.jetbrains.kotlin.kapt")
     id("org.jetbrains.kotlin.plugin.parcelize")
     // 自定义打包插件，用来统一管理配置和依赖
-    id("vmbuild")
+    id("com.vmloft.develop.plugin.config.library")
 }
 
 android {
@@ -26,7 +26,6 @@ dependencies {
     api("androidx.localbroadcastmanager:localbroadcastmanager:1.1.0")
     api("com.google.android.material:material:1.10.0")
 
-//    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     // Kotlin 协同程序扩展
     // 介绍 https://www.kotlincn.net/docs/reference/coroutines/coroutines-guide.html
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
@@ -45,7 +44,7 @@ dependencies {
 
     // Android Jetpack 相关
     api("androidx.lifecycle:lifecycle-extensions:2.2.0")
-    api("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
+    api("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
     api("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
 
     // MultiType RecyclerView 多类型适配器 https://github.com/drakeet/MultiType
@@ -67,6 +66,6 @@ dependencies {
 }
 
 // 引入路由公共配置
-apply { from("${rootDir.absolutePath}/arouter.gradle") }
-// 引入通用公共配置
-apply { from("${rootDir.absolutePath}/common.gradle") }
+//apply { from("${rootDir.absolutePath}/arouter.gradle") }
+//// 引入通用公共配置
+//apply { from("${rootDir.absolutePath}/common.gradle") }

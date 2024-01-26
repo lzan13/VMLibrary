@@ -4,7 +4,7 @@ plugins {
     id("org.jetbrains.kotlin.kapt")
     id("org.jetbrains.kotlin.plugin.parcelize")
     // 自定义打包插件，用来统一管理配置和依赖
-    id("vmbuild")
+    id("com.vmloft.develop.plugin.config.library")
 }
 
 android {
@@ -39,7 +39,7 @@ dependencies {
 
 }
 
-// 引入路由公共配置
-apply { from("${rootDir.absolutePath}/arouter.gradle") }
-// 引入通用公共配置
-apply { from("${rootDir.absolutePath}/common.gradle") }
+//// 引入路由公共配置
+//apply { from("${rootDir.absolutePath}/arouter.gradle") }
+//// 引入通用公共配置
+//apply { from("${rootDir.absolutePath}/common.gradle") }
