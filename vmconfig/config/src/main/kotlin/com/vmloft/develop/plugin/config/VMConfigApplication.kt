@@ -9,6 +9,8 @@ import org.gradle.api.Project
  */
 class VMConfigApplication : Plugin<Project> {
     override fun apply(target: Project) {
+        with(target){
 
+        }
     }
 }

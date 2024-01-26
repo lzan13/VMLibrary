@@ -11,18 +11,19 @@ object RConstants {
     /**
      * 获取接口 host 地址，根据 debug 状态返回不同地址
      */
-    fun baseHost(): String {
-        return if (CSPManager.isDebug()) {
-            BuildConfig.baseDebugUrl
-        } else {
-            BuildConfig.baseReleaseUrl
-        }
-    }
+//    fun baseHost(): String {
+//        return if (CSPManager.isDebug()) {
+//            BuildConfig.baseDebugUrl
+//        } else {
+//            BuildConfig.baseReleaseUrl
+//        }
+//    }
 
     /**
      * 获取媒体资源 host 地址
      */
     fun mediaHost(): String {
-        return BuildConfig.mediaUrl
+//        return BuildConfig.mediaUrl
+        return ""
     }
 }

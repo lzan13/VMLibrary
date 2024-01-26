@@ -33,7 +33,8 @@
         <!--闪屏页-->
         <activity
             android:name=".ui.splash.SplashActivity"
-            android:theme="@style/AppTheme.Splash">
+            android:theme="@style/AppTheme.Splash"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -70,7 +71,7 @@
         <!--指示器界面-->
         <activity android:name=".ui.demo.custom.IndicatorViewActivity" />
         <!--Lottie 动画-->
-        <activity android:name=".ui.demo.anim.LottieAnimActivity" />
+        <activity android:name=".ui.demo.anim.AnimActivity" />
         <!--按钮主题样式-->
         <activity android:name=".ui.demo.custom.ButtonThemeActivity" />
         <!--图片选择功能界面-->

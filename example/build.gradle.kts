@@ -1,3 +1,6 @@
+import com.vmloft.develop.plugin.config.extension.applicationDependencies
+
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -60,6 +63,28 @@ android {
         }
     }
 
+    buildFeatures {
+        // gradle 8.x 默认关闭了 buildConfig
+        buildConfig = true
+        // 开启 ViewBinding
+        viewBinding = true
+    }
+
+    // 配置 Java 编译版本
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+//
+//    // 编译忽略错误配置
+//    lintOptions {
+//        abortOnError = false
+//    }
+    // kotlin 配置
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_17.toString()
+    }
+
 }
 
 dependencies {
@@ -67,31 +92,5 @@ dependencies {
     implementation(fileTree(mapOf("include" to listOf("*.jar"), "dir" to "libs")))
     // 依赖 aar
 //    implementation (group="",name="libraryname",ext = "aar")
-
-    // Google 媒体播放器，官方推荐代替 MediaPlayer https://github.com/google/media
-//    implementation(VMDependencies.media3)
-
-    // 依赖 base 库
-    implementation(project(":base:vmbase"))
-    // 依赖 common 库
-    implementation(project(":base:vmcommon"))
-    // 依赖 image 库
-    implementation(project(":core:vmimage"))
-    // 依赖 qr 库
-//    implementation(project(":core:vmqr"))
-    // 依赖 report 库
-//    implementation(project(":core:vmreport"))
-    // 依赖 request 库
-//    implementation(project(":core:vmrequest"))
+    applicationDependencies()
 }
-
-//// 获取当前系统时间
-//val getTime () {
-//    return new Date ().format("yyyyMMddHHmm", TimeZone.getTimeZone("UTC"))
-//}
-
-
-//// 引入路由公共配置
-//apply { from("${rootDir.path}/arouter.gradle") }
-//// 引入通用公共配置
-//apply { from("${rootDir.path}/common.gradle") }

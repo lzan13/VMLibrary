@@ -1,7 +1,7 @@
 package com.vmloft.develop.library.common.config
 
 import com.vmloft.develop.library.base.common.CConstants
-import com.vmloft.develop.library.base.event.LDEventBus
+import com.vmloft.develop.library.common.event.LDEventBus
 import com.vmloft.develop.library.common.utils.JsonUtils
 
 /**

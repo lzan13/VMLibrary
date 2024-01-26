@@ -1,13 +1,14 @@
 plugins {
     `kotlin-dsl`
 }
+
+// 配置 Java 编译版本
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
 }
-//kotlinOptions {
-//    jvmToolchain(17)
-//}
+
+
 // 添加插件依赖
 dependencies {
     implementation("com.android.tools.build:gradle:8.2.1")

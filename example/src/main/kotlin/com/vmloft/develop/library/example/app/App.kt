@@ -6,13 +6,11 @@ import androidx.appcompat.app.AppCompatDelegate
 
 import com.alibaba.android.arouter.launcher.ARouter
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
-import com.vmloft.develop.library.base.event.LDEventBus
+import com.vmloft.develop.library.common.event.LDEventBus
 import com.vmloft.develop.library.base.notify.NotifyManager
 import com.vmloft.develop.library.common.widget.refresh.DoubleCircleFooter
 import com.vmloft.develop.library.common.widget.refresh.DoubleCircleHeader
-
 import com.vmloft.develop.library.example.BuildConfig
-import com.vmloft.develop.library.example.R
 import com.vmloft.develop.library.example.common.Constants
 import com.vmloft.develop.library.example.common.SPManager
 import com.vmloft.develop.library.tools.VMTools
@@ -43,7 +41,7 @@ class App : Application() {
     private fun initApp() {
         initCommon()
 
-//        initKoin()
+        initKoin()
 
         initRouter()
 
@@ -72,7 +70,7 @@ class App : Application() {
     private fun initCommon() {
         VMTools.init(appContext)
         val level = if (BuildConfig.DEBUG) VMLog.Level.DEBUG else VMLog.Level.ERROR
-        VMLog.init(level, "vm_template")
+        VMLog.init(level, "VMTools")
 
         // 设置暗色主题模式
         if (SPManager.isDarkModeSystemSwitch()) {
@@ -91,22 +89,22 @@ class App : Application() {
     /**
      * 初始化 Koin
      */
-//    private fun initKoin() {
+    private fun initKoin() {
 //        startKoin {
 //            androidContext(this@App)
 //            modules(appModule)
 //        }
-//    }
+    }
 
     /**
      * 初始化注解路由
      */
     private fun initRouter() {
-        if (BuildConfig.DEBUG) {
-            ARouter.openLog()
-            ARouter.openDebug()
-        }
-        ARouter.init(this)
+//        if (BuildConfig.DEBUG) {
+//            ARouter.openLog()
+//            ARouter.openDebug()
+//        }
+//        ARouter.init(this)
     }
 
     /**

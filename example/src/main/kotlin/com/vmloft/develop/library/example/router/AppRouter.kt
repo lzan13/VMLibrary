@@ -14,7 +14,7 @@ object AppRouter {
     const val appFloatMenu = "/VMLoft/FloatMenu"
     const val appIndicator = "/VMLoft/Indicator"
     const val appLoading = "/VMLoft/Loading"
-    const val appLottieAnim = "/VMLoft/LottieAnim"
+    const val appAnim = "/VMLoft/LottieAnim"
     const val appStyle = "/VMLoft/Style"
 
     const val appImagePicker = "/VMLoft/ImagePicker"

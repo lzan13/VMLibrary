@@ -18,7 +18,6 @@ import com.vmloft.develop.library.example.router.AppRouter
 import com.vmloft.develop.library.base.utils.showBar
 import com.vmloft.develop.library.example.utils.errorBar
 import com.vmloft.develop.library.tools.VMTools
-import com.vmloft.develop.library.tools.permission.VMPermission
 import com.vmloft.develop.library.tools.permission.VMPermissionBean
 
 
@@ -43,7 +42,7 @@ class HomeFragment : BFragment<FragmentHomeBinding>() {
         addBtn("悬浮菜单", AppRouter.appFloatMenu)
         addBtn("指示器", AppRouter.appIndicator)
         addBtn("Loading", AppRouter.appLoading)
-        addBtn("Lottie 动画", AppRouter.appLottieAnim)
+        addBtn("Lottie 动画", AppRouter.appAnim)
         addBtn("按钮", AppRouter.appStyle)
         addBtn("图片选择", AppRouter.appImagePicker)
 

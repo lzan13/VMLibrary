@@ -4,7 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Parcelable
+
 import com.alibaba.android.arouter.launcher.ARouter
+
 import com.vmloft.develop.library.tools.VMTools
 import com.vmloft.develop.library.tools.utils.logger.VMLog
 

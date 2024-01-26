@@ -1,3 +1,5 @@
+import com.vmloft.develop.plugin.config.extension.requestDependencies
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -20,23 +22,30 @@ android {
 //        // 资源文件 url 地址
 //        buildConfigField("String", "mediaUrl", configs.mediaUrl)
     }
+
+    buildFeatures {
+        // gradle 8.x 默认关闭了 buildConfig
+        buildConfig = true
+        // 开启 ViewBinding
+        viewBinding = true
+    }
+
+    // 配置 Java 编译版本
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+//
+//    // 编译忽略错误配置
+//    lintOptions {
+//        abortOnError = false
+//    }
+    // kotlin 配置
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_17.toString()
+    }
 }
 
 dependencies {
-    // Retrofit https://github.com/square/retrofit
-    api("com.squareup.retrofit2:retrofit:2.9.0")
-    api("com.squareup.retrofit2:converter-gson:2.9.0")
-    api("com.squareup.okhttp3:logging-interceptor:4.9.2")
-    // Gson 解析 JSON https://github.com/google/gson
-    api("com.google.code.gson:gson:2.10")
-
-    // 依赖 base 库
-    implementation(project(":base:vmbase"))
-    // 依赖 common 库
-    implementation(project(":base:vmcommon"))
+    requestDependencies()
 }
-
-//// 引入路由公共配置
-//apply { from("${rootDir.absolutePath}/arouter.gradle") }
-//// 引入通用公共配置
-//apply { from("${rootDir.absolutePath}/common.gradle") }

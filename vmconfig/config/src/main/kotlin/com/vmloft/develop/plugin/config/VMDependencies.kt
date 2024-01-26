@@ -4,11 +4,6 @@ package com.vmloft.develop.plugin.config
  * Created by lzan13 on 2024/01/25
  * 描述：依赖版本管理
  */
-
-object VMVersions {
-    const val coreKtx = "1.6.1"
-}
-
 object VMDependencies {
     /**
      * kotlin 相关库
@@ -28,16 +23,31 @@ object VMDependencies {
     const val appCompat = "androidx.appcompat:appcompat:1.6.1"
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.4"
     const val coordinatorLayout = "androidx.coordinatorlayout:coordinatorlayout:1.2.0"
-    const val layoutBroadcastManager = "androidx.localbroadcastmanager:localbroadcastmanager:1.1.0"
+    const val localBroadcastManager = "androidx.localbroadcastmanager:localbroadcastmanager:1.1.0"
     const val material = "com.google.android.material:material:1.10.0"
 
     /**
      * Android Jetpack 相关
      */
     const val activityKtx = "androidx.activity:activity-ktx:1.8.0"
+    const val fragmentKtx = "androidx.fragment:fragment-ktx:1.6.2"
     const val lifecycleExtensions = "androidx.lifecycle:lifecycle-extensions:2.2.0"
     const val lifecycleLivedataKtx = "androidx.lifecycle:lifecycle-livedata-ktx:2.6.2"
     const val lifecycleViewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2"
+
+    // 依赖注入框架
+//    // Koin for Android
+//    implementation "org.koin:koin-android:2.0.1"
+//    // Koin for Kotlin
+//    implementation "org.koin:koin-core:2.0.1"
+//    // or Koin for Lifecycle scoping
+//    implementation "org.koin:koin-androidx-scope:2.0.1"
+//    // or Koin for Android Architecture ViewModel
+    const val  koin = "org.koin:koin-androidx-viewmodel:2.0.1"
+
+    // hilt 注解
+    const val hiltAndroid = "com.google.dagger:hilt-android:2.48.1"
+    const val hiltAndroidCompiler = "com.google.dagger:hilt-android-compiler:2.48.1"
 
     // Android消息总线，基于LiveData https://github.com/JeremyLiao/LiveEventBus
     const val liveEventBus = "io.github.jeremyliao:live-event-bus-x:1.8.0"
@@ -88,5 +98,9 @@ object VMDependencies {
 
     // 播放器 UI 组件 这里暂不需要
     const val media3UI = "androidx.media3:media3-ui:1.2.0"
+
+    // 自定义工具库 https://gitee.com/lzan13/VMLibrary
+    // 自定义工具库 https://github.com/lzan13/VMLibrary
+    const val vmtools = "com.github.lzan13:VMLibrary:1.8.0"
 
 }
