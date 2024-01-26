@@ -111,7 +111,10 @@ fun DependencyHandlerScope.imageDependencies() {
  * android 相关依赖
  */
 fun DependencyHandlerScope.applicationDependencies() {
-//    "api"(fileTree(mapOf("include" to listOf("*.jar"), "dir" to "libs")))
+    // 依赖 jar 包
+//    implementation(fileTree(mapOf("include" to listOf("*.jar"), "dir" to "libs")))
+    // 依赖 aar
+//    implementation(group = "", name = "libraryname", ext = "aar")
 
     // 依赖 vmbase/vmcommon/vmrequest/vmimage
     "implementation"(project(":base:vmbase"))
