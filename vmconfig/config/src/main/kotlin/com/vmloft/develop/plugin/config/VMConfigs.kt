@@ -14,8 +14,8 @@ object VMConfigs {
     const val compileSdk = 34
     const val minSdk = 21
     const val targetSdk = 34
-    const val versionCode = 180
-    const val versionName = "1.8.0"
+    const val versionCode = 181
+    const val versionName = "1.8.1"
 
     const val publishGroup = "com.github.lzan13"
     const val publishArtifactId = "vmtools"
@@ -37,7 +37,7 @@ object VMConfigs {
      */
     const val signingsKeyAlias = "vmloft"
     const val signingsKeyPassword = "123456"
-    const val signingsStoreFile = "../vmloft.debug.jks"
+    const val signingsStoreFile = "vmconfig/vmloft.debug.jks"
     const val signingsStorePassword = "123456"
 
 }

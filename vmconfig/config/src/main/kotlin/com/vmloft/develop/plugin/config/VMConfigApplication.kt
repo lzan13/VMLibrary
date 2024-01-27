@@ -7,7 +7,6 @@ import com.vmloft.develop.plugin.config.extension.applicationDependencies
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionAware
-import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.api.plugins.PluginManager
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
@@ -30,7 +29,7 @@ class VMConfigApplication : Plugin<Project> {
             // 加载插件
             loadPlugin(pluginManager)
             // 加载扩展配置
-            loadExtensions(extensions)
+            loadExtensions(target)
             // 加载依赖
             loadDependencies(target)
         }
@@ -52,8 +51,8 @@ class VMConfigApplication : Plugin<Project> {
     /**
      * 加载扩展配置
      */
-    private fun loadExtensions(extensions: ExtensionContainer) {
-        extensions.configure<ApplicationExtension>() {
+    private fun loadExtensions(target: Project) {
+        target.extensions.configure<ApplicationExtension>() {
             // 设置 android sdk 相关版本
             compileSdk = VMConfigs.compileSdk
 
@@ -71,7 +70,7 @@ class VMConfigApplication : Plugin<Project> {
                 create("release") {
                     keyAlias = VMConfigs.signingsKeyAlias
                     keyPassword = VMConfigs.signingsKeyPassword
-                    storeFile = File(VMConfigs.signingsStoreFile)
+                    storeFile = File(target.rootProject.projectDir, VMConfigs.signingsStoreFile)
                     storePassword = VMConfigs.signingsStorePassword
                 }
             }
