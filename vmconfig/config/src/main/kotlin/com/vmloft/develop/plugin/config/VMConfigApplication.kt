@@ -4,7 +4,6 @@ import com.android.build.api.dsl.ApplicationExtension
 
 import com.vmloft.develop.plugin.config.extension.applicationDependencies
 
-import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionAware
@@ -19,7 +18,7 @@ import java.io.File
 
 /**
  * Created by lzan13 on 2024/01/25
- * 描述：Application 插件类
+ * 描述：Application 相关 插件类
  */
 class VMConfigApplication : Plugin<Project> {
     /**
@@ -62,6 +61,7 @@ class VMConfigApplication : Plugin<Project> {
                 applicationId = VMConfigs.applicationId
                 minSdk = VMConfigs.minSdk
                 targetSdk = VMConfigs.targetSdk
+
                 versionCode = VMConfigs.versionCode
                 versionName = VMConfigs.versionName
             }

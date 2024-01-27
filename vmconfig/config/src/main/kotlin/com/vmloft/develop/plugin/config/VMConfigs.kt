@@ -17,6 +17,9 @@ object VMConfigs {
     const val versionCode = 180
     const val versionName = "1.8.0"
 
+    const val publishGroup = "com.github.lzan13"
+    const val publishArtifactId = "vmtools"
+
     // BuildFeatures 配置
     const val isBuildConfig = true // 是否启用 BuildConfig Gradle 8.x 默认关闭了
     const val isCompose = false // 是否启用 compose

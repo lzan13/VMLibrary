@@ -1,22 +1,53 @@
-import com.android.build.gradle.internal.utils.createPublishingInfoForLibrary
+import com.vmloft.develop.plugin.config.VMConfigs
 import com.vmloft.develop.plugin.config.VMDependencies
 
 plugins {
-    id("maven-publish")
+    `maven-publish`
     // 自定义打包插件，用来统一管理配置和依赖
-    id("com.vmloft.develop.plugin.config.library")
+    id("com.vmloft.develop.plugin.config.publish")
 }
-android{
+android {
     namespace = "com.vmloft.develop.library.tools"
 }
+
+dependencies {
+    implementation(VMDependencies.coreKtx)
+    implementation(VMDependencies.lifecycleExtensions)
+    implementation(VMDependencies.constraintLayout)
+    implementation(VMDependencies.material)
+
+    // 官方推荐代替 MediaPlayer 播放库
+    implementation(VMDependencies.media3ExoPlayer)
+}
+// 发布配置
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                println("Components: ${components.names}")
+                if (components.names.contains("release")) {
+                    from(components["release"])
+                    artifactId = VMConfigs.publishArtifactId // 项目名称（通常为类库模块名称，也可以任意）
+                    group = VMConfigs.publishGroup // 唯一标识（通常为模块包名，也可以任意）
+                    version = VMConfigs.versionName
+                }
+            }
+        }
+    }
+}
+
+tasks.register("comps") {
+    println("Components: ${components.names}")
+}
+
 //plugins {
 //    id("com.android.library")
 //    id("org.jetbrains.kotlin.android")
 //    id("org.jetbrains.kotlin.kapt")
 //    id("org.jetbrains.kotlin.plugin.parcelize")
-////    id("maven-publish")
+//    id("maven-publish")
 //    // 自定义打包插件，用来统一管理配置和依赖
-//    id("com.vmloft.develop.plugin.config.library")
+////    id("com.vmloft.develop.plugin.config.library")
 //}
 //
 //android {
@@ -26,7 +57,12 @@ android{
 //    defaultConfig {
 //        minSdk = 21
 //    }
-//
+//    publishing {
+//        singleVariant("release") {
+//            withSourcesJar()
+//            withJavadocJar()
+//        }
+//    }
 ////    sourceSets.main {
 ////        jni.srcDirs = [] // 设置 jni 源码目录，不设置会自动生成
 ////        jniLibs.srcDir = "src/main/jniLibs" // 设置 so 库目录
@@ -58,26 +94,35 @@ android{
 //        jvmTarget = JavaVersion.VERSION_17.toString()
 //    }
 //}
-dependencies {
-    implementation(VMDependencies.coreKtx)
-    implementation(VMDependencies.lifecycleExtensions)
-    implementation(VMDependencies.constraintLayout)
-    implementation(VMDependencies.material)
-
-    // 官方推荐代替 MediaPlayer 播放库
-    implementation(VMDependencies.media3ExoPlayer)
-}
-//version= "1.0.2"
-//group = "com.github.lzan13"
-//publishing{
-//    publications{
-//        create<MavenPublication>("library"){
-//            from(components["release"])
+//
+//dependencies {
+////    implementation(VMDependencies.coreKtx)
+////    implementation(VMDependencies.lifecycleExtensions)
+////    implementation(VMDependencies.constraintLayout)
+////    implementation(VMDependencies.material)
+////
+////    // 官方推荐代替 MediaPlayer 播放库
+////    implementation(VMDependencies.media3ExoPlayer)
+//}
+//// 发布配置
+//publishing {
+//    publications {
+//        create<MavenPublication>("release") {
+//            println("Components: ${components.names}")
+//            components.forEach {
+//                println(it.name)
+//                if (it.name == "release") {
+////                    if (components.names.contains("release")) {
+////                        from(components["release"])
+////                        artifactId = VMConfigs.publishArtifactId // 项目名称（通常为类库模块名称，也可以任意）
+////                        group = VMConfigs.publishGroup // 唯一标识（通常为模块包名，也可以任意）
+////                        version = VMConfigs.versionName
+////                    }
+//                }
+//            }
 //        }
 //    }
 //}
-
-
 /**
  * 发布配置
  */

@@ -2,22 +2,21 @@ package com.vmloft.develop.plugin.config
 
 import com.android.build.api.dsl.LibraryExtension
 
+
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.api.plugins.PluginManager
-import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.get
 
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 
 /**
  * Created by lzan13 on 2024/01/25
- * 描述：Library 相关 插件类
+ * 描述：发布相关 插件类
  */
-class VMConfigLibrary : Plugin<Project> {
+class VMConfigPublish : Plugin<Project> {
 
     /**
      * 插件入口
@@ -29,6 +28,8 @@ class VMConfigLibrary : Plugin<Project> {
             loadPlugin(pluginManager)
             // 加载扩展配置
             loadExtensions(extensions)
+            // 加载发布配置
+            loadPublish(target)
         }
     }
 
@@ -97,6 +98,29 @@ class VMConfigLibrary : Plugin<Project> {
                 targetSdk = VMConfigs.targetSdk
             }
         }
+    }
+
+    /**
+     * 加载发布配置，不过这里暂时没找到怎么迁移到插件中，
+     * TODO 只能暂时写在 build.gradle.kts
+     */
+    private fun loadPublish(target: Project) {
+        // 发布配置
+//        afterEvaluate {
+//           publishing {
+//                publications {
+//                    create<MavenPublication>("release") {
+//                        println("Components: ${components.names}")
+//                        if (components.names.contains("release")) {
+//                            from(components["release"])
+//                            artifactId = VMConfigs.publishArtifactId // 项目名称（通常为类库模块名称，也可以任意）
+//                            group = VMConfigs.publishGroup // 唯一标识（通常为模块包名，也可以任意）
+//                            version = VMConfigs.versionName
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
 
     /**
