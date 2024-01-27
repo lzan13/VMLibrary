@@ -2,7 +2,6 @@ package com.vmloft.develop.plugin.config
 
 import org.gradle.api.JavaVersion
 
-
 /**
  * Created by lzan13 on 2024/01/25
  * 描述：自定义配置

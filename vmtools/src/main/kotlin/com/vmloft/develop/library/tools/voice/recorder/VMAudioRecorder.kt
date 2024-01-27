@@ -192,7 +192,8 @@ class VMAudioRecorder : VMRecorderEngine() {
         // 平方和除以数据总长度，得到音量大小。
         val mean = v.toDouble() / readSize
         currentDecibel = (12 * Math.log10(mean)).toInt()
-//        VMLog.i("decibel $currentDecibel")
+        if (currentDecibel > 100) currentDecibel = 100
+        if (currentDecibel < 1) currentDecibel = 1
     }
 
     /**

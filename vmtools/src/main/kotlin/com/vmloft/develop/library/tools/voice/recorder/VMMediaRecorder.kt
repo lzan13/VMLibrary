@@ -156,6 +156,8 @@ object VMMediaRecorder : VMRecorderEngine() {
                 decibel = (20 * Math.log10(ratio.toDouble())).toInt()
             }
         }
+        if (decibel > 100) decibel = 100
+
         return decibel
     }
 
