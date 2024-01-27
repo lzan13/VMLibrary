@@ -36,6 +36,8 @@ fun DependencyHandlerScope.baseDependencies() {
     // 多类型适配，定义基类
     "api"(VMDependencies.multiType)
 
+    // DiDi 路由
+    "api"(VMDependencies.dRouter)
     // 阿里巴巴 ARouter 库 https://github.com/alibaba/ARouter
     "api"("com.alibaba:arouter-api:1.5.2")
     // ARouter 编译器，TODO 当代码中有一些自己没看到的错误的时候，ARouter 会拦截错误信息，看不到错误位置，把这行注释掉，重新编译

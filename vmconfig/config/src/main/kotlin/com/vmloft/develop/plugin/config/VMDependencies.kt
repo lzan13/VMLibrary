@@ -43,7 +43,7 @@ object VMDependencies {
 //    // or Koin for Lifecycle scoping
 //    implementation "org.koin:koin-androidx-scope:2.0.1"
 //    // or Koin for Android Architecture ViewModel
-    const val  koin = "org.koin:koin-androidx-viewmodel:2.0.1"
+    const val koin = "org.koin:koin-androidx-viewmodel:2.0.1"
 
     // hilt 注解
     const val hiltAndroid = "com.google.dagger:hilt-android:2.48.1"
@@ -63,6 +63,9 @@ object VMDependencies {
     // Glide https://github.com/bumptech/glide
     const val glide = "com.github.bumptech.glide:glide:4.12.0"
     const val glideCompiler = "com.github.bumptech.glide:compiler:4.12.0"
+
+    // DRouter https://github.com/didi/DRouter/wiki
+    const val dRouter = "io.github.didi:drouter-api:2.4.5"
 
     /**
      * 自定义控件库
@@ -88,6 +91,9 @@ object VMDependencies {
     // 可缩放 PhotoView https://github.com/chrisbanes/PhotoView
     const val photoView = "com.github.chrisbanes:PhotoView:2.3.0"
 
+    /**
+     * 多媒体库
+     */
     // Google 媒体播放器，官方推荐代替 MediaPlayer https://github.com/google/media
     const val media3ExoPlayer = "androidx.media3:media3-exoplayer:1.2.0"
 

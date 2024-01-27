@@ -52,6 +52,3 @@ include(":core:vmreport")
 include(":core:vmrequest")
 
 include(":vmtools")
-
-// 打包插件
-//include(":vmconfig")

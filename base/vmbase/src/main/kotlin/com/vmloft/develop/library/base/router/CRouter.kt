@@ -37,6 +37,9 @@ object CRouter {
     const val qrScanQRCode = "/qr/ScanQRCode"
     const val qrScanQRCodeResCode = 1001
 
+    fun int(){
+//        DRouter.init()
+    }
     /**
      * 可复用通用跳转方法
      */

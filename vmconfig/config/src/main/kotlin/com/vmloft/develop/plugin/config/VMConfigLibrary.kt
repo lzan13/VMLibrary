@@ -42,6 +42,8 @@ class VMConfigLibrary : Plugin<Project> {
             apply("org.jetbrains.kotlin.android")
             apply("org.jetbrains.kotlin.kapt")
             apply("org.jetbrains.kotlin.plugin.parcelize")
+            // DRouter 插件，暂时不能在这里边引用，必须放在对应 module 的 build.gradle.kts 里引用
+//            apply("com.didi.drouter")
         }
     }
 
