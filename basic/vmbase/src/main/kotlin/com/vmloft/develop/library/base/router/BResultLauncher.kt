@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.base
+package com.vmloft.develop.library.base.router
 
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultCaller
@@ -11,8 +11,9 @@ import androidx.activity.result.contract.ActivityResultContract
  */
 open class BResultLauncher<I, O>(caller: ActivityResultCaller, contract: ActivityResultContract<I, O>) {
 
-    private var launcher: ActivityResultLauncher<I>
-    private var callback: ActivityResultCallback<O>? = null
+    // 回调
+    var callback: ActivityResultCallback<O>? = null
+    var launcher: ActivityResultLauncher<I>
 
 
     init {
@@ -25,5 +26,6 @@ open class BResultLauncher<I, O>(caller: ActivityResultCaller, contract: Activit
         this.callback = callback
         launcher.launch(input)
     }
+
 }
 

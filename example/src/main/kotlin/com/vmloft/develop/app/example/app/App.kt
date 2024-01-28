@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 
-import com.alibaba.android.arouter.launcher.ARouter
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.vmloft.develop.library.base.common.CSPManager
 import com.vmloft.develop.library.common.event.LDEventBus
@@ -13,6 +12,7 @@ import com.vmloft.develop.library.common.widget.refresh.DoubleCircleFooter
 import com.vmloft.develop.library.common.widget.refresh.DoubleCircleHeader
 import com.vmloft.develop.app.example.common.Constants
 import com.vmloft.develop.app.example.common.SPManager
+import com.vmloft.develop.library.base.router.CRouter
 import com.vmloft.develop.library.tools.VMTools
 import com.vmloft.develop.library.tools.utils.VMFile
 import com.vmloft.develop.library.tools.utils.VMTheme
@@ -100,11 +100,7 @@ class App : Application() {
      * 初始化注解路由
      */
     private fun initRouter() {
-//        if (CSPManager.isDebug()) {
-//            ARouter.openLog()
-//            ARouter.openDebug()
-//        }
-//        ARouter.init(this)
+        CRouter.init(this)
     }
 
     /**

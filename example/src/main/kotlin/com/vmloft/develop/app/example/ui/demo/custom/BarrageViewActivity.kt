@@ -2,7 +2,7 @@ package com.vmloft.develop.app.example.ui.demo.custom
 
 import android.view.View
 import android.widget.TextView
-import com.alibaba.android.arouter.facade.annotation.Route
+import com.didi.drouter.annotation.Router
 import com.vmloft.develop.library.base.BActivity
 
 import com.vmloft.develop.app.example.R
@@ -18,7 +18,7 @@ import com.vmloft.develop.library.tools.widget.barrage.VMViewCreator
  * Created by lzan13 on 2020/5/18.
  * 描述：测试自定义弹幕控件界面
  */
-@Route(path = AppRouter.appBarrage)
+@Router(path = AppRouter.appBarrage)
 class BarrageViewActivity : BActivity<ActivityDemoViewBarrageBinding>() {
     private var mAnimatorWrap: VMAnimator.AnimatorSetWrap? = null
 

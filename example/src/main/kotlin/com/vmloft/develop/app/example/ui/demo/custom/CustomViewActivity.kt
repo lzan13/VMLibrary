@@ -2,7 +2,7 @@ package com.vmloft.develop.app.example.ui.demo.custom
 
 import android.view.View
 
-import com.alibaba.android.arouter.facade.annotation.Route
+import com.didi.drouter.annotation.Router
 
 import com.vmloft.develop.app.example.R
 import com.vmloft.develop.app.example.databinding.ActivityDemoViewCustomBinding
@@ -19,7 +19,7 @@ import com.vmloft.develop.library.tools.widget.tips.VMTips
  * Created by lzan13 on 2017/4/1.
  * 描述：测试录音控件
  */
-@Route(path = AppRouter.appCustomView)
+@Router(path = AppRouter.appCustomView)
 class CustomViewActivity : BActivity<ActivityDemoViewCustomBinding>() {
 
     override fun initVB() = ActivityDemoViewCustomBinding.inflate(layoutInflater)

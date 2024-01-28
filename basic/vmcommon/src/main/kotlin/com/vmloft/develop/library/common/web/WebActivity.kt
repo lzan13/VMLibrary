@@ -3,16 +3,13 @@ package com.vmloft.develop.library.common.web
 import android.webkit.WebView
 import android.widget.LinearLayout
 
-import com.alibaba.android.arouter.facade.annotation.Autowired
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.didi.drouter.annotation.Router
 
 import com.just.agentweb.AgentWeb
 import com.just.agentweb.WebChromeClient
 
 import com.vmloft.develop.library.base.BActivity
 import com.vmloft.develop.library.base.router.CRouter
-import com.vmloft.develop.library.common.R
 import com.vmloft.develop.library.common.databinding.ActivityWebBinding
 import com.vmloft.develop.library.tools.utils.VMColor
 
@@ -20,10 +17,9 @@ import com.vmloft.develop.library.tools.utils.VMColor
  * Create by lzan13 on 2020/05/02 15:56
  * 描述：Web 界面
  */
-@Route(path = CRouter.commonWeb)
+@Router(path = CRouter.commonWeb)
 class WebActivity : BActivity<ActivityWebBinding>() {
 
-    @Autowired
     lateinit var url: String
 
     private lateinit var mAgentWeb: AgentWeb
@@ -38,7 +34,7 @@ class WebActivity : BActivity<ActivityWebBinding>() {
     override fun initVB() = ActivityWebBinding.inflate(layoutInflater)
 
     override fun initData() {
-        ARouter.getInstance().inject(this)
+        url = CRouter.optString(intent,"url")
 
         mAgentWeb.urlLoader.loadUrl(url)
     }

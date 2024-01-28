@@ -1,6 +1,6 @@
 package com.vmloft.develop.app.example.ui.demo.image
 
-import com.alibaba.android.arouter.facade.annotation.Route
+import com.didi.drouter.annotation.Router
 
 import com.vmloft.develop.library.base.BActivity
 import com.vmloft.develop.library.base.utils.showBar
@@ -17,7 +17,7 @@ import com.vmloft.develop.library.tools.utils.logger.VMLog
  * Created by lzan13 on 2020/5/18.
  * 描述：测试图片选择界面
  */
-@Route(path = AppRouter.appImagePicker)
+@Router(path = AppRouter.appImagePicker)
 class ImagePickerActivity : BActivity<ActivityDemoImagePickerBinding>() {
 
     override fun initVB() = ActivityDemoImagePickerBinding.inflate(layoutInflater)

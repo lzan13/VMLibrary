@@ -42,8 +42,8 @@ rootProject.name = "VMLibrary"
 
 include(":example")
 
-include(":base:vmbase")
-include(":base:vmcommon")
+include(":basic:vmbase")
+include(":basic:vmcommon")
 
 include(":core:vmdb")
 include(":core:vmimage")

@@ -2,9 +2,7 @@ package com.vmloft.develop.library.image.display
 
 import androidx.viewpager2.widget.ViewPager2
 
-import com.alibaba.android.arouter.facade.annotation.Autowired
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.didi.drouter.annotation.Router
 
 import com.drakeet.multitype.MultiTypeAdapter
 
@@ -23,13 +21,10 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
  * Create by lzan13 on 2020/4/21 10:19
  * 描述：展示多图片界面
  */
-@Route(path = CRouter.imageDisplayMulti)
-class DisplayMultiActivity :BVMActivity<ActivityDisplayMultiBinding, DisplayViewModel>() {
+@Router(path = CRouter.imageDisplayMulti)
+class DisplayMultiActivity : BVMActivity<ActivityDisplayMultiBinding, DisplayViewModel>() {
 
-    @Autowired
     lateinit var index: String
-
-    @Autowired
     lateinit var pictureList: List<String>
 
     private val mAdapter by lazy(LazyThreadSafetyMode.NONE) { MultiTypeAdapter() }
@@ -50,7 +45,8 @@ class DisplayMultiActivity :BVMActivity<ActivityDisplayMultiBinding, DisplayView
     }
 
     override fun initData() {
-        ARouter.getInstance().inject(this)
+        index = CRouter.optString(intent, "index")
+        pictureList = CRouter.optArrayList(intent, "pictureList")
 
         mItems.addAll(pictureList)
         mAdapter.notifyDataSetChanged()

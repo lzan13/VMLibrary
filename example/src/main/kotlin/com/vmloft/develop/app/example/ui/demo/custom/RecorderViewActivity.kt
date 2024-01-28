@@ -3,7 +3,7 @@ package com.vmloft.develop.app.example.ui.demo.custom
 import android.view.MotionEvent
 import android.view.View
 
-import com.alibaba.android.arouter.facade.annotation.Route
+import com.didi.drouter.annotation.Router
 
 import com.vmloft.develop.library.base.BActivity
 import com.vmloft.develop.app.example.router.AppRouter
@@ -20,7 +20,7 @@ import com.vmloft.develop.library.tools.voice.player.VMWaveformView
  * Created by lzan13 on 2017/4/1.
  * 描述：测试录音控件
  */
-@Route(path = AppRouter.appCustomRecorderView)
+@Router(path = AppRouter.appCustomRecorderView)
 class RecorderViewActivity : BActivity<ActivityDemoViewRecorderBinding>() {
 
     lateinit var voiceBean: VMRecorderView.VoiceBean

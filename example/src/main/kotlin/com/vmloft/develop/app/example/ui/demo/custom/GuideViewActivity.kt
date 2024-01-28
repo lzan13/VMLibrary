@@ -1,6 +1,6 @@
 package com.vmloft.develop.app.example.ui.demo.custom
 
-import com.alibaba.android.arouter.facade.annotation.Route
+import com.didi.drouter.annotation.Router
 
 import com.vmloft.develop.app.example.R
 import com.vmloft.develop.app.example.databinding.ActivityDemoGuideViewBinding
@@ -17,7 +17,7 @@ import com.vmloft.develop.library.tools.widget.guide.VMGuideView
  *
  * 测试悬浮菜单
  */
-@Route(path = AppRouter.appCustomGuideView)
+@Router(path = AppRouter.appCustomGuideView)
 class GuideViewActivity : BActivity<ActivityDemoGuideViewBinding>() {
 
     @Override

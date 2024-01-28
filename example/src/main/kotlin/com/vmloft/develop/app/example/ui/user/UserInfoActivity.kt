@@ -3,7 +3,7 @@ package com.vmloft.develop.app.example.ui.user
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-import com.alibaba.android.arouter.facade.annotation.Route
+import com.didi.drouter.annotation.Router
 
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -19,7 +19,7 @@ import com.vmloft.develop.app.example.databinding.ActivityUserInfoBinding
  * Create by lzan13 on 2021/01/20 22:56
  * 描述：用户信息界面
  */
-@Route(path = AppRouter.appUserInfo)
+@Router(path = AppRouter.appUserInfo)
 class UserInfoActivity : BActivity<ActivityUserInfoBinding>() {
 
     private val fragmentList = arrayListOf<Fragment>()

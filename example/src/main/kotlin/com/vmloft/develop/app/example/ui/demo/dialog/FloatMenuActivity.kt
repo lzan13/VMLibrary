@@ -4,7 +4,7 @@ import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
 
-import com.alibaba.android.arouter.facade.annotation.Route
+import com.didi.drouter.annotation.Router
 import com.vmloft.develop.library.base.BActivity
 import com.vmloft.develop.library.base.utils.showBar
 
@@ -22,7 +22,7 @@ import com.vmloft.develop.library.tools.widget.VMFloatMenu.ItemBean
  *
  * 测试悬浮菜单
  */
-@Route(path = AppRouter.appFloatMenu)
+@Router(path = AppRouter.appFloatMenu)
 class FloatMenuActivity : BActivity<ActivityDemoFloatMenuBinding>() {
 
     private var touchX = 0

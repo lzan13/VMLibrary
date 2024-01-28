@@ -1,7 +1,7 @@
 package com.vmloft.develop.app.example.ui.demo.custom
 
 import androidx.fragment.app.Fragment
-import com.alibaba.android.arouter.facade.annotation.Route
+import com.didi.drouter.annotation.Router
 import com.vmloft.develop.library.base.BActivity
 
 import com.vmloft.develop.app.example.databinding.ActivityDemoViewIndicatorBinding
@@ -16,7 +16,7 @@ import java.util.ArrayList
  *
  * 自定义指示器验证示例
  */
-@Route(path = AppRouter.appIndicator)
+@Router(path = AppRouter.appIndicator)
 class IndicatorViewActivity : BActivity<ActivityDemoViewIndicatorBinding>() {
 
     override fun initVB() = ActivityDemoViewIndicatorBinding.inflate(layoutInflater)

@@ -1,6 +1,6 @@
 package com.vmloft.develop.library.common.debug
 
-import com.alibaba.android.arouter.facade.annotation.Route
+import com.didi.drouter.annotation.Router
 
 import com.vmloft.develop.library.common.R
 import com.vmloft.develop.library.base.BActivity
@@ -14,7 +14,7 @@ import com.vmloft.develop.library.tools.utils.VMStr
  * Create by lzan13 on 2020/05/02 22:56
  * 描述：调试设置
  */
-@Route(path = CRouter.commonDebug)
+@Router(path = CRouter.commonDebug)
 class DebugActivity : BActivity<ActivityDebugBinding>() {
 
     override fun initVB() = ActivityDebugBinding.inflate(layoutInflater)

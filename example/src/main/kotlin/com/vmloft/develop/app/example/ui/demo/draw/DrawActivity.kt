@@ -2,7 +2,7 @@ package com.vmloft.develop.app.example.ui.demo.draw
 
 
 import android.view.View
-import com.alibaba.android.arouter.facade.annotation.Route
+import com.didi.drouter.annotation.Router
 
 import com.vmloft.develop.library.base.BActivity
 import com.vmloft.develop.app.example.databinding.ActivityDemoDrawBinding
@@ -13,7 +13,7 @@ import com.vmloft.develop.app.example.router.AppRouter
  * Create by lzan13 on 2021/8/13
  * 描述：测试 绘画 View
  */
-@Route(path = AppRouter.appCustomDrawView)
+@Router(path = AppRouter.appCustomDrawView)
 class DrawActivity : BActivity<ActivityDemoDrawBinding>() {
 
     override fun initVB() = ActivityDemoDrawBinding.inflate(layoutInflater)

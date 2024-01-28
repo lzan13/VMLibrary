@@ -38,10 +38,6 @@ fun DependencyHandlerScope.baseDependencies() {
 
     // DiDi 路由
     "api"(VMDependencies.dRouter)
-    // 阿里巴巴 ARouter 库 https://github.com/alibaba/ARouter
-    "api"("com.alibaba:arouter-api:1.5.2")
-    // ARouter 编译器，TODO 当代码中有一些自己没看到的错误的时候，ARouter 会拦截错误信息，看不到错误位置，把这行注释掉，重新编译
-//    "kapt"("com.alibaba:arouter-compiler:1.5.2")
 
     // koin 依赖注入
     "api"(VMDependencies.koin)
@@ -69,7 +65,7 @@ fun DependencyHandlerScope.commonDependencies() {
     "api"(VMDependencies.gson)
 
     // 依赖 vmbase
-    "implementation"(project(":base:vmbase"))
+    "implementation"(project(":basic:vmbase"))
 }
 
 /**
@@ -84,8 +80,8 @@ fun DependencyHandlerScope.requestDependencies() {
     "api"(VMDependencies.gson)
 
     // 依赖 vmbase/vmcommon
-    "implementation"(project(":base:vmbase"))
-    "implementation"(project(":base:vmcommon"))
+    "implementation"(project(":basic:vmbase"))
+    "implementation"(project(":basic:vmcommon"))
 }
 
 /**
@@ -104,8 +100,8 @@ fun DependencyHandlerScope.imageDependencies() {
 //    "kapt"(VMDependencies.hiltAndroidCompiler)
 
     // 依赖 vmbase/vmcommon/vmrequest
-    "implementation"(project(":base:vmbase"))
-    "implementation"(project(":base:vmcommon"))
+    "implementation"(project(":basic:vmbase"))
+    "implementation"(project(":basic:vmcommon"))
     "implementation"(project(":core:vmrequest"))
 }
 
@@ -119,8 +115,8 @@ fun DependencyHandlerScope.applicationDependencies() {
 //    implementation(group = "", name = "libraryname", ext = "aar")
 
     // 依赖 vmbase/vmcommon/vmrequest/vmimage
-    "implementation"(project(":base:vmbase"))
-    "implementation"(project(":base:vmcommon"))
+    "implementation"(project(":basic:vmbase"))
+    "implementation"(project(":basic:vmcommon"))
     "implementation"(project(":core:vmimage"))
     "implementation"(project(":core:vmrequest"))
 

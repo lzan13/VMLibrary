@@ -1,6 +1,6 @@
 package com.vmloft.develop.app.example.ui.demo.anim
 
-import com.alibaba.android.arouter.facade.annotation.Route
+import com.didi.drouter.annotation.Router
 
 import com.vmloft.develop.library.base.BActivity
 import com.vmloft.develop.app.example.databinding.ActivityDemoAnimBinding
@@ -10,7 +10,7 @@ import com.vmloft.develop.app.example.router.AppRouter
  * Created by lzan13 on 2017/4/7.
  * 描述：测试 Lottie 动画
  */
-@Route(path = AppRouter.appAnim)
+@Router(path = AppRouter.appAnim)
 class AnimActivity : BActivity<ActivityDemoAnimBinding>() {
 
     override fun initVB() = ActivityDemoAnimBinding.inflate(layoutInflater)

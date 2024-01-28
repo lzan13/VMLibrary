@@ -4,7 +4,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 
-import com.alibaba.android.arouter.facade.annotation.Route
+import com.didi.drouter.annotation.Router
 
 import com.vmloft.develop.library.base.BActivity
 import com.vmloft.develop.library.base.router.CRouter
@@ -19,7 +19,7 @@ import com.vmloft.develop.library.tools.adapter.VMViewPagerAdapter
  * Create by lzan13 on 2020/05/02 15:56
  * 描述：引导界面
  */
-@Route(path = AppRouter.appGuide)
+@Router(path = AppRouter.appGuide)
 class GuideActivity : BActivity<ActivityGuideBinding>() {
 
     private var mCurrentIndex = 0
