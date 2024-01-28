@@ -11,7 +11,7 @@ java {
 
 // 添加插件依赖
 dependencies {
-    implementation("com.android.tools.build:gradle:8.2.1")
+    implementation("com.android.tools.build:gradle:8.2.2")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22")
 }
 
@@ -24,21 +24,28 @@ gradlePlugin {
             // 定义插件id
             id = "com.vmloft.develop.plugin.config.application"
             // 插件实现类
-            implementationClass = "com.vmloft.develop.plugin.config.VMConfigApplication"
+            implementationClass = "com.vmloft.develop.plugin.config.plugin.VMApplication"
         }
         // 这里的 register 参数可随意填写，摘要应用在 id
         register("vmLibrary") {
             // 定义插件id
             id = "com.vmloft.develop.plugin.config.library"
             // 插件实现类
-            implementationClass = "com.vmloft.develop.plugin.config.VMConfigLibrary"
+            implementationClass = "com.vmloft.develop.plugin.config.plugin.VMLibrary"
+        }
+        //广告
+        register("vmLibraryAds") {
+            // 定义插件id
+            id = "com.vmloft.develop.plugin.config.library.ads"
+            // 插件实现类
+            implementationClass = "com.vmloft.develop.plugin.config.plugin.VMLibraryAds"
         }
         // 这里的 register 参数可随意填写，摘要应用在 id
         register("vmPublish") {
             // 定义插件id
             id = "com.vmloft.develop.plugin.config.publish"
             // 插件实现类
-            implementationClass = "com.vmloft.develop.plugin.config.VMConfigPublish"
+            implementationClass = "com.vmloft.develop.plugin.config.plugin.VMPublish"
         }
     }
 }

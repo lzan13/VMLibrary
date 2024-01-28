@@ -52,6 +52,59 @@ object VMDependencies {
     // Android消息总线，基于LiveData https://github.com/JeremyLiao/LiveEventBus
     const val liveEventBus = "io.github.jeremyliao:live-event-bus-x:1.8.0"
 
+    // 引用 Room 数据库操作库
+//    implementation "androidx.room:room-runtime:2.4.2"
+    // WCDB 数据库 https://github.com/Tencent/wcdb
+    const val wcdb = "com.tencent.wcdb:wcdb-android:1.0.8"
+
+    // WCDB room 代替上边 room-runtime https://github.com/Tencent/wcdb
+    const val wcdbRoom = "com.tencent.wcdb:room:1.0.8"
+    const val roomCompiler = "androidx.room:room-compiler:2.5.1"
+    const val roomKtx = "androidx.room:room-ktx:2.5.1"
+
+    // Glide https://github.com/bumptech/glide
+    const val glide = "com.github.bumptech.glide:glide:4.12.0"
+    const val glideCompiler = "com.github.bumptech.glide:compiler:4.12.0"
+
+    // DRouter https://github.com/didi/DRouter/wiki
+    const val dRouter = "io.github.didi:drouter-api:2.4.5"
+
+    // 阿里云支付
+    const val alipay = "com.alipay.sdk:alipaysdk-android:15.8.11@aar"
+
+
+    /**
+     * 推送相关
+     * 这里依赖要根据渠道不同加载不同的依赖
+     * https://docs.getui.com/getui/mobile/android/androidstudio/
+     */
+    // 国内环境依赖
+    const val gt = "com.getui:gtsdk:3.2.10.0"  //个推SDK
+    const val gtCore = "com.getui:gtc:3.1.9.0"  //个推核心组件
+
+    // 国外环境依赖 因为海外和国内sdk仓库不同，这里不能同时使用远程依赖
+    const val gtGooglePlay = "com.getui:sdk-for-google-play:4.3.9.0"
+
+    /**
+     * 二维码扫描
+     */
+    const val zXing = "com.github.bingoogolapple.BGAQRCode-Android:zxing:1.3.8"
+
+    /**
+     * 上报组件
+     */
+    // Bugly https://bugly.qq.com/docs/user-guide/instruction-manual-android/?v=20200203205953
+    const val bugly = "com.tencent.bugly:crashreport:4.0.4"
+
+    // UMeng https://developer.umeng.com/docs/119267/detail/118584
+    // 友盟基础组件库（所有友盟业务SDK都依赖基础组件库）
+    const val umeng = "com.umeng.umsdk:common:9.5.2" // 必选
+    const val umengAsms = "com.umeng.umsdk:asms:1.6.3" // 必选
+//    const val umengGame = "com.umeng.umsdk:game:x.x.x" // 游戏统计SDK依赖(可选)
+
+    /**
+     * 网络请求
+     */
     // Retrofit https://github.com/square/retrofit
     const val retrofit = "com.squareup.retrofit2:retrofit:2.9.0"
     const val converterGson = "com.squareup.retrofit2:converter-gson:2.9.0"
@@ -60,12 +113,14 @@ object VMDependencies {
     // Gson 解析 JSON https://github.com/google/gson
     const val gson = "com.google.code.gson:gson:2.10"
 
-    // Glide https://github.com/bumptech/glide
-    const val glide = "com.github.bumptech.glide:glide:4.12.0"
-    const val glideCompiler = "com.github.bumptech.glide:compiler:4.12.0"
+    /**
+     * 即时通讯
+     */
+    // 环信聊天 IM 库 Easemob https://www.easemob.com/download/im
+    const val im = "io.hyphenate:hyphenate-chat:3.8.9.1"
 
-    // DRouter https://github.com/didi/DRouter/wiki
-    const val dRouter = "io.github.didi:drouter-api:2.4.5"
+    // 声网音视频通话 https://docs.agora.io/cn/Voice/start_call_audio_android?platform=Android
+    const val rtc = "io.agora.rtc:voice-sdk:3.7.0.2"
 
     /**
      * 自定义控件库
@@ -107,6 +162,6 @@ object VMDependencies {
 
     // 自定义工具库 https://gitee.com/lzan13/VMLibrary
     // 自定义工具库 https://github.com/lzan13/VMLibrary
-    const val vmtools = "com.github.lzan13:VMLibrary:1.8.0"
+    const val vmtools = "com.github.lzan13:VMLibrary:1.8.1"
 
 }

@@ -1,5 +1,6 @@
 package com.vmloft.develop.library.request
 
+import com.vmloft.develop.library.base.common.CSPManager
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -24,7 +25,7 @@ abstract class BaseRequest {
             val builder = OkHttpClient.Builder()
             // 日志拦截
             val logging = HttpLoggingInterceptor()
-            if (BuildConfig.DEBUG) {
+            if (CSPManager.isDebug()) {
                 logging.level = HttpLoggingInterceptor.Level.BODY
             } else {
                 logging.level = HttpLoggingInterceptor.Level.BASIC

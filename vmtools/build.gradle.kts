@@ -1,4 +1,4 @@
-import com.vmloft.develop.plugin.config.VMConfigs
+import com.vmloft.develop.plugin.config.VMConfig
 import com.vmloft.develop.plugin.config.VMDependencies
 
 plugins {
@@ -27,9 +27,9 @@ afterEvaluate {
                 println("Components: ${components.names}")
                 if (components.names.contains("release")) {
                     from(components["release"])
-                    artifactId = VMConfigs.publishArtifactId // 项目名称（通常为类库模块名称，也可以任意）
-                    group = VMConfigs.publishGroup // 唯一标识（通常为模块包名，也可以任意）
-                    version = VMConfigs.versionName
+                    artifactId = VMConfig.publishArtifactId // 项目名称（通常为类库模块名称，也可以任意）
+                    group = VMConfig.publishGroup // 唯一标识（通常为模块包名，也可以任意）
+                    version = VMConfig.versionName
                 }
             }
         }
@@ -114,9 +114,9 @@ tasks.register("comps") {
 //                if (it.name == "release") {
 ////                    if (components.names.contains("release")) {
 ////                        from(components["release"])
-////                        artifactId = VMConfigs.publishArtifactId // 项目名称（通常为类库模块名称，也可以任意）
-////                        group = VMConfigs.publishGroup // 唯一标识（通常为模块包名，也可以任意）
-////                        version = VMConfigs.versionName
+////                        artifactId = VMConfig.publishArtifactId // 项目名称（通常为类库模块名称，也可以任意）
+////                        group = VMConfig.publishGroup // 唯一标识（通常为模块包名，也可以任意）
+////                        version = VMConfig.versionName
 ////                    }
 //                }
 //            }
