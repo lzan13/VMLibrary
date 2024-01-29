@@ -3,7 +3,10 @@ package com.vmloft.develop.library.base.router
 import android.app.Application
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
+import android.os.Bundle
 import android.os.Parcelable
+import android.util.Size
 import androidx.activity.result.ActivityResultLauncher
 
 import com.didi.drouter.api.DRouter
@@ -12,6 +15,7 @@ import com.didi.drouter.router.RouterCallback.ActivityCallback
 
 import com.vmloft.develop.library.tools.VMTools
 import com.vmloft.develop.library.tools.utils.logger.VMLog
+import java.io.Serializable
 import java.lang.reflect.Type
 
 /**
@@ -187,9 +191,14 @@ object CRouter {
     /**
      * 获取路由参数
      */
-    fun optString(intent: Intent, key: String): String {
-        if (intent.extras == null) return ""
-        return intent.extras!!.getString(key, "")
+    fun optBoolean(intent: Intent, key: String): Boolean {
+        if (intent.extras == null) return false
+        return intent.extras!!.getBoolean(key, false)
+    }
+
+    fun optShort(intent: Intent, key: String): Short {
+        if (intent.extras == null) return 0
+        return intent.extras!!.getShort(key, 0)
     }
 
     fun optInt(intent: Intent, key: String): Int {
@@ -212,14 +221,73 @@ object CRouter {
         return intent.extras!!.getDouble(key, 0.0)
     }
 
+    fun optString(intent: Intent, key: String): String {
+        if (intent.extras == null) return ""
+        return intent.extras!!.getString(key, "")
+    }
+
+    fun optSize(intent: Intent, key: String): Size {
+        if (intent.extras == null) return Size(0, 0)
+        return intent.extras!!.getSize(key) ?: Size(0, 0)
+    }
+
     fun <T> optParcelable(intent: Intent, key: String): T? {
         if (intent.extras == null) return null
         return intent.extras!!.getParcelable(key)
     }
 
-    fun optArrayList(intent: Intent, key: String): List<String> {
-        if (intent.extras == null) return emptyList<String>()
-        return intent.extras!!.getStringArrayList(key)?: emptyList<String>()
+    fun optSerializable(intent: Intent, key: String): Serializable? {
+        if (intent.extras == null) return null
+        return intent.extras!!.getSerializable(key)
+    }
+
+    fun optByteArray(intent: Intent, key: String): ByteArray {
+        if (intent.extras == null) return byteArrayOf()
+        return intent.extras!!.getByteArray(key) ?: byteArrayOf()
+    }
+
+    fun optIntArray(intent: Intent, key: String): IntArray {
+        if (intent.extras == null) return intArrayOf()
+        return intent.extras!!.getIntArray(key) ?: intArrayOf()
+    }
+
+    fun optLongArray(intent: Intent, key: String): LongArray {
+        if (intent.extras == null) return longArrayOf()
+        return intent.extras!!.getLongArray(key) ?: longArrayOf()
+    }
+
+    fun optFloatArray(intent: Intent, key: String): FloatArray {
+        if (intent.extras == null) return floatArrayOf()
+        return intent.extras!!.getFloatArray(key) ?: floatArrayOf()
+    }
+
+    fun optDoubleArray(intent: Intent, key: String): DoubleArray {
+        if (intent.extras == null) return doubleArrayOf()
+        return intent.extras!!.getDoubleArray(key) ?: doubleArrayOf()
+    }
+
+    fun optIntList(intent: Intent, key: String): ArrayList<Int> {
+        if (intent.extras == null) return arrayListOf()
+        return intent.extras!!.getIntegerArrayList(key) ?: arrayListOf()
+    }
+
+    fun optStringList(intent: Intent, key: String): ArrayList<String> {
+        if (intent.extras == null) return arrayListOf<String>()
+        return intent.extras!!.getStringArrayList(key) ?: arrayListOf<String>()
+    }
+
+    fun <T : Parcelable> optParcelableList(intent: Intent, key: String, clazz: Class<T>): ArrayList<T> {
+        if (intent.extras == null) return arrayListOf<T>()
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.extras!!.getParcelableArrayList(key, clazz) ?: arrayListOf<T>()
+        } else {
+            intent.extras!!.getParcelableArrayList<T>(key) ?: arrayListOf<T>()
+        }
+    }
+
+    fun optBundle(intent: Intent, key: String): Bundle {
+        if (intent.extras == null) return Bundle()
+        return intent.extras!!.getBundle(key) ?: Bundle()
     }
 
 }

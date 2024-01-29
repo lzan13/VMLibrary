@@ -95,7 +95,7 @@ object VMVoicePlayer {
             } else if (currentStatus == statusPause) {
                 resume()
             } else {
-                // 不处理
+                pause()
             }
         }
     }

@@ -25,7 +25,7 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 class DisplayMultiActivity : BVMActivity<ActivityDisplayMultiBinding, DisplayViewModel>() {
 
     lateinit var index: String
-    lateinit var pictureList: List<String>
+    lateinit var pictureList: ArrayList<String>
 
     private val mAdapter by lazy(LazyThreadSafetyMode.NONE) { MultiTypeAdapter() }
     private val mItems = ArrayList<Any>()
@@ -46,7 +46,7 @@ class DisplayMultiActivity : BVMActivity<ActivityDisplayMultiBinding, DisplayVie
 
     override fun initData() {
         index = CRouter.optString(intent, "index")
-        pictureList = CRouter.optArrayList(intent, "pictureList")
+        pictureList = CRouter.optStringList(intent, "pictureList")
 
         mItems.addAll(pictureList)
         mAdapter.notifyDataSetChanged()

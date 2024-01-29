@@ -361,9 +361,12 @@ class VMRecorderView @JvmOverloads constructor(context: Context, attrs: Attribut
                     decibelList.add(voiceDecibel)
                 }
                 onRecordDecibel(voiceDecibel)
-                decibelCount++
 
-                startOuterAnim()
+                if ((decibelCount % (VMRecorderManager.touchAnimTime / VMRecorderManager.sampleTime)).toInt() == 0) {
+                    startOuterAnim()
+                }
+
+                decibelCount++
                 postInvalidate()
             }
         }

@@ -59,6 +59,7 @@ class RecorderViewActivity : BActivity<ActivityDemoViewRecorderBinding>() {
     }
 
     private fun initVoiceView() {
+        mBinding.voiceLL.setOnClickListener { VMVoicePlayer.start(voiceBean.path) }
         VMVoicePlayer.setOnPlayActionListener(object : VMVoicePlayer.IOnPlayActionListener {
             override fun onStart() {
                 mBinding.voiceWaveformView.start()

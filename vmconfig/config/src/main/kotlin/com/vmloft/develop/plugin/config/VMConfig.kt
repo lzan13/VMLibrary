@@ -13,8 +13,8 @@ object VMConfig {
     const val compileSdk = 34
     const val minSdk = 21
     const val targetSdk = 34
-    const val versionCode = 181
-    const val versionName = "1.8.1"
+    const val versionCode = 182
+    const val versionName = "1.8.2"
 
     // 发布到 jitpack 仓库所需配置，一般项目不需要
     const val publishGroup = "com.github.lzan13"

@@ -64,12 +64,12 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
      */
     private val gestureDetector = GestureDetector(context, object : SimpleOnGestureListener() {
         override fun onDown(e: MotionEvent): Boolean {
-            return true
+            return status != VMVoicePlayer.statusIdle
         }
 
         override fun onSingleTapUp(e: MotionEvent): Boolean {
             performClick()
-            return true
+            return status != VMVoicePlayer.statusIdle
         }
 
         override fun onLongPress(event: MotionEvent) {
@@ -97,7 +97,6 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
             invalidate()
             return true
         }
-
     })
 
     /**
