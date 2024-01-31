@@ -33,8 +33,6 @@ class VMAudioRecorder : VMRecorderEngine() {
     private var bufferSize = 0 // 缓冲区大小
     lateinit var bufferData: ShortArray // 缓冲区数据
 
-    private var maxDuration = 60 * 60 * 1000 // 录音最大持续时间 60 分钟
-
     // 缓冲区大小
 //    private var bufferSize = AudioRecord.getMinBufferSize(samplingRate, channel, encodeFormat)
 

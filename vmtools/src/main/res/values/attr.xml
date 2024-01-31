@@ -143,19 +143,27 @@
         <!--取消按钮大小边距-->
         <attr name="vm_cancel_size" format="dimension" />
         <attr name="vm_cancel_margin" format="dimension" />
+
+        <!--倒计时文案-->
+        <attr name="vm_count_down_desc" format="string|reference" />
+
         <!--触摸区域提示文字-->
         <attr name="vm_desc_normal" format="string|reference" />
         <attr name="vm_desc_cancel" format="string|reference" />
+
         <!--触摸提示文本颜色-->
         <attr name="vm_desc_color" format="color|integer" />
         <!--触摸提示文本大小-->
         <attr name="vm_desc_font_size" format="dimension" />
         <!--触摸区域内圈颜色-->
-        <attr name="vm_inner_color" format="color|reference" />
-        <attr name="vm_inner_color_cancel" format="color|reference" />
+        <attr name="vm_touch_color" format="color|reference" />
+        <attr name="vm_touch_color_cancel" format="color|reference" />
         <!--触摸区域内圈图标-->
-        <attr name="vm_inner_icon" format="reference" />
-        <attr name="vm_inner_icon_cancel" format="reference" />
+        <attr name="vm_touch_icon" format="reference" />
+        <attr name="vm_touch_icon_cancel" format="reference" />
+        <attr name="vm_touch_size" format="dimension" />
+        <!--触摸区域内圈颜色及大小-->
+        <attr name="vm_inner_color" format="color|reference" />
         <attr name="vm_inner_size" format="dimension" />
         <!--触摸区域外圈颜色及大小-->
         <attr name="vm_outer_color" format="color|reference" />

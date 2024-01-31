@@ -66,7 +66,7 @@
                 android:layout_height="@dimen/vm_dimen_192"
                 app:layout_constraintTop_toBottomOf="@+id/testTV"
 
-                app:vm_bg_color="#fafafb"
+                app:vm_bg_color="@color/app_bg_display"
 
                 app:vm_cancel_color="#f2f2f4"
                 app:vm_cancel_color_activate="#f0578e"
@@ -74,19 +74,24 @@
                 app:vm_cancel_icon_activate="@drawable/ic_close_white"
                 app:vm_cancel_size="@dimen/vm_dimen_56"
 
+                app:vm_count_down_desc="%d秒后即将发送"
+
                 app:vm_desc_cancel="松开 取消"
                 app:vm_desc_color="#44407a"
                 app:vm_desc_font_size="@dimen/vm_size_14"
                 app:vm_desc_normal="按下 说话"
 
-                app:vm_inner_color="#6457f0"
-                app:vm_inner_color_cancel="#c7c6d4"
-                app:vm_inner_icon="@drawable/ic_voice_record_mic_white"
-                app:vm_inner_icon_cancel="@drawable/ic_voice_record_mic_black"
-                app:vm_inner_size="@dimen/vm_dimen_64"
+                app:vm_inner_color="#89ffffff"
+                app:vm_inner_size="@dimen/vm_dimen_128"
 
-                app:vm_outer_color="#ffffff"
-                app:vm_outer_size="@dimen/vm_dimen_128"
+                app:vm_outer_color="#40ffffff"
+                app:vm_outer_size="@dimen/vm_dimen_220"
+
+                app:vm_touch_color="#6457f0"
+                app:vm_touch_color_cancel="#c7c6d4"
+                app:vm_touch_icon="@drawable/ic_voice_record_mic_white"
+                app:vm_touch_icon_cancel="@drawable/ic_voice_record_mic_black"
+                app:vm_touch_size="@dimen/vm_dimen_64"
 
                 app:vm_simple_time="100"
 

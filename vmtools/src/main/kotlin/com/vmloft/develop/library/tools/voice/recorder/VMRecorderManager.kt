@@ -7,6 +7,7 @@ package com.vmloft.develop.library.tools.voice.recorder
 object VMRecorderManager {
     // 声音采样时间间隔
     var sampleTime: Long = 100L
+
     // 触摸动画时间
     var touchAnimTime: Long = 1000L
 
@@ -20,7 +21,8 @@ object VMRecorderManager {
     const val errorCancel = 4 // 录音取消
     const val errorShort = 5 // 录音时间过短
 
-    var maxDuration = 60 * 60 * 1000 // 录音最大持续时间 60 分钟
+    var maxDuration = 60 * 1000 // 录音最大持续时间 60 秒
+//    var maxDuration = 10 * 1000 // 录音最大持续时间 60 秒
 
     private var recorderEngine: VMRecorderEngine? = null
 
