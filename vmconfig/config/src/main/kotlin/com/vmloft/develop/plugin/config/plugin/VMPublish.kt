@@ -98,6 +98,11 @@ class VMPublish : Plugin<Project> {
                 // 设置目标 sdk 版本
                 targetSdk = VMConfig.targetSdk
             }
+
+            sourceSets.getByName("main") {
+//                jni.srcDirs = [] // 设置 jni 源码目录，不设置会自动生成
+                jniLibs.srcDir("src/main/jniLibs") // 设置 so 库目录
+            }
         }
     }
 
