@@ -14,5 +14,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "vmconfig"
-include (":config")
+rootProject.name = "vmlogic"
+include (":convention")

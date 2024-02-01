@@ -1,9 +1,9 @@
-package com.vmloft.develop.plugin.config.plugin
+package com.vmloft.develop.convention.plugin
 
 import com.android.build.api.dsl.ApplicationExtension
 
-import com.vmloft.develop.plugin.config.extension.applicationDependencies
-import com.vmloft.develop.plugin.config.VMConfig
+import com.vmloft.develop.convention.extension.applicationDependencies
+import com.vmloft.develop.convention.VMConfig
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -20,7 +20,7 @@ import java.io.File
  * Created by lzan13 on 2024/01/25
  * 描述：Application 相关 插件类
  */
-class VMApplication : Plugin<Project> {
+class VMApp : Plugin<Project> {
     /**
      * 插件入口
      */

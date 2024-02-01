@@ -1,13 +1,11 @@
-package com.vmloft.develop.plugin.config.plugin
+package com.vmloft.develop.convention.plugin
 
 import com.android.build.api.dsl.LibraryExtension
 
-import com.vmloft.develop.plugin.config.VMConfig
+import com.vmloft.develop.convention.VMConfig
 
-import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionAware
-import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.api.plugins.PluginManager
 import org.gradle.kotlin.dsl.configure
 
@@ -15,29 +13,27 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 
 /**
  * Created by lzan13 on 2024/01/25
- * 描述：发布相关 插件类
+ * 描述：Library 相关 插件类
  */
-class VMPublish : Plugin<Project> {
+open class VMLibrary : VMBase() {
 
     /**
      * 插件入口
      */
-    override fun apply(target: Project) {
+    override fun apply(project: Project) {
         // 加载 gradle 配置
-        with(target) {
+        with(project) {
             // 加载插件
             loadPlugin(pluginManager)
             // 加载扩展配置
-            loadExtensions(extensions)
-            // 加载发布配置
-            loadPublish(target)
+            loadExtensions(project)
         }
     }
 
     /**
      * 加载插件
      */
-    private fun loadPlugin(pluginManager: PluginManager) {
+    override fun loadPlugin(pluginManager: PluginManager) {
         // 加载插件
         with(pluginManager) {
             apply("com.android.library")
@@ -50,8 +46,8 @@ class VMPublish : Plugin<Project> {
     /**
      * 加载扩展配置
      */
-    private fun loadExtensions(extensions: ExtensionContainer) {
-        extensions.configure<LibraryExtension>() {
+    override fun loadExtensions(project: Project) {
+        project.extensions.configure<LibraryExtension>() {
             // 设置 android sdk 相关版本
             compileSdk = VMConfig.compileSdk
 
@@ -98,41 +94,20 @@ class VMPublish : Plugin<Project> {
                 // 设置目标 sdk 版本
                 targetSdk = VMConfig.targetSdk
             }
-
-            sourceSets.getByName("main") {
-//                jni.srcDirs = [] // 设置 jni 源码目录，不设置会自动生成
-                jniLibs.srcDir("src/main/jniLibs") // 设置 so 库目录
-            }
         }
     }
 
     /**
-     * 加载发布配置，不过这里暂时没找到怎么迁移到插件中，
-     * TODO 只能暂时写在 build.gradle.kts
+     * 加载依赖
      */
-    private fun loadPublish(project: Project) {
-        // 发布配置
-//        afterEvaluate {
-//           publishing {
-//                publications {
-//                    create<MavenPublication>("release") {
-//                        println("Components: ${components.names}")
-//                        if (components.names.contains("release")) {
-//                            from(components["release"])
-//                            artifactId = VMConfigs.publishArtifactId // 项目名称（通常为类库模块名称，也可以任意）
-//                            group = VMConfigs.publishGroup // 唯一标识（通常为模块包名，也可以任意）
-//                            version = VMConfigs.versionName
-//                        }
-//                    }
-//                }
-//            }
-//        }
+    override fun loadDependencies(project: Project) {
+
     }
 
     /**
      * 自定义 KotlinOptions 扩展函数
      */
-    private fun LibraryExtension.kotlinOptions(block: KotlinJvmOptions.() -> Unit) {
+    fun LibraryExtension.kotlinOptions(block: KotlinJvmOptions.() -> Unit) {
         (this as ExtensionAware).extensions.configure("kotlinOptions", block)
     }
 }

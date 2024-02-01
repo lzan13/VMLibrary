@@ -1,4 +1,4 @@
-package com.vmloft.develop.plugin.config.plugin
+package com.vmloft.develop.convention.plugin
 
 import com.android.build.api.dsl.LibraryExtension
 
@@ -19,17 +19,17 @@ class VMLibraryAds : VMLibrary() {
         project.extensions.configure<LibraryExtension>() {
 
             // 配置渠道包
-            flavorDimensions += "version"
+            flavorDimensions += "default"
             productFlavors {
                 create("develop") {
-                    dimension = "version"
+                    dimension = "default"
 //                    // TopOn 聚合平台配置
 //                    buildConfigField("String", "topOnAppId", configs.topOnAppId)
 //                    buildConfigField("String", "topOnAppKey", configs.topOnAppKey)
 //                    buildConfigField("String", "adsSecKey", configs.adsSecKey)
                 }
                 create("googlePlay") {
-                    dimension = "version"
+                    dimension = "default"
 //                    manifestPlaceholders = [
 //                        admobAppId: configs.admobAppId,
 //                    ]

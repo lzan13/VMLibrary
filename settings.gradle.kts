@@ -1,5 +1,5 @@
 pluginManagement {
-    includeBuild("vmconfig")
+    includeBuild("vmlogic")
     repositories {
         // 国内仓库镜像
         maven { setUrl("https://maven.aliyun.com/repository/central") }
@@ -45,10 +45,10 @@ include(":example")
 include(":basic:vmbase")
 include(":basic:vmcommon")
 
-include(":core:vmdb")
+//include(":core:vmdb")
 include(":core:vmimage")
-include(":core:vmqr")
-include(":core:vmreport")
+//include(":core:vmqr")
+//include(":core:vmreport")
 include(":core:vmrequest")
 
 include(":vmtools")

@@ -1,19 +1,13 @@
-package com.vmloft.develop.plugin.config.plugin
+package com.vmloft.develop.convention.plugin
 
 import com.android.build.api.dsl.ApplicationExtension
-
-import com.vmloft.develop.plugin.config.extension.applicationDependencies
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.plugins.PluginManager
-import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.dependencies
 
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
-
-import java.io.File
 
 /**
  * Created by lzan13 on 2024/01/25

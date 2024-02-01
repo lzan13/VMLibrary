@@ -1,20 +1,20 @@
-package com.vmloft.develop.plugin.config
+package com.vmloft.develop.convention
 
 import org.gradle.api.JavaVersion
 
 /**
  * Created by lzan13 on 2024/01/25
- * 描述：自定义配置默认定义
+ * 描述：自定义配置
  */
-object VMConfigDefault {
-    const val applicationId = "com.vmloft.develop.app.template"
+object VMConfig {
+    const val applicationId = "com.vmloft.develop.app.example"
 
     const val buildTools = "34.0.0"
     const val compileSdk = 34
     const val minSdk = 21
     const val targetSdk = 34
-    const val versionCode = 181
-    const val versionName = "1.8.1"
+    const val versionCode = 183
+    const val versionName = "1.8.3"
 
     // 发布到 jitpack 仓库所需配置，一般项目不需要
     const val publishGroup = "com.github.lzan13"
@@ -37,8 +37,8 @@ object VMConfigDefault {
      * 签名配置，这里是默认添加的 debug 签名，方便打包测试，发布时需生成自己的签名文件，记得将签名文件复制到项目中
      */
     const val signingsKeyAlias = "vmloft"
-    const val signingsKeyPassword = "vmLZLove13"
-    const val signingsStoreFile = "vmconfig/vmloft.release.jks"
-    const val signingsStorePassword = "vmLZLove13"
+    const val signingsKeyPassword = "123456"
+    const val signingsStoreFile = "vmlogic/vmloft.debug.jks"
+    const val signingsStorePassword = "123456"
 
 }

@@ -1,4 +1,4 @@
-package com.vmloft.develop.plugin.config
+package com.vmloft.develop.convention
 
 /**
  * Created by lzan13 on 2024/01/25
@@ -70,7 +70,7 @@ object VMDependencies {
     const val dRouter = "io.github.didi:drouter-api:2.4.5"
 
     // 阿里云支付
-    const val alipay = "com.alipay.sdk:alipaysdk-android:15.8.11@aar"
+    const val alipay = "com.alipay.sdk:alipaysdk-android:15.8.17@aar"
 
 
     /**
@@ -96,12 +96,13 @@ object VMDependencies {
     // Bugly https://bugly.qq.com/docs/user-guide/instruction-manual-android/?v=20200203205953
     const val bugly = "com.tencent.bugly:crashreport:4.0.4"
 
-    // UMeng https://developer.umeng.com/docs/119267/detail/118584
-    // 友盟基础组件库（所有友盟业务SDK都依赖基础组件库）
-    const val umeng = "com.umeng.umsdk:common:9.5.2" // 必选
-    const val umengAsms = "com.umeng.umsdk:asms:1.6.3" // 必选
-//    const val umengGame = "com.umeng.umsdk:game:x.x.x" // 游戏统计SDK依赖(可选)
-
+    // umeng sdk https://developer.umeng.com/docs/119267/detail/118584
+    const  val umengCommon = "com.umeng.umsdk:common:9.6.3" // 必选
+    const  val umengAsms = "com.umeng.umsdk:asms:1.8.0" // 必选
+    // 高级运营分析功能依赖库（可选）。使用卸载分析、开启反作弊能力请务必集成，以免影响高级功能使用。
+    // common需搭配v9.6.3及以上版本，asms需搭配v1.7.0及以上版本。需更新隐私声明。需配置混淆，以避免依赖库无法生效，见本文下方【混淆设置】部分。
+    const val umengUYuMao = "com.umeng.umsdk:uyumao:1.1.2"
+    const  val umengABTest = "com.umeng.umsdk:abtest:1.0.0" //使用U-App中ABTest能力（可选）
     /**
      * 网络请求
      */
@@ -125,20 +126,23 @@ object VMDependencies {
     /**
      * 自定义控件库
      */
-    // MultiType RecyclerView 多类型适配器 https://github.com/drakeet/MultiType
-    const val multiType = "com.drakeet.multitype:multitype:4.2.0"
-
     // 强大 WebView 库 https://github.com/J ustson/AgentWeb
     const val agentWeb = "com.github.Justson.AgentWeb:agentweb-core:v4.1.9-androidx"
 
-    // 滚动选择器库 https://github.com/AigeStudio/WheelPicker
-    const val wheelPicker = "cn.aigestudio.wheelpicker:WheelPicker:1.1.3"
+    // 轮播控件 https://github.com/zhpanvip/BannerViewPager
+    const val bannerViewPager = "com.github.zhpanvip:bannerviewpager:3.5.12"
 
     // 动画库 https://github.com/LottieFiles/lottie-android
     const val lottie = "com.airbnb.android:lottie:3.7.0"
 
+    // MultiType RecyclerView 多类型适配器 https://github.com/drakeet/MultiType
+    const val multiType = "com.drakeet.multitype:multitype:4.2.0"
+
     // 下拉刷新库 https://github.com/scwang90/SmartRefreshLayout
     const val refreshLayoutKernel = "com.scwang.smart:refresh-layout-kernel:2.0.3"
+
+    // 滚动选择器库 https://github.com/AigeStudio/WheelPicker
+    const val wheelPicker = "cn.aigestudio.wheelpicker:WheelPicker:1.1.3"
 
     // 图片选择器 https://github.com/yangpeixing/YImagePicker
     const val yImagePicker = "com.ypx.yimagepicker:androidx:3.1.4"
@@ -162,6 +166,6 @@ object VMDependencies {
 
     // 自定义工具库 https://gitee.com/lzan13/VMLibrary
     // 自定义工具库 https://github.com/lzan13/VMLibrary
-    const val vmtools = "com.github.lzan13:VMLibrary:1.8.1"
+    const val vmtools = "com.github.lzan13:VMLibrary:1.8.3"
 
 }

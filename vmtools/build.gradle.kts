@@ -1,10 +1,10 @@
-import com.vmloft.develop.plugin.config.VMConfig
-import com.vmloft.develop.plugin.config.VMDependencies
+import com.vmloft.develop.convention.VMConfig
+import com.vmloft.develop.convention.VMDependencies
 
 plugins {
     `maven-publish`
     // 自定义打包插件，用来统一管理配置和依赖
-    id("com.vmloft.develop.plugin.config.publish")
+    id("com.vmloft.develop.plugin.publish")
 }
 android {
     namespace = "com.vmloft.develop.library.tools"
@@ -34,10 +34,6 @@ afterEvaluate {
             }
         }
     }
-}
-
-tasks.register("comps") {
-    println("Components: ${components.names}")
 }
 
 //plugins {
