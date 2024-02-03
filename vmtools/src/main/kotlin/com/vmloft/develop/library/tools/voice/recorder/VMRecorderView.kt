@@ -300,7 +300,7 @@ class VMRecorderView @JvmOverloads constructor(context: Context, attrs: Attribut
         if (countDownTime < 5 * 1000 && countDownTime > 0) {
             mPaint.color = mCancelColorActivate
 
-            val desc = VMStr.byArgs(mCountDownDesc, countDownTime / 1000)
+            val desc = VMStr.byArgs(mCountDownDesc, (countDownTime / 1000) + 1)
 
             mPaint.textSize = mDescFontSize.toFloat()
             val tWidth = VMDimen.getTextWidth(mPaint, desc)
