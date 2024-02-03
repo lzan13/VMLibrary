@@ -72,6 +72,7 @@ object CRouter {
         what: Int = 0,
         arg0: Int = 0,
         arg1: Int = 0,
+        arg2: Boolean = false,
         str0: String? = null,
         str1: String? = null,
         obj0: Parcelable? = null,

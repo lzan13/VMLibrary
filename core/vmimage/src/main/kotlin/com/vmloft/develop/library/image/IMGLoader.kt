@@ -20,10 +20,9 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 
-import com.vmloft.develop.library.base.common.CConstants
-import com.vmloft.develop.library.base.common.CError
+import com.vmloft.develop.library.common.CConstants
+import com.vmloft.develop.library.common.CError
 import com.vmloft.develop.library.base.utils.CUtils
-import com.vmloft.develop.library.image.R
 import com.vmloft.develop.library.request.RConstants
 import com.vmloft.develop.library.request.RResult
 import com.vmloft.develop.library.tools.utils.VMDate

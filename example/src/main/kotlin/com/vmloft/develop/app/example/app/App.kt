@@ -5,14 +5,14 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
-import com.vmloft.develop.library.base.common.CSPManager
 import com.vmloft.develop.library.common.event.LDEventBus
-import com.vmloft.develop.library.base.notify.NotifyManager
 import com.vmloft.develop.library.common.widget.refresh.DoubleCircleFooter
 import com.vmloft.develop.library.common.widget.refresh.DoubleCircleHeader
 import com.vmloft.develop.app.example.common.Constants
 import com.vmloft.develop.app.example.common.SPManager
 import com.vmloft.develop.library.base.router.CRouter
+import com.vmloft.develop.library.common.CSPManager
+import com.vmloft.develop.library.common.notify.NotifyManager
 import com.vmloft.develop.library.tools.VMTools
 import com.vmloft.develop.library.tools.utils.VMFile
 import com.vmloft.develop.library.tools.utils.VMTheme
@@ -68,7 +68,7 @@ class App : Application() {
      * 初始化通用工具
      */
     private fun initCommon() {
-        VMTools.init(com.vmloft.develop.app.example.app.App.Companion.appContext)
+        VMTools.init(appContext)
         val level = if (CSPManager.isDebug()) VMLog.Level.DEBUG else VMLog.Level.ERROR
         VMLog.init(level, "VMTools")
 

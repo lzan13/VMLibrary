@@ -1,7 +1,5 @@
 package com.vmloft.develop.library.request
 
-import com.vmloft.develop.library.base.common.CSPManager
-
 /**
  * Create by lzan13 on 2022/3/9
  * 描述：

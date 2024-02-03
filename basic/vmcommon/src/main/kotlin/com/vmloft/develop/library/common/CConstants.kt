@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.base.common
+package com.vmloft.develop.library.common
 
 
 /**
@@ -11,9 +11,6 @@ object CConstants {
 
     // 应用在 SDCard 创建区别其他项目目录，一般以项目名命名
     const val projectName = "VMNepenthe"
-
-    // 配置文件更新
-    const val clientConfigEvent = "clientConfigEvent"
 
     // 分页默认数据
     const val defaultPage = 0

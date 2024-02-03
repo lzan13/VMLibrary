@@ -1,15 +1,14 @@
-import com.vmloft.develop.convention.extension.commonDependencies
 plugins{
     // 自定义配置插件，用来统一管理配置和依赖
-    id("com.vmloft.develop.plugin.library")
+    id("com.vmloft.develop.plugin.library.common")
 }
 android{
     namespace = "com.vmloft.develop.library.common"
 }
 
-dependencies {
-    commonDependencies()
-}
+//dependencies {
+//    commonDependencies()
+//}
 
 //plugins {
 //    id("com.android.library")

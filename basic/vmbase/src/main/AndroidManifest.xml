@@ -3,6 +3,6 @@
 
     <application>
         <!--通知中间页-->
-        <activity android:name=".notify.NotifyActivity" />
+        <activity android:name="com.vmloft.develop.library.common.notify.NotifyActivity" />
     </application>
 </manifest>

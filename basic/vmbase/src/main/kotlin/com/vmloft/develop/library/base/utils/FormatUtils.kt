@@ -24,6 +24,12 @@ object FormatUtils {
     /**
      * 默认样式日期时间
      */
+    fun defaultTime(time:Long):String{
+        return VMDate.long2Str(time)
+    }
+    /**
+     * 默认样式日期时间
+     */
     fun defaultTime(time:String):String{
         return VMDate.long2Str(VMDate.utc2Long(time))
     }
@@ -36,6 +42,17 @@ object FormatUtils {
             unread == 0 -> ""
             unread > 99 -> "+" + 99
             else -> "" + unread
+        }
+    }
+
+    /**
+     * 格式化大数据
+     */
+    fun wrapBig(count: Int): String {
+        return when {
+            count == 0 -> ""
+            count > 9999 -> "${count / 10000}w+"
+            else -> count.toString()
         }
     }
 }

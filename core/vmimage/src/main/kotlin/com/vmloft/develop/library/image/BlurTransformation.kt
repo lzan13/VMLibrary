@@ -6,7 +6,6 @@ import com.bumptech.glide.load.Key
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 
-import com.vmloft.develop.library.common.BuildConfig
 import com.vmloft.develop.library.tools.utils.bitmap.VMBlur.stackBlurBitmap
 
 import java.security.MessageDigest

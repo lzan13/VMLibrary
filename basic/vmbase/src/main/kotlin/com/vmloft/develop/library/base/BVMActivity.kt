@@ -273,6 +273,12 @@ abstract class BVMActivity<VB : ViewBinding, VM : BViewModel> : AppCompatActivit
         emptyStatusLL?.visibility = View.VISIBLE
     }
 
+    /**
+     * 设置空态点击事件
+     */
+    protected fun setEmptyClick(listener: View.OnClickListener) {
+        emptyStatusIV?.setOnClickListener { listener.onClick(it) }
+    }
 
     override fun onDestroy() {
         mDialog?.dismiss()

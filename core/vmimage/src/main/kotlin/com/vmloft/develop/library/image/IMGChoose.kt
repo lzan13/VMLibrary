@@ -2,8 +2,8 @@ package com.vmloft.develop.library.image
 
 import android.app.Activity
 
-import com.vmloft.develop.library.base.common.CConstants
-import com.vmloft.develop.library.base.common.CSPManager
+import com.vmloft.develop.library.common.CConstants
+import com.vmloft.develop.library.common.CSPManager
 import com.vmloft.develop.library.tools.utils.VMColor
 import com.vmloft.develop.library.tools.utils.VMDate
 import com.vmloft.develop.library.tools.utils.VMDimen

@@ -1,15 +1,14 @@
-import com.vmloft.develop.convention.extension.requestDependencies
 plugins{
     // 自定义配置插件，用来统一管理配置和依赖
-    id("com.vmloft.develop.plugin.library")
+    id("com.vmloft.develop.plugin.library.request")
 }
 android{
     namespace = "com.vmloft.develop.library.request"
 }
 
-dependencies {
-    requestDependencies()
-}
+//dependencies {
+//    requestDependencies()
+//}
 
 //plugins {
 //    id("com.android.library")

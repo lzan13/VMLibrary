@@ -9,7 +9,7 @@ import com.drakeet.multitype.MultiTypeAdapter
 import com.vmloft.develop.library.common.R
 import com.vmloft.develop.library.base.BVMActivity
 import com.vmloft.develop.library.base.BViewModel
-import com.vmloft.develop.library.base.common.CConstants
+import com.vmloft.develop.library.common.CConstants
 import com.vmloft.develop.library.base.router.CRouter
 import com.vmloft.develop.library.image.databinding.ActivityDisplayMultiBinding
 import com.vmloft.develop.library.tools.utils.VMColor
@@ -22,10 +22,11 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
  * 描述：展示多图片界面
  */
 @Router(path = CRouter.imageDisplayMulti)
-class DisplayMultiActivity : BVMActivity<ActivityDisplayMultiBinding, DisplayViewModel>() {
+class DisplayMultiActivity :BVMActivity<ActivityDisplayMultiBinding, DisplayViewModel>() {
 
     lateinit var index: String
-    lateinit var pictureList: ArrayList<String>
+
+    lateinit var pictureList: List<String>
 
     private val mAdapter by lazy(LazyThreadSafetyMode.NONE) { MultiTypeAdapter() }
     private val mItems = ArrayList<Any>()
@@ -45,8 +46,7 @@ class DisplayMultiActivity : BVMActivity<ActivityDisplayMultiBinding, DisplayVie
     }
 
     override fun initData() {
-        index = CRouter.optString(intent, "index")
-        pictureList = CRouter.optStringList(intent, "pictureList")
+        
 
         mItems.addAll(pictureList)
         mAdapter.notifyDataSetChanged()

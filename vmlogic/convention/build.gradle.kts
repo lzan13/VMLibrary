@@ -33,10 +33,25 @@ gradlePlugin {
             id = "com.vmloft.develop.plugin.library"
             implementationClass = "com.vmloft.develop.convention.plugin.VMLibrary"
         }
-        // 广告
-        register("vmLibraryAds") {
-            id = "com.vmloft.develop.plugin.library.ads"
-            implementationClass = "com.vmloft.develop.convention.plugin.VMLibraryAds"
+        // base
+        register("vmLibraryBase") {
+            id = "com.vmloft.develop.plugin.library.base"
+            implementationClass = "com.vmloft.develop.convention.plugin.VMLibraryBase"
+        }
+        // common
+        register("vmLibraryCommon") {
+            id = "com.vmloft.develop.plugin.library.common"
+            implementationClass = "com.vmloft.develop.convention.plugin.VMLibraryCommon"
+        }
+        // image
+        register("vmLibraryImage") {
+            id = "com.vmloft.develop.plugin.library.image"
+            implementationClass = "com.vmloft.develop.convention.plugin.VMLibraryImage"
+        }
+        // Request
+        register("vmLibraryRequest") {
+            id = "com.vmloft.develop.plugin.library.request"
+            implementationClass = "com.vmloft.develop.convention.plugin.VMLibraryRequest"
         }
         // 这里的 register 参数可随意填写，摘要应用在 id
         register("vmPublish") {

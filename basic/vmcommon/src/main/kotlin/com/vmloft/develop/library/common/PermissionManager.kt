@@ -1,8 +1,7 @@
-package com.vmloft.develop.library.base.common
+package com.vmloft.develop.library.common
 
 import android.Manifest
 import android.content.Context
-import com.vmloft.develop.library.base.R
 
 import com.vmloft.develop.library.tools.permission.VMPermission
 import com.vmloft.develop.library.tools.permission.VMPermissionBean

@@ -1,15 +1,16 @@
 package com.vmloft.develop.library.image.display
 
+
 import com.didi.drouter.annotation.Router
 
 import com.vmloft.develop.library.base.BVMActivity
 import com.vmloft.develop.library.base.BViewModel
 import com.vmloft.develop.library.base.router.CRouter
+
 import com.vmloft.develop.library.common.R
 import com.vmloft.develop.library.image.IMGLoader
 import com.vmloft.develop.library.image.databinding.ActivityDisplaySingleBinding
 import com.vmloft.develop.library.tools.utils.VMColor
-
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 /**
@@ -35,7 +36,7 @@ class DisplaySingleActivity : BVMActivity<ActivityDisplaySingleBinding, DisplayV
     }
 
     override fun initData() {
-        url = CRouter.optString(intent,"url")
+        
 
         IMGLoader.loadCover(mBinding.displayIV, url,thumbExt = "")
 
