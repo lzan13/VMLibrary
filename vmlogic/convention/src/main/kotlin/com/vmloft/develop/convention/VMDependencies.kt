@@ -59,8 +59,8 @@ object VMDependencies {
 
     // WCDB room 代替上边 room-runtime https://github.com/Tencent/wcdb
     const val wcdbRoom = "com.tencent.wcdb:room:1.0.8"
-    const val roomCompiler = "androidx.room:room-compiler:2.5.1"
-    const val roomKtx = "androidx.room:room-ktx:2.5.1"
+    const val roomCompiler = "androidx.room:room-compiler:2.6.1"
+    const val roomKtx = "androidx.room:room-ktx:2.6.1"
 
     // Glide https://github.com/bumptech/glide
     const val glide = "com.github.bumptech.glide:glide:4.12.0"
@@ -71,7 +71,6 @@ object VMDependencies {
 
     // 阿里云支付
     const val alipay = "com.alipay.sdk:alipaysdk-android:15.8.17@aar"
-
 
     /**
      * 推送相关
@@ -103,9 +102,13 @@ object VMDependencies {
     // common需搭配v9.6.3及以上版本，asms需搭配v1.7.0及以上版本。需更新隐私声明。需配置混淆，以避免依赖库无法生效，见本文下方【混淆设置】部分。
     const val umengUYuMao = "com.umeng.umsdk:uyumao:1.1.2"
     const  val umengABTest = "com.umeng.umsdk:abtest:1.0.0" //使用U-App中ABTest能力（可选）
+
     /**
      * 网络请求
      */
+    // OKHttp https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
+    const val okHttp = "com.squareup.okhttp3:okhttp:4.12.0"
+
     // Retrofit https://github.com/square/retrofit
     const val retrofit = "com.squareup.retrofit2:retrofit:2.9.0"
     const val converterGson = "com.squareup.retrofit2:converter-gson:2.9.0"
@@ -139,7 +142,8 @@ object VMDependencies {
     const val multiType = "com.drakeet.multitype:multitype:4.2.0"
 
     // 下拉刷新库 https://github.com/scwang90/SmartRefreshLayout
-    const val refreshLayoutKernel = "com.scwang.smart:refresh-layout-kernel:2.0.3"
+    const val refreshLayoutKernel = "io.github.scwang90:refresh-layout-kernel:2.1.0"
+    const val refreshLayoutTwoLevel = "io.github.scwang90:refresh-header-two-level:2.1.0"
 
     // 滚动选择器库 https://github.com/AigeStudio/WheelPicker
     const val wheelPicker = "cn.aigestudio.wheelpicker:WheelPicker:1.1.3"
@@ -163,6 +167,9 @@ object VMDependencies {
 
     // 播放器 UI 组件 这里暂不需要
     const val media3UI = "androidx.media3:media3-ui:1.2.0"
+
+    // webrtc 库
+    const val webrtc = "org.webrtc:google-webrtc:1.0.32006"
 
     // 自定义工具库 https://gitee.com/lzan13/VMLibrary
     // 自定义工具库 https://github.com/lzan13/VMLibrary

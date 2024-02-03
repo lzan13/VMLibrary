@@ -1,12 +1,12 @@
 package com.vmloft.develop.library.request
 
-import com.vmloft.develop.library.base.common.CSPManager
+import com.vmloft.develop.library.common.CSPManager
+import com.vmloft.develop.library.common.utils.JsonUtils
+import com.vmloft.develop.library.tools.utils.logger.VMLog
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
-import com.vmloft.develop.library.common.utils.JsonUtils
 
 import java.util.concurrent.TimeUnit
 
@@ -32,13 +32,22 @@ abstract class BaseRequest {
             }
             builder.addInterceptor(logging).connectTimeout(TIME_OUT.toLong(), TimeUnit.SECONDS)
 
+            /**
+             * 处理 Builder
+             */
             handleBuilder(builder)
+
+            /**
+             * 添加拦截器
+             */
+            addInterceptor(builder)
 
             return builder.build()
         }
 
 
     fun <S> getAPI(apiClass: Class<S>, baseUrl: String): S {
+        VMLog.e("getApi")
         return Retrofit.Builder()
             .client(client)
             .addConverterFactory(GsonConverterFactory.create(JsonUtils.gson))
@@ -46,6 +55,15 @@ abstract class BaseRequest {
             .build().create(apiClass)
     }
 
+
+    /**
+     * 处理 Builder
+     */
     abstract fun handleBuilder(builder: OkHttpClient.Builder)
+
+    /**
+     * 添加拦截器
+     */
+    abstract fun addInterceptor(builder: OkHttpClient.Builder)
 
 }

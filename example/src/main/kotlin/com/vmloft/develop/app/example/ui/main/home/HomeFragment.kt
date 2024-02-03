@@ -10,13 +10,13 @@ import android.content.ComponentName
 import android.view.ViewGroup
 
 import com.vmloft.develop.library.base.BFragment
-import com.vmloft.develop.library.base.common.PermissionManager
 import com.vmloft.develop.library.base.router.CRouter
 import com.vmloft.develop.app.example.R
 import com.vmloft.develop.app.example.databinding.FragmentHomeBinding
 import com.vmloft.develop.app.example.router.AppRouter
 import com.vmloft.develop.library.base.utils.showBar
 import com.vmloft.develop.app.example.utils.errorBar
+import com.vmloft.develop.library.common.PermissionManager
 import com.vmloft.develop.library.tools.VMTools
 import com.vmloft.develop.library.tools.permission.VMPermissionBean
 

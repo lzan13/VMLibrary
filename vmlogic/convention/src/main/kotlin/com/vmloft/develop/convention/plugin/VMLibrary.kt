@@ -8,6 +8,7 @@ import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.plugins.PluginManager
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.project
 
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 
@@ -16,19 +17,6 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
  * 描述：Library 相关 插件类
  */
 open class VMLibrary : VMBase() {
-
-    /**
-     * 插件入口
-     */
-    override fun apply(project: Project) {
-        // 加载 gradle 配置
-        with(project) {
-            // 加载插件
-            loadPlugin(pluginManager)
-            // 加载扩展配置
-            loadExtensions(project)
-        }
-    }
 
     /**
      * 加载插件
@@ -46,8 +34,8 @@ open class VMLibrary : VMBase() {
     /**
      * 加载扩展配置
      */
-    override fun loadExtensions(project: Project) {
-        project.extensions.configure<LibraryExtension>() {
+    override fun loadExtensions(target: Project) {
+        target.extensions.configure<LibraryExtension>() {
             // 设置 android sdk 相关版本
             compileSdk = VMConfig.compileSdk
 
@@ -66,6 +54,8 @@ open class VMLibrary : VMBase() {
             buildFeatures {
                 // 开启 BuildConfig
                 buildConfig = VMConfig.isBuildConfig
+                // 开启 resValues 用来代替 buildConfigField
+                resValues = VMConfig.isResValues
                 // 启用 compose
                 compose = VMConfig.isCompose
                 // 开启 ViewBinding
@@ -100,7 +90,7 @@ open class VMLibrary : VMBase() {
     /**
      * 加载依赖
      */
-    override fun loadDependencies(project: Project) {
+    override fun loadDependencies(target: Project) {
 
     }
 

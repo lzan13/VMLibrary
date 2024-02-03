@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.base.common
+package com.vmloft.develop.library.common
 
 /**
  * Create by lzan13 on 2020/9/5 19:46

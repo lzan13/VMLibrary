@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.base.notify
+package com.vmloft.develop.library.common.notify
 
 import android.annotation.SuppressLint
 import android.app.NotificationChannel
@@ -16,7 +16,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 
 import com.vmloft.develop.library.base.R
-import com.vmloft.develop.library.base.common.CSPManager
+import com.vmloft.develop.library.common.CSPManager
 import com.vmloft.develop.library.tools.VMTools
 import com.vmloft.develop.library.tools.utils.VMStr
 import com.vmloft.develop.library.tools.utils.VMSystem

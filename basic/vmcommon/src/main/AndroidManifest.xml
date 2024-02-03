@@ -29,7 +29,7 @@
 
         <!--7.x文件配置-->
         <provider
-            android:name="com.vmloft.develop.library.base.common.CFileProvider"
+            android:name=".CFileProvider"
             android:authorities="${applicationId}.common.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true">

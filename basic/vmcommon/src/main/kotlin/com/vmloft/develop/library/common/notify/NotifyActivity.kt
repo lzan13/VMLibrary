@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.base.notify
+package com.vmloft.develop.library.common.notify
 
 import android.content.Intent
 import android.os.Bundle

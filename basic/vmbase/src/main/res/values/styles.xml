@@ -11,14 +11,16 @@
     <!--标题样式-页面标题-->
     <style name="AppText.Title" parent="@style/VMText.Title">
         <item name="android:textColor">@color/app_title</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textSize">@dimen/vm_size_16</item>
+    </style>
+
+    <!--标题样式-页面标题-->
+    <style name="AppText.Title.Shadow" parent="@style/VMText.Title.Shadow">
+        <item name="android:textColor">@color/app_title</item>
     </style>
 
     <!--标题样式-副标题-->
     <style name="AppText.Subtitle" parent="@style/VMText.Subhead">
         <item name="android:textColor">@color/app_subtitle</item>
-        <item name="android:textStyle">normal</item>
     </style>
 
     <!--标题样式-列表名字-->
@@ -50,6 +52,18 @@
     <style name="AppText.Tips" parent="@style/VMText.Caption">
         <item name="android:textSize">@dimen/vm_size_10</item>
         <item name="android:textColor">@color/app_tips</item>
+    </style>
+
+    <!--未读样式-->
+    <style name="AppText.Unread" parent="@style/VMText.Caption">
+        <item name="android:textSize">@dimen/vm_size_10</item>
+        <item name="android:textColor">@color/app_unread</item>
+        <item name="android:background">@drawable/shape_unread_common_bg</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minWidth">@dimen/vm_dimen_16</item>
+        <item name="android:minHeight">@dimen/vm_dimen_16</item>
+        <item name="android:paddingLeft">@dimen/vm_dimen_4</item>
+        <item name="android:paddingRight">@dimen/vm_dimen_4</item>
     </style>
 
     <!--底部导航样式-->

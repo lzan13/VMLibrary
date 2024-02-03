@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.base.common
+package com.vmloft.develop.library.common
 
 import androidx.core.content.FileProvider
 

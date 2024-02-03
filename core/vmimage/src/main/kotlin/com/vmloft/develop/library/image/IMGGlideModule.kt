@@ -7,7 +7,7 @@ import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.load.engine.cache.ExternalPreferredCacheDiskCacheFactory
 import com.bumptech.glide.module.AppGlideModule
 
-import com.vmloft.develop.library.base.common.CConstants
+import com.vmloft.develop.library.common.CConstants
 
 /**
  * Create by lzan13 on 2020/04/06 17:56

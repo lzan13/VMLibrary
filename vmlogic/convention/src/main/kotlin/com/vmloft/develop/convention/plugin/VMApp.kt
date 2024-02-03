@@ -2,7 +2,6 @@ package com.vmloft.develop.convention.plugin
 
 import com.android.build.api.dsl.ApplicationExtension
 
-import com.vmloft.develop.convention.extension.applicationDependencies
 import com.vmloft.develop.convention.VMConfig
 
 import org.gradle.api.Plugin
@@ -11,6 +10,7 @@ import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.plugins.PluginManager
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.project
 
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 
@@ -21,18 +21,21 @@ import java.io.File
  * 描述：Application 相关 插件类
  */
 class VMApp : Plugin<Project> {
+
+    var isDebug = false
+
     /**
      * 插件入口
      */
-    override fun apply(project: Project) {
+    override fun apply(target: Project) {
         // 加载 gradle 配置
-        with(project) {
+        with(target) {
             // 加载插件
             loadPlugin(pluginManager)
             // 加载扩展配置
-            loadExtensions(project)
+            loadExtensions(target)
             // 加载依赖
-            loadDependencies(project)
+            loadDependencies(target)
         }
     }
 
@@ -54,8 +57,8 @@ class VMApp : Plugin<Project> {
     /**
      * 加载扩展配置
      */
-    private fun loadExtensions(project: Project) {
-        project.extensions.configure<ApplicationExtension>() {
+    private fun loadExtensions(target: Project) {
+        target.extensions.configure<ApplicationExtension>() {
             // 设置 android sdk 相关版本
             compileSdk = VMConfig.compileSdk
 
@@ -66,6 +69,11 @@ class VMApp : Plugin<Project> {
 
                 versionCode = VMConfig.versionCode
                 versionName = VMConfig.versionName
+
+                manifestPlaceholders["appChannel"] = "develop"
+                manifestPlaceholders["appVersionName"] = VMConfig.versionName
+                manifestPlaceholders["isDebug"] = isDebug
+
             }
             // 签名信息
             signingConfigs {
@@ -73,13 +81,14 @@ class VMApp : Plugin<Project> {
                 create("release") {
                     keyAlias = VMConfig.signingsKeyAlias
                     keyPassword = VMConfig.signingsKeyPassword
-                    storeFile = File(project.rootProject.projectDir, VMConfig.signingsStoreFile)
+                    storeFile = File(target.rootProject.projectDir, VMConfig.signingsStoreFile)
                     storePassword = VMConfig.signingsStorePassword
                 }
             }
 
             buildTypes {
                 getByName("debug") {
+                    isDebug = true
                     // 是否开启混淆
                     isMinifyEnabled = false
                     // 打包时删除无用资源 依赖于混淆，必须和 minifyEnabled 一起使用
@@ -88,6 +97,7 @@ class VMApp : Plugin<Project> {
                     signingConfig = signingConfigs.getByName("release")
                 }
                 getByName("release") {
+                    isDebug = false
                     // 是否开启混淆
                     isMinifyEnabled = true
                     // 打包时删除无用资源 依赖于混淆，必须和 minifyEnabled 一起使用
@@ -109,6 +119,8 @@ class VMApp : Plugin<Project> {
             buildFeatures {
                 // 开启 BuildConfig
                 buildConfig = VMConfig.isBuildConfig
+                // 开启 resValues 用来代替 buildConfigField
+                resValues = VMConfig.isResValues
                 // 启用 compose
                 compose = VMConfig.isCompose
                 // 开启 ViewBinding
@@ -141,9 +153,20 @@ class VMApp : Plugin<Project> {
     /**
      * 加载依赖
      */
-    private fun loadDependencies(project: Project) {
-        project.dependencies {
-            applicationDependencies()
+    private fun loadDependencies(target: Project) {
+        target.dependencies {
+            // 依赖 jar 包
+//            implementation(fileTree(mapOf("include" to listOf("*.jar"), "dir" to "libs")))
+            // 依赖 aar
+//            implementation(group = "", name = "libraryname", ext = "aar")
+
+            // 依赖 vmbase/vmcommon
+            "implementation"(project(":basic:vmbase"))
+            "implementation"(project(":basic:vmcommon"))
+
+            // 依赖核心模块 vmimage/vmrequest
+            "implementation"(project(":core:vmimage"))
+            "implementation"(project(":core:vmrequest"))
         }
     }
 
