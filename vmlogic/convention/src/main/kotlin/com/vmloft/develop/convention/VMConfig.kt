@@ -7,14 +7,14 @@ import org.gradle.api.JavaVersion
  * 描述：自定义配置
  */
 object VMConfig {
-    const val applicationId = "com.vmloft.develop.app.meet"
+    const val applicationId = "com.vmloft.develop.app.example"
 
     const val buildTools = "34.0.0"
     const val compileSdk = 34
     const val minSdk = 21
     const val targetSdk = 34
-    const val versionCode = 100
-    const val versionName = "1.0.0"
+    const val versionCode = 184
+    const val versionName = "1.8.4"
 
     // 发布到 jitpack 仓库所需配置，一般项目不需要
     const val publishGroup = "com.github.lzan13"
