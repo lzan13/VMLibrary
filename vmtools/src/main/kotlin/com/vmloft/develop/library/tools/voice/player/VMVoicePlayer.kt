@@ -148,6 +148,8 @@ object VMVoicePlayer {
      * 停止播放
      */
     fun stop() {
+        stopTimer()
+
         if (currentStatus != statusIdle) {
             exoPlayer?.stop()
             exoPlayer?.release()

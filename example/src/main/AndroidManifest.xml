@@ -31,7 +31,7 @@
         tools:ignore="GoogleAppIndexingWarning">
         <!--闪屏页-->
         <activity
-            android:name=".ui.splash.SplashActivity"
+            android:name="com.vmloft.develop.app.example.ui.splash.SplashActivity"
             android:exported="true"
             android:theme="@style/AppTheme.Splash">
             <intent-filter>

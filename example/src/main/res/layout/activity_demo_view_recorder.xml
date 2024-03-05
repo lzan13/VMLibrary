@@ -87,16 +87,16 @@
                 app:vm_outer_color="#40ffffff"
                 app:vm_outer_size="@dimen/vm_dimen_220"
 
+                app:vm_simple_time="100"
+                app:vm_time_color="#44407a"
+                app:vm_time_font_size="@dimen/vm_size_14"
                 app:vm_touch_color="#6457f0"
                 app:vm_touch_color_cancel="#c7c6d4"
+
                 app:vm_touch_icon="@drawable/ic_voice_record_mic_white"
+
                 app:vm_touch_icon_cancel="@drawable/ic_voice_record_mic_black"
-                app:vm_touch_size="@dimen/vm_dimen_64"
-
-                app:vm_simple_time="100"
-
-                app:vm_time_color="#44407a"
-                app:vm_time_font_size="@dimen/vm_size_14" />
+                app:vm_touch_size="@dimen/vm_dimen_64" />
 
             <com.vmloft.develop.library.tools.voice.recorder.VMRecorderAnimView
                 android:id="@+id/voiceRecordAnimView"
@@ -129,12 +129,13 @@
             <com.vmloft.develop.library.tools.voice.player.VMWaveformView
                 android:id="@+id/voiceWaveformView"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/vm_dimen_42"
+                android:layout_height="@dimen/vm_dimen_48"
                 android:background="@color/vm_gray_white"
                 app:vm_line_bg_color="@color/vm_gray"
                 app:vm_line_fg_color="@color/vm_black"
-                app:vm_line_space="@dimen/vm_dimen_1"
-                app:vm_line_width="@dimen/vm_dimen_2" />
+                app:vm_line_space="@dimen/vm_dimen_2_5"
+                app:vm_line_width="@dimen/vm_dimen_1_5"
+                app:vm_progress_icon="@drawable/ic_progress_line" />
 
         </LinearLayout>
 

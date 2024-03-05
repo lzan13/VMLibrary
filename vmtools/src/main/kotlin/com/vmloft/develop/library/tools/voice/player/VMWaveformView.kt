@@ -13,6 +13,7 @@ import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.LinearInterpolator
+import androidx.core.graphics.drawable.toBitmap
 
 import com.vmloft.develop.library.tools.R
 import com.vmloft.develop.library.tools.utils.VMColor
@@ -39,6 +40,9 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
     private var lineFGColor = VMColor.byRes(R.color.vm_white)
     private var lineWidth = VMDimen.dp2px(2)
     private var lineSpace = VMDimen.dp2px(1)
+
+    // 进度 Icon
+    private var progressIcon = 0
 
     // 进度 0-100
     private var mCurrentProgress = 0f
@@ -132,6 +136,8 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
         lineWidth = array.getDimensionPixelOffset(R.styleable.VMVoiceView_vm_line_width, lineWidth)
         lineSpace = array.getDimensionPixelOffset(R.styleable.VMVoiceView_vm_line_space, lineSpace)
 
+        progressIcon = array.getResourceId(R.styleable.VMVoiceView_vm_progress_icon, progressIcon)
+
         array.recycle()
     }
 
@@ -224,7 +230,11 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
         if (!isDrag) {
             mCurrentProgress = progress
             if (mCurrentProgress == 0f) {
-                mCurrentProgressWidth = mWidth.toFloat()
+                if(status == VMVoicePlayer.statusPlaying){
+                    mCurrentProgressWidth = 0f
+                }else{
+                    mCurrentProgressWidth = mWidth.toFloat()
+                }
                 postInvalidate()
             } else {
                 // 开始动画更新进度
@@ -296,7 +306,7 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
         linePaint.color = lineBGColor
         linePaint.isAntiAlias = true // 设置抗锯齿
         linePaint.strokeWidth = lineWidth.toFloat()
-        linePaint.style = Paint.Style.FILL
+        linePaint.style = Paint.Style.FILL_AND_STROKE
         linePaint.strokeJoin = Paint.Join.ROUND
         linePaint.strokeCap = Paint.Cap.ROUND
         voiceBean?.decibelList?.forEachIndexed { index, decibel ->
@@ -339,39 +349,45 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
     }
 
     /**
-     * 绘制进度线 TODO
+     * 绘制进度线
      */
     private fun drawProgressLine(canvas: Canvas) {
+        if (progressIcon == 0 || status == VMVoicePlayer.statusIdle) return
 
+        // 绘制取消图标
+        val bitmap = context.resources.getDrawable(progressIcon).toBitmap()
+        val cancelIconX = mCurrentProgressWidth - bitmap.width / 2.0f
+        val cancelIconY = 0f
+        canvas.drawBitmap(bitmap, cancelIconX, cancelIconY, mPaint)
     }
 
     /**
      * 进度动画
      */
     private fun startProgressAnim(progress: Float) {
-        VMSystem.runInUIThread({
-            // 现根据进度计算出需要的宽度
-            val progressWidth = if (progress > 0) {
-                progress * mWidth / mMaxProgress
-            } else {
-                mWidth.toFloat()
-            }
-            // 后续直接使用宽度了，这里直接赋值给当前进度
-            mCurrentProgress = progress
-            val mAnimator = ValueAnimator.ofFloat(mCurrentProgressWidth, progressWidth)
-            mAnimator.duration = VMVoicePlayer.progressAnimDuration
-            mAnimator.repeatCount = 0
-            mAnimator.interpolator = LinearInterpolator()
-            mAnimator.addUpdateListener { a: ValueAnimator ->
-                if (status == VMVoicePlayer.statusPlaying && !isDrag) {
-                    // 动画大小根据回调变化
-                    mCurrentProgressWidth = a.animatedValue as Float
+//        VMSystem.runInUIThread({
+        // 现根据进度计算出需要的宽度
+        val progressWidth = if (progress > 0) {
+            progress * mWidth / mMaxProgress
+        } else {
+            mWidth.toFloat()
+        }
+        // 后续直接使用宽度了，这里直接赋值给当前进度
+        mCurrentProgress = progress
+        val mAnimator = ValueAnimator.ofFloat(mCurrentProgressWidth, progressWidth)
+        mAnimator.duration = VMVoicePlayer.progressAnimDuration
+        mAnimator.repeatCount = 0
+        mAnimator.interpolator = LinearInterpolator()
+        mAnimator.addUpdateListener { a: ValueAnimator ->
+            if (status == VMVoicePlayer.statusPlaying && !isDrag) {
+                // 动画大小根据回调变化
+                mCurrentProgressWidth = a.animatedValue as Float
 
-                    invalidate()
-                }
+                postInvalidate()
             }
-            mAnimator.start()
-        })
+        }
+        mAnimator.start()
+//        })
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {

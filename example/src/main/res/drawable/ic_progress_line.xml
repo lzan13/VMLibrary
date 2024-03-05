@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:width="@dimen/vm_dimen_1"
+        android:height="@dimen/vm_dimen_48">
+        <shape>
+            <gradient
+                android:angle="90"
+                android:centerColor="@color/app_bg_display"
+                android:endColor="@color/app_bg_transparent_light"
+                android:startColor="@color/app_bg_transparent_light" />
+        </shape>
+    </item>
+</layer-list>

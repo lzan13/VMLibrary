@@ -190,6 +190,8 @@
         <attr name="vm_line_width" format="dimension" />
         <!--波形线间隔-->
         <attr name="vm_line_space" format="dimension" />
+        <!--进度Icon-->
+        <attr name="vm_progress_icon" format="reference" />
     </declare-styleable>
 
     <!--自定义等比例布局-->
