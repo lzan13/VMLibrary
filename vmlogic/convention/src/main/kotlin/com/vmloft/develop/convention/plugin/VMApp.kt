@@ -3,6 +3,7 @@ package com.vmloft.develop.convention.plugin
 import com.android.build.api.dsl.ApplicationExtension
 
 import com.vmloft.develop.convention.VMConfig
+import com.vmloft.develop.convention.VMDependencies
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -159,6 +160,7 @@ class VMApp : Plugin<Project> {
 //            implementation(fileTree(mapOf("include" to listOf("*.jar"), "dir" to "libs")))
             // 依赖 aar
 //            implementation(group = "", name = "libraryname", ext = "aar")
+            "implementation"(VMDependencies.splashScreen)
 
             // 依赖 vmbase/vmcommon
             "implementation"(project(":basic:vmbase"))

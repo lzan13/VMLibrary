@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 启动页主题样式 -->
+    <style name="AppTheme.Splash" parent="Theme.SplashScreen">
+        <!--启动画面背景颜色-->
+        <item name="android:windowSplashScreenBackground">@color/app_bg</item>
+        <!-- 启动画面icon图标：这里可以是图片、帧动画等-->
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/img_baymax</item>
+        <item name="android:windowSplashScreenIconBackgroundColor">@color/app_bg</item>
+        <!-- icon动画在关闭之前显示的时长：最长时间为1000毫秒-->
+        <item name="android:windowSplashScreenAnimationDuration">1000</item>
+        <!-- 启动画面底部的 Brand 图片-->
+        <item name="android:windowSplashScreenBrandingImage">@drawable/img_default_avatar</item>
+        <!-- Splash退出后的主题-->
+        <item name="postSplashScreenTheme">@style/AppTheme</item>
+    </style>
+</resources>

@@ -20,6 +20,7 @@ object VMDependencies {
     /**
      * AndroidX 库
      */
+    const val splashScreen = "androidx.core:core-splashscreen:1.0.0"
     const val appCompat = "androidx.appcompat:appcompat:1.6.1"
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.4"
     const val coordinatorLayout = "androidx.coordinatorlayout:coordinatorlayout:1.2.0"

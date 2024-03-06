@@ -30,16 +30,30 @@
 
     </style>
 
-    <!--启动时的主题样式-->
-    <style name="AppTheme.Splash">
-        <!--半透明状态栏-->
-        <item name="android:windowTranslucentStatus">true</item>
-        <!--充满屏幕-->
-        <item name="android:windowFullscreen">true</item>
-        <!--设置状态栏颜色-->
-        <item name="android:statusBarColor">@color/app_bg</item>
-        <!--防止启动瞬间黑屏或白屏，程序启动时的背景图，可以设置为一张代表性的logo，或者设置app框架类图-->
-        <item name="android:windowBackground">@drawable/splash_bg</item>
+    <!-- 启动页主题样式 -->
+<!--    <style name="AppTheme.Splash">-->
+<!--        &lt;!&ndash;半透明状态栏&ndash;&gt;-->
+<!--        <item name="android:windowTranslucentStatus">true</item>-->
+<!--        &lt;!&ndash;充满屏幕&ndash;&gt;-->
+<!--        <item name="android:windowFullscreen">true</item>-->
+<!--        &lt;!&ndash;设置状态栏颜色&ndash;&gt;-->
+<!--        <item name="android:statusBarColor">@color/app_bg</item>-->
+<!--        &lt;!&ndash;防止启动瞬间黑屏或白屏，程序启动时的背景图，可以设置为一张代表性的logo，或者设置app框架类图&ndash;&gt;-->
+<!--        <item name="android:windowBackground">@drawable/splash_bg</item>-->
+<!--    </style>-->
+    <!-- 启动页主题样式 -->
+    <style name="AppTheme.Splash" parent="Theme.SplashScreen">
+        <!--启动画面背景颜色-->
+        <item name="windowSplashScreenBackground">@color/app_bg</item>
+        <!-- 启动画面icon图标：这里可以是图片、帧动画等-->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/img_baymax</item>
+        <item name="windowSplashScreenIconBackgroundColor">@color/app_bg</item>
+        <!-- icon动画在关闭之前显示的时长：最长时间为1000毫秒-->
+        <item name="windowSplashScreenAnimationDuration">1000</item>
+        <!-- 启动画面底部的 Brand 图片-->
+<!--        <item name="windowSplashScreenBrandingImage">@drawable/img_default_avatar</item>-->
+        <!-- Splash退出后的主题-->
+        <item name="postSplashScreenTheme">@style/AppTheme</item>
     </style>
 
     <!--文字样式 Title-->

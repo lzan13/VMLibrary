@@ -125,7 +125,7 @@ class VMAudioRecorder : VMRecorderEngine() {
             }
         }
         // 停止编码任务
-        encodeTask.stopTask()
+//        encodeTask.stopTask()
     }
 
     /**

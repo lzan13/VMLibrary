@@ -64,7 +64,7 @@ class MainActivity : BActivity<ActivityMainBinding>() {
 
     override fun initUI() {
         super.initUI()
-        setTheme(R.style.AppTheme)
+//        setTheme(R.style.AppTheme)
 
         initBottomNav()
     }

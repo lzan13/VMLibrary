@@ -172,6 +172,7 @@ object VMVoicePlayer {
             override fun run() {
                 VMSystem.runInUIThread({
                     currentProgress = (exoPlayer?.currentPosition ?: 0L).toFloat()
+                    exoPlayer?.totalBufferedDuration
                     // 回调当前播放位置 ms
                     onPlayActionListener?.onProgressChange(currentProgress)
                 })
@@ -212,8 +213,8 @@ object VMVoicePlayer {
         override fun onPlaybackStateChanged(playbackState: Int) {
             // 播放结束
             if (playbackState == Player.STATE_ENDED) {
-                onPlayActionListener?.onComplete()
                 stop()
+                onPlayActionListener?.onComplete()
             }
         }
     }

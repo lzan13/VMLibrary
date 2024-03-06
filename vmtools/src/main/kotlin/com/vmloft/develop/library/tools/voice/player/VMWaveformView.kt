@@ -3,6 +3,7 @@ package com.vmloft.develop.library.tools.voice.player
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.PorterDuff
@@ -148,6 +149,7 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
         voiceBean = bean
         // 将时间设置为最大进度
         mMaxProgress = bean.duration.toFloat()
+        mCurrentProgress = 0f
 
         if (bean.decibelList.isEmpty()) {
             // TODO 根据声音文件加载声音分贝波形数据
@@ -155,6 +157,8 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
         }
         mWidth = (voiceBean!!.decibelList.size + 1) * (lineWidth + lineSpace)
         mCurrentProgressWidth = mWidth.toFloat()
+
+        postInvalidate()
     }
 
     fun updateVoiceBean(bean: VMRecorderView.VoiceBean) {
@@ -171,7 +175,7 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
 
         setMeasuredDimension(mWidth, mHeight)
 
-        invalidate()
+        postInvalidate()
     }
 
 
@@ -185,7 +189,7 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
         if (mCurrentProgress == 0f) {
             mCurrentProgressWidth = 0f
         }
-        invalidate()
+        postInvalidate()
     }
 
     /**
@@ -196,7 +200,7 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
 
         calculateProgressWidth()
 
-        invalidate()
+        postInvalidate()
     }
 
     /**
@@ -208,7 +212,7 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
         mCurrentProgress = 0f
         calculateProgressWidth()
 
-        invalidate()
+        postInvalidate()
     }
 
     /**
@@ -230,9 +234,9 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
         if (!isDrag) {
             mCurrentProgress = progress
             if (mCurrentProgress == 0f) {
-                if(status == VMVoicePlayer.statusPlaying){
+                if (status == VMVoicePlayer.statusPlaying) {
                     mCurrentProgressWidth = 0f
-                }else{
+                } else {
                     mCurrentProgressWidth = mWidth.toFloat()
                 }
                 postInvalidate()
@@ -355,7 +359,7 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
         if (progressIcon == 0 || status == VMVoicePlayer.statusIdle) return
 
         // 绘制取消图标
-        val bitmap = context.resources.getDrawable(progressIcon).toBitmap()
+        val bitmap = context.resources.getDrawable(progressIcon, null).toBitmap()
         val cancelIconX = mCurrentProgressWidth - bitmap.width / 2.0f
         val cancelIconY = 0f
         canvas.drawBitmap(bitmap, cancelIconX, cancelIconY, mPaint)
@@ -383,7 +387,7 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
                 // 动画大小根据回调变化
                 mCurrentProgressWidth = a.animatedValue as Float
 
-                postInvalidate()
+                invalidate()
             }
         }
         mAnimator.start()

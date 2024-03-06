@@ -1,5 +1,7 @@
 package com.vmloft.develop.app.example.ui.splash
 
+import android.os.Bundle
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.vmloft.develop.library.base.BActivity
 import com.vmloft.develop.library.base.router.CRouter
 import com.vmloft.develop.app.example.common.SPManager
@@ -14,6 +16,12 @@ import com.vmloft.develop.app.example.databinding.ActivitySplashBinding
 class SplashActivity : BActivity<ActivitySplashBinding>() {
 
     override fun initVB() = ActivitySplashBinding.inflate(layoutInflater)
+    override fun onCreate(savedInstanceState: Bundle?) {
+
+        val splashScreen = installSplashScreen()
+
+        super.onCreate(savedInstanceState)
+    }
 
     override fun initUI() {
         super.initUI()
