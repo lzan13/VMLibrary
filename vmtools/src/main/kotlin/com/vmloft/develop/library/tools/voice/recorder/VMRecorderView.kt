@@ -418,6 +418,9 @@ class VMRecorderView @JvmOverloads constructor(context: Context, attrs: Attribut
                 }
                 onRecordDecibel(voiceDecibel)
 
+                val fftData = recorderEngine.getFFTData()
+                onRecordFFTData(fftData)
+
                 val simple = decibelCount % (VMRecorderManager.touchAnimTime / VMRecorderManager.sampleTime).toInt()
                 if (simple == 0) {
                     startInnerAnim()
@@ -428,7 +431,7 @@ class VMRecorderView @JvmOverloads constructor(context: Context, attrs: Attribut
                 postInvalidate()
             }
         }
-        timer?.scheduleAtFixedRate(task, 10, VMRecorderManager.sampleTime)
+        timer?.scheduleAtFixedRate(task, 10, VMRecorderManager.sampleTime.toLong())
     }
 
     /**
@@ -576,6 +579,12 @@ class VMRecorderView @JvmOverloads constructor(context: Context, attrs: Attribut
         mRecordActionListener?.onDecibel(voiceDecibel)
     }
 
+    // 录音分贝变化
+    private fun onRecordFFTData(data: DoubleArray) {
+        mVoiceAnimView?.updateFFTData(data)
+        mRecordActionListener?.onRecordFFTData(data)
+    }
+
     // 录音出现错误
     private fun onRecordError(code: Int, desc: String) {
         mVoiceAnimView?.visibility = GONE
@@ -610,6 +619,7 @@ class VMRecorderView @JvmOverloads constructor(context: Context, attrs: Attribut
             isUsable = VMPermission.checkRecord()
         }
     }
+
 
     /**
      * 设置录音联动动画控件
@@ -649,6 +659,11 @@ class VMRecorderView @JvmOverloads constructor(context: Context, attrs: Attribut
          * 录音分贝
          */
         open fun onDecibel(decibel: Int) {}
+
+        /**
+         * 录音分贝
+         */
+        open fun onRecordFFTData(data: DoubleArray) {}
 
         /**
          * 录音错误

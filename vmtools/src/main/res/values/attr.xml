@@ -179,8 +179,8 @@
         <attr name="vm_anim_start_color" format="color|reference" />
         <attr name="vm_anim_end_color" format="color|reference" />
         <!--录制动画控件基础宽高-->
-        <attr name="vm_anim_base_width" format="dimension" />
-        <attr name="vm_anim_base_height" format="dimension" />
+        <attr name="vm_anim_line_width" format="dimension" />
+        <attr name="vm_anim_line_height" format="dimension" />
 
         <!--自定义波形进度控件-->
         <!--波形线颜色-->

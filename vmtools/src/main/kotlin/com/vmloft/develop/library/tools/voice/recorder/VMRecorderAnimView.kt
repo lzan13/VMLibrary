@@ -22,30 +22,28 @@ import com.vmloft.develop.library.tools.utils.VMSystem
 
 /**
  * Created by lzan13 on 2024/01/11
- * 描述：自定义录音波形控件，根据音量变化
+ * 描述：自定义录音波形控件，根据录音分贝变化
  */
-class VMRecorderAnimView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+open class VMRecorderAnimView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     View(context, attrs, defStyleAttr) {
-    private var mWidth = 0
-    private var mHeight = 0
+    protected var mWidth = 0
+    protected var mHeight = 0
 
     // 画笔
-    private var mPaint: Paint
+    protected var mPaint: Paint
 
-    private var mBGColor = 0xfafafa
+    protected var mBGColor = 0
 
     // 渐变色
-    private var mStartColor = 0xfafafa
-    private var mEndColor = 0xfafafa
+    protected var mStartColor = 0xfafafa
+    protected var mEndColor = 0xfafafa
 
     // 波形宽度
-    private var mBaseWidth = VMDimen.dp2px(5)
-    private var mBaseHeight = VMDimen.dp2px(8)
-
-    private var voiceDecibel = 1 // 声音分贝
+    protected var mLineWidth = VMDimen.dp2px(1)
+    protected var mLineHeight = VMDimen.dp2px(1)
 
     // 波形线集合
-    private var lineList = mutableListOf<WaveformBean>()
+    protected var lineList = mutableListOf<WaveformBean>()
 
     /**
      * 初始化控件
@@ -74,12 +72,12 @@ class VMRecorderAnimView @JvmOverloads constructor(context: Context, attrs: Attr
         val array = context.obtainStyledAttributes(attrs, R.styleable.VMVoiceView)
 
         mBGColor = array.getColor(R.styleable.VMVoiceView_vm_bg_color, mBGColor)
-        
+
         mStartColor = array.getColor(R.styleable.VMVoiceView_vm_anim_start_color, mStartColor)
         mEndColor = array.getColor(R.styleable.VMVoiceView_vm_anim_end_color, mEndColor)
 
-        mBaseWidth = array.getDimensionPixelOffset(R.styleable.VMVoiceView_vm_anim_base_width, mBaseWidth)
-        mBaseHeight = array.getDimensionPixelOffset(R.styleable.VMVoiceView_vm_anim_base_height, mBaseWidth)
+        mLineWidth = array.getDimensionPixelOffset(R.styleable.VMVoiceView_vm_anim_line_width, mLineWidth)
+        mLineHeight = array.getDimensionPixelOffset(R.styleable.VMVoiceView_vm_anim_line_height, mLineHeight)
         array.recycle()
     }
 
@@ -95,54 +93,65 @@ class VMRecorderAnimView @JvmOverloads constructor(context: Context, attrs: Attr
         super.onSizeChanged(w, h, oldw, oldh)
         mWidth = w
         mHeight = h
-        val spaceWidth = (mWidth - VMDimen.dp2px(10) * 2 - mBaseWidth * 19) / 18
-        for (i in 0..18) {
-            val waveformBean = WaveformBean()
-            waveformBean.centerX = VMDimen.dp2px(10) + i * spaceWidth + mBaseWidth / 2 + i * mBaseWidth
-            waveformBean.centerY = mHeight / 2
-            when (i) {
-                4, 14 -> waveformBean.scale = 0.5f
-                5, 13 -> waveformBean.scale = 1f
-                6, 12 -> waveformBean.scale = 1.5f
-                7, 11 -> waveformBean.scale = 3f
-                8, 10 -> waveformBean.scale = 5f
-                9 -> waveformBean.scale = 8f
-                else -> waveformBean.scale = 0f
-            }
-            lineList.add(waveformBean)
-        }
     }
 
     /**
      * 更新分贝大小
      */
-    fun updateDecibel(decibel: Int) {
+    open fun updateDecibel(decibel: Int) {
 //        VMLog.i("updateDecibel $decibel")
+        if (lineList.isEmpty()) {
+            val spaceWidth = (mWidth - VMDimen.dp2px(10) * 2 - mLineWidth * 19) / 18
+            for (i in 0..18) {
+                val waveformBean = WaveformBean()
+                waveformBean.width = mLineWidth.toFloat()
+                waveformBean.height = mLineHeight.toFloat()
+                waveformBean.centerX = VMDimen.dp2px(10) + i * spaceWidth + mLineWidth / 2f + i * mLineWidth
+                waveformBean.centerY = mHeight / 2f
+                when (i) {
+                    4, 14 -> waveformBean.scale = 0.5f
+                    5, 13 -> waveformBean.scale = 1f
+                    6, 12 -> waveformBean.scale = 1.5f
+                    7, 11 -> waveformBean.scale = 3f
+                    8, 10 -> waveformBean.scale = 5f
+                    9 -> waveformBean.scale = 8f
+                    else -> waveformBean.scale = 0f
+                }
+                lineList.add(waveformBean)
+            }
+        }
         startLineAnim(decibel)
+    }
+
+    /**
+     * 更新频谱数据
+     */
+    open fun updateFFTData(data: DoubleArray) {
+//        VMLog.i("updateFSData $data")
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-
         // 绘制背景
         drawBackground(canvas)
         // 绘制波形线
-        drawLine(canvas)
-
+        drawWaveformLine(canvas)
     }
 
     /**
      * 绘制背景
      */
-    private fun drawBackground(canvas: Canvas) {
-        canvas.drawColor(mBGColor)
+    open fun drawBackground(canvas: Canvas) {
+        if (mBGColor > 0) {
+            canvas.drawColor(mBGColor)
+        }
     }
 
     /**
      * 绘制波形线
      */
-    private fun drawLine(canvas: Canvas) {
+    open fun drawWaveformLine(canvas: Canvas) {
         // 开启离屏缓冲
         val saveLayer = canvas.saveLayer(0f, 0f, mWidth.toFloat(), mHeight.toFloat(), mPaint)
 
@@ -171,70 +180,14 @@ class VMRecorderAnimView @JvmOverloads constructor(context: Context, attrs: Attr
             val top = waveformBean.centerY - waveformBean.animHeight / 2f
             val bottom = waveformBean.centerY + waveformBean.animHeight / 2f
             val rectF = RectF(left, top, right, bottom)
-            lineCanvas.drawRoundRect(rectF, mBaseWidth.toFloat(), mBaseWidth.toFloat(), linePaint)
+            lineCanvas.drawRoundRect(rectF, mLineWidth.toFloat(), mLineWidth.toFloat(), linePaint)
         }
         canvas.drawBitmap(lineBitmap, 0f, 0f, mPaint)
 
-        // 清楚 Xfermode
+        // 清除 Xfermode
         mPaint.setXfermode(null)
         // 关闭离屏缓冲
         canvas.restoreToCount(saveLayer)
-    }
-
-    /**
-     * 绘制测试文本
-     */
-    private fun drawTest(canvas: Canvas) {
-
-        // 左侧
-        val paint = Paint()
-        // 开启离屏缓冲
-        val saveLayer = canvas.saveLayer(0f, 0f, mWidth.toFloat(), mHeight.toFloat(), paint)
-
-        // 绘制渐变背景
-        val gradient1 = LinearGradient(0f, 0f, mWidth / 4.0f, 0f, mStartColor, mEndColor, Shader.TileMode.MIRROR)
-        paint.setShader(gradient1)
-        paint.style = Paint.Style.FILL
-        canvas.drawRect(0f, 0f, mWidth / 2f, mHeight.toFloat(), paint)
-
-        paint.color = VMColor.byRes(R.color.vm_red)
-        paint.textSize = VMDimen.dp2px(14).toFloat()
-        paint.setXfermode(PorterDuffXfermode(PorterDuff.Mode.SRC_IN))
-        val decibel = "current decibel: ${voiceDecibel}"
-        val decibelWidth = VMDimen.getTextWidth(paint, decibel)
-        val decibelHeight = VMDimen.getTextHeight(paint, decibel)
-
-        val centerX1 = mWidth / 4 - decibelWidth / 2
-        val centerY1 = mHeight / 2 - decibelHeight / 2
-        canvas.drawText(decibel, centerX1, centerY1, paint)
-
-        paint.setXfermode(null)
-
-        canvas.restoreToCount(saveLayer)
-
-        // 右侧
-        val paint2 = Paint()
-
-        // 开启离屏缓冲
-        val saveLayer2 = canvas.saveLayer(0f, 0f, mWidth.toFloat(), mHeight.toFloat(), paint)
-
-        paint2.textSize = VMDimen.dp2px(14).toFloat()
-        // 绘制渐变背景
-        val gradient2 = LinearGradient(0f, 0f, mWidth / 4.0f, 0f, mStartColor, mEndColor, Shader.TileMode.MIRROR)
-        paint2.setShader(gradient2)
-        paint2.style = Paint.Style.FILL
-        canvas.drawRect(mWidth / 2f, 0f, mWidth.toFloat(), mHeight.toFloat(), paint2)
-
-        paint2.color = VMColor.byRes(R.color.vm_blue)
-        paint2.setXfermode(PorterDuffXfermode(PorterDuff.Mode.DST_IN))
-        val centerX2 = mWidth / 4 * 3 - decibelWidth / 2
-        val centerY2 = mHeight / 2 - decibelHeight / 2
-        canvas.drawText(decibel, centerX2, centerY2, paint2)
-
-        paint2.setXfermode(null)
-
-        canvas.restoreToCount(saveLayer2)
-
     }
 
     /**
@@ -246,7 +199,7 @@ class VMRecorderAnimView @JvmOverloads constructor(context: Context, attrs: Attr
                 // 计算波形振幅最大高度
                 val maxHeight = it.height + if (decibel > 45) (decibel - 45) * it.scale else decibel / 2 * it.scale
                 val mAnimator = ValueAnimator.ofFloat(it.animHeight, maxHeight)
-                mAnimator.duration = VMRecorderManager.sampleTime
+                mAnimator.duration = VMRecorderManager.sampleTime.toLong()
                 mAnimator.repeatCount = 0
                 mAnimator.interpolator = LinearInterpolator()
                 mAnimator.addUpdateListener { a: ValueAnimator ->
@@ -266,11 +219,11 @@ class VMRecorderAnimView @JvmOverloads constructor(context: Context, attrs: Attr
  */
 data class WaveformBean(
     // 中心点
-    var centerX: Int = 0,
-    var centerY: Int = 0,
+    var centerX: Float = 0f,
+    var centerY: Float = 0f,
     // 宽高
-    var width: Float = VMDimen.dp2px(5).toFloat(),
-    var height: Float = VMDimen.dp2px(8).toFloat(),
+    var width: Float = VMDimen.dp2px(1).toFloat(),
+    var height: Float = VMDimen.dp2px(1).toFloat(),
     var animHeight: Float = height,
     // 缩放倍数
     var scale: Float = 1f

@@ -98,15 +98,26 @@
                 app:vm_touch_icon_cancel="@drawable/ic_voice_record_mic_black"
                 app:vm_touch_size="@dimen/vm_dimen_64" />
 
-            <com.vmloft.develop.library.tools.voice.recorder.VMRecorderAnimView
+            <!--            <com.vmloft.develop.library.tools.voice.recorder.VMRecorderAnimView-->
+            <!--                android:id="@+id/voiceRecordAnimView"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="@dimen/vm_dimen_96"-->
+            <!--                android:visibility="visible"-->
+            <!--                app:layout_constraintTop_toTopOf="@+id/testTV"-->
+            <!--                app:vm_anim_line_height="@dimen/vm_dimen_8"-->
+            <!--                app:vm_anim_line_width="@dimen/vm_dimen_6"-->
+            <!--                app:vm_anim_end_color="#86fff8"-->
+            <!--                app:vm_anim_start_color="#6457f0" />-->
+
+            <com.vmloft.develop.library.tools.voice.recorder.VMRecorderFFTAnimView
                 android:id="@+id/voiceRecordAnimView"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/vm_dimen_72"
                 android:visibility="visible"
                 app:layout_constraintTop_toTopOf="@+id/testTV"
-                app:vm_anim_base_height="@dimen/vm_dimen_8"
-                app:vm_anim_base_width="@dimen/vm_dimen_4"
                 app:vm_anim_end_color="#86fff8"
+                app:vm_anim_line_height="@dimen/vm_dimen_3"
+                app:vm_anim_line_width="@dimen/vm_dimen_2"
                 app:vm_anim_start_color="#6457f0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -4,6 +4,7 @@ import android.media.MediaRecorder
 import android.media.MediaRecorder.AudioEncoder
 import android.media.MediaRecorder.AudioSource
 import android.media.MediaRecorder.OutputFormat
+import android.media.audiofx.Visualizer
 
 import com.vmloft.develop.library.tools.utils.VMDate
 import com.vmloft.develop.library.tools.utils.VMFile
@@ -18,7 +19,6 @@ import java.io.IOException
 object VMMediaRecorder : VMRecorderEngine() {
     private var mediaRecorder: MediaRecorder? = null // 媒体录影机，可以录制音频和视频
 
-    private var samplingRate = 8000 // 音频采样率 单位 Hz
     private var encodingBitRate = 64 // 音频编码比特率
 
     private var decibelBase = 1 // 计算分贝基准值
@@ -45,7 +45,7 @@ object VMMediaRecorder : VMRecorderEngine() {
          */
         mediaRecorder?.setAudioEncoder(AudioEncoder.AMR_NB)
         // 设置音频采样率
-        mediaRecorder?.setAudioSamplingRate(samplingRate)
+        mediaRecorder?.setAudioSamplingRate(VMRecorderManager.samplingRate)
         // 设置音频编码比特率
         mediaRecorder?.setAudioEncodingBitRate(encodingBitRate)
         // 设置录音最大持续时间
@@ -159,6 +159,13 @@ object VMMediaRecorder : VMRecorderEngine() {
         if (decibel > 100) decibel = 100
 
         return decibel
+    }
+
+    /**
+     * 获取傅里叶转换频谱数据
+     */
+    override fun getFFTData(): DoubleArray {
+        return DoubleArray(0)
     }
 
     /**

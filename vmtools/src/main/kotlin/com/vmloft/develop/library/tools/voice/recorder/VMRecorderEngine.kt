@@ -39,6 +39,11 @@ abstract class VMRecorderEngine {
     abstract fun decibel(): Int
 
     /**
+     * 获取傅里叶转换频谱数据
+     */
+    abstract fun getFFTData(): DoubleArray
+
+    /**
      * 释放录音机
      */
     abstract fun releaseRecorder(): Int

@@ -6,7 +6,7 @@ package com.vmloft.develop.library.tools.voice.recorder
  */
 object VMRecorderManager {
     // 声音采样时间间隔
-    var sampleTime: Long = 100L
+    var sampleTime: Int = 100
 
     // 触摸动画时间
     var touchAnimTime: Long = 1000L
@@ -23,6 +23,20 @@ object VMRecorderManager {
 
     var maxDuration = 60 * 1000 // 录音最大持续时间 60 秒
 //    var maxDuration = 10 * 1000 // 录音最大持续时间 60 秒
+
+    // 参考 https://www.cnblogs.com/yongdaimi/p/10722355.html
+//    8,000 Hz - 电话所用采样率, 对于人的说话已经足够
+//    11,025 Hz - AM调幅广播所用采样率
+//    22,050 Hz和24,000 Hz - FM调频广播所用采样率
+//    32,000 Hz - miniDV 数码视频 camcorder、DAT (LP mode)所用采样率
+//    44,100 Hz - 音频 CD, 也常用于 MPEG-1 音频（VCD, SVCD, MP3）所用采样率
+//    47,250 Hz - 商用 PCM 录音机所用采样率
+//    48,000 Hz - miniDV、数字电视、DVD、DAT、电影和专业音频所用的数字声音所用采样率
+//    50,000 Hz - 商用数字录音机所用采样率
+//    96,000 或者 192,000 Hz - DVD-Audio、一些 LPCM DVD 音轨、BD-ROM（蓝光盘）音轨、和 HD-DVD （高清晰度 DVD）音轨所用所用采样率
+//    2.8224 MHz - Direct Stream Digital 的 1 位 sigma-delta modulation 过程所用采样率。
+    const val samplingRate = 32000 // 音频输入采样率 单位 Hz
+    const val samplingOutRate = 32000 // 音频输出采样率 单位 Hz
 
     private var recorderEngine: VMRecorderEngine? = null
 

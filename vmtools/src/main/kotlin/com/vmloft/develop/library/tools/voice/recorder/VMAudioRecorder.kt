@@ -5,6 +5,7 @@ import android.media.AudioRecord
 import android.media.MediaRecorder
 
 import com.vmloft.develop.library.tools.utils.VMDate
+import com.vmloft.develop.library.tools.utils.VMFFT
 import com.vmloft.develop.library.tools.utils.VMFile
 import com.vmloft.develop.library.tools.utils.VMSystem
 import com.vmloft.develop.library.tools.utils.logger.VMLog
@@ -21,20 +22,20 @@ import java.io.IOException
 class VMAudioRecorder : VMRecorderEngine() {
     var audioRecord: AudioRecord? = null
 
-    private var samplingRate = 8000 // 音频采样率 单位 Hz
-    private var samplingOutRate = 8000 // 音频转mp3采样率 单位 Hz
+    //    private var samplingRate = 44100 // 音频采样率 单位 Hz
+//    private var samplingOutRate = 44100 // 音频转mp3采样率 单位 Hz
     private var mp3BitRate = 32 // 输出比特率
     private var mp3Quality = 7 // mp3 质量
     private var channel = AudioFormat.CHANNEL_IN_MONO // 音频的声道类型
     private var encodeFormat = AudioFormat.ENCODING_PCM_16BIT // 音频的编码格式
     private var encodingBitRate = 64 // 音频编码比特率
 
-    private var frameCount = 160 // 缓冲采样周期
+    private var frameCount = VMRecorderManager.sampleTime // 缓冲采样周期
     private var bufferSize = 0 // 缓冲区大小
     lateinit var bufferData: ShortArray // 缓冲区数据
 
-    // 缓冲区大小
-//    private var bufferSize = AudioRecord.getMinBufferSize(samplingRate, channel, encodeFormat)
+    // 当前 fft 数据
+    var fftData: DoubleArray? = null
 
     // 计算分贝基准值
     private var decibelBase = 1
@@ -52,12 +53,13 @@ class VMAudioRecorder : VMRecorderEngine() {
      * 初始化录音机
      */
     override fun initVoiceRecorder() {
-        VMLame.init(samplingRate, channel, samplingOutRate, mp3BitRate, mp3Quality)
+        VMLame.init(VMRecorderManager.samplingRate, channel, VMRecorderManager.samplingOutRate, mp3BitRate, mp3Quality)
         bufferSize = calculateBufferSize()
+//        bufferSize = AudioRecord.getMinBufferSize(VMRecorderManager.samplingRate, channel, encodeFormat)
         bufferData = ShortArray(bufferSize)
         audioRecord = AudioRecord(
             MediaRecorder.AudioSource.MIC, // 音频源
-            samplingRate, // 音频的采样频率
+            VMRecorderManager.samplingRate, // 音频的采样频率
             channel, // 音频的声道类型
             encodeFormat, // 音频的编码格式
             bufferSize
@@ -122,10 +124,20 @@ class VMAudioRecorder : VMRecorderEngine() {
                 encodeTask.addTask(bufferData, readSize)
                 // 计算声音分贝
                 calculateDecibel(readSize)
+
+                onTransitionFFTData(bufferData)
             }
         }
         // 停止编码任务
 //        encodeTask.stopTask()
+    }
+
+    fun onTransitionFFTData(data: ShortArray) {
+        // 进行傅里叶转换
+//        VMLog.e("readData -0-fft")
+        fftData = VMFFT.transitionFFTData(data.copyOfRange(0, 2048))
+//        VMLog.e("readData -2-fft")
+//        VMLog.e("onTransitionFFTData fftData: ${fftData?.size} - ${fftData?.joinToString(",")}")
     }
 
     /**
@@ -134,6 +146,7 @@ class VMAudioRecorder : VMRecorderEngine() {
     override fun stopRecord(): Int {
         // 停止录音，将录音状态设置为 false
         isRecording = false
+
         // 释放录音机
         var result = releaseRecorder()
         if (result != VMRecorderManager.errorNone) {
@@ -176,12 +189,19 @@ class VMAudioRecorder : VMRecorderEngine() {
     }
 
     /**
+     * 获取傅里叶转换频谱数据
+     */
+    override fun getFFTData(): DoubleArray {
+        return fftData ?: DoubleArray(0)
+    }
+
+    /**
      * 计算分贝
      */
     private fun calculateDecibel(readSize: Int) {
         // 声音大小 100 毫秒采样一次
-        if (System.currentTimeMillis() - lastTime < VMRecorderManager.sampleTime) return
-        lastTime = System.currentTimeMillis()
+//        if (System.currentTimeMillis() - lastTime < VMRecorderManager.sampleTime) return
+//        lastTime = System.currentTimeMillis()
         var v: Long = 0
         // 将 buffer 内容取出，进行平方和运算
         for (value in bufferData) {
@@ -199,7 +219,7 @@ class VMAudioRecorder : VMRecorderEngine() {
      */
     private fun calculateBufferSize(): Int {
         // 根据定义好的几个配置，来获取合适的缓冲大小
-        var bufferSize = AudioRecord.getMinBufferSize(samplingRate, channel, encodeFormat)
+        var bufferSize = AudioRecord.getMinBufferSize(VMRecorderManager.samplingRate, channel, encodeFormat)
         val bytesPerFrame = 2
         // 通过样本数重新计算缓冲区大小（能够整除样本数），以便周期性通知
         var frameSize = bufferSize / bytesPerFrame
@@ -207,6 +227,7 @@ class VMAudioRecorder : VMRecorderEngine() {
             frameSize += frameCount - frameSize % frameCount
             bufferSize = frameSize * bytesPerFrame
         }
+        VMLog.d("calculateBufferSize bufferSize:$bufferSize")
         return bufferSize
     }
 
