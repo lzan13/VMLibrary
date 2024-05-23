@@ -51,8 +51,9 @@ class VMRecorderFFTAnimView @JvmOverloads constructor(context: Context, attrs: A
             return
         }
 
-        var tempArr = DoubleArray(60, { 0.0 })
-        var list = data.filter { it > 0.02 }.toMutableList()
+        // 用数组是为了方便补0
+        var tempArr = DoubleArray(60) { 0.0 }
+        val list = data.filter { it > 0.02 }.toMutableList()
         if (list.size > 60) {
             tempArr = list.subList(0, 60).toDoubleArray()
         } else {
@@ -63,11 +64,6 @@ class VMRecorderFFTAnimView @JvmOverloads constructor(context: Context, attrs: A
         list.clear()
         list.addAll(tempArr.toList())
         list.addAll(0, tempArr.reversed().toList())
-//        tempList.reversed()
-//        val list = mutableListOf<Double>()
-//        // 这里将数据倒序插入数据集合中，实现
-//        list.addAll(tempList.reversed())
-//        list.addAll(tempList)
 
         lineList.clear()
         val spaceWidth = (mWidth - sideSpaceSize * 2f - mLineWidth * list.size) / (list.size - 1)
@@ -75,26 +71,31 @@ class VMRecorderFFTAnimView @JvmOverloads constructor(context: Context, attrs: A
             val waveformBean = WaveformBean()
             waveformBean.width = mLineWidth.toFloat()
             val value = list[i]
-//            waveformBean.height = (mLineHeight + value * 100 * 2f).toFloat()
-
-            if (value > mHeight) {
-                waveformBean.height = mHeight.toFloat()
-            } else if (value > mHeight / 5 * 4) {
-                waveformBean.height = (mLineHeight + mHeight).toFloat()
-            } else if (value > mHeight / 3 * 2) {
-                waveformBean.height = (mLineHeight + mHeight).toFloat()
-            } else if (value > 5) {
-                waveformBean.height = (mLineHeight + value * 10 * 2f).toFloat()
-            } else if (value > 4) {
-                waveformBean.height = (mLineHeight + value * 20 * 2f).toFloat()
-            } else if (value > 3) {
-                waveformBean.height = (mLineHeight + value * 30 * 2f).toFloat()
-            } else if (value > 2) {
-                waveformBean.height = (mLineHeight + value * 50 * 2f).toFloat()
-            } else if (value > 1) {
-                waveformBean.height = (mLineHeight + value * 80 * 2f).toFloat()
+            // 根据位置计算高度百分比，使波形内高外低过渡更自然一些
+            val percentage = if (i < list.size / 2f) {
+                i / (list.size / 2f)
             } else {
-                waveformBean.height = (mLineHeight + value * 100 * 2f).toFloat()
+                (list.size - i) / (list.size / 2f)
+            }
+            // 计算波形高度
+            if (value > mHeight) {
+                waveformBean.height = mHeight * percentage
+            } else if (value > mHeight / 5 * 4) {
+                waveformBean.height = mLineHeight + mHeight * percentage
+            } else if (value > mHeight / 3 * 2) {
+                waveformBean.height = mLineHeight + mHeight * percentage
+            } else if (value > 5) {
+                waveformBean.height = (mLineHeight + value * 10 * 2f * percentage).toFloat()
+            } else if (value > 4) {
+                waveformBean.height = (mLineHeight + value * 20 * 2f * percentage).toFloat()
+            } else if (value > 3) {
+                waveformBean.height = (mLineHeight + value * 30 * 2f * percentage).toFloat()
+            } else if (value > 2) {
+                waveformBean.height = (mLineHeight + value * 50 * 2f * percentage).toFloat()
+            } else if (value > 1) {
+                waveformBean.height = (mLineHeight + value * 80 * 2f * percentage).toFloat()
+            } else {
+                waveformBean.height = (mLineHeight + value * 100 * 2f * percentage).toFloat()
             }
             waveformBean.animHeight = if (waveformBean.height > mHeight) mHeight.toFloat() else waveformBean.height
             waveformBean.centerX = sideSpaceSize + i * spaceWidth + mLineWidth / 2f + i * mLineWidth

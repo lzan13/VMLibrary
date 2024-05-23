@@ -405,6 +405,7 @@ class VMRecorderView @JvmOverloads constructor(context: Context, attrs: Attribut
         timer?.purge()
         val task: TimerTask = object : TimerTask() {
             override fun run() {
+                if (!isStart) return
                 durationTime = (System.currentTimeMillis() - startTime).toInt()
                 countDownTime = VMRecorderManager.maxDuration - durationTime
 
@@ -524,7 +525,7 @@ class VMRecorderView @JvmOverloads constructor(context: Context, attrs: Attribut
     /**
      * 停止计时
      */
-    fun stopTimer() {
+    private fun stopTimer() {
         timer?.purge()
         timer?.cancel()
         timer = null

@@ -121,22 +121,30 @@ class VMAudioRecorder : VMRecorderEngine() {
         while (isRecording) {
             val readSize = audioRecord?.read(bufferData, 0, bufferSize) ?: 0
             if (readSize > 0) {
+//                VMLog.e("readData -0-")
                 encodeTask.addTask(bufferData, readSize)
+
+//                VMLog.e("readData -1-")
                 // 计算声音分贝
                 calculateDecibel(readSize)
 
+//                VMLog.e("readData -2-")
+                // 进行傅里叶变换
                 onTransitionFFTData(bufferData)
+//                VMLog.e("readData -3-")
             }
         }
         // 停止编码任务
 //        encodeTask.stopTask()
     }
 
-    fun onTransitionFFTData(data: ShortArray) {
+    private fun onTransitionFFTData(data: ShortArray) {
         // 进行傅里叶转换
-//        VMLog.e("readData -0-fft")
-        fftData = VMFFT.transitionFFTData(data.copyOfRange(0, 2048))
-//        VMLog.e("readData -2-fft")
+//        VMLog.e("onTransitionFFTData -0-fft")
+        if (data.size > 2048) {
+            fftData = VMFFT.transitionFFTData(data.copyOfRange(0, 2048))
+        }
+//        VMLog.e("onTransitionFFTData -1-fft")
 //        VMLog.e("onTransitionFFTData fftData: ${fftData?.size} - ${fftData?.joinToString(",")}")
     }
 
@@ -227,7 +235,7 @@ class VMAudioRecorder : VMRecorderEngine() {
             frameSize += frameCount - frameSize % frameCount
             bufferSize = frameSize * bytesPerFrame
         }
-        VMLog.d("calculateBufferSize bufferSize:$bufferSize")
+//        VMLog.d("calculateBufferSize bufferSize:$bufferSize")
         return bufferSize
     }
 
