@@ -227,14 +227,15 @@ class RecorderViewActivity : BActivity<ActivityDemoViewRecorderBinding>() {
         mBinding.voiceWaveformView.setOnClickListener {
             VMLog.i("voiceWaveformView.setOnClickListener")
         }
-        mBinding.voiceWaveformView.setWaveformActionListener(object : VMWaveformView.WaveformActionListener {
+        mBinding.voiceWaveformView.setWaveformProgressListener(object : VMWaveformView.WaveformProgressListener {
             override fun onProgressChange(progress: Float) {
                 VMLog.i("voiceWaveformView.onProgressChange $progress")
                 VMVoicePlayer.updateProgress(progress)
             }
-
-            override fun onLongPress(event: MotionEvent) {
-                VMLog.i("voiceWaveformView.onLongPress $event")
+        })
+        mBinding.voiceWaveformView.setWaveformClickListener(object:VMWaveformView.WaveformClickListener{
+            override fun onLongClick(event: MotionEvent) {
+                VMLog.i("voiceWaveformView.onLongClick $event")
             }
         })
         // 测试录音控件

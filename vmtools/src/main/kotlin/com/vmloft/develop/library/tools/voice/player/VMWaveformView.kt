@@ -3,7 +3,6 @@ package com.vmloft.develop.library.tools.voice.player
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.PorterDuff
@@ -19,7 +18,7 @@ import androidx.core.graphics.drawable.toBitmap
 import com.vmloft.develop.library.tools.R
 import com.vmloft.develop.library.tools.utils.VMColor
 import com.vmloft.develop.library.tools.utils.VMDimen
-import com.vmloft.develop.library.tools.utils.VMSystem
+import com.vmloft.develop.library.tools.utils.logger.VMLog
 import com.vmloft.develop.library.tools.voice.recorder.VMRecorderView
 
 
@@ -52,8 +51,10 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
     // 当前进度宽度
     private var mCurrentProgressWidth = 0f
 
+    // 点击长按回调
+    private var mClickListener: WaveformClickListener? = null
     // 进度回调
-    private var mWaveformActionListener: WaveformActionListener? = null
+    private var mProgressListener: WaveformProgressListener? = null
 
     // 状态
     private var status = VMVoicePlayer.statusIdle
@@ -69,21 +70,25 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
      */
     private val gestureDetector = GestureDetector(context, object : SimpleOnGestureListener() {
         override fun onDown(e: MotionEvent): Boolean {
-            return status != VMVoicePlayer.statusIdle
+//            return performClick()
+//            return status != VMVoicePlayer.statusIdle
+            return true
         }
 
         override fun onSingleTapUp(e: MotionEvent): Boolean {
-            performClick()
-            return status != VMVoicePlayer.statusIdle
+            return performClick()
+//            return status != VMVoicePlayer.statusIdle
         }
 
         override fun onLongPress(event: MotionEvent) {
-            mWaveformActionListener?.onLongPress(event)
+            mClickListener?.onLongClick(event)
         }
 
         override fun onScroll(e1: MotionEvent?, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean {
+            if (status == VMVoicePlayer.statusIdle) return false
             isDrag = true
             parent.requestDisallowInterceptTouchEvent(true)
+            VMLog.i("onScroll ${e2.x - mCurrentProgress}")
             // 计算出拖动进度
             mCurrentProgress = if (e2.x < 0) {
                 0f
@@ -264,8 +269,15 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
     /**
      * 设置进度回调
      */
-    fun setWaveformActionListener(listener: WaveformActionListener) {
-        mWaveformActionListener = listener
+    fun setWaveformProgressListener(listener: WaveformProgressListener) {
+        mProgressListener = listener
+    }
+
+    /**
+     * 设置点击长按回调
+     */
+    fun setWaveformClickListener(listener: WaveformClickListener) {
+        mClickListener = listener
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -398,9 +410,11 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
         val action = event.action
         when (action) {
             MotionEvent.ACTION_UP -> {
-                isDrag = false
-                // 拖动结束，回调当前进度
-                mWaveformActionListener?.onProgressChange(mCurrentProgress)
+                if (isDrag) {
+                    isDrag = false
+                    // 拖动结束，回调当前进度
+                    mProgressListener?.onProgressChange(mCurrentProgress)
+                }
             }
         }
         return gestureDetector.onTouchEvent(event)
@@ -412,19 +426,26 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
     private fun loadDecibelList() {}
 
     /**
-     * 录音控件的回调接口，用于回调给调用者录音结果
+     * 波形进度回调接口
      */
-    interface WaveformActionListener {
+    interface WaveformProgressListener {
 
         /**
          * 进度变化
          */
         fun onProgressChange(progress: Float)
 
+    }
+
+    /**
+     * 波形点击长按事件接口
+     */
+    interface WaveformClickListener{
+
         /**
          * 长按
          */
-        fun onLongPress(event: MotionEvent) {}
+        fun onLongClick(event: MotionEvent) {}
 
     }
 }
