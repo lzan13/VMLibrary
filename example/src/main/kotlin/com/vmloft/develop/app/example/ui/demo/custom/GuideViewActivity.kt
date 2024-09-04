@@ -28,15 +28,15 @@ class GuideViewActivity : BActivity<ActivityDemoGuideViewBinding>() {
         super.initUI()
         setTopTitle("自定义遮罩引导")
 
-        mBinding.leftTopBtn.setOnClickListener { showGuide(true) }
+        binding.leftTopBtn.setOnClickListener { showGuide(true) }
         // mBinding.leftBtn1
         // mBinding.leftBtn2
-        mBinding.leftBottomBtn.setOnClickListener { showGuide(false) }
+        binding.leftBottomBtn.setOnClickListener { showGuide(false) }
         // mBinding.centerUpBtn
         // mBinding.centerBtn
         // mBinding.centerDownBtn
-        mBinding.rightTopBtn.setOnClickListener { showGuide(true, true) }
-        mBinding.rightBottomBtn.setOnClickListener { showGuide(false, true) }
+        binding.rightTopBtn.setOnClickListener { showGuide(true, true) }
+        binding.rightBottomBtn.setOnClickListener { showGuide(false, true) }
         showGuide()
     }
 
@@ -50,15 +50,15 @@ class GuideViewActivity : BActivity<ActivityDemoGuideViewBinding>() {
      */
     private fun showGuide(oneByOne: Boolean = true, isImg: Boolean = false) {
         val list = mutableListOf<GuideItem>()
-        list.add(GuideItem(mBinding.leftTopBtn, "这是 leftTopBtn 引导文案\n这是第二行文案\n这是第三行文案", if (isImg) R.drawable.img_default_avatar else 0, offY = VMDimen.dp2px(24)))
+        list.add(GuideItem(binding.leftTopBtn, "这是 leftTopBtn 引导文案\n这是第二行文案\n这是第三行文案", if (isImg) R.drawable.img_default_avatar else 0, offY = VMDimen.dp2px(24)))
 //        list.add(GuideItem(mBinding.leftBtn1, "这是 leftBtn1 引导文案，",if(isImg)R.drawable.img_default_avatar else 0))
 //        list.add(GuideItem(mBinding.leftBtn2, "这是 leftBtn2 引导文案，",if(isImg)R.drawable.img_default_avatar else 0))
-        list.add(GuideItem(mBinding.leftBottomBtn, "这是 leftBottomBtn 引导文案，", if (isImg) R.drawable.img_default_avatar else 0))
-        list.add(GuideItem(mBinding.centerUpBtn, "这是 centerUpBtn 引导文案，", if (isImg) R.drawable.img_default_avatar else 0))
+        list.add(GuideItem(binding.leftBottomBtn, "这是 leftBottomBtn 引导文案，", if (isImg) R.drawable.img_default_avatar else 0))
+        list.add(GuideItem(binding.centerUpBtn, "这是 centerUpBtn 引导文案，", if (isImg) R.drawable.img_default_avatar else 0))
 //        list.add(GuideItem(mBinding.centerBtn, "这是 centerBtn 引导文案，",if(isImg)R.drawable.img_default_avatar else 0))
-        list.add(GuideItem(mBinding.centerDownBtn, "这是 centerDownBtn 引导文案，", if (isImg) R.drawable.img_default_avatar else 0))
-        list.add(GuideItem(mBinding.rightTopBtn, "这是 rightTopBtn 引导文案，", if (isImg) R.drawable.img_default_avatar else 0))
-        list.add(GuideItem(mBinding.rightBottomBtn, "这是 rightBottomBtn 引导文案，\n这是第二行文案\n这是第三行文案", if (isImg) R.drawable.img_default_avatar else 0, offY = VMDimen.dp2px(-24)))
+        list.add(GuideItem(binding.centerDownBtn, "这是 centerDownBtn 引导文案，", if (isImg) R.drawable.img_default_avatar else 0))
+        list.add(GuideItem(binding.rightTopBtn, "这是 rightTopBtn 引导文案，", if (isImg) R.drawable.img_default_avatar else 0))
+        list.add(GuideItem(binding.rightBottomBtn, "这是 rightBottomBtn 引导文案，\n这是第二行文案\n这是第三行文案", if (isImg) R.drawable.img_default_avatar else 0, offY = VMDimen.dp2px(-24)))
         VMGuide.Builder(this).setOneByOne(oneByOne).setGuideViews(list).setGuideListener(object : VMGuideView.GuideListener {
             override fun onNext(index: Int) {
                 VMLog.i("onNext $index")

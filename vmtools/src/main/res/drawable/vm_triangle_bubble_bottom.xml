@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--背景-->
+    <item>
+        <layer-list>
+            <item android:bottom="@dimen/vm_dimen_6">
+                <shape>
+                    <corners android:radius="@dimen/vm_dimen_16" />
+                    <solid android:color="#8C5AFF" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <!--三角形-->
+    <item
+        android:drawable="@drawable/vm_triangle_bottom"
+        android:gravity="bottom|center"
+        android:top="@dimen/vm_dimen_6" />
+</layer-list>

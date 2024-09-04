@@ -19,7 +19,8 @@ import com.vmloft.develop.library.tools.R
 import com.vmloft.develop.library.tools.utils.VMColor
 import com.vmloft.develop.library.tools.utils.VMDimen
 import com.vmloft.develop.library.tools.utils.logger.VMLog
-import com.vmloft.develop.library.tools.voice.recorder.VMRecorderView
+import com.vmloft.develop.library.tools.voice.bean.VMVoiceBean
+import com.vmloft.develop.library.tools.voice.view.VMRecorderCircleView
 
 
 /**
@@ -63,7 +64,7 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
     private var isDrag = false
 
     // 声音数据 Bean
-    private var voiceBean: VMRecorderView.VoiceBean? = null
+    private var voiceBean: VMVoiceBean? = null
 
     /**
      * 手势处理
@@ -150,7 +151,7 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
     /**
      * 设置声音数据 Bean
      */
-    fun setVoiceBean(bean: VMRecorderView.VoiceBean) {
+    fun setVoiceBean(bean: VMVoiceBean) {
         voiceBean = bean
         // 将时间设置为最大进度
         mMaxProgress = bean.duration.toFloat()
@@ -166,7 +167,7 @@ class VMWaveformView @JvmOverloads constructor(context: Context, attrs: Attribut
         postInvalidate()
     }
 
-    fun updateVoiceBean(bean: VMRecorderView.VoiceBean) {
+    fun updateVoiceBean(bean: VMVoiceBean) {
         voiceBean = bean
         // 将时间设置为最大进度
         mMaxProgress = bean.duration.toFloat()

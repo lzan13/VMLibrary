@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootCL"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:layout_height="@dimen/vm_dimen_256">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cancelCL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/vm_dimen_32"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/cancelActivateTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="松开 取消"
+            android:textColor="#c7c6d4"
+            android:textSize="@dimen/vm_size_14"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/cancelActivateIV"
+            android:layout_width="@dimen/vm_dimen_72"
+            android:layout_height="@dimen/vm_dimen_72"
+            android:layout_marginTop="@dimen/vm_dimen_10"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/cancelActivateTV"
+            app:layout_constraintStart_toStartOf="@+id/cancelActivateTV"
+            app:layout_constraintTop_toBottomOf="@+id/cancelActivateTV"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/cancelNormalIV"
+            android:layout_width="@dimen/vm_dimen_64"
+            android:layout_height="@dimen/vm_dimen_64"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/cancelActivateIV"
+            app:layout_constraintEnd_toEndOf="@+id/cancelActivateIV"
+            app:layout_constraintStart_toStartOf="@+id/cancelActivateIV"
+            app:layout_constraintTop_toTopOf="@+id/cancelActivateIV"
+            tools:visibility="visible" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/touchTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/vm_dimen_10"
+        android:text="松开 发送"
+        android:textColor="#c7c6d4"
+        android:textSize="@dimen/vm_size_14"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/touchActivateIV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/touchActivateIV"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/vm_dimen_128"
+        android:scaleType="fitXY"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/touchCancelIV"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/vm_dimen_128"
+        android:scaleType="fitXY"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:visibility="visible" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,14 +23,14 @@ class DebugActivity : BActivity<ActivityDebugBinding>() {
         super.initUI()
         setTopTitle(R.string.settings_debug)
 
-        mBinding.debugEnvLV.setOnClickListener {
+        binding.debugEnvLV.setOnClickListener {
             showRebootDialog()
         }
 
     }
 
     override fun initData() {
-        mBinding.debugEnvLV.setCaption(VMStr.byRes(if (CSPManager.isDebug()) R.string.debug_env_debug else R.string.debug_env_release))
+        binding.debugEnvLV.setCaption(VMStr.byRes(if (CSPManager.isDebug()) R.string.debug_env_debug else R.string.debug_env_release))
     }
 
     private fun showRebootDialog() {
@@ -41,7 +41,7 @@ class DebugActivity : BActivity<ActivityDebugBinding>() {
             dialog.setContent(R.string.debug_status_change_hint)
             dialog.setPositive(listener = {
                 CSPManager.setDebug(!CSPManager.isDebug())
-                mBinding.debugEnvLV.setCaption(VMStr.byRes(if (CSPManager.isDebug()) R.string.debug_env_debug else R.string.debug_env_release))
+                binding.debugEnvLV.setCaption(VMStr.byRes(if (CSPManager.isDebug()) R.string.debug_env_debug else R.string.debug_env_release))
                 CRouter.goMain(1)
 
             })

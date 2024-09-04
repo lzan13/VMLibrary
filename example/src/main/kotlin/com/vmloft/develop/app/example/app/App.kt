@@ -33,7 +33,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        com.vmloft.develop.app.example.app.App.Companion.appContext = applicationContext
+        appContext = applicationContext
 
         initApp()
     }
@@ -60,7 +60,7 @@ class App : Application() {
         // ADSManager.instance.init(appContext)
 
         // 初始化事件总线
-        LDEventBus.init()
+//        LDEventBus.init()
     }
 
 

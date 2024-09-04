@@ -41,7 +41,7 @@ class WebActivity : BActivity<ActivityWebBinding>() {
 
     private fun initWebView() {
         mAgentWeb = AgentWeb.with(this)
-            .setAgentWebParent(mBinding.webContainer, LinearLayout.LayoutParams(-1, -1))
+            .setAgentWebParent(binding.webContainer, LinearLayout.LayoutParams(-1, -1))
             .useDefaultIndicator(VMColor.byRes(com.vmloft.develop.library.base.R.color.app_main), 1)
             .setWebChromeClient(chromeClient)
             .createAgentWeb()

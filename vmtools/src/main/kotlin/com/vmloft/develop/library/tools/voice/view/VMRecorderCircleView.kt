@@ -1,4 +1,4 @@
-package com.vmloft.develop.library.tools.voice.recorder
+package com.vmloft.develop.library.tools.voice.view
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -16,6 +16,9 @@ import com.vmloft.develop.library.tools.permission.VMPermission
 import com.vmloft.develop.library.tools.utils.VMDimen
 import com.vmloft.develop.library.tools.utils.VMStr
 import com.vmloft.develop.library.tools.utils.VMSystem
+import com.vmloft.develop.library.tools.voice.bean.VMVoiceBean
+import com.vmloft.develop.library.tools.voice.recorder.VMRecorderEngine
+import com.vmloft.develop.library.tools.voice.recorder.VMRecorderManager
 
 import java.util.*
 
@@ -23,7 +26,7 @@ import java.util.*
  * Created by lzan13 on 2024/01/10
  * 描述：自定义录音控件
  */
-class VMRecorderView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+class VMRecorderCircleView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     View(context, attrs, defStyleAttr) {
     private var mWidth = 0
     private var mHeight = 0
@@ -102,7 +105,7 @@ class VMRecorderView @JvmOverloads constructor(context: Context, attrs: Attribut
     private var mRecordActionListener: RecordActionListener? = null
 
     // 录音联动动画控件
-    private var mVoiceAnimView: VMRecorderAnimView? = null
+    private var mVoiceAnimView: VMRecorderWaveformView? = null
 
     private lateinit var recorderEngine: VMRecorderEngine
 
@@ -567,7 +570,7 @@ class VMRecorderView @JvmOverloads constructor(context: Context, attrs: Attribut
     // 录音完成
     private fun onRecordComplete() {
         mVoiceAnimView?.visibility = GONE
-        val bean = VoiceBean(duration = durationTime, path = recorderEngine.getRecordFile())
+        val bean = VMVoiceBean(duration = durationTime, path = recorderEngine.getRecordFile())
         // 这里在录制完成后，需要清空 decibelList
         bean.decibelList.addAll(decibelList)
 
@@ -625,7 +628,7 @@ class VMRecorderView @JvmOverloads constructor(context: Context, attrs: Attribut
     /**
      * 设置录音联动动画控件
      */
-    fun setRecordAnimView(animView: VMRecorderAnimView?) {
+    fun setRecordAnimView(animView: VMRecorderWaveformView?) {
         mVoiceAnimView = animView
     }
 
@@ -654,7 +657,7 @@ class VMRecorderView @JvmOverloads constructor(context: Context, attrs: Attribut
          * 录音成功
          * @param bean 录音数据 bean
          */
-        abstract fun onComplete(bean: VoiceBean)
+        abstract fun onComplete(bean: VMVoiceBean)
 
         /**
          * 录音分贝
@@ -676,15 +679,4 @@ class VMRecorderView @JvmOverloads constructor(context: Context, attrs: Attribut
 
     }
 
-    /**
-     * 声音数据 bean
-     */
-    data class VoiceBean(
-        // 录音分贝集合 按照 10次/s 采样，展示时可自己适当抽样
-        var decibelList: MutableList<Int> = mutableListOf(),
-        // 录音时长
-        var duration: Int = 0,
-        // 录音文件路径
-        var path: String = "",
-    )
 }

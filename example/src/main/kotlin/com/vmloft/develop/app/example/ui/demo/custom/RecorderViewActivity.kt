@@ -11,8 +11,8 @@ import com.vmloft.develop.library.base.utils.showBar
 import com.vmloft.develop.app.example.utils.errorBar
 import com.vmloft.develop.app.example.databinding.ActivityDemoViewRecorderBinding
 import com.vmloft.develop.library.tools.utils.logger.VMLog
-import com.vmloft.develop.library.tools.voice.recorder.VMRecorderView.RecordActionListener
-import com.vmloft.develop.library.tools.voice.recorder.VMRecorderView
+import com.vmloft.develop.library.tools.voice.bean.VMVoiceBean
+import com.vmloft.develop.library.tools.voice.view.VMRecorderCircleView.RecordActionListener
 import com.vmloft.develop.library.tools.voice.player.VMVoicePlayer
 import com.vmloft.develop.library.tools.voice.player.VMWaveformView
 
@@ -23,7 +23,7 @@ import com.vmloft.develop.library.tools.voice.player.VMWaveformView
 @Router(path = AppRouter.appCustomRecorderView)
 class RecorderViewActivity : BActivity<ActivityDemoViewRecorderBinding>() {
 
-    lateinit var voiceBean: VMRecorderView.VoiceBean
+    lateinit var voiceBean: VMVoiceBean
 
     override fun initVB() = ActivityDemoViewRecorderBinding.inflate(layoutInflater)
 
@@ -55,31 +55,31 @@ class RecorderViewActivity : BActivity<ActivityDemoViewRecorderBinding>() {
 
     fun stop(view: View) {
         VMVoicePlayer.stop()
-        mBinding.voiceWaveformView.stop()
+        binding.voiceWaveformView.stop()
     }
 
     private fun initVoiceView() {
-        mBinding.voiceLL.setOnClickListener { VMVoicePlayer.start(voiceBean.path) }
+        binding.voiceLL.setOnClickListener { VMVoicePlayer.start(voiceBean.path) }
         VMVoicePlayer.setOnPlayActionListener(object : VMVoicePlayer.IOnPlayActionListener {
             override fun onStart() {
-                mBinding.voiceWaveformView.start()
+                binding.voiceWaveformView.start()
             }
 
             override fun onPause() {
-                mBinding.voiceWaveformView.pause()
+                binding.voiceWaveformView.pause()
             }
 
             override fun onComplete() {
-                mBinding.voiceWaveformView.stop()
+                binding.voiceWaveformView.stop()
             }
 
             override fun onProgressChange(progress: Float) {
-                mBinding.voiceWaveformView.updateProgress(progress)
+                binding.voiceWaveformView.updateProgress(progress)
             }
         })
 
         // 测试波形控件
-        voiceBean = VMRecorderView.VoiceBean()
+        voiceBean = VMVoiceBean()
         voiceBean.duration = 27401
         voiceBean.decibelList.addAll(
             arrayListOf(
@@ -223,23 +223,23 @@ class RecorderViewActivity : BActivity<ActivityDemoViewRecorderBinding>() {
         )
         voiceBean.path = "/storage/emulated/0/Android/data/com.vmloft.develop.library.example/files/voice/VMVoice_20240125_110054910.mp3"
 
-        mBinding.voiceWaveformView.setVoiceBean(voiceBean)
-        mBinding.voiceWaveformView.setOnClickListener {
+        binding.voiceWaveformView.setVoiceBean(voiceBean)
+        binding.voiceWaveformView.setOnClickListener {
             VMLog.i("voiceWaveformView.setOnClickListener")
         }
-        mBinding.voiceWaveformView.setWaveformProgressListener(object : VMWaveformView.WaveformProgressListener {
+        binding.voiceWaveformView.setWaveformProgressListener(object : VMWaveformView.WaveformProgressListener {
             override fun onProgressChange(progress: Float) {
                 VMLog.i("voiceWaveformView.onProgressChange $progress")
                 VMVoicePlayer.updateProgress(progress)
             }
         })
-        mBinding.voiceWaveformView.setWaveformClickListener(object:VMWaveformView.WaveformClickListener{
+        binding.voiceWaveformView.setWaveformClickListener(object:VMWaveformView.WaveformClickListener{
             override fun onLongClick(event: MotionEvent) {
                 VMLog.i("voiceWaveformView.onLongClick $event")
             }
         })
         // 测试录音控件
-        mBinding.voiceRecordView.setRecordActionListener(object : RecordActionListener() {
+        binding.voiceRecordView.setRecordActionListener(object : RecordActionListener() {
             override fun onStart() {
                 showBar("录音开始")
             }
@@ -248,11 +248,11 @@ class RecorderViewActivity : BActivity<ActivityDemoViewRecorderBinding>() {
                 errorBar("录音取消")
             }
 
-            override fun onComplete(bean: VMRecorderView.VoiceBean) {
+            override fun onComplete(bean: VMVoiceBean) {
                 showBar("录音完成 ${bean.duration}-${bean.path}")
                 voiceBean = bean
                 // 测试控件波形及播放进度效果
-                mBinding.voiceWaveformView.updateVoiceBean(bean)
+                binding.voiceWaveformView.updateVoiceBean(bean)
             }
 
             override fun onDecibel(decibel: Int) {
@@ -265,7 +265,7 @@ class RecorderViewActivity : BActivity<ActivityDemoViewRecorderBinding>() {
 
         })
         // 设置录音联动动画控件
-        mBinding.voiceRecordView.setRecordAnimView(mBinding.voiceRecordAnimView)
+        binding.voiceRecordView.setRecordAnimView(binding.voiceRecordAnimView)
     }
 
 }

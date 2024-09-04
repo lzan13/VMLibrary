@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootCL"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bubbleCL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/vm_triangle_bubble_bottom"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.vmloft.develop.library.tools.voice.view.VMRecorderFFTWaveformView
+            android:id="@+id/fftWaveformView"
+            android:layout_width="@dimen/vm_dimen_128"
+            android:layout_height="@dimen/vm_dimen_30"
+            android:layout_marginHorizontal="@dimen/vm_dimen_30"
+            android:layout_marginTop="@dimen/vm_dimen_30"
+            android:layout_marginBottom="@dimen/vm_dimen_36"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:vm_anim_end_color="@color/vm_white"
+            app:vm_anim_line_height="@dimen/vm_dimen_2"
+            app:vm_anim_line_width="@dimen/vm_dimen_1_5"
+            app:vm_anim_line_space="@dimen/vm_dimen_1_5"
+            app:vm_anim_start_color="@color/vm_white"
+            tools:layout_width="@dimen/vm_dimen_36" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

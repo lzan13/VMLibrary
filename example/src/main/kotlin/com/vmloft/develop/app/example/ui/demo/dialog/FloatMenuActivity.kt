@@ -40,27 +40,27 @@ class FloatMenuActivity : BActivity<ActivityDemoFloatMenuBinding>() {
 
         initFloatMenu()
 
-        mBinding.leftTopBtn.setOnTouchListener { view, event -> onTouch(view, event) }
-        mBinding.leftBottomBtn.setOnTouchListener { view, event -> onTouch(view, event) }
-        mBinding.centerUpBtn.setOnTouchListener { view, event -> onTouch(view, event) }
-        mBinding.centerBtn.setOnTouchListener { view, event -> onTouch(view, event) }
-        mBinding.centerDownBtn.setOnTouchListener { view, event -> onTouch(view, event) }
-        mBinding.rightTopBtn.setOnTouchListener { view, event -> onTouch(view, event) }
-        mBinding.rightBottomBtn.setOnTouchListener { view, event -> onTouch(view, event) }
+        binding.leftTopBtn.setOnTouchListener { view, event -> onTouch(view, event) }
+        binding.leftBottomBtn.setOnTouchListener { view, event -> onTouch(view, event) }
+        binding.centerUpBtn.setOnTouchListener { view, event -> onTouch(view, event) }
+        binding.centerBtn.setOnTouchListener { view, event -> onTouch(view, event) }
+        binding.centerDownBtn.setOnTouchListener { view, event -> onTouch(view, event) }
+        binding.rightTopBtn.setOnTouchListener { view, event -> onTouch(view, event) }
+        binding.rightBottomBtn.setOnTouchListener { view, event -> onTouch(view, event) }
 
-        mBinding.leftTopBtn.setOnClickListener { view -> onClick(view) }
-        mBinding.leftBtn1.setOnClickListener { view -> onClick(view) }
-        mBinding.leftBtn2.setOnClickListener { view -> onClick(view) }
+        binding.leftTopBtn.setOnClickListener { view -> onClick(view) }
+        binding.leftBtn1.setOnClickListener { view -> onClick(view) }
+        binding.leftBtn2.setOnClickListener { view -> onClick(view) }
 
-        mBinding.leftBottomBtn.setOnClickListener { view -> onClick(view) }
+        binding.leftBottomBtn.setOnClickListener { view -> onClick(view) }
 
-        mBinding.centerUpBtn.setOnClickListener { view -> onClick(view) }
-        mBinding.centerBtn.setOnClickListener { view -> onClick(view) }
-        mBinding.centerDownBtn.setOnClickListener { view -> onClick(view) }
+        binding.centerUpBtn.setOnClickListener { view -> onClick(view) }
+        binding.centerBtn.setOnClickListener { view -> onClick(view) }
+        binding.centerDownBtn.setOnClickListener { view -> onClick(view) }
 
-        mBinding.rightTopBtn.setOnClickListener { view -> onClick(view) }
+        binding.rightTopBtn.setOnClickListener { view -> onClick(view) }
 
-        mBinding.rightBottomBtn.setOnClickListener { view -> onClick(view) }
+        binding.rightBottomBtn.setOnClickListener { view -> onClick(view) }
     }
 
 

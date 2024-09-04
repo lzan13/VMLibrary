@@ -26,12 +26,12 @@ class ImagePickerActivity : BActivity<ActivityDemoImagePickerBinding>() {
         super.initUI()
         setTopTitle("图片选择器")
 
-        mBinding.pickerSingleBtn.setOnClickListener { single() }
-        mBinding.pickerCropBtn.setOnClickListener { singleCrop() }
-        mBinding.imagePickerMultiple.setOnClickListener { multiPicture() }
-        mBinding.pickerCameraBtn.setOnClickListener { talkPicture() }
-        mBinding.pickerVideoBtn.setOnClickListener { talkVideo() }
-        mBinding.saveBtn.setOnClickListener { save() }
+        binding.pickerSingleBtn.setOnClickListener { single() }
+        binding.pickerCropBtn.setOnClickListener { singleCrop() }
+        binding.imagePickerMultiple.setOnClickListener { multiPicture() }
+        binding.pickerCameraBtn.setOnClickListener { talkPicture() }
+        binding.pickerVideoBtn.setOnClickListener { talkVideo() }
+        binding.saveBtn.setOnClickListener { save() }
     }
 
     override fun initData() {
@@ -43,7 +43,7 @@ class ImagePickerActivity : BActivity<ActivityDemoImagePickerBinding>() {
         IMGChoose.singlePicture(this) {
             VMLog.d("单选结果 $it")
             val path = VMBitmap.compressTempImage(it, 1920)
-            IMGLoader.loadCover(mBinding.imagePickerIV, path)
+            IMGLoader.loadCover(binding.imagePickerIV, path)
         }
     }
 
@@ -51,7 +51,7 @@ class ImagePickerActivity : BActivity<ActivityDemoImagePickerBinding>() {
         IMGChoose.singleCrop(this) {
             VMLog.d("裁剪结果 $it")
             val path = VMBitmap.compressTempImage(it, 512)
-            IMGLoader.loadCover(mBinding.imagePickerIV, it)
+            IMGLoader.loadCover(binding.imagePickerIV, it)
         }
     }
 
@@ -64,7 +64,7 @@ class ImagePickerActivity : BActivity<ActivityDemoImagePickerBinding>() {
     private fun talkPicture() {
         IMGChoose.takePicture(this) {
             VMLog.d("拍照结果 $it")
-            IMGLoader.loadCover(mBinding.imagePickerIV, it)
+            IMGLoader.loadCover(binding.imagePickerIV, it)
         }
     }
 
@@ -76,7 +76,7 @@ class ImagePickerActivity : BActivity<ActivityDemoImagePickerBinding>() {
     }
 
     private fun save() {
-        val bitmap = VMBitmap.loadCacheBitmapFromView(mBinding.imagePickerIV)
+        val bitmap = VMBitmap.loadCacheBitmapFromView(binding.imagePickerIV)
         bitmap?.let {
             val result = VMBitmap.saveBitmapToPictures(it, Constants.projectDir, "test.jpg")
             showBar(if (result != null) "保存成功" else "保存失败")

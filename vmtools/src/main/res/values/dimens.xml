@@ -69,6 +69,16 @@
 
 
     <!--定义一些通用尺寸-->
+    <dimen name="vm_dimen_m_32">-32dp</dimen>
+    <dimen name="vm_dimen_m_24">-24dp</dimen>
+    <dimen name="vm_dimen_m_16">-16dp</dimen>
+    <dimen name="vm_dimen_m_8">-8dp</dimen>
+    <dimen name="vm_dimen_m_6">-6dp</dimen>
+    <dimen name="vm_dimen_m_5">-5dp</dimen>
+    <dimen name="vm_dimen_m_4">-4dp</dimen>
+    <dimen name="vm_dimen_m_3">-3dp</dimen>
+    <dimen name="vm_dimen_m_2">-2dp</dimen>
+    <dimen name="vm_dimen_m_1">-1dp</dimen>
     <dimen name="vm_dimen_0">0dp</dimen>
     <dimen name="vm_dimen_0_1">0.1dp</dimen>
     <dimen name="vm_dimen_0_5">0.5dp</dimen>
@@ -91,8 +101,12 @@
     <dimen name="vm_dimen_36">36dp</dimen>
     <dimen name="vm_dimen_40">40dp</dimen>
     <dimen name="vm_dimen_42">42dp</dimen>
+    <dimen name="vm_dimen_44">44dp</dimen>
     <dimen name="vm_dimen_48">48dp</dimen>
+    <dimen name="vm_dimen_50">50dp</dimen>
+    <dimen name="vm_dimen_52">52dp</dimen>
     <dimen name="vm_dimen_56">56dp</dimen>
+    <dimen name="vm_dimen_60">60dp</dimen>
     <dimen name="vm_dimen_64">64dp</dimen>
     <dimen name="vm_dimen_72">72dp</dimen>
     <dimen name="vm_dimen_80">80dp</dimen>
@@ -100,9 +114,14 @@
     <dimen name="vm_dimen_128">128dp</dimen>
     <dimen name="vm_dimen_144">144dp</dimen>
     <dimen name="vm_dimen_192">192dp</dimen>
+    <dimen name="vm_dimen_200">200dp</dimen>
     <dimen name="vm_dimen_220">220dp</dimen>
+    <dimen name="vm_dimen_240">240dp</dimen>
     <dimen name="vm_dimen_256">256dp</dimen>
+    <dimen name="vm_dimen_280">280dp</dimen>
+    <dimen name="vm_dimen_300">300dp</dimen>
     <dimen name="vm_dimen_320">320dp</dimen>
+    <dimen name="vm_dimen_360">360dp</dimen>
     <dimen name="vm_dimen_512">512dp</dimen>
 
 </resources>

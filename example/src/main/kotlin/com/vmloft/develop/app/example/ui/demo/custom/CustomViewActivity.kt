@@ -33,7 +33,7 @@ class CustomViewActivity : BActivity<ActivityDemoViewCustomBinding>() {
     override fun initData() {}
 
     fun startTimer(view: View) {
-        mBinding.customTimerBtn.startTimer()
+        binding.customTimerBtn.startTimer()
     }
 
     fun tips1(view: View) {

@@ -60,7 +60,7 @@
                 android:textAlignment="center"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.vmloft.develop.library.tools.voice.recorder.VMRecorderView
+            <com.vmloft.develop.library.tools.voice.view.VMRecorderCircleView
                 android:id="@+id/voiceRecordView"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/vm_dimen_192"
@@ -109,7 +109,7 @@
             <!--                app:vm_anim_end_color="#86fff8"-->
             <!--                app:vm_anim_start_color="#6457f0" />-->
 
-            <com.vmloft.develop.library.tools.voice.recorder.VMRecorderFFTAnimView
+            <com.vmloft.develop.library.tools.voice.view.VMRecorderFFTWaveformView
                 android:id="@+id/voiceRecordAnimView"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/vm_dimen_72"

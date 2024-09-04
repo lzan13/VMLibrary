@@ -123,6 +123,71 @@
         </attr>
     </declare-styleable>
 
+    <!--自定义录音控件属性-->
+    <declare-styleable name="VMRecorderLayout">
+        <!--激活后高度-->
+        <attr name="vm_recorder_normal_height" format="dimension" />
+        <attr name="vm_recorder_activate_height" format="dimension" />
+        <!--波形背景-->
+        <attr name="vm_recorder_waveform_normal_bg" format="color|reference" />
+        <attr name="vm_recorder_waveform_cancel_bg" format="color|reference" />
+        <!--触摸相关-->
+        <attr name="vm_recorder_touch_activate_bg" format="reference" />
+        <attr name="vm_recorder_touch_cancel_bg" format="reference" />
+        <attr name="vm_recorder_touch_height" format="dimension" />
+        <!--取消按钮-->
+        <attr name="vm_recorder_cancel_normal_bg" format="reference" />
+        <attr name="vm_recorder_cancel_activate_bg" format="reference" />
+        <!--提示文案-->
+        <attr name="vm_recorder_tips_activate_text" format="string|reference" />
+        <attr name="vm_recorder_tips_cancel_text" format="string|reference" />
+        <attr name="vm_recorder_tips_count_down_text" format="string|reference" />
+        <attr name="vm_recorder_tips_unusable_text" format="string|reference" />
+        <attr name="vm_recorder_tips_color" format="color|reference" />
+        <attr name="vm_recorder_tips_font_size" format="dimension" />
+        <!--采样时间-->
+        <attr name="vm_recorder_simple_time" format="integer" />
+    </declare-styleable>
+
+<!--    &lt;!&ndash;自定义录音控件属性&ndash;&gt;-->
+<!--    <declare-styleable name="VMRecorder">-->
+<!--        &lt;!&ndash;激活后高度&ndash;&gt;-->
+<!--        <attr name="vm_recorder_normal_height" format="dimension" />-->
+<!--        <attr name="vm_recorder_activate_height" format="dimension" />-->
+<!--        &lt;!&ndash;背景色&ndash;&gt;-->
+<!--        <attr name="vm_recorder_activate_bg" format="color|reference" />-->
+<!--        &lt;!&ndash;波形背景&ndash;&gt;-->
+<!--        <attr name="vm_recorder_waveform_normal_bg" format="reference" />-->
+<!--        <attr name="vm_recorder_waveform_cancel_bg" format="reference" />-->
+<!--        &lt;!&ndash;触摸相关&ndash;&gt;-->
+<!--        <attr name="vm_recorder_touch_normal_bg" format="color|reference" />-->
+<!--        <attr name="vm_recorder_touch_activate_start_bg" format="color|reference" />-->
+<!--        <attr name="vm_recorder_touch_activate_end_bg" format="color|reference" />-->
+<!--        <attr name="vm_recorder_touch_cancel_bg" format="color|reference" />-->
+<!--        <attr name="vm_recorder_touch_normal_icon" format="reference" />-->
+<!--        <attr name="vm_recorder_touch_cancel_icon" format="reference" />-->
+<!--        <attr name="vm_recorder_touch_height" format="dimension" />-->
+<!--        <attr name="vm_recorder_touch_space_top" format="dimension" />-->
+<!--        <attr name="vm_recorder_touch_space_right" format="dimension" />-->
+<!--        <attr name="vm_recorder_touch_space_bottom" format="dimension" />-->
+<!--        <attr name="vm_recorder_touch_space_left" format="dimension" />-->
+<!--        &lt;!&ndash;取消按钮&ndash;&gt;-->
+<!--        <attr name="vm_recorder_cancel_normal_bg" format="color|reference" />-->
+<!--        <attr name="vm_recorder_cancel_activate_bg" format="color|reference" />-->
+<!--        <attr name="vm_recorder_cancel_normal_icon" format="reference" />-->
+<!--        <attr name="vm_recorder_cancel_activate_icon" format="reference" />-->
+<!--        <attr name="vm_recorder_cancel_size" format="dimension" />-->
+<!--        &lt;!&ndash;提示文案&ndash;&gt;-->
+<!--        <attr name="vm_recorder_tips_normal_text" format="string|reference" />-->
+<!--        <attr name="vm_recorder_tips_activate_text" format="string|reference" />-->
+<!--        <attr name="vm_recorder_tips_cancel_text" format="string|reference" />-->
+<!--        <attr name="vm_recorder_tips_count_down_text" format="string|reference" />-->
+<!--        <attr name="vm_recorder_tips_unusable_text" format="string|reference" />-->
+<!--        <attr name="vm_recorder_tips_color" format="color|reference" />-->
+<!--        <attr name="vm_recorder_tips_font_size" format="dimension" />-->
+<!--        &lt;!&ndash;采样时间&ndash;&gt;-->
+<!--        <attr name="vm_recorder_simple_time" format="integer" />-->
+<!--    </declare-styleable>-->
     <!--自定义音频控件属性-->
     <declare-styleable name="VMVoiceView">
         <!--通用属性-->
@@ -180,6 +245,7 @@
         <attr name="vm_anim_end_color" format="color|reference" />
         <!--录制动画控件基础宽高-->
         <attr name="vm_anim_line_width" format="dimension" />
+        <attr name="vm_anim_line_space" format="dimension" />
         <attr name="vm_anim_line_height" format="dimension" />
 
         <!--自定义波形进度控件-->

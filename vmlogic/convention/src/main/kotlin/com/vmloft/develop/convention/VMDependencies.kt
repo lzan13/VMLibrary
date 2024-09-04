@@ -142,6 +142,9 @@ object VMDependencies {
     // MultiType RecyclerView 多类型适配器 https://github.com/drakeet/MultiType
     const val multiType = "com.drakeet.multitype:multitype:4.2.0"
 
+    // 输入面板切换帮助库 https://github.com/DSAppTeam/PanelSwitchHelper
+    const val panelSwitchHelper = "com.github.DSAppTeam:PanelSwitchHelper:v1.5.10"
+
     // 下拉刷新库 https://github.com/scwang90/SmartRefreshLayout
     const val refreshLayoutKernel = "io.github.scwang90:refresh-layout-kernel:2.1.0"
     const val refreshLayoutTwoLevel = "io.github.scwang90:refresh-header-two-level:2.1.0"

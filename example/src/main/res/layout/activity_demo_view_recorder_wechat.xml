@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg"
+    tools:context=".ui.demo.custom.WeChatRecorderViewActivity">
+
+    <include layout="@layout/widget_common_top_bar" />
+
+    <com.effective.android.panel.view.PanelSwitchLayout
+        android:id="@+id/panelRootContainer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/vm_dimen_0"
+        android:orientation="vertical"
+        app:android11KeyboardFeature="false"
+        app:animationSpeed="standard"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/commonTopLL">
+
+        <!-- ContentContainer -->
+        <!-- linear_edit_view, Specify an EditText for input, required-->
+        <!-- linear_auto_reset_enable,Specifies whether the LinearContentContainer can accept Touch events and automatically hide the panel-->
+        <!-- linear_auto_reset_area, Specifies whether the LinearContentContainer only accepts Touch events in a View area to customize the hidden panel-->
+        <com.effective.android.panel.view.content.LinearContentContainer
+            android:id="@+id/content_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:auto_reset_enable="false"
+            app:edit_view="@id/messageET">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:animateLayoutChanges="false">
+
+                <!--内容部分-->
+                <com.scwang.smart.refresh.layout.SmartRefreshLayout
+                    android:id="@+id/refreshLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/vm_dimen_0"
+                    app:layout_constraintBottom_toTopOf="@+id/inputPanelCL"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/vm_dimen_8"
+                    android:background="@drawable/shape_fillet_tips_bg"
+                    android:padding="@dimen/vm_dimen_8"
+                    android:text="测试内容"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/refreshLayout" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/vm_dimen_8"
+                    android:background="@drawable/shape_fillet_tips_bg"
+                    android:padding="@dimen/vm_dimen_8"
+                    android:text="测试内容"
+                    app:layout_constraintBottom_toBottomOf="@+id/refreshLayout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <View
+                    android:id="@+id/recorderMaskView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#99000000"
+                    android:visibility="gone"
+                    tools:visibility="gone" />
+
+                <com.vmloft.develop.library.tools.voice.view.wechat.VMRecorderWaveformLayout
+                    android:id="@+id/recorderWaveformLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/vm_dimen_56"
+                    android:visibility="gone"
+                    app:vm_recorder_waveform_normal_bg="#8C5AFF"
+                    app:vm_recorder_waveform_cancel_bg="#FD5E5B"
+                    app:layout_constraintBottom_toTopOf="@+id/inputPanelCL"
+                    tools:visibility="visible" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/inputPanelCL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent">
+                    <!--录音控件-->
+                    <com.vmloft.develop.library.tools.voice.view.wechat.VMRecorderLayout
+                        android:id="@+id/recorderLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:vm_recorder_activate_height="@dimen/vm_dimen_320"
+                        app:vm_recorder_cancel_activate_bg="@drawable/ic_im_voice_record_cancel_activate"
+                        app:vm_recorder_cancel_normal_bg="@drawable/ic_im_voice_record_cancel_normal"
+                        app:vm_recorder_normal_height="@dimen/vm_dimen_56"
+                        app:vm_recorder_tips_color="#c7c6d4"
+                        app:vm_recorder_tips_font_size="@dimen/vm_size_14"
+                        app:vm_recorder_touch_activate_bg="@drawable/img_voice_record_activate_bg"
+                        app:vm_recorder_touch_cancel_bg="@drawable/img_voice_record_cancel_bg"
+                        app:vm_recorder_touch_height="@dimen/vm_dimen_96" />
+                    <!--输入框布局-->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/inputCL"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/vm_dimen_8"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/voiceIV"
+                            android:layout_width="@dimen/vm_dimen_56"
+                            android:layout_height="@dimen/vm_dimen_56"
+                            android:padding="@dimen/vm_dimen_12"
+                            android:src="@drawable/ic_im_chat_input_voice"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <TextView
+                            android:id="@+id/touchTV"
+                            android:layout_width="@dimen/vm_dimen_0"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/shape_input_fillet_bg"
+                            android:clickable="false"
+                            android:gravity="center"
+                            android:minHeight="@dimen/vm_dimen_40"
+                            android:padding="@dimen/vm_dimen_8"
+                            android:text="按住 说话"
+                            android:textColor="@color/vm_black_87"
+                            android:textSize="@dimen/vm_size_14"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/emotionIV"
+                            app:layout_constraintStart_toEndOf="@+id/voiceIV"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <EditText
+                            android:id="@+id/messageET"
+                            android:layout_width="@dimen/vm_dimen_0"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/vm_dimen_4"
+                            android:background="@drawable/shape_input_fillet_bg"
+                            android:hint="说点啥..."
+                            android:minHeight="@dimen/vm_dimen_40"
+                            android:padding="@dimen/vm_dimen_8"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/emotionIV"
+                            app:layout_constraintStart_toEndOf="@+id/voiceIV"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="啥地方链接啥的雷锋精神滴漏咖啡就是了开房间打开乐山大佛索道联发科" />
+
+                        <ImageView
+                            android:id="@+id/emotionIV"
+                            android:layout_width="@dimen/vm_dimen_56"
+                            android:layout_height="@dimen/vm_dimen_56"
+                            android:padding="@dimen/vm_dimen_12"
+                            android:src="@drawable/ic_im_chat_input_emotion"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/moreIV" />
+
+                        <ImageView
+                            android:id="@+id/moreIV"
+                            android:layout_width="@dimen/vm_dimen_56"
+                            android:layout_height="@dimen/vm_dimen_56"
+                            android:padding="@dimen/vm_dimen_12"
+                            android:src="@drawable/ic_im_chat_input_more"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/sendTV" />
+
+                        <TextView
+                            android:id="@+id/sendTV"
+                            android:layout_width="@dimen/vm_dimen_56"
+                            android:layout_height="@dimen/vm_dimen_36"
+                            android:layout_marginEnd="@dimen/vm_dimen_16"
+                            android:background="@drawable/shape_fillet_common_bg"
+                            android:backgroundTint="@color/app_accent"
+                            android:gravity="center"
+                            android:src="@drawable/ic_im_chat_input_more"
+                            android:text="发送"
+                            android:textColor="@color/vm_white"
+                            android:textSize="@dimen/vm_size_14"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="@+id/emotionIV"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/emotionIV"
+                            tools:visibility="visible" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.effective.android.panel.view.content.LinearContentContainer>
+
+        <!--Panel Container, can only contain PanelView-->
+        <com.effective.android.panel.view.panel.PanelContainer
+            android:id="@+id/panel_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/app_input_bg"
+            tools:layout_height="@dimen/vm_dimen_192">
+
+            <!-- Each panel -->
+            <!-- panel_layout,Used to specify the layout corresponding to the ID of the panel, required-->
+            <!-- panel_trigger, Used to switch to this panel when the user clicks the View corresponding to this ID -->
+            <!-- panel_toggle ,When the panel is displayed, if the user clicks the View corresponding to panel_trigger again, whether to switch back to the input method-->
+            <com.effective.android.panel.view.panel.PanelView
+                android:id="@+id/emotionPanelView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:panel_layout="@layout/widget_panel_emotion_layout"
+                app:panel_toggle="true"
+                app:panel_trigger="@+id/emotionIV" />
+
+            <com.effective.android.panel.view.panel.PanelView
+                android:id="@+id/morePanelView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:panel_layout="@layout/widget_panel_more_layout"
+                app:panel_toggle="true"
+                app:panel_trigger="@+id/moreIV" />
+        </com.effective.android.panel.view.panel.PanelContainer>
+    </com.effective.android.panel.view.PanelSwitchLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

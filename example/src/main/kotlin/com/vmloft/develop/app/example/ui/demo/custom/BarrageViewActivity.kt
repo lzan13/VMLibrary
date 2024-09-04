@@ -30,26 +30,26 @@ class BarrageViewActivity : BActivity<ActivityDemoViewBarrageBinding>() {
         super.initUI()
         setTopTitle("自定义弹幕")
         val barrageView = findViewById<VMBarrageView<BarrageBean>>(R.id.barrageView)
-        mBinding.barrageStartBtn.setOnClickListener {
+        binding.barrageStartBtn.setOnClickListener {
             barrageView.setCreator(ViewCreator())
                 .setMaxSize(50)
                 .create(mDataList)
                 .start()
         }
 
-        mBinding.barrageResumeBtn.setOnClickListener {
+        binding.barrageResumeBtn.setOnClickListener {
             barrageView.resume()
         }
-        mBinding.barragePauseBtn.setOnClickListener {
+        binding.barragePauseBtn.setOnClickListener {
             barrageView.pause()
         }
-        mBinding.barrageStopBtn.setOnClickListener {
+        binding.barrageStopBtn.setOnClickListener {
             barrageView.stop()
         }
-        mBinding.barrageSendBtn.setOnClickListener {
+        binding.barrageSendBtn.setOnClickListener {
             barrageView.addBarrage(BarrageBean("测试手动新增弹幕 ~ ~ "))
         }
-        mBinding.barrageResetBtn.setOnClickListener {
+        binding.barrageResetBtn.setOnClickListener {
             mDataList.clear()
             mDataList.add(BarrageBean("测试重置弹幕 0"))
             mDataList.add(BarrageBean("测试重置弹幕测试弹幕 1"))
@@ -68,10 +68,10 @@ class BarrageViewActivity : BActivity<ActivityDemoViewBarrageBinding>() {
                 .start()
         }
 
-        mBinding.animStartBtn.setOnClickListener { startAnim() }
-        mBinding.animPauseBtn.setOnClickListener { pauseAnim() }
-        mBinding.animResumeBtn.setOnClickListener { resumeAnim() }
-        mBinding.animStopBtn.setOnClickListener { stopAnim() }
+        binding.animStartBtn.setOnClickListener { startAnim() }
+        binding.animPauseBtn.setOnClickListener { pauseAnim() }
+        binding.animResumeBtn.setOnClickListener { resumeAnim() }
+        binding.animStopBtn.setOnClickListener { stopAnim() }
 
     }
 
@@ -93,9 +93,9 @@ class BarrageViewActivity : BActivity<ActivityDemoViewBarrageBinding>() {
      * 开始动画
      */
     private fun startAnim() {
-        val scaleXOptions = VMAnimator.AnimOptions(mBinding.animView, floatArrayOf(0f, 20f), VMAnimator.scaleX, 2500, repeatMode = 1)
-        val scaleYOptions = VMAnimator.AnimOptions(mBinding.animView, floatArrayOf(0f, 20f), VMAnimator.scaleY, 2500, repeatMode = 1)
-        val alphaOptions = VMAnimator.AnimOptions(mBinding.animView, floatArrayOf(1.0f, 0.0f), VMAnimator.alpha, 2500, repeatMode = 1)
+        val scaleXOptions = VMAnimator.AnimOptions(binding.animView, floatArrayOf(0f, 20f), VMAnimator.scaleX, 2500, repeatMode = 1)
+        val scaleYOptions = VMAnimator.AnimOptions(binding.animView, floatArrayOf(0f, 20f), VMAnimator.scaleY, 2500, repeatMode = 1)
+        val alphaOptions = VMAnimator.AnimOptions(binding.animView, floatArrayOf(1.0f, 0.0f), VMAnimator.alpha, 2500, repeatMode = 1)
         mAnimatorWrap = VMAnimator.createAnimator().play(scaleXOptions).with(scaleYOptions).with(alphaOptions)
         mAnimatorWrap?.start(delay = 100)
     }
@@ -136,7 +136,7 @@ class BarrageViewActivity : BActivity<ActivityDemoViewBarrageBinding>() {
     }
 
     override fun onDestroy() {
-        mBinding.barrageView.stop()
+        binding.barrageView.stop()
         super.onDestroy()
     }
 }

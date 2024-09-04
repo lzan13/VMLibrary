@@ -9,6 +9,7 @@ object AppRouter {
     const val appBarrage = "/VMLoft/Barrage"
     const val appCustomView = "/VMLoft/CustomView"
     const val appCustomRecorderView = "/VMLoft/CustomRecorderView"
+    const val appCustomRecorderViewWeChat = "/VMLoft/CustomRecorderView/WeChat"
     const val appCustomDrawView = "/VMLoft/CustomDrawView"
     const val appCustomGuideView = "/VMLoft/CustomGuideView"
     const val appFloatMenu = "/VMLoft/FloatMenu"

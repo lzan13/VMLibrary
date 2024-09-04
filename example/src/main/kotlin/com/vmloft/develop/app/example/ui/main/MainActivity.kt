@@ -80,7 +80,7 @@ class MainActivity : BActivity<ActivityMainBinding>() {
     private fun initBottomNav() {
         // TODO 如果导航是多色图标，需要取消 BottomNavigationView 的着色效果，自己去设置 selector
         // mainNav.itemIconTintList = null
-        mBinding.mainNav.setOnNavigationItemSelectedListener(onNavigationItemSelected)
+        binding.mainNav.setOnNavigationItemSelectedListener(onNavigationItemSelected)
     }
 
     /**

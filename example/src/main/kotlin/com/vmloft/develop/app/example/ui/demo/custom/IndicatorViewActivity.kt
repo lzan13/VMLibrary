@@ -9,8 +9,6 @@ import com.vmloft.develop.app.example.router.AppRouter
 import com.vmloft.develop.library.tools.adapter.VMViewPager2Adapter
 import com.vmloft.develop.library.tools.adapter.VMViewPagerAdapter
 
-import java.util.ArrayList
-
 /**
  * Create by lzan13 on 2019/04/11
  *
@@ -46,10 +44,10 @@ class IndicatorViewActivity : BActivity<ActivityDemoViewIndicatorBinding>() {
 
         var mAdapter1 = VMViewPagerAdapter(supportFragmentManager, fragmentList1)
 
-        mBinding.viewPager1.offscreenPageLimit = 3
-        mBinding.viewPager1.adapter = mAdapter1
+        binding.viewPager1.offscreenPageLimit = 3
+        binding.viewPager1.adapter = mAdapter1
 
-        mBinding.indicatorView1.setViewPager(mBinding.viewPager1)
+        binding.indicatorView1.setViewPager(binding.viewPager1)
     }
 
     /**
@@ -65,10 +63,10 @@ class IndicatorViewActivity : BActivity<ActivityDemoViewIndicatorBinding>() {
 
         var mAdapter2 = VMViewPager2Adapter(fragmentList2, this)
 
-        mBinding.viewPager2.offscreenPageLimit = 3
-        mBinding.viewPager2.adapter = mAdapter2
+        binding.viewPager2.offscreenPageLimit = 3
+        binding.viewPager2.adapter = mAdapter2
 
-        mBinding.indicatorView2.setViewPager(mBinding.viewPager2)
+        binding.indicatorView2.setViewPager(binding.viewPager2)
     }
 
     /**
@@ -84,20 +82,20 @@ class IndicatorViewActivity : BActivity<ActivityDemoViewIndicatorBinding>() {
 
         var mAdapter3 = VMViewPager2Adapter(fragmentList3, this)
 
-        mBinding.viewPager3.offscreenPageLimit = 3
-        mBinding.viewPager3.adapter = mAdapter3
+        binding.viewPager3.offscreenPageLimit = 3
+        binding.viewPager3.adapter = mAdapter3
 
-        mBinding.indicatorView3.setViewPager(mBinding.viewPager3)
+        binding.indicatorView3.setViewPager(binding.viewPager3)
     }
 
     /**
      * 初始化自定义个数
      */
     private fun initViewPager4() {
-        mBinding.previousTV.setOnClickListener { mBinding.indicatorView4.switchPrevious() }
-        mBinding.positionTV.setOnClickListener { mBinding.indicatorView4.switchPosition(2) }
-        mBinding.nextTV.setOnClickListener { mBinding.indicatorView4.switchNext() }
+        binding.previousTV.setOnClickListener { binding.indicatorView4.switchPrevious() }
+        binding.positionTV.setOnClickListener { binding.indicatorView4.switchPosition(2) }
+        binding.nextTV.setOnClickListener { binding.indicatorView4.switchNext() }
 
-        mBinding.indicatorView4.setIndicatorCount(5)
+        binding.indicatorView4.setIndicatorCount(5)
     }
 }

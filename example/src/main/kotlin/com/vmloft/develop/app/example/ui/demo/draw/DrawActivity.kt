@@ -21,11 +21,11 @@ class DrawActivity : BActivity<ActivityDemoDrawBinding>() {
     override fun initUI() {
         super.initUI()
 
-        mBinding.paintBtn.setOnClickListener { mBinding.drawView.isEraser = false }
-        mBinding.eraserBtn.setOnClickListener { mBinding.drawView.isEraser = true }
-        mBinding.clearBtn.setOnClickListener { mBinding.drawView.reset() }
-        mBinding.imageBtn.setOnClickListener { getDrawContent() }
-        mBinding.drawLL.setOnClickListener { mBinding.drawLL.visibility = View.GONE }
+        binding.paintBtn.setOnClickListener { binding.drawView.isEraser = false }
+        binding.eraserBtn.setOnClickListener { binding.drawView.isEraser = true }
+        binding.clearBtn.setOnClickListener { binding.drawView.reset() }
+        binding.imageBtn.setOnClickListener { getDrawContent() }
+        binding.drawLL.setOnClickListener { binding.drawLL.visibility = View.GONE }
 
 
     }
@@ -35,9 +35,9 @@ class DrawActivity : BActivity<ActivityDemoDrawBinding>() {
     }
 
     private fun getDrawContent() {
-        mBinding.drawLL.visibility = View.VISIBLE
-        val bitmap = mBinding.drawView.getBitmap()
-        mBinding.drawIV.setImageBitmap(bitmap)
+        binding.drawLL.visibility = View.VISIBLE
+        val bitmap = binding.drawView.getBitmap()
+        binding.drawIV.setImageBitmap(bitmap)
     }
 
 }

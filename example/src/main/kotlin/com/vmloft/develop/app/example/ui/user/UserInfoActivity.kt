@@ -9,7 +9,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 import com.vmloft.develop.library.base.BActivity
 import com.vmloft.develop.library.base.utils.CUtils
-import com.vmloft.develop.app.example.R
 import com.vmloft.develop.app.example.router.AppRouter
 import com.vmloft.develop.app.example.common.CommonFragment
 import com.vmloft.develop.app.example.databinding.ActivityUserInfoBinding
@@ -60,14 +59,14 @@ class UserInfoActivity : BActivity<ActivityUserInfoBinding>() {
      * 初始化 ViewPager
      */
     private fun initViewPager() {
-        mBinding.viewPager.offscreenPageLimit = titles.size - 1
-        mBinding.viewPager.adapter = object : FragmentStateAdapter(this) {
+        binding.viewPager.offscreenPageLimit = titles.size - 1
+        binding.viewPager.adapter = object : FragmentStateAdapter(this) {
             override fun createFragment(position: Int) = fragmentList[position]
 
             override fun getItemCount() = fragmentList.size
         }
         // 将 TabLayout 与 ViewPager 进行绑定
-        TabLayoutMediator(mBinding.tabLayout, mBinding.viewPager) { tab, position ->
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = titles[position]
         }.attach()
     }

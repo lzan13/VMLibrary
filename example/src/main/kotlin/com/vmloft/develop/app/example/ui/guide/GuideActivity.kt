@@ -32,15 +32,15 @@ class GuideActivity : BActivity<ActivityGuideBinding>() {
     override fun initUI() {
         super.initUI()
 
-        mBinding.guidePrevBtn.setOnClickListener {
+        binding.guidePrevBtn.setOnClickListener {
             mCurrentIndex -= 1
-            mBinding.guideViewPager.setCurrentItem(mCurrentIndex, true)
+            binding.guideViewPager.setCurrentItem(mCurrentIndex, true)
         }
-        mBinding.guideNextBtn.setOnClickListener {
+        binding.guideNextBtn.setOnClickListener {
             mCurrentIndex += 1
-            mBinding.guideViewPager.setCurrentItem(mCurrentIndex, true)
+            binding.guideViewPager.setCurrentItem(mCurrentIndex, true)
         }
-        mBinding.guideFinishBtn.setOnClickListener {
+        binding.guideFinishBtn.setOnClickListener {
             SPManager.setGuideHide()
             CRouter.goMain()
             finish()
@@ -52,19 +52,19 @@ class GuideActivity : BActivity<ActivityGuideBinding>() {
         mFragmentList.add(GuideFragment.newInstance(R.drawable.img_baymax, R.string.guide_title_1, R.string.guide_intro_1))
         mFragmentList.add(GuideFragment.newInstance(R.drawable.img_baymax, R.string.guide_title_2, R.string.guide_intro_2))
         mAdapter = VMViewPagerAdapter(supportFragmentManager, mFragmentList)
-        mBinding.guideViewPager.offscreenPageLimit = mFragmentList.size - 1
-        mBinding.guideViewPager.adapter = mAdapter
-        mBinding.guideIndicatorView.setViewPager(mBinding.guideViewPager)
+        binding.guideViewPager.offscreenPageLimit = mFragmentList.size - 1
+        binding.guideViewPager.adapter = mAdapter
+        binding.guideIndicatorView.setViewPager(binding.guideViewPager)
         /**
          * 通过监听 ViewPager 页面滑动渐变调整 ViewPager 的背景
          */
-        mBinding.guideViewPager.addOnPageChangeListener(object : OnPageChangeListener {
+        binding.guideViewPager.addOnPageChangeListener(object : OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
             override fun onPageSelected(position: Int) {
                 mCurrentIndex = position
-                mBinding.guidePrevBtn.visibility = if (position == 0) View.GONE else View.VISIBLE
-                mBinding.guideNextBtn.visibility = if (position == mFragmentList.size - 1) View.GONE else View.VISIBLE
-                mBinding.guideFinishBtn.visibility = if (position == mFragmentList.size - 1) View.VISIBLE else View.GONE
+                binding.guidePrevBtn.visibility = if (position == 0) View.GONE else View.VISIBLE
+                binding.guideNextBtn.visibility = if (position == mFragmentList.size - 1) View.GONE else View.VISIBLE
+                binding.guideFinishBtn.visibility = if (position == mFragmentList.size - 1) View.VISIBLE else View.GONE
             }
 
             override fun onPageScrollStateChanged(state: Int) {}
