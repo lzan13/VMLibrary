@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
+import com.gyf.immersionbar.ImmersionBar
 
 import com.vmloft.develop.library.base.utils.CUtils
 import com.vmloft.develop.library.tools.utils.VMDimen
@@ -60,6 +61,7 @@ abstract class BActivity<VB : ViewBinding> : AppCompatActivity() {
      * 初始化 UI
      */
     open fun initUI() {
+        setupBar()
         setupTopBar()
     }
 
@@ -68,6 +70,14 @@ abstract class BActivity<VB : ViewBinding> : AppCompatActivity() {
      */
     abstract fun initData()
 
+    private fun setupBar() {
+        // 解决内容没有延伸到状态栏下问题
+        ImmersionBar.with(this).reset()
+            .barEnable(true)
+            .transparentBar()
+            .fitsSystemWindows(false)
+            .init()
+    }
 
     /**
      * 装载 TopBar

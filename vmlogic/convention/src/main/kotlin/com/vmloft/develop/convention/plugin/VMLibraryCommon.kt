@@ -21,6 +21,7 @@ class VMLibraryCommon : VMLibrary() {
             // 三方控件
             "api"(VMDependencies.agentWeb)
             "api"(VMDependencies.bannerViewPager)
+            "api"(VMDependencies.lottie)
             "api"(VMDependencies.panelSwitchHelper)
             "api"(VMDependencies.refreshLayoutKernel)
             "api"(VMDependencies.refreshLayoutTwoLevel)

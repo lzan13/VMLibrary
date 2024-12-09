@@ -97,12 +97,13 @@ object VMDependencies {
     const val bugly = "com.tencent.bugly:crashreport:4.0.4"
 
     // umeng sdk https://developer.umeng.com/docs/119267/detail/118584
-    const  val umengCommon = "com.umeng.umsdk:common:9.6.3" // 必选
-    const  val umengAsms = "com.umeng.umsdk:asms:1.8.0" // 必选
+    const val umengCommon = "com.umeng.umsdk:common:9.6.3" // 必选
+    const val umengAsms = "com.umeng.umsdk:asms:1.8.0" // 必选
+
     // 高级运营分析功能依赖库（可选）。使用卸载分析、开启反作弊能力请务必集成，以免影响高级功能使用。
     // common需搭配v9.6.3及以上版本，asms需搭配v1.7.0及以上版本。需更新隐私声明。需配置混淆，以避免依赖库无法生效，见本文下方【混淆设置】部分。
     const val umengUYuMao = "com.umeng.umsdk:uyumao:1.1.2"
-    const  val umengABTest = "com.umeng.umsdk:abtest:1.0.0" //使用U-App中ABTest能力（可选）
+    const val umengABTest = "com.umeng.umsdk:abtest:1.0.0" //使用U-App中ABTest能力（可选）
 
     /**
      * 网络请求
@@ -137,13 +138,19 @@ object VMDependencies {
     const val bannerViewPager = "com.github.zhpanvip:bannerviewpager:3.5.12"
 
     // 动画库 https://github.com/LottieFiles/lottie-android
-    const val lottie = "com.airbnb.android:lottie:3.7.0"
+    const val lottie = "com.airbnb.android:lottie:6.6.0"
 
     // MultiType RecyclerView 多类型适配器 https://github.com/drakeet/MultiType
     const val multiType = "com.drakeet.multitype:multitype:4.2.0"
 
     // 输入面板切换帮助库 https://github.com/DSAppTeam/PanelSwitchHelper
     const val panelSwitchHelper = "com.github.DSAppTeam:PanelSwitchHelper:v1.5.10"
+
+    // 沉浸式系统栏 基础依赖包 https://github.com/gyf-dev/ImmersionBar
+    const val immersionbar = "com.geyifeng.immersionbar:immersionbar:3.2.2"
+
+    // kotlin扩展（可选）
+    const val immersionbarKtx = "com.geyifeng.immersionbar:immersionbar-ktx:3.2.2"
 
     // 下拉刷新库 https://github.com/scwang90/SmartRefreshLayout
     const val refreshLayoutKernel = "io.github.scwang90:refresh-layout-kernel:2.1.0"

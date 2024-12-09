@@ -46,6 +46,9 @@ class VMLibraryBase : VMLibrary() {
             // koin 依赖注入
             "api"(VMDependencies.koin)
 
+            "api"(VMDependencies.immersionbar)
+            "api"(VMDependencies.immersionbarKtx)
+
             // 自定义工具库
 //            "api"(VMDependencies.vmtools)
             // 源码依赖，开发调试

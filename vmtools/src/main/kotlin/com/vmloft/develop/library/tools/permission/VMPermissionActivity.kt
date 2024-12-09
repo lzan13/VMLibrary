@@ -132,10 +132,10 @@ class VMPermissionActivity : FragmentActivity() {
      * 弹出授权窗口
      */
     private fun showPermissionDialog() {
-        if (dialogTitle.isNullOrEmpty()) {
+        if (dialogTitle.isEmpty()) {
             dialogTitle = VMStr.byRes(R.string.vm_permission_title)
         }
-        if (dialogContent.isNullOrEmpty()) {
+        if (dialogContent.isEmpty()) {
             dialogContent = VMStr.byResArgs(R.string.vm_permission_reason, appName)
         }
         mDialog = VMDefaultDialog(this)

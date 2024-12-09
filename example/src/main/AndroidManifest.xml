@@ -2,6 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <!--允许应用程序完全使用网络-->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 录音 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -26,6 +29,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="landscape"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
@@ -45,10 +49,18 @@
             android:exported="true"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustNothing|stateAlwaysHidden">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
+            <!--通过 scheme 启动配置-->
+            <intent-filter>
+                <data
+                    android:host="vmloft"
+                    android:path="/index"
+                    android:scheme="vm" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
         </activity>
 
         <!--demo界面 开始-->
@@ -79,7 +91,9 @@
         <!--指示器界面-->
         <activity android:name=".ui.demo.custom.IndicatorViewActivity" />
         <!--Lottie 动画-->
-        <activity android:name=".ui.demo.anim.AnimActivity" />
+        <activity
+            android:name=".ui.demo.anim.AnimActivity"
+            android:screenOrientation="landscape" />
         <!--按钮主题样式-->
         <activity android:name=".ui.demo.custom.ButtonThemeActivity" />
         <!--图片选择功能界面-->

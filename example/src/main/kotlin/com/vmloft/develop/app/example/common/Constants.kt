@@ -10,6 +10,6 @@ object Constants {
     const val projectDir = "VMLibrary"
 
     // 缓存图片目录
-    const val cacheImageDir = "images"
+    const val cacheImageDir = "door/images"
 
 }

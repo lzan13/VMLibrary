@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,15 +8,49 @@
     android:orientation="vertical"
     tools:context=".ui.demo.anim.AnimActivity">
 
-    <include layout="@layout/widget_common_top_bar" />
-
-    <ScrollView
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_baymax" />
 
-        <com.vmloft.develop.library.tools.widget.VMViewGroup
-            android:id="@+id/viewGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </ScrollView>
-</LinearLayout>
+    <include
+        layout="@layout/widget_common_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_height="@dimen/vm_dimen_48" />
+
+    <com.vmloft.develop.app.example.ui.demo.anim.InterludeLottieAnimView
+        android:id="@+id/interludeAV"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/vm_dimen_0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/commonTopLL" />
+
+    <com.vmloft.develop.library.tools.widget.VMViewGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/commonTopLL">
+
+        <Button
+            android:id="@+id/startAnimBtn"
+            style="@style/AppBtn.Confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开始无循环动画" />
+
+        <Button
+            android:id="@+id/startLoopAnimBtn"
+            style="@style/AppBtn.Confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开始有循环动画" />
+
+        <Button
+            android:id="@+id/stopAnimBtn"
+            style="@style/AppBtn.Confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="结束动画" />
+    </com.vmloft.develop.library.tools.widget.VMViewGroup>
+</androidx.constraintlayout.widget.ConstraintLayout>

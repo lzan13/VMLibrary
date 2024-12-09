@@ -26,7 +26,6 @@ object AppRouter {
 
     const val appNotifyTest = "/VMLoft/Notify"
 
-
     const val appMain = "/App/Main"
     const val appGuide = "/App/Guide"
 

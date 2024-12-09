@@ -21,7 +21,15 @@ class AnimActivity : BActivity<ActivityDemoAnimBinding>() {
     }
 
     override fun initData() {
-
+        binding.startAnimBtn.setOnClickListener {
+            binding.interludeAV.startAnim(false)
+        }
+        binding.startLoopAnimBtn.setOnClickListener {
+            binding.interludeAV.startAnim(true)
+        }
+        binding.stopAnimBtn.setOnClickListener {
+            binding.interludeAV.stopAnim()
+        }
     }
 
     private fun bindLottieData() {
@@ -46,6 +54,7 @@ class AnimActivity : BActivity<ActivityDemoAnimBinding>() {
 //            lp.setMargins(margin)
 //            mBinding.viewGroup.addView(lottieView, lp)
 //        }
+
     }
 
 }
