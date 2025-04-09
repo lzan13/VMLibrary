@@ -30,6 +30,13 @@ class VMFloatMenu(private val mContext: Context) : PopupWindow(mContext) {
     private var mItemCount = 0
     private var listener: IItemClickListener? = null
 
+    companion object {
+        private const val showLeft = 0X11
+        private const val showRight = 0X12
+        private const val showUp = 0X13
+        private const val showDown = 0X14
+    }
+
     /**
      * 初始化
      */
@@ -46,16 +53,23 @@ class VMFloatMenu(private val mContext: Context) : PopupWindow(mContext) {
         inputMethodMode = INPUT_METHOD_NOT_NEEDED
         val drawable = ContextCompat.getDrawable(mContext, R.color.vm_transparent)
         setBackgroundDrawable(drawable)
-        VMView.changeShadow(mItemContainer, 0.2f)
+        VMView.changeShadow(mItemContainer, 0.5f)
     }
 
     /**
-     * 设置菜单背景资源
+     * 设置自定义背景资源
      */
-    fun setMenuBackground(resId: Int) {
+    fun setCustomBackground(resId: Int) {
         if (resId != 0) {
             mItemContainer.setBackgroundResource(resId)
         }
+    }
+
+    /**
+     * 设置自定义背景阴影
+     */
+    fun setCustomBackgroundShadow(alpha: Float) {
+        VMView.changeShadow(mItemContainer, alpha)
     }
 
     /**
@@ -75,12 +89,82 @@ class VMFloatMenu(private val mContext: Context) : PopupWindow(mContext) {
     }
 
     /**
+     * 左下弹出
+     */
+    fun showAtLeftBottom(view: View, positionX: Int, positionY: Int) {
+        val offset = VMDimen.dp2px(16)
+
+        // 计算悬浮菜单显示区域
+        contentView.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED)
+        val windowsHeight = contentView.measuredHeight
+        val windowsWidth = contentView.measuredWidth
+
+        //向下弹出
+        val y = positionY - offset
+        showAtVertical = showDown
+        // 左弹出
+        val x = positionX - windowsWidth + offset
+        showAtOrientation = showLeft
+
+        setMenuAnim()
+        showAtLocation(view, Gravity.NO_GRAVITY, x, y)
+    }
+
+    fun showAtLeftTop(view: View, positionX: Int, positionY: Int) {
+        val offset = VMDimen.dp2px(16)
+
+        // 计算悬浮菜单显示区域
+        contentView.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED)
+        val windowsHeight = contentView.measuredHeight
+        val windowsWidth = contentView.measuredWidth
+
+        val x = positionX - windowsWidth + offset
+        val y = positionY - windowsHeight + offset
+        showAtOrientation = showLeft
+        showAtVertical = showUp
+
+        setMenuAnim()
+        showAtLocation(view, Gravity.NO_GRAVITY, x, y)
+    }
+
+    fun showAtRightBottom(view: View, positionX: Int, positionY: Int) {
+        val offset = VMDimen.dp2px(16)
+
+        // 计算悬浮菜单显示区域
+        contentView.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED)
+        val windowsHeight = contentView.measuredHeight
+        val windowsWidth = contentView.measuredWidth
+
+        val x = positionX - offset
+        val y = positionY - offset
+        showAtOrientation = showRight
+        showAtVertical = showDown
+
+        setMenuAnim()
+        showAtLocation(view, Gravity.NO_GRAVITY, x, y)
+    }
+
+    fun showAtRightTop(view: View, positionX: Int, positionY: Int) {
+        val offset = VMDimen.dp2px(16)
+
+        // 计算悬浮菜单显示区域
+        contentView.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED)
+        val windowsHeight = contentView.measuredHeight
+        val windowsWidth = contentView.measuredWidth
+
+        val x = positionX - offset
+        val y = positionY - windowsHeight + offset
+        showAtOrientation = showRight
+        showAtVertical = showUp
+
+        setMenuAnim()
+        showAtLocation(view, Gravity.NO_GRAVITY, x, y)
+    }
+
+    /**
      * 显示悬浮菜单在指定位置，显示之前需要根据菜单的高度进行重新计算菜单位置
      */
     fun showAtLocation(view: View, positionX: Int, positionY: Int) {
-//        if (mItemCount == 0) {
-//            return
-//        }
         val offset = VMDimen.dp2px(16)
         val screenW = VMDimen.screenWidth
         val screenH = VMDimen.screenHeight
@@ -206,12 +290,4 @@ class VMFloatMenu(private val mContext: Context) : PopupWindow(mContext) {
     fun setItemClickListener(listener: IItemClickListener?) {
         this.listener = listener
     }
-
-    companion object {
-        private const val showLeft = 0X11
-        private const val showRight = 0X12
-        private const val showUp = 0X13
-        private const val showDown = 0X14
-    }
-
 }

@@ -36,17 +36,52 @@
                 style="@style/VMBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="顶部弹窗"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:text="顶部弹窗" />
+
             <Button
                 android:id="@+id/leftBtn2"
                 style="@style/VMBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="底部弹窗"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:text="底部弹窗" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vm_dimen_128"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/leftBottom"
+                style="@style/VMBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="leftBottomleftBottomleftBottom" />
+
+            <Button
+                android:id="@+id/leftTop"
+                style="@style/VMBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="leftTopleftTopleftTopleftTopleftTop" />
+
+            <Button
+                android:id="@+id/rightBottom"
+                style="@style/VMBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="rightBottomrightBottomrightBottom" />
+
+            <Button
+                android:id="@+id/rightTop"
+                style="@style/VMBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="rightToprightToprightToprightTop" />
         </LinearLayout>
 
         <Button
@@ -63,8 +98,9 @@
             style="@style/VMBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintVertical_chainStyle="packed"
             android:text="根据点击自动计算弹出"
-            app:layout_constraintBottom_toTopOf="@+id/centerDownBtn"
+            app:layout_constraintBottom_toTopOf="@+id/centerBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -75,10 +111,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="根据点击自动计算弹出"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/centerUpBtn"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toTopOf="@+id/centerDownBtn"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <Button
             android:id="@+id/centerDownBtn"
@@ -89,7 +125,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/centerUpBtn" />
+            app:layout_constraintTop_toBottomOf="@+id/centerBtn" />
 
         <Button
             android:id="@+id/leftBottomBtn"

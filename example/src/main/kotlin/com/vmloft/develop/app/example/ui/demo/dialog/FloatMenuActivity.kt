@@ -48,9 +48,19 @@ class FloatMenuActivity : BActivity<ActivityDemoFloatMenuBinding>() {
         binding.rightTopBtn.setOnTouchListener { view, event -> onTouch(view, event) }
         binding.rightBottomBtn.setOnTouchListener { view, event -> onTouch(view, event) }
 
+        binding.leftBottom.setOnTouchListener { view, event -> onTouch(view, event) }
+        binding.leftTop.setOnTouchListener { view, event -> onTouch(view, event) }
+        binding.rightBottom.setOnTouchListener { view, event -> onTouch(view, event) }
+        binding.rightTop.setOnTouchListener { view, event -> onTouch(view, event) }
+
         binding.leftTopBtn.setOnClickListener { view -> onClick(view) }
         binding.leftBtn1.setOnClickListener { view -> onClick(view) }
         binding.leftBtn2.setOnClickListener { view -> onClick(view) }
+
+        binding.leftBottom.setOnClickListener { view -> onClick(view)  }
+        binding.leftTop.setOnClickListener { view -> onClick(view)  }
+        binding.rightBottom.setOnClickListener { view -> onClick(view)  }
+        binding.rightTop.setOnClickListener { view -> onClick(view)  }
 
         binding.leftBottomBtn.setOnClickListener { view -> onClick(view) }
 
@@ -72,6 +82,16 @@ class FloatMenuActivity : BActivity<ActivityDemoFloatMenuBinding>() {
         customFloatMenu = VMFloatMenu(mActivity)
 
         floatMenu = VMFloatMenu(mActivity)
+
+        floatMenu.addItem(ItemBean(1, "悬浮菜单"))
+        floatMenu.addItem(ItemBean(2, "悬浮"))
+        floatMenu.addItem(ItemBean(3, "悬浮菜单", com.vmloft.develop.library.tools.R.color.vm_red))
+        floatMenu.addItem(ItemBean(4, "悬浮菜单", com.vmloft.develop.library.base.R.color.app_accent, com.vmloft.develop.library.common.R.drawable.ic_close))
+//        floatMenu.addItem(ItemBean(5, "悬浮菜单"))
+//        floatMenu.addItem(ItemBean(6, "菜单"))
+//        floatMenu.addItem(ItemBean(7, "悬浮菜单"))
+//        floatMenu.addItem(ItemBean(8, "浮菜单"))
+
         floatMenu.setItemClickListener(object : IItemClickListener() {
             override fun onItemClick(id: Int) {
                 VMLog.d("点击了悬浮菜单 $id")
@@ -94,6 +114,10 @@ class FloatMenuActivity : BActivity<ActivityDemoFloatMenuBinding>() {
             R.id.centerBtn -> showCustomFloatMenu(view)
             R.id.leftBtn1 -> showTopDialog(view)
             R.id.leftBtn2 -> showBottomDialog(view)
+            R.id.leftBottom->showLeftBottom(view)
+            R.id.leftTop->showLeftTop(view)
+            R.id.rightBottom->showRightBottom(view)
+            R.id.rightTop->showRightTop(view)
         }
     }
 
@@ -101,16 +125,25 @@ class FloatMenuActivity : BActivity<ActivityDemoFloatMenuBinding>() {
      * 测试弹出 PopupWindow 菜单
      */
     private fun showFloatMenu(view: View) {
-        floatMenu.clearAllItem()
-        floatMenu.addItem(ItemBean(1, "悬浮菜单"))
-        floatMenu.addItem(ItemBean(2, "悬浮"))
-        floatMenu.addItem(ItemBean(3, "悬浮菜单", com.vmloft.develop.library.tools.R.color.vm_red))
-        floatMenu.addItem(ItemBean(4, "悬浮菜单", com.vmloft.develop.library.base.R.color.app_accent, com.vmloft.develop.library.common.R.drawable.ic_close))
-        floatMenu.addItem(ItemBean(5, "悬浮菜单"))
-        floatMenu.addItem(ItemBean(6, "菜单"))
-        floatMenu.addItem(ItemBean(7, "悬浮菜单"))
-        floatMenu.addItem(ItemBean(8, "浮菜单"))
+        floatMenu.setCustomBackgroundShadow(0.3f)
         floatMenu.showAtLocation(view, touchX, touchY)
+    }
+
+    private fun showLeftBottom(view:View){
+        floatMenu.setCustomBackgroundShadow(0.4f)
+        floatMenu.showAtLeftBottom(view, touchX, touchY)
+    }
+    private fun showLeftTop(view:View){
+        floatMenu.setCustomBackgroundShadow(0.6f)
+        floatMenu.showAtLeftTop(view, touchX, touchY)
+    }
+    private fun showRightBottom(view:View){
+        floatMenu.setCustomBackgroundShadow(0.8f)
+        floatMenu.showAtRightBottom(view, touchX, touchY)
+    }
+    private fun showRightTop(view:View){
+        floatMenu.setCustomBackgroundShadow(1.0f)
+        floatMenu.showAtRightTop(view, touchX, touchY)
     }
 
     /**
@@ -118,7 +151,7 @@ class FloatMenuActivity : BActivity<ActivityDemoFloatMenuBinding>() {
      */
     private fun showCustomFloatMenu(view: View) {
         customFloatMenu.setCustomView(R.layout.widget_custom_gravity_dialog)
-        customFloatMenu.showAtLocation(view, touchX, touchY)
+        customFloatMenu.showAtLocation(view, view.x.toInt(), view.y.toInt())
     }
 
     /**
