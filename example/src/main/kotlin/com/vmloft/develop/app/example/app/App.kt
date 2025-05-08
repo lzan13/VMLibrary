@@ -2,6 +2,7 @@ package com.vmloft.develop.app.example.app
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
@@ -69,8 +70,8 @@ class App : Application() {
      */
     private fun initCommon() {
         VMTools.init(appContext)
-        val level = if (CSPManager.isDebug()) VMLog.Level.DEBUG else VMLog.Level.ERROR
-        VMLog.init(level, "VMTools")
+        val level = if (CSPManager.isDebug()) Log.DEBUG else Log.ERROR
+        VMLog.init(level, "VMLibrary")
 
         // 设置暗色主题模式
         if (SPManager.isDarkModeSystemSwitch()) {

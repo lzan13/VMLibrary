@@ -13,6 +13,7 @@ import com.vmloft.develop.library.base.BActivity
 import com.vmloft.develop.library.base.widget.CommonDialog
 import com.vmloft.develop.library.base.utils.showBar
 import com.vmloft.develop.library.base.utils.show
+import com.vmloft.develop.library.tools.utils.logger.VMLog
 import com.vmloft.develop.library.tools.widget.tips.VMTips
 
 /**
@@ -36,20 +37,28 @@ class CustomViewActivity : BActivity<ActivityDemoViewCustomBinding>() {
         binding.customTimerBtn.startTimer()
     }
 
+    fun testLog(content: String) {
+        VMLog.d(content)
+    }
+
     fun tips1(view: View) {
         VMTips.showBar(mActivity, "测试自定义图标提示条", VMTips.durationLong, R.drawable.emoji_dog)
+        testLog("测试自定义图标提示条")
     }
 
     fun tips2(view: View) {
         showBar("测试自定义默认提示条")
+        VMLog.i("测试自定义默认提示条")
     }
 
     fun tips3(view: View) {
         darkBar("测试自定义暗色提示条")
+        VMLog.w("测试自定义暗色提示条")
     }
 
     fun tips4(view: View) {
         errorBar("测试自定义错误提示条，这是错误提醒默认样式！红色的")
+        VMLog.e("测试自定义错误提示条，这是错误提醒默认样式！红色的")
     }
 
     fun tips5(view: View) {
@@ -63,9 +72,11 @@ class CustomViewActivity : BActivity<ActivityDemoViewCustomBinding>() {
             dialog.setContent("测试对话框内容测试对话框内容测试对话框内容测试对话框内容")
             dialog.setNegative("消极按钮") {
                 this.darkBar("点击了 消极按钮")
+                VMLog.w("点击了 消极按钮")
             }
             dialog.setPositive("积极按钮") {
                 this.showBar("点击了 积极按钮")
+                VMLog.i("点击了 积极按钮")
             }
             dialog.show()
         }

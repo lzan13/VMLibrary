@@ -16,53 +16,56 @@ object VMLog {
     private const val jsonIndent = 2
 
     // 堆栈信息偏移量
-    private const val minStackOffset = 3
+    private var minStackOffset = 5
+    private var mCustomOffset = 0
+    private var mLogClassName = VMLog::class.java.name
 
     // 默认日志 Tag
-    private var mTag = "VMTools"
+    private var mTag = "VMLog"
 
-    private var mLevel = Level.DEBUG // 日志的等级，可以进行配置，最好在Application中进行全局的配置
+    private var mLevel = Log.WARN // 日志的等级，可以进行配置，最好在Application中进行全局的配置
 
     /**
      * 支持用户自己传tag，可扩展性更好
-     * @param tag
+     * @param tag 标签
+     * @param className 自定义包装类名
      */
-    fun init(level: Int = mLevel, tag: String = mTag) {
+    fun init(
+        level: Int = mLevel,
+        tag: String = mTag,
+        offset: Int = 1,
+        className: String = ""
+    ) {
         mLevel = level
         mTag = tag
+        mCustomOffset = offset
+        if (className.isNotEmpty()) {
+            mLogClassName = className
+        }
+    }
+
+    fun f(msg: String) {
+        log(Log.ASSERT, msg);
     }
 
     fun e(msg: String) {
-        if (Level.ERROR >= mLevel) {
-            if (msg.isNotBlank()) {
-                log(Level.ERROR, msg);
-            }
-        }
+        log(Log.ERROR, msg);
     }
 
     fun w(msg: String) {
-        if (Level.WARN >= mLevel) {
-            if (msg.isNotBlank()) {
-                log(Level.WARN, msg);
-            }
-        }
+        log(Log.WARN, msg);
     }
 
     fun i(msg: String) {
-        if (Level.INFO >= mLevel) {
-            if (msg.isNotBlank()) {
-                log(Level.INFO, msg);
-            }
-
-        }
+        log(Log.INFO, msg);
     }
 
     fun d(msg: String) {
-        if (Level.DEBUG >= mLevel) {
-            if (msg.isNotBlank()) {
-                log(Level.DEBUG, msg);
-            }
-        }
+        log(Log.DEBUG, msg);
+    }
+
+    fun v(msg: String) {
+        log(Log.VERBOSE, msg);
     }
 
     /**
@@ -82,14 +85,14 @@ object VMLog {
                 val jsonObject = JSONObject(jsonContent)
                 var message = jsonObject.toString(jsonIndent)
                 message = message.replace("\n".toRegex(), "\n┆ ")
-                log(Level.DEBUG, "格式化 JSON日志：\n┆ $message")
+                log(Log.DEBUG, "格式化 JSON日志：\n┆ $message")
                 return
             }
             if (jsonContent.startsWith("[")) {
                 val jsonArray = JSONArray(jsonContent)
                 var message = jsonArray.toString(jsonIndent)
                 message = message.replace("\n".toRegex(), "\n║ ")
-                log(Level.DEBUG, "格式化 JSON 日志：\n┆ $message")
+                log(Log.DEBUG, "格式化 JSON 日志：\n┆ $message")
                 return
             }
             e("JSON 内容有错 $jsonContent")
@@ -100,26 +103,32 @@ object VMLog {
     }
 
     private fun log(level: Int, msg: String) {
-//        printLog(level, "┆──────────────────────────────────────────────────────────────────────────")
+        printLog(level, "┆──────────────────────────────────────────────────────────────────────────")
         printLog(level, "┆ Thread[${getThreadInfo()}] - ${getStackInfo()}")
+        printLog(level, "┆──────────────────────────────────────────────────────────────────────────")
         printLog(level, "┆ $msg")
-//        printLog(level, "┆──────────────────────────────────────────────────────────────────────────")
 
     }
 
+    /**
+     * 日志收口
+     */
     private fun printLog(level: Int, msg: String) {
+        if (level < mLevel || msg.isEmpty()) return
         when (level) {
-            Level.VERBOSE -> Log.v(mTag, msg)
-            Level.DEBUG -> Log.d(mTag, msg)
-            Level.INFO -> Log.i(mTag, msg)
-            Level.ERROR -> Log.e(mTag, msg)
+            Log.VERBOSE -> Log.v(mTag, msg)
+            Log.DEBUG -> Log.d(mTag, msg)
+            Log.INFO -> Log.i(mTag, msg)
+            Log.WARN -> Log.w(mTag, msg)
+            Log.ERROR -> Log.e(mTag, msg)
+            Log.ASSERT -> Log.wtf(mTag, msg)
         }
     }
 
     /**
      * 获取线程信息
      */
-    private fun getThreadInfo(): String? {
+    private fun getThreadInfo(): String {
         val threadName = Thread.currentThread().name
         val threadId = Thread.currentThread().id
         return "$threadName:$threadId"
@@ -128,7 +137,7 @@ object VMLog {
     /**
      * 获取堆栈信息，方便点击跳转
      */
-    private fun getStackInfo(): String? {
+    private fun getStackInfo(): String {
         val sElements = Thread.currentThread().stackTrace
         var stackOffset = getStackOffset(sElements)
         stackOffset++
@@ -136,26 +145,13 @@ object VMLog {
         var className = sElements[stackOffset].className
         className = className.substring(className.lastIndexOf(".") + 1)
         // 方法名
-        var methodName = sElements[stackOffset].methodName
+        val methodName = sElements[stackOffset].methodName
         // 文件名
-        var fileName = sElements[stackOffset].fileName
+        val fileName = sElements[stackOffset].fileName
         // 行号
-        var lineNumber = sElements[stackOffset].lineNumber
+        val lineNumber = sElements[stackOffset].lineNumber
 
         return "$className.$methodName ($fileName:$lineNumber)"
-    }
-
-    /**
-     * 日志级别
-     */
-    interface Level {
-        companion object {
-            const val VERBOSE = 0
-            const val DEBUG = 1
-            const val INFO = 2
-            const val WARN = 3
-            const val ERROR = 4
-        }
     }
 
     /**
@@ -166,7 +162,7 @@ object VMLog {
         while (i < trace.size) {
             val e = trace[i]
             val name = e.className
-            if (name != VMLog::class.java.name) {
+            if (name != mLogClassName || i == minStackOffset + mCustomOffset) {
                 return --i
             }
             i++

@@ -64,7 +64,7 @@ object CSPManager {
         VMSP.getEntry(settingsEntry).putAsync(debugKey, debug)
     }
 
-    fun isDebug(): Boolean = VMSP.getEntry(settingsEntry).get(debugKey, false) as Boolean
+    fun isDebug(): Boolean = VMSP.getEntry(settingsEntry).get(debugKey, BuildConfig.DEBUG) as Boolean
 
     /**
      * 资源相关配置
