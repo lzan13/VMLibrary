@@ -103,10 +103,10 @@ object VMLog {
     }
 
     private fun log(level: Int, msg: String) {
-        printLog(level, "┆──────────────────────────────────────────────────────────────────────────")
-        printLog(level, "┆ Thread[${getThreadInfo()}] - ${getStackInfo()}")
-        printLog(level, "┆──────────────────────────────────────────────────────────────────────────")
-        printLog(level, "┆ $msg")
+//        printLog(level, "┆──────────────────────────────────────────────────────────────────────────")
+//        printLog(level, "┆ Thread[${getThreadInfo()}] - ${getStackInfo()}")
+//        printLog(level, "┆──────────────────────────────────────────────────────────────────────────")
+        printLog(level, "┆ ${getStackInfo()} $msg")
 
     }
 
