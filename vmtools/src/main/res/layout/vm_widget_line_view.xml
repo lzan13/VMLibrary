@@ -6,7 +6,6 @@
     android:id="@+id/vmLineRootView"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
-    android:background="@drawable/vm_selector_transparent_full"
     android:minHeight="@dimen/vm_dimen_48"
     tools:context=".widget.VMLineView">
 
